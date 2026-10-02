@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kidux avatar: Star. Flat shapes on a filled circle, so it stays legible
+     down to the 48 px the launcher shows it at. No gradients, no strokes
+     thinner than 2 units, no text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Star">
+  <circle cx="60" cy="60" r="60" fill="#fff2cc"/>
+  <path d="M60 22 L71 50 L101 52 L78 71 L86 100 L60 84 L34 100 L42 71 L19 52 L49 50 Z" fill="#f0b429"/>
+  <circle cx="51" cy="58" r="5" fill="#2b2b2b"/>
+  <circle cx="69" cy="58" r="5" fill="#2b2b2b"/>
+  <path d="M52 70 Q60 78 68 70" stroke="#2b2b2b" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>

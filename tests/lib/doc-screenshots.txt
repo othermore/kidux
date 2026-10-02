@@ -1,0 +1,49 @@
+# Which pictures of tests/run session the user guide, the README and the
+# website show.
+#
+# One per line: the screen's name as the harness saves it, without its number,
+# then the file it becomes in docs/images/es/, from the Spanish run, and in
+# docs/images/en/, from the English one (tests/run session-en).
+# ci/test-release.sh copies them after a green run, so each document always
+# shows the screens as they are, in its own language. A picture neither needs
+# is simply not listed here.
+wizard-language         first-start-language.png
+wizard-keyboard         first-start-keyboard.png
+wizard-adult-password   first-start-adult-password.png
+wizard-child            first-start-child.png
+wizard-done             first-start-done.png
+sign-in                 sign-in.png
+turn-off                turn-off.png
+password                password.png
+wrong-password          wrong-password.png
+time-spent              time-spent.png
+day-off                 day-off.png
+adult-gives-time        adult-gives-time.png
+lock-screen             lock-screen.png
+lock-adult-options      lock-adult-options.png
+panel-children          panel-children.png
+panel-child             panel-child.png
+panel-system            panel-system.png
+panel-system-advanced   panel-system-advanced.png
+panel-updates-found     panel-updates-found.png
+panel-updates-done      panel-updates-done.png
+launcher                launcher.png
+launcher-with-module-open launcher-with-module-open.png
+module-two-open         module-two-open.png
+launcher-close-question launcher-close-question.png
+windows-desk            windows-desk.png
+log-out-question        log-out.png
+time-is-up              time-is-up.png
+boot-splash             boot-splash.png
+panel-modules           panel-modules.png
+panel-modules-available panel-modules-available.png
+launcher-tile           launcher-tile.png
+module-gcompris         module-gcompris.png
+panel-network           panel-network.png
+module-tuxtype          module-tuxtype.png
+module-scratch          module-scratch.png
+module-turbowarp        module-turbowarp.png
+module-scratchjr        module-scratchjr.png
+module-blockly-games    module-blockly-games.png
+launcher-modules        launcher-modules.png
+windows-modules         windows-modules.png

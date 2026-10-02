@@ -1,0 +1,117 @@
+#!/bin/sh
+# One update job, run by kidux-daemon in a transient unit of its own,
+# kidux-update.service. docs/dev/daemon.md, section 13.
+#
+#   kidux-update check               refresh the package lists, say what would change
+#   kidux-update apply               install every update there is
+#   kidux-update install <package>   install one module's package
+#   kidux-update remove <package>    purge one module's package
+#
+# The package of install and remove is kidux-module-<id>, made by the daemon
+# from an id it checked; it is checked again here, since this runs as root
+# and runs apt with it.
+#
+# Everything it has to say goes to the status file, which the daemon reads:
+# apt's own progress lines, and one verdict line of ours at the end. It always
+# exits 0, so that the unit never lingers as failed and blocks the next job;
+# a failure is the verdict line saying so.
+
+set -u
+
+STATUS="${KIDUX_UPDATE_STATUS:-/run/kidux/update.status}"
+REBOOT_REQUIRED="${KIDUX_REBOOT_REQUIRED:-/run/reboot-required}"
+mkdir -p "$(dirname "$STATUS")"
+exec 3>>"$STATUS"
+
+say() {
+    printf 'kidux:%s\n' "$1" >&3
+}
+
+fail() {
+    say "failed:$(printf '%s' "$1" | tr '\n' ' ' | cut -c1-200)"
+    exit 0
+}
+
+last_error() {
+    printf '%s\n' "$1" | grep -E '^(E|W):' | tail -n 1
+}
+
+export DEBIAN_FRONTEND=noninteractive
+export LC_ALL=C.UTF-8
+
+# Wait for apt's lock rather than fight it: unattended-upgrades may hold it.
+LOCK="-o DPkg::Lock::Timeout=600"
+
+pending() {
+    apt-get -s -o Debug::NoLocking=1 dist-upgrade 2>/dev/null | awk '/^Inst / { print $2 }'
+}
+
+# kidux-module-<id>, the id as kidux.modules.ID says: a lower-case letter,
+# then up to 31 lower-case letters, digits and dashes.
+is_module() {
+    case "$1" in
+        kidux-module-[a-z]*) ;;
+        *) return 1 ;;
+    esac
+    case "$1" in
+        *[!a-z0-9-]*) return 1 ;;
+    esac
+    [ "${#1}" -le 45 ]
+}
+
+# Keep every configuration file an administrator edited.
+KEEP_CONFIG="-o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold"
+
+kind="${1:-}"
+say "job:$kind"
+
+case "$kind" in
+    check)
+        out="$(apt-get $LOCK -o APT::Status-Fd=3 update 2>&1)" \
+            || fail "$(last_error "$out")"
+        list="$(pending | paste -sd, -)"
+        count="$(printf '%s' "$list" | tr ',' '\n' | grep -c .)"
+        say "checked:$count:$list"
+        ;;
+    apply)
+        # A power cut in an earlier update leaves dpkg half done; finish that
+        # before starting anything new.
+        dpkg --configure -a >/dev/null 2>&1
+        out="$(apt-get $LOCK -o APT::Status-Fd=3 update 2>&1)" \
+            || fail "$(last_error "$out")"
+        count="$(pending | grep -c .)"
+        out="$(apt-get -y $LOCK -o APT::Status-Fd=3 $KEEP_CONFIG dist-upgrade 2>&1)" \
+            || fail "$(last_error "$out")"
+        if [ -e "$REBOOT_REQUIRED" ]; then
+            say "done:restart-needed"
+        elif [ "$count" -eq 0 ]; then
+            say "done:up-to-date"
+        else
+            say "done:updated"
+        fi
+        ;;
+    install|remove)
+        package="${2:-}"
+        is_module "$package" || fail "not a module"
+        say "module:$package"
+        dpkg --configure -a >/dev/null 2>&1
+        if [ "$kind" = install ]; then
+            out="$(apt-get $LOCK -o APT::Status-Fd=3 update 2>&1)" \
+                || fail "$(last_error "$out")"
+            out="$(apt-get -y --no-install-recommends $LOCK -o APT::Status-Fd=3 $KEEP_CONFIG \
+                    install "$package" 2>&1)" \
+                || fail "$(last_error "$out")"
+            say "done:installed"
+        else
+            # Only the module's own files: what it depended on stays, since
+            # autoremove cannot be held to one package's dependencies.
+            out="$(apt-get -y $LOCK -o APT::Status-Fd=3 purge "$package" 2>&1)" \
+                || fail "$(last_error "$out")"
+            say "done:removed"
+        fi
+        ;;
+    *)
+        fail "unknown job: $kind"
+        ;;
+esac
+exit 0

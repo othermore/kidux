@@ -1,0 +1,9 @@
+[upstream]
+name = "scratch-gui"
+repository = "https://github.com/scratchfoundation/scratch-editor"
+commit = "5fe823510f3ae0cc7291d49bc824cc5c54fe7723"
+version = "15.2.0+build2"
+node = "24.21.0"
+build = "ci/upstream/scratch.sh"
+sha256 = "8c5c265a33b42e7a10dfa32bf04d23bcfc8acf7422cf45a997c09bb32bad0fb8"
+source_sha256 = "709d7e69484834ec2ed5a9c938ab53a117dc3b38c33deab841d7c73c6fdd287b"

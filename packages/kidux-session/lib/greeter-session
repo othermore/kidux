@@ -1,0 +1,129 @@
+#!/usr/bin/python3
+"""The trusted screens' compositor. docs/dev/session.md, sections 2 and 4.
+
+    greeter-session                 the sign-in screen, run by greetd
+    greeter-session --lock <child>  the lock screen, run by kidux-locker@<child>
+
+Both run as _greetd, which may ask the daemon what it needs and may not read
+the family's state directly. The display scale is the machine's. The
+keyboard is always the machine's too: a password typed here must be typed
+the same way it was set in the adult panel, which is also a trusted screen,
+so a child's own layout never applies to a password. The language is the
+machine's on the sign-in screen, which switches it per child by itself, and
+the child's on the lock screen, because it is the child sitting in front of
+it.
+
+If the daemon cannot be asked, the screen comes up in the defaults anyway: a
+sign-in or lock screen that fails to appear is not an option.
+
+The sign-in screen waits, up to SETTLE_SECONDS, for every other session of
+its seat that is still closing to be gone. greetd starts it as soon as the
+session before it says it has ended, and the compositor of that session, or
+of its lock screen, may take a second or two more to exit: one that lets go
+of the screen after cage has set it up leaves the screen showing whatever
+the graphics card last had in memory, while cage draws where nobody sees.
+"""
+
+import os
+import sys
+import time
+
+from gi.repository import Gio, GLib
+
+BUS = "org.kidux.Daemon1"
+PATH = "/org/kidux/Daemon1"
+GREETER = "/usr/libexec/kidux-greeter"
+LOGIN1 = "org.freedesktop.login1"
+#: The longest the sign-in screen waits for the sessions before it to end.
+SETTLE_SECONDS = 10.0
+
+
+def call(connection, interface, method, reply):
+    result = connection.call_sync(
+        BUS, PATH, interface, method, None, GLib.VariantType(reply),
+        Gio.DBusCallFlags.NONE, 5000, None,
+    )
+    return result.unpack()[0]
+
+
+def environment(username: str | None) -> dict:
+    env = dict(os.environ)
+    try:
+        connection = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
+        config = call(connection, BUS, "GetConfig", "(a{sv})")
+        children = call(connection, f"{BUS}.Children1", "List", "(aa{sv})") if username else []
+    except GLib.Error:
+        return env
+
+    child = next((c for c in children if c.get("username") == username), {})
+    env["LANG"] = child.get("language") or config.get("default_language", "C.UTF-8")
+    keyboard = config.get("default_keyboard", "")
+    if keyboard:
+        env["XKB_DEFAULT_LAYOUT"] = keyboard
+    env["KIDUX_DISPLAY_SCALE"] = str(config.get("display_scale", 0.0))
+    # A trusted screen left alone turns off; it has no session to lock (D67).
+    env["KIDUX_SCREEN_OFF_SECONDS"] = str(int(config.get("screen_off_minutes", 10)) * 60)
+    env["KIDUX_IDLE_LOCK_SECONDS"] = "0"
+    return env
+
+
+def closing(connection, seat: str) -> list[str]:
+    """The sessions of this seat that are still closing."""
+    sessions = connection.call_sync(
+        LOGIN1, "/org/freedesktop/login1", f"{LOGIN1}.Manager", "ListSessions", None,
+        GLib.VariantType("(a(susso))"), Gio.DBusCallFlags.NONE, 5000, None,
+    ).unpack()[0]
+    found = []
+    for session_id, _uid, _user, session_seat, path in sessions:
+        if session_seat != seat:
+            continue
+        try:
+            state = connection.call_sync(
+                LOGIN1, path, "org.freedesktop.DBus.Properties", "Get",
+                GLib.Variant("(ss)", (f"{LOGIN1}.Session", "State")),
+                GLib.VariantType("(v)"), Gio.DBusCallFlags.NONE, 5000, None,
+            ).unpack()[0]
+        except GLib.Error:
+            continue                             # gone while asked
+        if state == "closing":
+            found.append(session_id)
+    return found
+
+
+def wait_for_the_screen() -> None:
+    """Until no other session of this seat is closing, or SETTLE_SECONDS."""
+    seat = os.environ.get("XDG_SEAT", "seat0")
+    start = time.monotonic()
+    waited_for: list[str] = []
+    try:
+        connection = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
+        while time.monotonic() - start < SETTLE_SECONDS:
+            ending = closing(connection, seat)
+            if not ending:
+                break
+            waited_for = sorted(set(waited_for) | set(ending))
+            time.sleep(0.1)
+    except GLib.Error:
+        return
+    if waited_for:
+        print(f"greeter-session: waited {time.monotonic() - start:.1f} s for session "
+              f"{', '.join(waited_for)} to end", file=sys.stderr, flush=True)
+
+
+def main() -> None:
+    arguments = sys.argv[1:]
+    username = arguments[1] if arguments[:1] == ["--lock"] and len(arguments) == 2 else None
+    if arguments and username is None:
+        sys.exit("usage: greeter-session [--lock <child>]")
+    greeter = [GREETER] + (["--lock", username] if username else [])
+    if username is None:
+        wait_for_the_screen()
+    os.execvpe(
+        "cage",
+        ["cage", "--", "/usr/lib/kidux/session-inner", *greeter],
+        environment(username),
+    )
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,115 @@
+#!/usr/bin/python3
+"""The web applications' server: /usr/share/kidux/webapps on 127.0.0.1:8123.
+
+phase-3-plan.md step 3.7, D36. A web-application module installs its static
+files under /usr/share/kidux/webapps/<id>/, and Chromium opens them from
+here, held to this address by the managed policy. So this serves those
+files and nothing else: every path is resolved, and one that leads out of
+the directory, by `..`, an encoded `..` or a symbolic link, is refused; a
+directory serves its index.html or nothing, never a listing; and a path
+without a final `/` that names no file serves the page of its name with
+`.html`, when there is one, as the server a site was made for does: Blockly
+Games link their games as `maze?lang=es`, for `maze.html`, beside a
+directory `maze/` of the game's own files. It runs as a system user of its
+own that systemd makes for it (kidux-webapps.service), and it answers on
+the loopback address only.
+"""
+
+import http.server
+import mimetypes
+import os
+import sys
+import urllib.parse
+from pathlib import Path
+
+ROOT = Path(os.environ.get("KIDUX_WEBAPPS_ROOT", "/usr/share/kidux/webapps"))
+ADDRESS = ("127.0.0.1", 8123)
+
+#: What a web application is made of; anything else is sent as bytes.
+TYPES = {
+    ".html": "text/html; charset=utf-8",
+    ".css": "text/css; charset=utf-8",
+    ".js": "text/javascript; charset=utf-8",
+    ".mjs": "text/javascript; charset=utf-8",
+    ".json": "application/json",
+    ".svg": "image/svg+xml",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".gif": "image/gif",
+    ".webp": "image/webp",
+    ".wasm": "application/wasm",
+    ".woff2": "font/woff2",
+    ".ogg": "audio/ogg",
+    ".mp3": "audio/mpeg",
+    ".wav": "audio/wav",
+    ".txt": "text/plain; charset=utf-8",
+}
+
+
+def resolve(root: Path, target: str) -> tuple[int, Path | None]:
+    """The file a request for `target` is answered with, as (status, path):
+    200 and the file, or 403 or 404 and None."""
+    root = root.resolve()
+    path = urllib.parse.unquote(urllib.parse.urlsplit(target).path)
+    if "\0" in path or "\\" in path:
+        return 403, None
+    candidate = (root / path.lstrip("/")).resolve()
+    if candidate != root and root not in candidate.parents:
+        return 403, None
+    page = candidate.with_name(candidate.name + ".html").resolve()
+    if candidate.is_dir():
+        candidate = (candidate / "index.html").resolve()
+        if root not in candidate.parents:
+            return 403, None
+    if not candidate.is_file() and not path.endswith("/") \
+            and root in page.parents and page.is_file():
+        candidate = page
+    if not candidate.is_file():
+        return 404, None
+    return 200, candidate
+
+
+def content_type(path: Path) -> str:
+    return TYPES.get(path.suffix.lower()) or mimetypes.guess_type(path.name)[0] \
+        or "application/octet-stream"
+
+
+class Handler(http.server.BaseHTTPRequestHandler):
+    root = ROOT
+    server_version = "kidux-webapps"
+    sys_version = ""
+
+    def _answer(self, body: bool) -> None:
+        status, path = resolve(self.root, self.path)
+        if path is None:
+            self.send_error(status)
+            return
+        data = path.read_bytes()
+        self.send_response(200)
+        self.send_header("Content-Type", content_type(path))
+        self.send_header("Content-Length", str(len(data)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.end_headers()
+        if body:
+            self.wfile.write(data)
+
+    def do_GET(self) -> None:
+        self._answer(body=True)
+
+    def do_HEAD(self) -> None:
+        self._answer(body=False)
+
+    def log_message(self, format: str, *args) -> None:
+        sys.stderr.write(format % args + "\n")
+
+
+def main() -> int:
+    server = http.server.ThreadingHTTPServer(ADDRESS, Handler)
+    server.daemon_threads = True
+    server.serve_forever()
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

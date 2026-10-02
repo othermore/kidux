@@ -1,0 +1,4 @@
+# The module's name and description in each of its languages, which the
+# archive's index keeps and the panel shows before the module is installed
+# (D47, docs/dev/modules.md section 3).
+kidux-module-hello-web: unknown-field Kidux-*

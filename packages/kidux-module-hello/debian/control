@@ -1,0 +1,35 @@
+Source: kidux-module-hello
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-hello
+Architecture: all
+Depends: ${misc:Depends},
+         fonts-sil-andika,
+         gir1.2-gtk-4.0,
+         gir1.2-rsvg-2.0,
+         python3,
+         python3-gi,
+         python3-kidux (>= 0.1.18),
+XB-Kidux-Name-en: [Test] Hello
+XB-Kidux-Description-en: A first page to read, and a button to press.
+XB-Kidux-Name-es: [Prueba] Hola
+XB-Kidux-Description-es: Una primera página para leer, y un botón para pulsar.
+XB-Kidux-Ages: 4-8
+Description: Kidux learning module: Hello, a first page to read
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is a first page to read, in the child's language, and a button to
+ press: the smallest thing a child can open from their screen, and a way to
+ see that learning modules work on this computer.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

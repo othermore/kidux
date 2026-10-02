@@ -1,0 +1,55 @@
+#!/bin/sh
+# Hand the machine to greetd and regenerate GRUB's configuration.
+#
+# Nothing is started or restarted here. greetd running a sign-in screen would
+# end whatever session is on terminal 7 — possibly a child's — and every
+# setting in this package is read at boot, so it takes effect at the next
+# one. The exceptions are udev's rules for input switches and a keyboard's
+# light: a rule applies to a device as udev sees it, so the lid's mode and
+# the light's group are set again at once, and a screen finds both usable
+# without a restart; and _greetd's group video, which the trusted screens
+# need to set the backlight and the light, and which takes effect at their
+# next start.
+
+set -e
+
+case "$1" in
+    configure)
+        if [ -d /run/systemd/system ]; then
+            systemctl --system daemon-reload >/dev/null || true
+        fi
+        deb-systemd-helper enable greetd.service >/dev/null || true
+        # 70-kidux-switches.rules and 91-kidux-keyboard-light.rules on the
+        # devices there are now (a chroot or an image build has no udev
+        # running, and nothing to do).
+        if command -v udevadm >/dev/null 2>&1 && [ -d /run/udev ]; then
+            udevadm control --reload-rules >/dev/null 2>&1 || true
+            udevadm trigger --subsystem-match=input --action=change >/dev/null 2>&1 || true
+            udevadm trigger --subsystem-match=leds --action=change >/dev/null 2>&1 || true
+        fi
+        # The trusted screens set the backlight and the keyboard's light
+        # through brightnessctl, which needs group video (greeter.md).
+        if getent passwd _greetd >/dev/null && ! id -nG _greetd | grep -qw video; then
+            adduser --quiet _greetd video
+        fi
+        # Kidux's boot splash. Setting it rebuilds the initramfs, where
+        # Plymouth runs from, so it is there at the next boot.
+        if command -v plymouth-set-default-theme >/dev/null 2>&1 \
+                && [ "$(plymouth-set-default-theme)" != kidux ]; then
+            plymouth-set-default-theme kidux --rebuild-initrd >/dev/null 2>&1 || true
+        fi
+        if command -v update-grub >/dev/null 2>&1 && [ -e /boot/grub/grub.cfg ]; then
+            update-grub >/dev/null 2>&1 || true
+        fi
+        ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+    *)
+        echo "postinst called with unknown argument '$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

@@ -1,0 +1,195 @@
+#!/usr/bin/python3
+"""A screen left alone: the session locks, the screen turns off (D67).
+
+    kidux-idle watch         beside a screen, for as long as it lasts
+    kidux-idle lock          lock this child's session, left alone
+    kidux-idle screen off    turn the outputs off
+    kidux-idle screen on     turn them on again
+
+session-inner starts `watch` beside every screen: the sign-in and lock
+screens under cage, and a child's session under labwc. It runs `swayidle`
+while this screen's terminal is the one in front, with two timeouts:
+after KIDUX_IDLE_LOCK_SECONDS without a touch `kidux-idle lock`, which asks
+the daemon to lock the child's session (0, on the trusted screens, arms
+nothing), and after KIDUX_SCREEN_OFF_SECONDS `kidux-idle screen off`,
+turned on again at the first touch. It stops `swayidle` while another
+terminal is in front, and starts it afresh when this one comes back or
+when it finds it was frozen, so that a count never runs under the lock
+screen and a timer that ran out while the session was frozen never fires
+(kidux.idle). The screen is turned off through the compositor: `wlopm`
+under labwc, which has output power management, and `wlr-randr` under
+cage, which has not (KIDUX_IDLE_SCREEN). It ends with the screen it was
+started for: its parent is the screen's process.
+"""
+
+import logging
+import logging.handlers
+import os
+import signal
+import subprocess
+import sys
+import time
+
+from kidux import hardware, idle
+
+log = logging.getLogger("kidux.idle")
+PROGRAM = "/usr/lib/kidux/kidux-idle"
+
+
+def log_to_journal() -> None:
+    log.setLevel(logging.INFO)
+    if os.path.exists("/dev/log"):
+        handler = logging.handlers.SysLogHandler(address="/dev/log")
+        handler.setFormatter(logging.Formatter("kidux-idle: %(message)s"))
+        log.addHandler(handler)
+    else:
+        log.addHandler(logging.StreamHandler(sys.stderr))
+
+
+def run(*argv: str) -> str:
+    try:
+        done = subprocess.run(argv, capture_output=True, text=True, timeout=10)
+    except (OSError, subprocess.TimeoutExpired) as error:
+        log.warning("%s did not run: %s", argv[0], error)
+        return ""
+    return done.stdout
+
+
+def own_vt() -> int | None:
+    """This screen's terminal: XDG_VTNR, which greetd and the lock screen's
+    unit give their sessions, else logind's word for the session."""
+    number = idle.vt_number(os.environ.get("XDG_VTNR"))
+    if number is None and os.environ.get("XDG_SESSION_ID"):
+        number = idle.vt_number(run("loginctl", "show-session", os.environ["XDG_SESSION_ID"],
+                                    "-p", "VTNr", "--value"))
+    return number
+
+
+def active_vt() -> int | None:
+    try:
+        with open("/sys/class/tty/tty0/active") as active:
+            return idle.vt_number(active.read())
+    except OSError:
+        return None
+
+
+def where() -> str:
+    number = own_vt()
+    return f"tty{number}" if number is not None else "this screen"
+
+
+def lid_closed() -> bool:
+    for device in hardware.lid_devices():
+        try:
+            fd = os.open(device, os.O_RDONLY | os.O_NONBLOCK)
+        except OSError:
+            continue
+        try:
+            return hardware.lid_closed(fd)
+        except OSError:
+            return False
+        finally:
+            os.close(fd)
+    return False
+
+
+def screen(on: bool) -> int:
+    """Every output off, or on; with the lid closed, the laptop's own
+    panel stays off, as the lid left it."""
+    if os.environ.get("KIDUX_IDLE_SCREEN", "wlopm") == "wlr-randr":
+        outputs = hardware.wlr_randr_outputs(run("wlr-randr"))
+    else:
+        outputs = hardware.wlopm_outputs(run("wlopm"))
+    if on and lid_closed():
+        panels = set(hardware.panel_outputs(outputs))
+        outputs = [name for name in outputs if name not in panels]
+    for name in outputs:
+        if os.environ.get("KIDUX_IDLE_SCREEN", "wlopm") == "wlr-randr":
+            run("wlr-randr", "--output", name, "--on" if on else "--off")
+        else:
+            run("wlopm", "--on" if on else "--off", name)
+    log.info("screen %s (%s)", "on" if on else "off", where())
+    return 0
+
+
+def lock() -> int:
+    from kidux import client as kidux_client
+
+    try:
+        kidux_client.Client().request_lock_for("idle")
+    except kidux_client.DaemonError as error:
+        log.info("lock: refused: %s", error)
+        return 1
+    log.info("lock: asked (%s)", where())
+    return 0
+
+
+def watch() -> int:
+    lock_seconds = idle.seconds(os.environ, "KIDUX_IDLE_LOCK_SECONDS", 0)
+    off_seconds = idle.seconds(os.environ, "KIDUX_SCREEN_OFF_SECONDS", 600)
+    argv = idle.swayidle_argv(lock_seconds, off_seconds, PROGRAM)
+    mine = own_vt()
+    parent = os.getppid()
+    counting: subprocess.Popen | None = None
+
+    def stop(why: str) -> None:
+        nonlocal counting
+        if counting is not None:
+            counting.terminate()
+            try:
+                counting.wait(5)
+            except subprocess.TimeoutExpired:
+                counting.kill()
+            counting = None
+            log.info("swayidle stopped: %s", why)
+
+    def start() -> None:
+        nonlocal counting
+        counting = subprocess.Popen(argv, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        log.info("swayidle started (%s, lock %d s, screen off %d s)", where(), lock_seconds,
+                 off_seconds)
+
+    signal.signal(signal.SIGTERM, lambda *_: (stop("ending"), sys.exit(0)))
+    if mine is None:
+        log.info("this screen's terminal is not known; counting whatever is in front")
+    last = time.monotonic()
+    started = False
+    while os.getppid() == parent:
+        now = time.monotonic()
+        running = counting is not None and counting.poll() is None
+        active = active_vt()
+        what = idle.step(mine, active, running, now - last)
+        last = now
+        if what == "stop":
+            stop(f"tty{active} is in front")
+        elif what == "restart":
+            stop("the screen was frozen")
+            screen(True)
+            start()
+        elif what == "start":
+            # Its screen has come to the front again, or swayidle has gone:
+            # the screen on, and a count from now. At the screen's start the
+            # outputs are as the compositor made them.
+            if started:
+                screen(True)
+            start()
+            started = True
+        time.sleep(idle.LOOK_SECONDS)
+    stop("its screen has ended")
+    return 0
+
+
+def main(args: list[str]) -> int:
+    log_to_journal()
+    if args == ["watch"]:
+        return watch()
+    if args == ["lock"]:
+        return lock()
+    if args in (["screen", "off"], ["screen", "on"]):
+        return screen(args[1] == "on")
+    print("usage: kidux-idle watch | lock | screen off | screen on", file=sys.stderr)
+    return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

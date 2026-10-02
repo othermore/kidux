@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+DEST = debian/kidux-webapps
+
+%:
+	dh $@
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 bin/kidux-webapps bin/kidux-webapp tests
+	python3 -m pytest -q -p no:cacheprovider tests
+endif
+
+override_dh_auto_install:
+	install -D -m 0755 bin/kidux-webapps $(DEST)/usr/libexec/kidux-webapps
+	install -D -m 0755 bin/kidux-webapp $(DEST)/usr/libexec/kidux-webapp
+	install -D -m 0644 policies/kidux.json $(DEST)/etc/chromium/policies/managed/kidux.json
+	install -d $(DEST)/usr/share/kidux/webapps
+
+override_dh_auto_clean:
+	rm -rf tests/__pycache__

@@ -1,0 +1,56 @@
+kidux-module-gcompris (0.1.8) trixie; urgency=medium
+
+  * The maintainer's address is info@kidux.org.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 02 Oct 2026 09:00:41 +0200
+
+kidux-module-gcompris (0.1.7) trixie; urgency=medium
+
+  * Kidux's own files are under the Business Source License 1.1
+    (debian/copyright); what the package carries of others keeps its licence.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 22:41:30 +0200
+
+kidux-module-gcompris (0.1.6) trixie; urgency=medium
+
+  * Start GCompris in a window (--window): the kiosk gives it the room above
+    the bar.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 20:47:01 +0200
+
+kidux-module-gcompris (0.1.5) trixie; urgency=medium
+
+  * Say what GCompris calls its window.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 18:28:33 +0200
+
+kidux-module-gcompris (0.1.4) trixie; urgency=medium
+
+  * Say the module's ages in the package's fields.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 12:21:09 +0200
+
+kidux-module-gcompris (0.1.3) trixie; urgency=medium
+
+  * Its description says it needs the internet at first, to fetch its voices.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 20:37:34 +0200
+
+kidux-module-gcompris (0.1.2) trixie; urgency=medium
+
+  * Its name and description in each of its languages, in its package's
+    fields, for the panel to show before it is installed.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 19:40:28 +0200
+
+kidux-module-gcompris (0.1.1) trixie; urgency=medium
+
+  * Start GCompris with its first questions answered and downloads on.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 15:51:38 +0200
+
+kidux-module-gcompris (0.1.0) trixie; urgency=medium
+
+  * First release: GCompris as a Kidux learning module.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 14:12:33 +0200

@@ -1,0 +1,42 @@
+#!/usr/bin/make -f
+
+DEST = debian/kidux-module-turbowarp
+MODULE = $(DEST)/usr/share/kidux/modules/turbowarp
+WEBAPP = $(DEST)/usr/share/kidux/webapps/turbowarp
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	for po in po/*.po; do \
+	    lang=$$(basename $$po .po); \
+	    mkdir -p build/$$lang; \
+	    msgfmt --check --output-file=build/$$lang/kidux-module-turbowarp.mo $$po; \
+	done
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 tests
+	test -f upstream/index.html
+	python3 -m pytest -q -p no:cacheprovider tests
+endif
+
+# The editor, as ci/build-upstream.sh built it (upstream.toml, D68): a site
+# served by kidux-webapps under /turbowarp/. Its own home page plays projects
+# from the Scratch website, which a module does not reach; the editor is
+# what a child opens, so it is the site's index.
+override_dh_auto_install:
+	install -D -m 0644 module.toml $(MODULE)/module.toml
+	install -D -m 0644 icon.svg $(MODULE)/icon.svg
+	mkdir -p $(WEBAPP)
+	cp -r upstream/. $(WEBAPP)/
+	cp upstream/editor.html $(WEBAPP)/index.html
+	find $(WEBAPP) -type d -exec chmod 0755 {} +
+	find $(WEBAPP) -type f -exec chmod 0644 {} +
+	for mo in build/*/kidux-module-turbowarp.mo; do \
+	    lang=$$(basename $$(dirname $$mo)); \
+	    install -D -m 0644 $$mo $(DEST)/usr/share/locale/$$lang/LC_MESSAGES/kidux-module-turbowarp.mo; \
+	done
+
+override_dh_auto_clean:
+	rm -rf build tests/__pycache__

@@ -1,0 +1,394 @@
+kidux-greeter (0.2.53) trixie; urgency=medium
+
+  * The maintainer's address is info@kidux.org.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 02 Oct 2026 09:00:41 +0200
+
+kidux-greeter (0.2.52) trixie; urgency=medium
+
+  * Kidux's own files are under the Business Source License 1.1
+    (debian/copyright); what the package carries of others keeps its licence.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 22:41:30 +0200
+
+kidux-greeter (0.2.51) trixie; urgency=medium
+
+  * The box for Chromium's options on the Advanced page is three lines tall,
+    so that the page fits the screen with what they are for said whole.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 16:15:15 +0200
+
+kidux-greeter (0.2.50) trixie; urgency=medium
+
+  * The Advanced page says Chromium's options serve ScratchJr too.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 14:47:56 +0200
+
+kidux-greeter (0.2.49) trixie; urgency=medium
+
+  * The Modules page lists the modules by age, the test modules last, with a
+    box to find one, and shows each version without how it was built.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 13:26:55 +0200
+
+kidux-greeter (0.2.48) trixie; urgency=medium
+
+  * The lock screen's Unlock to save gives the minutes the machine's settings
+    say.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 10:00:38 +0200
+
+kidux-greeter (0.2.47) trixie; urgency=medium
+
+  * The Modules page's lists scroll in a room of their own, so that the page
+    fits the screen however many modules there are.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 30 Sep 2026 20:36:15 +0200
+
+kidux-greeter (0.2.46) trixie; urgency=medium
+
+  * The System page shows the language and the keyboard on one row, so that it
+    fits 1280x800 whole with the row for a computer left alone.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 30 Sep 2026 17:25:53 +0200
+
+kidux-greeter (0.2.45) trixie; urgency=medium
+
+  * The System page sets the minutes before a session left alone locks and
+    before a screen turns off; the panel closes after the first; a child's
+    session is given both.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 30 Sep 2026 16:12:52 +0200
+
+kidux-greeter (0.2.44) trixie; urgency=medium
+
+  * Depend on the python3-kidux whose catalogue translates the panel's
+    sentence about a change applying when it closes.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 30 Sep 2026 10:07:09 +0200
+
+kidux-greeter (0.2.43) trixie; urgency=medium
+
+  * A laptop's keys work on the sign-in and lock screens: matched by keysym,
+    not by the name GTK 4 gives them.
+  * A new size, language or keyboard applies when the panel closes on the
+    sign-in screen.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 18:57:00 +0200
+
+kidux-greeter (0.2.42) trixie; urgency=medium
+
+  * The corner is compact on a narrow screen, so that it never covers the
+    panel's tabs.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 16:12:17 +0200
+
+kidux-greeter (0.2.41) trixie; urgency=medium
+
+  * Every screen that does not fit scrolls down and sideways and shows it; the
+    Chromium options box scrolls inside itself; the Network page lists every
+    network in reach.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 14:22:07 +0200
+
+kidux-greeter (0.2.40) trixie; urgency=medium
+
+  * The System page's updates row takes two lines at most, the whole list in
+    its tooltip, so the page fits 1280x800 with many updates found.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 12:34:41 +0200
+
+kidux-greeter (0.2.39) trixie; urgency=medium
+
+  * The corner of a laptop's battery, brightness, keyboard light and sound
+    over every screen, as on a child's (D61).
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 10:36:12 +0200
+
+kidux-greeter (0.2.38) trixie; urgency=medium
+
+  * Depend on brightnessctl and wireplumber, which the screens run for a
+    laptop's keys.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 22:14:54 +0200
+
+kidux-greeter (0.2.37) trixie; urgency=medium
+
+  * The Network page reads how a job ended even when it was over before the
+    page was read again.
+  * A Wi-Fi password is checked in bytes, as the daemon checks it.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 21:36:56 +0200
+
+kidux-greeter (0.2.36) trixie; urgency=medium
+
+  * The sign-in and lock screens answer a laptop's keys for the screen's
+    brightness, the keyboard's light and the sound themselves, since cage
+    binds none (D61).
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 16:23:27 +0200
+
+kidux-greeter (0.2.35) trixie; urgency=medium
+
+  * Chromium's options are a list on the Advanced page, each with what it
+    does, selectable to copy.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 15:37:23 +0200
+
+kidux-greeter (0.2.34) trixie; urgency=medium
+
+  * The sign-in and lock screens say which Kidux this is under the logo; the
+    System page lists each part's version, and the Modules page each module's.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 13:36:13 +0200
+
+kidux-greeter (0.2.33) trixie; urgency=medium
+
+  * The adult panel has a Network page: each connection, whether the router
+    answers, and the Wi-Fi networks in reach, joined with their password or
+    forgotten (D62).
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 13:15:23 +0200
+
+kidux-greeter (0.2.32) trixie; urgency=medium
+
+  * The System page marks the sizes that are not whole, and says why.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 18:28:33 +0200
+
+kidux-greeter (0.2.31) trixie; urgency=medium
+
+  * The System page says what the automatic scale comes to on this screen.
+  * The modules recommended before one go on a line of their own.
+  * The Advanced page lists Chromium's options worth trying.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 16:16:39 +0200
+
+kidux-greeter (0.2.30) trixie; urgency=medium
+
+  * Who a module is for goes beside its name, so that the Modules page fits
+    the screen with a module installed and three on offer.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 13:34:26 +0200
+
+kidux-greeter (0.2.29) trixie; urgency=medium
+
+  * The Modules page says who each module is for: its ages, and the modules
+    best done first.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 12:21:09 +0200
+
+kidux-greeter (0.2.28) trixie; urgency=medium
+
+  * The sign-in screen says when today is not a child's day, and an adult can
+    give time.
+  * The panel's page for a child has the days of the week, saved with the
+    policy.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 11:05:04 +0200
+
+kidux-greeter (0.2.27) trixie; urgency=medium
+
+  * The automatic display scale says it is the default.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 09:56:56 +0200
+
+kidux-greeter (0.2.26) trixie; urgency=medium
+
+  * Windows, a switch on a child's page; the session of a child with windows
+    knows it; a module that needs windows says so.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 23:29:43 +0200
+
+kidux-greeter (0.2.25) trixie; urgency=medium
+
+  * Advanced on the System page: Chromium's options for this machine.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 22:41:34 +0200
+
+kidux-greeter (0.2.24) trixie; urgency=medium
+
+  * The panel's page for a child sets their time left today, zero included.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 22:02:05 +0200
+
+kidux-greeter (0.2.23) trixie; urgency=medium
+
+  * The display scale offers Automatic and finer steps, and a roomy screen
+    draws everything larger.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 21:04:42 +0200
+
+kidux-greeter (0.2.22) trixie; urgency=medium
+
+  * Install and remove learning modules from the panel's Modules page.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 14:11:26 +0200
+
+kidux-greeter (0.2.21) trixie; urgency=medium
+
+  * Log each screen once it has been painted.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 11:38:33 +0200
+
+kidux-greeter (0.2.20) trixie; urgency=medium
+
+  * Drop the note on the Modules page about a module using the internet.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 22:27:13 +0200
+
+kidux-greeter (0.2.19) trixie; urgency=medium
+
+  * Say on the Modules page which modules use the internet.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 18:34:25 +0200
+
+kidux-greeter (0.2.18) trixie; urgency=medium
+
+  * Show the installed modules on the panel's Modules page, with a
+    switch for each child.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 11:08:40 +0200
+
+kidux-greeter (0.2.17) trixie; urgency=medium
+
+  * Say how much time the child has left where an adult adds minutes, and
+    call the button that adds the adult's own number "Add".
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 10:22:58 +0200
+
+kidux-greeter (0.2.15) trixie; urgency=medium
+
+  * Offer the three ways a child may use the computer with the minutes a
+    day as a number of the adult's own, and a number of the adult's own
+    when giving time.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 08:37:27 +0200
+
+kidux-greeter (0.2.13) trixie; urgency=medium
+
+  * Look for updates and install them from the adult panel's system page.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 00:38:07 +0200
+
+kidux-greeter (0.2.12) trixie; urgency=medium
+
+  * Say what the child's password is for next to the password field.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 00:00:06 +0200
+
+kidux-greeter (0.2.11) trixie; urgency=medium
+
+  * Make the adult panel a set of forms: every setting of a child, and of
+    the computer, on one screen, with smaller controls for the adult.
+  * Add the first child in the first-run wizard with the same form.
+  * Show Kidux's logo on every screen: large where someone is welcomed,
+    small in the bottom middle of the others.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 23:47:40 +0200
+
+kidux-greeter (0.2.10) trixie; urgency=medium
+
+  * Size text, buttons and pictures to fit every screen in 1280x800.
+  * Put Give more time first on a child's page in the panel.
+  * Keep a short notice on one line.
+  * Log any screen that does not fit.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 14:24:02 +0200
+
+kidux-greeter (0.2.9) trixie; urgency=medium
+
+  * Leave less room above and below each screen, so a child's password
+    screen fits 1280x800 without scrolling.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 13:29:42 +0200
+
+kidux-greeter (0.2.8) trixie; urgency=medium
+
+  * Scroll a page that is taller than the screen, keeping its bottom row in
+    view.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 12:52:36 +0200
+
+kidux-greeter (0.2.7) trixie; urgency=medium
+
+  * Depend on python3-gi-cairo, without which librsvg cannot draw into GTK
+    from Python and the logo was never drawn; say so in the journal if a
+    picture cannot be drawn.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 10:46:23 +0200
+
+kidux-greeter (0.2.6) trixie; urgency=medium
+
+  * Draw the logo with librsvg at exactly its size: as a picture it grew to
+    the size its file says.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 10:02:54 +0200
+
+kidux-greeter (0.2.5) trixie; urgency=medium
+
+  * Enter on a picture reached with the arrow keys signs that child in, as a
+    tap does: the arrows focus a grid's cell, not the button in it.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 09:40:16 +0200
+
+kidux-greeter (0.2.4) trixie; urgency=medium
+
+  * Take the logo from kidux-common.
+  * Hand the child's picture to their session, for the launcher to show.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 09:29:15 +0200
+
+kidux-greeter (0.2.3) trixie; urgency=medium
+
+  * Give the keyboard focus back after a question that leaves the screen as
+    it was: Enter on the wizard's last step did nothing when the new
+    child's arrival was announced while it was drawn.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 09:17:06 +0200
+
+kidux-greeter (0.2.2) trixie; urgency=medium
+
+  * End the compositor when the greeter finishes on purpose: cage can miss
+    its client leaving, and greetd then never starts the next greeter.
+  * Escape does what Back does, on every screen that has a Back.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 09:07:33 +0200
+
+kidux-greeter (0.2.1) trixie; urgency=medium
+
+  * Show Kidux's logo on the first-run wizard's welcome and, small, on the
+    sign-in screen.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 09:02:35 +0200
+
+kidux-greeter (0.2.0) trixie; urgency=medium
+
+  * Add the first-run wizard: the machine's language and keyboard, the adult
+    password, and the first child, without a terminal.
+  * Add the adult panel, from the sign-in screen and from the lock screen:
+    children, their settings and time, and the machine's settings.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 08:58:45 +0200
+
+kidux-greeter (0.1.2) trixie; urgency=medium
+
+  * Show a child added or removed while the list of children is on screen,
+    and never leave a screen because of it.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 00:55:16 +0200
+
+kidux-greeter (0.1.1) trixie; urgency=medium
+
+  * Continue a locked session after an adult gives time, whatever locked it.
+  * Lock the adult panel as soon as it is left.
+  * Keep Back in the bottom-left corner of every screen.
+  * Log to the journal, which greetd does not connect a greeter to.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 00:35:23 +0200
+
+kidux-greeter (0.1.0) trixie; urgency=medium
+
+  * Initial release: the sign-in screen and the lock screen.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 00:06:49 +0200

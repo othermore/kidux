@@ -1,0 +1,29 @@
+# Spanish translation for kidux-module-hello.
+# Copyright (C) 2026 Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-hello package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-hello 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-09-30 15:50+0200\n"
+"PO-Revision-Date: 2026-09-25 02:38+0200\n"
+"Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "[Test] Hello"
+msgstr "[Prueba] Hola"
+
+msgid "A first page to read, and a button to press."
+msgstr "Una primera página para leer, y un botón para pulsar."
+
+msgid "Hello"
+msgstr "Hola"
+
+msgid "Done"
+msgstr "Hecho"

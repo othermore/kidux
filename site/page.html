@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ meta.title }}</title>
+<meta name="description" content="{{ meta.description }}">
+<link rel="canonical" href="{{ page_url }}">
+{{ alternates }}
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ meta.title }}">
+<meta property="og:description" content="{{ meta.description }}">
+<meta property="og:url" content="{{ page_url }}">
+<meta property="og:image" content="{{ site.url }}images/{{ lang }}/launcher-modules.png">
+<link rel="icon" href="{{ root }}brand/icon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="{{ root }}brand/icon-32.png" sizes="32x32">
+<link rel="preload" href="{{ root }}fonts/Andika-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ root }}fonts/Andika-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ root }}style.css">
+{{ language_script }}
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#start"><img src="{{ root }}brand/logo.svg" alt="Kidux" width="141" height="60"></a>
+    <nav aria-label="{{ nav.label }}">
+      <a href="#what">{{ nav.what }}</a>
+      <a href="#modules">{{ nav.modules }}</a>
+      <a href="#adults">{{ nav.adults }}</a>
+      <a href="#licence">{{ nav.licence }}</a>
+      <a href="#contact">{{ nav.contact }}</a>
+    </nav>
+    <div class="tools">
+      <span class="language">{{ language_links }}</span>
+      <a class="button give small" href="{{ site.sponsors }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.3C.3 8.300 2 4.500 5.700 4.500c2.200 0 3.600 1.200 4.300 2.300h4c.7-1.100 2.100-2.300 4.300-2.300 3.700 0 5.400 3.800 3.700 7.200C19.500 16.400 12 21 12 21z"/></svg>
+        {{ nav.support }}</a>
+    </div>
+  </div>
+</header>
+
+<main id="start">
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>{{ hero.title }}</h1>
+      <p class="lead">{{ hero.lead }}</p>
+      <div class="actions">
+        <a class="button primary" href="#get">{{ hero.get }}</a>
+        <a class="button give" href="{{ site.sponsors }}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.3C.3 8.300 2 4.500 5.700 4.500c2.200 0 3.600 1.200 4.300 2.300h4c.7-1.100 2.100-2.300 4.300-2.300 3.700 0 5.400 3.800 3.700 7.200C19.500 16.400 12 21 12 21z"/></svg>
+          {{ hero.support }}</a>
+      </div>
+      <p class="note">{{ hero.note }}</p>
+    </div>
+    <figure class="screen">
+      <img src="{{ root }}images/{{ lang }}/launcher-modules.png" alt="{{ hero.picture }}" width="1280" height="800">
+    </figure>
+  </div>
+</section>
+
+<section id="what" class="band">
+  <div class="wrap">
+    <div class="cards four">
+      <article class="card">
+        <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.500-3 8-7 10-4-2-7-5.500-7-10V6l7-3z"/><path d="M8.500 12l2.500 2.500 4.500-5"/></svg></span>
+        <h3>{{ pillars.safe.title }}</h3>
+        <p>{{ pillars.safe.text }}</p>
+      </article>
+      <article class="card">
+        <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M3 20h18"/><circle cx="12" cy="10.500" r="2.500"/></svg></span>
+        <h3>{{ pillars.focus.title }}</h3>
+        <p>{{ pillars.focus.text }}</p>
+      </article>
+      <article class="card">
+        <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h9v5H4z"/><path d="M4 10h13v5H4z"/><path d="M4 15h7v5H4z"/></svg></span>
+        <h3>{{ pillars.learn.title }}</h3>
+        <p>{{ pillars.learn.text }}</p>
+      </article>
+      <article class="card">
+        <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="10" rx="1.500"/><path d="M2.500 19h19l-2-4h-15z"/></svg></span>
+        <h3>{{ pillars.hardware.title }}</h3>
+        <p>{{ pillars.hardware.text }}</p>
+        <span class="tag">{{ pillars.hardware.soon }}</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <div>
+      <h2>{{ child.title }}</h2>
+      <p class="lead">{{ child.lead }}</p>
+      <ul class="ticks">
+        <li>{{ child.point1 }}</li>
+        <li>{{ child.point2 }}</li>
+        <li>{{ child.point3 }}</li>
+      </ul>
+    </div>
+    <figure class="screen">
+      <img src="{{ root }}images/{{ lang }}/sign-in.png" alt="{{ child.picture }}" width="1280" height="800" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="intro">
+      <h2>{{ grow.title }}</h2>
+      <p>{{ grow.lead }}</p>
+    </div>
+    <div class="pair">
+      <figure>
+        <div class="screen"><img src="{{ root }}images/{{ lang }}/module-scratch.png" alt="{{ grow.single_picture }}" width="1280" height="800" loading="lazy"></div>
+        <figcaption><h3>{{ grow.single_title }}</h3><p>{{ grow.single_text }}</p></figcaption>
+      </figure>
+      <figure>
+        <div class="screen"><img src="{{ root }}images/{{ lang }}/windows-modules.png" alt="{{ grow.windows_picture }}" width="1280" height="800" loading="lazy"></div>
+        <figcaption><h3>{{ grow.windows_title }}</h3><p>{{ grow.windows_text }}</p></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="modules">
+  <div class="wrap">
+    <div class="intro">
+      <h2>{{ modules.title }}</h2>
+      <p>{{ modules.lead }}</p>
+    </div>
+    <div class="modules">
+      <article class="module">
+        <img src="{{ root }}images/{{ lang }}/module-gcompris.png" alt="" width="1280" height="800" loading="lazy">
+        <div><h3>{{ modules.gcompris.name }} <span class="age">{{ modules.gcompris.age }}</span></h3><p>{{ modules.gcompris.text }}</p></div>
+      </article>
+      <article class="module">
+        <img src="{{ root }}images/{{ lang }}/module-scratchjr.png" alt="" width="1280" height="800" loading="lazy">
+        <div><h3>{{ modules.scratchjr.name }} <span class="age">{{ modules.scratchjr.age }}</span></h3><p>{{ modules.scratchjr.text }}</p></div>
+      </article>
+      <article class="module">
+        <img src="{{ root }}images/{{ lang }}/module-blockly-games.png" alt="" width="1280" height="800" loading="lazy">
+        <div><h3>{{ modules.blockly.name }} <span class="age">{{ modules.blockly.age }}</span></h3><p>{{ modules.blockly.text }}</p></div>
+      </article>
+      <article class="module">
+        <img src="{{ root }}images/{{ lang }}/module-tuxtype.png" alt="" width="1280" height="800" loading="lazy">
+        <div><h3>{{ modules.tuxtype.name }} <span class="age">{{ modules.tuxtype.age }}</span></h3><p>{{ modules.tuxtype.text }}</p></div>
+      </article>
+      <article class="module">
+        <img src="{{ root }}images/{{ lang }}/module-scratch.png" alt="" width="1280" height="800" loading="lazy">
+        <div><h3>{{ modules.scratch.name }} <span class="age">{{ modules.scratch.age }}</span></h3><p>{{ modules.scratch.text }}</p></div>
+      </article>
+      <article class="module">
+        <img src="{{ root }}images/{{ lang }}/module-turbowarp.png" alt="" width="1280" height="800" loading="lazy">
+        <div><h3>{{ modules.turbowarp.name }} <span class="age">{{ modules.turbowarp.age }}</span></h3><p>{{ modules.turbowarp.text }}</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="adults" class="band">
+  <div class="wrap split flip">
+    <div>
+      <h2>{{ adults.title }}</h2>
+      <p class="lead">{{ adults.lead }}</p>
+      <ul class="ticks">
+        <li>{{ adults.point1 }}</li>
+        <li>{{ adults.point2 }}</li>
+        <li>{{ adults.point3 }}</li>
+        <li>{{ adults.point4 }}</li>
+      </ul>
+    </div>
+    <figure class="screen">
+      <img src="{{ root }}images/{{ lang }}/panel-child.png" alt="{{ adults.picture }}" width="1280" height="800" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+<section id="get">
+  <div class="wrap split">
+    <div>
+      <h2>{{ get.title }}</h2>
+{{#if site.download}}
+      <p class="lead">{{ get.ready }}</p>
+      <ol class="steps">
+        <li>{{ get.step1 }}</li>
+        <li>{{ get.step2 }}</li>
+        <li>{{ get.step3 }}</li>
+      </ol>
+      <div class="actions"><a class="button primary" href="{{ site.download }}">{{ get.download }}</a></div>
+{{#else}}
+      <p class="lead">{{ get.coming }}</p>
+      <div class="actions"><a class="button primary" href="mailto:{{ site.email }}?subject={{ get.tell_subject }}">{{ get.tell }}</a></div>
+{{/if}}
+    </div>
+    <div class="card needs">
+      <h3>{{ get.needs }}</h3>
+      <ul class="ticks">
+        <li>{{ get.need1 }}</li>
+        <li>{{ get.need2 }}</li>
+        <li>{{ get.need3 }}</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="licence" class="band">
+  <div class="wrap">
+    <div class="intro">
+      <h2>{{ licence.title }}</h2>
+      <p>{{ licence.lead }}</p>
+    </div>
+    <div class="cards three">
+      <article class="card">
+        <h3>{{ licence.home.title }}</h3>
+        <p>{{ licence.home.text }}</p>
+      </article>
+      <article class="card">
+        <h3>{{ licence.schools.title }}</h3>
+        <p>{{ licence.schools.text }}</p>
+        <a class="button quiet small" href="mailto:{{ site.email }}?subject={{ licence.schools.subject }}">{{ licence.schools.button }}</a>
+      </article>
+      <article class="card">
+        <h3>{{ licence.code.title }}</h3>
+        <p>{{ licence.code.text }}</p>
+        <a class="button quiet small" href="{{ site.repository }}">{{ licence.code.button }}</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="support" class="support">
+  <div class="wrap">
+    <img src="{{ root }}brand/mascot-on-dark.svg" alt="" width="120" height="120" loading="lazy">
+    <div>
+      <h2>{{ support.title }}</h2>
+      <p>{{ support.text }}</p>
+      <a class="button give" href="{{ site.sponsors }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.3C.3 8.300 2 4.500 5.700 4.500c2.200 0 3.600 1.200 4.300 2.300h4c.7-1.100 2.100-2.300 4.300-2.300 3.700 0 5.400 3.800 3.700 7.200C19.500 16.400 12 21 12 21z"/></svg>
+        {{ support.button }}</a>
+      <iframe src="{{ site.sponsors_button }}" title="{{ support.frame }}" height="32" width="114" loading="lazy"></iframe>
+      <p class="thanks">{{ support.note }}</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="intro">
+      <h2>{{ contact.title }}</h2>
+      <p>{{ contact.text }}</p>
+    </div>
+    <div class="cards three">
+      <article class="card">
+        <h3>{{ contact.who }}</h3>
+        <p><a href="{{ site.owner_url }}">{{ site.owner }}</a></p>
+      </article>
+      <article class="card">
+        <h3>{{ contact.email }}</h3>
+        <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      </article>
+      <article class="card">
+        <h3>{{ contact.code }}</h3>
+        <p><a href="{{ site.repository }}">{{ contact.code_text }}</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="{{ root }}brand/wordmark.svg" alt="Kidux" width="94" height="32" loading="lazy">
+    <p>{{ footer.rights }} <a href="{{ site.owner_url }}">{{ site.owner }}</a>. {{ footer.licence }}</p>
+    <p>{{ footer.others }}</p>
+  </div>
+</footer>
+
+<script>
+// A language chosen by hand is remembered, so the first page does not send
+// the visitor back to their browser's.
+document.querySelectorAll("a[data-language]").forEach(function (link) {
+  link.addEventListener("click", function () {
+    try { localStorage.setItem("kidux-language", link.dataset.language); } catch (error) {}
+  });
+});
+</script>
+</body>
+</html>

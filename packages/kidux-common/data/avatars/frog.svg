@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kidux avatar: Frog. Flat shapes on a filled circle, so it stays legible
+     down to the 48 px the launcher shows it at. No gradients, no strokes
+     thinner than 2 units, no text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Frog">
+  <circle cx="60" cy="60" r="60" fill="#d9f2d0"/>
+  <circle cx="40" cy="40" r="17" fill="#6bbf59"/>
+  <circle cx="80" cy="40" r="17" fill="#6bbf59"/>
+  <circle cx="40" cy="40" r="10" fill="#fdf6f0"/>
+  <circle cx="80" cy="40" r="10" fill="#fdf6f0"/>
+  <circle cx="40" cy="40" r="5" fill="#2b2b2b"/>
+  <circle cx="80" cy="40" r="5" fill="#2b2b2b"/>
+  <path d="M60 46 C88 46 98 62 98 76 C98 92 82 102 60 102 C38 102 22 92 22 76 C22 62 32 46 60 46 Z" fill="#7ecb6a"/>
+  <path d="M40 82 Q60 96 80 82" stroke="#2b6b3a" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>

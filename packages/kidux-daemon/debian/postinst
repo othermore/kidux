@@ -1,0 +1,26 @@
+#!/bin/sh
+# The two groups everything else in Kidux depends on (D18). Everything about
+# the family itself is made at first boot, not here: during an image build the
+# administrator's account does not exist yet.
+
+set -e
+
+case "$1" in
+    configure)
+        for group in kidux-admin kidux-children; do
+            if ! getent group "$group" >/dev/null; then
+                addgroup --quiet --system "$group"
+            fi
+        done
+        ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+    *)
+        echo "postinst called with unknown argument '$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- kidux-module-turbowarp's tile: two programming blocks snapped together
+     with speed lines behind them, on the module's own colour. Kidux's
+     tile, not TurboWarp's logo; flat shapes on a filled circle, like the
+     avatars, legible down to the 32 px of the launcher's bar. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="TurboWarp">
+  <circle cx="60" cy="60" r="60" fill="#ffd6d6"/>
+  <path d="M14 44 h14 M10 60 h18 M14 76 h14" stroke="#ff4c4c" stroke-width="6"
+        stroke-linecap="round"/>
+  <path d="M36 38 h12 l4 5 h8 l4 -5 h24 a4 4 0 0 1 4 4 v12 a4 4 0 0 1 -4 4 h-24 l-4 5 h-8 l-4 -5 h-12 a4 4 0 0 1 -4 -4 v-12 a4 4 0 0 1 4 -4 z"
+        fill="#ff4c4c"/>
+  <path d="M36 62 h12 l4 5 h8 l4 -5 h24 a4 4 0 0 1 4 4 v12 a4 4 0 0 1 -4 4 h-48 a4 4 0 0 1 -4 -4 v-12 a4 4 0 0 1 4 -4 z"
+        fill="#4c97ff"/>
+</svg>

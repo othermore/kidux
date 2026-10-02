@@ -1,0 +1,14 @@
+# GCompris, the first real module: a program already in Debian, so the
+# package holds this manifest, the tile, its words, and the small program
+# that starts GCompris with its first questions answered (modules.md,
+# section 5).
+id = "gcompris"
+version = "0.1.8"
+name = "GCompris"
+description = "Over a hundred activities: reading, counting, colours, the keyboard and the mouse. It needs the internet at first, to fetch its voices."
+min_age = 2
+max_age = 10
+launch = { exec = "/usr/libexec/kidux-module-gcompris" }
+app_ids = ["org.kde.gcompris"]           # what GCompris calls its window
+i18n_domain = "kidux-module-gcompris"
+memory_max = "3G"

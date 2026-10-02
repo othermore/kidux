@@ -1,0 +1,11 @@
+# Plain DHCP on whatever interface QEMU gives the VM.
+#
+# This file exists mostly so cloud-init stops retrying: without it, it asks the
+# seed server eleven times and waits about ten seconds before falling back to
+# exactly this.
+version: 2
+ethernets:
+  any:
+    match:
+      name: "en*"
+    dhcp4: true

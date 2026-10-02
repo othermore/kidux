@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- kidux-module-blockly-games's tile: a little maze with a path through it
+     and a block at its start, on the module's own colour. Kidux's tile, not
+     Blockly's logo; flat shapes on a filled circle, like the avatars,
+     legible down to the 32 px of the launcher's bar. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Blockly Games">
+  <circle cx="60" cy="60" r="60" fill="#d8f0d0"/>
+  <rect x="24" y="24" width="72" height="72" rx="8" fill="#43aa8b"/>
+  <path d="M36 84 V60 H60 V36 H84" fill="none" stroke="#fff6e9" stroke-width="10"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M28 76 h10 l3 4 h6 l3 -4 h6 a3 3 0 0 1 3 3 v8 a3 3 0 0 1 -3 3 h-28 a3 3 0 0 1 -3 -3 v-8 a3 3 0 0 1 3 -3 z"
+        fill="#ffab19"/>
+</svg>

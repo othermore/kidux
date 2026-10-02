@@ -1,0 +1,5 @@
+# An input device that is a switch (a laptop's lid, a headphone jack) may be
+# read by anyone: the child's launcher watches the lid to power the panel off
+# while it is closed (launcher.md section 5, D61). Reading a switch's state
+# gives away nothing; udev sets ID_INPUT_SWITCH on such devices.
+SUBSYSTEM=="input", KERNEL=="event*", ENV{ID_INPUT_SWITCH}=="1", MODE="0644"

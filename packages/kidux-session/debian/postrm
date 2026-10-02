@@ -1,0 +1,37 @@
+#!/bin/sh
+# Give the machine back: greetd stops being the display manager and GRUB goes
+# back to Debian's own menu, from the next boot. The GRUB files and the SSH
+# drop-in are configuration files and stay until purge, but each does nothing
+# once /usr/libexec/kidux-session is gone.
+
+set -e
+
+case "$1" in
+    remove|purge)
+        deb-systemd-helper disable greetd.service >/dev/null || true
+        if getent passwd _greetd >/dev/null && id -nG _greetd | grep -qw video; then
+            deluser --quiet _greetd video >/dev/null 2>&1 || true
+        fi
+        # Debian's own boot splash again; the theme's files are already gone.
+        if command -v plymouth-set-default-theme >/dev/null 2>&1 \
+                && [ "$(plymouth-set-default-theme)" = kidux ]; then
+            plymouth-set-default-theme --reset --rebuild-initrd >/dev/null 2>&1 || true
+        fi
+        if [ -d /run/systemd/system ]; then
+            systemctl --system daemon-reload >/dev/null || true
+        fi
+        if command -v update-grub >/dev/null 2>&1 && [ -e /boot/grub/grub.cfg ]; then
+            update-grub >/dev/null 2>&1 || true
+        fi
+        ;;
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+        ;;
+    *)
+        echo "postrm called with unknown argument '$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

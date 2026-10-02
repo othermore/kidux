@@ -1,0 +1,33 @@
+#!/usr/bin/make -f
+
+DEST = debian/kidux-module-tuxtype
+MODULE = $(DEST)/usr/share/kidux/modules/tuxtype
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	for po in po/*.po; do \
+	    lang=$$(basename $$po .po); \
+	    mkdir -p build/$$lang; \
+	    msgfmt --check --output-file=build/$$lang/kidux-module-tuxtype.mo $$po; \
+	done
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 tests
+	sh -n bin/kidux-module-tuxtype
+	python3 -m pytest -q -p no:cacheprovider tests
+endif
+
+override_dh_auto_install:
+	install -D -m 0644 module.toml $(MODULE)/module.toml
+	install -D -m 0644 icon.svg $(MODULE)/icon.svg
+	install -D -m 0755 bin/kidux-module-tuxtype $(DEST)/usr/libexec/kidux-module-tuxtype
+	for mo in build/*/kidux-module-tuxtype.mo; do \
+	    lang=$$(basename $$(dirname $$mo)); \
+	    install -D -m 0644 $$mo $(DEST)/usr/share/locale/$$lang/LC_MESSAGES/kidux-module-tuxtype.mo; \
+	done
+
+override_dh_auto_clean:
+	rm -rf build tests/__pycache__

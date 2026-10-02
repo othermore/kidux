@@ -1,0 +1,10 @@
+# The tests' stand-in for a module made for X11 (phase-3-plan.md, step 3.19;
+# D58): a Tk window, which runs through XWayland. Never packaged: the tests
+# that need it copy it to /usr/share/kidux/modules/x11-canary/ and remove it
+# when they are done, and install python3-tk for it.
+id = "x11-canary"
+version = "1.0.0"
+name = "[Test] X11 canary"
+description = "The module the tests open through XWayland."
+launch = { exec = "/usr/share/kidux/modules/x11-canary/run" }
+app_ids = ["x11-canary"]

@@ -1,0 +1,7 @@
+# Plain DHCP on whatever interface QEMU gives the VM.
+version: 2
+ethernets:
+  any:
+    match:
+      name: "en*"
+    dhcp4: true

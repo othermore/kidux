@@ -1,0 +1,32 @@
+Source: kidux-module-blockly-games
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-blockly-games
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-webapps (>= 0.1.5),
+XB-Kidux-Name-en: Blockly Games
+XB-Kidux-Description-en: Puzzles with blocks: a maze, a bird, a turtle, a movie and music, one step harder each time.
+XB-Kidux-Name-es: Juegos de Blockly
+XB-Kidux-Description-es: Rompecabezas con bloques: un laberinto, un pájaro, una tortuga, una película y música, cada vez un paso más difícil.
+XB-Kidux-Ages: 6-12
+XB-Kidux-Before: scratchjr
+Description: Kidux learning module: Blockly Games, puzzles with blocks
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is Blockly Games: a set of puzzles that teach, one step harder each
+ time, the ideas behind programming with blocks, a maze, a bird, a turtle
+ that draws, a movie and music, served on this computer and shown in
+ Chromium, in the child's language, without the internet.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

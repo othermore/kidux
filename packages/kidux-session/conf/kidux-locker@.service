@@ -1,0 +1,19 @@
+[Unit]
+Description=Kidux lock screen over %i's session
+Documentation=https://github.com/othermore/kidux/blob/main/docs/dev/session.md
+After=systemd-user-sessions.service
+Conflicts=getty@tty8.service
+
+[Service]
+User=_greetd
+PAMName=kidux-locker
+TTYPath=/dev/tty8
+TTYReset=yes
+TTYVHangup=yes
+StandardInput=tty
+UtmpIdentifier=tty8
+UtmpMode=user
+Environment=XDG_SESSION_TYPE=wayland XDG_SESSION_CLASS=greeter XDG_SEAT=seat0 XDG_VTNR=8
+ExecStart=/usr/lib/kidux/greeter-session --lock %i
+KillMode=mixed
+TimeoutStopSec=5

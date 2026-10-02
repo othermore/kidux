@@ -1,0 +1,57 @@
+#!/usr/bin/make -f
+
+DEST = debian/kidux-module-scratchjr
+MODULE = $(DEST)/usr/share/kidux/modules/scratchjr
+APP = $(DEST)/usr/lib/kidux-module-scratchjr
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	for po in po/*.po; do \
+	    lang=$$(basename $$po .po); \
+	    mkdir -p build/$$lang; \
+	    msgfmt --check --output-file=build/$$lang/kidux-module-scratchjr.mo $$po; \
+	done
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 tests
+	sh -n bin/kidux-module-scratchjr
+	test -x upstream/ScratchJr
+	python3 -m pytest -q -p no:cacheprovider tests
+endif
+
+# The app, as ci/build-upstream.sh built and packaged it with its Electron
+# (upstream.toml, D68): Electron's own binaries, built elsewhere and not
+# here, are left as they are.
+override_dh_auto_install:
+	install -D -m 0644 module.toml $(MODULE)/module.toml
+	install -D -m 0644 icon.svg $(MODULE)/icon.svg
+	install -D -m 0755 bin/kidux-module-scratchjr $(DEST)/usr/libexec/kidux-module-scratchjr
+	mkdir -p $(APP)
+	cp -r upstream/. $(APP)/
+	find $(APP) -type d -exec chmod 0755 {} +
+	find $(APP) -type f -exec chmod 0644 {} +
+	chmod 0755 $(APP)/ScratchJr $(APP)/chrome_crashpad_handler $(APP)/chrome-sandbox
+	for mo in build/*/kidux-module-scratchjr.mo; do \
+	    lang=$$(basename $$(dirname $$mo)); \
+	    install -D -m 0644 $$mo $(DEST)/usr/share/locale/$$lang/LC_MESSAGES/kidux-module-scratchjr.mo; \
+	done
+
+# Electron's binaries are built by its project, not here: they are
+# installed as they come, not stripped again. Their dependencies are read
+# from them, with the libraries Electron carries as the app's own; the
+# build-depends name the libraries they link to, so that dpkg-shlibdeps
+# finds what each belongs to.
+override_dh_strip:
+override_dh_dwz:
+override_dh_shlibdeps:
+	dh_shlibdeps -l$(APP)
+
+# Electron's libraries are its own, in its own directory, not libraries of
+# the system's: no ldconfig trigger and no shlibs file for them.
+override_dh_makeshlibs:
+
+override_dh_auto_clean:
+	rm -rf build tests/__pycache__

@@ -1,0 +1,39 @@
+[Unit]
+Description=Kidux web applications, served on 127.0.0.1:8123
+Documentation=https://github.com/othermore/kidux/blob/main/docs/dev/modules.md
+
+[Service]
+ExecStart=/usr/libexec/kidux-webapps
+Restart=on-failure
+# A system user of its own, made for it and gone with it, that can read the
+# web applications and nothing of anyone's, and reach the loopback address
+# and nothing else.
+DynamicUser=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateUsers=yes
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictAddressFamilies=AF_INET AF_UNIX
+IPAddressDeny=any
+IPAddressAllow=localhost
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

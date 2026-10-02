@@ -1,0 +1,234 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<!--
+  org.kidux.Daemon1, version 1, as the daemon implements it now.
+  The full design is docs/dev/daemon.md; interfaces are added here as the
+  daemon gains them, so this file is always exactly what it answers.
+-->
+<node>
+  <interface name="org.kidux.Daemon1">
+    <method name="Ping">
+      <arg name="version" type="s" direction="out"/>
+    </method>
+    <method name="GetConfig">
+      <arg name="config" type="a{sv}" direction="out"/>
+    </method>
+    <method name="SetConfig">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="changes" type="a{sv}" direction="in"/>
+    </method>
+    <property name="Version" type="s" access="read"/>
+    <signal name="AttentionRequested">
+      <arg name="source" type="s"/>
+    </signal>
+  </interface>
+
+  <interface name="org.kidux.Daemon1.Parental1">
+    <method name="IsPasswordSet">
+      <arg name="set" type="b" direction="out"/>
+    </method>
+    <method name="Unlock">
+      <arg name="password" type="s" direction="in"/>
+      <arg name="token" type="s" direction="out"/>
+    </method>
+    <method name="Lock">
+      <arg name="token" type="s" direction="in"/>
+    </method>
+    <method name="SetPassword">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="new_password" type="s" direction="in"/>
+    </method>
+    <method name="GetRecoveryPassword">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="password" type="s" direction="out"/>
+    </method>
+  </interface>
+
+  <interface name="org.kidux.Daemon1.Children1">
+    <method name="List">
+      <arg name="children" type="aa{sv}" direction="out"/>
+    </method>
+    <method name="Create">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="username" type="s" direction="in"/>
+      <arg name="display_name" type="s" direction="in"/>
+      <arg name="language" type="s" direction="in"/>
+      <arg name="keyboard" type="s" direction="in"/>
+      <arg name="avatar" type="s" direction="in"/>
+      <arg name="password" type="s" direction="in"/>
+    </method>
+    <method name="Delete">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="username" type="s" direction="in"/>
+      <arg name="keep_home" type="b" direction="in"/>
+    </method>
+    <method name="SetProfile">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="username" type="s" direction="in"/>
+      <arg name="changes" type="a{sv}" direction="in"/>
+    </method>
+    <method name="SetChildPassword">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="username" type="s" direction="in"/>
+      <arg name="password" type="s" direction="in"/>
+    </method>
+    <signal name="ChildrenChanged"/>
+  </interface>
+
+  <interface name="org.kidux.Daemon1.Access1">
+    <method name="GetPolicy">
+      <arg name="username" type="s" direction="in"/>
+      <arg name="policy" type="a{sv}" direction="out"/>
+    </method>
+    <method name="SetPolicy">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="username" type="s" direction="in"/>
+      <arg name="policy" type="a{sv}" direction="in"/>
+    </method>
+    <method name="Grant">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="username" type="s" direction="in"/>
+      <arg name="minutes" type="u" direction="in"/>
+    </method>
+    <method name="SetTimeLeft">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="username" type="s" direction="in"/>
+      <arg name="minutes" type="u" direction="in"/>
+    </method>
+    <method name="CheckAccess">
+      <arg name="username" type="s" direction="in"/>
+      <arg name="state" type="s" direction="out"/>
+      <arg name="seconds_available" type="i" direction="out"/>
+    </method>
+    <method name="Usage">
+      <arg name="username" type="s" direction="in"/>
+      <arg name="used_today" type="u" direction="out"/>
+      <arg name="available" type="i" direction="out"/>
+    </method>
+    <method name="AuthoriseSession">
+      <arg name="adult_password" type="s" direction="in"/>
+      <arg name="username" type="s" direction="in"/>
+      <arg name="minutes" type="u" direction="in"/>
+      <arg name="ok" type="b" direction="out"/>
+    </method>
+    <method name="GrantExtraTime">
+      <arg name="adult_password" type="s" direction="in"/>
+      <arg name="username" type="s" direction="in"/>
+      <arg name="minutes" type="u" direction="in"/>
+      <arg name="ok" type="b" direction="out"/>
+    </method>
+    <method name="Lock"/>
+    <method name="LockFor">
+      <arg name="reason" type="s" direction="in"/>
+    </method>
+    <method name="UnlockForSaving">
+      <arg name="adult_password" type="s" direction="in"/>
+      <arg name="minutes" type="u" direction="in"/>
+      <arg name="ok" type="b" direction="out"/>
+    </method>
+    <method name="ContinueSession">
+      <arg name="username" type="s" direction="in"/>
+      <arg name="password" type="s" direction="in"/>
+      <arg name="ok" type="b" direction="out"/>
+    </method>
+    <method name="EndSession">
+      <arg name="username" type="s" direction="in"/>
+      <arg name="password" type="s" direction="in"/>
+      <arg name="ok" type="b" direction="out"/>
+    </method>
+    <signal name="TimeWarning">
+      <arg name="username" type="s"/>
+      <arg name="seconds_left" type="u"/>
+    </signal>
+    <signal name="Locked">
+      <arg name="username" type="s"/>
+      <arg name="reason" type="s"/>
+    </signal>
+    <signal name="Unlocked">
+      <arg name="username" type="s"/>
+    </signal>
+  </interface>
+
+  <interface name="org.kidux.Daemon1.Modules1">
+    <method name="List">
+      <arg name="username" type="s" direction="in"/>
+      <arg name="modules" type="aa{sv}" direction="out"/>
+    </method>
+    <method name="SetEnabled">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="username" type="s" direction="in"/>
+      <arg name="module_id" type="s" direction="in"/>
+      <arg name="enabled" type="b" direction="in"/>
+    </method>
+    <method name="Available">
+      <arg name="modules" type="aa{sv}" direction="out"/>
+    </method>
+    <method name="Install">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="module_id" type="s" direction="in"/>
+    </method>
+    <method name="Remove">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="module_id" type="s" direction="in"/>
+    </method>
+    <signal name="ModulesChanged">
+      <arg name="username" type="s"/>
+    </signal>
+  </interface>
+
+  <interface name="org.kidux.Daemon1.System1">
+    <method name="Shutdown"/>
+    <method name="Reboot"/>
+    <method name="CheckUpdates">
+      <arg name="token" type="s" direction="in"/>
+    </method>
+    <method name="ApplyUpdates">
+      <arg name="token" type="s" direction="in"/>
+    </method>
+    <method name="UpdateState">
+      <arg name="job" type="s" direction="out"/>
+      <arg name="fraction" type="d" direction="out"/>
+      <arg name="package" type="s" direction="out"/>
+      <arg name="outcome" type="s" direction="out"/>
+      <arg name="detail" type="s" direction="out"/>
+      <arg name="packages" type="as" direction="out"/>
+    </method>
+    <method name="Versions">
+      <arg name="versions" type="a{sv}" direction="out"/>
+    </method>
+    <signal name="UpdatesChecked">
+      <arg name="count" type="u"/>
+      <arg name="packages" type="as"/>
+      <arg name="error" type="s"/>
+    </signal>
+    <signal name="UpdateProgress">
+      <arg name="fraction" type="d"/>
+      <arg name="package" type="s"/>
+    </signal>
+    <signal name="UpdateFinished">
+      <arg name="outcome" type="s"/>
+      <arg name="detail" type="s"/>
+    </signal>
+  </interface>
+
+  <interface name="org.kidux.Daemon1.Network1">
+    <method name="GetNetwork">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="summary" type="a{sv}" direction="out"/>
+      <arg name="interfaces" type="aa{sv}" direction="out"/>
+      <arg name="networks" type="aa{sv}" direction="out"/>
+    </method>
+    <method name="Check">
+      <arg name="token" type="s" direction="in"/>
+    </method>
+    <method name="ConnectWifi">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="ssid" type="s" direction="in"/>
+      <arg name="password" type="s" direction="in"/>
+    </method>
+    <method name="ForgetWifi">
+      <arg name="token" type="s" direction="in"/>
+      <arg name="ssid" type="s" direction="in"/>
+    </method>
+  </interface>
+</node>

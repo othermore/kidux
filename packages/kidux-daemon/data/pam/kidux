@@ -1,0 +1,4 @@
+# Checks a child's own password when they continue or end a locked session.
+# Authentication and account checks only: this never opens a session.
+@include common-auth
+@include common-account

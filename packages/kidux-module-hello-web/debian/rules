@@ -1,0 +1,34 @@
+#!/usr/bin/make -f
+
+DEST = debian/kidux-module-hello-web
+MODULE = $(DEST)/usr/share/kidux/modules/hello-web
+WEBAPP = $(DEST)/usr/share/kidux/webapps/hello-web
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	for po in po/*.po; do \
+	    lang=$$(basename $$po .po); \
+	    mkdir -p build/locale/$$lang/LC_MESSAGES; \
+	    msgfmt --check --output-file=build/locale/$$lang/LC_MESSAGES/kidux-module-hello-web.mo $$po; \
+	done
+	python3 -B webapp/page.py build/locale content webapp/index.html.in build/index.html
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 webapp/page.py tests
+	python3 -m pytest -q -p no:cacheprovider tests
+endif
+
+override_dh_auto_install:
+	install -D -m 0644 module.toml $(MODULE)/module.toml
+	install -D -m 0644 icon.svg $(MODULE)/icon.svg
+	install -D -m 0644 build/index.html $(WEBAPP)/index.html
+	for mo in build/locale/*/LC_MESSAGES/kidux-module-hello-web.mo; do \
+	    lang=$$(basename $$(dirname $$(dirname $$mo))); \
+	    install -D -m 0644 $$mo $(DEST)/usr/share/locale/$$lang/LC_MESSAGES/kidux-module-hello-web.mo; \
+	done
+
+override_dh_auto_clean:
+	rm -rf build tests/__pycache__ webapp/__pycache__

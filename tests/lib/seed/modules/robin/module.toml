@@ -1,0 +1,9 @@
+# The tests' second stand-in module, the canary's twin (phase-3-plan.md,
+# section 5). Never packaged: the tests that need it copy it to
+# /usr/share/kidux/modules/robin/ and remove it when they are done.
+id = "robin"
+version = "1.0.0"
+name = "[Test] Robin"
+description = "The module the tests open beside the canary."
+launch = { exec = "/usr/share/kidux/modules/robin/run" }
+app_ids = ["org.kidux.tests.Robin"]

@@ -1,0 +1,24 @@
+// What a child may ask the system for, beyond the Kidux daemon.
+// docs/dev/session.md, section 6.
+//
+// A child may turn the computer off, restart it and mount a removable drive
+// (a micro:bit is one). Everything else polkit governs is refused: changing
+// the clock, switching terminals, managing services, mounting fixed disks.
+// The Kidux daemon's own actions are left to 50-kidux.rules.
+polkit.addRule(function(action, subject) {
+    if (!subject.isInGroup("kidux-children")) {
+        return polkit.Result.NOT_HANDLED;
+    }
+    if (action.id.indexOf("org.kidux.daemon.") === 0) {
+        return polkit.Result.NOT_HANDLED;
+    }
+    switch (action.id) {
+    case "org.freedesktop.login1.power-off":
+    case "org.freedesktop.login1.power-off-multiple-sessions":
+    case "org.freedesktop.login1.reboot":
+    case "org.freedesktop.login1.reboot-multiple-sessions":
+    case "org.freedesktop.udisks2.filesystem-mount":
+        return polkit.Result.YES;
+    }
+    return polkit.Result.NO;
+});

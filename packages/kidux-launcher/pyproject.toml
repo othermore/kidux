@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kidux-launcher"
+version = "0.3.17"
+description = "The Kidux child's screen"
+requires-python = ">=3.13"
+
+[tool.setuptools]
+packages = ["kidux_launcher", "kidux_launcher.protocol",
+            "kidux_launcher.protocol.wlr_foreign_toplevel_management_unstable_v1"]

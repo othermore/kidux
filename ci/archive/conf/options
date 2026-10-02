@@ -1,0 +1,7 @@
+# The archive lives outside the repository (/srv/kidux-apt) while its
+# configuration lives inside it, so publish-local.sh passes --basedir and
+# --confdir on the command line rather than pinning them here.
+#
+# No ask-passphrase: the development signing key deliberately has none, because
+# reprepro has to sign unattended in CI.
+verbose

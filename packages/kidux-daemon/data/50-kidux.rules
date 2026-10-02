@@ -1,0 +1,24 @@
+// Who may call the Kidux daemon. docs/dev/daemon.md, section 2.
+//
+// polkit decides who may call a method; the daemon itself decides which child
+// a call may touch, because polkit never sees the arguments (D27).
+polkit.addRule(function(action, subject) {
+    if (action.id.indexOf("org.kidux.daemon.") !== 0) {
+        return polkit.Result.NOT_HANDLED;
+    }
+    // Administrators: everything.
+    if (subject.isInGroup("kidux-admin")) {
+        return polkit.Result.YES;
+    }
+    // The trusted screens: the sign-in screen, the lock screen, the panel.
+    if (subject.user === "_greetd") {
+        return polkit.Result.YES;
+    }
+    // A child: their own time, their own modules, locking the screen.
+    if (subject.isInGroup("kidux-children") &&
+        action.id === "org.kidux.daemon.self") {
+        return polkit.Result.YES;
+    }
+    // Everyone else falls through to the actions' defaults, which are "no".
+    return polkit.Result.NOT_HANDLED;
+});

@@ -1,0 +1,20 @@
+# The website's facts, the same in every language (docs/dev/website.md).
+
+# Where the site is published, with its final slash.
+url = "https://kidux.org/"
+# The language of the page at the site's root; every other has its folder.
+default_language = "en"
+
+repository = "https://github.com/othermore/kidux"
+# Where a donation is made: the owner's GitHub Sponsors page.
+sponsors = "https://github.com/sponsors/othermore"
+# GitHub's own Sponsor button, shown where the page asks for a donation.
+sponsors_button = "https://github.com/sponsors/othermore/button"
+# Who develops Kidux, their own page, and where to write.
+owner = "Antonio Morales García"
+owner_url = "https://antonio.mg"
+email = "info@kidux.org"
+
+# The page an installable image is downloaded from. While it is empty the
+# site says the image is on its way, and offers to tell when it is ready.
+download = ""

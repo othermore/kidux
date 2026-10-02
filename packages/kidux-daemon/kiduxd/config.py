@@ -1,0 +1,54 @@
+"""config.toml: the settings that belong to the machine rather than to a child."""
+
+from dataclasses import dataclass
+
+from kidux import paths, state
+
+DEFAULTS = {
+    "default_language": "en_US.UTF-8",
+    "default_keyboard": "us",
+    # 0 is automatic, until an adult chooses one (kidux.screen, D49).
+    "display_scale": 0.0,
+    "reset_hour": 4,
+    # A session left alone locks after this many minutes, and the adult
+    # panel closes (D67); the screen turns off after the second.
+    "idle_lock_minutes": 5,
+    "screen_off_minutes": 10,
+    # How long an adult's *Unlock to save* gives a child whose time is up.
+    # The panel does not offer it; the session tests set it to 1, so as not
+    # to wait five minutes.
+    "save_minutes": 5,
+    "setup_complete": False,
+    # Set once a language has been chosen for the machine, by the first-run
+    # wizard or the panel: it is how the wizard, restarted to apply the
+    # keyboard, knows it is past its first two steps.
+    "language_chosen": False,
+    # Chromium's flags for this machine's graphics (advanced.py, D52).
+    "chromium_flags": [],
+}
+
+
+@dataclass
+class Config:
+    default_language: str
+    default_keyboard: str
+    display_scale: float
+    reset_hour: int
+    idle_lock_minutes: int
+    screen_off_minutes: int
+    save_minutes: int
+    setup_complete: bool
+    language_chosen: bool
+    chromium_flags: list
+
+    @classmethod
+    def load(cls) -> "Config":
+        document = state.read(paths.CONFIG_FILE, "config", default=DEFAULTS)
+        merged = {**DEFAULTS, **document}
+        return cls(**{key: merged[key] for key in DEFAULTS})
+
+    def save(self) -> None:
+        state.write(paths.CONFIG_FILE, self.as_dict(), "config")
+
+    def as_dict(self) -> dict:
+        return {key: getattr(self, key) for key in DEFAULTS}

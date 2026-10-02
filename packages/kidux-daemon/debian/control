@@ -1,0 +1,49 @@
+Source: kidux-daemon
+Section: admin
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               pybuild-plugin-pyproject,
+               python3-all,
+               python3-setuptools,
+               dbus-daemon <!nocheck>,
+               pyflakes3 <!nocheck>,
+               python3-argon2 <!nocheck>,
+               python3-dbusmock <!nocheck>,
+               python3-gi <!nocheck>,
+               python3-kidux (>= 0.1.30) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-daemon
+Architecture: all
+Depends: ${misc:Depends},
+         ${python3:Depends},
+         udev,
+         adduser,
+         default-dbus-system-bus | dbus-system-bus,
+         iproute2,
+         iputils-ping,
+         iw,
+         passwd,
+         perl,
+         polkitd,
+         python3-argon2,
+         python3-evdev,
+         python3-gi,
+         python3-kidux (>= 0.1.30),
+         python3-pam,
+         systemd,
+Recommends: grub-common,
+Description: Kidux daemon: children, their time, and who may change them
+ Kidux is a Debian derivative for a child's first computer. This package is
+ the one part of it that runs with privileges: it keeps the family's settings,
+ creates and removes the children's accounts, checks the adult password, and
+ is the only thing that decides what a child may do.
+ .
+ Everything a child's session runs can eventually be stopped or changed by
+ the child, so nothing a child runs is trusted with any of that. The sign-in
+ screen, the lock screen and the adult panel all ask this daemon, and are
+ told yes or no.

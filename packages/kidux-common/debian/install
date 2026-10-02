@@ -1,0 +1,4 @@
+data/avatars/*.svg        usr/share/kidux/avatars
+data/branding/*.svg       usr/share/kidux/branding
+data/icons/*.svg          usr/share/kidux/icons
+debian/locale/*           usr/share/locale

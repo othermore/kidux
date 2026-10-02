@@ -1,0 +1,33 @@
+Source: kidux-module-turbowarp
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-turbowarp
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-webapps (>= 0.1.5),
+XB-Kidux-Name-en: TurboWarp
+XB-Kidux-Description-en: Scratch, made faster: the same blocks and the same projects, for a slower computer or when Scratch does not run well.
+XB-Kidux-Name-es: TurboWarp
+XB-Kidux-Description-es: Scratch, más rápido: los mismos bloques y los mismos proyectos, para un ordenador más lento o cuando Scratch no funciona bien.
+XB-Kidux-Ages: 8-16
+XB-Kidux-Before: scratchjr
+Description: Kidux learning module: TurboWarp, Scratch made faster
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is TurboWarp: Scratch's editor with a compiler that runs projects
+ many times faster, the same blocks and the same project files, for a
+ slower computer or when Scratch does not run well. It is served on this
+ computer and shown in Chromium, in the child's language. Its library of
+ characters, backdrops and sounds comes from the internet.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

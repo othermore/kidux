@@ -1,0 +1,34 @@
+#!/bin/sh
+# GCompris, as a child's learning module.
+#
+# The first time a child opens it, GCompris asks two questions in writing,
+# which a child who cannot read yet cannot answer: a welcome, and whether
+# to download its voices, word pictures and music. So before the first
+# start this gives GCompris a configuration in which both have been
+# answered, downloads on, and the version it last ran set to this one, so
+# that it does not show what is new in it either. Nothing else is set: the
+# language is the session's, and everything else is GCompris's own.
+#
+# The configuration is under the module's own XDG_CONFIG_HOME, which the
+# launcher gives it (modules.md, section 2), so removing the module removes
+# it; a configuration that is already there is never touched.
+#
+# GCompris starts in a window, --window, rather than asking for the whole
+# screen: the compositor gives it the room above the bar either way, and
+# labwc gives a window taken out of fullscreen a title bar (modules.md,
+# section 2).
+
+set -eu
+
+CONF="${XDG_CONFIG_HOME:-$HOME/.config}/gcompris/gcompris-qt.conf"
+
+if [ ! -e "$CONF" ]; then
+    # GCompris counts its versions as major * 10000 + minor * 100 + patch.
+    version="$(dpkg-query -W -f '${Version}' gcompris-qt 2>/dev/null | cut -d- -f1)"
+    number="$(printf '%s\n' "$version" | awk -F. '{ printf "%d", $1 * 10000 + $2 * 100 + $3 }')"
+    mkdir -p "$(dirname "$CONF")"
+    printf '[%%General]\nenableAutomaticDownloads=true\n\n[Internal]\nexeCount=1\nlastGCVersionRan=%s\n' \
+        "$number" > "$CONF"
+fi
+
+exec /usr/games/gcompris-qt --window "$@"

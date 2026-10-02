@@ -1,0 +1,67 @@
+#!/usr/bin/python3
+# The tests' stand-in module: a window that fills the screen, canary yellow,
+# saying "canary", and a note in $XDG_DATA_HOME/opened of what it could see
+# and reach from where it runs, one "name=value" a line:
+#   network   "reached" when the host's web server answered at all, or the
+#             name of what went wrong
+#   data      its XDG_DATA_HOME, the directory of its own it was given
+#   home      the files in the child's home, by name, comma-separated
+# and a line in $XDG_DATA_HOME/clicks for every press its window gets.
+# It also writes $HOME/canary-note.txt, a file in the child's home that every
+# module and the tests can see (D42), and stays open until it is ended.
+import os
+import urllib.error
+import urllib.request
+
+import gi
+
+gi.require_version("Gtk", "4.0")
+from gi.repository import Gio, Gtk  # noqa: E402
+
+try:
+    urllib.request.urlopen("http://10.0.2.2/", timeout=3)
+    network = "reached"
+except urllib.error.HTTPError:
+    network = "reached"
+except Exception as error:  # noqa: BLE001 — the name is the answer
+    network = type(error).__name__
+
+data = os.environ.get("XDG_DATA_HOME", "")
+home = os.path.expanduser("~")
+facts = {"network": network, "data": data,
+         "home": ",".join(sorted(n for n in os.listdir(home) if not n.startswith(".")))}
+if data:
+    with open(os.path.join(data, "opened"), "w") as note:
+        note.writelines(f"{name}={value}\n" for name, value in facts.items())
+with open(os.path.join(home, "canary-note.txt"), "w") as shared:
+    shared.write("written by the canary\n")
+
+def note_click(button: int) -> None:
+    """One line in $XDG_DATA_HOME/clicks for every press the window gets:
+    whether a click reaches a module through the compositor's bindings."""
+    if data:
+        with open(os.path.join(data, "clicks"), "a") as clicks:
+            clicks.write(f"click={button}\n")
+
+
+CSS = "window { background-color: #f5c518; } label { font-size: 120px; color: #24313f; }"
+
+
+def activate(application):
+    provider = Gtk.CssProvider()
+    provider.load_from_string(CSS)
+    window = Gtk.ApplicationWindow(application=application)
+    Gtk.StyleContext.add_provider_for_display(window.get_display(), provider,
+                                              Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    window.set_title("Canary")
+    window.set_child(Gtk.Label(label="canary"))
+    clicks = Gtk.GestureClick(button=0)
+    clicks.connect("pressed", lambda g, _n, _x, _y: note_click(g.get_current_button()))
+    window.add_controller(clicks)
+    window.present()
+
+
+application = Gtk.Application(application_id="org.kidux.tests.Canary",
+                              flags=Gio.ApplicationFlags.NON_UNIQUE)
+application.connect("activate", activate)
+application.run([])

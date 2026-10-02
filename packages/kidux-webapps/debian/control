@@ -1,0 +1,28 @@
+Source: kidux-webapps
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.26) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-webapps
+Architecture: all
+Depends: ${misc:Depends},
+         chromium,
+         chromium-l10n,
+         python3,
+         python3-kidux (>= 0.1.26),
+Description: Kidux web applications, for learning modules made of web pages
+ Kidux is a Debian derivative for a child's first computer. This package is
+ what learning modules made of web pages need: a small server that serves
+ them on this computer only, and Chromium, opened on one of them at a time
+ in a window with no tabs and no address bar, and held by a managed policy
+ to that server and nothing else, so a link out of a learning module leads
+ nowhere.
+ .
+ The policy applies to every use of Chromium on this computer.

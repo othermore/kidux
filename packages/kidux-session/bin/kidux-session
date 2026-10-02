@@ -1,0 +1,42 @@
+#!/bin/sh
+# A child's session, started by greetd as the child. docs/dev/session.md, section 3.
+#
+# Everything it needs to know — language, keyboard, display scale — arrives in
+# the environment from the sign-in screen, through greetd (D24). A child's
+# session never reads the family's state, and could not: it is closed to them.
+
+set -eu
+
+# The child's language arrives as KIDUX_LANGUAGE, not LANG: greetd opens the
+# session through Debian's login PAM stack, whose pam_env sets LANG from
+# /etc/default/locale after the greeter's variables are in, so a LANG from the
+# greeter would be replaced by the machine's. Applied here, after PAM, it holds
+# for every category and over any LANGUAGE preference list.
+if [ -n "${KIDUX_LANGUAGE:-}" ]; then
+    LANG="$KIDUX_LANGUAGE"
+    LC_ALL="$KIDUX_LANGUAGE"
+    export LC_ALL
+    unset LANGUAGE
+fi
+LANG="${LANG:-C.UTF-8}"
+export LANG
+
+export XDG_SESSION_TYPE=wayland
+export XDG_CURRENT_DESKTOP=kidux
+export XDG_SESSION_DESKTOP=kidux
+# The programs modules bring speak Wayland where they can; one made only for
+# X11 runs through XWayland, which labwc starts when it first connects (D58).
+export MOZ_ENABLE_WAYLAND=1
+export GDK_BACKEND=wayland
+export QT_QPA_PLATFORM=wayland
+export SDL_VIDEODRIVER=wayland
+
+# labwc, with Kidux's configuration and no other (D58): the kiosk, or the
+# desk for a child whose modules open in windows (D46). It starts the
+# launcher through session-inner, and binds no key but Super, Alt+Tab and
+# Alt+F4.
+configuration=/usr/share/kidux/labwc/kiosk
+if [ "${KIDUX_WINDOWS:-}" = "1" ]; then
+    configuration=/usr/share/kidux/labwc/desk
+fi
+exec labwc -C "$configuration" -s "/usr/lib/kidux/session-inner --keep-running /usr/libexec/kidux-launcher"

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kidux avatar: Whale. Flat shapes on a filled circle, so it stays legible
+     down to the 48 px the launcher shows it at. No gradients, no strokes
+     thinner than 2 units, no text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Whale">
+  <circle cx="60" cy="60" r="60" fill="#cdeaf5"/>
+  <path d="M60 32 C86 32 100 50 100 70 C100 90 82 102 60 102 C38 102 20 90 20 70 C20 50 34 32 60 32 Z" fill="#3d8fb5"/>
+  <path d="M60 68 C78 68 92 76 92 86 C92 95 78 102 60 102 C42 102 28 95 28 86 C28 76 42 68 60 68 Z" fill="#e8f6fc"/>
+  <circle cx="44" cy="58" r="7" fill="#fdf6f0"/>
+  <circle cx="76" cy="58" r="7" fill="#fdf6f0"/>
+  <circle cx="44" cy="58" r="4" fill="#1f3d4d"/>
+  <circle cx="76" cy="58" r="4" fill="#1f3d4d"/>
+  <path d="M46 82 Q60 92 74 82" stroke="#3d8fb5" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M52 26 Q60 12 68 26" stroke="#9ed4ea" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,269 @@
+kidux-daemon (0.3.31) trixie; urgency=medium
+
+  * The maintainer's address is info@kidux.org.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 02 Oct 2026 09:00:41 +0200
+
+kidux-daemon (0.3.30) trixie; urgency=medium
+
+  * Kidux's own files are under the Business Source License 1.1
+    (debian/copyright); what the package carries of others keeps its licence.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 22:41:30 +0200
+
+kidux-daemon (0.3.29) trixie; urgency=medium
+
+  * How long Unlock to save lasts is a machine setting, save_minutes, five
+    minutes unless it says otherwise.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 10:00:38 +0200
+
+kidux-daemon (0.3.28) trixie; urgency=medium
+
+  * Two settings, idle_lock_minutes and screen_off_minutes, replace the panel
+    timeout, which follows the first; Access1.LockFor locks a child's own
+    session for idleness or its lid, refusing a lock for idleness right after
+    the session was continued.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 30 Sep 2026 16:12:52 +0200
+
+kidux-daemon (0.3.27) trixie; urgency=medium
+
+  * The Network page names a Wi-Fi ifupdown set up with iw, not wpa_cli, whose
+    answer never reached the daemon's private /tmp: the page answers at once.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 07:53:32 +0200
+
+kidux-daemon (0.3.26) trixie; urgency=medium
+
+  * Network1.Check waits for the Wi-Fi scan, so the page reads a fresh list.
+  * A WPA password is 8 to 63 bytes, as NetworkManager counts it: accents
+    allowed.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 21:36:56 +0200
+
+kidux-daemon (0.3.25) trixie; urgency=medium
+
+  * System1.Versions: every Kidux package installed and its version, for the
+    sign-in screen and the panel.
+  * The modules on offer say the archive's version.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 13:36:13 +0200
+
+kidux-daemon (0.3.24) trixie; urgency=medium
+
+  * Network1: the machine's connections, the router's answer, and the Wi-Fi
+    networks in reach, for the adult panel; a network joined through a
+    connection file of NetworkManager's own, its password never on a command
+    line, and forgotten (D62).
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 13:15:23 +0200
+
+kidux-daemon (0.3.23) trixie; urgency=medium
+
+  * Name the compositor, not sway, where a locked session's end is explained.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 18:28:33 +0200
+
+kidux-daemon (0.3.22) trixie; urgency=medium
+
+  * A grant always gives its minutes: below what was used today, after the
+    allowance was cut or on a day unticked since, the difference is covered
+    first.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 15:00:13 +0200
+
+kidux-daemon (0.3.21) trixie; urgency=medium
+
+  * Say each module's ages and the modules best done first, from its manifest
+    or its package's fields.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 12:21:09 +0200
+
+kidux-daemon (0.3.20) trixie; urgency=medium
+
+  * A child's time is for the days of the week an adult ticks: on the others,
+    only what an adult gives that day, and CheckAccess answers day_off.
+  * A grant in unlimited mode is for its day, like one in daily mode.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 11:05:04 +0200
+
+kidux-daemon (0.3.19) trixie; urgency=medium
+
+  * More of Chromium's flags refused: the sandbox in part, the web's rules,
+    other ways to the network.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 09:56:56 +0200
+
+kidux-daemon (0.3.18) trixie; urgency=medium
+
+  * A child's profile has windows: whether their modules open in windows they
+    move and resize.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 23:29:43 +0200
+
+kidux-daemon (0.3.17) trixie; urgency=medium
+
+  * Chromium's flags for this machine, an advanced setting the panel sets,
+    checked and written where kidux-webapp reads them.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 22:41:33 +0200
+
+kidux-daemon (0.3.16) trixie; urgency=medium
+
+  * Access1.SetTimeLeft: an adult sets what a child has left today, zero
+    included, which locks a session up at once.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 22:02:05 +0200
+
+kidux-daemon (0.3.15) trixie; urgency=medium
+
+  * The display scale is automatic, 0, until an adult chooses one.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 21:04:42 +0200
+
+kidux-daemon (0.3.14) trixie; urgency=medium
+
+  * Modules the archive offers are named and described in the machine's
+    language, from their packages' fields.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 19:40:28 +0200
+
+kidux-daemon (0.3.13) trixie; urgency=medium
+
+  * The tests keep the update job's status file in their own directory.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 18:09:54 +0200
+
+kidux-daemon (0.3.12) trixie; urgency=medium
+
+  * Say which modules the archive offers, and install and remove one by its
+    id through the update job, never while a child has a session.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 14:11:26 +0200
+
+kidux-daemon (0.3.11) trixie; urgency=medium
+
+  * Wake the input devices once a session has the screen back after the
+    lock screen, so that the first key a child presses reaches the
+    window; never take a session ended on purpose for an abandoned one.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 08:39:23 +0200
+
+kidux-daemon (0.3.10) trixie; urgency=medium
+
+  * End a locked session that has lost its compositor while frozen, as
+    greetd stopping leaves one under sway: thaw it, stop its scope and
+    take its lock screen down.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 00:52:35 +0200
+
+kidux-daemon (0.3.9) trixie; urgency=medium
+
+  * Count only a session someone is in as signed in, end a child's user
+    manager before deleting them, and thaw a locked session before the
+    machine powers off or the daemon stops.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 16:59:24 +0200
+
+kidux-daemon (0.3.8) trixie; urgency=medium
+
+  * Freeze the child's user manager with their session under the lock
+    screen, so that an open module is stopped too, and thaw it when the
+    session goes or a new one starts.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 13:50:57 +0200
+
+kidux-daemon (0.3.6) trixie; urgency=medium
+
+  * List every installed module with whether it is enabled for the
+    child, and let an adult switch one on or off, audited.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 11:08:40 +0200
+
+kidux-daemon (0.3.5) trixie; urgency=medium
+
+  * Start no session while an update is being installed.
+  * Keep the update job's runtime directory closed to children.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 08:08:28 +0200
+
+kidux-daemon (0.3.4) trixie; urgency=medium
+
+  * Record no detail for a check that found updates.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 01:15:49 +0200
+
+kidux-daemon (0.3.3) trixie; urgency=medium
+
+  * Look for updates and install them for the adult panel, in a unit of
+    their own that survives the daemon being restarted by the update.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 00:38:07 +0200
+
+kidux-daemon (0.3.2) trixie; urgency=medium
+
+  * End the session when the lock screen's unit cannot be started at all,
+    as when it does not start in time.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 22:42:44 +0200
+
+kidux-daemon (0.3.1) trixie; urgency=medium
+
+  * Rebuild with every file time clamped to the changelog's date, as every
+    build now is.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 10:48:49 +0200
+
+kidux-daemon (0.3.0) trixie; urgency=medium
+
+  * Check the adult password before asking PAM about the child's, so an
+    adult's password is never logged as a failed attempt at a child's
+    account nor made to wait for pam_faildelay.
+  * Add SetConfig, GetRecoveryPassword and Grant, for the first-run wizard
+    and the adult panel.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 08:48:29 +0200
+
+kidux-daemon (0.2.1) trixie; urgency=medium
+
+  * Take the lock screen down when a locked session ends by itself, such
+    as when greetd restarts. It stayed up with nothing behind it.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 00:31:29 +0200
+
+kidux-daemon (0.2.0) trixie; urgency=medium
+
+  * Access control and time: unlimited, daily and manual modes, a bank of
+    granted time, the day changing at four in the morning and never going
+    backwards, warnings at ten, five and one minute.
+  * Sessions are learnt from logind and counted by the daemon, so nothing a
+    child runs can stop the clock.
+  * The lock: a lock screen on its own terminal, the seat switched to it, the
+    child's session frozen underneath; the session is ended instead if logind
+    does not confirm the switch.
+  * An adult can give more time, unlock briefly so the child can save, or log
+    the child out; the child can continue with their own password.
+  * The power button and Ctrl+Alt+Escape always bring up a trusted screen.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 22 Sep 2026 23:05:45 +0200
+
+kidux-daemon (0.1.1) trixie; urgency=medium
+
+  * Depend on perl: deluser needs it to remove a child's home directory, and
+    without it deleting a child fails on a minimal installation.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 22 Sep 2026 22:52:09 +0200
+
+kidux-daemon (0.1.0) trixie; urgency=medium
+
+  * Initial release: the one privileged process in Kidux.
+  * The adult password, stored as an argon2id hash, and adult-panel tokens
+    bound to the connection that unlocked.
+  * Children: create, delete, change their profile and password.
+  * polkit actions and rules deciding who may call what, and the daemon's
+    own checks on which child a call may touch.
+  * First boot: the state directory, the GRUB recovery password, and every
+    administrator made an adult of the family's state.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 22 Sep 2026 22:46:30 +0200

@@ -1,0 +1,14 @@
+# Blockly Games, puzzles with blocks: a program that is not in Debian, built
+# at development time from its repository (upstream.toml, D68) and served by
+# kidux-webapps under /blockly-games/ (modules.md, section 5).
+id = "blockly-games"
+version = "0+git20240513.2"
+name = "Blockly Games"
+description = "Puzzles with blocks: a maze, a bird, a turtle, a movie and music, one step harder each time."
+min_age = 6
+max_age = 12
+recommended_before = ["scratchjr"]
+launch = { webapp = "blockly-games" }
+categories = ["programming"]
+i18n_domain = "kidux-module-blockly-games"
+memory_max = "2G"

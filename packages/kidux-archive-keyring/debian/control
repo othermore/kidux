@@ -1,0 +1,35 @@
+Source: kidux-archive-keyring
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-archive-keyring
+Architecture: all
+Depends: ${misc:Depends}
+Description: GnuPG key for the Kidux archive
+ Kidux is a Debian derivative for a child's first computer. Its packages are
+ distributed through an apt archive of its own, signed with the key this package
+ installs into /usr/share/keyrings.
+ .
+ The key on its own changes nothing. It is what lets apt tell a real Kidux
+ package from anything else claiming to be one. Install kidux-apt-source
+ alongside it to actually use the archive.
+
+Package: kidux-apt-source
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-archive-keyring,
+Description: apt source for the Kidux archive
+ Kidux is a Debian derivative for a child's first computer, distributed through
+ an apt archive of its own.
+ .
+ This package points apt at that archive and tells it to accept only packages
+ signed with the Kidux key, which kidux-archive-keyring installs. Together they
+ are the one thing that has to be installed by hand: nothing else in Kidux can
+ be verified until they are present.
+ .
+ It ships a separate package from the key because a package that adds an apt
+ source has to say so in its name.

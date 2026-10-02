@@ -1,0 +1,62 @@
+#!/usr/bin/python3
+# The tests' X11 stand-in module: a Tk window, which has no Wayland and so
+# runs through XWayland, orange, saying "x11 canary", with WM_CLASS
+# x11-canary, the app_id its manifest claims. Under the name, what shows
+# whether the display scale blurs an X11 program (D59): text in several
+# faces and sizes, small ones included, and a drawing of one-pixel lines,
+# which is what an owner looks at on a real screen (phase-3-plan.md, step
+# 3.21). It writes $XDG_DATA_HOME/opened with the X display it was given, a
+# line in $XDG_DATA_HOME/clicks for every press its window gets, and stays
+# open until it is ended.
+import os
+import tkinter
+
+ORANGE = "#e8603c"
+INK = "#24313f"
+
+data = os.environ.get("XDG_DATA_HOME", "")
+if data:
+    with open(os.path.join(data, "opened"), "w") as note:
+        note.write(f"display={os.environ.get('DISPLAY', '')}\n")
+
+root = tkinter.Tk(className="x11-canary")
+root.title("X11 canary")
+root.configure(background=ORANGE)
+tkinter.Label(root, text="x11 canary", font=("DejaVu Sans", 48), fg=INK,
+              background=ORANGE).pack(pady=(24, 8))
+
+# Text to judge the blur by: the faces a module would use, at the sizes a
+# child reads, the small ones first to fail.
+SAMPLES = (
+    ("DejaVu Sans", 9), ("DejaVu Sans", 11), ("DejaVu Sans", 14), ("DejaVu Sans", 18),
+    ("DejaVu Serif", 11), ("DejaVu Serif", 14),
+    ("DejaVu Sans Mono", 10), ("DejaVu Sans Mono", 13),
+)
+for face, size in SAMPLES:
+    tkinter.Label(root, text=f"{face} {size}: the quick brown fox jumps over the lazy dog 0123456789",
+                  font=(face, size), fg=INK, background=ORANGE, anchor="w").pack(fill="x", padx=48)
+
+# One-pixel lines and a checkerboard: sharp at a whole scale, soft at 175 %.
+canvas = tkinter.Canvas(root, width=360, height=72, background=ORANGE, highlightthickness=0)
+for x in range(0, 120, 2):
+    canvas.create_line(x, 0, x, 72, fill=INK)
+for y in range(0, 72, 2):
+    canvas.create_line(120, y, 240, y, fill=INK)
+for x in range(240, 360, 4):
+    for y in range(0, 72, 4):
+        if (x // 4 + y // 4) % 2 == 0:
+            canvas.create_rectangle(x, y, x + 4, y + 4, fill=INK, outline="")
+canvas.pack(pady=(12, 24))
+
+# No size of its own: Tk makes the window as large as the text and the
+# drawing, so that none of them is cut where labwc does not maximise it.
+
+
+def note_click(event):
+    if data:
+        with open(os.path.join(data, "clicks"), "a") as clicks:
+            clicks.write(f"click={event.num}\n")
+
+
+root.bind("<Button>", note_click)
+root.mainloop()

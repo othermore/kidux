@@ -1,0 +1,17 @@
+# greetd's configuration on a Kidux machine. greetd is pointed here by
+# greetd.service.d/kidux.conf rather than its own /etc/greetd/config.toml,
+# which belongs to the greetd package.
+
+[general]
+# Not ~/.profile: a child's home is theirs to write (D17), and what they write
+# there must not change how their session starts.
+source_profile = false
+
+[terminal]
+vt = 7
+
+# The sign-in screen. There is no initial_session: nobody is ever signed in
+# automatically (D10).
+[default_session]
+command = "/usr/lib/kidux/greeter-session"
+user = "_greetd"

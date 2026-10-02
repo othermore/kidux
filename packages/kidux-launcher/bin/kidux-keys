@@ -1,0 +1,28 @@
+#!/usr/bin/python3
+"""What a laptop's keys do in a child's session (D61): run by labwc's keybinds, as the child.
+
+    kidux-keys brightness up|down     the screen's backlight, a step, never
+                                      below the floor that keeps it visible
+    kidux-keys keyboard up|down       the keyboard's light, a step
+    kidux-keys volume up|down|mute    the sound, a step; mute toggles, and a
+                                      step while muted unmutes first
+
+On a machine without the thing, nothing happens. The launcher's indicators
+read the levels again a moment later. The trusted screens do the same
+through `kidux.hardware.key`, under cage, which binds no key.
+"""
+
+import sys
+
+from kidux import hardware
+
+
+def main(argv: list[str]) -> int:
+    if len(argv) != 3 or not hardware.key(argv[1], argv[2]):
+        print(__doc__, file=sys.stderr)
+        return 2
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

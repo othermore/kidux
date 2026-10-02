@@ -1,0 +1,19 @@
+kidux-module-blockly-games (0+git20240513.2) trixie; urgency=medium
+
+  * The maintainer's address is info@kidux.org.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 02 Oct 2026 09:00:41 +0200
+
+kidux-module-blockly-games (0+git20240513.1) trixie; urgency=medium
+
+  * Kidux's own files are under the Business Source License 1.1
+    (debian/copyright); what the package carries of others keeps its licence.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 22:41:30 +0200
+
+kidux-module-blockly-games (0+git20240513) trixie; urgency=medium
+
+  * Blockly Games as a learning module, built from its repository for use
+    without the internet and served by kidux-webapps under /blockly-games/.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 30 Sep 2026 19:07:53 +0200

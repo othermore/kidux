@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The time a child has left, drawn as Kidux's other small pictures are:
+     the bar's ink, and the sand in the logo's orange. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g fill="none" stroke="#3b2f2a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 3h14M5 21h14"/>
+    <path d="M7 3c0 5 3.5 6.5 5 9c1.5-2.5 5-4 5-9"/>
+    <path d="M7 21c0-5 3.5-6.5 5-9c1.5 2.5 5 4 5 9"/>
+  </g>
+  <path d="M9 20c0-2.6 1.8-3.8 3-5c1.2 1.2 3 2.4 3 5z" fill="#f0a030"/>
+</svg>

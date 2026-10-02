@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hello</title>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { background: #fff6e9; color: #3b2f2a; font-family: "Andika", sans-serif;
+         font-size: 24px; display: flex; align-items: center; justify-content: center; }
+  main { max-width: 40em; padding: 2em; }
+  h1 { font-size: 40px; margin: 0 0 0.6em; }
+  p { line-height: 1.5; margin: 0 0 0.8em; }
+  .elsewhere { color: #7a6a60; font-size: 20px; }
+  a { color: #3a86ff; }
+  button { font: inherit; font-weight: bold; color: #fff; background: #3584e4;
+           border: none; border-radius: 18px; min-height: 64px; min-width: 160px;
+           margin: 0.6em 0.4em 0 0; }
+  button:focus-visible, a:focus-visible { outline: 4px solid #24313f; outline-offset: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="heading"></h1>
+  <div id="paragraphs"></div>
+  <p class="elsewhere"><span id="closed"></span>
+    <a id="elsewhere" href="https://www.debian.org/"></a></p>
+  <button id="save"></button>
+  <button id="done" autofocus></button>
+</main>
+<script>
+  "use strict";
+  const PAGES = @PAGES@;
+  const asked = new URLSearchParams(window.location.search).get("lang") || "en";
+  const page = PAGES[asked] || PAGES["en"];
+  document.documentElement.lang = PAGES[asked] ? asked : "en";
+  document.title = page.heading;
+  document.getElementById("heading").textContent = page.heading;
+  const paragraphs = document.getElementById("paragraphs");
+  for (const text of page.paragraphs) {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = text;
+    paragraphs.appendChild(paragraph);
+  }
+  document.getElementById("closed").textContent = page.words.closed;
+  document.getElementById("elsewhere").textContent = page.words.elsewhere;
+  const done = document.getElementById("done");
+  done.textContent = page.words.done;
+  done.addEventListener("click", () => window.close());
+  // Save keeps the page as a file, as Scratch saves a project: made in the
+  // page, at a blob: address, and downloaded into the child's Downloads.
+  const save = document.getElementById("save");
+  save.textContent = page.words.save;
+  save.addEventListener("click", () => {
+    const text = [page.heading, ...page.paragraphs].join("\n\n") + "\n";
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(new Blob([text], { type: "text/plain" }));
+    link.download = page.words.file + ".txt";
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 10000);
+  });
+  done.focus();
+  // Back from somewhere else, the page is shown again as it was left, the
+  // focus on the link: Done has it again.
+  window.addEventListener("pageshow", () => done.focus());
+</script>
+</body>
+</html>

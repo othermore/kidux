@@ -1,0 +1,9 @@
+# A keyboard's light belongs to group video, as the screen's backlight does:
+# brightnessctl, which Kidux sets both through, writes /sys itself, and its
+# own rule (90-brightnessctl.rules) gives a light to group input, which reads
+# every keyboard and which no child is in. A child and the trusted screens,
+# both in video, set the light with the keys and the corner's slider (D61).
+# After brightnessctl's rule, and on change too, so that a trigger applies it.
+ACTION=="add|change", SUBSYSTEM=="leds", KERNEL=="*kbd_backlight*", \
+    RUN+="/usr/bin/chgrp video /sys/class/leds/%k/brightness", \
+    RUN+="/usr/bin/chmod g+w /sys/class/leds/%k/brightness"

@@ -1,0 +1,349 @@
+kidux-common (0.1.52) trixie; urgency=medium
+
+  * The maintainer's address is info@kidux.org.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 02 Oct 2026 09:00:41 +0200
+
+kidux-common (0.1.51) trixie; urgency=medium
+
+  * Kidux's own files are under the Business Source License 1.1
+    (debian/copyright); what the package carries of others keeps its licence.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 22:41:30 +0200
+
+kidux-common (0.1.50) trixie; urgency=medium
+
+  * No change from 0.1.48, numbered above the development builds of 0.1.49
+    that machines following the testing suite may have.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 17:01:15 +0200
+
+kidux-common (0.1.48) trixie; urgency=medium
+
+  * The catalogue says Chromium's options serve ScratchJr too.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 14:47:56 +0200
+
+kidux-common (0.1.47) trixie; urgency=medium
+
+  * The catalogue has the Modules page's words: how its lists are ordered, and
+    the box that finds a module.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 13:35:42 +0200
+
+kidux-common (0.1.46) trixie; urgency=medium
+
+  * The catalogues follow the greeter's code where its words are.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 30 Sep 2026 20:56:10 +0200
+
+kidux-common (0.1.45) trixie; urgency=medium
+
+  * kidux.idle: what kidux-idle decides for a screen left alone; the client
+    asks the daemon to lock a session for idleness or its lid.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 30 Sep 2026 16:12:52 +0200
+
+kidux-common (0.1.44) trixie; urgency=medium
+
+  * An hourglass, for the time a child has left (paths.HOURGLASS).
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 20:11:51 +0200
+
+kidux-common (0.1.43) trixie; urgency=medium
+
+  * The panel on the sign-in screen says a change applies when it closes,
+    in both languages.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 18:57:00 +0200
+
+kidux-common (0.1.42) trixie; urgency=medium
+
+  * kidux.screen.compact_corner: the corner is compact on a screen narrower
+    than 1200 logical pixels.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 16:12:17 +0200
+
+kidux-common (0.1.41) trixie; urgency=medium
+
+  * kidux.scroll: an area that scrolls where its content does not fit, and
+    shows it, with a scrollbar always drawn and a shade along the edge that
+    has more.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 14:22:07 +0200
+
+kidux-common (0.1.40) trixie; urgency=medium
+
+  * kidux.corner, the corner of a laptop's battery, brightness, keyboard light
+    and sound, shared by the launcher and the greeter; its words in
+    kidux.vocabulary.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 10:36:12 +0200
+
+kidux-common (0.1.39) trixie; urgency=medium
+
+  * A key that changed a level touches the session's levels file, which a
+    corner watches to show it at once.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 09:52:36 +0200
+
+kidux-common (0.1.38) trixie; urgency=medium
+
+  * kidux.hardware logs a program that fails, with what it said.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 09:11:01 +0200
+
+kidux-common (0.1.37) trixie; urgency=medium
+
+  * kidux.hardware.key: what each of a laptop's keys does, for kidux-keys and
+    the trusted screens alike; which outputs are the laptop's own panel.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 16:23:27 +0200
+
+kidux-common (0.1.36) trixie; urgency=medium
+
+  * The words of the list of Chromium's options, in Spanish.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 15:37:23 +0200
+
+kidux-common (0.1.35) trixie; urgency=medium
+
+  * A module's version is read from its manifest, and the client asks the
+    daemon for the Kidux packages' versions.
+  * The words of the versions, in Spanish.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 13:36:13 +0200
+
+kidux-common (0.1.34) trixie; urgency=medium
+
+  * The client asks the daemon about the network, joins and forgets a Wi-Fi
+    (D62).
+  * The words of the panel's Network page, in Spanish.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 13:15:23 +0200
+
+kidux-common (0.1.33) trixie; urgency=medium
+
+  * kidux.hardware: what the machine has, a battery, a backlight, a keyboard
+    light, a lid, and how its keys are written on a Mac or a PC (D61).
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 10:39:05 +0200
+
+kidux-common (0.1.32) trixie; urgency=medium
+
+  * A manifest says what its windows are called, app_ids, and a web
+    application's is Chromium's.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 18:28:33 +0200
+
+kidux-common (0.1.31) trixie; urgency=medium
+
+  * The automatic scale is the largest quarter that leaves the screen roomy,
+    1600x960: 1.75 on a 2880x1800 panel.
+  * Read the screen's mode session-inner exports, and a display's physical
+    size.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 16:16:39 +0200
+
+kidux-common (0.1.30) trixie; urgency=medium
+
+  * Read the modules a manifest names as best done first.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 12:21:09 +0200
+
+kidux-common (0.1.29) trixie; urgency=medium
+
+  * Carry lists of true and false over the bus, so a policy's days travel.
+  * Add the sign-in screen's words for a day of the week not ticked.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 11:05:04 +0200
+
+kidux-common (0.1.28) trixie; urgency=medium
+
+  * The automatic display scale says it is the default.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 09:56:56 +0200
+
+kidux-common (0.1.27) trixie; urgency=medium
+
+  * A module's manifest may say needs_windows; the words for windows, in
+    Spanish.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 23:29:43 +0200
+
+kidux-common (0.1.26) trixie; urgency=medium
+
+  * paths.CHROMIUM_FLAGS, the machine's flags for Chromium; the panel's words
+    for them, in Spanish.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 22:41:33 +0200
+
+kidux-common (0.1.25) trixie; urgency=medium
+
+  * The client sets a child's time left; the panel's words for it, in Spanish.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 22:02:05 +0200
+
+kidux-common (0.1.24) trixie; urgency=medium
+
+  * kidux.screen: the automatic display scale, and what a roomy screen is.
+  * The word Automatic, in Spanish.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 21:04:42 +0200
+
+kidux-common (0.1.23) trixie; urgency=medium
+
+  * The launcher's words for closing a module, in Spanish.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 18:41:39 +0200
+
+kidux-common (0.1.22) trixie; urgency=medium
+
+  * A module's test reads no catalogue the machine has installed.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 18:09:54 +0200
+
+kidux-common (0.1.21) trixie; urgency=medium
+
+  * Ask the daemon which modules the archive offers, and install and remove
+    them.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 14:11:26 +0200
+
+kidux-common (0.1.20) trixie; urgency=medium
+
+  * Translate the launcher's Home.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 23:34:57 +0200
+
+kidux-common (0.1.19) trixie; urgency=medium
+
+  * Drop needs_network from the manifests: whether a module opens the
+    web is what the module is, not a field.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 22:27:13 +0200
+
+kidux-common (0.1.18) trixie; urgency=medium
+
+  * Translate the panel's note that a module uses the internet.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 18:34:25 +0200
+
+kidux-common (0.1.17) trixie; urgency=medium
+
+  * Translate the sentence the launcher shows when a module does not
+    open.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 13:03:51 +0200
+
+kidux-common (0.1.16) trixie; urgency=medium
+
+  * Read the learning modules' manifests in one place, kidux.modules,
+    for the daemon, the launcher and the panel, and switch a module on
+    or off for a child.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 11:08:40 +0200
+
+kidux-common (0.1.15) trixie; urgency=medium
+
+  * Say how much time a child has left in words meant for the adult, and
+    drop the word of the button that adds minutes: the screens use "Add".
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 10:22:58 +0200
+
+kidux-common (0.1.13) trixie; urgency=medium
+
+  * Say that the computer is being updated, and translate the minutes a
+    day and the button that gives them.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 08:37:27 +0200
+
+kidux-common (0.1.11) trixie; urgency=medium
+
+  * Ask the daemon for updates, and translate the panel's words for them.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 00:38:07 +0200
+
+kidux-common (0.1.10) trixie; urgency=medium
+
+  * Follow the adult panel's strings to where they now are.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 00:00:06 +0200
+
+kidux-common (0.1.9) trixie; urgency=medium
+
+  * Translate the adult panel's forms into Spanish.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 23:47:40 +0200
+
+kidux-common (0.1.8) trixie; urgency=medium
+
+  * Give every state file and the audit trail, and the directories on the
+    way, to the kidux-admin group, so that administrators can read them.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 22:42:44 +0200
+
+kidux-common (0.1.7) trixie; urgency=medium
+
+  * Give the Python metadata the package's own version.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 12:53:18 +0200
+
+kidux-common (0.1.6) trixie; urgency=medium
+
+  * Rebuild with every file time clamped to the changelog's date, as every
+    build from now on is.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 10:09:45 +0200
+
+kidux-common (0.1.5) trixie; urgency=medium
+
+  * Ship Kidux's logo and mascot in /usr/share/kidux/branding, for every
+    screen that shows them.
+  * Translate the launcher's words.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 09:29:15 +0200
+
+kidux-common (0.1.4) trixie; urgency=medium
+
+  * Translate the words of the first-run wizard and the adult panel.
+  * Break kidux-greeter before 0.2.0, which uses a word of the vocabulary
+    that 0.1.3 renamed.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 08:58:45 +0200
+
+kidux-common (0.1.3) trixie; urgency=medium
+
+  * Add the client calls the first-run wizard and the adult panel make.
+  * Say things the way a child or an adult would say them, in both languages.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 08:48:29 +0200
+
+kidux-common (0.1.2) trixie; urgency=medium
+
+  * Add kidux.i18n.translations(), for the sign-in screen, which changes
+    language when a child is tapped.
+  * Add the words the sign-in and lock screens share with the panel, in
+    English and Spanish.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 00:06:49 +0200
+
+kidux-common (0.1.1) trixie; urgency=medium
+
+  * Redraw the whale and the rabbit. Rendered at the 48 px a launcher tile
+    shows, the whale read as a blue blob and the rabbit's face disappeared
+    into its own background. Both now carry at that size, which is the size
+    that matters: the avatar is how a child who cannot yet read finds their
+    own row.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 22 Sep 2026 21:47:00 +0200
+
+kidux-common (0.1.0) trixie; urgency=medium
+
+  * Initial release: the Python library every other Kidux package builds on.
+  * State files in TOML, written atomically and carrying a schema version.
+  * The i18n foundation and the shared vocabulary, so the same word reaches
+    every screen and is translated once.
+  * The D-Bus client for the daemon, and the shipped avatar set.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 22 Sep 2026 21:20:00 +0200

@@ -1,0 +1,64 @@
+kidux-base (0.2.5) trixie; urgency=medium
+
+  * The maintainer's address is info@kidux.org.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 02 Oct 2026 09:00:41 +0200
+
+kidux-base (0.2.4) trixie; urgency=medium
+
+  * Kidux's own files are under the Business Source License 1.1
+    (debian/copyright); what the package carries of others keeps its licence.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 22:41:30 +0200
+
+kidux-base (0.2.3) trixie; urgency=medium
+
+  * Recommend firmware-linux, the free and the non-free firmware together, so
+    that a machine's graphics card and Wi-Fi have what they need whichever
+    they are.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 13:26:55 +0200
+
+kidux-base (0.2.2) trixie; urgency=medium
+
+  * Depend on NetworkManager and wpasupplicant: the adult panel's Network page
+    joins a Wi-Fi through them (D62).
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 13:15:23 +0200
+
+kidux-base (0.2.1) trixie; urgency=medium
+
+  * Rebuild with every file time clamped to the changelog's date, as every
+    build now is.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 10:48:49 +0200
+
+kidux-base (0.2.0) trixie; urgency=medium
+
+  * Pull in kidux-session: installing Kidux now makes the machine boot into
+    the Kidux sign-in screen.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 00:07:16 +0200
+
+kidux-base (0.1.2) trixie; urgency=medium
+
+  * Depend on kidux-daemon, so that installing Kidux brings the process that
+    keeps the family's settings and decides what each child may do.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 22 Sep 2026 22:48:41 +0200
+
+kidux-base (0.1.1) trixie; urgency=medium
+
+  * Depend on python3-kidux, so that installing kidux-base brings the library
+    every other Kidux component is built on.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 22 Sep 2026 21:30:00 +0200
+
+kidux-base (0.1.0) trixie; urgency=medium
+
+  * Initial release: the metapackage that turns a Debian install into Kidux.
+  * Generate every locale Kidux ships in, so a child's language is available
+    whatever the installer left behind.
+  * Accept unattended upgrades from the Kidux stable suite.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 22 Sep 2026 20:45:00 +0200

@@ -1,0 +1,17 @@
+# The Kidux package archive.
+#
+# Kidux serves its own packages from here. The archive is signed, so it is
+# fetched over plain HTTP like any Debian mirror: apt verifies the signature on
+# the Release file, and the Signed-By line below means it accepts nothing else.
+#
+# While Kidux is in development the archive lives on the maintainer's machine and
+# is reachable on the local network only.
+#
+# An adult may edit this file. Switching Suites to "testing" gets packages that
+# have not been released yet; that is for people helping to develop Kidux, not
+# for a child's computer.
+Types: deb
+URIs: http://kidux.local/apt
+Suites: stable
+Components: main
+Signed-By: /usr/share/keyrings/kidux-archive-keyring.pgp

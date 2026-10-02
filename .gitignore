@@ -1,0 +1,33 @@
+# Build output. Everything here is reproducible from the sources next to it.
+build/
+
+# dpkg-source writes the source package beside the tree it was built from,
+# so these land in packages/ rather than in build/.
+packages/*.dsc
+packages/*.tar.xz
+# A program built at development time is unpacked into its package's
+# upstream/ only in a staged copy under build/, never here (D68).
+packages/*/upstream/
+packages/*.buildinfo
+packages/*.changes
+chroot/
+cache/
+*.iso
+*.img
+*.log
+.DS_Store
+config/binary
+config/chroot
+
+# Python's byte-code caches, from running tests outside a build.
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Never commit a signing key's secret half.
+*.private.asc
+*.sec.asc
+secring.*
+
+# The launcher's protocol code, made from its XML when the package is built.
+packages/kidux-launcher/kidux_launcher/protocol/

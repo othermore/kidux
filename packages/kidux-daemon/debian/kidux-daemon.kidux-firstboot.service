@@ -1,0 +1,15 @@
+[Unit]
+Documentation=https://github.com/othermore/kidux/blob/main/docs/dev/daemon.md
+Description=Kidux first boot: state directory, recovery password, administrators
+# config.toml is written last, so an interrupted first boot runs again.
+ConditionPathExists=!/home/.kidux/config.toml
+After=local-fs.target
+Before=kidux-daemon.service greetd.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/libexec/kidux-firstboot
+
+[Install]
+WantedBy=multi-user.target

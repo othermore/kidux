@@ -1,0 +1,256 @@
+#!/usr/bin/python3
+# Talk to kidux-daemon as whoever runs this, on one connection, the way
+# the adult panel does. busctl cannot: every busctl is a new connection,
+# and a token is only good on the connection that unlocked.
+import sys
+
+from gi.repository import Gio, GLib
+
+BUS, PATH = "org.kidux.Daemon1", "/org/kidux/Daemon1"
+ADULT = "the adult password"
+bus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
+
+
+def fresh():
+    return Gio.DBusConnection.new_for_address_sync(
+        Gio.dbus_address_get_for_bus_sync(Gio.BusType.SYSTEM, None),
+        Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT
+        | Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION, None, None)
+
+
+def call(interface, method, signature=None, args=None, reply=None, connection=None):
+    name = BUS if interface == "Daemon1" else f"{BUS}.{interface}"
+    result = (connection or bus).call_sync(
+        BUS, PATH, name, method,
+        GLib.Variant(signature, args) if signature else None,
+        GLib.VariantType(reply) if reply else None,
+        Gio.DBusCallFlags.NONE, 20000, None)
+    return result.unpack() if result is not None else None
+
+
+def refused(expected, *call_args, **kwargs):
+    try:
+        call(*call_args, **kwargs)
+    except GLib.Error as error:
+        got = Gio.DBusError.get_remote_error(error)
+        if got == expected:
+            return
+        sys.exit(f"expected {expected}, got {got}")
+    sys.exit(f"expected {expected}, but the call was allowed")
+
+
+def unlock(connection=None):
+    return call("Parental1", "Unlock", "(s)", (ADULT,), "(s)", connection)[0]
+
+
+#: A picture each, so the pictures of the screens show them apart.
+AVATARS = {"leo": "owl", "marta": "fox", "zoe": "whale"}
+
+
+def create(token, username, name, connection=None):
+    """A child in the machine's language and keyboard once one was chosen
+    for it, as the panel's form offers; in Spanish on a machine where none
+    was, as the acceptance run's is."""
+    config = call("Daemon1", "GetConfig", reply="(a{sv})")[0]
+    language, keyboard = "es_ES.UTF-8", "es"
+    if config.get("language_chosen"):
+        language, keyboard = config["default_language"], config["default_keyboard"]
+    call("Children1", "Create", "(sssssss)",
+         (token, username, name, language, keyboard, AVATARS.get(username, "star"),
+          f"{username} password"),
+         connection=connection)
+
+
+action = sys.argv[1]
+if action == "setup":
+    if not call("Parental1", "IsPasswordSet", reply="(b)")[0]:
+        call("Parental1", "SetPassword", "(ss)", ("", ADULT))
+    token = unlock()
+    create(token, "marta", "Marta")
+    create(token, "leo", "Leo")
+elif action == "list":
+    print(" ".join(sorted(c["username"] for c in call("Children1", "List", reply="(aa{sv})")[0])))
+elif action == "reuse-token":
+    token = unlock(fresh())
+    refused("org.kidux.Daemon1.Error.NotUnlocked",
+            "Children1", "Delete", "(ssb)", (token, "leo", False), connection=fresh())
+elif action == "delete-admin":
+    refused("org.kidux.Daemon1.Error.NoSuchChild",
+            "Children1", "Delete", "(ssb)", (unlock(), sys.argv[2], False))
+elif action == "set-profile":
+    # One setting of a child's profile: set-profile leo windows on|off.
+    user, key, value = sys.argv[2], sys.argv[3], sys.argv[4]
+    variant = (GLib.Variant("b", value == "on") if value in ("on", "off")
+               else GLib.Variant("s", value))
+    call("Children1", "SetProfile", "(ssa{sv})", (unlock(), user, {key: variant}))
+elif action == "add":
+    create(unlock(), sys.argv[2], sys.argv[3])
+elif action == "delete":
+    call("Children1", "Delete", "(ssb)", (unlock(), sys.argv[2], False))
+elif action == "child-list":
+    refused("org.freedesktop.DBus.Error.AccessDenied", "Children1", "List", reply="(aa{sv})")
+elif action == "child-self":
+    call("Modules1", "List", "(s)", (sys.argv[2],), "(aa{sv})")
+elif action == "child-sibling":
+    refused("org.kidux.Daemon1.Error.NotAuthorized",
+            "Modules1", "List", "(s)", (sys.argv[2],), "(aa{sv})")
+elif action == "child-unlock":
+    refused("org.freedesktop.DBus.Error.AccessDenied",
+            "Parental1", "Unlock", "(s)", (ADULT,), "(s)")
+elif action == "set-policy":
+    # set-policy leo daily 60 [1111100]: the days, Monday first, 1 for a day
+    # ticked, as the audit writes them; left out, they stay as they are.
+    user, mode, minutes = sys.argv[2], sys.argv[3], int(sys.argv[4])
+    changes = {"mode": GLib.Variant("s", mode), "daily_minutes": GLib.Variant("i", minutes)}
+    if len(sys.argv) > 5:
+        changes["days"] = GLib.Variant("ab", [digit == "1" for digit in sys.argv[5]])
+    call("Access1", "SetPolicy", "(ssa{sv})", (unlock(), user, changes))
+elif action == "set-time-left":
+    # What a child has left today, as the panel sets it: set-time-left leo 5.
+    call("Access1", "SetTimeLeft", "(ssu)", (unlock(), sys.argv[2], int(sys.argv[3])))
+elif action == "grant":
+    password = sys.argv[4] if len(sys.argv) > 4 else ADULT
+    ok = call("Access1", "GrantExtraTime", "(ssu)",
+              (password, sys.argv[2], int(sys.argv[3])), "(b)")[0]
+    sys.exit(0 if ok else 1)
+elif action == "child-lock":
+    call("Access1", "Lock")
+elif action == "child-lock-for":
+    # The session locking itself, for "idle" or "lid" (D67); prints the
+    # error's name when the daemon refuses it.
+    try:
+        call("Access1", "LockFor", "(s)", (sys.argv[2],))
+    except GLib.Error as error:
+        print(Gio.DBusError.get_remote_error(error))
+        sys.exit(2)
+elif action == "continue":
+    ok = call("Access1", "ContinueSession", "(ss)", (sys.argv[2], sys.argv[3]), "(b)")[0]
+    sys.exit(0 if ok else 1)
+elif action == "end":
+    ok = call("Access1", "EndSession", "(ss)", (sys.argv[2], sys.argv[3]), "(b)")[0]
+    sys.exit(0 if ok else 1)
+elif action == "modules":
+    # Every installed module for one child, "id on" or "id off", a line each.
+    for entry in call("Modules1", "List", "(s)", (sys.argv[2],), "(aa{sv})")[0]:
+        print(entry["id"], "on" if entry["enabled"] else "off")
+elif action == "enable":
+    # Switch a module on or off for a child; prints the error's name and
+    # exits 2 when the daemon refuses.
+    try:
+        call("Modules1", "SetEnabled", "(sssb)",
+             (unlock(), sys.argv[2], sys.argv[3], sys.argv[4] == "on"))
+    except GLib.Error as error:
+        print(Gio.DBusError.get_remote_error(error))
+        sys.exit(2)
+elif action == "usage":
+    print(*call("Access1", "Usage", "(s)", (sys.argv[2],), "(ui)"))
+elif action == "check-access":
+    # What the sign-in screen is told for a child: "day_off 0".
+    print(*call("Access1", "CheckAccess", "(s)", (sys.argv[2],), "(si)"))
+elif action == "modules-available":
+    # Every module the archive offers, a line each: "id installed|available
+    # version ages first name", the ages as the package says them (4-8, 2-,
+    # -10), the modules best done first separated by commas, "-" for what is
+    # not there, and the name in the machine's language.
+    for entry in call("Modules1", "Available", reply="(aa{sv})")[0]:
+        ages = (f"{entry['min_age'] or ''}-{entry['max_age'] or ''}"
+                if entry["min_age"] or entry["max_age"] else "-")
+        print(entry["id"], "installed" if entry["installed"] else "available",
+              entry["version"] or "-", ages, ",".join(entry["before"]) or "-", entry["name"])
+elif action == "get-config":
+    # One setting of the machine's, as JSON: get-config default_language.
+    import json
+    print(json.dumps(call("Daemon1", "GetConfig", reply="(a{sv})")[0].get(sys.argv[2])))
+elif action == "set-config":
+    # One setting of the machine's, its value as JSON: set-config
+    # default_language '"es_ES.UTF-8"', set-config display_scale 2. Prints
+    # the error's name when the daemon refuses it.
+    import json
+    value = json.loads(sys.argv[3])
+    variant = (GLib.Variant("s", value) if isinstance(value, str)
+               else GLib.Variant("b", value) if isinstance(value, bool)
+               else GLib.Variant("i", value) if isinstance(value, int)
+               else GLib.Variant("d", float(value)) if isinstance(value, float)
+               else GLib.Variant("as", value))
+    try:
+        call("Daemon1", "SetConfig", "(sa{sv})", (unlock(), {sys.argv[2]: variant}))
+    except GLib.Error as error:
+        print(Gio.DBusError.get_remote_error(error))
+        sys.exit(2)
+elif action in ("check-updates", "apply-updates", "install", "remove"):
+    # One job, start to end: prints the outcome, the packages and any detail;
+    # exits 2 with the error's name when the daemon refuses to start it.
+    # install and remove take a module's id.
+    import time
+    token = unlock()
+    try:
+        if action in ("install", "remove"):
+            call("Modules1", action.capitalize(), "(ss)", (token, sys.argv[2]))
+        else:
+            method = "CheckUpdates" if action == "check-updates" else "ApplyUpdates"
+            call("System1", method, "(s)", (token,))
+    except GLib.Error as error:
+        print(Gio.DBusError.get_remote_error(error))
+        sys.exit(2)
+    for _ in range(900):
+        job, _fraction, _package, outcome, detail, packages = call(
+            "System1", "UpdateState", reply="(sdsssas)")
+        if job == "idle":
+            break
+        time.sleep(1)
+    print(outcome, ",".join(packages) or "-", detail)
+    sys.exit(0 if outcome in ("checked", "updated", "up-to-date", "restart-needed", "installed",
+                              "removed") else 1)
+elif action == "canary":
+    # A package to update, made in this machine: kidux-test-canary 1.0
+    # installed, 1.1 in a local repository apt follows. Run as root.
+    import datetime
+    import hashlib
+    import os
+    import shutil
+    import subprocess
+    base = "/var/tmp/canary"
+    os.makedirs(f"{base}/repo", exist_ok=True)
+    for version in ("1.0", "1.1"):
+        tree = f"{base}/{version}"
+        os.makedirs(f"{tree}/DEBIAN", exist_ok=True)
+        with open(f"{tree}/DEBIAN/control", "w") as control:
+            control.write(f"Package: kidux-test-canary\nVersion: {version}\nArchitecture: all\n"
+                          "Maintainer: Kidux tests <tests@kidux.invalid>\n"
+                          "Description: a package the update tests upgrade\n")
+        subprocess.run(["dpkg-deb", "--root-owner-group", "--build", tree,
+                        f"{base}/kidux-test-canary_{version}_all.deb"],
+                       check=True, capture_output=True)
+    # Through apt, which waits for the dpkg lock: the cloud image's own
+    # apt-daily-upgrade may be holding it when the test starts.
+    subprocess.run(["apt-get", "install", "-y", "-o", "DPkg::Lock::Timeout=600",
+                    f"{base}/kidux-test-canary_1.0_all.deb"],
+                   check=True, capture_output=True,
+                   env={**os.environ, "DEBIAN_FRONTEND": "noninteractive"})
+    deb = f"{base}/repo/kidux-test-canary_1.1_all.deb"
+    shutil.copy(f"{base}/kidux-test-canary_1.1_all.deb", deb)
+    data = open(deb, "rb").read()
+    packages = ("Package: kidux-test-canary\nVersion: 1.1\nArchitecture: all\n"
+                "Maintainer: Kidux tests <tests@kidux.invalid>\n"
+                "Filename: ./kidux-test-canary_1.1_all.deb\n"
+                f"Size: {len(data)}\nSHA256: {hashlib.sha256(data).hexdigest()}\n"
+                "Description: a package the update tests upgrade\n\n")
+    with open(f"{base}/repo/Packages", "w") as handle:
+        handle.write(packages)
+    now = datetime.datetime.now(datetime.timezone.utc).strftime("%a, %d %b %Y %H:%M:%S UTC")
+    listed = packages.encode()
+    with open(f"{base}/repo/Release", "w") as handle:
+        handle.write(f"Origin: canary\nLabel: canary\nSuite: canary\nCodename: canary\n"
+                     f"Date: {now}\nSHA256:\n {hashlib.sha256(listed).hexdigest()} "
+                     f"{len(listed)} Packages\n")
+    with open("/etc/apt/sources.list.d/kidux-test-canary.list", "w") as handle:
+        handle.write(f"deb [trusted=yes] file:{base}/repo ./\n")
+elif action == "network":
+    # What the panel's Network page reads: each interface, a line, as
+    # "name kind address network", "-" for what is not there.
+    _summary, interfaces, _networks = call(
+        "Network1", "GetNetwork", "(s)", (unlock(),), "(a{sv}aa{sv}aa{sv})")
+    for entry in interfaces:
+        print(entry["name"], entry["kind"], entry["address"] or "-", entry["network"] or "-")
+else:
+    sys.exit(f"unknown action {action}")

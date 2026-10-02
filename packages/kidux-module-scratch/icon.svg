@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- kidux-module-scratch's tile: three programming blocks stacked, the way
+     they snap together, on the module's own colour. Kidux's tile, not
+     Scratch's cat, which is the Scratch Foundation's mark; flat shapes on a
+     filled circle, like the avatars, legible down to the 32 px of the
+     launcher's bar. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Scratch">
+  <circle cx="60" cy="60" r="60" fill="#ffe0b8"/>
+  <path d="M26 30 h14 l4 5 h10 l4 -5 h36 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-36 l-4 5 h-10 l-4 -5 h-14 a4 4 0 0 1 -4 -4 v-14 a4 4 0 0 1 4 -4 z"
+        fill="#ffab19"/>
+  <path d="M26 54 h14 l4 5 h10 l4 -5 h28 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-28 l-4 5 h-10 l-4 -5 h-14 a4 4 0 0 1 -4 -4 v-14 a4 4 0 0 1 4 -4 z"
+        fill="#4c97ff"/>
+  <path d="M26 78 h14 l4 5 h10 l4 -5 h20 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-52 a4 4 0 0 1 -4 -4 v-10 a4 4 0 0 1 4 -4 z"
+        fill="#59c059"/>
+</svg>

@@ -1,0 +1,144 @@
+#!/usr/bin/python3
+"""kidux-module-hello: the reference module (modules.md, section 5).
+
+One window, in the child's language: a page to read, Kidux's mascot beside
+it, and *Done*, which closes it, as Escape does. Everything a module is
+asked to be is here and nothing else: it takes its language from the
+session, its words from its own gettext domain and its page from its own
+content, and it writes one file in the data directory the launcher gives
+it, so there is something of its own to find.
+"""
+
+import datetime
+import gettext
+import os
+import sys
+from pathlib import Path
+
+from kidux import paths
+
+DOMAIN = "kidux-module-hello"
+CONTENT = paths.DATA_ROOT / "modules" / "hello" / "content"
+
+_ = gettext.translation(DOMAIN, fallback=True).gettext
+
+
+def N_(message: str) -> str:
+    return message
+
+
+TITLE = N_("Hello")
+DONE = N_("Done")
+
+
+def language() -> str:
+    """The session's language, as the name of a content directory: `es` for
+    es_ES.UTF-8, `en` when the session has none."""
+    for name in ("LC_ALL", "LC_MESSAGES", "LANG"):
+        value = os.environ.get(name, "")
+        if value and value not in ("C", "POSIX") and not value.startswith("C."):
+            return value.split("_")[0].split(".")[0]
+    return "en"
+
+
+def page(lang: str, content: Path = CONTENT) -> tuple[str, list[str]]:
+    """The heading and the paragraphs of the page in `lang`, or in English
+    when there is none in it. The Markdown is read as plain paragraphs: a
+    first line starting with `#` is the heading, and the front matter a
+    translation carries is left out."""
+    path = content / lang / "hello.md"
+    if not path.is_file():
+        path = content / "en" / "hello.md"
+    text = path.read_text(encoding="utf-8")
+    if text.startswith("---\n"):
+        text = text.split("\n---\n", 1)[1]
+    blocks = [" ".join(block.split()) for block in text.strip().split("\n\n")]
+    heading = blocks[0].lstrip("#").strip() if blocks and blocks[0].startswith("#") else ""
+    return heading, [block for block in blocks[1 if heading else 0:] if block]
+
+
+def note_opened() -> None:
+    """One file of the module's own, where the launcher said to keep it."""
+    data = os.environ.get("XDG_DATA_HOME")
+    if data:
+        Path(data, "opened").write_text(datetime.date.today().isoformat() + "\n")
+
+
+CSS = """
+window { background-color: #fff6e9; color: #3b2f2a;
+  font-family: "Andika", sans-serif; font-size: 20px; }
+.hello-heading { font-size: 30px; font-weight: bold; }
+button { min-height: 64px; min-width: 160px; border-radius: 18px; font-size: 20px; }
+"""
+
+
+def main() -> int:
+    import gi
+
+    gi.require_version("Gtk", "4.0")
+    gi.require_version("Gdk", "4.0")
+    gi.require_version("Rsvg", "2.0")
+    from gi.repository import Gdk, Gio, Gtk, Rsvg
+
+    note_opened()
+    heading, paragraphs = page(language())
+
+    def mascot(size: int) -> Gtk.Widget:
+        area = Gtk.DrawingArea(content_width=size, content_height=size, valign=Gtk.Align.CENTER)
+        try:
+            handle = Rsvg.Handle.new_from_file(str(paths.MASCOT))
+        except Exception:  # noqa: BLE001 — a missing picture is not worth a crash
+            return area
+
+        def draw(_area, cairo, width, height):
+            viewport = Rsvg.Rectangle()
+            viewport.x, viewport.y, viewport.width, viewport.height = 0, 0, width, height
+            handle.render_document(cairo, viewport)
+
+        area.set_draw_func(draw)
+        return area
+
+    def activate(application):
+        window = Gtk.ApplicationWindow(application=application, title=_(TITLE))
+        provider = Gtk.CssProvider()
+        provider.load_from_string(CSS)
+        Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), provider,
+                                                  Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        row = Gtk.Box(spacing=48, halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER)
+        # Kidux's mascot, drawn as the launcher draws it.
+        row.append(mascot(200))
+        column = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20,
+                         valign=Gtk.Align.CENTER)
+        if heading:
+            title = Gtk.Label(label=heading, xalign=0)
+            title.add_css_class("hello-heading")
+            column.append(title)
+        for paragraph in paragraphs:
+            column.append(Gtk.Label(label=paragraph, xalign=0, wrap=True, max_width_chars=40))
+        done = Gtk.Button(label=_(DONE), halign=Gtk.Align.START)
+        done.add_css_class("suggested-action")
+        done.connect("clicked", lambda _b: window.close())
+        column.append(done)
+        row.append(column)
+        window.set_child(row)
+
+        def key_pressed(_controller, key, _code, _state) -> bool:
+            if key != Gdk.KEY_Escape:
+                return False
+            window.close()
+            return True
+
+        keys = Gtk.EventControllerKey()
+        keys.connect("key-pressed", key_pressed)
+        window.add_controller(keys)
+        window.present()
+        done.grab_focus()
+
+    application = Gtk.Application(application_id="org.kidux.modules.Hello",
+                                  flags=Gio.ApplicationFlags.NON_UNIQUE)
+    application.connect("activate", activate)
+    return application.run([])
+
+
+if __name__ == "__main__":
+    sys.exit(main())

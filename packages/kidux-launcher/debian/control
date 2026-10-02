@@ -1,0 +1,48 @@
+Source: kidux-launcher
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               pybuild-plugin-pyproject,
+               python3-all,
+               python3-setuptools,
+               pyflakes3 <!nocheck>,
+               python3-gi <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+               python3-cffi-backend,
+               python3-pywayland,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-launcher
+Architecture: all
+Depends: ${misc:Depends},
+         ${python3:Depends},
+         adwaita-icon-theme,
+         fonts-sil-andika,
+         gir1.2-adw-1,
+         gir1.2-gtk-4.0,
+         gir1.2-gtk4layershell-1.0,
+         gir1.2-rsvg-2.0,
+         python3-gi,
+         libgtk4-layer-shell0,
+         python3-gi-cairo,
+         python3-cffi-backend,
+         python3-pywayland,
+         python3-kidux (>= 0.1.45),
+         brightnessctl,
+         wireplumber,
+         wlopm,
+         systemd,
+Description: Kidux child's screen
+ Kidux is a Debian derivative for a child's first computer. This package is
+ the screen a child sees once signed in, and the only program their session
+ starts: their name and picture, the clock, how much time is left today, the
+ learning modules an adult has enabled for them, and the buttons to lock the
+ screen and to log out; and the bar along the bottom of the screen that
+ takes the child between the modules they have open.
+ .
+ It runs as the child and decides nothing: the time is counted and the
+ screen locked by kidux-daemon.

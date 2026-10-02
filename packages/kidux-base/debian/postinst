@@ -1,0 +1,62 @@
+#!/bin/sh
+# Make sure every locale Kidux ships in exists on this machine.
+#
+# A child's language is chosen in the adult panel, long after the installer
+# picked a single locale, so the one a child needs is usually missing. There is
+# no mechanism in the locales package for another package to declare what it
+# needs, so we add our lines to /etc/locale.gen ourselves and regenerate.
+
+set -e
+
+LOCALE_LIST=/usr/share/kidux/locales
+LOCALE_GEN=/etc/locale.gen
+MARKER='# Added by kidux-base'
+
+ensure_locales() {
+    [ -r "$LOCALE_LIST" ] || return 0
+    command -v locale-gen >/dev/null 2>&1 || return 0
+
+    changed=0
+    while read -r line; do
+        case "$line" in
+            ''|\#*) continue ;;
+        esac
+
+        # Already generated, whether by us or by the installer.
+        if grep -qxF "$line" "$LOCALE_GEN" 2>/dev/null; then
+            continue
+        fi
+
+        # Present but commented out, which is how locale.gen ships.
+        if grep -qxF "# $line" "$LOCALE_GEN" 2>/dev/null; then
+            sed -i "s/^# $(echo "$line" | sed 's/[].[^$*\/]/\\&/g')\$/$line/" "$LOCALE_GEN"
+        else
+            if [ "$changed" -eq 0 ] && ! grep -qxF "$MARKER" "$LOCALE_GEN" 2>/dev/null; then
+                echo "$MARKER" >> "$LOCALE_GEN"
+            fi
+            echo "$line" >> "$LOCALE_GEN"
+        fi
+        changed=1
+    done < "$LOCALE_LIST"
+
+    if [ "$changed" -eq 1 ]; then
+        echo "kidux-base: generating locales, this takes a moment..."
+        locale-gen
+    fi
+}
+
+case "$1" in
+    configure)
+        ensure_locales
+        ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+    *)
+        echo "postinst called with unknown argument '$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

@@ -1,0 +1,34 @@
+{
+  "URLBlocklist": [
+    "*"
+  ],
+  "URLAllowlist": [
+    "127.0.0.1:8123",
+    "assets.scratch.mit.edu",
+    "cdn.assets.scratch.mit.edu",
+    "cdn2.scratch.mit.edu",
+    "cdn.scratch.mit.edu",
+    "trampoline.turbowarp.org",
+    "blob:*"
+  ],
+  "BrowserSignin": 0,
+  "SyncDisabled": true,
+  "ExtensionInstallBlocklist": [
+    "*"
+  ],
+  "DeveloperToolsAvailability": 2,
+  "IncognitoModeAvailability": 1,
+  "PasswordManagerEnabled": false,
+  "DownloadRestrictions": 1,
+  "AllowFileSelectionDialogs": true,
+  "PrintingEnabled": false,
+  "DefaultSearchProviderEnabled": false,
+  "DefaultBrowserSettingEnabled": false,
+  "MetricsReportingEnabled": false,
+  "BackgroundModeEnabled": false,
+  "PromptForDownloadLocation": true,
+  "HomepageLocation": "http://127.0.0.1:8123/",
+  "TranslateEnabled": false,
+  "BrowserGuestModeEnabled": false,
+  "BrowserAddPersonEnabled": false
+}

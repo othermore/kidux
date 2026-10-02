@@ -1,0 +1,9 @@
+bin/kidux-daemon                     usr/libexec
+bin/kidux-firstboot                  usr/libexec
+bin/kidux-update                     usr/libexec
+data/org.kidux.Daemon1.conf          usr/share/dbus-1/system.d
+data/org.kidux.Daemon1.service       usr/share/dbus-1/system-services
+data/org.kidux.daemon.policy         usr/share/polkit-1/actions
+data/50-kidux.rules                  usr/share/polkit-1/rules.d
+kiduxd/org.kidux.Daemon1.xml         usr/share/dbus-1/interfaces
+data/pam/kidux                       etc/pam.d

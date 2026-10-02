@@ -1,0 +1,54 @@
+#!/bin/sh
+# ScratchJr, as a child's learning module.
+#
+# ScratchJr keeps a child's projects in a folder of the child's Documents,
+# ScratchJR, which it makes: the child's own work, in their home, kept
+# when the module is removed (modules.md, section 2). Electron keeps its own
+# settings under the module's XDG_CONFIG_HOME, which the launcher gives it,
+# and which goes with the module.
+#
+# ScratchJr speaks the language the page is told the browser has, and
+# Electron does not take it from the session by itself: so it is given the
+# child's, es_ES.UTF-8 as es-ES, which ScratchJr takes as Spanish.
+#
+# Electron is Chromium, and draws as Chromium does on this machine's
+# graphics: so it takes the machine's own Chromium options too, one a line,
+# which the adult panel's Advanced settings write (D52), the same that the
+# web modules' Chromium takes (kidux-webapp). A line that is not an option
+# is left out.
+
+set -eu
+
+APP=/usr/lib/kidux-module-scratchjr/ScratchJr
+FLAGS="${KIDUX_CHROMIUM_FLAGS:-/etc/kidux/chromium-flags}"
+
+locale="${LC_ALL:-${LC_MESSAGES:-${LANG:-}}}"
+locale="${locale%%.*}"
+locale="${locale%%@*}"
+case "$locale" in
+    ""|C|POSIX) lang="" ;;
+    *) lang="--lang=$(printf '%s' "$locale" | tr _ -)" ;;
+esac
+
+# The machine's options first, in front of what the starter was given.
+count=$#
+if [ -r "$FLAGS" ]; then
+    while IFS= read -r line || [ -n "$line" ]; do
+        line="$(printf '%s' "$line" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')"
+        case "$line" in
+            --*) set -- "$@" "$line" ;;
+        esac
+    done < "$FLAGS"
+fi
+# Rotate the given arguments behind the machine's options.
+while [ "$count" -gt 0 ]; do
+    first="$1"
+    shift
+    set -- "$@" "$first"
+    count=$((count - 1))
+done
+
+if [ -n "$lang" ]; then
+    exec "$APP" "$lang" "$@"
+fi
+exec "$APP" "$@"

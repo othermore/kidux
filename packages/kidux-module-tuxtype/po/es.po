@@ -1,0 +1,23 @@
+# Spanish translation for kidux-module-tuxtype.
+# Copyright (C) 2026 Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-tuxtype package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-tuxtype 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-09-30 15:53+0200\n"
+"PO-Revision-Date: 2026-09-30 15:53+0200\n"
+"Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Tux Typing"
+msgstr "Tux Typing"
+
+msgid "Learn to type: catch the falling letters and words with the keyboard, in the child's language."
+msgstr "Aprender a escribir a máquina: atrapar con el teclado las letras y las palabras que caen, en el idioma del niño."

@@ -1,0 +1,27 @@
+# The Kidux package archive.
+#
+# Two suites, and the difference matters to a family: "stable" is what an
+# installed machine follows and upgrades to unattended, "testing" is where a
+# package lands the moment it builds. Nothing reaches stable without having been
+# installed from testing on a real machine first.
+#
+# Origin is "Kidux" because that is what unattended-upgrades matches on; see
+# apt/60kidux-unattended-upgrades in kidux-base.
+
+Origin: Kidux
+Label: Kidux
+Suite: testing
+Codename: testing
+Architectures: amd64 source
+Components: main
+Description: Kidux packages as they are built
+SignWith: C5635C3123C0A599645929CF813EF459076E9055
+
+Origin: Kidux
+Label: Kidux
+Suite: stable
+Codename: stable
+Architectures: amd64 source
+Components: main
+Description: Kidux packages that have been tested on a real machine
+SignWith: C5635C3123C0A599645929CF813EF459076E9055

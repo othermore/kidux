@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+# The windows of the session this runs in, as the launcher sees them
+# (kidux_launcher.compositor, D58): one JSON object a window, in the order
+# they came, with its module as the manifests say, "home" for the launcher's.
+# Run as the child, with XDG_RUNTIME_DIR; the session tests ask it over SSH.
+#
+#   kidux-toplevels                    the list
+#   kidux-toplevels <verb> <app_id>    asks the compositor what a program or
+#                                      a window's button would: fullscreen,
+#                                      minimize, maximize, activate
+import glob
+import json
+import os
+import sys
+
+from kidux_launcher.compositor import LAUNCHER_APP_ID, Labwc
+from kidux_launcher.desk import installed_module_of
+
+if "WAYLAND_DISPLAY" not in os.environ:
+    sockets = sorted(s for s in glob.glob(os.path.join(os.environ["XDG_RUNTIME_DIR"], "wayland-*"))
+                     if not s.endswith(".lock"))
+    if not sockets:
+        sys.exit(1)
+    os.environ["WAYLAND_DISPLAY"] = os.path.basename(sockets[0])
+compositor = Labwc()
+windows = compositor.toplevels()
+if len(sys.argv) == 3:
+    verb, app_id = sys.argv[1:]
+    window = next((w for w in windows if w.app_id == app_id), None)
+    if window is None:
+        os._exit(1)
+    handle = compositor.windows_now.handle_of(window.id)
+    {"fullscreen": lambda: handle.set_fullscreen(None),
+     "minimize": lambda: handle.set_minimized(),
+     "maximize": lambda: handle.set_maximized(),
+     "activate": lambda: compositor.activate(window.id)}[verb]()
+    compositor._display.roundtrip()
+    os._exit(0)
+for window in windows:
+    module = "home" if window.app_id == LAUNCHER_APP_ID else installed_module_of(window.app_id)
+    print(json.dumps({"id": window.id, "app_id": window.app_id, "title": window.title,
+                      "module": module, "activated": window.activated,
+                      "maximized": window.maximized, "minimized": window.minimized,
+                      "fullscreen": window.fullscreen, "parent": window.parent}))
+sys.stdout.flush()
+# Never disconnect: libwayland crashes on the way out of a short-lived client.
+os._exit(0)

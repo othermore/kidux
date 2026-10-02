@@ -1,0 +1,140 @@
+#cloud-config
+# The acceptance run for a Kidux package set, inside a throwaway VM.
+#
+# The VM is stock Debian. The point is to prove that an ordinary machine turns
+# into Kidux by installing our packages, the way a family's machine would, and
+# that apt refuses anything our key did not sign.
+#
+# Everything is driven from here rather than over SSH, so a run is one command
+# and leaves a full transcript on the serial console.
+
+hostname: kidux-test
+
+write_files:
+  # QEMU's user networking has no mDNS, so the name our packages ship is pinned
+  # to the address the host answers on. A machine on the family's network
+  # resolves the same name over mDNS and needs none of this.
+  - path: /etc/hosts
+    append: true
+    content: |
+      10.0.2.2 kidux.local
+
+  # A test VM does not need Debian's source index or its translations: together
+  # they are about 17 MB of the 27 MB that apt would otherwise pull through
+  # QEMU's emulated network on every single run, which is most of the wait.
+  - path: /etc/apt/apt.conf.d/99kidux-vm-lean
+    content: |
+      Acquire::Languages "none";
+
+  # --- fixtures for tests/acceptance/05-time-and-lock.py -----------------------
+  #
+  # This VM never reboots into Kidux, so a unit of the lock screen's name runs a
+  # placeholder on terminal 8, as a system user, with a logind session of class
+  # greeter: everything the daemon checks for. The child's session is a real
+  # logind session too, on terminal 5, made the same way greetd makes one: a
+  # PAM session with pam_systemd in it.
+  - path: /etc/pam.d/kidux-test-session
+    content: |
+      account  required  pam_permit.so
+      session  required  pam_systemd.so
+
+  - path: /etc/systemd/system/kidux-locker@.service
+    content: |
+      [Unit]
+      Description=Stand-in Kidux lock screen for %i (test VM only)
+      [Service]
+      User=kidux-test-locker
+      PAMName=kidux-test-session
+      TTYPath=/dev/tty8
+      TTYReset=yes
+      TTYVHangup=yes
+      StandardInput=tty
+      StandardOutput=tty
+      Environment=XDG_SESSION_CLASS=greeter XDG_SEAT=seat0 XDG_VTNR=8 XDG_SESSION_TYPE=tty
+      ExecStart=/bin/sleep infinity
+
+  - path: /etc/systemd/system/kidux-test-child@.service
+    content: |
+      [Unit]
+      Description=A child's session on terminal 5 (test VM only)
+      [Service]
+      User=%i
+      PAMName=kidux-test-session
+      TTYPath=/dev/tty5
+      TTYReset=yes
+      TTYVHangup=yes
+      StandardInput=tty
+      StandardOutput=tty
+      Environment=XDG_SESSION_CLASS=user XDG_SEAT=seat0 XDG_VTNR=5 XDG_SESSION_TYPE=tty
+      ExecStart=/bin/sleep infinity
+
+  - path: /usr/local/bin/kidux-acceptance
+    permissions: '0755'
+    content: |
+      #!/bin/sh
+      # Runs every test in the repository's tests/acceptance/, which the host
+      # serves next to this seed, in the order of their names, and prints one
+      # PASS or FAIL line per check and then a verdict the host greps for.
+      #
+      # A test ending in .sh is sourced, and calls check(); any other test is
+      # run, prints its own lines, and exits with the number that failed.
+      set -u
+
+      ARCHIVE=http://kidux.local/apt
+
+      TESTS=/var/lib/kidux-tests
+      failures=0
+
+      check() {
+          description="$1"
+          shift
+          if "$@" >/tmp/check.out 2>&1; then
+              echo "PASS  $description"
+          else
+              echo "FAIL  $description"
+              sed 's/^/      /' /tmp/check.out
+              failures=$((failures + 1))
+          fi
+      }
+
+      mkdir -p "$TESTS"
+      for name in $(curl -fsS http://10.0.2.2:8000/tests/LIST); do
+          curl -fsS -o "$TESTS/$name" "http://10.0.2.2:8000/tests/$name"
+      done
+
+      echo
+      echo "=== Kidux acceptance run ==================================="
+      for name in $(ls "$TESTS" | sort); do
+          echo "--- $name"
+          case "$name" in
+              *.sh) . "$TESTS/$name" ;;
+              *)
+                  chmod 755 "$TESTS/$name"
+                  "$TESTS/$name" >/tmp/test.out 2>&1
+                  status=$?
+                  cat /tmp/test.out
+                  # A test that crashed said nothing about what failed.
+                  if [ "$status" -ne 0 ] && ! grep -q '^FAIL ' /tmp/test.out; then
+                      echo "FAIL  $name stopped with status $status before naming a check"
+                  fi
+                  failures=$((failures + status))
+                  ;;
+          esac
+      done
+      echo "============================================================"
+      if [ "$failures" -eq 0 ]; then
+          echo "KIDUX-ACCEPTANCE: PASS"
+      else
+          echo "KIDUX-ACCEPTANCE: FAIL ($failures checks failed)"
+      fi
+      echo
+
+runcmd:
+  - [ sh, -c, "curl -fsS -o /usr/local/bin/kidux-as http://10.0.2.2:8000/tools/kidux-as && chmod 755 /usr/local/bin/kidux-as" ]
+  - [ sh, -c, "sed -i 's/^Types: deb deb-src/Types: deb/' /etc/apt/sources.list.d/debian.sources || true" ]
+  - [ /usr/local/bin/kidux-acceptance ]
+
+power_state:
+  mode: poweroff
+  timeout: 5
+  condition: true

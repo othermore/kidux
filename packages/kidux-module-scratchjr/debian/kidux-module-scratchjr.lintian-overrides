@@ -1,0 +1,13 @@
+# The module's name and description in each of its languages, which the
+# archive's index keeps and the panel shows before the module is installed
+# (D47, docs/dev/modules.md section 3).
+kidux-module-scratchjr: unknown-field Kidux-*
+
+# Electron, which ScratchJr runs in, is Chromium: its binary carries its
+# own builds of the libraries Chromium links in, as every Electron app's
+# does, and it is installed as Electron's project built it
+# (upstream.toml, ci/upstream/scratchjr.sh; debian/copyright).
+kidux-module-scratchjr: embedded-library * [usr/lib/kidux-module-scratchjr/ScratchJr]
+# Electron's Vulkan loader, as Electron ships it; its binaries are not
+# built here, so not stripped again (debian/rules).
+kidux-module-scratchjr: unstripped-binary-or-object [usr/lib/kidux-module-scratchjr/libvulkan.so.1]

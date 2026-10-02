@@ -1,0 +1,14 @@
+# Kidux's colours on labwc's frame: ink on cream, cream on ink for the window
+# in use (branding/README.md). An override in the configuration's own
+# directory, root's, so that no theme of the child's can change it.
+border.width: 1
+padding.height: 6
+window.active.border.color: #3b2f2a
+window.inactive.border.color: #f2e2cc
+window.active.title.bg.color: #3b2f2a
+window.inactive.title.bg.color: #f2e2cc
+window.active.label.text.color: #fff6e9
+window.inactive.label.text.color: #3b2f2a
+window.label.text.justify: center
+window.active.button.unpressed.image.color: #fff6e9
+window.inactive.button.unpressed.image.color: #3b2f2a

@@ -1,0 +1,13 @@
+// Kidux keeps itself up to date without anyone having to think about it: the
+// machine belongs to a child, and the adult who set it up is not a sysadmin.
+//
+// Only the Kidux stable suite is accepted here. Debian's own security updates
+// are configured separately by unattended-upgrades itself; this file adds ours
+// to that list rather than replacing it.
+Unattended-Upgrade::Origins-Pattern {
+        "origin=Kidux,codename=stable";
+};
+
+// Apply them, and reboot only when a child is not using the machine. The daemon
+// decides when that is; until it exists, never reboot unasked.
+Unattended-Upgrade::Automatic-Reboot "false";

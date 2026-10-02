@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kidux avatar: Rabbit. Flat shapes on a filled circle, so it stays legible
+     down to the 48 px the launcher shows it at. No gradients, no strokes
+     thinner than 2 units, no text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Rabbit">
+  <circle cx="60" cy="60" r="60" fill="#f7eefa"/>
+  <ellipse cx="45" cy="30" rx="10" ry="26" fill="#b9a3c9"/>
+  <ellipse cx="75" cy="30" rx="10" ry="26" fill="#b9a3c9"/>
+  <ellipse cx="45" cy="30" rx="5" ry="17" fill="#f2a9c0"/>
+  <ellipse cx="75" cy="30" rx="5" ry="17" fill="#f2a9c0"/>
+  <circle cx="60" cy="74" r="34" fill="#c9b6d6"/>
+  <circle cx="48" cy="70" r="6" fill="#33283b"/>
+  <circle cx="72" cy="70" r="6" fill="#33283b"/>
+  <path d="M60 80 L54 87 L66 87 Z" fill="#e0688d"/>
+  <path d="M60 87 L60 93" stroke="#33283b" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>

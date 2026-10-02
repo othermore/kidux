@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- kidux-module-scratchjr's tile: two big round blocks snapped together, a
+     green flag on the first, on the module's own colour. Kidux's tile, not
+     ScratchJr's cat; flat shapes on a filled circle, like the avatars,
+     legible down to the 32 px of the launcher's bar. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="ScratchJr">
+  <circle cx="60" cy="60" r="60" fill="#fff0b3"/>
+  <rect x="18" y="44" width="42" height="36" rx="10" fill="#ffd500"/>
+  <rect x="60" y="44" width="42" height="36" rx="10" fill="#4c97ff"/>
+  <circle cx="60" cy="62" r="7" fill="#ffd500"/>
+  <path d="M30 70 V52 M30 52 h14 l-4 5 l4 5 h-14" fill="#43aa8b" stroke="#3b2f2a"
+        stroke-width="3" stroke-linejoin="round"/>
+  <path d="M74 62 h16 M84 56 l6 6 l-6 6" fill="none" stroke="#fff6e9" stroke-width="5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,51 @@
+Source: kidux-session
+Section: admin
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-session
+Architecture: all
+Depends: ${misc:Depends},
+         adduser,
+         brightnessctl,
+         cage,
+         greetd,
+         kidux-daemon,
+         kidux-greeter,
+         kidux-launcher,
+         pipewire-audio,
+         plymouth,
+         plymouth-label,
+         polkitd,
+         procps,
+         python3:any,
+         python3-gi,
+         python3-kidux (>= 0.1.45),
+         labwc (>= 0.8),
+         swaybg,
+         swayidle,
+         wlopm,
+         wlr-randr,
+         xdg-user-dirs,
+         xwayland,
+Recommends: grub-common,
+# Nothing a person types is installed on a child's computer: labwc suggests
+# a terminal, Chromium, for the web applications, has one among its
+# recommendations, and wmenu is a launcher's menu; the virtual package is
+# every terminal emulator there is.
+Conflicts: foot,
+           wmenu,
+           x-terminal-emulator,
+Description: Kidux sessions: the kiosk, the lock screen, and every door closed
+ Kidux is a Debian derivative for a child's first computer. This package makes
+ the machine boot into the Kidux sign-in screen and nothing else, runs each
+ child's session with the Kidux launcher and the learning modules an adult
+ has enabled, gives the lock screen a screen of its own, and closes every
+ way out of that: spare terminals, text logins, Ctrl+Alt+Delete, the SysRq
+ keys, SSH for children, and the boot loader's editor.
+ .
+ Removing it turns the machine back into an ordinary Debian system at the
+ next boot. Install it only on a machine set aside for a child.

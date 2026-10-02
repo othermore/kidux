@@ -1,0 +1,12 @@
+# The reference module (modules.md, section 5): the smallest package that
+# exercises every part of the contract, and the one to copy for a new one.
+id = "hello"
+version = "0.1.8"
+name = "[Test] Hello"
+description = "A first page to read, and a button to press."
+min_age = 4
+max_age = 8
+launch = { exec = "/usr/libexec/kidux-module-hello" }
+app_ids = ["org.kidux.modules.Hello"]    # its program's application id
+i18n_domain = "kidux-module-hello"
+memory_max = "1G"

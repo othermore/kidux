@@ -1,0 +1,75 @@
+#!/bin/sh
+# Kidux's own boot entry, and the recovery password. docs/dev/session.md,
+# section 7, and D25.
+#
+# A GRUB superuser protects every entry, including the one the machine boots
+# by itself, and Debian's 10_linux never marks an entry --unrestricted. So
+# Kidux emits its own entry, before Debian's, that boots without asking; and
+# Debian's own entries, behind it, stay protected by the recovery password.
+
+set -e
+
+# This file is kept when kidux-session is removed, and must then do nothing.
+[ -x /usr/libexec/kidux-session ] || exit 0
+
+prefix="/usr"
+exec_prefix="/usr"
+datarootdir="/usr/share"
+. "${pkgdatadir:-/usr/share/grub}/grub-mkconfig_lib"
+
+# The password stanza only once first boot has made the recovery password.
+# Before that nothing is protected, which is right: nothing is running yet.
+ADULTS=/home/.kidux/adults.toml
+password_hash=""
+if [ -r "$ADULTS" ]; then
+    password_hash="$(sed -n 's/^grub_password_hash *= *"\(grub\.pbkdf2\.[0-9A-Za-z.]*\)".*/\1/p' "$ADULTS")"
+fi
+if [ -n "$password_hash" ]; then
+    cat <<GRUB
+set superusers="kidux"
+password_pbkdf2 kidux $password_hash
+GRUB
+fi
+
+# The newest kernel, found the same way Debian's own entries find it. Kernel
+# packages run update-grub, so this is regenerated whenever a kernel arrives.
+#
+# A kernel without display drivers cannot show a sign-in screen, and Debian's
+# cloud kernels have none: where one sits beside a generic kernel of the same
+# version, version order alone would choose it. So cloud kernels are only
+# used when there is nothing else.
+kernels=""
+cloud_kernels=""
+for candidate in /boot/vmlinuz-*; do
+    grub_file_is_not_garbage "$candidate" || continue
+    case "$candidate" in
+        *-cloud-*) cloud_kernels="$cloud_kernels $candidate" ;;
+        *) kernels="$kernels $candidate" ;;
+    esac
+done
+[ -n "$kernels" ] || kernels="$cloud_kernels"
+[ -n "$kernels" ] || exit 0
+linux="$(echo $kernels | tr ' ' '\n' | version_sort -r | head -n 1)"
+version="$(basename "$linux" | sed -e 's,^[^0-9]*-,,')"
+directory="$(make_system_path_relative_to_its_root /boot)"
+
+initrd=""
+if [ -e "/boot/initrd.img-$version" ]; then
+    initrd="initrd.img-$version"
+fi
+
+if [ -n "${GRUB_DEVICE_UUID:-}" ] && [ "x${GRUB_DISABLE_LINUX_UUID:-}" != "xtrue" ]; then
+    root_device="UUID=$GRUB_DEVICE_UUID"
+else
+    root_device="$GRUB_DEVICE"
+fi
+
+echo "menuentry 'Kidux' --unrestricted --id kidux {"
+echo "	load_video"
+echo "	insmod gzio"
+prepare_grub_to_access_device "$GRUB_DEVICE_BOOT" | sed -e 's/^/\t/'
+echo "	linux	$directory/vmlinuz-$version root=$root_device ro ${GRUB_CMDLINE_LINUX:-} ${GRUB_CMDLINE_LINUX_DEFAULT:-} kidux.boot"
+if [ -n "$initrd" ]; then
+    echo "	initrd	$directory/$initrd"
+fi
+echo "}"

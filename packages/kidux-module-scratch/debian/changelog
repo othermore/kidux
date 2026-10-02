@@ -1,0 +1,19 @@
+kidux-module-scratch (15.2.0+build2.2) trixie; urgency=medium
+
+  * The maintainer's address is info@kidux.org.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 02 Oct 2026 09:00:41 +0200
+
+kidux-module-scratch (15.2.0+build2.1) trixie; urgency=medium
+
+  * Kidux's own files are under the Business Source License 1.1
+    (debian/copyright); what the package carries of others keeps its licence.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 22:41:30 +0200
+
+kidux-module-scratch (15.2.0+build2) trixie; urgency=medium
+
+  * Scratch's own editor as a learning module, built from scratch-editor 15.2.0
+    for the path /scratch/ and served there by kidux-webapps.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 00:07:09 +0200

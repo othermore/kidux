@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!--
+  The compositor of a child's session without windows (session.md, section 3;
+  D43, D58): Kidux's own, root's and read-only to the child. Every main window
+  of every module fills the room above the launcher's bar without a frame,
+  and a dialog floats over its window, without one either. No key but the
+  four below and a laptop's own for its screen, keyboard light and sound, no
+  menu, and no mouse binding but a press that brings a window
+  forward and the close button of the title bar a window taken out of
+  fullscreen has.
+-->
+<labwc_config>
+  <core>
+    <decoration>server</decoration>
+    <gap>0</gap>
+    <xwaylandPersistence>no</xwaylandPersistence>
+  </core>
+  <theme>
+    <titlebar>
+      <layout>icon:close</layout>
+      <showTitle>yes</showTitle>
+    </titlebar>
+    <cornerRadius>0</cornerRadius>
+    <font place="ActiveWindow"><name>Andika</name><size>13</size><weight>bold</weight></font>
+    <font place="InactiveWindow"><name>Andika</name><size>13</size><weight>bold</weight></font>
+  </theme>
+  <windowSwitcher show="no" preview="no" outlines="no" />
+  <keyboard>
+    <!-- Super goes home: the launcher's window forward. -->
+    <keybind key="Super_L" onRelease="yes">
+      <action name="ForEach">
+        <query identifier="org.kidux.Launcher" />
+        <then><action name="Focus" /><action name="Raise" /></then>
+      </action>
+    </keybind>
+    <!-- Alt+F4 is the bar's Close: the launcher asks the module first (D45). -->
+    <keybind key="A-F4">
+      <action name="Execute" command="pkill -USR2 -f &quot;^/usr/bin/python3 /usr/libexec/kidux-launcher&quot;" />
+    </keybind>
+    <!-- Alt+Tab goes round the windows with the launcher (D64): the bar
+         lights the one it points at, and Alt let go goes there. -->
+    <keybind key="A-Tab">
+      <action name="Execute" command="pkill -RTMIN+1 -f &quot;^/usr/bin/python3 /usr/libexec/kidux-launcher&quot;" />
+    </keybind>
+    <keybind key="A-S-Tab">
+      <action name="Execute" command="pkill -RTMIN+2 -f &quot;^/usr/bin/python3 /usr/libexec/kidux-launcher&quot;" />
+    </keybind>
+    <!-- A laptop's keys for the screen, the keyboard's light and the sound,
+         the same keysyms on a Mac and on a PC (D61, docs/dev/keys.md):
+         kidux-keys does the thing, as the child. -->
+    <keybind key="XF86MonBrightnessUp"><action name="Execute" command="/usr/libexec/kidux-keys brightness up" /></keybind>
+    <keybind key="XF86MonBrightnessDown"><action name="Execute" command="/usr/libexec/kidux-keys brightness down" /></keybind>
+    <keybind key="XF86KbdBrightnessUp"><action name="Execute" command="/usr/libexec/kidux-keys keyboard up" /></keybind>
+    <keybind key="XF86KbdBrightnessDown"><action name="Execute" command="/usr/libexec/kidux-keys keyboard down" /></keybind>
+    <keybind key="XF86AudioRaiseVolume"><action name="Execute" command="/usr/libexec/kidux-keys volume up" /></keybind>
+    <keybind key="XF86AudioLowerVolume"><action name="Execute" command="/usr/libexec/kidux-keys volume down" /></keybind>
+    <keybind key="XF86AudioMute"><action name="Execute" command="/usr/libexec/kidux-keys volume mute" /></keybind>
+  </keyboard>
+  <mouse>
+    <context name="Client">
+      <mousebind button="Left" action="Press"><action name="Focus" /><action name="Raise" /></mousebind>
+      <mousebind button="Middle" action="Press"><action name="Focus" /><action name="Raise" /></mousebind>
+      <mousebind button="Right" action="Press"><action name="Focus" /><action name="Raise" /></mousebind>
+    </context>
+    <context name="Close">
+      <mousebind button="Left" action="Click"><action name="Close" /></mousebind>
+    </context>
+  </mouse>
+  <windowRules>
+    <!-- No frame: an X11 window takes no notice of serverDecoration, and
+         SetDecorations takes it off. A window that comes up fullscreen gets
+         its frame back when the launcher takes it out of fullscreen, which
+         labwc 0.8 does whatever a rule says (labwc-notes.md). -->
+    <windowRule identifier="*" serverDecoration="no">
+      <action name="SetDecorations" decorations="none" forceSSD="yes" />
+    </windowRule>
+    <!-- Every main window fills the room above the bar; a dialog floats over
+         its window. The launcher maximises what this misses, an X11 window
+         that says no type among them. -->
+    <windowRule identifier="*" type="normal">
+      <action name="Maximize" />
+    </windowRule>
+  </windowRules>
+</labwc_config>

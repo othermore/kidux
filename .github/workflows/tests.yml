@@ -1,0 +1,155 @@
+# Continuous integration: the development machine's own commands, in a
+# debian:trixie container (docs/dev/packaging.md, "Continuous integration").
+#
+# Three jobs, by what they cost (D38):
+#   project  the repository's own checks, on every push and pull request;
+#   build    every package built with its unit tests and lintian, on every
+#            pull request and every push to a branch other than main;
+#   release  ci/test-release.sh whole, with both test machines, when asked
+#            for by hand (D38: the development machine is where it runs).
+#
+# Nothing is published and no secret is used: the release job signs its
+# archive with a key made for that run (ci/setup-ci-host.sh).
+
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  project:
+    runs-on: ubuntu-24.04
+    container: debian:trixie
+    timeout-minutes: 15
+    steps:
+      - name: Tools
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates dpkg-dev git gettext \
+            libyaml-libyaml-perl pyflakes3 python3
+      - uses: actions/checkout@v4
+      # As someone other than root, as on the development machine: the check
+      # for a developer's name would otherwise look for /root everywhere.
+      - name: tests/run project
+        run: |
+          useradd --create-home checker
+          chown -R checker: "$GITHUB_WORKSPACE"
+          runuser -u checker -- tests/run project
+
+  build:
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref != 'refs/heads/main')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    container:
+      image: debian:trixie
+      options: --privileged
+    steps:
+      - name: Git, for the checkout
+        run: apt-get update && apt-get install -y --no-install-recommends ca-certificates git
+      - uses: actions/checkout@v4
+      - name: The build chroot, from last week
+        uses: actions/cache@v4
+        with:
+          path: /home/builder/.cache/sbuild
+          key: sbuild-trixie-${{ github.run_id }}
+          restore-keys: sbuild-trixie-
+      - name: ci/setup-ci-host.sh
+        run: |
+          ci/setup-ci-host.sh builder
+          chown -R builder: "$GITHUB_WORKSPACE" /home/builder
+      # A package built from a program that is not in trixie is built from a
+      # tarball in one of this repository's releases (packaging.md, D68).
+      - name: ci/build-all.sh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: runuser -u builder -- env GH_TOKEN="$GH_TOKEN" ci/build-all.sh
+      # sbuild's own log says why a build died; the step's output only says
+      # that it did.
+      - name: The build logs, when a build failed
+        if: failure()
+        run: for log in build/*.build; do echo "==> $log"; tail -n 150 "$log"; done
+      # A colon in a file name is refused by the artifact store, and sbuild
+      # puts the time in its log names.
+      - name: The build logs, named for the artifact store
+        if: always()
+        run: |
+          mkdir -p build/logs
+          for log in build/*.build; do [ -f "$log" ] && cp "$log" "build/logs/$(basename "$log" | tr : -)"; done || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: packages
+          path: |
+            build/*.deb
+            build/logs/
+
+  release:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    container:
+      image: debian:trixie
+      options: --privileged --device /dev/kvm
+    steps:
+      - name: Git, for the checkout
+        run: apt-get update && apt-get install -y --no-install-recommends ca-certificates git
+      - uses: actions/checkout@v4
+      - name: The build chroot
+        uses: actions/cache@v4
+        with:
+          path: /home/builder/.cache/sbuild
+          key: sbuild-trixie-${{ github.run_id }}
+          restore-keys: sbuild-trixie-
+      - name: The cloud image the test machines start from
+        uses: actions/cache@v4
+        with:
+          path: build/vm/debian-13-genericcloud-amd64.qcow2
+          key: cloud-image-${{ github.run_id }}
+          restore-keys: cloud-image-
+      - name: The last run's pictures, to compare with
+        uses: actions/cache@v4
+        with:
+          path: build/releases
+          key: pictures-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            pictures-${{ github.ref_name }}-
+            pictures-main-
+      - name: ci/setup-ci-host.sh
+        run: |
+          ci/setup-ci-host.sh builder
+          chown -R builder: "$GITHUB_WORKSPACE" /home/builder
+      - name: ci/serve-archive.sh
+        run: ci/serve-archive.sh
+      - name: ci/test-release.sh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          runuser -u builder -- env GH_TOKEN="$GH_TOKEN" \
+            KIDUX_VM_COLD=1 \
+            KIDUX_SIGNING_KEY="$(cat /srv/kidux-ci-key/fingerprint)" \
+            GNUPGHOME=/srv/kidux-ci-key/gnupg \
+            KIDUX_ARCHIVE_PUBLIC_KEY=/srv/kidux-ci-key/public.pgp \
+            ci/test-release.sh "ci-${{ github.run_number }}"
+      - name: The build logs, named for the artifact store
+        if: always()
+        run: |
+          mkdir -p build/logs
+          for log in build/*.build; do [ -f "$log" ] && cp "$log" "build/logs/$(basename "$log" | tr : -)"; done || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release
+          path: |
+            build/*.deb
+            build/logs/
+            build/releases/ci-${{ github.run_number }}
+            build/vm/console.log

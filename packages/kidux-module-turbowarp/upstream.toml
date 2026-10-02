@@ -1,0 +1,9 @@
+[upstream]
+name = "TurboWarp scratch-gui"
+repository = "https://github.com/TurboWarp/scratch-gui"
+commit = "25c11c6f246de9c6d36b29a61c505cd35f34cb8c"
+version = "0+git20260915"
+node = "24.21.0"
+build = "ci/upstream/turbowarp.sh"
+sha256 = "4d7a845f2c04fface9f038db6a8b7415ac09023768312ed62c3a1d10377a83a4"
+source_sha256 = "9935a53dfc40c5b987be640f77b82d7de9946b4e5cc416eac6b87697a15ddbe6"

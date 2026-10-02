@@ -1,0 +1,33 @@
+Source: kidux-module-gcompris
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-gcompris
+Architecture: all
+Depends: ${misc:Depends},
+         gcompris-qt,
+         gcompris-qt-data,
+         qt6-wayland,
+XB-Kidux-Name-en: GCompris
+XB-Kidux-Description-en: Over a hundred activities: reading, counting, colours, the keyboard and the mouse. It needs the internet at first, to fetch its voices.
+XB-Kidux-Name-es: GCompris
+XB-Kidux-Description-es: Más de cien actividades: leer, contar, los colores, el teclado y el ratón. Necesita internet al principio, para descargar sus voces.
+XB-Kidux-Ages: 2-10
+Description: Kidux learning module: GCompris, over a hundred activities for ages two to ten
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is GCompris: over a hundred educational activities for children
+ from two to ten, reading, counting, colours, the keyboard and the mouse,
+ in the child's language. With an internet connection it fetches its
+ voices and word pictures on its own.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

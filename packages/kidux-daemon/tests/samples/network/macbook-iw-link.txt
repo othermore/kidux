@@ -1,0 +1,11 @@
+Connected to 02:00:5e:00:53:01 (on wlp4s0)
+	SSID: Casa
+	freq: 5500.0
+	RX: 1000000 bytes (1000 packets)
+	TX: 1000000 bytes (1000 packets)
+	signal: -30 dBm
+	rx bitrate: 450.0 MBit/s
+	tx bitrate: 450.0 MBit/s
+	bss flags: 
+	dtim period: 1
+	beacon int: 100

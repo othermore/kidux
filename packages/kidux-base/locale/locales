@@ -1,0 +1,10 @@
+# Locales Kidux ships in, one per line, in /etc/locale.gen syntax.
+#
+# Every one of these has to be generated on the machine. A child's language is
+# chosen in the adult panel, long after the installer ran and picked one locale,
+# so the language a child needs is usually not the one that exists yet.
+#
+# Adding a language to Kidux means adding a line here. Nothing else generates
+# locales, and no code has to change.
+en_US.UTF-8 UTF-8
+es_ES.UTF-8 UTF-8

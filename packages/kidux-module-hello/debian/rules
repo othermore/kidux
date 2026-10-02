@@ -1,0 +1,35 @@
+#!/usr/bin/make -f
+
+DEST = debian/kidux-module-hello
+MODULE = $(DEST)/usr/share/kidux/modules/hello
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	for po in po/*.po; do \
+	    lang=$$(basename $$po .po); \
+	    mkdir -p build/$$lang; \
+	    msgfmt --check --output-file=build/$$lang/kidux-module-hello.mo $$po; \
+	done
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 bin/kidux-module-hello tests
+	python3 -m pytest -q -p no:cacheprovider tests
+endif
+
+override_dh_auto_install:
+	install -D -m 0644 module.toml $(MODULE)/module.toml
+	install -D -m 0644 icon.svg $(MODULE)/icon.svg
+	install -D -m 0755 bin/kidux-module-hello $(DEST)/usr/libexec/kidux-module-hello
+	for page in content/*/hello.md; do \
+	    install -D -m 0644 $$page $(MODULE)/$$page; \
+	done
+	for mo in build/*/kidux-module-hello.mo; do \
+	    lang=$$(basename $$(dirname $$mo)); \
+	    install -D -m 0644 $$mo $(DEST)/usr/share/locale/$$lang/LC_MESSAGES/kidux-module-hello.mo; \
+	done
+
+override_dh_auto_clean:
+	rm -rf build tests/__pycache__

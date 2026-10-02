@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<!--
+  Three actions, all "no" by default: only the rules in
+  /usr/share/polkit-1/rules.d/50-kidux.rules grant them. The daemon asks
+  polkit non-interactively, so these descriptions are never shown to anyone;
+  they are here for an administrator reading pkaction's output.
+-->
+<policyconfig>
+  <vendor>Kidux</vendor>
+  <vendor_url>https://github.com/othermore/kidux</vendor_url>
+
+  <action id="org.kidux.daemon.manage">
+    <description>Change what the children on this computer may do</description>
+    <message>Changing children, their passwords or their time needs an adult</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>no</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.kidux.daemon.screens">
+    <description>Run the Kidux sign-in and lock screens</description>
+    <message>Only the Kidux screens may do this</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>no</allow_active>
+    </defaults>
+  </action>
+
+  <action id="org.kidux.daemon.self">
+    <description>See your own time and learning modules</description>
+    <message>Only a child on this computer may do this</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>no</allow_active>
+    </defaults>
+  </action>
+</policyconfig>

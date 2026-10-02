@@ -1,0 +1,23 @@
+# Spanish translation for kidux-module-turbowarp.
+# Copyright (C) 2026 Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-turbowarp package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-turbowarp 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-09-30 16:00+0200\n"
+"PO-Revision-Date: 2026-09-30 16:00+0200\n"
+"Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "TurboWarp"
+msgstr "TurboWarp"
+
+msgid "Scratch, made faster: the same blocks and the same projects, for a slower computer or when Scratch does not run well."
+msgstr "Scratch, más rápido: los mismos bloques y los mismos proyectos, para un ordenador más lento o cuando Scratch no funciona bien."

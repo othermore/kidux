@@ -1,0 +1,124 @@
+#!/bin/sh
+# Runs inside the compositor, sets up the screen, then runs the program the
+# screen is for: the sign-in or lock screen, which it becomes under cage, or,
+# with --keep-running, a child's launcher under labwc, which it watches.
+
+set -u
+
+# The machine's display scale, on every output the compositor drives: neither
+# cage nor labwc's configuration is told it, and both implement
+# wlr-output-management, so it is set from inside. 0, which is what the
+# machine has until an adult chooses one, is automatic: the largest quarter
+# that leaves the output's mode roomy (kidux.screen, D49, D56). What goes
+# wrong is logged: a screen at the wrong size says why. The first output's
+# mode is exported for the panel, which says what automatic is on it.
+#
+# The compositor is asked again, every quarter of a second for up to five,
+# while it has no mode to list and while it refuses the scale: cage refuses
+# a configuration that comes while it is still bringing the output up, and
+# wlr-randr then says "failed to apply configuration", at most starts of
+# the sign-in screen on the MacBook. A scale that took more than one try
+# says how many; one never taken says why.
+TRIES=20
+scale="${KIDUX_DISPLAY_SCALE:-0}"
+tries=1
+until outputs="$(wlr-randr 2>&1)" && printf '%s\n' "$outputs" | grep -q current; do
+    [ "$tries" -ge "$TRIES" ] && break
+    tries=$((tries + 1))
+    sleep 0.25
+done
+if printf '%s\n' "$outputs" | grep -q current; then
+    [ "$tries" -gt 1 ] && logger -t kidux-session "the outputs had a mode after $tries tries"
+    modes="$(printf '%s\n' "$outputs" \
+        | awk '/^[^ \t]/ { output = $1 } /current/ { print output, $1 }')"
+    KIDUX_SCREEN_MODE="$(printf '%s\n' "$modes" | head -n 1 | cut -d ' ' -f 2)"
+    export KIDUX_SCREEN_MODE
+    printf '%s\n' "$modes" \
+        | while read -r output mode; do
+            wanted="$scale"
+            case "$scale" in
+                0|0.0|"") wanted="$(python3 -m kidux.screen "$mode" 2>/dev/null || echo 1)" ;;
+            esac
+            case "$wanted" in
+                1|1.0) continue ;;
+            esac
+            tried=1
+            until said="$(wlr-randr --output "$output" --scale "$wanted" 2>&1)"; do
+                if [ "$tried" -ge "$TRIES" ]; then
+                    logger -t kidux-session \
+                        "the scale $wanted was not set on $output after $tried tries: $said"
+                    continue 2
+                fi
+                tried=$((tried + 1))
+                sleep 0.25
+            done
+            [ "$tried" -gt 1 ] && logger -t kidux-session "the scale $wanted took $tried tries on $output"
+        done
+else
+    logger -t kidux-session "wlr-randr lists no output with a mode: $outputs"
+fi
+
+# Kidux's cream behind every window, for the moment a restarted launcher,
+# whose maximised window is the floor, is not there yet. labwc draws none.
+if [ "${1:-}" = "--keep-running" ]; then
+    swaybg -c '#fff6e9' >/dev/null 2>&1 &
+fi
+
+# A screen left alone (D67): a child's session locks after the minutes an
+# adult chose, and every screen turns off after its own, on again at the
+# first touch; kidux-idle counts only while this screen's terminal is in
+# front. labwc powers outputs off itself; cage cannot, so wlr-randr does.
+if [ "${1:-}" = "--keep-running" ]; then
+    KIDUX_IDLE_SCREEN=wlopm
+else
+    KIDUX_IDLE_SCREEN=wlr-randr
+fi
+export KIDUX_IDLE_SCREEN
+
+# The screen turned off and on once, before anything is shown on it, as
+# opening the lid does: a fresh start of the output, whatever the compositor
+# before this one left on it and whatever setting the scale did to it. On
+# the MacBook's Radeon either can leave the screen showing what the graphics
+# card last had in memory, stripes of noise or the boot's text, while the
+# compositor draws where nobody sees it.
+/usr/lib/kidux/kidux-idle screen off >/dev/null 2>&1
+/usr/lib/kidux/kidux-idle screen on >/dev/null 2>&1
+
+/usr/lib/kidux/kidux-idle watch >/dev/null 2>&1 &
+
+if [ "${1:-}" != "--keep-running" ]; then
+    # The lid: cage powers no output off by itself, so a watcher of Kidux's
+    # turns the laptop's panel off while it is closed, and ends with this
+    # screen (D61). Under labwc the launcher does it.
+    /usr/lib/kidux/kidux-lid-watch >/dev/null 2>&1 &
+    exec "$@"
+fi
+shift
+
+# The child's home gets its usual folders, named in the child's language:
+# that is where modules save the child's work, shared by all of them (D42).
+xdg-user-dirs-update >/dev/null 2>&1 || true
+
+# A child's session is its launcher, so the launcher is never simply gone
+# (launcher.md section 4). Exit status 0 is the child logging out, and ends
+# the session. Anything else is a crash: it is started again, unless it has
+# crashed five times in a minute, when the session ends too, which brings
+# back the sign-in screen rather than an empty one.
+crashes=""
+while :; do
+    "$@"
+    status=$?
+    [ "$status" -eq 0 ] && break
+    now=$(date +%s)
+    crashes=$(printf '%s\n' $crashes "$now" | awk -v now="$now" 'now - $1 < 60')
+    logger -t kidux-session "$1 stopped with status $status; starting it again"
+    if [ "$(printf '%s\n' $crashes | grep -c .)" -ge 5 ]; then
+        logger -t kidux-session "$1 keeps stopping; ending the session"
+        break
+    fi
+    sleep 1
+done
+
+# The session ends with labwc, and labwc ends when it is told.
+labwc --exit >/dev/null 2>&1
+exit 0

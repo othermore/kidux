@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- kidux-module-tuxtype's tile: a keyboard's row of keys with one lit and a
+     letter falling onto it, on the module's own colour. Kidux's tile, not
+     Tux Typing's picture; flat shapes on a filled circle, like the avatars,
+     legible down to the 32 px of the launcher's bar. The glyph is a path,
+     not text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Tux Typing">
+  <circle cx="60" cy="60" r="60" fill="#a8dadc"/>
+  <rect x="14" y="70" width="92" height="30" rx="6" fill="#3b2f2a"/>
+  <rect x="20" y="76" width="18" height="18" rx="3" fill="#fff6e9"/>
+  <rect x="42" y="76" width="18" height="18" rx="3" fill="#ffd27a"/>
+  <rect x="64" y="76" width="18" height="18" rx="3" fill="#fff6e9"/>
+  <rect x="86" y="76" width="14" height="18" rx="3" fill="#fff6e9"/>
+  <path d="M42 56 L51 32 L60 56 M45.5 47 L56.5 47" fill="none" stroke="#e4572e"
+        stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M51 60 L51 66" stroke="#e4572e" stroke-width="4" stroke-linecap="round"/>
+</svg>

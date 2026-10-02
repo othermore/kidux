@@ -1,0 +1,47 @@
+# The website, published on GitHub Pages (docs/dev/website.md).
+#
+# Built by ci/build-site.py, as on the development machine, from site/, the
+# battery's pictures in docs/images/ and the brand in branding/, whenever one
+# of them changes on main, or when asked for by hand. The job is skipped
+# while the repository has no Pages site, so that a push never fails for it.
+
+name: site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - site/**
+      - docs/images/**
+      - branding/**
+      - ci/build-site.py
+      - .github/workflows/site.yml
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  publish:
+    if: github.event.repository.has_pages
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: python3 ci/build-site.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/site
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,32 @@
+Source: kidux-module-tuxtype
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-tuxtype
+Architecture: all
+Depends: ${misc:Depends},
+         tuxtype,
+         tuxtype-data,
+XB-Kidux-Name-en: Tux Typing
+XB-Kidux-Description-en: Learn to type: catch the falling letters and words with the keyboard, in the child's language.
+XB-Kidux-Name-es: Tux Typing
+XB-Kidux-Description-es: Aprender a escribir a máquina: atrapar con el teclado las letras y las palabras que caen, en el idioma del niño.
+XB-Kidux-Ages: 6-12
+XB-Kidux-Before: gcompris
+Description: Kidux learning module: Tux Typing, a typing course for ages six to twelve
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is Tux Typing: letters and words fall from the sky, and a child
+ catches them by typing them, one level harder each time, with the words
+ and the menus in the child's language where Tux Typing has them.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

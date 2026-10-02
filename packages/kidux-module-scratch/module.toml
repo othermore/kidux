@@ -1,0 +1,14 @@
+# Scratch, the official editor: a program that is not in Debian, built at
+# development time from its repository (upstream.toml, D68) and served by
+# kidux-webapps under /scratch/ (modules.md, section 5).
+id = "scratch"
+version = "15.2.0+build2.2"
+name = "Scratch"
+description = "Make games and stories with blocks, as at school. Its characters, backdrops and sounds come from the internet."
+min_age = 8
+max_age = 16
+recommended_before = ["scratchjr"]
+launch = { webapp = "scratch" }
+categories = ["programming"]
+i18n_domain = "kidux-module-scratch"
+memory_max = "3G"

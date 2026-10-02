@@ -1,0 +1,4 @@
+# The lock screen's own logind session (kidux-locker@.service). systemd never
+# runs the auth part of a PAMName= stack; this only registers the session.
+account  required  pam_permit.so
+session  required  pam_systemd.so

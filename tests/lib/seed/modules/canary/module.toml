@@ -1,0 +1,9 @@
+# The tests' stand-in module (phase-3-plan.md, section 5). Never packaged:
+# the tests that need it copy it to /usr/share/kidux/modules/canary/ and
+# remove it when they are done.
+id = "canary"
+version = "1.0.0"
+name = "[Test] Canary"
+description = "The module the tests switch on and open."
+launch = { exec = "/usr/share/kidux/modules/canary/run" }
+app_ids = ["org.kidux.tests.Canary"]

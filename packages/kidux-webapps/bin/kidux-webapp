@@ -1,0 +1,106 @@
+#!/usr/bin/python3
+"""One web application, for a child: `kidux-webapp <id>`.
+
+    kidux-webapp <id>            open it
+    kidux-webapp --print <id>    print Chromium's command line instead
+
+The launcher runs this, in the module's scope, for a module whose manifest
+says `launch = { webapp = "<id>" }` (launcher.md section 5). It opens
+Chromium on the application kidux-webapps serves, as an application
+window (`--app`): no tabs, no address bar, one window, which the launcher
+keeps on its workspace above the bar (D43). Not `--kiosk`, which hides
+Chromium's own bars only while the window is fullscreen, and the launcher
+gives no window the whole screen.
+The managed policy, /etc/chromium/policies/managed/kidux.json, allows that
+address and nothing else, so a link out of the application leads nowhere
+(D36). Chromium's profile is the module's own, under its XDG_CONFIG_HOME,
+so removing the module removes it.
+
+The id is checked before it goes anywhere near a URL. After Kidux's own
+flags come the machine's, from /etc/kidux/chromium-flags, which the daemon
+writes from the panel's Advanced settings (D51, D52), so that a flag there
+wins over Kidux's for the same thing: what draws cleanly on this machine's
+graphics. A line that is not a flag is left out and said.
+"""
+
+import os
+import shlex
+import sys
+
+from kidux import modules, paths
+
+CHROMIUM = "/usr/bin/chromium"
+SERVER = "http://127.0.0.1:8123"
+
+
+def language(environ) -> str:
+    """The child's language, from the session's locale: es_ES.UTF-8 is es."""
+    for name in ("LC_ALL", "LC_MESSAGES", "LANG"):
+        value = environ.get(name, "")
+        if value and value not in ("C", "POSIX") and not value.startswith("C."):
+            return value.split(".")[0].split("_")[0] or "en"
+    return "en"
+
+
+def machine_flags(path=None) -> list[str]:
+    """The machine's own flags for Chromium, one a line; none when the file
+    is not there."""
+    try:
+        lines = (path or paths.CHROMIUM_FLAGS).read_text().splitlines()
+    except OSError:
+        return []
+    flags = []
+    for line in (line.strip() for line in lines):
+        if line.startswith("--"):
+            flags.append(line)
+        elif line:
+            print(f"not a flag, left out: {line!r}", file=sys.stderr)
+    return flags
+
+
+def argv(webapp_id: str, environ, flags=()) -> list[str]:
+    """Chromium's command line for `webapp_id`, the machine's `flags` after
+    Kidux's own; ValueError for anything that is not a module id."""
+    if not modules.ID.match(webapp_id or ""):
+        raise ValueError(f"not a web application's id: {webapp_id!r}")
+    lang = language(environ)
+    config = environ.get("XDG_CONFIG_HOME") or os.path.join(environ.get("HOME", ""), ".config")
+    return [
+        CHROMIUM,
+        "--ozone-platform=wayland",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--disable-session-crashed-bubble",
+        "--password-store=basic",
+        # WebGL drawn in software where the machine has no graphics Chromium
+        # takes, as a virtual machine or an old computer's: Scratch's stage
+        # and TurboWarp's need WebGL, and Chromium no longer falls back to
+        # SwiftShader by itself. It is "unsafe" for pages from anywhere; a
+        # module shows only its own pages, which the policy holds it to.
+        "--enable-unsafe-swiftshader",
+        f"--user-data-dir={config}/chromium",
+        f"--lang={lang}",
+        f"--app={SERVER}/{webapp_id}/?lang={lang}",
+        *flags,
+    ]
+
+
+def main(args: list[str]) -> int:
+    printing = args[1:2] == ["--print"]
+    if len(args) != (3 if printing else 2):
+        print("usage: kidux-webapp [--print] <id>", file=sys.stderr)
+        return 2
+    try:
+        command = argv(args[-1], os.environ, machine_flags())
+    except ValueError as error:
+        print(error, file=sys.stderr)
+        return 2
+    if printing:
+        print(shlex.join(command))
+        return 0
+    os.execv(command[0], command)
+    return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

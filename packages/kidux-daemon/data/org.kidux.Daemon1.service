@@ -1,0 +1,5 @@
+[D-BUS Service]
+Name=org.kidux.Daemon1
+Exec=/bin/false
+User=root
+SystemdService=kidux-daemon.service

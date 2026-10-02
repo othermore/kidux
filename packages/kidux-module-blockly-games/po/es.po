@@ -1,0 +1,23 @@
+# Spanish translation for kidux-module-blockly-games.
+# Copyright (C) 2026 Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-blockly-games package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-blockly-games 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-09-30 16:00+0200\n"
+"PO-Revision-Date: 2026-09-30 16:00+0200\n"
+"Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Blockly Games"
+msgstr "Juegos de Blockly"
+
+msgid "Puzzles with blocks: a maze, a bird, a turtle, a movie and music, one step harder each time."
+msgstr "Rompecabezas con bloques: un laberinto, un pájaro, una tortuga, una película y música, cada vez un paso más difícil."

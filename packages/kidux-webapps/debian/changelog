@@ -1,0 +1,67 @@
+kidux-webapps (0.1.9) trixie; urgency=medium
+
+  * The maintainer's address is info@kidux.org.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 02 Oct 2026 09:00:41 +0200
+
+kidux-webapps (0.1.8) trixie; urgency=medium
+
+  * Kidux's own files are under the Business Source License 1.1
+    (debian/copyright); what the package carries of others keeps its licence.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 22:41:30 +0200
+
+kidux-webapps (0.1.7) trixie; urgency=medium
+
+  * A download asks where to keep it, in the file dialog, from the child's
+    Downloads folder.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 16:40:18 +0200
+
+kidux-webapps (0.1.6) trixie; urgency=medium
+
+  * Chromium's policy allows blob: addresses, which a page makes for a file
+    of its own, so that Scratch's Save downloads the project.
+  * A page named without .html is served as that page, as Blockly Games link
+    their games.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 14:47:56 +0200
+
+kidux-webapps (0.1.5) trixie; urgency=medium
+
+  * Chromium's policy lets a child keep their work: file dialogs open,
+    downloads refused only when dangerous; and it allows the hosts Scratch's
+    and TurboWarp's libraries come from.
+  * WebGL is drawn in software where the machine's graphics are not usable,
+    so that Scratch's stage works on any computer.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 00:38:46 +0200
+
+kidux-webapps (0.1.4) trixie; urgency=medium
+
+  * Depend on chromium-l10n: Chromium's own words, its pages and dialogs, in
+    the child's language, as --lang says.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 13:38:52 +0200
+
+kidux-webapps (0.1.3) trixie; urgency=medium
+
+  * kidux-webapp adds the machine's own flags for Chromium after Kidux's, and
+    --print shows the command line.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 22:41:34 +0200
+
+kidux-webapps (0.1.2) trixie; urgency=medium
+
+  * Chromium's policy also turns off file dialogs, printing and the search
+    engine.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 19:32:29 +0200
+
+kidux-webapps (0.1.1) trixie; urgency=medium
+
+  * First release: web applications for children's learning modules,
+    served on the loopback address and opened in a Chromium application
+    window held to it.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 17:29:56 +0200

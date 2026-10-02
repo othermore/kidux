@@ -1,0 +1,41 @@
+# Spanish translation for kidux-module-hello-web.
+# Copyright (C) 2026 Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-hello-web package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-hello-web 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-10-01 14:49+0200\n"
+"PO-Revision-Date: 2026-09-25 16:49+0200\n"
+"Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "[Test] Hello on the web"
+msgstr "[Prueba] Hola en la web"
+
+msgid "The first page again, as a web page, with a link that stays closed."
+msgstr ""
+"Otra vez la primera página, como página web, con un enlace que sigue cerrado."
+
+msgid "Done"
+msgstr "Hecho"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "hello"
+msgstr "hola"
+
+msgid "A page on the internet"
+msgstr "Una página de internet"
+
+msgid ""
+"This page lives on this computer. The rest of the internet stays closed."
+msgstr ""
+"Esta página vive en este ordenador. El resto de internet sigue cerrado."

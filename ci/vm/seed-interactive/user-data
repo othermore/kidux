@@ -1,0 +1,45 @@
+#cloud-config
+# A throwaway machine that becomes a Kidux machine, to use rather than test.
+#
+# ci/vm/try.sh serves this with @SUITE@ replaced by the suite to install from.
+# The machine installs Kidux the way a family's Debian machine would, reboots
+# into it, and shows the first-run wizard on its screen, which try.sh offers
+# over VNC.
+#
+# It is deliberately wide open: root logs in with no password on the serial
+# console, which is try.sh's terminal. That is safe here and nowhere else — the
+# machine exists inside QEMU's user networking, which nothing on the network
+# can reach, and it is thrown away when you close it.
+
+hostname: kidux-try
+
+write_files:
+  # QEMU's user networking has no mDNS, so the name our packages ship is pinned
+  # to the address the host answers on.
+  - path: /etc/hosts
+    append: true
+    content: |
+      10.0.2.2 kidux.local
+
+  # A test VM does not need Debian's source index or its translations: most of
+  # what apt would otherwise pull through QEMU's emulated network.
+  - path: /etc/apt/apt.conf.d/99kidux-vm-lean
+    content: |
+      Acquire::Languages "none";
+
+  # Root straight onto the serial console, no password prompt.
+  - path: /etc/systemd/system/serial-getty@ttyS0.service.d/autologin.conf
+    content: |
+      [Service]
+      ExecStart=
+      ExecStart=-/sbin/agetty --autologin root --noclear %I $TERM
+
+runcmd:
+  - [ sh, -c, "sed -i 's/^Types: deb deb-src/Types: deb/' /etc/apt/sources.list.d/debian.sources || true" ]
+  - [ sh, -c, "echo; echo '>>> Installing Kidux from the @SUITE@ suite. This takes a few minutes.'; echo" ]
+  - [ sh, -c, "cd /var/tmp && curl -fsSLO http://kidux.local/apt/bootstrap/@SUITE@/kidux-archive-keyring.deb && curl -fsSLO http://kidux.local/apt/bootstrap/@SUITE@/kidux-apt-source.deb" ]
+  - [ sh, -c, "DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends /var/tmp/kidux-archive-keyring.deb /var/tmp/kidux-apt-source.deb" ]
+  - [ sh, -c, "sed -i 's/^Suites: stable$/Suites: @SUITE@/' /etc/apt/sources.list.d/kidux.sources" ]
+  - [ sh, -c, "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y kidux-base" ]
+  - [ sh, -c, "dpkg -s kidux-session >/dev/null && echo '>>> Kidux is installed. Restarting into it.' || echo '>>> Something went wrong; look at /var/log/cloud-init-output.log'" ]
+  - [ sh, -c, "dpkg -s kidux-session >/dev/null && systemctl reboot" ]

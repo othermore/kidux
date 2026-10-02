@@ -1,0 +1,31 @@
+Source: kidux-base
+Section: metapackages
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-base
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-apt-source,
+         kidux-daemon,
+         kidux-session,
+         locales,
+         network-manager,
+         python3-kidux,
+         unattended-upgrades,
+         wpasupplicant,
+Recommends: linux-image-amd64,
+            firmware-linux,
+            fonts-dejavu,
+Description: Kidux, a Debian for a child's first computer
+ Kidux turns a Debian system into a computer a child can be handed: it starts in
+ a sign-in screen of its own, gives every child their own account and language,
+ lets an adult decide what each of them may use and for how long, and never
+ shows a desktop, a terminal or a settings window.
+ .
+ Installing this package pulls in everything Kidux needs and takes over the way
+ the machine starts. Install it on a machine set aside for the purpose, not on
+ one someone else is using.

@@ -1,0 +1,108 @@
+#!/usr/bin/python3
+"""The lid on the trusted screens: the panel off while it is closed (D61).
+
+session-inner starts this under cage, beside the sign-in or lock screen:
+cage binds no key and powers no output off by itself, so this reads the lid
+switch (`kidux.hardware.lid_devices`, readable since kidux-session's udev
+rule) and turns the laptop's own panel off with `wlr-randr --off` while the
+lid is closed, and on again when it opens. Brightness is left alone, and an
+external screen stays on. A child's session does the same in its launcher
+(launcher.md section 5).
+
+It ends by itself with the screen it was started for: its parent is the
+screen's process, and when that goes, it goes. On a machine without a lid
+it says so and ends at once.
+"""
+
+import logging
+import logging.handlers
+import os
+import select
+import subprocess
+import sys
+
+from kidux import hardware
+
+log = logging.getLogger("kidux.lid")
+
+
+def log_to_journal() -> None:
+    log.setLevel(logging.INFO)
+    if os.path.exists("/dev/log"):
+        handler = logging.handlers.SysLogHandler(address="/dev/log")
+        handler.setFormatter(logging.Formatter("kidux-lid-watch: %(message)s"))
+        log.addHandler(handler)
+    else:
+        log.addHandler(logging.StreamHandler(sys.stderr))
+
+
+def wlr_randr(*args: str) -> str:
+    try:
+        done = subprocess.run(["wlr-randr", *args], capture_output=True, text=True,
+                              timeout=10)
+    except (OSError, subprocess.TimeoutExpired) as error:
+        log.warning("wlr-randr did not run: %s", error)
+        return ""
+    return done.stdout
+
+
+def set_panel(on: bool) -> None:
+    for name in hardware.panel_outputs(hardware.wlr_randr_outputs(wlr_randr())):
+        wlr_randr("--output", name, "--on" if on else "--off")
+        log.info("the lid %s: %s %s", "opened" if on else "closed", name,
+                 "on" if on else "off")
+
+
+def main() -> int:
+    log_to_journal()
+    devices = hardware.lid_devices()
+    if not devices:
+        log.info("no lid switch on this machine; nothing to watch")
+        return 0
+    fds = []
+    for device in devices:
+        try:
+            fds.append(os.open(device, os.O_RDONLY | os.O_NONBLOCK))
+        except OSError as error:
+            log.warning("the lid switch %s cannot be read: %s", device, error)
+    if not fds:
+        return 1
+    parent = os.getppid()
+    closed = None
+
+    def apply(now_closed: bool) -> None:
+        nonlocal closed
+        if now_closed != closed:
+            closed = now_closed
+            set_panel(not now_closed)
+
+    try:
+        apply(hardware.lid_closed(fds[0]))
+    except OSError as error:
+        log.warning("the lid's state cannot be read: %s", error)
+    log.info("watching the lid: %s", " ".join(devices))
+    while os.getppid() == parent:
+        ready, _, _ = select.select(fds, [], [], 1.0)
+        for fd in ready:
+            try:
+                data = os.read(fd, 4096)
+            except BlockingIOError:
+                continue
+            except OSError as error:
+                # A switch that can no longer be read is left; the others
+                # go on being watched, and with none left there is nothing
+                # to watch.
+                log.warning("a lid switch can no longer be read: %s", error)
+                os.close(fd)
+                fds.remove(fd)
+                continue
+            for now_closed in hardware.lid_events(data):
+                apply(now_closed)
+        if not fds:
+            log.warning("no lid switch left to watch")
+            return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

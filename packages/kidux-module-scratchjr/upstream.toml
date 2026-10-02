@@ -1,0 +1,9 @@
+[upstream]
+name = "ScratchJr-Desktop"
+repository = "https://github.com/jfo8000/ScratchJr-Desktop"
+commit = "919482d724904a560d6c77dab06240341584c502"
+version = "1.3.2+git20201121"
+node = "24.21.0"
+build = "ci/upstream/scratchjr.sh"
+sha256 = "2bc20d4dbbb2134c5757acb5b36ca8a7973235301be0212441ef445456f007bf"
+source_sha256 = "dfd9dd5f01bcb16bb643d8c606edb228d312846da7575942fba9946f3390a221"

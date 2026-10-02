@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Kidux
+Description=Kidux's logo on cream while the computer starts
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/kidux
+ScriptFile=/usr/share/plymouth/themes/kidux/kidux.script

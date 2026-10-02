@@ -1,0 +1,15 @@
+# Tux Typing, the typing course: a program already in Debian, so the
+# package holds this manifest, the tile, its words, and the small program
+# that starts Tux Typing in the child's language (modules.md, section 5).
+id = "tuxtype"
+version = "0.1.2"
+name = "Tux Typing"
+description = "Learn to type: catch the falling letters and words with the keyboard, in the child's language."
+min_age = 6
+max_age = 12
+recommended_before = ["gcompris"]
+launch = { exec = "/usr/libexec/kidux-module-tuxtype" }
+app_ids = ["tuxtype", "TuxType", "Tux Typing"]    # what Tux Typing calls its window
+categories = ["typing"]
+i18n_domain = "kidux-module-tuxtype"
+memory_max = "1G"

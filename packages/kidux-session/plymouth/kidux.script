@@ -1,0 +1,15 @@
+# Kidux's boot splash: the logo, centred on the cream of every Kidux screen,
+# and nothing else. The machine is starting; there is nothing to read.
+
+Window.SetBackgroundTopColor(1.0, 0.965, 0.914);
+Window.SetBackgroundBottomColor(1.0, 0.965, 0.914);
+
+logo.image = Image("logo.png");
+# A quarter of the screen's height, whatever the screen: the file is drawn
+# large and only ever scaled down.
+logo.height = Window.GetHeight() / 4;
+logo.width = logo.image.GetWidth() * logo.height / logo.image.GetHeight();
+logo.image = logo.image.Scale(logo.width, logo.height);
+logo.sprite = Sprite(logo.image);
+logo.sprite.SetX(Window.GetX() + (Window.GetWidth() - logo.width) / 2);
+logo.sprite.SetY(Window.GetY() + (Window.GetHeight() - logo.height) / 2);

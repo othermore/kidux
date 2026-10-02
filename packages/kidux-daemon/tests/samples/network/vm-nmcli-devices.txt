@@ -1,0 +1,6 @@
+wlan0:wifi:connected:Kidux test net
+lo:loopback:connected (externally):lo
+p2p-dev-wlan0:wifi-p2p:disconnected:
+enp0s2:ethernet:unmanaged:
+hwsim0:unknown:unmanaged:
+wlan1:wifi:unmanaged:

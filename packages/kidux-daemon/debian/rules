@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+export PYBUILD_NAME=kiduxd
+export PYBUILD_TEST_PYTEST=1
+# pybuild runs the tests from a copy without bin/; they run the update
+# script from the source tree.
+export KIDUX_DAEMON_SOURCE=$(CURDIR)
+
+%:
+	dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_auto_test:
+	pyflakes3 kiduxd tests
+	dh_auto_test
+
+# Two units: first boot, which runs once per machine, and the daemon.
+override_dh_installsystemd:
+	dh_installsystemd --name=kidux-firstboot
+	dh_installsystemd

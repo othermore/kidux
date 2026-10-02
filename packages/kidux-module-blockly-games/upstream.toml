@@ -1,0 +1,9 @@
+[upstream]
+name = "Blockly Games"
+repository = "https://github.com/google/blockly-games"
+commit = "5d2ff6f39207f7ed31e3d11ba1de277c85efe4c2"
+version = "0+git20240513"
+node = "24.21.0"
+build = "ci/upstream/blockly-games.sh"
+sha256 = "662fc2241ec605b58247fd96e3b5c68cbc3861ea5e3309dd4148786317c04910"
+source_sha256 = "9d1f1ec36a2808a1df99f02ea254f65af536c2c8132527b636aadbcdc83bd235"

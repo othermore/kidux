@@ -1,0 +1,2 @@
+apt/60kidux-unattended-upgrades etc/apt/apt.conf.d
+locale/locales                  usr/share/kidux

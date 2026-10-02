@@ -1,0 +1,32 @@
+Source: kidux-module-hello-web
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               python3,
+               pyflakes3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-hello-web
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-webapps,
+XB-Kidux-Name-en: [Test] Hello on the web
+XB-Kidux-Description-en: The first page again, as a web page, with a link that stays closed.
+XB-Kidux-Name-es: [Prueba] Hola en la web
+XB-Kidux-Description-es: Otra vez la primera página, como página web, con un enlace que sigue cerrado.
+XB-Kidux-Ages: 4-8
+XB-Kidux-Before: hello
+Description: Kidux learning module: Hello on the web, a first page as a web page
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is the first page to read again, as a web page shown in Chromium:
+ the smallest learning module made of web pages, and a way to see that they
+ work on this computer. A link on it to a page on the internet stays
+ closed, as every link out of a learning module does.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

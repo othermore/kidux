@@ -1,0 +1,158 @@
+# The website's words in Spanish. Every language's file has the same keys
+# (tests/project/site.py); a sentence is kept short, the page is read fast.
+
+[language]
+name = "Español"
+
+[meta]
+title = "Kidux: el primer ordenador de un niño, seguro y listo para aprender"
+description = "Un sistema operativo completo y seguro para niños. Sin distracciones, con módulos de aprendizaje listos para usar, en el ordenador que ya tienes. Gratis para las familias."
+
+[nav]
+label = "Secciones"
+what = "Qué es"
+modules = "Módulos"
+adults = "Para adultos"
+licence = "Licencia"
+contact = "Contacto"
+support = "Donar"
+
+[hero]
+title = "Su primer ordenador. Seguro y sin distracciones."
+lead = "Kidux es un sistema operativo completo para niños, con todo listo para aprender. Instálalo en un ordenador viejo y dáselo con tranquilidad."
+get = "Consigue Kidux"
+support = "Apoya el proyecto"
+note = "Gratis para las familias · En español y en inglés · Código publicado"
+picture = "La pantalla de un niño en Kidux, con un dibujo por cada módulo de aprendizaje"
+
+[pillars.safe]
+title = "Un sistema entero, y seguro"
+text = "No es una aplicación ni un filtro encima de otra cosa: es el ordenador completo. Sin anuncios, sin tienda, sin internet abierto. Solo lo que tú eliges."
+
+[pillars.focus]
+title = "Una cosa cada vez"
+text = "Cada actividad ocupa toda la pantalla, sin nada con que despistarse. Cuando esté preparado, activa las ventanas y será un escritorio de verdad."
+
+[pillars.learn]
+title = "Aprender, sin preparar nada"
+text = "Programación, lógica, matemáticas, lectura y mecanografía. Los módulos se instalan con un botón, ya configurados, con el foco en STEM."
+
+[pillars.hardware]
+title = "En el ordenador que ya tienes"
+text = "Sirve casi cualquier PC o portátil fabricado desde 2008. Dale una segunda vida a ese ordenador viejo."
+soon = "Raspberry Pi 5, muy pronto"
+
+[child]
+title = "Un ordenador que es suyo"
+lead = "Su dibujo, su nombre, su contraseña. Y dentro, solo lo que un adulto ha elegido."
+point1 = "Cada niño entra con su propio dibujo y su contraseña."
+point2 = "Sin escritorio donde perderse, sin ajustes que romper, sin salida."
+point3 = "Los hermanos se turnan, cada uno con sus cosas."
+picture = "La pantalla de entrada, con el dibujo de cada niño"
+
+[grow]
+title = "Crece con ellos"
+lead = "Empieza por lo sencillo. Ábrelo cuando estén preparados."
+single_title = "Pantalla completa"
+single_text = "Así empieza todo niño: una actividad en la pantalla, y una barra abajo para volver al inicio."
+single_picture = "Un módulo de aprendizaje ocupando la pantalla sobre la barra"
+windows_title = "Ventanas"
+windows_text = "Para un niño mayor: varios programas a la vista, que se mueven y cambian de tamaño, como en cualquier ordenador."
+windows_picture = "Dos módulos de aprendizaje abiertos en ventanas"
+
+[modules]
+title = "Seis formas de aprender, de 2 a 16 años"
+lead = "Los programas en los que confían los profesores, instalados y configurados por ti."
+
+[modules.gcompris]
+name = "GCompris"
+age = "De 2 a 10 años"
+text = "Más de cien actividades: leer, contar, los colores, el teclado y el ratón."
+
+[modules.scratchjr]
+name = "ScratchJr"
+age = "De 5 a 7 años"
+text = "Historias y juegos hechos con bloques de dibujos. Sin saber leer."
+
+[modules.blockly]
+name = "Juegos de Blockly"
+age = "De 6 a 12 años"
+text = "Rompecabezas que enseñan a programar, cada vez un paso más difícil."
+
+[modules.tuxtype]
+name = "Tux Typing"
+age = "De 6 a 12 años"
+text = "Aprender a escribir a máquina atrapando las letras y las palabras que caen."
+
+[modules.scratch]
+name = "Scratch"
+age = "Desde 8 años"
+text = "Hacer juegos e historias con bloques, como en el colegio."
+
+[modules.turbowarp]
+name = "TurboWarp"
+age = "Desde 8 años"
+text = "Scratch más rápido, para un ordenador más lento."
+
+[adults]
+title = "Tú decides. Desde un solo sitio."
+lead = "Un panel para adultos, tras una contraseña que nunca se escribe donde un niño pueda verla."
+point1 = "Cuánto tiempo al día, y qué días."
+point2 = "Qué módulos puede usar cada niño."
+point3 = "Más tiempo, o ninguno, en cualquier momento."
+point4 = "Al acabar el tiempo la pantalla se bloquea, y no se pierde nada."
+picture = "La página de un niño en el panel del adulto, con su tiempo y sus días"
+
+[get]
+title = "Consigue Kidux"
+coming = "La primera imagen instalable está en camino. Escríbenos y te avisamos el día que esté lista."
+tell = "Avísame cuando esté listo"
+tell_subject = "Avísame cuando Kidux esté listo"
+ready = "Tres pasos, y sin saber nada de Linux."
+step1 = "Descarga la imagen."
+step2 = "Grábala en una memoria USB."
+step3 = "Arranca el ordenador desde la memoria y sigue los pasos."
+download = "Descargar Kidux"
+needs = "Qué necesitas"
+need1 = "Un ordenador de 64 bits: casi cualquiera desde 2008."
+need2 = "2 GB de memoria. Mejor 4 GB."
+need3 = "32 GB de disco."
+
+[licence]
+title = "Gratis para las familias"
+lead = "Y claro en todo lo demás."
+
+[licence.home]
+title = "En casa: gratis"
+text = "Para ti y para los niños a tu cargo. Sin cuentas, sin registro, sin letra pequeña."
+
+[licence.schools]
+title = "Colegios y organizaciones"
+text = "La licencia también es gratuita. Solo te pedimos que nos escribas para pedirla: nos gusta saber dónde se usa Kidux."
+button = "Pedir una licencia"
+subject = "Una licencia de Kidux"
+
+[licence.code]
+title = "El código, a la vista"
+text = "Cada línea está publicada en GitHub. Cada versión pasa a ser software libre, bajo la GPL, cuatro años después de salir."
+button = "Ver el código"
+
+[support]
+title = "Kidux es gratis. Mantenerlo no."
+text = "Kidux es un proyecto independiente. Una donación paga el tiempo de hacerlo y las pruebas en ordenadores de verdad."
+button = "Donar con GitHub Sponsors"
+frame = "Patrocina al desarrollador de Kidux en GitHub"
+note = "Cualquier cantidad ayuda. Gracias."
+
+[contact]
+title = "Contacto"
+text = "Una pregunta, una idea, un colegio que quiere usar Kidux: escríbenos."
+who = "Lo desarrolla"
+email = "Correo"
+code = "Código e incidencias"
+code_text = "Kidux en GitHub"
+
+[footer]
+rights = "© 2026"
+licence = "Kidux se publica bajo la Business Source License 1.1."
+others = "GCompris, ScratchJr, Juegos de Blockly, Tux Typing, Scratch y TurboWarp pertenecen a sus autores y conservan sus propias licencias. Kidux está construido sobre Debian y no está afiliado a ninguno de ellos."

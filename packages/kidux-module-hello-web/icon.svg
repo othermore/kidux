@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- kidux-module-hello-web's tile: a globe on the module's own colour.
+     Flat shapes on a filled circle, like the avatars, legible down to the
+     32 px of the launcher's bar. No gradients, no text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Hello on the web">
+  <circle cx="60" cy="60" r="60" fill="#b8d8f5"/>
+  <circle cx="60" cy="60" r="36" fill="#3a86ff"/>
+  <path d="M40 44 C48 38 56 42 54 50 C52 56 44 56 42 62 C40 68 34 64 30 58 C30 52 34 48 40 44 Z"
+        fill="#43aa8b"/>
+  <path d="M66 32 C76 34 88 44 90 56 C86 62 78 58 76 66 C74 74 68 80 62 84 C58 78 62 70 60 64
+           C58 56 66 54 70 48 C72 42 66 38 66 32 Z" fill="#43aa8b"/>
+  <circle cx="60" cy="60" r="36" fill="none" stroke="#24313f" stroke-width="4"/>
+  <path d="M24 60 L96 60 M60 24 C44 40 44 80 60 96 M60 24 C76 40 76 80 60 96" fill="none"
+        stroke="#24313f" stroke-width="3" opacity="0.35"/>
+</svg>

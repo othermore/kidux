@@ -1,0 +1,2 @@
+Kidux test net:6942119d-804b-4a7f-8a15-100430a70e94:802-11-wireless
+lo:a83b7635-945a-43b1-b055-64a4f6ac3287:loopback

@@ -1,0 +1,34 @@
+Source: kidux-module-scratch
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-scratch
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-webapps (>= 0.1.5),
+XB-Kidux-Name-en: Scratch
+XB-Kidux-Description-en: Make games and stories with blocks, as at school. Its characters, backdrops and sounds come from the internet.
+XB-Kidux-Name-es: Scratch
+XB-Kidux-Description-es: Hacer juegos e historias con bloques, como en el colegio. Sus personajes, fondos y sonidos vienen de internet.
+XB-Kidux-Ages: 8-16
+XB-Kidux-Before: scratchjr
+Description: Kidux learning module: Scratch, stories and games made with blocks
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is Scratch's own editor, the one children use at school, served on
+ this computer and shown in Chromium, in the child's language, without the
+ Scratch website's community. Its library of characters, backdrops and
+ sounds comes from the Scratch Foundation's servers, so it needs the
+ internet for them. A child saves their projects as files in their own
+ folders, and opens them again from there.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

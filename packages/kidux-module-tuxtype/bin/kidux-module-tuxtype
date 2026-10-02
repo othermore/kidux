@@ -1,0 +1,38 @@
+#!/bin/sh
+# Tux Typing, as a child's learning module.
+#
+# Tux Typing takes its menus' language from the session, and its words, the
+# ones that fall, from a theme it is given, English when it is given none:
+# so a child whose language has a theme of Tux Typing's gets it, `espanol`
+# for Spanish. It starts in a window, --window, rather than asking for the
+# whole screen: the compositor gives it the room above the bar either way,
+# and labwc gives a window taken out of fullscreen a title bar (modules.md,
+# section 2). It draws through XWayland, not through the Wayland the session
+# asks SDL for: there SDL 1.2 (sdl12-compat) scales its 640x480 pictures to
+# the room it is given, while as a Wayland window it stays at 640x480 in a
+# corner.
+#
+# Tux Typing keeps its settings and a child's scores in ~/.tuxtype. It is
+# given the module's own XDG_DATA_HOME as its home, which the launcher makes
+# for it (modules.md, section 2), so that removing the module removes them
+# and the child's home is left as the child keeps it.
+
+set -eu
+
+unset SDL_VIDEODRIVER
+
+theme=""
+case "${LC_ALL:-${LC_MESSAGES:-${LANG:-}}}" in
+    es*) theme="espanol" ;;
+esac
+
+if [ -n "${XDG_DATA_HOME:-}" ]; then
+    mkdir -p "$XDG_DATA_HOME"
+    HOME="$XDG_DATA_HOME"
+    export HOME
+fi
+
+if [ -n "$theme" ]; then
+    exec /usr/games/tuxtype --window --theme "$theme"
+fi
+exec /usr/games/tuxtype --window

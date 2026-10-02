@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kidux avatar: Cat. Flat shapes on a filled circle, so it stays legible
+     down to the 48 px the launcher shows it at. No gradients, no strokes
+     thinner than 2 units, no text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Cat">
+  <circle cx="60" cy="60" r="60" fill="#ffe3ec"/>
+  <path d="M32 44 L34 20 L54 34 Z" fill="#8a8a94"/>
+  <path d="M88 44 L86 20 L66 34 Z" fill="#8a8a94"/>
+  <path d="M60 30 C86 30 96 50 96 68 C96 88 80 102 60 102 C40 102 24 88 24 68 C24 50 34 30 60 30 Z" fill="#a4a4b0"/>
+  <circle cx="46" cy="62" r="6" fill="#2b2b2b"/>
+  <circle cx="74" cy="62" r="6" fill="#2b2b2b"/>
+  <path d="M60 74 L54 80 L66 80 Z" fill="#ef8ca0"/>
+  <path d="M60 80 L60 88" stroke="#2b2b2b" stroke-width="3" fill="none"/>
+</svg>

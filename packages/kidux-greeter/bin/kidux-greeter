@@ -1,0 +1,6 @@
+#!/usr/bin/python3
+import sys
+
+from kidux_greeter.main import main
+
+sys.exit(main())

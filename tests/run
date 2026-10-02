@@ -1,0 +1,86 @@
+#!/bin/sh
+# Every test of Kidux, or the kinds named (tests/README.md).
+#
+#   tests/run                         all of them, in the order below
+#   tests/run project session         just those kinds
+#   tests/run reproducible kidux-base one package built twice
+#   tests/run session --stop          power off a session machine left running
+#   tests/run session-en --stop       the same, for the English one
+#
+# The quick loop, for trying a change in minutes (tests/README.md):
+#
+#   tests/run unit [package…]         the packages' unit tests, from the tree
+#   tests/run vm up|push|test|shot|ssh|down …   a session machine left up, and
+#                                     packages built and taken to it
+#
+#   project        the repository itself: every file in tests/project/
+#   reproducible   every package built twice into the same bytes
+#   acceptance     a stock Debian VM installs the packages: tests/acceptance/
+#   session        a VM rebooted into Kidux, driven by keyboard: tests/session/
+#   session-en     the same, the machine set up in English
+#
+# Each package's own unit tests run when it is built (ci/build-package.sh).
+# The VMs install from the local archive's testing suite, so publish what they
+# should see first: ci/test-release.sh builds, publishes and then runs this.
+#
+# Prints a PASS or FAIL line per kind at the end; the exit status is the number
+# of kinds that failed.
+
+set -u
+
+HERE="$(cd "$(dirname "$0")" && pwd)"
+cd "$HERE/.."
+
+if [ "${1:-}" = session ] && [ "${2:-}" = --stop ]; then
+    exec "$HERE/lib/session-vm.py" --stop
+fi
+if [ "${1:-}" = session-en ] && [ "${2:-}" = --stop ]; then
+    KIDUX_VM_LANGUAGE=en exec "$HERE/lib/session-vm.py" --stop
+fi
+
+if [ "${1:-}" = unit ]; then
+    shift
+    exec "$HERE/lib/unit.sh" "$@"
+fi
+
+if [ "${1:-}" = vm ]; then
+    shift
+    exec "$HERE/lib/vm.py" "$@"
+fi
+
+if [ "${1:-}" = reproducible ] && [ "$#" -gt 1 ]; then
+    shift
+    exec "$HERE/lib/reproducible.sh" "$@"
+fi
+
+kinds="${*:-project reproducible acceptance session session-en}"
+failed=0
+summary=""
+
+for kind in $kinds; do
+    language=es
+    case "$kind" in
+        project) runner="$HERE/lib/project.sh" ;;
+        reproducible) runner="$HERE/lib/reproducible.sh" ;;
+        acceptance) runner="$HERE/lib/acceptance-vm.sh" ;;
+        session) runner="$HERE/lib/session-vm.py" ;;
+        session-en) runner="$HERE/lib/session-vm.py"; language=en ;;
+        *)
+            echo "$0: no kind of test called '$kind'" >&2
+            exit 2
+            ;;
+    esac
+    echo "==> test: $kind"
+    if KIDUX_VM_LANGUAGE="$language" "$runner"; then
+        summary="$summary
+PASS  $kind"
+    else
+        summary="$summary
+FAIL  $kind"
+        failed=$((failed + 1))
+    fi
+    echo
+done
+
+echo "==> Tests$summary"
+exit "$failed"

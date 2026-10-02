@@ -1,0 +1,14 @@
+# TurboWarp, Scratch made faster: a program that is not in Debian, built at
+# development time from its repository (upstream.toml, D68) and served by
+# kidux-webapps under /turbowarp/ (modules.md, section 5).
+id = "turbowarp"
+version = "0+git20260915.2"
+name = "TurboWarp"
+description = "Scratch, made faster: the same blocks and the same projects, for a slower computer or when Scratch does not run well."
+min_age = 8
+max_age = 16
+recommended_before = ["scratchjr"]
+launch = { webapp = "turbowarp" }
+categories = ["programming"]
+i18n_domain = "kidux-module-turbowarp"
+memory_max = "3G"

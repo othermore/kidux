@@ -1,0 +1,38 @@
+Source: kidux-greeter
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               pybuild-plugin-pyproject,
+               python3-all,
+               python3-setuptools,
+               pyflakes3 <!nocheck>,
+               python3-gi <!nocheck>,
+               python3-kidux (>= 0.1.42) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-greeter
+Architecture: all
+Depends: ${misc:Depends},
+         ${python3:Depends},
+         adwaita-icon-theme,
+         brightnessctl,
+         fonts-sil-andika,
+         gir1.2-adw-1,
+         gir1.2-gtk-4.0,
+         gir1.2-rsvg-2.0,
+         python3-gi,
+         python3-gi-cairo,
+         python3-kidux (>= 0.1.50),
+         wireplumber,
+Description: Kidux sign-in and lock screens
+ Kidux is a Debian derivative for a child's first computer. This package is
+ the screen the machine boots into, where each child taps their own picture
+ and types their own password, and the screen that locks a running session
+ when the time is up or the power button is pressed.
+ .
+ Both run as the greeter's system user, out of reach of anything a child can
+ run, and they are the only places an adult ever types the adult password.

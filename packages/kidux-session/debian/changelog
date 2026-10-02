@@ -1,0 +1,232 @@
+kidux-session (0.5.15) trixie; urgency=medium
+
+  * The maintainer's address is info@kidux.org.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 02 Oct 2026 09:00:41 +0200
+
+kidux-session (0.5.14) trixie; urgency=medium
+
+  * Kidux's own files are under the Business Source License 1.1
+    (debian/copyright); what the package carries of others keeps its licence.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 22:41:30 +0200
+
+kidux-session (0.5.13) trixie; urgency=medium
+
+  * The sign-in screen waits for the session before it to finish closing
+    before it takes the screen, and every screen turns its output off and on
+    once before showing anything, so that the screen is not left striped.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 01 Oct 2026 18:07:23 +0200
+
+kidux-session (0.5.12) trixie; urgency=medium
+
+  * kidux-idle beside every screen: a child's session left alone locks, any
+    screen turns off, and nothing counts while a screen is not in front; the
+    backlight is no longer dimmed.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 30 Sep 2026 16:12:52 +0200
+
+kidux-session (0.5.11) trixie; urgency=medium
+
+  * Alt+Tab and Alt+Shift+Tab signal the launcher, whose bar goes round the
+    windows.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 18:57:00 +0200
+
+kidux-session (0.5.10) trixie; urgency=medium
+
+  * Depend on plymouth-label: the plugin initramfs-tools' Plymouth hook copies
+    for every theme but Debian's own, and warns about at every kernel update
+    when it is missing.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 17:45:01 +0200
+
+kidux-session (0.5.9) trixie; urgency=medium
+
+  * session-inner sets the display scale again while cage refuses it, so the
+    trusted screens are never left at 1.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 11:20:28 +0200
+
+kidux-session (0.5.8) trixie; urgency=medium
+
+  * A keyboard's light belongs to group video, as the backlight does, so that
+    a child and the trusted screens can set it; _greetd joins video.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 29 Sep 2026 09:11:01 +0200
+
+kidux-session (0.5.7) trixie; urgency=medium
+
+  * kidux-lid-watch goes on when a lid switch can no longer be read, and says
+    so.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 22:14:54 +0200
+
+kidux-session (0.5.6) trixie; urgency=medium
+
+  * Reload udev's rules for input switches on upgrade, so the lid is readable
+    without a restart.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 17:44:10 +0200
+
+kidux-session (0.5.5) trixie; urgency=medium
+
+  * Under cage, kidux-lid-watch turns the laptop's panel off while the lid is
+    closed, beside the sign-in and lock screens (D61).
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 16:23:27 +0200
+
+kidux-session (0.5.4) trixie; urgency=medium
+
+  * Both labwc configurations bind a laptop's keys for the screen, the
+    keyboard's light and the sound to kidux-keys (D61).
+  * A udev rule lets anyone read an input switch, so that the launcher can
+    watch the lid.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 10:39:05 +0200
+
+kidux-session (0.5.3) trixie; urgency=medium
+
+  * On the desk, a click reaches the program under it: the frame's press
+    binding swallowed every click.
+  * Depend on procps: Super and Alt+F4 signal the launcher with pkill.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 28 Sep 2026 07:39:49 +0200
+
+kidux-session (0.5.2) trixie; urgency=medium
+
+  * On the desk, the launcher's window stays under every other, and Super
+    is the launcher's Home.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 22:40:47 +0200
+
+kidux-session (0.5.1) trixie; urgency=medium
+
+  * No window in the kiosk has a frame, an X11 one or a dialog included; the
+    close button of the title bar a window taken out of fullscreen has works.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 20:55:47 +0200
+
+kidux-session (0.5.0) trixie; urgency=medium
+
+  * labwc in place of sway: the kiosk, and the desk for a child with windows,
+    each a configuration of Kidux's own.
+  * XWayland is on, for modules made for X11.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 18:28:33 +0200
+
+kidux-session (0.4.6) trixie; urgency=medium
+
+  * Export the first output's mode as KIDUX_SCREEN_MODE for the panel.
+  * Kidux's cream behind a window that does not fill the screen.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 27 Sep 2026 16:16:39 +0200
+
+kidux-session (0.4.5) trixie; urgency=medium
+
+  * Title bars in Kidux's typeface and colours, for a child with windows.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 23:29:43 +0200
+
+kidux-session (0.4.4) trixie; urgency=medium
+
+  * The display scale is automatic unless an adult chose one, and a scale that
+    cannot be set is logged.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 21:04:42 +0200
+
+kidux-session (0.4.3) trixie; urgency=medium
+
+  * Alt+F4 is the launcher's Close, and nothing of sway's own.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 26 Sep 2026 18:41:39 +0200
+
+kidux-session (0.4.2) trixie; urgency=medium
+
+  * Conflict with every terminal emulator, which Chromium's recommendations
+    bring.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 18:14:28 +0200
+
+kidux-session (0.4.1) trixie; urgency=medium
+
+  * Kill a lock screen that does not stop within five seconds, so that the
+    next one can start.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 25 Sep 2026 10:36:14 +0200
+
+kidux-session (0.4.0) trixie; urgency=medium
+
+  * Run a child's session under sway with Kidux's own configuration,
+    which binds only Super and Alt+Tab; give the child's home its usual
+    folders; conflict with foot and wmenu.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 23:34:57 +0200
+
+kidux-session (0.3.3) trixie; urgency=medium
+
+  * Give every child's session sound, through PipeWire.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 24 Sep 2026 11:08:49 +0200
+
+kidux-session (0.3.2) trixie; urgency=medium
+
+  * Show the boot splash on the screen even when the machine also has a
+    serial console.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 12:20:11 +0200
+
+kidux-session (0.3.1) trixie; urgency=medium
+
+  * Rebuild with every file time clamped to the changelog's date, as every
+    build now is.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 10:48:49 +0200
+
+kidux-session (0.3.0) trixie; urgency=medium
+
+  * Run the real launcher, restarted if it crashes, and end the session
+    when the child logs out.
+  * Do not run the child's ~/.profile when their session starts.
+  * Show Kidux's logo while the machine starts, with a Plymouth theme.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 09:29:15 +0200
+
+kidux-session (0.2.0) trixie; urgency=medium
+
+  * Run the real sign-in screen, kidux-greeter, and give it the machine's
+    display scale and keyboard through the same wrapper as the lock screen.
+  * Type passwords on the lock screen in the machine's keyboard layout, the
+    one they were set in.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 23 Sep 2026 00:07:16 +0200
+
+kidux-session (0.1.2) trixie; urgency=medium
+
+  * Take the child's language from KIDUX_LANGUAGE: the login PAM stack
+    replaces a LANG passed through greetd with the machine's.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 22 Sep 2026 23:59:40 +0200
+
+kidux-session (0.1.1) trixie; urgency=medium
+
+  * Boot a generic kernel rather than a cloud one when both are installed:
+    a cloud kernel has no display drivers and cannot show the sign-in screen.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 22 Sep 2026 23:51:37 +0200
+
+kidux-session (0.1.0) trixie; urgency=medium
+
+  * Initial release: the machine boots into greetd on terminal 7, a child's
+    session runs cage with the launcher in it, and the lock screen has a
+    compositor and a logind session of its own on terminal 8.
+  * Every door closed as a packaged file: no spare terminals and no text
+    logins on them, no Ctrl+Alt+Delete, no SysRq, no ptrace between a
+    child's processes, a child's processes ending with their session, the
+    power key left to kidux-daemon, children refused SSH and everything in
+    polkit except turning the computer off and mounting removable drives.
+  * GRUB boots a Kidux entry straight through and keeps every other entry
+    behind the recovery password.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 22 Sep 2026 23:25:45 +0200
