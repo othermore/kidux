@@ -51,19 +51,35 @@ keep somewhere else first.
    after turning it on, or the Option key held down on a Mac. Choose the
    stick, and then **Graphical install**.
 
-4. **Answer the installer.** Most of its questions can be answered as you
-   like. These are the ones that matter to Kidux:
+   ![The Debian installer's first menu](../images/en/install-debian-menu.png)
+
+4. **Answer the installer.** It asks one thing at a time, and **Continue**
+   moves on. Most of it can be left as it comes. These are the questions
+   that matter to Kidux:
 
    | The installer asks | Answer |
    |---|---|
    | Language, location, keyboard | Your own. Kidux asks for its own language and keyboard at its first start. |
-   | Network | Nothing, with a cable. Without one, choose your Wi-Fi and type its password. |
-   | Host name and domain | Any name, `kidux` for instance. Leave the domain empty. |
-   | Root password | Leave it **empty**. The user created next can then look after the computer. |
-   | User and password | An account for you, the adult. The children get theirs in Kidux. |
-   | Partitioning | **Guided - use entire disk**, and then **Separate /home partition**: the system on one part of the disk and the children's work on another. |
-   | Software selection | Untick everything but **standard system utilities**. No desktop: Kidux brings its own screens. |
-   | GRUB boot loader | **Yes**, on the computer's own disk. |
+   | Network | With a cable it asks nothing. Without one, choose your Wi-Fi and type its password. |
+   | Hostname and domain name | Any name, `kidux` for instance. Leave the domain empty. |
+   | Root password | Leave both boxes **empty**. The user created next can then look after the computer. |
+   | Full name, username and password | An account for you, the adult. The children get theirs in Kidux. |
+   | Partition disks | **Guided - use entire disk**, the computer's disk, and **Separate /home partition**: the system on one part of the disk and the children's work on another. Then **Finish partitioning and write changes to disk**, and **Yes** when it asks whether to write the changes; **No** comes ticked. |
+   | Debian mirror, proxy, package survey | What comes chosen. |
+   | Software selection | Untick **Debian desktop environment** and **GNOME**, and leave only **standard system utilities** ticked. No desktop: Kidux brings its own screens. |
+   | GRUB boot loader | Only an older computer is asked. **Yes**, on the computer's own disk. |
+
+   The root password, left empty:
+
+   ![The root password screen, with both boxes empty](../images/en/install-debian-root-password.png)
+
+   The partitioning scheme:
+
+   ![The partitioning scheme, with "Separate /home partition" chosen](../images/en/install-debian-partitions.png)
+
+   And the software: the standard utilities alone.
+
+   ![The software selection, with only "standard system utilities" ticked](../images/en/install-debian-software.png)
 
    When the installer finishes, take the stick out and let the computer
    restart.
@@ -84,6 +100,12 @@ keep somewhere else first.
    sudo apt install kidux-base
    ```
 
+   The first line that starts with `sudo` asks for your password. The last
+   shows what it is about to install and asks whether to go on: press
+   Enter. It takes a few minutes.
+
+   ![The first two lines, typed at Debian's text screen](../images/en/install-debian-console.png)
+
 7. **If the computer is on Wi-Fi, hand the Wi-Fi over to Kidux.** With a
    network cable, skip this step.
 
@@ -102,6 +124,9 @@ keep somewhere else first.
    `wl`, and of your network:
 
    ```
+   # This file describes the network interfaces available on your system
+   # and how to activate them. For more information, see interfaces(5).
+
    source /etc/network/interfaces.d/*
 
    # The loopback network interface
@@ -120,6 +145,9 @@ keep somewhere else first.
    `wpa-`. Leave the rest as it is:
 
    ```
+   # This file describes the network interfaces available on your system
+   # and how to activate them. For more information, see interfaces(5).
+
    source /etc/network/interfaces.d/*
 
    # The loopback network interface

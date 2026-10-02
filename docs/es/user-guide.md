@@ -50,21 +50,38 @@ sitio lo que quieras conservar.
    también un cable de red si el ordenador tiene dónde enchufarlo.
    Enciende el ordenador y abre su menú de arranque: suele ser F12, F11,
    F8, Esc o F2 pulsada nada más encender, o la tecla Opción mantenida en
-   un Mac. Elige la memoria, y después **Graphical install**.
+   un Mac. Elige la memoria, y después **Graphical install**. Ese primer
+   menú está siempre en inglés; el idioma se elige en la pantalla siguiente.
 
-4. **Responde al instalador.** Casi todas sus preguntas se pueden
-   responder como quieras. Estas son las que le importan a Kidux:
+   ![El primer menú del instalador de Debian](../images/es/install-debian-menu.png)
+
+4. **Responde al instalador.** Va pregunta a pregunta, y se avanza con
+   **Continuar**. Casi todas se pueden dejar como vienen. Estas son las que
+   le importan a Kidux:
 
    | El instalador pregunta | Respuesta |
    |---|---|
    | Idioma, país, teclado | Los tuyos. Kidux pregunta su propio idioma y teclado en su primer arranque. |
-   | Red | Nada, con cable. Sin cable, elige tu wifi y escribe su contraseña. |
+   | Red | Con cable no pregunta nada. Sin cable, elige tu wifi y escribe su contraseña. |
    | Nombre de la máquina y dominio | Cualquier nombre, `kidux` por ejemplo. El dominio, vacío. |
-   | Contraseña de root | Déjala **vacía**. Así el usuario que se crea a continuación puede ocuparse del ordenador. |
-   | Usuario y contraseña | Una cuenta para ti, el adulto. Los niños tendrán las suyas en Kidux. |
-   | Particionado | **Guiado - utilizar todo el disco**, y después **Separar la partición /home**: el sistema en una parte del disco y el trabajo de los niños en otra. |
-   | Selección de programas | Desmarca todo salvo **Utilidades estándar del sistema**. Sin escritorio: Kidux trae sus propias pantallas. |
-   | Cargador de arranque GRUB | **Sí**, en el disco del propio ordenador. |
+   | Clave del superusuario | Deja las dos casillas **vacías**. Así el usuario que se crea a continuación puede ocuparse del ordenador. |
+   | Nombre, usuario y contraseña | Una cuenta para ti, el adulto. Los niños tendrán las suyas en Kidux. |
+   | Particionado de discos | **Guiado - utilizar todo el disco**, el disco del ordenador, y **Separar la partición /home**: el sistema en una parte del disco y el trabajo de los niños en otra. Después, **Finalizar el particionado y escribir los cambios en el disco**, y **Sí** cuando pregunta si quieres escribir los cambios; viene marcado **No**. |
+   | Réplica de Debian, proxy, encuesta de paquetes | Lo que viene elegido. |
+   | Selección de programas | Desmarca **Entorno de escritorio Debian** y **GNOME**, y deja marcado solo **Utilidades estándar del sistema**. Sin escritorio: Kidux trae sus propias pantallas. |
+   | Cargador de arranque GRUB | Solo lo pregunta en ordenadores antiguos. **Sí**, en el disco del propio ordenador. |
+
+   La clave del superusuario, vacía:
+
+   ![La pantalla de la clave del superusuario, con las dos casillas vacías](../images/es/install-debian-root-password.png)
+
+   El esquema de particiones:
+
+   ![El esquema de particionado, con «Separar la partición /home» elegido](../images/es/install-debian-partitions.png)
+
+   Y los programas: solo las utilidades estándar.
+
+   ![La selección de programas, con solo «Utilidades estándar del sistema» marcado](../images/es/install-debian-software.png)
 
    Cuando el instalador termine, quita la memoria y deja que el ordenador
    se reinicie.
@@ -86,6 +103,12 @@ sitio lo que quieras conservar.
    sudo apt install kidux-base
    ```
 
+   La primera línea que empieza por `sudo` pide tu contraseña. La última
+   enseña lo que va a instalar y pregunta si continúa: pulsa Intro. Tarda
+   unos minutos.
+
+   ![Las dos primeras líneas, escritas en la pantalla de texto de Debian](../images/es/install-debian-console.png)
+
 7. **Si el ordenador va por wifi, traspasa la wifi a Kidux.** Con cable de
    red, sáltate este paso.
 
@@ -105,6 +128,9 @@ sitio lo que quieras conservar.
    `wl`, y el de tu red:
 
    ```
+   # This file describes the network interfaces available on your system
+   # and how to activate them. For more information, see interfaces(5).
+
    source /etc/network/interfaces.d/*
 
    # The loopback network interface
@@ -123,6 +149,9 @@ sitio lo que quieras conservar.
    `wpa-`. Deja el resto como está:
 
    ```
+   # This file describes the network interfaces available on your system
+   # and how to activate them. For more information, see interfaces(5).
+
    source /etc/network/interfaces.d/*
 
    # The loopback network interface

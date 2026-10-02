@@ -27,8 +27,12 @@ start from, with Kidux's Debian dependencies already installed
 (docs/dev/packaging.md, "Before a release"); `lib/seed/` is the acceptance VM's cloud-init seed and the fixtures both
 VMs use; `lib/sessionlib.py` is how session tests drive their machine;
 `lib/screenshot-diff.py` compares two runs' pictures; and
-`lib/doc-screenshots.txt` says which pictures the user guide and the README
-show, in each language.
+`lib/doc-screenshots.txt` says which pictures the user guide, the README and
+the website show, in each language. The guide's pictures of Debian's own
+installer, `install-debian-*.png`, are not Kidux's screens and no test takes
+them: they are from an installation of Debian 13.7 in a virtual machine, in
+each language, ended with the guide's own lines against the public archive,
+and are taken again by hand when Debian's installer changes.
 
 ## The order
 
