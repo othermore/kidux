@@ -69,7 +69,7 @@ open source or free software, which the licence is not.
 
 It says only what is true of Kidux today, and of the two ways to install
 it (D81) it says which is which. Kidux's own image is *coming soon*, with
-what installing from it will be and a button to be told when it is ready;
+what installing from it will be;
 where the image is downloaded from is a fact, `download` in
 `site/site.toml`, and once it is set to an address the same card says
 *available today* and offers the download. Installing on Debian is

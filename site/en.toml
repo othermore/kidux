@@ -116,8 +116,6 @@ need3 = "32 GB of disk."
 [get.image]
 title = "The Kidux image"
 text = "Download the image, write it to a USB stick or an SD card, start the computer from it and follow the steps."
-tell = "Tell me when it is ready"
-tell_subject = "Tell me when Kidux's image is ready"
 download = "Download Kidux"
 
 [get.debian]
