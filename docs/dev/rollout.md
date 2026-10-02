@@ -60,27 +60,27 @@ stay: they say what `kidux-session` says too.
 
 ## 3. Installing
 
-The machine is also the archive, so it follows its own `testing` suite:
+The machine is also the archive, so beside the public archive's stable suite,
+which the shipped source names, it follows its own `testing` suite, as a
+second source with the key testing is signed with (packaging.md, "Signing"):
 
 ```bash
 curl -fsSLO http://kidux.local/apt/bootstrap/testing/kidux-archive-keyring.deb
 curl -fsSLO http://kidux.local/apt/bootstrap/testing/kidux-apt-source.deb
 sudo apt install ./kidux-archive-keyring.deb ./kidux-apt-source.deb
-sudo sed -i -e 's|^URIs: .*|URIs: http://kidux.local/apt|' \
-    -e 's/^Suites: stable$/Suites: testing/' /etc/apt/sources.list.d/kidux.sources
-curl -fsS http://kidux.local/apt/extra-key.pgp \
-    | sudo tee -a /usr/share/keyrings/kidux-archive-keyring.pgp >/dev/null
+sudo curl -fsS -o /usr/share/keyrings/kidux-development.pgp \
+    http://kidux.local/apt/extra-key.pgp
+printf '%s\n' 'Types: deb' 'URIs: http://kidux.local/apt' 'Suites: testing' \
+    'Components: main' 'Signed-By: /usr/share/keyrings/kidux-development.pgp' \
+    | sudo tee /etc/apt/sources.list.d/kidux-development.sources
 sudo apt update
 sudo apt install kidux-base
 ```
 
-The shipped source follows the public archive's stable suite, and the
-keyring holds only the key that suite is signed with (packaging.md,
-"Signing"); the two lines after the first `apt install` turn this machine to
-its own archive and give it the key testing is signed with. An upgrade of
-`kidux-archive-keyring` puts the shipped keyring back, and the `curl` line
-is run again; an upgrade of `kidux-apt-source` asks whether to keep the
-edited source, and the answer is to keep it.
+apt takes the newest version either source has: a development build from
+testing, then the release that replaces it, from testing first and from
+stable once it is published. The shipped source and keyring are left as
+the packages install them, so an upgrade of either asks nothing.
 
 Then, before rebooting:
 

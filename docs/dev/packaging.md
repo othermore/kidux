@@ -547,17 +547,19 @@ They are two packages rather than one because a package that adds an apt source
 has to say so in its name (D21). `kidux-apt-source` depends on the keyring, so
 the trust is always in place before the source that relies on it.
 
-A machine that follows the development archive, a test machine or the
-development one, installs the same pair from `http://kidux.local/apt/bootstrap/testing/`
-and then turns the shipped source to it, address and suite, and takes the
-key testing is signed with, which the archive publishes beside itself:
+A test machine, which is thrown away, installs the same pair from
+`http://kidux.local/apt/bootstrap/testing/` and then turns the shipped source to
+the development archive, address and suite, and adds the key testing is signed
+with, which the archive publishes beside itself, to the keyring:
 
 ```
-sudo sed -i -e 's|^URIs: .*|URIs: http://kidux.local/apt|' \
+sed -i -e 's|^URIs: .*|URIs: http://kidux.local/apt|' \
     -e 's/^Suites: stable$/Suites: testing/' /etc/apt/sources.list.d/kidux.sources
-curl -fsS http://kidux.local/apt/extra-key.pgp \
-    | sudo tee -a /usr/share/keyrings/kidux-archive-keyring.pgp >/dev/null
+curl -fsS http://kidux.local/apt/extra-key.pgp >> /usr/share/keyrings/kidux-archive-keyring.pgp
 ```
+
+The development machine, which is kept, leaves both as shipped and follows
+testing as a second source with a keyring of its own (rollout.md, section 3).
 
 The installer image does all of it by itself.
 
