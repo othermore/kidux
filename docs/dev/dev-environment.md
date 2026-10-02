@@ -86,8 +86,24 @@ Rebuild the tarball with the same `mmdebstrap` line whenever it drifts from trix
 - The public part is in the repository at
   `packages/kidux-archive-keyring/keyrings/kidux-archive-keyring.pgp`.
 
-This key signs the LAN archive only. The production key is created in phase 2 and is
-never this one.
+This key signs the testing suite only, which never leaves the LAN, and no package
+ships it.
+
+**Archive signing key**, created 2026-10-02:
+
+- ed25519, fingerprint `27E3FC17DBA9E4578268F8EEB3768AF190169C5E`, expires 2031-10-01.
+- UID: `Kidux archive signing key <info@kidux.org>`.
+- It signs the stable suite, the one published at `https://kidux.org/apt`, and its
+  public part is the keyring every Kidux machine has: a package signed with it is
+  installed by every family's computer without a word.
+- No passphrase, so that `ci/promote.sh` signs without anyone typing. It can be given
+  one at any time, `gpg --edit-key 27E3FC17DBA9E4578268F8EEB3768AF190169C5E passwd`,
+  without changing the key the machines know; `ci/promote.sh` then asks for it.
+- The private key and its revocation certificate in `~/.gnupg/openpgp-revocs.d/` stay
+  on `kidux`, and need an encrypted off-machine backup, as the development key's.
+- It has to be renewed, `gpg --quick-set-expire`, and the keyring package released
+  with the renewed key, well before October 2031: a machine that only knows the
+  expired key stops taking updates.
 
 ## 6. Optional: Antigravity with Gemini
 

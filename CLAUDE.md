@@ -16,7 +16,8 @@ not negotiable.
     document showing its own language's. It is written as the
     finished product's manual and presentation: static and definitive, never as
     something under construction. What does not exist yet gets an empty section,
-    not a description of a plan.
+    not a description of a plan; the one exception is Kidux's own image, which
+    the documents say is coming, with what installing from it will be (D81).
   - **The website**, `site/`, is the product's shop window, in the same two
     languages: its page once, `site/page.html`, and its words in
     `site/<language>.toml`, the same keys in each, which `tests/project/site.py`

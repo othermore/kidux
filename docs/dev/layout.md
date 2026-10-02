@@ -15,7 +15,8 @@ docs/dev/                    developer documentation, English only
 branding/                    the logo, the mascot, the style guide
 packages/<name>/             one Debian source package each, debian/ inside
 ci/                          every script that builds, publishes or promotes
-ci/archive/conf/             the apt archive's configuration
+ci/archive/conf/             the apt archive's configuration, with the key each suite is signed with
+ci/archive/development-key.pgp   the public part of the key testing is signed with
 ci/vm/                       a throwaway Kidux machine to use over VNC
 ci/upstream/                 the build scripts of programs that are not in Debian (D68)
 .github/workflows/           continuous integration (packaging.md)

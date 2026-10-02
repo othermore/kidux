@@ -110,6 +110,15 @@ The modules Kidux offers:
 
 ## Getting Kidux
 
+There are two ways to install Kidux:
+
+- **From the Kidux image. Coming soon.** Download the image, write it to a
+  USB stick, an SD card or any other external drive, start the computer
+  from it and follow the steps on the screen.
+- **On Debian.** Install a Debian 13 with nothing else on it, add Kidux's
+  package archive and install Kidux from it. The user guide has
+  [every step](docs/en/user-guide.md#2-installing-kidux).
+
 ## Documentation
 
 - [User guide](docs/en/user-guide.md), also [in Spanish](docs/es/user-guide.md):

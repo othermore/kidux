@@ -4,6 +4,13 @@
 # battery's pictures in docs/images/ and the brand in branding/, whenever one
 # of them changes on main, or when asked for by hand. The job is skipped
 # while the repository has no Pages site, so that a push never fails for it.
+#
+# The package archive is published with it, at apt/: the stable suite as
+# ci/publish-public.sh packed and signed it on the development machine, taken
+# from the `archive` release, which asks for this workflow after sending it
+# (docs/dev/packaging.md, "The public archive"). A site published without it
+# would take the archive away from every machine that follows it, so the job
+# fails rather than publish one, and what was published before stays.
 
 name: site
 
@@ -37,8 +44,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: The package archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download archive --pattern kidux-apt.tar --dir build
       - name: Build
-        run: python3 ci/build-site.py
+        run: python3 ci/build-site.py --archive build/kidux-apt.tar
+      - name: The archive is signed with the key the packages ship
+        run: |
+          gpgv --keyring "$PWD/packages/kidux-archive-keyring/keyrings/kidux-archive-keyring.pgp" \
+              build/site/apt/dists/stable/InRelease
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

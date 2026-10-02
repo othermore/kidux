@@ -179,29 +179,40 @@
 </section>
 
 <section id="get">
-  <div class="wrap split">
-    <div>
+  <div class="wrap">
+    <div class="intro">
       <h2>{{ get.title }}</h2>
-{{#if site.download}}
-      <p class="lead">{{ get.ready }}</p>
-      <ol class="steps">
-        <li>{{ get.step1 }}</li>
-        <li>{{ get.step2 }}</li>
-        <li>{{ get.step3 }}</li>
-      </ol>
-      <div class="actions"><a class="button primary" href="{{ site.download }}">{{ get.download }}</a></div>
-{{#else}}
-      <p class="lead">{{ get.coming }}</p>
-      <div class="actions"><a class="button primary" href="mailto:{{ site.email }}?subject={{ get.tell_subject }}">{{ get.tell }}</a></div>
-{{/if}}
+      <p>{{ get.lead }}</p>
     </div>
-    <div class="card needs">
-      <h3>{{ get.needs }}</h3>
-      <ul class="ticks">
-        <li>{{ get.need1 }}</li>
-        <li>{{ get.need2 }}</li>
-        <li>{{ get.need3 }}</li>
-      </ul>
+    <div class="cards three">
+      <article class="card">
+{{#if site.download}}
+        <span class="tag first now">{{ get.now }}</span>
+{{#else}}
+        <span class="tag first">{{ get.soon }}</span>
+{{/if}}
+        <h3>{{ get.image.title }}</h3>
+        <p>{{ get.image.text }}</p>
+{{#if site.download}}
+        <a class="button primary small" href="{{ site.download }}">{{ get.image.download }}</a>
+{{#else}}
+        <a class="button quiet small" href="mailto:{{ site.email }}?subject={{ get.image.tell_subject }}">{{ get.image.tell }}</a>
+{{/if}}
+      </article>
+      <article class="card">
+        <span class="tag first now">{{ get.now }}</span>
+        <h3>{{ get.debian.title }}</h3>
+        <p>{{ get.debian.text }}</p>
+        <a class="button primary small" href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ get.debian.anchor }}">{{ get.debian.button }}</a>
+      </article>
+      <article class="card">
+        <h3>{{ get.needs }}</h3>
+        <ul class="ticks">
+          <li>{{ get.need1 }}</li>
+          <li>{{ get.need2 }}</li>
+          <li>{{ get.need3 }}</li>
+        </ul>
+      </article>
     </div>
   </div>
 </section>

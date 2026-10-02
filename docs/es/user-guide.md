@@ -18,6 +18,131 @@ sola.
 
 ## 2. Instalar Kidux
 
+Hay dos formas de poner Kidux en un ordenador.
+
+### Con la imagen de Kidux
+
+**Muy pronto.** Kidux tendrá una imagen propia que lo instala todo ella
+sola: se descarga la imagen, se graba en una memoria USB, una tarjeta SD o
+cualquier otra unidad externa, se arranca el ordenador desde ella y se
+siguen los pasos de la pantalla.
+
+### Sobre Debian
+
+Kidux está construido sobre [Debian](https://www.debian.org/) y se instala
+encima de un Debian 13 que no tenga nada más. Lleva alrededor de una hora,
+casi toda de espera. Una parte se escribe en una consola de texto; cada
+línea que hay que escribir está aquí.
+
+Se borra todo lo que haya en el disco del ordenador. Copia antes en otro
+sitio lo que quieras conservar.
+
+1. **Descarga Debian.** En otro ordenador, ve a
+   [debian.org/download](https://www.debian.org/download) y descarga la
+   imagen pequeña de instalación, un archivo con un nombre como
+   `debian-13.x.0-amd64-netinst.iso`.
+
+2. **Grábala en una memoria USB** de 1 GB o más, con un programa como
+   [balenaEtcher](https://etcher.balena.io/): eliges el archivo, eliges la
+   memoria y grabas. Se borra todo lo que haya en la memoria.
+
+3. **Arranca el ordenador desde la memoria.** Conecta la memoria, y
+   también un cable de red si el ordenador tiene dónde enchufarlo.
+   Enciende el ordenador y abre su menú de arranque: suele ser F12, F11,
+   F8, Esc o F2 pulsada nada más encender, o la tecla Opción mantenida en
+   un Mac. Elige la memoria, y después **Graphical install**.
+
+4. **Responde al instalador.** Casi todas sus preguntas se pueden
+   responder como quieras. Estas son las que le importan a Kidux:
+
+   | El instalador pregunta | Respuesta |
+   |---|---|
+   | Idioma, país, teclado | Los tuyos. Kidux pregunta su propio idioma y teclado en su primer arranque. |
+   | Red | Nada, con cable. Sin cable, elige tu wifi y escribe su contraseña. |
+   | Nombre de la máquina y dominio | Cualquier nombre, `kidux` por ejemplo. El dominio, vacío. |
+   | Contraseña de root | Déjala **vacía**. Así el usuario que se crea a continuación puede ocuparse del ordenador. |
+   | Usuario y contraseña | Una cuenta para ti, el adulto. Los niños tendrán las suyas en Kidux. |
+   | Particionado | **Guiado - utilizar todo el disco**, y después **Separar la partición /home**: el sistema en una parte del disco y el trabajo de los niños en otra. |
+   | Selección de programas | Desmarca todo salvo **Utilidades estándar del sistema**. Sin escritorio: Kidux trae sus propias pantallas. |
+   | Cargador de arranque GRUB | **Sí**, en el disco del propio ordenador. |
+
+   Cuando el instalador termine, quita la memoria y deja que el ordenador
+   se reinicie.
+
+5. **Entra en Debian.** El ordenador arranca en una pantalla de texto que
+   pide un usuario. Escribe el nombre de usuario y la contraseña que
+   diste al instalador.
+
+6. **Instala Kidux.** Escribe estas líneas, de una en una. Las tres
+   primeras descargan e instalan la dirección de la que vienen los
+   paquetes de Kidux y la clave con que están firmados; las dos últimas
+   instalan Kidux.
+
+   ```
+   wget https://kidux.org/apt/bootstrap/stable/kidux-archive-keyring.deb
+   wget https://kidux.org/apt/bootstrap/stable/kidux-apt-source.deb
+   sudo apt install ./kidux-archive-keyring.deb ./kidux-apt-source.deb
+   sudo apt update
+   sudo apt install kidux-base
+   ```
+
+7. **Si el ordenador va por wifi, traspasa la wifi a Kidux.** Con cable de
+   red, sáltate este paso.
+
+   El instalador de Debian escribió la wifi a la que se conectó en un
+   archivo suyo, `/etc/network/interfaces`. El panel de adulto de Kidux
+   tiene una página **Red** para conectarse a redes wifi y cambiarlas, y
+   no puede cambiar una que esté escrita en ese archivo. Así que quítala
+   del archivo ahora.
+
+   Abre el archivo:
+
+   ```
+   sudo nano /etc/network/interfaces
+   ```
+
+   Se parece a esto, con el nombre de tu tarjeta wifi, que empieza por
+   `wl`, y el de tu red:
+
+   ```
+   source /etc/network/interfaces.d/*
+
+   # The loopback network interface
+   auto lo
+   iface lo inet loopback
+
+   # The primary network interface
+   allow-hotplug wlp3s0
+   iface wlp3s0 inet dhcp
+           wpa-ssid MiRed
+           wpa-psk  su-contraseña
+   ```
+
+   Borra las líneas que nombran la tarjeta wifi, las que empiezan por
+   `allow-hotplug` e `iface`, y las líneas de debajo que empiezan por
+   `wpa-`. Deja el resto como está:
+
+   ```
+   source /etc/network/interfaces.d/*
+
+   # The loopback network interface
+   auto lo
+   iface lo inet loopback
+   ```
+
+   Guarda con Ctrl+O y Enter, y sal con Ctrl+X.
+
+8. **Reinicia.**
+
+   ```
+   sudo reboot
+   ```
+
+   El ordenador muestra el logo de Kidux y arranca por primera vez, que es
+   lo que describe la sección siguiente. Con la wifi quitada del archivo,
+   el ordenador no está en ninguna red hasta que te conectes de nuevo
+   desde la página **Red** del panel de adulto, sección 8.
+
 ## 3. El primer arranque
 
 Cada vez que arranca, el ordenador muestra el logo de Kidux hasta que la

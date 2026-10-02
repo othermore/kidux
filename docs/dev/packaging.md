@@ -271,6 +271,47 @@ ci/promote.sh                  into stable, once that passed
 Promotion copies what is already in `testing` rather than publishing a fresh
 build, so the bits a family gets are the bits that were tested, byte for byte.
 
+## The public archive
+
+```
+ci/publish-public.sh           the stable suite, to https://kidux.org/apt
+ci/publish-public.sh --pack    packed only, into build/kidux-apt.tar
+```
+
+A family's machine follows `https://kidux.org/apt`, suite `stable`: that is
+what `kidux-apt-source` writes into `/etc/apt/sources.list.d/kidux.sources`,
+and where the user guide's installation on Debian fetches the two bootstrap
+packages from (D81, D82). The testing suite is never public; it stays on the
+development machine, for the machines that test.
+
+The public archive is the stable suite of the local one, copied whole:
+`dists/stable/` with its signature, the packages its index names, and
+`bootstrap/stable/`. `ci/publish-public.sh` packs them into one tarball,
+checks each package against the index, and sends the tarball to the
+repository's `archive` release, replacing the one before. Then it asks for
+the site's workflow (website.md), which unpacks the tarball under `apt/`
+beside the pages and publishes both: the archive has no server of its own.
+The workflow checks the suite's signature against the keyring in the
+repository first, and a site is never published without the archive.
+
+Nothing is signed on GitHub. The suite is signed on the development
+machine when `ci/promote.sh` exports it, and what is published is those
+bytes. The script refuses a stable suite that is not signed with the key
+`kidux-archive-keyring` ships, or that holds a development build.
+
+The source of what the archive holds is the repository itself, and for the
+programs built at development time the source tarballs of their releases
+(D71); the suite's own source packages are not copied.
+
+So a release reaches a family in four commands, the last two new:
+
+```
+ci/test-release.sh <label>     everything built, published to testing and tested
+ci/promote.sh                  into stable
+git push                       the tree it was built from
+ci/publish-public.sh           stable, to kidux.org/apt
+```
+
 ## Testing before a real machine
 
 ```
@@ -488,11 +529,12 @@ four-year-old could use it, is one no test can answer.
 
 Nothing in Kidux can be verified until apt has our key, and the key cannot be
 fetched from an archive apt does not yet trust. So two packages are installed by
-hand, once, over plain HTTP:
+hand, once. On a family's machine, from the public archive, over HTTPS, as the
+user guide's section 2 says:
 
 ```
-curl -fsSLO http://kidux.local/apt/bootstrap/stable/kidux-archive-keyring.deb
-curl -fsSLO http://kidux.local/apt/bootstrap/stable/kidux-apt-source.deb
+wget https://kidux.org/apt/bootstrap/stable/kidux-archive-keyring.deb
+wget https://kidux.org/apt/bootstrap/stable/kidux-apt-source.deb
 sudo apt install ./kidux-archive-keyring.deb ./kidux-apt-source.deb
 sudo apt update && sudo apt install kidux-base
 ```
@@ -505,7 +547,19 @@ They are two packages rather than one because a package that adds an apt source
 has to say so in its name (D21). `kidux-apt-source` depends on the keyring, so
 the trust is always in place before the source that relies on it.
 
-From phase 2 the installer image does this, and nobody types it again.
+A machine that follows the development archive, a test machine or the
+development one, installs the same pair from `http://kidux.local/apt/bootstrap/testing/`
+and then turns the shipped source to it, address and suite, and takes the
+key testing is signed with, which the archive publishes beside itself:
+
+```
+sudo sed -i -e 's|^URIs: .*|URIs: http://kidux.local/apt|' \
+    -e 's/^Suites: stable$/Suites: testing/' /etc/apt/sources.list.d/kidux.sources
+curl -fsS http://kidux.local/apt/extra-key.pgp \
+    | sudo tee -a /usr/share/keyrings/kidux-archive-keyring.pgp >/dev/null
+```
+
+The installer image does all of it by itself.
 
 ## Translations
 
@@ -579,10 +633,25 @@ stale to anybody who cloned it.
 
 ## Signing
 
-The archive is signed with the development key described in
-[dev-environment.md](dev-environment.md), section 5. It is served over plain
-HTTP, like any Debian mirror: apt verifies the signature on the `Release` file,
-and `Signed-By` in `kidux.sources` means it accepts nothing else. The transport
-is not what makes it safe.
+Each suite has its key (`ci/archive/conf/distributions`, D82).
 
-The production key is created in phase 2 and is never the development one.
+- **`stable`** is signed with the archive's key, fingerprint
+  `27E3FC17DBA9E4578268F8EEB3768AF190169C5E`. Its public part is the whole of
+  `kidux-archive-keyring`: the one key a family's machine trusts.
+- **`testing`** is signed with the development key, which signs unattended
+  at every publish. Its public part is `ci/archive/development-key.pgp`,
+  which `ci/publish-local.sh` puts beside the archive as `extra-key.pgp`
+  for the machines that follow testing. No package ships it, so a family's
+  machine never trusts it. In CI, both suites are signed with a key made
+  for that run, published the same way.
+
+`tests/project/archive-keys.py` holds the keyring to exactly the key stable
+is signed with.
+
+apt verifies the signature on the `Release` file, and `Signed-By` in
+`kidux.sources` means it accepts nothing else. That, and not the transport,
+is what makes the archive safe: the public one is served over HTTPS, the
+development one over plain HTTP like any Debian mirror.
+
+Both private keys are on the development machine, described in
+[dev-environment.md](dev-environment.md), section 5.

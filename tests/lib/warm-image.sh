@@ -96,7 +96,8 @@ write_files:
       curl -fsSLO $ARCHIVE_URL/bootstrap/testing/kidux-archive-keyring.deb
       curl -fsSLO $ARCHIVE_URL/bootstrap/testing/kidux-apt-source.deb
       apt-get install -y --no-install-recommends ./kidux-archive-keyring.deb ./kidux-apt-source.deb
-      sed -i 's/^Suites: stable\$/Suites: testing/' /etc/apt/sources.list.d/kidux.sources
+      sed -i -e 's|^URIs: .*|URIs: $ARCHIVE_URL|' -e 's/^Suites: stable\$/Suites: testing/' \
+          /etc/apt/sources.list.d/kidux.sources
       if curl -fsS -o extra-key.pgp $ARCHIVE_URL/extra-key.pgp; then
           cat extra-key.pgp >> /usr/share/keyrings/kidux-archive-keyring.pgp
       fi

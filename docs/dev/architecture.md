@@ -39,9 +39,10 @@ Three package sources, in order of preference:
 
 1. **Debian trixie archive** (`main`, `contrib`, `non-free-firmware`, `non-free`).
 2. **Our apt repository** (`kidux`): everything we write, plus anything we repackage.
-   Signed with a project GPG key and built with `reprepro`. Served from the development
-   machine over the LAN in phase 1 and published on GitHub Pages from phase 2 (D2).
-   Suites: `stable` and `testing`.
+   Signed and built with `reprepro` on the development machine. Suites: `stable`,
+   which a family's machine follows, published at `https://kidux.org/apt` beside
+   the website, and `testing`, served from the development machine over the LAN
+   for the machines that test; each signed with its own key (D2, D82).
 3. **Flatpak (Flathub)** is *not* used. It stays documented as plan B (TurboWarp
    Desktop) only if self-hosting the official Scratch editor proves unworkable.
 
@@ -1419,3 +1420,43 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   `othermore <info@kidux.org>`, the repository's own `git config`. The
   earlier commits, whose messages say why each change of those days was
   made, are kept in a private repository.
+- **D81 — Two ways to install: Kidux's own image, said to be coming, and on
+  Debian, step by step.** Decided 2026-10-02 by the owner. The README, the
+  user guide and the website name both. The image is the one thing the
+  user documents speak of before it exists: *coming soon*, and what
+  installing from it will be, the image downloaded, written to a USB
+  stick, an SD card or another external drive, and the computer started
+  from it. Installing on Debian is the way there is: a Debian 13 with
+  nothing else on it and a `/home` of its own, Kidux's archive added with
+  the two bootstrap packages, and `kidux-base` installed, as the
+  development machine was (rollout.md). The guide's section 2 writes it
+  for an adult at a text console, every line to type, with the step that
+  takes a Wi-Fi the Debian installer set up out of
+  `/etc/network/interfaces` before the first restart, so that the panel's
+  Network page can run it (D62). Its lines fetch from the archive's public
+  address, `https://kidux.org/apt`, the move to a public URL that D2 left
+  for the day the repository was public.
+- **D82 — The stable suite is public at kidux.org/apt, signed with a key of
+  its own; testing and the development key stay on the LAN.** Decided
+  2026-10-02 by the owner. A family's machine has to fetch Kidux from
+  somewhere anyone can reach, and until now the only archive was the
+  development machine's (D2). The stable suite is published as it is,
+  packed on the development machine and sent to a release of the
+  repository, from which the site's workflow unpacks it under `apt/` of
+  the same GitHub Pages site: no server of its own, nothing signed outside
+  the development machine, and the indexes the workflow publishes are
+  checked against the keyring first (packaging.md, "The public archive").
+  `kidux-apt-source` names `https://kidux.org/apt`, suite `stable`.
+
+  The key matters more than the address: whoever holds the key a family's
+  machine trusts can install anything on it, unattended. The development
+  key was made for the LAN, says so in its name, has no passphrase and is
+  used by every test, so it is not that key. Stable is signed with a new
+  one, `27E3FC17DBA9E4578268F8EEB3768AF190169C5E`, whose public part is all
+  `kidux-archive-keyring` holds; testing keeps the development key, which
+  the machines that follow testing take from beside the archive and no
+  package ships. The new key has no passphrase either, the owner's choice,
+  so that a release is promoted without anyone typing; it can be given one
+  later without the machines noticing, since the public key does not
+  change. A machine that follows testing turns the shipped source to the
+  development archive and adds its key (rollout.md, section 3).

@@ -5,6 +5,12 @@
 # package lands the moment it builds. Nothing reaches stable without having been
 # installed from testing on a real machine first.
 #
+# Each suite has its key. stable is signed with the archive's key, the one
+# kidux-archive-keyring installs on a family's machine. testing is signed with
+# the development key, which only a machine told to follow testing trusts: its
+# public part is ci/archive/development-key.pgp, published beside the archive
+# (ci/publish-local.sh).
+#
 # Origin is "Kidux" because that is what unattended-upgrades matches on; see
 # apt/60kidux-unattended-upgrades in kidux-base.
 
@@ -24,4 +30,4 @@ Codename: stable
 Architectures: amd64 source
 Components: main
 Description: Kidux packages that have been tested on a real machine
-SignWith: C5635C3123C0A599645929CF813EF459076E9055
+SignWith: 27E3FC17DBA9E4578268F8EEB3768AF190169C5E

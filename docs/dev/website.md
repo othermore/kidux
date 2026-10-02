@@ -67,11 +67,17 @@ which is how the owner learns where Kidux is used; and the code is
 published, each version free software four years on. It never calls Kidux
 open source or free software, which the licence is not.
 
-It says only what is true of Kidux today. Where an installable image is
-downloaded from is a fact, `download` in `site/site.toml`: while it is
-empty, the page says the image is on its way and offers to tell the
-visitor when it is ready; set to an address, the page offers the download
-and its three steps. Both are written, in every language, and checked.
+It says only what is true of Kidux today, and of the two ways to install
+it (D81) it says which is which. Kidux's own image is *coming soon*, with
+what installing from it will be and a button to be told when it is ready;
+where the image is downloaded from is a fact, `download` in
+`site/site.toml`, and once it is set to an address the same card says
+*available today* and offers the download. Installing on Debian is
+*available today*, and its button leads to the steps, section 2 of the
+user guide in the page's language, by the heading's address in the words,
+`get.debian.anchor`; `tests/project/site.py` fails if the guide has no
+such section. Both states of the image's card are written, in every
+language, and checked.
 
 ## 3. Building and looking at it
 
@@ -91,6 +97,13 @@ computer.
 Pages whenever `site/`, `docs/images/`, `branding/` or the builder changes
 on `main`, and when run by hand. It does nothing while the repository has
 no Pages site.
+
+The package archive is published with it, under `apt/`: the workflow takes
+the stable suite's tarball from the repository's `archive` release, where
+`ci/publish-public.sh` sends it, and `ci/build-site.py --archive` unpacks
+it beside the pages (packaging.md, "The public archive"). So
+`https://kidux.org/apt` is the same site, and a site is never published
+without it.
 
 Turning Pages on, once, by the owner: the repository's *Settings*, *Pages*,
 *Source: GitHub Actions*. GitHub publishes Pages from a private repository

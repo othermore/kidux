@@ -21,6 +21,7 @@ Description: GnuPG key for the Kidux archive
 Package: kidux-apt-source
 Architecture: all
 Depends: ${misc:Depends},
+         ca-certificates,
          kidux-archive-keyring,
 Description: apt source for the Kidux archive
  Kidux is a Debian derivative for a child's first computer, distributed through

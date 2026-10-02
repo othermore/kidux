@@ -105,18 +105,27 @@ picture = "A child's page in the adult panel, with their time and their days"
 
 [get]
 title = "Get Kidux"
-coming = "The first installable image is on its way. Write to us and we will tell you the day it is ready."
-tell = "Tell me when it is ready"
-tell_subject = "Tell me when Kidux is ready"
-ready = "Three steps, and no need to know Linux."
-step1 = "Download the image."
-step2 = "Write it to a USB stick."
-step3 = "Start the computer from the stick and follow the steps."
-download = "Download Kidux"
+lead = "Two ways to install it."
+soon = "Coming soon"
+now = "Available today"
 needs = "What you need"
 need1 = "A 64-bit computer: almost any made since 2008."
 need2 = "2 GB of memory. 4 GB is better."
 need3 = "32 GB of disk."
+
+[get.image]
+title = "The Kidux image"
+text = "Download the image, write it to a USB stick or an SD card, start the computer from it and follow the steps."
+tell = "Tell me when it is ready"
+tell_subject = "Tell me when Kidux's image is ready"
+download = "Download Kidux"
+
+[get.debian]
+title = "On Debian"
+text = "Install a Debian 13 with nothing else on it, add Kidux's package archive and install Kidux from it. The guide has every step."
+button = "Read the steps"
+# The heading of the user guide the button leads to, as its address has it.
+anchor = "2-installing-kidux"
 
 [licence]
 title = "Free for families"

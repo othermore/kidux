@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Builds Kidux's website into build/site/ (docs/dev/website.md).
 
-    ci/build-site.py [<output directory>]
+    ci/build-site.py [--archive <tarball>] [<output directory>]
 
 The site is one page in every language: `site/page.html` filled with the
 words of `site/<language>.toml` and the facts of `site/site.toml`. The
@@ -17,12 +17,19 @@ holds no copy of its own.
 
 A word the page asks for and a language lacks, or a picture that is not
 there, stops the build.
+
+With `--archive`, the package archive's stable suite, as
+ci/publish-public.sh packed it, is unpacked under `apt/`: the site and the
+archive are published together, the one at https://kidux.org/ and the
+other at https://kidux.org/apt (D82).
 """
 
+import argparse
 import html
 import re
 import shutil
 import sys
+import tarfile
 import tomllib
 from pathlib import Path
 
@@ -112,8 +119,9 @@ def render(template: str, values: dict[str, str], raw: dict[str, str]) -> tuple[
     return KEY.sub(fill, CHOICE.sub(choose, template)), asked
 
 
-def build(out: Path) -> dict:
-    """Build the site into `out`: what was built, for the checks."""
+def build(out: Path, archive: Path | None = None) -> dict:
+    """Build the site into `out`, with the package archive packed in
+    `archive` under apt/ if there is one: what was built, for the checks."""
     site = facts()
     words = languages()
     default = site["site.default_language"]
@@ -157,14 +165,22 @@ def build(out: Path) -> dict:
         shutil.copyfile(source, out / "brand" / name)
     # GitHub Pages: the files as they are.
     (out / ".nojekyll").write_text("")
+    if archive is not None:
+        with tarfile.open(archive) as packed:
+            packed.extractall(out / "apt", filter="data")
     return {"site": site, "words": words, "asked": asked, "pages": pages}
 
 
 def main(arguments: list[str]) -> int:
-    out = Path(arguments[1]) if len(arguments) > 1 else REPO / "build" / "site"
-    built = build(out.resolve())
+    parser = argparse.ArgumentParser(description="Build Kidux's website.")
+    parser.add_argument("--archive", type=Path, help="the package archive's tarball, for apt/")
+    parser.add_argument("out", nargs="?", type=Path, default=REPO / "build" / "site")
+    asked = parser.parse_args(arguments[1:])
+    built = build(asked.out.resolve(), asked.archive)
     for language, page in built["pages"].items():
         print(f"{language}: {page}")
+    if asked.archive is not None:
+        print(f"apt: {asked.out.resolve() / 'apt'}")
     return 0
 
 

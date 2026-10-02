@@ -90,11 +90,11 @@ done
 echo "==> Exporting all suites"
 reprepro_run export
 "$REPO_ROOT/ci/archive/refresh-bootstrap.sh"
-# The run's own public key beside the archive, where the test machines look
-# for a key to trust besides the one kidux-archive-keyring ships.
-if [ -n "${KIDUX_ARCHIVE_PUBLIC_KEY:-}" ]; then
-    cp "$KIDUX_ARCHIVE_PUBLIC_KEY" "$ARCHIVE_ROOT/extra-key.pgp"
-fi
+# The key the testing suite is signed with, beside the archive, where a
+# machine that follows testing looks for it: the development key, or in CI
+# the one made for that run. kidux-archive-keyring ships only stable's.
+cp "${KIDUX_ARCHIVE_PUBLIC_KEY:-$REPO_ROOT/ci/archive/development-key.pgp}" \
+    "$ARCHIVE_ROOT/extra-key.pgp"
 
 echo
 echo "==> $SUITE now holds:"

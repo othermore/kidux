@@ -314,9 +314,10 @@ Each step ends in something installable and testable. Sizes are relative effort.
 - Build chroot with `mmdebstrap --mode=unshare --variant=buildd trixie` into
   `~/.cache/sbuild/trixie-amd64.tar` and use `sbuild --chroot-mode=unshare`: no root,
   no `schroot`, the same command in CI.
-- Create the development signing key (ed25519), export the public part into
-  `kidux-archive-keyring`. The private key stays on `kidux` with an off-machine
-  backup; the production key is created in phase 2 and is never this one.
+- Create the development signing key (ed25519), which signs the testing suite;
+  its public part is `ci/archive/development-key.pgp`. The private key stays on
+  `kidux` with an off-machine backup. The stable suite is signed with another
+  key, the one `kidux-archive-keyring` holds (packaging.md, "Signing").
 - Create the swap file the architecture asks for; this machine has none.
 
 **Acceptance:** `sbuild --chroot-mode=unshare -d trixie` builds Debian's `hello`

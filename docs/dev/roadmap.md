@@ -43,6 +43,9 @@ can. Each phase assumes what it builds on is reasonably stable.
       default and untickable (D74).
 - [ ] GitHub Actions: build ISO on tag, QEMU smoke test, publish to Releases.
 - [ ] Install on the development MacBook and on at least one old BIOS-only PC.
+- [x] The package archive's stable suite published at `https://kidux.org/apt`,
+      signed with a key of its own, which the user guide's installation on
+      Debian fetches from (D2, D81, D82).
 
 ## Phase 3 — Module framework
 - [x] Module manifest format and `kidux-module-*` packaging template.

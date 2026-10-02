@@ -66,10 +66,21 @@ The machine is also the archive, so it follows its own `testing` suite:
 curl -fsSLO http://kidux.local/apt/bootstrap/testing/kidux-archive-keyring.deb
 curl -fsSLO http://kidux.local/apt/bootstrap/testing/kidux-apt-source.deb
 sudo apt install ./kidux-archive-keyring.deb ./kidux-apt-source.deb
-sudo sed -i 's/^Suites: stable$/Suites: testing/' /etc/apt/sources.list.d/kidux.sources
+sudo sed -i -e 's|^URIs: .*|URIs: http://kidux.local/apt|' \
+    -e 's/^Suites: stable$/Suites: testing/' /etc/apt/sources.list.d/kidux.sources
+curl -fsS http://kidux.local/apt/extra-key.pgp \
+    | sudo tee -a /usr/share/keyrings/kidux-archive-keyring.pgp >/dev/null
 sudo apt update
 sudo apt install kidux-base
 ```
+
+The shipped source follows the public archive's stable suite, and the
+keyring holds only the key that suite is signed with (packaging.md,
+"Signing"); the two lines after the first `apt install` turn this machine to
+its own archive and give it the key testing is signed with. An upgrade of
+`kidux-archive-keyring` puts the shipped keyring back, and the `curl` line
+is run again; an upgrade of `kidux-apt-source` asks whether to keep the
+edited source, and the answer is to keep it.
 
 Then, before rebooting:
 

@@ -17,6 +17,129 @@ not need a guide: every screen they can reach explains itself.
 
 ## 2. Installing Kidux
 
+There are two ways to put Kidux on a computer.
+
+### From the Kidux image
+
+**Coming soon.** Kidux will have an image of its own that installs
+everything by itself: download the image, write it to a USB stick, an SD
+card or any other external drive, start the computer from it, and follow
+the steps on the screen.
+
+### On Debian
+
+Kidux is built on [Debian](https://www.debian.org/) and installs on top of
+a Debian 13 that has nothing else on it. It takes about an hour, most of
+it waiting. Some of it is typed at a text console; every line to type is
+written here.
+
+Everything on the computer's disk is erased. Copy anything you want to
+keep somewhere else first.
+
+1. **Download Debian.** On another computer, go to
+   [debian.org/download](https://www.debian.org/download) and download the
+   small installation image, a file named like
+   `debian-13.x.0-amd64-netinst.iso`.
+
+2. **Write it to a USB stick** of 1 GB or more, with a program such as
+   [balenaEtcher](https://etcher.balena.io/): choose the file, choose the
+   stick, write. Everything on the stick is erased.
+
+3. **Start the computer from the stick.** Plug the stick in, and a network
+   cable too if the computer has a socket for one. Turn the computer on
+   and open its boot menu: usually F12, F11, F8, Esc or F2 pressed just
+   after turning it on, or the Option key held down on a Mac. Choose the
+   stick, and then **Graphical install**.
+
+4. **Answer the installer.** Most of its questions can be answered as you
+   like. These are the ones that matter to Kidux:
+
+   | The installer asks | Answer |
+   |---|---|
+   | Language, location, keyboard | Your own. Kidux asks for its own language and keyboard at its first start. |
+   | Network | Nothing, with a cable. Without one, choose your Wi-Fi and type its password. |
+   | Host name and domain | Any name, `kidux` for instance. Leave the domain empty. |
+   | Root password | Leave it **empty**. The user created next can then look after the computer. |
+   | User and password | An account for you, the adult. The children get theirs in Kidux. |
+   | Partitioning | **Guided - use entire disk**, and then **Separate /home partition**: the system on one part of the disk and the children's work on another. |
+   | Software selection | Untick everything but **standard system utilities**. No desktop: Kidux brings its own screens. |
+   | GRUB boot loader | **Yes**, on the computer's own disk. |
+
+   When the installer finishes, take the stick out and let the computer
+   restart.
+
+5. **Sign in to Debian.** The computer starts on a text screen that asks
+   for a login. Type the user name and the password given to the
+   installer.
+
+6. **Install Kidux.** Type these lines, one at a time. The first three
+   fetch and install the address Kidux's packages come from and the key
+   they are signed with; the last two install Kidux.
+
+   ```
+   wget https://kidux.org/apt/bootstrap/stable/kidux-archive-keyring.deb
+   wget https://kidux.org/apt/bootstrap/stable/kidux-apt-source.deb
+   sudo apt install ./kidux-archive-keyring.deb ./kidux-apt-source.deb
+   sudo apt update
+   sudo apt install kidux-base
+   ```
+
+7. **If the computer is on Wi-Fi, hand the Wi-Fi over to Kidux.** With a
+   network cable, skip this step.
+
+   The Debian installer wrote the Wi-Fi it joined into a file of its own,
+   `/etc/network/interfaces`. Kidux's adult panel has a **Network** page
+   to join and change Wi-Fi networks, and it cannot change one that is
+   written in that file. So take it out of the file now.
+
+   Open the file:
+
+   ```
+   sudo nano /etc/network/interfaces
+   ```
+
+   It looks like this, with the name of your Wi-Fi card, which starts with
+   `wl`, and of your network:
+
+   ```
+   source /etc/network/interfaces.d/*
+
+   # The loopback network interface
+   auto lo
+   iface lo inet loopback
+
+   # The primary network interface
+   allow-hotplug wlp3s0
+   iface wlp3s0 inet dhcp
+           wpa-ssid MyNetwork
+           wpa-psk  its-password
+   ```
+
+   Delete the lines that name the Wi-Fi card, those that start with
+   `allow-hotplug` and `iface`, and the lines under them that start with
+   `wpa-`. Leave the rest as it is:
+
+   ```
+   source /etc/network/interfaces.d/*
+
+   # The loopback network interface
+   auto lo
+   iface lo inet loopback
+   ```
+
+   Save with Ctrl+O and Enter, and leave with Ctrl+X.
+
+8. **Restart.**
+
+   ```
+   sudo reboot
+   ```
+
+   The computer shows Kidux's logo and starts for the first time, which
+   the next section describes. With the Wi-Fi taken out of the file, the
+   computer is on no network until it is joined again from the adult
+   panel's **Network** page, section 8.
+
 ## 3. The first start
 
 Every time the computer starts, it shows the Kidux logo until the first

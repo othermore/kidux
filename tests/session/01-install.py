@@ -23,8 +23,11 @@ def run(machine: Machine) -> bool:
          f"&& curl -fsSLO {ARCHIVE}/bootstrap/testing/kidux-apt-source.deb "
          "&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "
          "/var/tmp/kidux-archive-keyring.deb /var/tmp/kidux-apt-source.deb "
-         "&& sed -i 's/^Suites: stable$/Suites: testing/' /etc/apt/sources.list.d/kidux.sources "
-         # In CI, the run's own signing key, published beside the archive.
+         # The shipped source follows the public archive's stable suite; this
+         # machine, the development archive's testing.
+         f"&& sed -i -e 's|^URIs: .*|URIs: {ARCHIVE}|' -e 's/^Suites: stable$/Suites: testing/' "
+         "/etc/apt/sources.list.d/kidux.sources "
+         # The key testing is signed with, published beside the archive.
          f"&& {{ ! curl -fsS -o /var/tmp/extra-key.pgp {ARCHIVE}/extra-key.pgp "
          "|| cat /var/tmp/extra-key.pgp >> /usr/share/keyrings/kidux-archive-keyring.pgp; }"),
         ("kidux-base installs, and brings the session and the sign-in screen",

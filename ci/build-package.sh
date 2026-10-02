@@ -106,7 +106,8 @@ find . -exec touch {} +
 # every .deb already built in this run, which is what a build of several
 # packages at once needs, and the local archive's testing suite, which is what
 # a build of one package on its own needs. The archive is reached by address
-# rather than as kidux.local because the chroot has no mDNS.
+# rather than as kidux.local because the chroot has no mDNS, and trusted by
+# the key testing is signed with, the development one, which no package ships.
 # ci/build-parallel.sh names a copy of that directory in KIDUX_EXTRA_PACKAGES,
 # so that a build never reads a package another build is still writing.
 EXTRA_PACKAGES="${KIDUX_EXTRA_PACKAGES:-$BUILD_DIR}"
@@ -117,7 +118,7 @@ fi
 if curl -fsS -o /dev/null "http://127.0.0.1/apt/dists/testing/InRelease" 2>/dev/null; then
     set -- "$@" \
         --extra-repository="deb http://127.0.0.1/apt testing main" \
-        --extra-repository-key="${KIDUX_ARCHIVE_PUBLIC_KEY:-$REPO_ROOT/packages/kidux-archive-keyring/keyrings/kidux-archive-keyring.pgp}"
+        --extra-repository-key="${KIDUX_ARCHIVE_PUBLIC_KEY:-$REPO_ROOT/ci/archive/development-key.pgp}"
 fi
 
 # --no-clean-source because sbuild otherwise runs debian/rules clean on the
