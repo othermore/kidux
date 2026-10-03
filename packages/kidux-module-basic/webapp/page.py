@@ -18,7 +18,8 @@ heading, read with four conventions and no others (docs/dev/basic.md):
   `keys=…` names, separated by commas, the keys the module's tests give it
   when it reads (`Enter` for the Enter key, `Space` and `Comma` for a
   space and a comma, `Up`, `Down`, `Left` and `Right` for the arrows),
-  and `forever` says it never ends by itself; neither is shown;
+  `forever` says it never ends by itself, and `mistake` that it is wrong on
+  purpose, for BASIC to stop at; none of them is shown;
 - a quotation is the mascot speaking: the penguin chick beside a speech
   bubble, in a pose when its first word is [think], [point], [cheer] or
   [oops];
@@ -92,14 +93,14 @@ def body(path: Path) -> str:
 
 
 def listings(text: str) -> list[dict]:
-    """Every listing of a chapter, {"code", "keys", "forever"}, as the
-    tests read them."""
+    """Every listing of a chapter, {"code", "keys", "forever", "mistake"},
+    as the tests read them."""
     found = []
     for listing in LISTING.finditer(text):
         info = listing["info"].split()
         keys = next((word[5:] for word in info if word.startswith("keys=")), "")
         found.append({"code": listing["code"], "keys": [key for key in keys.split(",") if key],
-                      "forever": "forever" in info})
+                      "forever": "forever" in info, "mistake": "mistake" in info})
     return found
 
 
@@ -111,8 +112,10 @@ def drawing(drawings: Path, name: str, alt: str) -> str:
     return svg.strip()
 
 
-def chapter(text: str, drawings: Path, words: dict) -> tuple[str, str]:
-    """A chapter's heading, and its HTML for the page."""
+def chapter(text: str, drawings: Path, words: dict, number: int | None = None) -> tuple[str, str]:
+    """A chapter's heading, and its HTML for the page; with its number,
+    from its file's name, before the heading, so that a child remembers
+    where they were."""
     kept: list[str] = []
 
     def keep(fragment: str) -> str:
@@ -145,6 +148,8 @@ def chapter(text: str, drawings: Path, words: dict) -> tuple[str, str]:
     if not lines[0].startswith("# "):
         raise ValueError(f"a chapter begins with its heading, '# …': {lines[0]!r}")
     heading = lines[0][2:].strip()
+    if number is not None:
+        heading = f"{number}. {heading}"
     rest = lines[1] if len(lines) > 1 else ""
     rest = LISTING.sub(listing, rest)
     rest = ADULT.sub(adult, rest)
@@ -167,7 +172,7 @@ def pages(locale: Path, content: Path, drawings: Path) -> dict:
         words = {key: translations.gettext(text) for key, text in WORDS.items()}
         chapters = []
         for path in sorted(directory.glob("*.md")):
-            heading, html_ = chapter(body(path), drawings, words)
+            heading, html_ = chapter(body(path), drawings, words, int(path.stem.split("-", 1)[0]))
             chapters.append({"slug": path.stem, "title": heading, "html": html_})
         found[lang] = {"lang": lang, "words": words, "chapters": chapters}
     return found

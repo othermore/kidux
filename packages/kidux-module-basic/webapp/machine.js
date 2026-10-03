@@ -59,9 +59,9 @@
   editor.addEventListener("scroll", () => { gutter.scrollTop = editor.scrollTop; });
   editor.addEventListener("keydown", (event) => {
     const leave = leaving;
-    leaving = event.key === "Escape" && !running;
+    leaving = event.key === "Escape" && !running && !sounding();
     if (event.key === "Enter" && event.ctrlKey) { event.preventDefault(); run(); }
-    if (event.key === "Escape" && running) { event.preventDefault(); stop(true); }
+    if (event.key === "Escape" && (running || sounding())) { event.preventDefault(); stop(true); }
     if (event.key === "Tab" && !leave && !event.shiftKey && !event.ctrlKey && !event.altKey) {
       event.preventDefault();
       editor.setRangeText("  ", editor.selectionStart, editor.selectionEnd, "end");
@@ -128,6 +128,12 @@
     oscillator.onended = () => { tones = tones.filter((t) => t !== oscillator); };
   }
 
+  // Whether tones a program asked for are still to play after it ended:
+  // Stop still stops them.
+  function sounding() {
+    return Boolean(audio) && freeAt > audio.currentTime;
+  }
+
   function silence() {
     for (const oscillator of tones) { try { oscillator.stop(); } catch (error) { /* already stopped */ } }
     tones = [];
@@ -149,10 +155,11 @@
   function stop(byHand) {
     if (!frame) { return; }
     keepPicture();
+    const busy = running || sounding();
     frame.remove();
     frame = null;
     silence();
-    if (byHand && running) { say(words.stopped); }
+    if (byHand && busy) { say(words.stopped); }
     running = false;
     document.getElementById("stop").disabled = true;
   }
@@ -196,6 +203,14 @@
     }
   }
 
+  // Stop stays to be pressed while the tones the program asked for play.
+  function stopWhenSilent() {
+    const button = document.getElementById("stop");
+    if (!sounding()) { button.disabled = true; return; }
+    setTimeout(() => { if (!running) { stopWhenSilent(); } },
+               (freeAt - audio.currentTime) * 1000 + 100);
+  }
+
   window.addEventListener("message", (event) => {
     if (!frame || event.source !== frame.contentWindow || !event.data || !event.data.basic) { return; }
     const data = event.data;
@@ -205,7 +220,7 @@
     } else if (data.ended) {
       running = false;
       if (status.className !== "wrong") { say(words.ended); }
-      document.getElementById("stop").disabled = true;
+      stopWhenSilent();
     } else if (data.error) {
       running = false;
       explainError(data);

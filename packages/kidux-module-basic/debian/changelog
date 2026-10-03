@@ -1,3 +1,11 @@
+kidux-module-basic (0+git20260223.2) trixie; urgency=medium
+
+  * The guide's chapters are numbered, and chapter 2's mistake is a listing
+    of its own, to type as it is.
+  * Stop stops the sounds a program left playing after it ended.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 15:18:26 +0200
+
 kidux-module-basic (0+git20260223.1) trixie; urgency=medium
 
   * The guide's second part, chapters 16 to 30: inside the computer,

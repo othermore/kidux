@@ -1,5 +1,5 @@
 ---
-source_sha256 = "d3a07595f5fb4f50af0524a8e196e6d29bb8ecfbffcf75c60db2e6ae44e63daa"
+source_sha256 = "568286770c0011c230c589b3bed437af7d7f92e84fac2bd2fb98bb0f3db1769e"
 ---
 # PRINT: el ordenador escribe
 
@@ -16,11 +16,19 @@ Un `PRINT` sin nada detrás escribe una línea vacía, como la 30.
 
 ## Cuando BASIC no entiende
 
-Equivócate a propósito: cambia `PRINT` en la línea 40 por `PRNT` y pulsa
-**Ejecutar**. No se escribe nada, ni siquiera la línea 10. BASIC lee el
-programa entero antes de ejecutar nada, y se para en la línea que no
-entiende. Las palabras de debajo de la pantalla dicen qué línea es, y el
-editor la marca. Vuelve a poner la `I` y pulsa **Ejecutar** otra vez.
+Este programa tiene un error a propósito, en la línea 20: `PIRNT` en lugar
+de `PRINT`. Escríbelo tal cual y pulsa **Ejecutar**.
+
+```basic mistake
+10 PRINT "EL PINGÜINO VIVE EN EL HIELO"
+20 PIRNT "COME PECES"
+30 PRINT "Y LE ENCANTA LA NIEVE"
+```
+
+No se escribe nada, ni siquiera la línea 10. BASIC lee el programa entero
+antes de ejecutar nada, y se para en la línea que no entiende. Las
+palabras de debajo de la pantalla dicen qué línea es, y el editor la
+marca. Escribe bien `PRINT` en la línea 20 y pulsa **Ejecutar** otra vez.
 
 > [oops] Si se te olvida la comilla del principio de las palabras, pasa
 > lo mismo. Cuando BASIC no entienda una línea, mira primero cómo está

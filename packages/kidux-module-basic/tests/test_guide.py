@@ -57,7 +57,9 @@ def test_the_page_holds_every_language_its_words_and_its_chapters(tmp_path):
     assert len(data["es"]["chapters"]) == len(data["en"]["chapters"]) >= 1
     for language in data.values():
         for chapter in language["chapters"]:
-            assert chapter["title"] and chapter["html"].startswith("<h1>")
+            number = int(chapter["slug"].split("-", 1)[0])
+            assert chapter["title"].startswith(f"{number}. ")
+            assert chapter["html"].startswith(f"<h1>{number}. ")
             assert "KEPT" not in chapter["html"] and ":::" not in chapter["html"]
             assert "```" not in chapter["html"]
     assert "@PAGES@" not in html
@@ -102,5 +104,9 @@ def test_every_listing_of_the_guide_runs(listing, tmp_path):
                           str(program), *listing["keys"]], capture_output=True, text=True, timeout=60)
     result = json.loads(ran.stdout)
 
+    if listing["mistake"]:
+        # A listing wrong on purpose: BASIC stops before it prints anything.
+        assert result["error"] and not result["text"], f"{listing['code']}\n{result}"
+        return
     assert result["error"] is None, f"{listing['code']}\n{result}"
     assert result["ended"] or listing["forever"], f"it did not end: {listing['code']}\n{result}"

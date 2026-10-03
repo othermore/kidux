@@ -169,9 +169,10 @@ others:
   `keys=` names the keys the tests type when it reads, separated by
   commas, `Enter` for the Enter key, `Space` and `Comma` for a space and
   a comma, and `Up`, `Down`, `Left` and `Right` for the arrows (`basic
-  keys=Leo,Comma,9,Enter`), and `forever` says it never ends by itself;
-  neither is shown. They are kept out of the listing because the listing
-  is what the child types.
+  keys=Leo,Comma,9,Enter`), `forever` says it never ends by itself, and
+  `mistake` that it is wrong on purpose, which the tests hold to stopping
+  BASIC before it prints anything; none of them is shown. They are kept
+  out of the listing because the listing is what the child types.
 - **A quotation** is the mascot speaking: the chick beside a speech
   bubble, in the pose its first word names, `[think]`, `[point]`,
   `[cheer]` or `[oops]`, or standing.
@@ -234,10 +235,10 @@ catalogue and a directory of chapters, and no change to the code.
   the editor's line turned into a BASIC number, and the letters handed to
   the screen.
 - `tests/test_guide.py`: the page holds every language's words and
-  chapters, the four conventions, every drawing named is there, the same
+  chapters, each numbered as its file is, the four conventions, every drawing named is there, the same
   chapters in every language, and every listing of the guide, in every
   language, runs through `run-basic.js` without an error and ends unless
-  it is `forever`.
+  it is `forever`, or, marked `mistake`, stops BASIC before it prints.
 - `tests/test_module.py`: the manifest, the version, the catalogue.
 - Acceptance `09-module-basic.sh` and session `31-module-basic.py`, which
   types a program, runs it and takes the guide's picture.

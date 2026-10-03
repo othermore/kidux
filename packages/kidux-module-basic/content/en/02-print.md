@@ -14,11 +14,19 @@ A `PRINT` with nothing after it writes an empty line, like line 30.
 
 ## When BASIC does not understand
 
-Make a mistake on purpose: change `PRINT` in line 40 to `PRNT`, and press
-**Run**. Nothing is written, not even line 10. BASIC reads the whole
-program before it runs any of it, and it stops at a line it does not
-understand. The words under the screen say which line, and the editor
-marks it. Put the `I` back and press **Run** again.
+This program has a mistake on purpose, in line 20: `PIRNT` instead of
+`PRINT`. Type it in as it is, and press **Run**.
+
+```basic mistake
+10 PRINT "THE PENGUIN LIVES ON THE ICE"
+20 PIRNT "IT EATS FISH"
+30 PRINT "AND IT LOVES SNOW"
+```
+
+Nothing is written, not even line 10. BASIC reads the whole program
+before it runs any of it, and it stops at a line it does not understand.
+The words under the screen say which line, and the editor marks it.
+Write `PRINT` properly in line 20 and press **Run** again.
 
 > [oops] A forgotten quote at the start of the words does the same. When
 > BASIC does not understand a line, look at its spelling and its quotes
