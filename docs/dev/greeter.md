@@ -267,7 +267,8 @@ Settled with the owner; `view.py` applies it, and the launcher follows it.
    a screen shows more than the one child. The launcher keeps its bars
    smaller still, because the room between them belongs to the modules.
    `tests/session/13-every-screen-fits.py` fails if any screen the run shows
-   has to scroll. On a screen with room to spare, 1600x960 logical pixels
+   has to scroll, but for the panel's pages of settings that grow, Advanced
+   and a module's settings, which scroll where they do not fit (D92). On a screen with room to spare, 1600x960 logical pixels
    or more (`kidux.screen.roomy`), the screens keep their size and the room
    is space (D53); the window is marked `kidux-roomy`, and the launcher puts
    eight tiles to a row instead of six. Each program logs `screen

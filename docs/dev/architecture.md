@@ -1600,3 +1600,10 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   `URLBlocklist` of `*` blocks, and Chromium says *DevTools is not allowed
   on this page* (tried 2026-10-03); the daemon still refuses every flag
   that would open a debugging port or another profile.
+- **D92 — The panel's pages of settings may scroll.** Decided 2026-10-03
+  by the owner, refining D63: the Advanced page, and the page of a
+  module's settings, grow as modules and machines bring more settings, so
+  they are not held to fitting 1280x800 whole. They scroll where they do
+  not fit, and show it, as every screen does; the greeter does not log
+  them as screens that should fit (`GROWS` in view.py), and every other
+  screen still must.

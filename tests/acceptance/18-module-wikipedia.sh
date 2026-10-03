@@ -12,8 +12,8 @@ HOSTS='"mediawiki.org", "wikibooks.org", "wikidata.org", "wikifunctions.org", "w
 
 check "kidux-module-wikipedia installs through the daemon, with kidux-webapps" \
     sh -c "$ADMIN_AS install wikipedia | grep -q '^installed ' && dpkg -s kidux-webapps >/dev/null"
-check "its manifest, icon and Spanish words are in place" \
-    sh -c "test -f $WIKI/module.toml && test -f $WIKI/icon.svg \
+check "its manifest, icon, bar of Back and Forward and Spanish words are in place" \
+    sh -c "test -f $WIKI/module.toml && test -f $WIKI/icon.svg && test -f $WIKI/bar.js \
            && test -f /usr/share/locale/es/LC_MESSAGES/kidux-module-wikipedia.mo"
 check "while it is installed, the policy allows Wikipedia and its sister projects" \
     sh -c "python3 -c 'import json, sys; sys.exit(json.load(open(sys.argv[1]))[\"URLAllowlist\"] != [\"127.0.0.1:8123\", $HOSTS, \"blob:*\"])' $POLICY"

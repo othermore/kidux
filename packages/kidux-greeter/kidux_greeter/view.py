@@ -58,6 +58,10 @@ LOGO = str(paths.LOGO)
 LOGO_LARGE, LOGO_SMALL = 64, 32
 #: The screens that show it large, and so not again in the corner.
 WELCOMES = frozenset({"wiz_language", "choose"})
+#: The panel's pages of settings, which grow as modules and machines bring
+#: more: they scroll where they do not fit, like every screen, and are not
+#: meant to fit 1280x800 whole (D92).
+GROWS = frozenset({"panel_advanced", "panel_module_settings"})
 AVATAR_SIZE_SMALL = 96
 
 CSS = """
@@ -476,10 +480,10 @@ class View:
 
     def _check_fits(self, name: str, way: str, needed: int, shown: int) -> None:
         """Say so in the log, once, when a screen has to scroll, `way` "tall"
-        or "wide": every screen is meant to fit 1280x800 whole, and the
-        session tests look for this line."""
+        or "wide": every screen but a page of settings that grows is meant to
+        fit 1280x800 whole, and the session tests look for this line."""
         if self._screen is not None and self._screen.name == name \
-                and (name, way) not in self._overflowed:
+                and name not in GROWS and (name, way) not in self._overflowed:
             self._overflowed.add((name, way))
             log.warning("the %s screen does not fit: %d pixels %s, %d shown",
                         name, needed, way, shown)

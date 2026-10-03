@@ -1,3 +1,10 @@
+kidux-greeter (0.2.56) trixie; urgency=medium
+
+  * The Advanced page and a module's settings, pages that grow, scroll
+    where they do not fit and are not held to fitting the screen whole.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 20:06:54 +0200
+
 kidux-greeter (0.2.55) trixie; urgency=medium
 
   * The Modules page opens the settings a module declares, for each

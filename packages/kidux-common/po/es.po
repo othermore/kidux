@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidux 0.1.0\n"
 "Report-Msgid-Bugs-To: info@kidux.org\n"
-"POT-Creation-Date: 2026-10-03 18:28+0200\n"
+"POT-Creation-Date: 2026-10-03 20:09+0200\n"
 "PO-Revision-Date: 2026-10-03 18:28+0200\n"
 "Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
 "Language-Team: Spanish\n"
@@ -175,7 +175,7 @@ msgid "The computer is being updated. Wait a moment and try again."
 msgstr ""
 "El ordenador se está actualizando. Espera un momento y vuelve a intentarlo."
 
-#: packages/kidux-greeter/kidux_greeter/view.py:1652
+#: packages/kidux-greeter/kidux_greeter/view.py:1656
 #, python-brace-format
 msgid "{count} update:"
 msgid_plural "{count} updates:"
@@ -474,7 +474,9 @@ msgstr "Puntero, panel táctil y Chromium"
 msgid ""
 "How this computer's pointer moves, and what to try if something does not "
 "work on it."
-msgstr "Cómo se mueve el puntero de este ordenador, y qué probar si algo no funciona en él."
+msgstr ""
+"Cómo se mueve el puntero de este ordenador, y qué probar si algo no funciona "
+"en él."
 
 #: packages/kidux-greeter/kidux_greeter/words.py:107
 msgid "Pointer speed"
@@ -508,7 +510,9 @@ msgstr "Más lento"
 msgid ""
 "On a touchpad, two fingers scroll the page; Normal scrolls half as far as "
 "most computers do."
-msgstr "En un panel táctil, dos dedos desplazan la página; Normal la desplaza la mitad que la mayoría de los ordenadores."
+msgstr ""
+"En un panel táctil, dos dedos desplazan la página; Normal la desplaza la "
+"mitad que la mayoría de los ordenadores."
 
 #: packages/kidux-greeter/kidux_greeter/words.py:112
 msgid "Saved. It applies the next time a child signs in."
