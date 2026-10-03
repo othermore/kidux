@@ -4,7 +4,9 @@ Set by an adult on the panel's System page, under Advanced, kept in the
 machine's config.toml, and written where the program that needs them reads
 them, since that program runs as the child and does not speak to the daemon.
 Chromium's flags are the first: what draws a web module cleanly on one
-machine's graphics may draw it as noise on another's (D51).
+machine's graphics may draw it as noise on another's (D51). The pointer's
+speed and the touchpad's scroll are the others, for a child's session's
+labwc (kidux.pointer; phase-4c-plan.md, 4.19).
 """
 
 import os
@@ -12,7 +14,7 @@ import re
 import tempfile
 from pathlib import Path
 
-from kidux import paths
+from kidux import paths, pointer
 
 #: A flag: --name or --name=value, the value without spaces or control
 #: characters.
@@ -64,21 +66,34 @@ def check_flags(value) -> list[str]:
     return flags
 
 
-def write_flags(flags: list[str], path: Path | None = None) -> None:
-    """The flags where kidux-webapp reads them, one a line, readable by
-    everyone and written by root only; no file at all when there are none."""
-    path = path or paths.CHROMIUM_FLAGS
-    if not flags:
-        path.unlink(missing_ok=True)
-        return
+def _write(path: Path, text: str) -> None:
+    """`text` in `path` whole, readable by everyone and written by root only."""
     path.parent.mkdir(mode=0o755, parents=True, exist_ok=True)
     handle = tempfile.NamedTemporaryFile("w", dir=path.parent, prefix=f".{path.name}.",
                                          delete=False)
     try:
         with handle:
-            handle.write("".join(f"{flag}\n" for flag in flags))
+            handle.write(text)
         os.chmod(handle.name, 0o644)
         os.replace(handle.name, path)
     except BaseException:
         os.unlink(handle.name)
         raise
+
+
+def write_flags(flags: list[str], path: Path | None = None) -> None:
+    """The flags where kidux-webapp reads them, one a line; no file at all
+    when there are none."""
+    path = path or paths.CHROMIUM_FLAGS
+    if not flags:
+        path.unlink(missing_ok=True)
+        return
+    _write(path, "".join(f"{flag}\n" for flag in flags))
+
+
+def write_input(pointer_step: int, scroll_step: int, path: Path | None = None) -> None:
+    """The pointer's speed and the touchpad's scroll where a child's session
+    reads them, as the `<libinput>` part of labwc's configuration."""
+    _write(path or paths.INPUT_XML,
+           "<!-- The panel's Advanced settings, written by kidux-daemon. -->\n"
+           + pointer.libinput(pointer_step, scroll_step))

@@ -1050,6 +1050,25 @@ def test_the_advanced_page_shows_the_flags_as_the_daemon_has_them_now(panel, dae
     assert panel.advanced().data["chromium_flags"] == "--disable-gpu"
 
 
+def test_the_advanced_page_shows_the_pointer_s_steps_as_the_daemon_has_them(panel, daemon):
+    daemon.settings.update(pointer_speed=1, scroll_speed=-2)
+
+    screen = panel.advanced()
+
+    assert (screen.data["pointer_speed"], screen.data["scroll_speed"]) == (1, -2)
+
+
+def test_the_pointer_s_speed_and_the_touchpad_s_scroll_are_saved_when_chosen(panel, daemon):
+    screen = panel.set_pointer("scroll_speed", -1)
+
+    assert ("set_config", {"scroll_speed": -1}) in daemon.calls
+    assert (screen.name, screen.notice) == ("panel_advanced", words.APPLIES_NEXT_SIGN_IN)
+    assert screen.data["scroll_speed"] == -1
+    assert panel.set_pointer("display_scale", 2).notice == words.NOT_SAVED
+    assert ("set_config", {"display_scale": 2}) not in daemon.calls
+    assert len(words.SPEED_STEPS) == 5
+
+
 def test_chromium_s_options_are_saved_one_a_line(panel, daemon):
     screen = panel.save_chromium_flags("--disable-gpu-compositing\n\n  --use-gl=angle \n")
 

@@ -108,6 +108,11 @@ HOURGLASS = DATA_ROOT / "icons" / "hourglass.svg"
 #: kidux-webapp, run as the child, adds them to Chromium's command line.
 CHROMIUM_FLAGS = Path(os.environ.get("KIDUX_CHROMIUM_FLAGS", "/etc/kidux/chromium-flags"))
 
+#: The pointer's speed and the touchpad's scroll (pointer.py): the daemon
+#: writes it from the panel's Advanced settings, root's and 0644, and a
+#: child's session puts it into labwc's configuration when it starts.
+INPUT_XML = Path(os.environ.get("KIDUX_INPUT_XML", "/etc/kidux/input.xml"))
+
 # --- identities --------------------------------------------------------------
 
 #: Adults. Members may call every method on the daemon. Deliberately not a

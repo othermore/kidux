@@ -25,6 +25,10 @@ DEFAULTS = {
     "language_chosen": False,
     # Chromium's flags for this machine's graphics (advanced.py, D52).
     "chromium_flags": [],
+    # The pointer's speed and the touchpad's scroll, a step from -2 to 2
+    # each (kidux.pointer).
+    "pointer_speed": 0,
+    "scroll_speed": 0,
 }
 
 
@@ -40,6 +44,8 @@ class Config:
     setup_complete: bool
     language_chosen: bool
     chromium_flags: list
+    pointer_speed: int
+    scroll_speed: int
 
     @classmethod
     def load(cls) -> "Config":

@@ -250,12 +250,18 @@ can be installed and removed once they have logged out.*
   *Saved. This panel closes after that long from now on, and a child's
   screen locks after it from the child's next sign-in.*: the panel takes
   them at once, a screen when it starts.
-- *Advanced*: *Chromium's options*, a button to a page of its own (the
-  System page has no room left at 1280x800), `panel_advanced`, under the
-  same tabs, for the settings that depend on the machine's hardware (D52):
-  a line saying they are *Only if something does not work on this
-  computer*, and *Chromium's options*, a text of several lines, one flag a
-  line, with a sentence on what it is for; *Save*, which sends the lines
+- *Advanced*: *Pointer, touchpad and Chromium*, a button to a page of its
+  own (the System page has no room left at 1280x800), `panel_advanced`,
+  under the same tabs, for the settings that depend on the machine's
+  hardware (D52): a line saying they are *How this computer's pointer
+  moves, and what to try if something does not work on it*; *Pointer
+  speed* and *Scrolling with two fingers*, a list of five steps each,
+  *Much slower* to *Much faster*, the middle *Normal*, each sent to
+  `Daemon1.SetConfig` as `pointer_speed` or `scroll_speed`, -2 to 2, as
+  soon as it is chosen, which says *Saved. It applies the next time a
+  child signs in.* (`set_pointer`), with a sentence under the second on
+  what *Normal* is; and *Chromium's options*, a text of several lines,
+  one flag a line, with a sentence on what it is for; *Save*, which sends the lines
   to `Daemon1.SetConfig` as `chromium_flags` and says *Saved.*, or, when
   the daemon refuses one, says what an option must be and keeps what was
   typed (daemon.md section 15); and under Save the options worth trying
@@ -327,8 +333,9 @@ token, all audited (daemon.md sections 7 and 15):
 - **`Daemon1.SetConfig(token, changes a{sv})`**: `default_language` (one of
   the shipped locales), `default_keyboard` (the pattern of daemon.md
   section 6), `display_scale` (1.0 to 3.0), `setup_complete` (bool),
-  `chromium_flags`, `idle_lock_minutes` (1 to 120), `screen_off_minutes`
-  (1 to 240) and `save_minutes` (1 to 15), which no page offers. Unknown
+  `chromium_flags`, `pointer_speed` and `scroll_speed` (-2 to 2),
+  `idle_lock_minutes` (1 to 120), `screen_off_minutes` (1 to 240) and
+  `save_minutes` (1 to 15), which no page offers. Unknown
   keys are `InvalidArgument`. On a machine with no adult password yet the
   token is ignored for `default_language` and `default_keyboard` only, as
   `SetPassword` ignores it, so the wizard can set them first; polkit has

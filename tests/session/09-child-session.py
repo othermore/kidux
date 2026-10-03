@@ -68,6 +68,15 @@ def run(machine: Machine) -> None:
            root(f"pgrep -u {CHILD} -f '^labwc -C /usr/share/kidux/labwc/kiosk ' "
                 f"&& pgrep -u {CHILD} -f kidux-launcher").returncode == 0,
            root(f"ps -u {CHILD} -o pid,args").stdout)
+    # Its rc.xml is Kidux's with the pointer's part, made at the session's
+    # start in a directory of its own; nothing set, the middle steps.
+    made = root(f"pgrep -a -u {CHILD} -x labwc | grep -o -- '-c [^ ]*' | cut -c4-").stdout.strip()
+    rc = root(f"cat {made}").stdout if made else ""
+    report("and labwc's rc.xml has the pointer's speed and half of a touchpad's scroll",
+           made.startswith("/run/user/") and "/kidux-labwc." in made
+           and "<pointerSpeed>0.0</pointerSpeed><scrollFactor>0.5</scrollFactor>" in rc
+           and "<keybind key=\"A-F4\">" in rc,
+           f"{made}\n{rc[-400:]}")
     # What the machine has, and how its keys are written, as the launcher
     # says at the start (D61): the test machine has none of a laptop's
     # things, and is no Mac.

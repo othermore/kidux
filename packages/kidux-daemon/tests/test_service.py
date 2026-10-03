@@ -10,6 +10,7 @@ import json
 import pytest
 
 from kidux import paths, state
+from kidux import pointer as kidux_pointer
 from kiduxd import gate as gate_module
 from kiduxd.accounts import FakeAccounts
 from kiduxd.adults import AdultPassword
@@ -861,6 +862,26 @@ def test_a_bad_chromium_flag_changes_nothing(machine):
         machine.call(GREETER, "Daemon1", "SetConfig", token, {"chromium_flags": ["--no-sandbox"]})
 
     assert paths.CHROMIUM_FLAGS.read_text() == "--disable-gpu\n"
+
+
+def test_the_panel_sets_the_pointer_s_speed_and_the_touchpad_s_scroll(machine):
+    token = machine.unlock(GREETER)
+    config = machine.call(GREETER, "Daemon1", "GetConfig")
+    assert (config["pointer_speed"], config["scroll_speed"]) == (0, 0)
+    assert not paths.INPUT_XML.exists()
+
+    machine.call(GREETER, "Daemon1", "SetConfig", token, {"scroll_speed": -1})
+
+    config = machine.call(GREETER, "Daemon1", "GetConfig")
+    assert (config["pointer_speed"], config["scroll_speed"]) == (0, -1)
+    assert kidux_pointer.read(paths.INPUT_XML) == (0.0, 0.35)
+    assert oct(paths.INPUT_XML.stat().st_mode & 0o777) == "0o644"
+    for bad in (3, 1.5, True, "1"):
+        with pytest.raises(InvalidArgument):
+            machine.call(GREETER, "Daemon1", "SetConfig", token, {"pointer_speed": bad})
+    assert kidux_pointer.read(paths.INPUT_XML) == (0.0, 0.35)
+    with pytest.raises(NotUnlocked):
+        machine.call(GREETER, "Daemon1", "SetConfig", "", {"pointer_speed": 1})
 
 
 def test_setting_chromium_s_flags_needs_the_adult(machine):

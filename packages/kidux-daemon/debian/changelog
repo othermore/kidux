@@ -4,6 +4,8 @@ kidux-daemon (0.3.33) trixie; urgency=medium
     secrets root's alone and never handed to the child's session.
   * The daemon signs a child in to a module's website, in a thread of its
     own, and hands back only the session's cookies.
+  * The panel's Advanced settings set the pointer's speed and the
+    touchpad's scroll, which the daemon writes for a child's session.
 
  -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 16:46:45 +0200
 

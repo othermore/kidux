@@ -17,7 +17,7 @@ from dataclasses import replace
 from datetime import datetime
 from typing import Callable
 
-from kidux import log, paths, state
+from kidux import log, paths, pointer, state
 from kidux import modules as kidux_modules
 
 from . import VERSION, catalogue, signin
@@ -26,7 +26,7 @@ from .access import (
     validate_policy, weekday_of,
 )
 from .adults import AdultPassword
-from .advanced import check_flags, write_flags
+from .advanced import check_flags, write_flags, write_input
 from .children import Children
 from .config import Config
 from .errors import (
@@ -55,7 +55,8 @@ MAX_GRACE_MINUTES = 15
 #: What SetConfig may change. The reset hour is not offered anywhere, so
 #: nothing may set it.
 SETTABLE = ("default_language", "default_keyboard", "display_scale", "setup_complete",
-            "chromium_flags", "idle_lock_minutes", "screen_off_minutes", "save_minutes")
+            "chromium_flags", "idle_lock_minutes", "screen_off_minutes", "save_minutes",
+            "pointer_speed", "scroll_speed")
 #: The minutes a session may be left alone before it locks, and before the
 #: screen turns off, as the panel offers them (D67).
 IDLE_LOCK_MINUTES = (1, 120)
@@ -197,6 +198,8 @@ class Service:
             "setup_complete": bool(config.setup_complete),
             "language_chosen": bool(config.language_chosen),
             "chromium_flags": list(config.chromium_flags),
+            "pointer_speed": int(config.pointer_speed),
+            "scroll_speed": int(config.scroll_speed),
             "idle_lock_minutes": int(config.idle_lock_minutes),
             "screen_off_minutes": int(config.screen_off_minutes),
             "save_minutes": int(config.save_minutes),
@@ -234,6 +237,12 @@ class Service:
                 config.chromium_flags = check_flags(changes["chromium_flags"])
             except ValueError as error:
                 raise InvalidArgument(str(error)) from error
+        for key in ("pointer_speed", "scroll_speed"):
+            if key in changes:
+                try:
+                    setattr(config, key, pointer.step(changes[key]))
+                except ValueError as error:
+                    raise InvalidArgument(f"{key}: {error}") from error
         for key, (least, most) in (("idle_lock_minutes", IDLE_LOCK_MINUTES),
                                    ("screen_off_minutes", SCREEN_OFF_MINUTES),
                                    ("save_minutes", (1, MAX_GRACE_MINUTES))):
@@ -248,6 +257,8 @@ class Service:
             self.tokens.set_timeout(config.idle_lock_minutes * 60)
         if "chromium_flags" in changes:
             write_flags(config.chromium_flags)
+        if {"pointer_speed", "scroll_speed"} & set(changes):
+            write_input(config.pointer_speed, config.scroll_speed)
         self._audit("config set", "ok", caller=self._who(caller), fields=sorted(changes))
 
     # --- Parental1 -----------------------------------------------------------

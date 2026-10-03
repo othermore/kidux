@@ -20,6 +20,7 @@ and D24, D25, D28 in `architecture.md`. The daemon it works with is in
 /usr/share/kidux/labwc/desk/                     the same, for a child with windows
 /usr/lib/kidux/session-inner
 /usr/lib/kidux/greeter-session                   sections 2 and 4
+/usr/lib/kidux/labwc-rc                          labwc's rc.xml with the pointer's part, section 3
 /usr/lib/kidux/kidux-lid-watch                   the lid on the trusted screens, section 5
 /usr/lib/kidux/kidux-idle                        a screen left alone, section 5
 /usr/lib/systemd/system/kidux-locker@.service
@@ -157,11 +158,21 @@ need to.
    stack, whose `pam_env` sets `LANG` from `/etc/default/locale` after the
    greeter's variables are in: a `LANG` from the greeter would come out as the
    machine's. Without `KIDUX_LANGUAGE`, the session keeps the machine's `LANG`.
-2. `exec labwc -C /usr/share/kidux/labwc/kiosk -s "/usr/lib/kidux/session-inner
-   --keep-running /usr/libexec/kidux-launcher"`: `labwc` (D58), with Kidux's
-   configuration and no other: `-C` is the only directory it reads, so a
-   child's `~/.config/labwc` is never read; `desk` in place of `kiosk` for a
-   child whose modules open in windows (`KIDUX_WINDOWS=1`, D46). What `-s`
+2. `exec labwc -C /usr/share/kidux/labwc/kiosk -c <rc.xml> -s
+   "/usr/lib/kidux/session-inner --keep-running /usr/libexec/kidux-launcher"`:
+   `labwc` (D58), with Kidux's configuration and no other: `-C` is the only
+   directory it reads, so a child's `~/.config/labwc` is never read; `desk`
+   in place of `kiosk` for a child whose modules open in windows
+   (`KIDUX_WINDOWS=1`, D46). `-c` is that directory's `rc.xml` with the
+   pointer's speed and the touchpad's scroll an adult set on the panel's
+   Advanced page, `/etc/kidux/input.xml`, put in as its `<libinput>` part,
+   or the middle steps' without the file (`kidux.pointer`, daemon.md
+   section 15): `/usr/lib/kidux/labwc-rc` writes it at every start into a
+   directory the session makes for itself under `$XDG_RUNTIME_DIR`,
+   `kidux-labwc.XXXXXX`, new each time, which goes with the session; when
+   that fails, labwc gets Kidux's `rc.xml` as it is. The trusted screens
+   run under `cage`, which takes no such settings: they keep libinput's
+   own. What `-s`
    names, run as the child, is the inner step, which sets the scale with
    `wlr-randr --output <name> --scale <scale>` on every output — the
    configuration does not know the scale, and `labwc` implements
@@ -394,7 +405,7 @@ and the machine is a Debian machine again. Nothing here is done by a
 | Power key | `logind.conf.d`: `HandlePowerKey=ignore`, `HandleLidSwitch=ignore` | logind powers off or suspends before the daemon can put the trusted screen up (`daemon.md` section 11). |
 | Switching back from the lock screen | `40-kidux-children.rules`: `org.freedesktop.login1.chvt` → `NO` for `kidux-children` | trixie's default lets an inactive session switch VTs; a child's frozen session, once thawed for a moment, could switch itself back. `/dev/tty*` is already root-only, so this is the only path, and it is closed. |
 | Ctrl+Alt+F*n* inside a child's session | The same `chvt` rule: `labwc` has these keys built in, and asks logind, which refuses the child | Leaving the session for a text login, or for terminal 8 while the lock screen is down. |
-| A terminal, a menu, a key that runs a program | labwc's configuration binds Super, Alt+Tab and Alt+F4 (Alt+Tab, Alt+F4, and Super on the desk, signal the launcher) and the laptop's keys for its screen, keyboard light and sound, which run `kidux-keys` as the child, a program that only sets those three levels (D61), and nothing else, loads none of labwc's own keys or mouse bindings, shows no menu, and is root's, read from a directory the child cannot write (`-C`); `kidux-session` conflicts with `foot`, `wmenu` and every `x-terminal-emulator` | The shell a desktop hands anyone who presses the right keys. |
+| A terminal, a menu, a key that runs a program | labwc's configuration binds Super, Alt+Tab and Alt+F4 (Alt+Tab, Alt+F4, and Super on the desk, signal the launcher) and the laptop's keys for its screen, keyboard light and sound, which run `kidux-keys` as the child, a program that only sets those three levels (D61), and nothing else, loads none of labwc's own keys or mouse bindings, shows no menu, and is root's, read from a directory the child cannot write (`-C`); its `rc.xml` with the pointer's part (section 3) is written afresh at every start in a new directory of the session's, so nothing the child leaves there is ever read at a start, and labwc reads it again only on a signal, which takes a program of the child's that can already run whatever a key could; `kidux-session` conflicts with `foot`, `wmenu` and every `x-terminal-emulator` | The shell a desktop hands anyone who presses the right keys. |
 | X11, where a program reads every key and sees every window of the others | XWayland is on (D58): it runs as the child, one per session, started by labwc without a cookie, so it takes any local connection; the only other users on the machine are root and the sign-in screen's, and one child's session runs at a time, so its clients are the child's own X11 programs. They see one another's keys and windows, as on every Linux desktop, and nothing of the Wayland programs, the launcher, the lock screen, another child or the adult. That is within D42: no sandbox between one child's modules. The adult password is never typed in a child's session (D6) | One X11 module of the child's reading what the child types into another X11 module of theirs. |
 | The foreign-toplevel protocol, which lists and drives every window | Nothing: any program of the child's may use it, as the launcher does (launcher.md section 5), and what it can do, activate, minimise, maximise, close a window, the child can do with the frame and the keys (D17) | A program of the child's moving or closing the child's other windows. |
 | GTK's inspector | `90_kidux.gschema.override` in `/usr/share/glib-2.0/schemas`, which GLib's trigger compiles in: `enable-inspector-keybinding` false for GTK 4, whose default is true, and for GTK 3 | Ctrl+Shift+I or Ctrl+Shift+D on the lock screen, the panel or the launcher opens a window that reads and changes every widget of the program, and swallows the keys typed after it. |

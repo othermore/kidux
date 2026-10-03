@@ -196,11 +196,14 @@ Wikipedia section.
 machine: *Pointer speed* (slower … faster, five steps) and *Scrolling
 with two fingers* (slower … faster, five steps), applied when the next
 session starts, so that the owner tries them on the MacBook and keeps
-the one that feels right. The daemon keeps them in its configuration and writes `/etc/kidux/input.xml`; the session puts
-them, at every start of a child's session and of the sign-in screen, in
-the `<libinput>` part of labwc's `rc.xml` it gives labwc
-(`pointerSpeed`, and `scrollFactor` for the touchpad category), which
-labwc 0.8.3, in trixie, reads. The middle step is today's speed for the
+the one that feels right. The daemon keeps them in its configuration
+and writes `/etc/kidux/input.xml`; the session puts them, at every start
+of a child's session, in the `<libinput>` part of the `rc.xml` it gives
+labwc with `-c`, written afresh in a directory of its own, beside Kidux's
+configuration directory, `-C` (`pointerSpeed`, and `scrollFactor` for the
+touchpad category), which labwc 0.8.3, in trixie, reads. The trusted
+screens run under `cage`, which takes no such settings, and keep
+libinput's own. The middle step is today's speed for the
 pointer; for the touchpad's scroll, half of today's (section 4,
 decision 3).
 

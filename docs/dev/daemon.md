@@ -884,14 +884,15 @@ names `kidux-daemon.service` as `SystemdService`.
 
 - `Daemon1.GetConfig() → a{sv}`: `default_language`, `default_keyboard`,
   `display_scale`, `reset_hour`, `setup_complete`, `language_chosen`,
-  `chromium_flags`, `idle_lock_minutes`, `screen_off_minutes`,
-  `save_minutes`. The
+  `chromium_flags`, `pointer_speed`, `scroll_speed`, `idle_lock_minutes`,
+  `screen_off_minutes`, `save_minutes`. The
   trusted screens run as `_greetd`, which cannot read `config.toml`, and they
   need the scale and the language before they draw anything. `screens` class.
 - `Daemon1.SetConfig(token, changes a{sv})`, `manage` class: any of
   `default_language` (one of the shipped locales), `default_keyboard` (the
   pattern of section 6), `display_scale` (0, automatic, or 1.0 to 3.0),
-  `setup_complete` (a boolean), `chromium_flags` (below), `idle_lock_minutes`
+  `setup_complete` (a boolean), `chromium_flags` and `pointer_speed` and
+  `scroll_speed` (below), `idle_lock_minutes`
   (a whole number, 1 to 120) and `screen_off_minutes` (1 to 240), the
   minutes a session may be left alone before it locks and before the screen
   turns off (D67), and `save_minutes` (1 to 15), how long *Unlock to save*
@@ -925,6 +926,17 @@ names `kidux-daemon.service` as `SystemdService`.
   to `/etc/kidux/chromium-flags` (`paths.CHROMIUM_FLAGS`), root's and 0644,
   one flag a line, and the file removed when the list is empty:
   `kidux-webapp` runs as the child and reads the file, not the daemon.
+
+  `pointer_speed` and `scroll_speed` are the others: the pointer's speed
+  and the touchpad's two-finger scroll, a whole number from -2 to 2 each,
+  slower to faster, 0 by default (`kidux.pointer`; phase-4c-plan.md,
+  4.19). Saved, either is also written, with the other, to
+  `/etc/kidux/input.xml` (`paths.INPUT_XML`), root's and 0644, as the
+  `<libinput>` part of labwc's configuration, libinput's pointer speed for
+  every pointer and labwc's scroll factor for a touchpad: a child's
+  session reads the file when it starts (session.md section 3). Without
+  the file a session takes the middle steps, so the machine has them
+  before an adult chooses any.
 
   On a machine with no adult password yet, the language and the keyboard,
   and only those, may be set with an empty token, as `SetPassword` allows

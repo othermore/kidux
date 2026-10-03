@@ -38,6 +38,7 @@ def roots(tmp_path, monkeypatch):
     # kiduxd.updates: the machine's own, under /run/kidux, is root's.
     monkeypatch.setenv("KIDUX_UPDATE_STATUS", str(tmp_path / "update.status"))
     monkeypatch.setenv("KIDUX_CHROMIUM_FLAGS", str(tmp_path / "etc" / "chromium-flags"))
+    monkeypatch.setenv("KIDUX_INPUT_XML", str(tmp_path / "etc" / "input.xml"))
     importlib.reload(paths)
     yield state_root
     monkeypatch.undo()

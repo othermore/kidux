@@ -665,8 +665,19 @@ El idioma, el teclado y el tamaño se guardan en cuanto los eliges:
 
 ### Avanzado
 
-**Avanzado**, al final de la página Sistema, es para cuando algo no
-funciona en este ordenador en concreto.
+**Avanzado**, al final de la página Sistema, es para cómo se mueve el
+puntero de este ordenador, y para cuando algo no funciona en este
+ordenador en concreto.
+
+**Velocidad del puntero** y **Desplazar con dos dedos** tienen cinco pasos
+cada uno, de *Mucho más lento* a *Mucho más rápido*, y se guardan en
+cuanto se elige uno. Se aplican a la sesión de un niño a partir de la
+próxima vez que un niño entra; la pantalla de entrada, la de bloqueo y
+este panel siguen con los del propio ordenador. Dos dedos en un panel
+táctil desplazan la página; en *Normal* la desplazan la mitad que la
+mayoría de los ordenadores, que va bien con los movimientos pequeños de un
+niño, y *Mucho más rápido* es lo que hacen la mayoría de los ordenadores.
+Prueba un paso con los dedos del propio niño antes de quedártelo.
 
 Las **Opciones de Chromium** son para un módulo de aprendizaje hecho de
 páginas web, o para ScratchJr, que lleva Chromium dentro, que se ve mal en
@@ -681,7 +692,7 @@ se pueden seleccionar y copiar en el cuadro. Deja el cuadro vacío salvo que
 sepas qué opción necesita tu ordenador: vacío es lo que Kidux hace por su
 cuenta.
 
-![Avanzado: las opciones de Chromium](../images/es/panel-system-advanced.png)
+![Avanzado: el puntero y las opciones de Chromium](../images/es/panel-system-advanced.png)
 
 ### Red
 

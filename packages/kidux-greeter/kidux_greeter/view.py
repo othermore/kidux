@@ -1798,8 +1798,8 @@ class View:
                      self._button(words.SET, set_idle, text=self._(words.SET))):
             left_alone.append(part)
         self._field(grid, words.LEFT_ALONE, left_alone)
-        advanced = self._button(words.CHROMIUM_OPTIONS, self._ask("advanced"),
-                                text=self._(words.CHROMIUM_OPTIONS))
+        advanced = self._button(words.ADVANCED_OPEN, self._ask("advanced"),
+                                text=self._(words.ADVANCED_OPEN))
         advanced.set_halign(Gtk.Align.START)
         self._field(grid, words.ADVANCED, advanced)
         middle.append(grid)
@@ -1951,12 +1951,32 @@ class View:
 
     def _draw_panel_advanced(self, screen, page, middle, bottom):
         """The settings that depend on the machine's hardware (D52), reached
-        from the System page: Chromium's options, one a line, and Save."""
+        from the System page: the pointer's speed and the touchpad's scroll,
+        each saved when it is chosen, and Chromium's options, one a line,
+        and Save."""
         self._adult(page)
         self._tab_bar(page, bottom, "system")
         middle.append(self._title(words.ADVANCED))
         middle.append(Gtk.Label(label=self._(words.ADVANCED_EXPLAINED)))
         grid = self._form()
+        steps = [self._(label) for label in words.SPEED_STEPS]
+        first = None
+        for key, message in (("pointer_speed", words.POINTER_SPEED),
+                             ("scroll_speed", words.TWO_FINGER_SCROLL)):
+            now = int(screen.data.get(key) or 0)
+            # The steps -2 to 2 are the list's places 0 to 4.
+            chosen = self._dropdown(steps, now + 2)
+            chosen.set_halign(Gtk.Align.START)
+
+            def changed(dropdown, _param, key=key, now=now):
+                step = dropdown.get_selected() - 2
+                if -2 <= step <= 2 and step != now:
+                    self.run("set_pointer", key, step)
+
+            chosen.connect("notify::selected", changed)
+            self._field(grid, message, chosen,
+                        hint=words.POINTER_EXPLAINED if key == "scroll_speed" else None)
+            first = first or chosen
         text = Gtk.TextView(monospace=True, wrap_mode=Gtk.WrapMode.NONE, accepts_tab=False,
                             top_margin=8, bottom_margin=8, left_margin=8, right_margin=8)
         text.get_buffer().set_text(screen.data.get("chromium_flags") or "")
@@ -1991,4 +2011,4 @@ class View:
         grid.attach(options, 1, grid.kidux_rows, 1, 1)
         grid.kidux_rows += 1
         middle.append(grid)
-        self._focus = text
+        self._focus = first

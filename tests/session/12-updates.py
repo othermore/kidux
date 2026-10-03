@@ -69,18 +69,21 @@ def run(machine: Machine) -> None:
 
     # The page drawn again has the focus on the current password: past the
     # new one twice, Save, language, keyboard, scale, and the two minutes and
-    # Set of a computer left alone, to Chromium's options under Advanced.
+    # Set of a computer left alone, to the button under Advanced.
     for _ in range(10):
         machine.key("tab")
     before = machine.mark()
     machine.key("ret")
     shown = machine.shown("panel_advanced", before, 10)
     machine.screenshot("panel-system-advanced")
-    report("Advanced, on the System page, shows Chromium's options for this machine",
+    report("Advanced, on the System page, shows the pointer's steps and Chromium's options "
+           "for this machine",
            shown and root("cat /etc/kidux/chromium-flags").stdout == "--disable-gpu-compositing\n",
            greeter_log())
     saves = int(root(f"grep -c '\"action\": \"config set\"' {AUDIT}").stdout.strip() or 0)
-    machine.key("tab")                           # from the options to Save
+    # From the pointer's speed, past the scroll's and the options, to Save.
+    for _ in range(3):
+        machine.key("tab")
     before = machine.mark()
     machine.key("ret")
     machine.shown("panel_advanced", before, 10)
@@ -91,6 +94,24 @@ def run(machine: Machine) -> None:
            and root("cat /etc/kidux/chromium-flags").stdout == "--disable-gpu-compositing\n",
            root(f"tail -2 {AUDIT}").stdout)
     root("runuser -u debian -- /usr/local/bin/kidux-as set-config chromium_flags '[]'")
+
+    # The page drawn again has the focus on the pointer's speed: on to the
+    # touchpad's scroll, whose list opens with no step chosen until a key
+    # moves in it; Home is its first, Much slower.
+    machine.key("tab")
+    machine.key("ret")
+    machine.still(2)
+    machine.key("home")
+    before = machine.mark()
+    machine.key("ret")
+    machine.shown("panel_advanced", before, 10)
+    machine.screenshot("panel-system-advanced-scroll")
+    report("choosing Much slower for two fingers writes it where a child's session reads it",
+           wait(lambda: "<scrollFactor>0.25</scrollFactor>"
+                in root("cat /etc/kidux/input.xml").stdout, 10)
+           and root("stat -c '%U %a' /etc/kidux/input.xml").stdout.strip() == "root 644",
+           root("cat /etc/kidux/input.xml").stdout + root(f"tail -2 {AUDIT}").stdout)
+    root("runuser -u debian -- /usr/local/bin/kidux-as set-config scroll_speed 0")
 
     before = machine.mark()
     machine.key("esc")                           # the panel closes

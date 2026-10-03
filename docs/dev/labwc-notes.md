@@ -13,6 +13,18 @@ softness is judged on the owner's MacBook (step 3.21).
   else of the user's: `~/.config/labwc` is never read. `-s` runs the
   command through `/bin/sh`, as the child; it is `session-inner`, which
   starts the launcher. `labwc --exit` ends the session.
+- `-c <file>` beside `-C <dir>` takes `rc.xml` from that file and the
+  rest, `menu.xml` and `themerc-override`, from the directory; SIGHUP
+  reads both again. Kidux's session gives it the directory's `rc.xml`
+  with a `<libinput>` part put in before `</labwc_config>`.
+- **Pointer and touchpad.** `<libinput>` has a `<device category="…">`
+  for each kind: `touchpad`, `touch`, `non-touch` and `default`, which a
+  device of a kind with no section of its own takes; a touchpad with a
+  section takes nothing from `default`, so the pointer's speed goes in
+  both. `<pointerSpeed>` is libinput's, -1 to 1, 0 its own;
+  `<scrollFactor>` multiplies a device's scrolling, 1.0 by default, and a
+  touchpad's two fingers scroll a page further than a child wants
+  (labwc-config(5) of 0.8.3).
 - **Keys.** Once `<keyboard>` defines a keybind and has no `<default />`,
   none of labwc's own are loaded: no terminal key, no root menu key, no
   close key. The configuration's are the only ones.

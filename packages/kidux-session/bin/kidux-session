@@ -39,4 +39,12 @@ configuration=/usr/share/kidux/labwc/kiosk
 if [ "${KIDUX_WINDOWS:-}" = "1" ]; then
     configuration=/usr/share/kidux/labwc/desk
 fi
-exec labwc -C "$configuration" -s "/usr/lib/kidux/session-inner --keep-running /usr/libexec/kidux-launcher"
+# Its rc.xml is Kidux's with the pointer's speed and the touchpad's scroll
+# the panel set, made afresh at every start in a directory of this
+# session's own, which ends with it; Kidux's as it is if that fails.
+rc="$configuration/rc.xml"
+if made="$(mktemp -d "${XDG_RUNTIME_DIR:-/tmp}/kidux-labwc.XXXXXX")" \
+        && /usr/lib/kidux/labwc-rc "$configuration/rc.xml" > "$made/rc.xml"; then
+    rc="$made/rc.xml"
+fi
+exec labwc -C "$configuration" -c "$rc" -s "/usr/lib/kidux/session-inner --keep-running /usr/libexec/kidux-launcher"

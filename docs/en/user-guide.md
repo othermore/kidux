@@ -644,8 +644,18 @@ them:
 
 ### Advanced
 
-**Advanced**, at the end of the System page, is for when something does not
-work on this particular computer.
+**Advanced**, at the end of the System page, is for how this computer's
+pointer moves, and for when something does not work on this particular
+computer.
+
+**Pointer speed** and **Scrolling with two fingers** each have five steps,
+from *Much slower* to *Much faster*, and are saved as soon as one is
+chosen. They apply to a child's session from the next time a child signs
+in; the sign-in screen, the lock screen and this panel keep the computer's
+own. Two fingers on a touchpad scroll the page; at *Normal* they scroll
+it half as far as most computers do, which suits a child's small
+movements, and *Much faster* is as far as most computers do. Try a step
+with the child's own fingers before keeping it.
 
 **Chromium's options** are for a learning module made of web pages, or
 ScratchJr, which has Chromium inside, that looks wrong on this computer's
@@ -659,7 +669,7 @@ them, each with what it does. Their letters can be selected and copied
 into the box. Leave the box empty unless you know which option your
 computer needs: empty is what Kidux does on its own.
 
-![Advanced: Chromium's options](../images/en/panel-system-advanced.png)
+![Advanced: the pointer and Chromium's options](../images/en/panel-system-advanced.png)
 
 ### Network
 

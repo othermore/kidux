@@ -855,17 +855,37 @@ class Panel(_NewChild):
     # --- advanced (D52) -----------------------------------------------------------
 
     def advanced(self, notice: str | None = None, draft: str | None = None) -> Screen:
-        """The settings that depend on the machine's hardware: Chromium's
-        flags, one a line, as the daemon has them now: they may have been
-        set since the screen started."""
+        """The settings that depend on the machine's hardware: the pointer's
+        speed and the touchpad's scroll, a step from -2 to 2 each, and
+        Chromium's flags, one a line, as the daemon has them now: they may
+        have been set since the screen started."""
         try:
-            self._config.update(chromium_flags=list(
-                self._daemon.config().get("chromium_flags") or []))
+            config = self._daemon.config()
+            self._config.update(chromium_flags=list(config.get("chromium_flags") or []),
+                                pointer_speed=int(config.get("pointer_speed") or 0),
+                                scroll_speed=int(config.get("scroll_speed") or 0))
         except (DaemonUnavailableError, DaemonError):
             pass
         flags = "\n".join(self._config.get("chromium_flags") or [])
         return self._screen("panel_advanced", notice,
-                            chromium_flags=flags if draft is None else draft)
+                            chromium_flags=flags if draft is None else draft,
+                            pointer_speed=int(self._config.get("pointer_speed") or 0),
+                            scroll_speed=int(self._config.get("scroll_speed") or 0))
+
+    def set_pointer(self, key: str, step: int) -> Screen:
+        """The pointer's speed or the touchpad's scroll, `key`, a step from
+        -2 to 2: a child's session takes it when it next starts."""
+        if key not in ("pointer_speed", "scroll_speed"):
+            return self.advanced(words.NOT_SAVED)
+        try:
+            result = self._guard(lambda: self._daemon.set_config(self._token,
+                                                                 {key: int(step)}))
+        except Invalid:
+            return self.advanced(words.NOT_SAVED)
+        if isinstance(result, Screen):
+            return result
+        self._config[key] = int(step)
+        return self.advanced(words.APPLIES_NEXT_SIGN_IN)
 
     def save_chromium_flags(self, text: str) -> Screen:
         flags = [line.strip() for line in text.splitlines() if line.strip()]
@@ -1004,7 +1024,7 @@ PANEL_ACTIONS = {
                      "set_scale", "set_idle", "look_for_updates", "install_updates",
                      "poll_updates",
                      "restart_now", "advanced", "tab", "close"),
-    "panel_advanced": ("save_chromium_flags", "tab", "close"),
+    "panel_advanced": ("save_chromium_flags", "set_pointer", "tab", "close"),
     "panel_network": ("refresh_network", "poll_network", "ask_wifi_password", "connect_wifi",
                       "ask_forget_wifi", "forget_wifi", "tab", "close"),
     "turning_off": (),

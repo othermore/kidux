@@ -2,6 +2,8 @@ kidux-session (0.5.16) trixie; urgency=medium
 
   * Ctrl+Shift+I and Ctrl+Shift+D open no GTK inspector, on the lock
     screen, the panel or the launcher.
+  * A child's session takes the pointer's speed and the touchpad's scroll
+    from the panel's Advanced settings.
 
  -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 18:00:59 +0200
 

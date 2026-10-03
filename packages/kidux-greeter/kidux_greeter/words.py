@@ -99,7 +99,17 @@ FIRST = N_("Recommended before: {modules}")
 #: The System page's way to the settings that depend on the machine's
 #: hardware (D52), and that page.
 ADVANCED = N_("Advanced")
-ADVANCED_EXPLAINED = N_("Only if something does not work on this computer.")
+ADVANCED_OPEN = N_("Pointer, touchpad and Chromium")
+ADVANCED_EXPLAINED = N_("How this computer's pointer moves, and what to try if something "
+                        "does not work on it.")
+#: The pointer's speed and the touchpad's scroll (kidux.pointer), each in
+#: five steps, slower to faster, the middle one Kidux's own.
+POINTER_SPEED = N_("Pointer speed")
+TWO_FINGER_SCROLL = N_("Scrolling with two fingers")
+SPEED_STEPS = (N_("Much slower"), N_("Slower"), N_("Normal"), N_("Faster"), N_("Much faster"))
+POINTER_EXPLAINED = N_("On a touchpad, two fingers scroll the page; Normal scrolls half "
+                       "as far as most computers do.")
+APPLIES_NEXT_SIGN_IN = N_("Saved. It applies the next time a child signs in.")
 CHROMIUM_OPTIONS = N_("Chromium's options")
 CHROMIUM_OPTIONS_EXPLAINED = N_(
     "If a web module, Scratch for instance, or ScratchJr, which is Chromium inside, "
