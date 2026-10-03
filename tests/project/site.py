@@ -10,7 +10,10 @@ one dropped from the page is not left behind; every picture, style and
 link a page names must be there; each page must lead to the others, to the
 contact address and to where a donation is made; and the steps to install
 it sends a visitor to must be a section of the user guide in its language.
-Given the package archive's tarball, it must unpack it under apt/.
+Given the package archive's tarball, it must unpack it under apt/. With a
+measurement id for Google Analytics, each page asks before it counts a
+visit and carries nothing of Google's as a tag; without one, nothing of it
+at all (D83).
 """
 
 import io
@@ -114,6 +117,30 @@ with tempfile.TemporaryDirectory() as scratch:
     check("given the package archive, it is unpacked under apt/",
           (Path(scratch) / "with-archive" / "apt" / "dists" / "stable" / "InRelease").read_bytes()
           == b"signed" and (Path(scratch) / "with-archive" / "index.html").is_file())
+
+    # Visits are counted only after the visitor says yes (D83).
+    analytics = facts.get("site.analytics", "")
+    check("the measurement id is empty or Google's G-…",
+          analytics == "" or re.fullmatch(r"G-[A-Z0-9]{4,}", analytics) is not None, analytics)
+    if analytics:
+        for language, page in pages.items():
+            text = page.read_text(encoding="utf-8")
+            scripts = "".join(re.findall(r"<script>(.*?)</script>", text, re.DOTALL))
+            check(f"{language}: it asks before counting a visit, and loads Google's tag only from its script",
+                  'id="cookies"' in text and 'data-cookies="ask"' in text
+                  and 'data-cookies="yes"' in text and 'data-cookies="no"' in text
+                  and 'localStorage.getItem("kidux-cookies")' in scripts
+                  and f"googletagmanager.com/gtag/js?id={analytics}" in scripts
+                  and scripts.count(f'gtag("config", "{analytics}")') == 1
+                  and "<script async" not in text
+                  and '<script src="https://www.googletagmanager.com' not in text, str(page))
+    quiet_facts = dict(facts, **{"site.analytics": ""})
+    for language, table in words.items():
+        page, _ = site.render(template, {**quiet_facts, **table, "lang": language, "root": "",
+                                         "page_url": ""}, site.markup(facts, words, language))
+        check(f"{language}: without a measurement id, nothing of Google's and no notice",
+              "googletagmanager" not in page and "kidux-cookies" not in page
+              and 'id="cookies"' not in page and "{{" not in page)
 
     # The same page with an image to download: the other half of what it says.
     template_facts = dict(facts, **{"site.download": "https://example.org/kidux.iso"})

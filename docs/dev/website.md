@@ -26,10 +26,11 @@ tests/project/site.py   checks it, with every other project check
 English) at the site's root and every other in a folder of its name
 (`es/`), each linking to the others. A first visit to the root goes to the
 visitor's own language when the site has it, and a language chosen by hand
-is remembered in the browser. The site uses no cookie and no tracker, and
-its font is its own. The one thing it takes from another server is
-GitHub's Sponsor button, in the part of the page that asks for a donation,
-fetched when that part comes into view.
+is remembered in the browser. Its font is its own. It takes two things
+from other servers: GitHub's Sponsor button, in the part of the page that
+asks for a donation, fetched when that part comes into view; and, once the
+visitor has said yes in the notice at the foot of the page, Google's tag,
+which counts visits (section 5). It sets no cookie of its own.
 
 **The words.** A sentence on the page is a key in every `site/<language>.toml`.
 `tests/project/site.py` fails when a language lacks a word the page asks
@@ -122,3 +123,21 @@ GitHub then issues the certificate, and *Enforce HTTPS* is ticked. The
 button (`.github/FUNDING.yml`) lead to the owner's GitHub Sponsors page,
 `sponsors` in `site/site.toml`, and the part of the page that asks for a
 donation shows GitHub's own button under ours, `sponsors_button`.
+
+## 5. Visits
+
+The site counts its visits with Google Analytics (D83). The measurement id
+is a fact, `analytics` in `site/site.toml`; the reports are at
+`analytics.google.com`, in the property the id belongs to, which the
+owner's Google account holds.
+
+Google's tag sets cookies in the visitor's browser, so nothing of Google's
+loads until the visitor accepts: a first visit shows a notice at the foot
+of the page, *Yes* loads the tag and *No* loads nothing and clears any
+`_ga` cookie a yes left. The answer is kept in the visitor's browser
+(`kidux-cookies` in its local storage), for every language of the site,
+and the footer's *Cookies* forgets it and asks again. The tag is made by
+the page's own script, never written in the page as a `<script src>`,
+which `tests/project/site.py` checks, with the notice and its words in
+every language. With `analytics` empty the page carries neither the tag
+nor the notice.

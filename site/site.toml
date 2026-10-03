@@ -16,5 +16,10 @@ owner_url = "https://antonio.mg"
 email = "info@kidux.org"
 
 # The page an installable image is downloaded from. While it is empty the
-# site says the image is on its way, and offers to tell when it is ready.
+# site says the image is on its way.
 download = ""
+
+# Google Analytics' measurement id, `G-…`: with it the page asks the visitor
+# whether it may count visits and, on a yes, loads Google's tag; empty, the
+# page carries no tag and no notice.
+analytics = "G-LHD6DKXB9P"

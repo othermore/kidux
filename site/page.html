@@ -286,6 +286,10 @@
     <img src="{{ root }}brand/wordmark.svg" alt="Kidux" width="94" height="32" loading="lazy">
     <p>{{ footer.rights }} <a href="{{ site.owner_url }}">{{ site.owner }}</a>. {{ footer.licence }}</p>
     <p>{{ footer.others }}</p>
+{{#if site.analytics}}
+    <p><a href="#" data-cookies="ask">{{ cookies.footer }}</a></p>
+{{#else}}
+{{/if}}
   </div>
 </footer>
 
@@ -298,5 +302,78 @@ document.querySelectorAll("a[data-language]").forEach(function (link) {
   });
 });
 </script>
+{{#if site.analytics}}
+
+<div class="cookies" id="cookies" hidden role="dialog" aria-live="polite" aria-label="{{ cookies.footer }}">
+  <div class="wrap">
+    <p>{{ cookies.text }}</p>
+    <div class="answers">
+      <button type="button" class="button small primary" data-cookies="yes">{{ cookies.accept }}</button>
+      <button type="button" class="button small quiet" data-cookies="no">{{ cookies.reject }}</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Visits are counted by Google's tag, which sets cookies; nothing of
+// Google's loads until the visitor says yes in the notice, and the answer
+// is remembered in the browser. The footer's link asks again.
+(function () {
+  var notice = document.getElementById("cookies");
+  // While the notice shows, the page leaves room for it under the footer.
+  function show(shown) {
+    notice.hidden = !shown;
+    document.body.style.paddingBottom = shown ? notice.offsetHeight + "px" : "";
+  }
+  function answer() {
+    try { return localStorage.getItem("kidux-cookies"); } catch (error) { return null; }
+  }
+  function remember(value) {
+    try {
+      if (value) { localStorage.setItem("kidux-cookies", value); }
+      else { localStorage.removeItem("kidux-cookies"); }
+    } catch (error) {}
+  }
+  function count() {
+    if (window.gtag) { return; }
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", "{{ site.analytics }}");
+    var tag = document.createElement("script");
+    tag.async = true;
+    tag.src = "https://www.googletagmanager.com/gtag/js?id={{ site.analytics }}";
+    document.head.appendChild(tag);
+  }
+  function forget() {
+    var host = location.hostname, parts = host.split(".");
+    var domains = ["", host, "." + host];
+    if (parts.length > 1) { domains.push("." + parts.slice(-2).join(".")); }
+    document.cookie.split(";").forEach(function (cookie) {
+      var name = cookie.split("=")[0].trim();
+      if (name.indexOf("_ga") !== 0) { return; }
+      domains.forEach(function (domain) {
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" +
+          (domain ? "; domain=" + domain : "");
+      });
+    });
+  }
+  document.querySelectorAll("[data-cookies]").forEach(function (control) {
+    control.addEventListener("click", function (event) {
+      event.preventDefault();
+      var what = control.dataset.cookies;
+      if (what === "ask") { remember(null); show(true); return; }
+      remember(what);
+      show(false);
+      if (what === "yes") { count(); } else { forget(); }
+    });
+  });
+  var given = answer();
+  if (given === "yes") { count(); }
+  else if (given !== "no") { show(true); }
+})();
+</script>
+{{#else}}
+{{/if}}
 </body>
 </html>

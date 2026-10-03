@@ -1460,3 +1460,81 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   later without the machines noticing, since the public key does not
   change. A machine that follows testing turns the shipped source to the
   development archive and adds its key (rollout.md, section 3).
+
+- **D83 — The website counts its visits with Google Analytics, and only
+  after the visitor says yes.** Decided 2026-10-03 by the owner, on
+  phase-4b-plan.md. The owner wants to know whether anyone comes, and from
+  where. Google's tag, `gtag.js`, with the measurement id as a fact of the
+  site, `analytics` in `site/site.toml`; empty, the page carries no tag and
+  no notice. Google's tag sets cookies, and the rules where the owner lives
+  (the AEPD's, in Spain) want the visitor asked first, so the page loads
+  nothing of Google's until the visitor accepts in a notice at the foot of
+  the page; a refusal loads nothing, both answers are remembered in the
+  browser, and a link in the footer asks again. The site sets no other
+  cookie.
+
+- **D84 — BASIC is wwwBASIC behind an editor of Kidux's own, in the browser,
+  with the guide beside it.** Decided 2026-10-03 by the owner, on
+  phase-4b-plan.md. The BASIC a child learns from is the one of the first
+  home computers, the one *BASIC para niños* teaches: numbered lines,
+  `PRINT`, `INPUT`, `GOTO`, a screen of text that also draws, colours and
+  sounds. And the owner wants the lesson on the same screen as the machine.
+  No program in trixie gives both: Matrix Brandy draws in an SDL window that
+  can share a window with nothing; PC-BASIC has no installable package in
+  trixie; `bwbasic` is text in a terminal; `yabasic` has no line numbers.
+  Writing an interpreter would be two thousand lines with a long tail of
+  small differences to chase. So the interpreter is **wwwBASIC**
+  (`github.com/google/wwwbasic`, Apache-2.0, one JavaScript file,
+  maintained, with its own test suite): a QBasic/BASICA BASIC, the books'
+  *conventional BASIC*, that runs in a page, draws its own text screen on a
+  canvas with the look of the PCs of the time, has `INPUT`, `INKEY$`,
+  `READ`/`DATA`, `DIM`, `ON GOTO`, the string functions, `PSET`, `LINE`,
+  `CIRCLE`, `PAINT`, `COLOR`, `BEEP`, `SOUND` and `PLAY`, and runs a program
+  in slices so that a loop that never ends can be stopped. It arrives as
+  every program not in trixie does, a pinned commit built into a tarball
+  (D68, D71). Kidux adds no immediate mode and changes nothing in it: the
+  child writes the program in an editor, presses *Run*, and sees it on the
+  screen below; the guide is written for this machine, not for the one in
+  the books, so what wwwBASIC does not do (`CONT`, reading a variable after
+  a run, `GO TO` with a space) the guide does not teach. A child's programs
+  are saved and opened as files, as Scratch's projects are (D75, D76), and
+  the one being written is kept in the browser's storage between sessions.
+  BASIC's words are the same in every language; the module's own words and
+  its guide are in both.
+
+- **D85 — A web module may be a door to one website on the internet, held to
+  that site's hosts: the policy is the machine's ceiling, a proxy is the
+  module's wall.** Decided 2026-10-03 by the owner, on phase-4b-plan.md. D42
+  foresaw a module that opens the web with a list of sites, switched on by
+  an adult like any other. Chromium's managed policy is one for the whole
+  machine and cannot hold one module to one site, so a module names its
+  hosts in its manifest (`hosts`), `kidux-webapps` writes the policy from
+  the manifests of the installed modules, its `URLAllowlist` the union of
+  their hosts, and `kidux-webapp` starts every module's Chromium with a
+  proxy that answers nothing (`--proxy-server=127.0.0.1:1`) and a bypass
+  list of the module's own hosts, which is what confines each module to its
+  site, the policy still refusing whatever no installed module names.
+  Chromium honours these as documented (tried 2026-10-03: a host not in the
+  bypass list fails with `ERR_PROXY_CONNECTION_FAILED` under the policy as
+  it is). Scratch and TurboWarp name their library hosts the same way, and
+  the policy carries no host of its own. A `web` module gets no
+  `--enable-unsafe-swiftshader`, which is unsafe for pages from anywhere.
+
+- **D86 — CodeCombat is a door to codecombat.com, nothing of it shipped, and
+  Kidux says it is not connected with CodeCombat.** Decided 2026-10-03 by
+  the owner, on phase-4b-plan.md. The levels are proprietary and cannot be
+  served locally (architecture.md section 8); the site is translated and
+  teaches real Python and JavaScript. The module reaches CodeCombat's own
+  hosts and no other: an account is signed in with email and password, the
+  sign-ins through Google, Facebook or Clever lead nowhere, a subscription
+  is bought by the adult on another computer, and the module's words say the
+  site is CodeCombat's, that most of it needs a paid subscription, and that
+  Kidux has no connection with CodeCombat Inc.
+
+- **D87 — Wikipedia is a door to the whole encyclopedia in the child's
+  language, and the Wikimedia projects, with the rest of the internet
+  closed.** Decided 2026-10-03 by the owner, on phase-4b-plan.md. The
+  address is the child's language's edition; the hosts are Wikipedia's,
+  Wikimedia's (where the pictures come from) and the sister projects'. It is
+  the whole of Wikipedia, written for everyone, and the module's words say
+  so, so that an adult switches it on knowing it.

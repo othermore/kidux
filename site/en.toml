@@ -163,3 +163,9 @@ code_text = "Kidux on GitHub"
 rights = "© 2026"
 licence = "Kidux is published under the Business Source License 1.1."
 others = "GCompris, ScratchJr, Blockly Games, Tux Typing, Scratch and TurboWarp belong to their authors and keep their own licences. Kidux is built on Debian and is not affiliated with any of them."
+
+[cookies]
+text = "This site counts its visits with Google Analytics, which sets cookies in your browser. May it?"
+accept = "Yes"
+reject = "No"
+footer = "Cookies"

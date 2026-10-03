@@ -107,7 +107,11 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [x] ScratchJr, from the community desktop port, and Blockly Games (4.6, 4.7, D69).
 - [ ] micro:bit: MakeCode and micro:bit Python Editor static builds served locally,
       guided projects, WebUSB/USB access for the child user.
-- [ ] CodeCombat as an optional online module.
+- [ ] BASIC: wwwBASIC in an editor of Kidux's own, with its guide beside
+      it (phase-4b-plan.md 4.10, 4.11, D84).
+- [ ] A web module that is a door to one website on the internet, held to
+      that site's hosts (4.12, D85): CodeCombat (4.13, D86) and Wikipedia
+      (4.14, D87) through it.
 
 ## Phase 5 — AI learning module
 - [ ] `kidux-ai-gateway`: adult-held credentials, guardrails, logging visible to
@@ -125,6 +129,7 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [ ] The user guide complete in both languages, with final screenshots.
 - [x] Public name and visual identity (`branding/`).
 - [x] The website (`site/`, website.md).
+- [x] The website counts its visits, once the visitor says yes (D83).
 - [ ] Its download page: `download` in `site/site.toml`, once there is an image.
 - [x] A Plymouth splash screen with Kidux's logo for the installed system.
 - [ ] A themed GRUB menu for the ISO, in the project's visual identity.

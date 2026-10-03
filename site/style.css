@@ -229,6 +229,21 @@ h3 { font-size: 22px; line-height: 1.25; }
 .support iframe { display: block; margin: 18px auto 0; border: 0; border-radius: 6px; }
 .support a:focus-visible { outline-color: var(--snow); }
 
+button.button { border: 0; cursor: pointer; font-family: inherit; }
+button.button:focus-visible { outline: 4px solid var(--blue); outline-offset: 3px; }
+
+/* The notice that asks whether visits may be counted (D83). */
+.cookies { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  background: var(--paper); border-top: 1px solid var(--line);
+  box-shadow: 0 -6px 24px rgba(59, 47, 42, 0.12); padding: 16px 0; }
+.cookies[hidden] { display: none; }
+.cookies .wrap { display: flex; flex-direction: column; gap: 12px; }
+.cookies p { font-size: 17px; }
+.cookies .answers { display: flex; gap: 10px; }
+@media (min-width: 760px) {
+  .cookies .wrap { flex-direction: row; align-items: center; justify-content: space-between; }
+}
+
 footer { padding: 40px 0 48px; border-top: 1px solid var(--line); font-size: 15px; color: var(--soft); }
 footer img { height: 32px; width: auto; margin-bottom: 14px; }
 footer p + p { margin-top: 8px; }

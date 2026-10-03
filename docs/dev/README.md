@@ -58,9 +58,12 @@ instead, in English and Spanish.
 - [phase-3-plan.md](phase-3-plan.md): the module framework, the first
   modules and what the hand tests at home ask for, built before the ISO
   (D31).
-- [phase-4-plan.md](phase-4-plan.md): the current phase, the content
-  modules, typing and the Scratch family first, and how a program that is
-  not in Debian is built and packaged.
+- [phase-4-plan.md](phase-4-plan.md): the content modules, typing and the
+  Scratch family first, and how a program that is not in Debian is built
+  and packaged, built.
+- [phase-4b-plan.md](phase-4b-plan.md): the current plan: the website's
+  visits behind a cookie notice, BASIC with its guide, and
+  modules that are a door to one website, CodeCombat and Wikipedia.
 - [test-battery-plan.md](test-battery-plan.md): making `ci/test-release.sh`
   faster without making it mean less.
 
