@@ -847,6 +847,35 @@ TurboWarp no puede traerlo de la web de Scratch por su número.
 
 ![TurboWarp](../images/es/module-turbowarp.png)
 
+### BASIC
+
+**BASIC** es el lenguaje que hablaban los primeros ordenadores de casa, y
+sigue siendo una buena forma de empezar a escribir programas. El módulo es
+un pequeño ordenador de aquella época a la izquierda, y una guía para
+usarlo a la derecha, para niños de ocho a catorce años que ya leen bien,
+en el idioma del niño. No necesita nada de internet.
+
+La mitad izquierda tiene tres partes: arriba el editor, donde el niño
+escribe el programa, una fila de botones, y debajo la pantalla, donde el
+programa enseña lo que hace. **Ejecutar** pone el programa en marcha, y
+Ctrl+Intro también. Un programa que no termina nunca se para con
+**Parar**, o con Escape. Cuando una línea tiene un error, las palabras de
+debajo de la pantalla dicen qué línea es, y el editor la marca.
+
+La mitad derecha es la guía, un capítulo cada vez, con **Atrás**,
+**Siguiente** y la lista de **Capítulos**. El niño lee allí un programa y
+lo escribe en el editor; el botón de debajo de cada programa lo escribe
+por él. Cada capítulo termina con ideas para seguir probando, y un
+recuadro **Para el adulto** que dice lo que enseña el capítulo.
+
+El programa del editor se queda allí cuando se cierra BASIC, hasta que el
+niño pulsa **Nuevo**. Para conservar un programa, **Guardar** abre una
+ventana con las carpetas del niño, en **Descargas**, para elegir dónde
+guardarlo y con qué nombre, como un archivo `.bas`; **Abrir** abre la
+misma ventana para traerlo de vuelta.
+
+![BASIC](../images/es/module-basic.png)
+
 ## 10. Actualizar y reinstalar
 
 Las actualizaciones de seguridad se instalan solas, en segundo plano, tanto

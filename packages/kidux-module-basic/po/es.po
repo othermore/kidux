@@ -1,0 +1,129 @@
+# Spanish translation for kidux-module-basic.
+# Copyright (C) 2026 Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-basic package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-basic 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-10-03 10:33+0200\n"
+"PO-Revision-Date: 2026-10-03 10:33+0200\n"
+"Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "BASIC"
+msgstr "BASIC"
+
+msgid ""
+"BASIC as it was on the first home computers, with its guide beside it: write "
+"a program, press Run, and see. It draws, colours and sounds too."
+msgstr ""
+"BASIC como en los primeros ordenadores de casa, con su guía al lado: escribe "
+"un programa, pulsa Ejecutar y mira. También dibuja, colorea y suena."
+
+msgid "Run"
+msgstr "Ejecutar"
+
+msgid "Run the program (Ctrl+Enter)"
+msgstr "Ejecutar el programa (Ctrl+Intro)"
+
+msgid "Stop"
+msgstr "Parar"
+
+msgid "Stop the program (Escape)"
+msgstr "Parar el programa (Escape)"
+
+msgid "New"
+msgstr "Nuevo"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid "The program"
+msgstr "El programa"
+
+msgid "The screen"
+msgstr "La pantalla"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "The program in the editor will be lost. Go on?"
+msgstr "Se perderá el programa del editor. ¿Seguimos?"
+
+msgid "program"
+msgstr "programa"
+
+msgid "The program is running. Escape stops it."
+msgstr "El programa está funcionando. Escape lo para."
+
+msgid "The program has ended."
+msgstr "El programa ha terminado."
+
+msgid "You stopped the program."
+msgstr "Has parado el programa."
+
+msgid "The program is in the editor. Press Run to see it."
+msgstr "El programa está en el editor. Pulsa Ejecutar para verlo."
+
+#, python-brace-format
+msgid ""
+"Line {number} jumps to line {target}, and the program has no line {target}."
+msgstr ""
+"La línea {number} salta a la línea {target}, y el programa no tiene línea "
+"{target}."
+
+#, python-brace-format
+msgid "BASIC does not understand line {number}."
+msgstr "BASIC no entiende la línea {number}."
+
+#, python-brace-format
+msgid "BASIC does not understand line {line} of the editor."
+msgstr "BASIC no entiende la línea {line} del editor."
+
+msgid ""
+"Something is missing at the end of the program: a NEXT for a FOR, perhaps, "
+"or a closing quote."
+msgstr ""
+"Falta algo al final del programa: quizá el NEXT de un FOR, o unas comillas "
+"que cierren."
+
+msgid "A READ found no more DATA to read."
+msgstr "Un READ no ha encontrado más DATA que leer."
+
+msgid ""
+"The program stopped at a mistake BASIC cannot name. Look for a RETURN "
+"without its GOSUB, or a NEXT without its FOR."
+msgstr ""
+"El programa se ha parado en un error que BASIC no sabe nombrar. Busca un "
+"RETURN sin su GOSUB, o un NEXT sin su FOR."
+
+#, python-brace-format
+msgid "The program stopped: {message}"
+msgstr "El programa se ha parado: {message}"
+
+msgid "Back"
+msgstr "Atrás"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Chapters"
+msgstr "Capítulos"
+
+msgid "Type it in for me"
+msgstr "Escríbemelo"
+
+msgid "For the adult"
+msgstr "Para el adulto"

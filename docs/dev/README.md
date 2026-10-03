@@ -34,6 +34,8 @@ instead, in English and Spanish.
 - [installer.md](installer.md): the installable image and the installer, as
   designed.
 - [modules.md](modules.md): what a learning module is and how to make one.
+- [basic.md](basic.md): the BASIC module: wwwBASIC, the page around it, and
+  how its guide is written.
 - [website.md](website.md): the website, what it says, how it is built and
   published, and where a donation goes.
 

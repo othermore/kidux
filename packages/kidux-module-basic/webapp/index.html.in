@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BASIC</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="machine">
+  <div class="editor">
+    <pre id="gutter" aria-hidden="true"></pre>
+    <textarea id="editor" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+  </div>
+  <div class="buttons">
+    <button type="button" id="run" class="go"></button>
+    <button type="button" id="stop" disabled></button>
+    <button type="button" id="new"></button>
+    <button type="button" id="save"></button>
+    <button type="button" id="open"></button>
+    <input type="file" id="opener" accept=".bas,.txt,text/plain" hidden>
+  </div>
+  <div class="screen" id="screen"><canvas id="still" hidden></canvas></div>
+  <p id="status" role="status"></p>
+</main>
+<aside class="guide">
+  <nav class="pager">
+    <button type="button" id="back"></button>
+    <button type="button" id="contents" aria-expanded="false"></button>
+    <button type="button" id="next"></button>
+  </nav>
+  <article id="chapter"></article>
+  <nav id="list" class="list" hidden></nav>
+</aside>
+<dialog id="ask">
+  <p id="question"></p>
+  <div class="answers"><button type="button" id="yes"></button> <button type="button" id="no"></button></div>
+</dialog>
+<script>
+  "use strict";
+  // Every language's words and chapters, written when the package is built.
+  const PAGES = @PAGES@;
+  (function () {
+    const asked = new URLSearchParams(window.location.search).get("lang") || "en";
+    const lang = PAGES[asked] ? asked : "en";
+    window.BASIC = PAGES[lang];
+    document.documentElement.lang = lang;
+    const words = window.BASIC.words;
+    for (const id of ["run", "stop", "new", "save", "open", "back", "next", "contents", "yes", "no"]) {
+      document.getElementById(id).textContent = words[id];
+    }
+    document.getElementById("run").title = words.runKeys;
+    document.getElementById("stop").title = words.stopKeys;
+    document.getElementById("editor").setAttribute("aria-label", words.editor);
+  })();
+</script>
+<script src="check.js"></script>
+<script src="machine.js"></script>
+<script src="guide.js"></script>
+</body>
+</html>

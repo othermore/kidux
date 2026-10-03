@@ -37,6 +37,7 @@ kidux-module-scratch
 kidux-module-scratchjr
 kidux-module-turbowarp
 kidux-module-blockly-games
+kidux-module-basic
 kidux-webapps
 kidux-module-hello-web
 kidux-session

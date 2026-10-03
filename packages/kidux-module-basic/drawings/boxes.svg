@@ -1,0 +1,27 @@
+<!-- Variables as boxes, each holding one thing: a number, a fish, a snowflake. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 150" width="330" height="150">
+  <g fill="#e8b878">
+    <path d="M10 60 L100 60 L100 140 L10 140 Z"/>
+    <path d="M120 60 L210 60 L210 140 L120 140 Z"/>
+    <path d="M230 60 L320 60 L320 140 L230 140 Z"/>
+  </g>
+  <g fill="#d39a55">
+    <path d="M10 60 L-2 40 L88 40 L100 60 Z"/>
+    <path d="M120 60 L108 40 L198 40 L210 60 Z"/>
+    <path d="M230 60 L218 40 L308 40 L320 60 Z"/>
+  </g>
+  <!-- the labels, the boxes' names -->
+  <rect x="30" y="100" width="50" height="22" rx="5" fill="#fdf6f0"/>
+  <rect x="140" y="100" width="50" height="22" rx="5" fill="#fdf6f0"/>
+  <rect x="250" y="100" width="50" height="22" rx="5" fill="#fdf6f0"/>
+  <!-- a number -->
+  <text x="55" y="34" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="34" fill="#24313f">12</text>
+  <!-- a fish -->
+  <path d="M140 22 C152 8 178 8 186 22 C178 36 152 36 140 22 Z" fill="#3584e4"/>
+  <path d="M186 22 L200 12 L200 32 Z" fill="#3584e4"/>
+  <circle cx="152" cy="20" r="3" fill="#fdf6f0"/>
+  <!-- a snowflake -->
+  <g stroke="#7fb3e0" stroke-width="5" stroke-linecap="round">
+    <path d="M275 4 L275 40"/><path d="M259 13 L291 31"/><path d="M259 31 L291 13"/>
+  </g>
+</svg>

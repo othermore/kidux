@@ -1,0 +1,14 @@
+<!-- A loop: an arrow that comes back to where it began, five steps on it. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" width="220" height="220">
+  <circle cx="110" cy="110" r="78" fill="none" stroke="#f0a202" stroke-width="14"/>
+  <path d="M110 18 L134 32 L110 46 Z" fill="#f0a202"/>
+  <rect x="88" y="26" width="16" height="12" fill="#fff6e9"/>
+  <g fill="#24313f">
+    <circle cx="184" cy="86" r="14"/><circle cx="160" cy="174" r="14"/>
+    <circle cx="60" cy="174" r="14"/><circle cx="36" cy="86" r="14"/>
+  </g>
+  <g fill="#fdf6f0" font-family="sans-serif" font-weight="bold" font-size="16" text-anchor="middle">
+    <text x="184" y="92">1</text><text x="160" y="180">2</text>
+    <text x="60" y="180">3</text><text x="36" y="92">4</text>
+  </g>
+</svg>

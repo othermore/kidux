@@ -1,0 +1,20 @@
+<!-- The BASIC module's own window: the editor, the buttons and the screen. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" width="320" height="220">
+  <rect x="0" y="0" width="320" height="220" rx="18" fill="#24313f"/>
+  <!-- the editor, with lines of a program -->
+  <rect x="14" y="14" width="292" height="70" rx="10" fill="#ffffff"/>
+  <rect x="14" y="14" width="26" height="70" rx="10" fill="#fbecd8"/>
+  <rect x="50" y="26" width="120" height="8" rx="4" fill="#3b2f2a"/>
+  <rect x="50" y="44" width="160" height="8" rx="4" fill="#3b2f2a"/>
+  <rect x="50" y="62" width="90" height="8" rx="4" fill="#3b2f2a"/>
+  <!-- the buttons, Run first -->
+  <rect x="14" y="94" width="46" height="20" rx="8" fill="#f0a202"/>
+  <rect x="66" y="94" width="40" height="20" rx="8" fill="#ebe0d2"/>
+  <rect x="112" y="94" width="40" height="20" rx="8" fill="#ebe0d2"/>
+  <rect x="158" y="94" width="40" height="20" rx="8" fill="#ebe0d2"/>
+  <!-- the screen, with what the program wrote -->
+  <rect x="84" y="124" width="152" height="86" rx="8" fill="#111111"/>
+  <rect x="96" y="138" width="70" height="7" rx="3" fill="#d8d8d8"/>
+  <rect x="96" y="154" width="100" height="7" rx="3" fill="#d8d8d8"/>
+  <rect x="96" y="170" width="10" height="7" rx="2" fill="#d8d8d8"/>
+</svg>

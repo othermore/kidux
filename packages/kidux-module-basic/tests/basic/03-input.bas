@@ -1,0 +1,3 @@
+10 INPUT "NAME? "; N$
+20 INPUT "AGE? "; A
+30 PRINT N$; " IS "; A

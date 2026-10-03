@@ -105,6 +105,9 @@ The modules Kidux offers:
   computer itself, without the Scratch website's community.
 - [TurboWarp](https://turbowarp.org/): Scratch made faster, the same blocks
   and the same projects, for a slower computer.
+- BASIC: the language of the first home computers, through
+  [wwwBASIC](https://github.com/google/wwwbasic), with a guide beside it
+  for children from eight who read well, without the internet.
 
 ![GCompris](docs/images/en/module-gcompris.png)
 
@@ -154,6 +157,6 @@ are not covered by the licence.
 Kidux is a Debian derivative and installs software written by other people
 under their own licences, which each component keeps: Debian's packages,
 and the learning modules' programs, Scratch (AGPL-3), TurboWarp (GPL-3),
-ScratchJr (BSD-3), Blockly Games (Apache-2.0), GCompris (GPL-3) and Tux
-Typing (GPL-2). The source of each program Kidux builds, with the changes
+ScratchJr (BSD-3), Blockly Games (Apache-2.0), wwwBASIC (Apache-2.0),
+GCompris (GPL-3) and Tux Typing (GPL-2). The source of each program Kidux builds, with the changes
 it is built with, is published beside the build.

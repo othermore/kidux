@@ -1,0 +1,3 @@
+PRINT "NO NUMBERS"
+X = 2
+PRINT X * 3

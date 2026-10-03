@@ -1,0 +1,122 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-basic package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-basic 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-10-03 10:33+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "BASIC"
+msgstr ""
+
+msgid ""
+"BASIC as it was on the first home computers, with its guide beside it: write "
+"a program, press Run, and see. It draws, colours and sounds too."
+msgstr ""
+
+msgid "Run"
+msgstr ""
+
+msgid "Run the program (Ctrl+Enter)"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
+msgid "Stop the program (Escape)"
+msgstr ""
+
+msgid "New"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Open"
+msgstr ""
+
+msgid "The program"
+msgstr ""
+
+msgid "The screen"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "The program in the editor will be lost. Go on?"
+msgstr ""
+
+msgid "program"
+msgstr ""
+
+msgid "The program is running. Escape stops it."
+msgstr ""
+
+msgid "The program has ended."
+msgstr ""
+
+msgid "You stopped the program."
+msgstr ""
+
+msgid "The program is in the editor. Press Run to see it."
+msgstr ""
+
+#, python-brace-format
+msgid ""
+"Line {number} jumps to line {target}, and the program has no line {target}."
+msgstr ""
+
+#, python-brace-format
+msgid "BASIC does not understand line {number}."
+msgstr ""
+
+#, python-brace-format
+msgid "BASIC does not understand line {line} of the editor."
+msgstr ""
+
+msgid ""
+"Something is missing at the end of the program: a NEXT for a FOR, perhaps, "
+"or a closing quote."
+msgstr ""
+
+msgid "A READ found no more DATA to read."
+msgstr ""
+
+msgid ""
+"The program stopped at a mistake BASIC cannot name. Look for a RETURN "
+"without its GOSUB, or a NEXT without its FOR."
+msgstr ""
+
+#, python-brace-format
+msgid "The program stopped: {message}"
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Chapters"
+msgstr ""
+
+msgid "Type it in for me"
+msgstr ""
+
+msgid "For the adult"
+msgstr ""

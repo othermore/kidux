@@ -1,0 +1,2 @@
+10 PRINT SPACE$(5); "X"
+20 PRINT "AB"; SPACE$(3); "C"

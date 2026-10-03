@@ -1,0 +1,29 @@
+<!-- Ten numbered rocks in the snow, and the penguin peeking from behind number 7. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <rect x="0" y="0" width="400" height="200" rx="18" fill="#eaf3fb"/>
+  <!-- the penguin, behind rock 7 -->
+  <ellipse cx="130" cy="118" rx="20" ry="22" fill="#24313f"/>
+  <ellipse cx="130" cy="122" rx="13" ry="14" fill="#fdf6f0"/>
+  <circle cx="125" cy="114" r="3" fill="#2b2b2b"/><circle cx="135" cy="114" r="3" fill="#2b2b2b"/>
+  <path d="M130 118 L125 121 L130 125 L135 121 Z" fill="#f0a202"/>
+  <ellipse cx="40" cy="70" rx="30" ry="20" fill="#9aa3ad"/>
+  <text x="40" y="77" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="#fdf6f0">1</text>
+  <ellipse cx="110" cy="60" rx="30" ry="20" fill="#9aa3ad"/>
+  <text x="110" y="67" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="#fdf6f0">2</text>
+  <ellipse cx="180" cy="74" rx="30" ry="20" fill="#9aa3ad"/>
+  <text x="180" y="81" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="#fdf6f0">3</text>
+  <ellipse cx="250" cy="62" rx="30" ry="20" fill="#9aa3ad"/>
+  <text x="250" y="69" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="#fdf6f0">4</text>
+  <ellipse cx="320" cy="72" rx="30" ry="20" fill="#9aa3ad"/>
+  <text x="320" y="79" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="#fdf6f0">5</text>
+  <ellipse cx="60" cy="140" rx="30" ry="20" fill="#9aa3ad"/>
+  <text x="60" y="147" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="#fdf6f0">6</text>
+  <ellipse cx="130" cy="150" rx="30" ry="20" fill="#9aa3ad"/>
+  <text x="130" y="157" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="#fdf6f0">7</text>
+  <ellipse cx="200" cy="138" rx="30" ry="20" fill="#9aa3ad"/>
+  <text x="200" y="145" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="#fdf6f0">8</text>
+  <ellipse cx="270" cy="150" rx="30" ry="20" fill="#9aa3ad"/>
+  <text x="270" y="157" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="#fdf6f0">9</text>
+  <ellipse cx="340" cy="140" rx="30" ry="20" fill="#9aa3ad"/>
+  <text x="340" y="147" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="#fdf6f0">10</text>
+</svg>

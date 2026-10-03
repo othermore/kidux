@@ -1,0 +1,6 @@
+10 PRINT 2 ^ 10
+20 PRINT 3 - 2 + 8 / 4
+30 PRINT (3 - 2 + 8) / 4
+40 PRINT 3 * 2 + 8 ^ 3 / 4
+50 PRINT 2 ^ 30
+60 PRINT 2 ^ 64

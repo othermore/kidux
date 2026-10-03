@@ -1,0 +1,26 @@
+<!-- The shapes of a flowchart, joined by arrows: start, ask, work out,
+     a question with two ways, and the end. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 420" width="260" height="420">
+  <g stroke="#3b2f2a" stroke-width="4" fill="none" stroke-linecap="round">
+    <path d="M110 46 L110 70"/><path d="M110 116 L110 140"/><path d="M110 186 L110 206"/>
+    <path d="M110 286 L110 330"/>
+    <path d="M170 246 L230 246 L230 93 L176 93"/>
+  </g>
+  <g fill="#3b2f2a">
+    <path d="M110 76 L102 64 L118 64 Z"/><path d="M110 146 L102 134 L118 134 Z"/>
+    <path d="M110 212 L102 200 L118 200 Z"/><path d="M110 336 L102 324 L118 324 Z"/>
+    <path d="M168 93 L180 85 L180 101 Z"/>
+  </g>
+  <!-- start: rounded -->
+  <rect x="60" y="10" width="100" height="36" rx="18" fill="#f6d7c4"/>
+  <!-- ask or show: slanted -->
+  <path d="M66 76 L170 76 L154 116 L50 116 Z" fill="#cfe3f3"/>
+  <!-- work out: plain -->
+  <rect x="58" y="146" width="104" height="40" fill="#fbecd8" stroke="#e0c9a8" stroke-width="3"/>
+  <!-- a question: a diamond, yes down and no round -->
+  <path d="M110 212 L170 246 L110 280 L50 246 Z" fill="#f0a202"/>
+  <circle cx="122" cy="306" r="8" fill="#6fbf73"/>
+  <circle cx="200" cy="232" r="8" fill="#e06c5a"/>
+  <!-- the end: rounded -->
+  <rect x="60" y="340" width="100" height="36" rx="18" fill="#f6d7c4"/>
+</svg>

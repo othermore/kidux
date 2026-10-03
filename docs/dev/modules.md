@@ -246,7 +246,10 @@ a project; and *Done*, which closes Chromium, and has the focus whenever
 the page is shown. Chromium refuses to let a page close a window
 with more than one page in its history, so after a link out and back
 *Done* does nothing, and the bar's *Home* is the way out. A module made of
-web pages is started by copying it. Its manifest names hello in
+web pages is started by copying it. `kidux-module-basic` is the larger
+example of such a page of Kidux's own: written by its `webapp/page.py`
+the same way, with a guide in every language built from Markdown into it
+beside a program it serves, wwwBASIC (basic.md). Its manifest names hello in
 `recommended_before`: the same page, before its web one.
 
 `kidux-module-hello` is the smallest module that exercises every part of

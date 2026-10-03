@@ -1,0 +1,10 @@
+10 DIM A(5)
+20 FOR I = 1 TO 5: READ A(I): NEXT I
+30 FOR I = 1 TO 4
+40 FOR J = I + 1 TO 5
+50 IF A(I) > A(J) THEN E = A(I): A(I) = A(J): A(J) = E
+60 NEXT J
+70 NEXT I
+80 FOR I = 1 TO 5: PRINT A(I); " ";: NEXT I
+90 PRINT
+100 DATA 5, 9, 2, 3, 1

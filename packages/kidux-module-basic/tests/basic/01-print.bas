@@ -1,0 +1,5 @@
+10 PRINT "HELLO"
+20 PRINT
+30 PRINT "A"; "B"
+40 PRINT "A", "B"
+50 PRINT 7; " "; 8

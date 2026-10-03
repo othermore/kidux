@@ -1,0 +1,9 @@
+[upstream]
+name = "wwwBASIC"
+repository = "https://github.com/google/wwwbasic"
+commit = "90867709f68566b93f8784139f4d66fba16b1389"
+version = "0+git20260223"
+node = ""
+build = "ci/upstream/wwwbasic.sh"
+sha256 = "7edcef650ba4cc81fff7bc4beaca29d44ebcb3f3124fb1bbf3e608ea431be0e0"
+source_sha256 = "6bd23382ed5ca77c16828857227a8611f2aed496f2b7ae27dc20d8740eb1c1c4"

@@ -1,0 +1,12 @@
+<!-- Two dice, a five and a three. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" width="240" height="120">
+  <rect x="10" y="12" width="96" height="96" rx="18" fill="#fdf6f0" stroke="#24313f" stroke-width="6"/>
+  <g fill="#24313f">
+    <circle cx="36" cy="38" r="9"/><circle cx="80" cy="38" r="9"/><circle cx="58" cy="60" r="9"/>
+    <circle cx="36" cy="82" r="9"/><circle cx="80" cy="82" r="9"/>
+  </g>
+  <rect x="134" y="12" width="96" height="96" rx="18" fill="#f0a202" stroke="#24313f" stroke-width="6" transform="rotate(10 182 60)"/>
+  <g fill="#24313f" transform="rotate(10 182 60)">
+    <circle cx="160" cy="38" r="9"/><circle cx="182" cy="60" r="9"/><circle cx="204" cy="82" r="9"/>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+# BASIC, the language of the first home computers: wwwBASIC, a program not
+# in Debian taken as it is from its repository (upstream.toml, D68), in an
+# editor of Kidux's own with a guide for the child beside it, served by
+# kidux-webapps under /basic/ (D84; docs/dev/basic.md).
+id = "basic"
+version = "0+git20260223"
+name = "BASIC"
+description = "BASIC as it was on the first home computers, with its guide beside it: write a program, press Run, and see. It draws, colours and sounds too."
+min_age = 8
+max_age = 14
+recommended_before = ["scratch"]
+launch = { webapp = "basic" }
+categories = ["programming"]
+i18n_domain = "kidux-module-basic"
+memory_max = "2G"

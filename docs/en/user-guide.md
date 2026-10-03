@@ -824,6 +824,35 @@ Scratch website by its number.
 
 ![TurboWarp](../images/en/module-turbowarp.png)
 
+### BASIC
+
+**BASIC** is the language the first home computers spoke, and still a good
+way to start writing programs. The module is a small computer of that
+time on the left, and a guide to it on the right, for children from eight
+to fourteen who read well, in the child's language. It needs nothing from
+the internet.
+
+The left half has three parts: the editor at the top, where the child
+writes the program, a row of buttons, and the screen below, where the
+program shows what it does. **Run** runs the program, and so does
+Ctrl+Enter. A program that never ends is stopped with **Stop**, or with
+Escape. When a line has a mistake, the words under the screen say which
+line, and the editor marks it.
+
+The right half is the guide, one chapter at a time, with **Back**,
+**Next** and the list of **Chapters**. The child reads a program there
+and types it in the editor; the button under each program types it in for
+them. Each chapter ends with ideas to keep trying, and a box **For the
+adult** that says what the chapter teaches.
+
+The program in the editor stays there when BASIC is closed, until the
+child presses **New**. To keep a program, **Save** opens a window of the
+child's folders, in **Downloads**, to choose where to keep it and under
+what name, as a `.bas` file; **Open** opens the same window to bring one
+back.
+
+![BASIC](../images/en/module-basic.png)
+
 ## 10. Updates and reinstalling
 
 Security updates install themselves in the background, from Debian and

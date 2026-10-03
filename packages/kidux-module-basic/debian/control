@@ -1,0 +1,37 @@
+Source: kidux-module-basic
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               python3,
+               python3-markdown,
+               nodejs <!nocheck>,
+               pyflakes3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-basic
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-webapps (>= 0.1.9),
+XB-Kidux-Name-en: BASIC
+XB-Kidux-Description-en: BASIC as it was on the first home computers, with its guide beside it: write a program, press Run, and see. It draws, colours and sounds too.
+XB-Kidux-Name-es: BASIC
+XB-Kidux-Description-es: BASIC como en los primeros ordenadores de casa, con su guía al lado: escribe un programa, pulsa Ejecutar y mira. También dibuja, colorea y suena.
+XB-Kidux-Ages: 8-14
+XB-Kidux-Before: scratch
+Description: Kidux learning module: BASIC, the home computer of the eighties with its guide
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is BASIC, the language the first home computers spoke: a child
+ writes a program in an editor, runs it, and sees it on a screen of the
+ time, with text, drawings, colours and sound, and beside it a guide in
+ the child's language that teaches it one idea at a time, with games to
+ make. The interpreter is wwwBASIC, Apache-2.0, run in the browser; the
+ editor and the guide are Kidux's own. Programs are saved and opened as
+ files in the child's home, and nothing of it comes from the internet.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.
