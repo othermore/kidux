@@ -63,9 +63,13 @@ instead, in English and Spanish.
 - [phase-4-plan.md](phase-4-plan.md): the content modules, typing and the
   Scratch family first, and how a program that is not in Debian is built
   and packaged, built.
-- [phase-4b-plan.md](phase-4b-plan.md): the current plan: the website's
-  visits behind a cookie notice, BASIC with its guide, and
-  modules that are a door to one website, CodeCombat and Wikipedia.
+- [phase-4b-plan.md](phase-4b-plan.md): the website's visits behind a
+  cookie notice, BASIC with its guide, and modules that are a door to one
+  website, CodeCombat and Wikipedia, built.
+- [phase-4c-plan.md](phase-4c-plan.md): the current plan: settings an
+  adult gives a module for each child, CodeCombat signed in, Back and
+  Forward on a website module, and the pointer's and the touchpad's
+  speed; waiting for the owner's decisions in its section 4.
 - [test-battery-plan.md](test-battery-plan.md): making `ci/test-release.sh`
   faster without making it mean less.
 

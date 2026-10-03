@@ -117,6 +117,9 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [x] CodeCombat, a door to codecombat.com, nothing of it shipped, not
       connected with CodeCombat (4.13, D86).
 - [x] Wikipedia, a door to the encyclopedia (4.14, D87).
+- [ ] Settings an adult gives a module for each child; CodeCombat signed
+      in by itself; Back and Forward on a website module; the pointer's
+      and the touchpad's speed on the panel (phase-4c-plan.md).
 
 ## Phase 5 — AI learning module
 - [ ] `kidux-ai-gateway`: adult-held credentials, guardrails, logging visible to
