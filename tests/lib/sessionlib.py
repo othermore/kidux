@@ -121,7 +121,7 @@ def _answer(connection: socket.socket, seconds: float = 10) -> str:
     return data.decode(errors="replace")
 
 
-def _difference(first: bytes, second: bytes) -> float:
+def difference(first: bytes, second: bytes) -> float:
     """The share of the pixels sampled that differ between two screen dumps,
     1.0 when they cannot be compared."""
     if not first or len(first) != len(second):
@@ -137,7 +137,7 @@ def _difference(first: bytes, second: bytes) -> float:
 def _alike(first: bytes, second: bytes) -> bool:
     """Whether two screen dumps differ in at most one pixel in a thousand:
     a blinking text cursor, not a new screen."""
-    return _difference(first, second) <= 0.001
+    return difference(first, second) <= 0.001
 
 
 def _ppm_share(data: bytes, colour: tuple, box, tolerance: int) -> float:
@@ -308,7 +308,7 @@ class Machine:
         dialog opening or a window coming up. A share of a few hundredths
         waits past a button that only looks pressed for what it opens.
         False if it never changed."""
-        changed = wait(lambda: _difference(before, self.frame()) > share, seconds, 0.1)
+        changed = wait(lambda: difference(before, self.frame()) > share, seconds, 0.1)
         self.still()
         return changed
 

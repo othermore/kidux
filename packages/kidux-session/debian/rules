@@ -23,6 +23,7 @@ override_dh_auto_install:
 	install -D -m 0644 conf/70-kidux-switches.rules $(DEST)/usr/lib/udev/rules.d/70-kidux-switches.rules
 	install -D -m 0644 conf/91-kidux-keyboard-light.rules $(DEST)/usr/lib/udev/rules.d/91-kidux-keyboard-light.rules
 	install -D -m 0644 conf/pam-kidux-locker $(DEST)/etc/pam.d/kidux-locker
+	install -D -m 0644 conf/90_kidux.gschema.override $(DEST)/usr/share/glib-2.0/schemas/90_kidux.gschema.override
 	install -D -m 0644 grub/90-kidux.cfg $(DEST)/etc/default/grub.d/90-kidux.cfg
 	install -D -m 0755 grub/09_kidux $(DEST)/etc/grub.d/09_kidux
 	install -D -m 0755 bin/kidux-session $(DEST)/usr/libexec/kidux-session

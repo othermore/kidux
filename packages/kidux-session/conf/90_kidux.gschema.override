@@ -1,0 +1,9 @@
+# GTK's inspector, which reads and changes any widget of the program it
+# opens in, the lock screen's and the panel's among them, is never opened
+# from the keyboard (session.md section 6). GTK 4 binds Ctrl+Shift+I and
+# Ctrl+Shift+D to it unless told not to; GTK 3 binds them only when told.
+[org.gtk.gtk4.Settings.Debug]
+enable-inspector-keybinding=false
+
+[org.gtk.Settings.Debug]
+enable-inspector-keybinding=false

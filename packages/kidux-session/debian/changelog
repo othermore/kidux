@@ -1,3 +1,10 @@
+kidux-session (0.5.16) trixie; urgency=medium
+
+  * Ctrl+Shift+I and Ctrl+Shift+D open no GTK inspector, on the lock
+    screen, the panel or the launcher.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 18:00:59 +0200
+
 kidux-session (0.5.15) trixie; urgency=medium
 
   * The maintainer's address is info@kidux.org.

@@ -6,6 +6,7 @@ from sessionlib import (
     Machine,
     active_terminal,
     boot_id,
+    difference,
     report,
     root,
     ssh,
@@ -18,6 +19,19 @@ def run(machine: Machine) -> None:
     time.sleep(2)
     report("Ctrl+Alt+F2 does nothing", active_terminal() == "tty7", active_terminal())
     machine.screenshot("after-ctrl-alt-f2")
+
+    # The sign-in screen is GTK 4's, which opens its inspector on these
+    # keys unless told not to; the inspector would be a window of its own.
+    before = machine.frame()
+    for keys in ("ctrl-shift-i", "ctrl-shift-d"):
+        machine.key(keys)
+        machine.still(2)
+    report("Ctrl+Shift+I and Ctrl+Shift+D open no GTK inspector",
+           difference(before, machine.frame()) < 0.01
+           and root("python3 -c \"from gi.repository import Gio; print(Gio.Settings.new("
+                    "'org.gtk.gtk4.Settings.Debug').get_boolean('enable-inspector-keybinding'))\""
+                    ).stdout.strip() == "False")
+    machine.screenshot("after-ctrl-shift-i")
 
     before = boot_id()
     machine.key("alt-sysrq-b")
