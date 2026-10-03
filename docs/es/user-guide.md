@@ -865,8 +865,10 @@ debajo de la pantalla dicen qué línea es, y el editor la marca.
 La mitad derecha es la guía, un capítulo cada vez, con **Atrás**,
 **Siguiente** y la lista de **Capítulos**. El niño lee allí un programa y
 lo escribe en el editor; el botón de debajo de cada programa lo escribe
-por él. Cada capítulo termina con ideas para seguir probando, y un
-recuadro **Para el adulto** que dice lo que enseña el capítulo.
+por él. Sus treinta capítulos van desde un primer `PRINT` hasta el
+dibujo, el color, el sonido y juegos para guardar. Cada capítulo termina
+con ideas para seguir probando, y un recuadro **Para el adulto** que dice
+lo que enseña el capítulo.
 
 El programa del editor se queda allí cuando se cierra BASIC, hasta que el
 niño pulsa **Nuevo**. Para conservar un programa, **Guardar** abre una

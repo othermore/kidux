@@ -38,7 +38,9 @@
       item.type = "button";
       item.textContent = chapter.title;
       item.className = index === shown ? "here" : "";
-      item.addEventListener("click", () => show(index));
+      // The list goes away with the item that has the focus, so the focus
+      // goes back to Chapters, where the keyboard can go on from.
+      item.addEventListener("click", () => { show(index); contents.focus(); });
       list.appendChild(item);
     });
     article.hidden = true;

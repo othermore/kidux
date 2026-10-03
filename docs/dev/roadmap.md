@@ -107,8 +107,11 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [x] ScratchJr, from the community desktop port, and Blockly Games (4.6, 4.7, D69).
 - [ ] micro:bit: MakeCode and micro:bit Python Editor static builds served locally,
       guided projects, WebUSB/USB access for the child user.
-- [ ] BASIC: wwwBASIC in an editor of Kidux's own, with its guide beside
+- [x] BASIC: wwwBASIC in an editor of Kidux's own, with its guide beside
       it (phase-4b-plan.md 4.10, 4.11, D84).
+- [ ] Weigh offering wwwBASIC the fixes in kidux-module-basic's `patches/`
+      as a pull request, documented and explained, once phase 4 is done
+      (D88); the owner reviews and edits it before it is sent.
 - [ ] A web module that is a door to one website on the internet, held to
       that site's hosts (4.12, D85): CodeCombat (4.13, D86) and Wikipedia
       (4.14, D87) through it.

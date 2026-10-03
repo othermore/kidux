@@ -43,13 +43,27 @@ upstream programs do (D68, D71): `upstream.toml` pins a commit,
 `ci/upstream/wwwbasic.sh` fetches it through `ci/upstream/fetch.sh` and
 packs `wwwbasic.js`, `wwwbasic.mjs`, `LICENSE`, `README.md` and its
 `test/` into the tarball, with nothing to build. The page loads
-`wwwbasic.mjs`, a JavaScript module; the tests load `wwwbasic.js` under
-Node.js.
+`wwwbasic.mjs`, a JavaScript module, and the tests load the same file
+under Node.js, so that what they try is what the page runs.
 
-Nothing in wwwBASIC is changed or added to. What Kidux needs of it is met
-through its bindings, the object of functions it calls to draw, print,
-read a key or make a sound, or it is not met, and the guide teaches what
-the machine does. What the guide had to be written around:
+What Kidux needs of wwwBASIC is met first through its bindings, the
+object of functions it calls to draw, print, read a key or make a sound.
+What a binding cannot do, a small fix to wwwBASIC can (D88): each is a
+patch in the package's `patches/`, applied by `debian/rules` to a copy
+of `wwwbasic.mjs` in `build/wwwbasic/`, which the tests try and the
+package installs, while the tarball stays wwwBASIC's own. The patched
+file says at its top that Kidux changed it, as its licence asks. The
+fixes, `patches/sleep-and-timer.patch`:
+
+- `SLEEP n` waits n thousandths of a second. `wwwbasic.mjs` read `SLEEP`
+  itself as its number and stopped every program that used it; the fix
+  is the line `wwwbasic.js` already has.
+- `TIMER` is the seconds since midnight, as on the PC. wwwBASIC counted
+  them from 1970, a number too long for a variable, which keeps about
+  seven figures, so `T = TIMER` lost the seconds.
+
+Anything bigger, a statement wwwBASIC lacks, is not added: the guide is
+written for what the machine does. What it had to be written around:
 
 - **The program is read whole before it runs.** A mistake on any line
   stops the run before the first line prints; the guide's chapter 2 shows
@@ -75,6 +89,11 @@ the machine does. What the guide had to be written around:
   tildes: á shows as a, and ñ as n, while ü, ¿ and ¡ show whole. So the
   guide writes without accents, as the home computers did, and chapter 1
   tells the adult why.
+- **Its numbers.** A variable is single precision, as in the BASICs of
+  the time: it keeps about seven figures, while a calculation printed
+  directly keeps about sixteen; chapter 17 says so. Numbers from 10^21 up
+  are written short, `1e+21`. `VAL` of a string that is not a number is
+  `NaN`, not 0, so the guide never asks for it.
 - **What the guide leaves out.** `TAB(n)` writes n marks instead of moving
   along the line, so the guide uses `SPACE$(n)`; a backslash in a string
   is lost; `PLAY` and `BEEP` make no sound, so the guide's sounds are
@@ -148,9 +167,11 @@ others:
 - **A listing** is a fenced block marked `basic`. It is shown as the
   screen prints it, with *Type it in for me* under it. After `basic`,
   `keys=` names the keys the tests type when it reads, separated by
-  commas, `Enter` for the Enter key (`basic keys=Leo,Enter`), and
-  `forever` says it never ends by itself; neither is shown. They are
-  kept out of the listing because the listing is what the child types.
+  commas, `Enter` for the Enter key, `Space` and `Comma` for a space and
+  a comma, and `Up`, `Down`, `Left` and `Right` for the arrows (`basic
+  keys=Leo,Comma,9,Enter`), and `forever` says it never ends by itself;
+  neither is shown. They are kept out of the listing because the listing
+  is what the child types.
 - **A quotation** is the mascot speaking: the chick beside a speech
   bubble, in the pose its first word names, `[think]`, `[point]`,
   `[cheer]` or `[oops]`, or standing.
@@ -171,7 +192,15 @@ chapter's *keep trying* asking for changes to its own listings. Listings
 are capital letters, numbered 10 by 10, `GOTO` and `GOSUB` as one word.
 Spanish listings are in Spanish, without accents, keeping ü, ¿ and ¡,
 which the screen shows; a word with ñ goes only in a string, where it
-reads with n, never in a variable's name.
+reads with n, and only when it still reads right that way (`MUNECO`, but
+`EDAD` rather than `AÑOS`), never in a variable's name.
+
+The chapters, one idea each, in the books' order:
+
+| Part | Chapters |
+|---|---|
+| First, 1–15 | Hello; PRINT; LET; INPUT; GOTO; IF; FOR and NEXT; GOSUB and RETURN; READ and DATA; REM; INT; RND; flowcharts; games to make; saving your programs |
+| Second, 16–30 | Inside the computer; the fifth operation, `^`; what the computer does first; CLS; INPUT, more; FOR and NEXT, more, with `SLEEP`; AND and OR; menus, `ON … GOTO` and `ELSE`; READ, DATA and RESTORE; DIM; putting things in order; strings and `INKEY$`; CHR$ and ASC; drawing, colour and sound; programs to keep |
 
 **Adding a chapter.** Write `content/en/NN-slug.md`, the next number, and
 each listing in it first in the editor, on the machine, until it does
@@ -197,7 +226,9 @@ catalogue and a directory of chapters, and no change to the code.
   it runs every `NN-name.bas` there, typing `NN-name.in`, against
   `NN-name.out`; `tests/basic/` has one program for each statement the
   guide teaches. Each runs in a process of its own and is ended after a
-  second and a half, so one that never ends harms nothing.
+  second and a half, so one that never ends harms nothing; there
+  wwwBASIC's waits take no time and its clock runs a thousand times
+  faster, so that `SLEEP` and `TIMER` cost the tests nothing.
 - `tests/check-test.js`: what `check.js` says about a program: its lines'
   BASIC numbers, its jumps to no line, wwwBASIC's errors explained with
   the editor's line turned into a BASIC number, and the letters handed to
@@ -212,5 +243,5 @@ catalogue and a directory of chapters, and no change to the code.
   types a program, runs it and takes the guide's picture.
 
 The listings need wwwBASIC, which only the package build has under
-`upstream/`; outside it, `WWWBASIC=<path to wwwbasic.js>` and `NODE` say
+`upstream/`; outside it, `WWWBASIC=<path to wwwbasic.mjs>` and `NODE` say
 where it and Node.js are.

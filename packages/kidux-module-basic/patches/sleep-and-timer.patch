@@ -1,0 +1,31 @@
+--- a/wwwbasic.mjs
++++ b/wwwbasic.mjs
+@@ -11,6 +11,10 @@
+ // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ // See the License for the specific language governing permissions and
+ // limitations under the License.
++//
++// Changed for Kidux (kidux-module-basic): SLEEP reads the number after it,
++// as wwwbasic.js does, and TIMER counts the seconds since midnight, as the
++// PC's did.
+ 
+ 'use strict';
+ 
+@@ -1876,6 +1880,7 @@
+       }
+       Invoke('Line', Arguments('PdpIS'));
+     } else if (tok == 'sleep') {
++      Next();
+       Invoke('Sleep', Arguments('i'));
+       NewOp();
+     } else if (tok == 'swap') {
+@@ -2363,7 +2368,8 @@
+ var timer_offset = 0;
+ 
+ function GetTimer() {
+-  var t = new Date().getTime() / 1000;
++  var now = new Date();
++  var t = (now.getTime() - new Date(now).setHours(0, 0, 0, 0)) / 1000;
+   return t + timer_offset;
+ }
+ 

@@ -5,7 +5,10 @@ Source: https://github.com/othermore/kidux
 Comment: The interpreter under upstream/ is wwwBASIC, taken as it is from
  the commit of https://github.com/google/wwwbasic that upstream.toml names
  (docs/dev/packaging.md, "Programs built at development time"). The
- editor, the page around it and the guide for the child are Kidux's own.
+ package installs it with the small fixes in patches/, which are under
+ wwwBASIC's own licence, and the fixed file says that Kidux changed it.
+ The editor, the page around it and the guide for the child are Kidux's
+ own.
 
 Files: *
 Copyright: 2026 Antonio Morales García <info@kidux.org>
@@ -13,6 +16,10 @@ License: BUSL-1.1
 
 Files: upstream/*
 Copyright: 2018 Google LLC
+License: Apache-2.0
+
+Files: patches/*
+Copyright: 2026 Antonio Morales García <info@kidux.org>
 License: Apache-2.0
 
 License: BUSL-1.1

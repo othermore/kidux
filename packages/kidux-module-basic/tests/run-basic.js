@@ -1,32 +1,42 @@
 #!/usr/bin/env node
-// Runs BASIC programs under node, through wwwBASIC and bindings of the
-// tests' own (docs/dev/basic.md): what a program prints is kept as text,
+// Runs BASIC programs under node, through wwwBASIC, the same
+// wwwbasic.mjs the page loads, and bindings of the tests' own
+// (docs/dev/basic.md): what a program prints is kept as text,
 // what it draws and sounds as lines, and the keys it reads come from a
-// list, "Enter" for the Enter key.
+// list, "Enter" for the Enter key, "Space" and "Comma" for a space and a
+// comma, and "Up", "Down", "Left" and "Right" for the arrows, which
+// INKEY$ reads as the PC did: a character 0 and the key's code.
 //
-//   node tests/run-basic.js <wwwbasic.js> <directory>
+//   node tests/run-basic.js <wwwbasic.mjs> <directory>
 //       every NN-name.bas there, with NN-name.in (its keys, one a line) when
 //       it reads, against NN-name.out: the screen's text, then a line ---,
 //       then what it drew and sounded; a difference fails
-//   node tests/run-basic.js <wwwbasic.js> --one <file.bas> [key ...]
+//   node tests/run-basic.js <wwwbasic.mjs> --one <file.bas> [key ...]
 //       one program, its result as JSON: {text, calls, ended, error}
 //
 // Each program runs in a process of its own, so that one that never ends
 // is simply ended after a while, and leaves nothing behind for the next.
+// wwwBASIC waits between the slices of a run with setTimeout, and reads
+// TIMER from the clock; here the waits take no time and the clock runs a
+// thousand times faster, so that a program is judged by what it does and
+// not by how long it pauses.
 
 "use strict";
 
 const fs = require("fs");
 const path = require("path");
 const { spawnSync } = require("child_process");
+const { pathToFileURL } = require("url");
 
 const ENOUGH = 1500;   // ms a program may run before it is taken as going on for ever
 const KEPT = 20000;    // characters of its text, and lines of its calls, kept
 
-function one(wwwbasic, file, keys) {
-  const basic = require(path.resolve(wwwbasic));
+async function one(wwwbasic, file, keys) {
+  const basic = (await import(pathToFileURL(path.resolve(wwwbasic)).href)).default;
   const code = fs.readFileSync(file, "utf8");
-  const queue = keys.map((key) => (key === "Enter" ? "\r" : key)).join("").split("");
+  const named = { Enter: "\r", Space: " ", Comma: ",", Up: "\0H", Down: "\0P", Left: "\0K", Right: "\0M" };
+  // One key a place: a named key whole, a word letter by letter.
+  const queue = keys.flatMap((key) => (key in named ? [named[key]] : key.split("")));
   let text = "";
   let line = "";
   let input = "";
@@ -80,7 +90,16 @@ function one(wwwbasic, file, keys) {
   console.error = (message) => finish(false, String(message));
   console.info = () => {};
   process.on("uncaughtException", (error) => finish(false, String(error)));
-  setTimeout(() => finish(false, null), ENOUGH);
+  const later = globalThis.setTimeout;
+  globalThis.setTimeout = (callback, ms, ...args) => later(callback, 0, ...args);
+  const Clock = globalThis.Date;
+  const started = Clock.now();
+  const now = () => started + (Clock.now() - started) * 1000;
+  globalThis.Date = class extends Clock {
+    constructor(...args) { if (args.length) { super(...args); } else { super(now()); } }
+    static now() { return now(); }
+  };
+  later(() => finish(false, null), ENOUGH);
   try {
     basic.Basic(code, { bindings: bindings });
   } catch (error) {
@@ -120,10 +139,13 @@ function every(wwwbasic, directory) {
 
 const args = process.argv.slice(2);
 if (args[1] === "--one") {
-  one(args[0], args[2], args.slice(3));
+  one(args[0], args[2], args.slice(3)).catch((error) => {
+    process.stdout.write(JSON.stringify({ text: "", calls: [], ended: false, error: String(error) }) + "\n",
+                         () => process.exit(0));
+  });
 } else if (args.length === 2) {
   every(args[0], args[1]);
 } else {
-  console.error("usage: run-basic.js <wwwbasic.js> <directory> | <wwwbasic.js> --one <file.bas> [key ...]");
+  console.error("usage: run-basic.js <wwwbasic.mjs> <directory> | <wwwbasic.mjs> --one <file.bas> [key ...]");
   process.exit(2);
 }

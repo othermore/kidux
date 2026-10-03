@@ -16,8 +16,9 @@ heading, read with four conventions and no others (docs/dev/basic.md):
 - a fenced block marked `basic` is a listing, shown as the screen prints
   it, with a button that types it into the editor; after `basic`,
   `keys=…` names, separated by commas, the keys the module's tests give it
-  when it reads (`Enter` for the Enter key), and `forever` says it never
-  ends by itself; neither is shown;
+  when it reads (`Enter` for the Enter key, `Space` and `Comma` for a
+  space and a comma, `Up`, `Down`, `Left` and `Right` for the arrows),
+  and `forever` says it never ends by itself; neither is shown;
 - a quotation is the mascot speaking: the penguin chick beside a speech
   bubble, in a pose when its first word is [think], [point], [cheer] or
   [oops];

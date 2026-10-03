@@ -7,7 +7,12 @@ WEBAPP = $(DEST)/usr/share/kidux/webapps/basic
 %:
 	dh $@
 
+# wwwBASIC as upstream.toml's build took it, with Kidux's small fixes in
+# patches/ applied to a copy (docs/dev/basic.md, section 2).
 override_dh_auto_build:
+	mkdir -p build/wwwbasic
+	cp upstream/wwwbasic.mjs upstream/LICENSE upstream/README.md build/wwwbasic/
+	for patch in patches/*.patch; do patch --no-backup-if-mismatch -d build/wwwbasic -p1 < $$patch || exit 1; done
 	for po in po/*.po; do \
 	    lang=$$(basename $$po .po); \
 	    mkdir -p build/locale/$$lang/LC_MESSAGES; \
@@ -17,15 +22,14 @@ override_dh_auto_build:
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	test -f upstream/wwwbasic.mjs
 	pyflakes3 webapp/page.py tests
 	node tests/check-test.js
-	node tests/run-basic.js upstream/wwwbasic.js tests/basic
+	node tests/run-basic.js build/wwwbasic/wwwbasic.mjs tests/basic
 	python3 -m pytest -q -p no:cacheprovider tests
 endif
 
-# The page, its scripts, and wwwBASIC as upstream.toml's build took it
-# (D68, D84): a site kidux-webapps serves under /basic/.
+# The page, its scripts, and wwwBASIC (D68, D84): a site kidux-webapps
+# serves under /basic/.
 override_dh_auto_install:
 	install -D -m 0644 module.toml $(MODULE)/module.toml
 	install -D -m 0644 icon.svg $(MODULE)/icon.svg
@@ -34,7 +38,7 @@ override_dh_auto_install:
 	    install -D -m 0644 webapp/$$file $(WEBAPP)/$$file; \
 	done
 	for file in wwwbasic.mjs LICENSE README.md; do \
-	    install -D -m 0644 upstream/$$file $(WEBAPP)/wwwbasic/$$file; \
+	    install -D -m 0644 build/wwwbasic/$$file $(WEBAPP)/wwwbasic/$$file; \
 	done
 	for mo in build/locale/*/LC_MESSAGES/kidux-module-basic.mo; do \
 	    lang=$$(basename $$(dirname $$(dirname $$mo))); \

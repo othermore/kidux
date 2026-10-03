@@ -1,0 +1,28 @@
+<!-- Swapping two boxes with a spare one: the first thing to the spare box, the second to the first box, the spare to the second. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 170" width="360" height="170">
+  <g fill="#e8b878">
+    <rect x="20" y="100" width="90" height="60" rx="6"/>
+    <rect x="250" y="100" width="90" height="60" rx="6"/>
+  </g>
+  <rect x="135" y="10" width="90" height="60" rx="6" fill="#cfe3f3"/>
+  <!-- a fish in one box, a snowflake in the other -->
+  <path d="M42 130 C52 118 74 118 80 130 C74 142 52 142 42 130 Z" fill="#3584e4"/>
+  <path d="M80 130 L92 122 L92 138 Z" fill="#3584e4"/>
+  <g stroke="#7fb3e0" stroke-width="5" stroke-linecap="round">
+    <path d="M295 112 L295 148"/><path d="M279 121 L311 139"/><path d="M279 139 L311 121"/>
+  </g>
+  <!-- the three moves, in order -->
+  <g stroke="#f0a202" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M70 94 C78 60 100 44 126 42"/>
+    <path d="M244 128 C200 150 160 150 118 128"/>
+    <path d="M234 42 C262 44 284 60 292 94"/>
+  </g>
+  <g fill="#f0a202">
+    <path d="M132 42 L118 33 L120 51 Z"/>
+    <path d="M112 125 L126 120 L122 136 Z"/>
+    <path d="M294 100 L284 86 L300 86 Z"/>
+  </g>
+  <g fill="#24313f" font-family="sans-serif" font-weight="bold" font-size="22" text-anchor="middle">
+    <text x="78" y="56">1</text><text x="180" y="164">2</text><text x="282" y="56">3</text>
+  </g>
+</svg>

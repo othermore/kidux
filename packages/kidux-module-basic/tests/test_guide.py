@@ -16,8 +16,8 @@ import pytest
 
 PACKAGE = Path(__file__).resolve().parents[1]
 CONTENT = PACKAGE / "content"
-# wwwBASIC as the package build stages it, or where WWWBASIC says.
-WWWBASIC = Path(os.environ.get("WWWBASIC", PACKAGE / "upstream" / "wwwbasic.js"))
+# wwwBASIC as the package build patches it, or where WWWBASIC says.
+WWWBASIC = Path(os.environ.get("WWWBASIC", PACKAGE / "build" / "wwwbasic" / "wwwbasic.mjs"))
 
 
 def builder():
@@ -93,7 +93,7 @@ def listings():
             yield pytest.param(listing, id=f"{chapter.parent.name}/{chapter.stem}#{number}")
 
 
-@pytest.mark.skipif(not WWWBASIC.is_file(), reason="upstream/ is staged only for a package build")
+@pytest.mark.skipif(not WWWBASIC.is_file(), reason="wwwBASIC is built only in a package build")
 @pytest.mark.parametrize("listing", listings())
 def test_every_listing_of_the_guide_runs(listing, tmp_path):
     program = tmp_path / "listing.bas"

@@ -1539,3 +1539,19 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   Wikimedia's (where the pictures come from) and the sister projects'. It is
   the whole of Wikipedia, written for everyone, and the module's words say
   so, so that an adult switches it on knowing it.
+
+- **D88 — Small fixes to wwwBASIC are kept as patches in the module.**
+  Decided 2026-10-03 by the owner, during step 4.11, refining D84, which
+  changed nothing in wwwBASIC. Writing the guide's second part found
+  wwwBASIC's `SLEEP` broken in `wwwbasic.mjs`, the file the page loads
+  (its `wwwbasic.js` has the fix), and its `TIMER` counting from 1970, a
+  number too long for a single-precision variable, so that `T = TIMER`
+  lost the seconds. Working round both in the guide meant teaching a
+  child double-precision variables to wait a second. A small fix to
+  wwwBASIC, when it is simpler than working round it, is a patch in
+  `packages/kidux-module-basic/patches/`, applied at build time to a copy
+  of the file, so that the tarball stays wwwBASIC's own and what Kidux
+  changed is plain to read; the patched file says so at its top, as the
+  Apache licence asks. Nothing is added to wwwBASIC's language: a statement
+  it lacks, such as `PLAY`'s tunes, is still left out of the guide
+  (docs/dev/basic.md, section 2).

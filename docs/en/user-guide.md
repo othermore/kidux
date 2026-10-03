@@ -842,8 +842,9 @@ line, and the editor marks it.
 The right half is the guide, one chapter at a time, with **Back**,
 **Next** and the list of **Chapters**. The child reads a program there
 and types it in the editor; the button under each program types it in for
-them. Each chapter ends with ideas to keep trying, and a box **For the
-adult** that says what the chapter teaches.
+them. Its thirty chapters go from a first `PRINT` to drawing, colour,
+sound and games to keep. Each chapter ends with ideas to keep trying, and
+a box **For the adult** that says what the chapter teaches.
 
 The program in the editor stays there when BASIC is closed, until the
 child presses **New**. To keep a program, **Save** opens a window of the
