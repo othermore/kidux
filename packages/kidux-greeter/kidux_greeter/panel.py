@@ -368,6 +368,9 @@ class Panel(_NewChild):
         self._recovery: str | None = None
         #: What the archive offers, as the Modules page last asked it.
         self._offered: list | None = None
+        #: The module the adult asked to install, whose row shows how far it
+        #: has got while the job runs.
+        self._installing: str | None = None
         self.exit_requested = False
         #: A setting the screen takes only when it starts, the size, the
         #: language or the keyboard, changed from the sign-in screen: closing
@@ -595,6 +598,7 @@ class Panel(_NewChild):
                             if entry["id"] not in installed and not entry["installed"]])
         return self._screen("panel_modules", notice, children=kids, modules=rows,
                             offered=on_offer,
+                            installing=self._installing if update["job"] == "installing" else None,
                             source=bool(offered), confirm_remove=confirm_remove,
                             failure=failure, update=update,
                             polling=update["job"] in ("checking", "installing", "removing",
@@ -614,6 +618,7 @@ class Panel(_NewChild):
         return result if isinstance(result, Screen) else self.modules()
 
     def install_module(self, module_id: str) -> Screen:
+        self._installing = module_id
         return self._module_job(lambda: self._daemon.install_module(self._token, module_id))
 
     def ask_remove_module(self, module_id: str) -> Screen:

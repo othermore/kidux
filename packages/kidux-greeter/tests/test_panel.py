@@ -751,10 +751,13 @@ def test_installing_starts_the_job_and_the_page_follows_it(panel, daemon, instal
     assert ("install_module", "gcompris") in daemon.calls
     assert screen.data["update"]["job"] == "installing"
     assert (screen.data["polling"], screen.data["poll"]) == (True, "poll_modules")
+    # Its row shows how far it has got, where the adult pressed Install.
+    assert screen.data["installing"] == "gcompris"
 
     daemon.update = ("idle", 0.0, "", "installed", "", [])
     screen = panel.poll_modules()
     assert (screen.notice, screen.data["polling"]) == (words.MODULE_INSTALLED, False)
+    assert screen.data["installing"] is None
 
 
 def test_a_failed_job_says_so_and_what_apt_said(panel, daemon, installed):

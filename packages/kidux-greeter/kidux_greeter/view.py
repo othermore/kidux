@@ -219,6 +219,45 @@ def keyboard_grid(grid: Gtk.FlowBox) -> Gtk.FlowBox:
     return grid
 
 
+def keep_place(old, new) -> None:
+    """Scroll `new` to where `old` was scrolled, as soon as it has the room
+    to: a page drawn again in place of itself stays where it was."""
+    value = old.get_vadjustment().get_value()
+    if value <= 0:
+        return
+    adjustment = new.get_vadjustment()
+    handler = 0
+
+    def changed(adjustment) -> None:
+        if adjustment.get_upper() - adjustment.get_page_size() >= value:
+            adjustment.disconnect(handler)
+            adjustment.set_value(value)
+
+    handler = adjustment.connect("changed", changed)
+
+
+def follow(room, widget) -> None:
+    """Scroll `room` so that `widget`, inside it, is in its upper third, once
+    it has been laid out."""
+    tries = [0]
+
+    def placed(_room, _clock) -> bool:
+        tries[0] += 1
+        content = room.get_child()
+        point = widget.translate_coordinates(content, 0, 0) if content is not None else None
+        adjustment = room.get_vadjustment()
+        if point is None or adjustment.get_page_size() <= 0:
+            return tries[0] < 60
+        y = point[1]
+        top = max(adjustment.get_lower(),
+                  min(y - adjustment.get_page_size() / 3,
+                      adjustment.get_upper() - adjustment.get_page_size()))
+        adjustment.set_value(top)
+        return False
+
+    room.add_tick_callback(placed)
+
+
 def spinner_small() -> Gtk.Widget:
     widget = spinner()
     widget.set_size_request(24, 24)
@@ -255,6 +294,9 @@ class View:
         self._refocus: Gtk.Widget | None = None
         #: Screens already reported as too tall or too wide, each way logged once.
         self._overflowed: set[tuple[str, str]] = set()
+        #: The Modules page's scrolling room as last drawn, while it is the
+        #: page shown, so that drawing it again keeps its place.
+        self._modules_room = None
         #: The module switch last flipped, (username, module id), which keeps
         #: the focus when the page is drawn again.
         self._flipped: tuple[str, str] | None = None
@@ -358,6 +400,8 @@ class View:
 
     def _show(self, screen: Screen) -> None:
         log.info("showing %s", screen.name)
+        if screen.name != "panel_modules":
+            self._modules_room = None
         self._screen = screen
         self._translations = i18n.translations(screen.language)
         self._cancel_timers()
@@ -472,6 +516,16 @@ class View:
     def _ask(self, method: str, *args):
         """A button's action: ask the flow `method(*args)`."""
         return lambda: self.run(method, *args)
+
+    def _progress(self, update: dict, message: str) -> Gtk.Widget:
+        """How far a job has got: a bar, and what it is doing under it."""
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4, valign=Gtk.Align.CENTER)
+        bar = Gtk.ProgressBar(fraction=float(update.get("fraction", 0.0)))
+        bar.set_size_request(160, -1)
+        box.append(bar)
+        said = Gtk.Label(label=self._(message), css_classes=["kidux-field-label"])
+        box.append(said)
+        return box
 
     def _button(self, message: str, on_click, *, suggested=False, destructive=False,
                 quiet=False, text: str | None = None) -> Gtk.Button:
@@ -1242,6 +1296,13 @@ class View:
         busy = update.get("job") in ("installing", "removing", "checking")
         lists = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20,
                         valign=Gtk.Align.CENTER, halign=Gtk.Align.CENTER)
+        # The module being installed shows how far it has got in its own
+        # row, in whichever list it is, and the page follows that row.
+        job = update.get("job")
+        installing = data.get("installing") if job == "installing" else None
+        shown_in_row = installing is not None and any(
+            entry["id"] == installing for entry in [*rows, *(data.get("offered") or [])])
+        self._following = None
         # Both lists are by age, the test modules last (D73), and a box at
         # the top narrows them to the modules whose name or description
         # holds what is typed: every row that can be hidden registers
@@ -1259,12 +1320,11 @@ class View:
 
         if rows:
             lists.append(self._installed_modules(rows, kids, data.get("confirm_remove"), busy,
-                                                 matchable))
+                                                 matchable, installing, update))
         else:
             lists.append(self._text(words.NO_MODULES_YET))
 
-        job = update.get("job")
-        if job in ("installing", "removing"):
+        if job in ("installing", "removing") and not shown_in_row:
             bar = Gtk.ProgressBar(fraction=float(update.get("fraction", 0.0)),
                                   valign=Gtk.Align.CENTER)
             bar.set_size_request(200, -1)
@@ -1286,9 +1346,15 @@ class View:
                                            self._suits(entry), self._first(entry),
                                            entry.get("offered_version", ""))
                 grid.attach(about, 0, number, 1, 1)
-                install = self._button(words.INSTALL, self._ask("install_module", entry["id"]))
-                install.set_valign(Gtk.Align.CENTER)
-                install.set_sensitive(not busy)
+                if entry["id"] == installing:
+                    # How far its install has got, where its Install was:
+                    # where the adult who pressed it is looking.
+                    install = self._progress(update, words.INSTALLING_MODULE)
+                    self._following = about
+                else:
+                    install = self._button(words.INSTALL, self._ask("install_module", entry["id"]))
+                    install.set_valign(Gtk.Align.CENTER)
+                    install.set_sensitive(not busy)
                 grid.attach(install, 1, number, 1, 1)
                 matchable.append((f"{entry['name']} {entry.get('description', '')}",
                                   [about, install]))
@@ -1307,6 +1373,17 @@ class View:
         room.set_propagate_natural_width(True)
         middle.set_valign(Gtk.Align.FILL)
         middle.append(room)
+        # Drawn again every second while a job runs: it stays where the adult
+        # had scrolled it. Its buttons are off then, so the focus lands
+        # elsewhere, and the room does not follow it there.
+        if busy:
+            self._focus = None
+            room.get_child().set_scroll_to_focus(False)
+        if self._following is not None:
+            follow(room, self._following)
+        elif self._modules_room is not None:
+            keep_place(self._modules_room, room)
+        self._modules_room = room
 
     @staticmethod
     def _narrow_modules(typed: str, matchable: list[tuple[str, list[Gtk.Widget]]]) -> None:
@@ -1364,7 +1441,8 @@ class View:
             return ""
         return self._(words.FIRST).format(modules=", ".join(entry["first"]))
 
-    def _installed_modules(self, rows, kids, confirm_remove, busy, matchable) -> Gtk.Widget:
+    def _installed_modules(self, rows, kids, confirm_remove, busy, matchable,
+                           installing=None, update=None) -> Gtk.Widget:
         """The grid of switches, Remove at the end of each row, and the
         question when Remove was tapped: the tab order of a row is its
         switches, then Remove. Each row's widgets go into `matchable` with
@@ -1411,10 +1489,15 @@ class View:
                 in_row.append(switch)
                 if self._focus is None or self._flipped == (username, row["id"]):
                     self._focus = switch
-            remove = self._button(words.REMOVE, self._ask("ask_remove_module", row["id"]),
-                                  destructive=True)
-            remove.set_valign(Gtk.Align.CENTER)
-            remove.set_sensitive(not busy)
+            if row["id"] == installing:
+                # Its manifest is in place before its install has ended.
+                remove = self._progress(update or {}, words.INSTALLING_MODULE)
+                self._following = about
+            else:
+                remove = self._button(words.REMOVE, self._ask("ask_remove_module", row["id"]),
+                                      destructive=True)
+                remove.set_valign(Gtk.Align.CENTER)
+                remove.set_sensitive(not busy)
             grid.attach(remove, len(kids) + 1, number, 1, 1)
             in_row.append(remove)
             if row["id"] == confirm_remove:
