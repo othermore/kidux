@@ -34,6 +34,7 @@ from .errors import (
     InvalidArgument,
     NoSession,
     NoTimeLeft,
+    NotAuthorized,
     SessionActive,
     WrongPassword,
 )
@@ -397,6 +398,75 @@ class Service:
         self._updates().start(kind, catalogue.package_of(module_id))
         self._audit(f"module {kind} started", "ok", caller=self._who(caller), module=module_id)
         self.on_update_started()
+
+    # --- module settings (D90) -------------------------------------------------
+
+    def _module_with_settings(self, module_id: str) -> kidux_modules.Module:
+        module = kidux_modules.read(module_id) if kidux_modules.ID.match(module_id or "") else None
+        if module is None:
+            raise InvalidArgument(f"no module called {module_id!r} is installed")
+        return module
+
+    def _stored_settings(self, username: str) -> dict:
+        return state.read(paths.child_module_settings(username), "settings", default={})
+
+    def _settings_of(self, username: str, module: kidux_modules.Module) -> tuple[dict, list]:
+        """A module's settings for a child: every one but the secrets, its
+        stored value when it is still of its kind and its default otherwise;
+        and the keys of the secrets that are set."""
+        stored = self._stored_settings(username).get(module.id, {})
+        values, secrets = {}, []
+        for setting in module.settings:
+            if setting.kind == "secret":
+                if stored.get(setting.key):
+                    secrets.append(setting.key)
+                continue
+            try:
+                values[setting.key] = setting.value(stored[setting.key])
+            except (KeyError, ValueError):
+                values[setting.key] = setting.default
+        return values, secrets
+
+    def Modules1_Settings(self, caller: Caller, token: str, username: str,
+                          module_id: str) -> tuple[dict, list]:
+        self._require_token(caller, token)
+        self.gate.require_child(username)
+        return self._settings_of(username, self._module_with_settings(module_id))
+
+    def Modules1_SetSetting(self, caller: Caller, token: str, username: str, module_id: str,
+                            key: str, value) -> None:
+        """One setting of a module for a child, refused unless the module
+        declares it and the value is of its kind and within its limits. A
+        secret set to "" is a secret forgotten."""
+        self._require_token(caller, token)
+        self.gate.require_child(username)
+        module = self._module_with_settings(module_id)
+        setting = next((s for s in module.settings if s.key == key), None)
+        if setting is None:
+            raise InvalidArgument(f"{module_id} has no setting called {key!r}")
+        try:
+            value = setting.value(value)
+        except ValueError as error:
+            raise InvalidArgument(str(error)) from error
+        document = self._stored_settings(username)
+        document.pop("schema_version", None)
+        table = dict(document.get(module_id, {}))
+        if setting.kind == "secret" and value == "":
+            table.pop(key, None)
+        else:
+            table[key] = value
+        document[module_id] = table
+        state.write(paths.child_module_settings(username), document, "settings", mode=0o600)
+        self._audit("module setting", "ok", caller=self._who(caller), child=username,
+                    module=module_id, setting=key)
+
+    def Modules1_MySettings(self, caller: Caller, module_id: str) -> dict:
+        """A module's settings for the child asking, never a secret: what
+        their own session hands the module when it starts."""
+        username = self.accounts.username_of(caller.uid)
+        if username is None or not self.gate.caller_is_child(caller):
+            raise NotAuthorized("only a child's own session asks for its module settings")
+        return self._settings_of(username, self._module_with_settings(module_id))[0]
 
     def _enabled_modules(self, username: str) -> list[str]:
         document = state.read(paths.child_modules(username), "modules", default={"enabled": []})

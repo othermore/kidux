@@ -90,8 +90,9 @@ if [ "$MERGE" = yes ]; then
 fi
 
 # The modules' own domains. A manifest is TOML, which xgettext cannot read, so
-# its name and description are handed to it as the Python they would be; the
-# references are left out, since they would name that temporary file.
+# its name, its description and its settings' words are handed to it as the
+# Python they would be; the references are left out, since they would name
+# that temporary file.
 for module in packages/kidux-module-*; do
     [ -d "$module/po" ] || continue
     domain="$(basename "$module")"
@@ -110,6 +111,11 @@ with open(sys.argv[1], "rb") as manifest:
 for field in ("name", "description"):
     if fields.get(field):
         print(f"N_({fields[field]!r})")
+# The labels and help of the settings it declares (D90).
+for setting in fields.get("settings", []):
+    for field in ("label", "description"):
+        if isinstance(setting, dict) and setting.get(field):
+            print(f"N_({setting[field]!r})")
 PYTHON
     echo "==> Extracting $domain into $module_pot"
     xgettext \

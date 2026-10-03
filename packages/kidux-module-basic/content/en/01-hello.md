@@ -21,9 +21,11 @@ On the left of this window is your computer. At the top is the
 
 Now press **Run**. The screen says hello. Your first program works!
 
+::: type-in
 Each listing in this guide has a button, *Type it in for me*, which puts
 it in the editor for you. Typing it yourself is better, though: that is
 how your fingers learn where the keys are.
+:::
 
 ## Why 10, 20, 30?
 

@@ -143,6 +143,13 @@ REMOVE_MODULE_QUESTION = N_("Remove {name}? The children's own files stay.")
 MODULES_WAIT = N_("Children are signed in. Modules can be installed and removed once they "
                   "have logged out.")
 INSTALLING_MODULE = N_("Installing…")
+#: A module's own settings for each child (D90): the button in its row, and
+#: the page it opens.
+MODULE_SETTINGS = N_("Settings")
+MODULE_SETTINGS_TITLE = N_("{name}: settings")
+MODULE_SETTINGS_HOW = N_("Each child has their own. A change is saved as soon as it is made.")
+SECRET_IS_SET = N_("Set. Type a new one to change it.")
+SECRET_FORGET = N_("Forget")
 REMOVING_MODULE = N_("Removing…")
 MODULE_INSTALLED = N_("Installed.")
 MODULE_REMOVED = N_("Removed.")

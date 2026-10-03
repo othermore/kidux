@@ -77,9 +77,9 @@ is `PAM`, a C binding with a conversation callback, not the pure-Python `pam`.
 
 | Action | Grants |
 |---|---|
-| `org.kidux.daemon.manage` | Changing configuration: `Parental1.*`, `Daemon1.SetConfig`, `Children1.Create/Delete/SetProfile/SetChildPassword`, `Access1.SetPolicy/Grant/SetTimeLeft`, `Modules1.SetEnabled`, `System1.CheckUpdates/ApplyUpdates`. |
+| `org.kidux.daemon.manage` | Changing configuration: `Parental1.*`, `Daemon1.SetConfig`, `Children1.Create/Delete/SetProfile/SetChildPassword`, `Access1.SetPolicy/Grant/SetTimeLeft`, `Modules1.SetEnabled/Settings/SetSetting`, `System1.CheckUpdates/ApplyUpdates`. |
 | `org.kidux.daemon.screens` | What the trusted screens need: `Children1.List`, `Access1.GetPolicy/CheckAccess/AuthoriseSession/GrantExtraTime/UnlockForSaving/ContinueSession/EndSession`, `Daemon1.GetConfig`. |
-| `org.kidux.daemon.self` | What a child needs: `Access1.Usage`, `Access1.Lock`, `Access1.LockFor`, `Modules1.List`. |
+| `org.kidux.daemon.self` | What a child needs: `Access1.Usage`, `Access1.Lock`, `Access1.LockFor`, `Modules1.List`, `Modules1.MySettings`. |
 
 The rules, in `/usr/share/polkit-1/rules.d/50-kidux.rules`:
 
@@ -527,6 +527,24 @@ written only here.
   `module`, and `ModulesChanged(username)` is emitted, which the child's
   launcher, still open, redraws on. Setting what is already set is not an
   error, and writes, audits and emits nothing.
+- **`Modules1.Settings(token, username, module_id) → (a{sv}, as)`**: a
+  module's settings for a child (D90), as its manifest declares them: the
+  value of every setting but the secrets, the stored one when it is still
+  of its kind and the default otherwise, and the keys of the secrets that
+  are set. A secret is never read back. The token, then `require_child`;
+  `InvalidArgument` for a module that is not installed.
+- **`Modules1.SetSetting(token, username, module_id, key, value: v)`**: one
+  setting for one child. `InvalidArgument` unless the module declares
+  `key` and `value` is of its kind and within its limits
+  (`kidux.modules.Setting.value`); a secret set to `""` is forgotten. The
+  child's `settings.toml`, a table per module, is written mode 0600, root's
+  alone, since it holds secrets, and the audit line is `module setting`
+  with `child`, `module` and `setting`, never the value.
+- **`Modules1.MySettings(module_id) → a{sv}`**, `self` action: a module's
+  settings for the child asking, every one but the secrets, which the
+  launcher puts in the module's environment when it starts it. Only a
+  child's own session asks; anyone else is `NotAuthorized`.
+- **Removing a module keeps its settings**, as it keeps its folders (D89).
 - **An id whose module is no longer installed** stays in the file and is
   never listed. Removing a package must not rewrite every child's file, and
   putting it back restores the switch as it was.

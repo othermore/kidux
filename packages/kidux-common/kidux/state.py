@@ -40,6 +40,7 @@ SCHEMA_VERSIONS = {
     "access": 1,
     "usage": 1,
     "modules": 1,
+    "settings": 1,
 }
 
 #: Migrations from one schema version to the next, per kind. A migration takes

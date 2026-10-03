@@ -603,6 +603,11 @@ mismas edades y módulos que hacer antes.
 
 - **Instalar** añade uno. La página enseña cuánto le falta. Después, el
   módulo aparece arriba, apagado para todos los niños.
+- **Ajustes**, en la fila de un módulo que los tenga, abre lo que un adulto
+  puede ajustar en él para cada niño: una columna por niño, y cada ajuste
+  con lo que hace escrito debajo. Un cambio se guarda en cuanto se hace. El
+  de BASIC es *Escríbemelo*: apagado, el niño escribe todos los programas
+  de la guía.
 - **Eliminar**, al final de la fila de un módulo instalado, pregunta una
   vez y quita el módulo del ordenador. Lo que cada niño hizo con él se
   queda en sus propias carpetas, y lo que el módulo guardaba para cada
@@ -875,10 +880,12 @@ debajo de la pantalla dicen qué línea es, y el editor la marca.
 La mitad derecha es la guía, un capítulo cada vez, con **Atrás**,
 **Siguiente** y la lista de **Capítulos**. El niño lee allí un programa y
 lo escribe en el editor; el botón de debajo de cada programa lo escribe
-por él. Sus treinta capítulos van desde un primer `PRINT` hasta el
-dibujo, el color, el sonido y juegos para guardar. Cada capítulo termina
-con ideas para seguir probando, y un recuadro **Para el adulto** que dice
-lo que enseña el capítulo.
+por él, salvo que un adulto haya apagado *Escríbemelo* para ese niño en
+los **Ajustes** de BASIC del panel, para que escriba todos los programas.
+Sus treinta capítulos van desde un primer `PRINT` hasta el dibujo, el
+color, el sonido y juegos para guardar. Cada capítulo termina con ideas
+para seguir probando, y un recuadro **Para el adulto** que dice lo que
+enseña el capítulo.
 
 El programa del editor se queda allí cuando se cierra BASIC, hasta que el
 niño pulsa **Nuevo**. Para conservar un programa, **Guardar** abre una

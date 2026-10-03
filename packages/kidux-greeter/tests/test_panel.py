@@ -158,6 +158,24 @@ class ManagedDaemon(FakeDaemon):
         switched = self.enabled.setdefault(username, set())
         (switched.add if enabled else switched.discard)(module_id)
 
+    #: What an adult set in each module for each child, and which secrets.
+    settings = None
+
+    def module_settings(self, token, username, module_id):
+        self._token(token)
+        stored = (self.settings or {}).get((username, module_id), {})
+        values = {k: v for k, v in stored.items() if k != "password"}
+        values.setdefault("type_in", True)
+        return values, ["password"] if stored.get("password") else []
+
+    def set_module_setting(self, token, username, module_id, key, value):
+        self._token(token)
+        if key == "type_in" and not isinstance(value, bool):
+            raise Invalid("org.kidux.Daemon1.Error.InvalidArgument")
+        self.calls.append(("set_module_setting", username, module_id, key, value))
+        self.settings = self.settings or {}
+        self.settings.setdefault((username, module_id), {})[key] = value
+
     #: What Modules1.Available answers.
     offered: list = []
 
@@ -607,10 +625,10 @@ def test_the_modules_page_has_a_switch_per_module_and_child(panel, daemon, insta
     assert screen.data["modules"] == [
         {"id": "hello", "name": "Hello", "description": "About Hello.",
          "enabled": {"ana": False, "tom": False}, "needs_windows": False,
-         "min_age": 0, "max_age": 0, "before": [], "version": "", "first": []},
+         "min_age": 0, "max_age": 0, "before": [], "version": "", "settings": False, "first": []},
         {"id": "paint", "name": "Paint", "description": "About Paint.",
          "enabled": {"ana": False, "tom": True}, "needs_windows": False,
-         "min_age": 0, "max_age": 0, "before": [], "version": "", "first": []},
+         "min_age": 0, "max_age": 0, "before": [], "version": "", "settings": False, "first": []},
     ]
 
 
@@ -979,10 +997,11 @@ def test_every_wizard_screen_has_a_way_forward(fresh):
             "wiz_done"} <= set(names(screens))
 
 
-def test_every_panel_screen_has_a_way_forward(panel, daemon):
+def test_every_panel_screen_has_a_way_forward(panel, daemon, with_settings):
     daemon.offered = [GCOMPRIS]
     screens = [panel.children(), panel.select("tom"), panel.ask_remove(), panel.new_child(),
                panel.tab("modules"), panel.set_module("ana", "nothing", True),
+               panel.module_settings("hello"),
                panel.ask_remove_module("hello"), panel.install_module("gcompris"),
                panel.poll_modules(), panel.remove_module("hello"), panel.look_for_modules(),
                panel.tab("system"), panel.show_recovery(),
@@ -1215,3 +1234,61 @@ def test_on_the_lock_screen_a_new_size_waits_for_the_next_start(panel, daemon):
     screen = locked.set_scale(2.0)
     assert screen.notice == words.APPLIES_NEXT_START
     assert locked.close().name != "restarting" and not locked.exit_requested
+
+
+# --- a module's settings (D90) ---------------------------------------------------
+
+
+@pytest.fixture
+def with_settings(installed):
+    """Hello declares a switch and a secret."""
+    manifest = installed / "hello" / "module.toml"
+    manifest.write_text(manifest.read_text() + """
+[[settings]]
+key = "type_in"
+kind = "switch"
+label = "Type it in for me"
+description = "A button types the listing."
+default = true
+
+[[settings]]
+key = "password"
+kind = "secret"
+label = "Password"
+description = "What it does."
+""")
+    return installed
+
+
+def test_a_module_with_settings_says_so_in_its_row(panel, daemon, with_settings):
+    rows = {row["id"]: row for row in panel.tab("modules").data["modules"]}
+
+    assert rows["hello"]["settings"] is True and rows["paint"]["settings"] is False
+
+
+def test_the_settings_page_has_every_child_s_values_and_never_a_secret(panel, daemon,
+                                                                         with_settings):
+    daemon.settings = {("ana", "hello"): {"type_in": False, "password": "hunter2"}}
+
+    screen = panel.module_settings("hello")
+
+    assert screen.name == "panel_module_settings"
+    assert [s["key"] for s in screen.data["settings"]] == ["type_in", "password"]
+    assert screen.data["settings"][0]["description"] == "A button types the listing."
+    assert screen.data["values"]["ana"] == {"type_in": False}
+    assert screen.data["secrets"]["ana"] == ["password"]
+    assert "hunter2" not in repr(screen.data)
+
+
+def test_a_setting_is_saved_when_changed_and_a_wrong_one_said(panel, daemon, with_settings):
+    screen = panel.set_module_setting("hello", "ana", "type_in", False)
+    assert ("set_module_setting", "ana", "hello", "type_in", False) in daemon.calls
+    assert (screen.name, screen.notice) == ("panel_module_settings", words.SAVED)
+
+    screen = panel.set_module_setting("hello", "ana", "type_in", "no")
+    assert screen.notice == words.NOT_SAVED
+
+
+def test_a_module_without_settings_has_no_settings_page(panel, daemon, with_settings):
+    assert panel.module_settings("paint").name == "panel_modules"
+

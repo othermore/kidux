@@ -29,6 +29,93 @@ ID = re.compile(r"\A[a-z][a-z0-9-]{0,31}\Z")
 #: The scope's memory cap for a module whose manifest names none.
 DEFAULT_MEMORY_MAX = "2G"
 
+#: A setting's key, which is also the name a module reads it by.
+SETTING_KEY = re.compile(r"\A[a-z][a-z0-9_]{0,31}\Z")
+
+#: What a setting may be (D90): each module declares its own, of these kinds.
+SETTING_KINDS = ("switch", "integer", "number", "text", "secret")
+
+
+@dataclass(frozen=True)
+class Setting:
+    """One thing an adult sets in a module for each child (D90): its name
+    and what it does, both in English and translated through the module's
+    catalogue, as the module's own name and description are."""
+    key: str
+    kind: str
+    label: str
+    description: str = ""
+    default: object = None
+    minimum: float | None = None
+    maximum: float | None = None
+
+    def value(self, raw):
+        """`raw` as this setting's kind, within its limits; ValueError for
+        anything else. A switch is True or False, an integer an int, a number
+        a float, a text or a secret a str of one line."""
+        if self.kind == "switch":
+            if isinstance(raw, bool):
+                return raw
+        elif self.kind == "integer":
+            if isinstance(raw, int) and not isinstance(raw, bool):
+                return self._within(raw)
+        elif self.kind == "number":
+            if isinstance(raw, (int, float)) and not isinstance(raw, bool):
+                return self._within(float(raw))
+        elif isinstance(raw, str) and "\n" not in raw and len(raw) <= 1024:
+            return raw
+        raise ValueError(f"not a {self.kind} for {self.key}: {raw!r}")
+
+    def _within(self, number):
+        if self.minimum is not None and number < self.minimum:
+            raise ValueError(f"{self.key} is at least {self.minimum}")
+        if self.maximum is not None and number > self.maximum:
+            raise ValueError(f"{self.key} is at most {self.maximum}")
+        return number
+
+
+def _settings(module_id: str, declared) -> tuple[Setting, ...]:
+    """The `[[settings]]` of a manifest that are good, each once; a bad one
+    is dropped with a line in the log."""
+    if not isinstance(declared, list):
+        log.warning("module %s: settings is not a list of tables", module_id)
+        return ()
+    found: list[Setting] = []
+    for table in declared:
+        try:
+            if not isinstance(table, dict):
+                raise ValueError("not a table")
+            key, kind, label = table.get("key"), table.get("kind"), table.get("label")
+            if not isinstance(key, str) or not SETTING_KEY.match(key):
+                raise ValueError(f"key {key!r} is not a setting's name")
+            if any(setting.key == key for setting in found):
+                raise ValueError(f"{key} is declared twice")
+            if kind not in SETTING_KINDS:
+                raise ValueError(f"{key}'s kind {kind!r} is not one of {', '.join(SETTING_KINDS)}")
+            if not isinstance(label, str) or not label:
+                raise ValueError(f"{key} has no label")
+            described = table.get("description")
+            if not isinstance(described, str) or not described:
+                raise ValueError(f"{key} does not say what it does in a description")
+            limits = {}
+            for name, field_name in (("min", "minimum"), ("max", "maximum")):
+                if name in table:
+                    if kind not in ("integer", "number") or isinstance(table[name], bool) \
+                            or not isinstance(table[name], (int, float)):
+                        raise ValueError(f"{key}'s {name} is not a number of an integer or a number")
+                    limits[field_name] = table[name]
+            plain = Setting(key, kind, label, described, None, **limits)
+            fallback = {"switch": False, "integer": 0, "number": 0.0}.get(kind, "")
+            if kind == "secret" and "default" in table:
+                raise ValueError(f"{key} is a secret, which has no default")
+            default = plain.value(table.get("default", fallback)) if "default" in table \
+                else fallback
+            found.append(Setting(key, kind, label, described, default, **limits))
+        except ValueError as error:
+            log.warning("module %s: a setting is left out: %s", module_id, error)
+    return tuple(found)
+
+
 #: A name in a manifest's `hosts`: a lower-case DNS name, at least two
 #: labels, nothing else.
 HOST = re.compile(r"\A(?=.{1,253}\Z)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?"
@@ -64,6 +151,8 @@ class Module:
     #: The internet hosts its pages may reach, each with every name under
     #: it (D85): sorted, each once.
     hosts: tuple[str, ...] = ()
+    #: What an adult sets in it for each child, as its manifest declares.
+    settings: tuple["Setting", ...] = ()
 
 
 #: What Chromium calls the window of `kidux-webapp <id>` (launch.py): the
@@ -169,6 +258,7 @@ def read(module_id: str, root: Path | None = None) -> Module | None:
         app_ids=tuple(app_ids),
         version=str(manifest.get("version", "")),
         hosts=tuple(sorted(set(hosts))),
+        settings=_settings(module_id, manifest.get("settings", [])),
     )
 
 
@@ -190,6 +280,12 @@ def name_in(module: Module, language: str) -> str:
     """The module's name in `language`, a locale such as "es_ES.UTF-8"; its
     English one when the module has no catalogue for it."""
     return _translations(module, language).gettext(module.name)
+
+
+def text_in(module: Module, text: str, language: str) -> str:
+    """One of the module's own words, a setting's label or description, in
+    `language`, through the module's catalogue."""
+    return _translations(module, language).gettext(text) if text else ""
 
 
 def description_in(module: Module, language: str) -> str:

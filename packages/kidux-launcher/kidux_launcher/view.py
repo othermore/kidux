@@ -28,7 +28,7 @@ from kidux import modules as kidux_modules  # noqa: E402
 from . import launch, words  # noqa: E402
 from .bar import Bar  # noqa: E402
 from .desk import CLOSE_SECONDS, HOME  # noqa: E402
-from .daemon import DaemonError  # noqa: E402
+from .daemon import DaemonError, DaemonUnavailableError  # noqa: E402
 from .lid import Lid  # noqa: E402
 from .model import Model  # noqa: E402
 from .timeleft import TimeLeft  # noqa: E402
@@ -445,8 +445,15 @@ class Launcher:
             # Still starting from before this launcher, with no window yet.
             log.info("%s is already running", module.id)
             return False
+        settings = {}
+        if module.settings:
+            try:
+                settings = self._daemon.module_settings(module.id)
+            except (DaemonError, DaemonUnavailableError) as error:
+                # Its defaults, then: the module still opens.
+                log.warning("no settings for %s: %s", module.id, error)
         try:
-            argv = launch.command(module, home)
+            argv = launch.command(module, home, settings)
             for directory in launch.directories(home, module.id):
                 os.makedirs(directory, mode=0o700, exist_ok=True)
                 os.chmod(directory, 0o700)

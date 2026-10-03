@@ -29,6 +29,13 @@ categories = ["programming"]
 i18n_domain = "kidux-module-scratch"   # the gettext domain of name and description
 memory_max = "2G"                      # the scope's MemoryMax; optional
 needs_windows = true                   # only for a child with windows; optional
+
+[[settings]]                           # what an adult sets for each child; optional
+key = "type_in"
+kind = "switch"                        # switch | integer | number | text | secret
+label = "Type it in for me"            # translated through i18n_domain
+description = "A button types each program into the editor."   # required, translated
+default = true
 ```
 
 Beside it, `icon.svg`: the tile's picture, drawn like the avatars, so that no
@@ -77,6 +84,19 @@ icon theme is needed and the tile is the same on every machine.
   for the module the child has just opened, so a module that forgets it
   still opens; the launcher's log names every window's `app_id`
   (`toplevels:`), which is where to read it.
+- `[[settings]]` are what an adult sets in the module for each child, on
+  the panel's Modules page (D90). Each module declares its own, and Kidux
+  keeps no list of them: it knows only their kinds, a `switch`, an
+  `integer` or a `number` (with an optional `min` and `max`), a `text`
+  of one line, or a `secret`, a text never shown again once set. Each
+  has a `key`, the name the module reads it by (lower-case letters,
+  digits and `_`), a `label` and a `description` of what it does, both
+  English in the manifest and translated through the module's catalogue,
+  and a `default` of its kind (a secret has none). The module reads them
+  as `KIDUX_SETTING_<KEY>` in its environment, a switch as `1` or `0`;
+  a web application finds them in its address too, `?lang=es&type_in=0`.
+  A secret never reaches the child's session: the daemon keeps it and
+  uses it itself, as 4.17 of phase-4c-plan.md describes for signing in.
 - `needs_windows = true` says the module is only for a child whose modules
   open in windows (D46): a real web browser, an editor with several files
   open. The launcher shows no tile for it to a child without windows, and
@@ -93,7 +113,9 @@ has a default: `i18n_domain` `kidux-module-<id>`; `memory_max` `2G`;
 `description` empty; the ages `0`, no suggestion; `recommended_before`
 none, and of a list only the strings that are module ids are kept, the
 rest dropped with a line in the log; `app_ids` none, and a value that is
-not a list of names is dropped with a line in the log; `hosts` none, kept
+not a list of names is dropped with a line in the log; `settings` none,
+and a setting whose table is wrong, which has no `description`, or whose
+default is not of its kind, is dropped with a line in the log; `hosts` none, kept
 sorted and each once, and a value that is not a list of host names is
 dropped with a line in the log; `needs_windows` false, as is any value but
 `true`. Without `icon.svg` the

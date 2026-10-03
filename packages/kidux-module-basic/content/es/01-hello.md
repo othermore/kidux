@@ -1,5 +1,5 @@
 ---
-source_sha256 = "a41872196c39a5008842b65ce50a051c3b093ae4b31bfad467793c98db5e102c"
+source_sha256 = "28ffb11d6fd422b1f3b0097b9cbb8fb66e71ba1854eb5901bf924de03f7c60b4"
 ---
 # Hola, ordenador
 
@@ -27,9 +27,11 @@ la **pantalla**, donde tu programa enseña lo que hace.
 Ahora pulsa **Ejecutar**. La pantalla te saluda. ¡Tu primer programa
 funciona!
 
+::: type-in
 Cada programa de esta guía tiene un botón, *Escríbemelo*, que lo pone en
 el editor por ti. Pero es mejor que lo escribas tú: así aprenden tus
 dedos dónde están las teclas.
+:::
 
 ## ¿Por qué 10, 20, 30?
 

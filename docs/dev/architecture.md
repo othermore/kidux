@@ -1575,3 +1575,17 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   work a module kept for itself, and a module installed again finds them.
   The documents had said removing a module removed them, which nothing
   did; they now say what is done.
+
+- **D90 — A module declares the settings an adult gives it for each
+  child.** Decided 2026-10-03 by the owner, on phase-4c-plan.md. BASIC's
+  *Type it in for me* and a child's CodeCombat account are settings that
+  differ from one child to another and that only the module understands.
+  Each module declares its own in its manifest, `[[settings]]`, each with
+  a key, a kind of five (switch, integer, number, text, secret), a label
+  and a description of what it does, both translated through the
+  module's catalogue, and a default; Kidux keeps no list of them and knows
+  only the kinds. The daemon keeps each child's values, root's alone, and
+  refuses a value not of its kind; the panel shows them in a page of the
+  module's own; the launcher hands them to the module in its environment,
+  and `kidux-webapp` in a web application's address. A secret never
+  reaches the child's session: the daemon uses it itself.

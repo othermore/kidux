@@ -27,6 +27,11 @@ class SystemDaemon:
         return [str(entry.get("id")) for entry in self._client.list_modules(self._username)
                 if entry.get("enabled")]
 
+    def module_settings(self, module_id: str) -> dict:
+        """What an adult set in a module for this child (D90), never a
+        secret."""
+        return self._client.my_module_settings(module_id)
+
     def lock(self) -> None:
         self._client.request_lock()
 

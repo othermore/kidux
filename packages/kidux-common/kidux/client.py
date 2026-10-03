@@ -297,6 +297,31 @@ class Client:
         self.call("Modules1", "SetEnabled",
                   GLib.Variant("(sssb)", (token, username, module_id, enabled)))
 
+    def module_settings(self, token: str, username: str,
+                        module_id: str) -> tuple[dict[str, Any], list[str]]:
+        """What an adult has set in a module for a child (D90): the values of
+        every setting but the secrets, defaults where nothing is set, and the
+        keys of the secrets that are set. A secret is never read back."""
+        reply = self.call("Modules1", "Settings",
+                          GLib.Variant("(sss)", (token, username, module_id)),
+                          GLib.VariantType("(a{sv}as)"))
+        return dict(reply[0]), list(reply[1])
+
+    def set_module_setting(self, token: str, username: str, module_id: str, key: str,
+                           value: Any) -> None:
+        """Set one of a module's settings for a child; the daemon refuses a
+        value not of the setting's kind or outside its limits."""
+        self.call("Modules1", "SetSetting",
+                  GLib.Variant("(ssssv)", (token, username, module_id, key,
+                                           _variants({"value": value})["value"])))
+
+    def my_module_settings(self, module_id: str) -> dict[str, Any]:
+        """A module's settings for the child asking, from their own session:
+        every one but the secrets, defaults where nothing is set."""
+        reply = self.call("Modules1", "MySettings", GLib.Variant("(s)", (module_id,)),
+                          GLib.VariantType("(a{sv})"))
+        return dict(reply[0])
+
     def available_modules(self) -> list[dict[str, Any]]:
         """Every module the archive offers, installed or not, as apt's lists
         know them: [{"id", "name", "description", "installed", "version",

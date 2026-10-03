@@ -270,6 +270,108 @@ def test_a_child_may_not_switch_modules_for_themselves_or_a_sibling(machine):
             machine.call(ANA, "Modules1", "SetEnabled", "", username, "hello", True)
 
 
+# --- module settings (D90) ----------------------------------------------------
+
+SETTINGS = """
+[[settings]]
+key = "type_in"
+kind = "switch"
+label = "Type it in for me"
+description = "What it does."
+default = true
+
+[[settings]]
+key = "speed"
+kind = "integer"
+label = "Speed"
+description = "What it does."
+default = 3
+min = 1
+max = 5
+
+[[settings]]
+key = "password"
+kind = "secret"
+label = "Password"
+description = "What it does."
+"""
+
+
+def install_module_with_settings(module_id: str = "basic") -> None:
+    install_module(module_id)
+    with (paths.MODULES_DIR / module_id / "module.toml").open("a") as manifest:
+        manifest.write(SETTINGS)
+
+
+def test_a_module_s_settings_are_its_defaults_until_an_adult_sets_them(machine):
+    install_module_with_settings()
+    token = machine.unlock()
+
+    assert machine.call(ADMIN, "Modules1", "Settings", token, "ana", "basic") == (
+        {"type_in": True, "speed": 3}, [])
+
+
+def test_an_adult_sets_a_module_s_setting_for_one_child(machine):
+    install_module_with_settings()
+    token = machine.unlock()
+
+    machine.call(ADMIN, "Modules1", "SetSetting", token, "ana", "basic", "type_in", False)
+    machine.call(ADMIN, "Modules1", "SetSetting", token, "ana", "basic", "speed", 5)
+
+    assert machine.call(ADMIN, "Modules1", "Settings", token, "ana", "basic")[0] == {
+        "type_in": False, "speed": 5}
+    assert machine.call(ADMIN, "Modules1", "Settings", token, "luis", "basic")[0] == {
+        "type_in": True, "speed": 3}
+    assert ("module setting", "ok") in [entry[:2] for entry in machine.audit]
+
+
+def test_a_value_not_of_the_setting_s_kind_or_limits_is_refused(machine):
+    install_module_with_settings()
+    token = machine.unlock()
+
+    for key, value in (("type_in", 1), ("speed", 9), ("speed", "3"), ("nothing", True)):
+        with pytest.raises(InvalidArgument):
+            machine.call(ADMIN, "Modules1", "SetSetting", token, "ana", "basic", key, value)
+    with pytest.raises(InvalidArgument):
+        machine.call(ADMIN, "Modules1", "SetSetting", token, "ana", "absent", "speed", 2)
+
+
+def test_a_secret_is_never_read_back_and_never_reaches_the_child(machine):
+    install_module_with_settings()
+    token = machine.unlock()
+
+    machine.call(ADMIN, "Modules1", "SetSetting", token, "ana", "basic", "password", "hunter2")
+
+    values, secrets = machine.call(ADMIN, "Modules1", "Settings", token, "ana", "basic")
+    assert "password" not in values and secrets == ["password"]
+    assert "password" not in machine.call(ANA, "Modules1", "MySettings", "basic")
+    path = paths.child_module_settings("ana")
+    assert path.stat().st_mode & 0o077 == 0
+    machine.call(ADMIN, "Modules1", "SetSetting", token, "ana", "basic", "password", "")
+    assert machine.call(ADMIN, "Modules1", "Settings", token, "ana", "basic")[1] == []
+
+
+def test_a_child_reads_their_own_settings_and_sets_none(machine):
+    install_module_with_settings()
+    token = machine.unlock()
+    machine.call(ADMIN, "Modules1", "SetSetting", token, "luis", "basic", "type_in", False)
+
+    assert machine.call(ANA, "Modules1", "MySettings", "basic") == {"type_in": True, "speed": 3}
+    with pytest.raises(AccessDenied):
+        machine.call(ANA, "Modules1", "SetSetting", "", "ana", "basic", "type_in", False)
+    with pytest.raises(AccessDenied):
+        machine.call(ANA, "Modules1", "Settings", "", "ana", "basic")
+
+
+def test_settings_need_the_token(machine):
+    install_module_with_settings()
+    machine.unlock()
+
+    with pytest.raises(NotUnlocked):
+        machine.call(ADMIN, "Modules1", "SetSetting", "not a token", "ana", "basic", "type_in",
+                     False)
+
+
 # --- tokens and the adult password -------------------------------------------
 
 

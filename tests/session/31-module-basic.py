@@ -7,7 +7,9 @@ titled BASIC, with the editor on the left holding the keyboard. Leo types a
 program that never ends and runs it with Ctrl+Enter: the screen below the
 editor turns dark with its words while the guide on the right stays cream.
 Escape stops it; Alt+F4 closes the module and gives the launcher back; the
-lock screen's *Log out* ends the session, and the daemon removes it.
+lock screen's *Log out* ends the session, and the daemon removes it. An
+adult has switched *Type it in for me* off for Leo first (D90): BASIC's
+page is opened with it in its address, which is what hides its buttons.
 """
 
 from sessionlib import (
@@ -64,6 +66,12 @@ def run(machine: Machine) -> None:
            and root("curl -fsS http://127.0.0.1:8123/basic/ | grep -q '<title>BASIC</title>'").returncode == 0,
            root("tail -5 /var/log/apt/term.log").stdout)
     root(f"runuser -u debian -- /usr/local/bin/kidux-as enable {CHILD} basic on")
+    report("an adult switches Type it in for me off for Leo",
+           root(f"runuser -u debian -- /usr/local/bin/kidux-as set-setting {CHILD} basic "
+                "type_in false").returncode == 0
+           and root(f"runuser -u {CHILD} -- /usr/local/bin/kidux-as my-settings basic"
+                    ).stdout.strip() == '{"type_in": false}',
+           root("tail -2 /home/.kidux/state/audit.log").stdout)
 
     before = journal_count("kidux-launcher", "tiles: basic")
     password = machine.mark()
@@ -85,6 +93,10 @@ def run(machine: Machine) -> None:
            opened and on_screen() == "basic" and window.get("maximized")
            and not window.get("fullscreen"),
            f"{window}\n" + launcher_log())
+    command = root(f"pgrep -a -u {CHILD} -x chromium | head -1").stdout
+    report("and its page is told that Type it in for me is off",
+           "--app=http://127.0.0.1:8123/basic/?lang=" in command and "&type_in=0" in command,
+           command)
 
     # The editor has the keyboard: a program that prints for ever, run
     # with Ctrl+Enter.
@@ -131,5 +143,6 @@ def run(machine: Machine) -> None:
            wait(lambda: child_session() is None and chromium_pid() == "", 30), greeter_log())
     machine.shown("choose", choose, 30)
 
+    root(f"runuser -u debian -- /usr/local/bin/kidux-as set-setting {CHILD} basic type_in true")
     root(f"runuser -u debian -- /usr/local/bin/kidux-as enable {CHILD} basic off")
     report("and the daemon removes it", daemon("remove"), root("tail -5 /var/log/apt/term.log").stdout)

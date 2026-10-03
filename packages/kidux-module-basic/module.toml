@@ -3,7 +3,7 @@
 # editor of Kidux's own with a guide for the child beside it, served by
 # kidux-webapps under /basic/ (D84; docs/dev/basic.md).
 id = "basic"
-version = "0+git20260223.2"
+version = "0+git20260223.3"
 name = "BASIC"
 description = "BASIC as it was on the first home computers, with its guide beside it: write a program, press Run, and see. It draws, colours and sounds too."
 min_age = 8
@@ -13,3 +13,11 @@ launch = { webapp = "basic" }
 categories = ["programming"]
 i18n_domain = "kidux-module-basic"
 memory_max = "2G"
+
+# What an adult sets for each child on the panel (D90).
+[[settings]]
+key = "type_in"
+kind = "switch"
+label = "Type it in for me"
+description = "A button under each program of the guide types it into the editor. Off, the child types every program."
+default = true

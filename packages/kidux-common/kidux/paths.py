@@ -80,6 +80,12 @@ def child_modules(username: str) -> Path:
     return child_dir(username) / "modules.toml"
 
 
+def child_module_settings(username: str) -> Path:
+    """What an adult has set in each module for this child (D90), a table
+    per module; secrets among it, so root's alone, as the whole directory is."""
+    return child_dir(username) / "settings.toml"
+
+
 # --- shipped data ------------------------------------------------------------
 
 AVATAR_DIR = DATA_ROOT / "avatars"

@@ -1,3 +1,10 @@
+kidux-daemon (0.3.33) trixie; urgency=medium
+
+  * Settings an adult gives a module for each child: kept per child, the
+    secrets root's alone and never handed to the child's session.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 16:46:45 +0200
+
 kidux-daemon (0.3.32) trixie; urgency=medium
 
   * The panel's Advanced settings refuse --no-proxy-server, which would

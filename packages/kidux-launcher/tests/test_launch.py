@@ -126,3 +126,17 @@ def test_a_module_is_ended_by_stopping_its_scope(monkeypatch):
     launch.stop("robin")
 
     assert ran == [["systemctl", "--user", "stop", "kidux-module-robin.scope"]]
+
+
+def test_an_adult_s_settings_reach_the_module_in_its_environment():
+    # D90: what an adult set in a module for this child, never a secret.
+    basic = Module(id="basic", name="BASIC", launch={"webapp": "basic"})
+
+    argv = launch.command(basic, HOME, {"type_in": False, "speed": 3, "name": "Leo",
+                                        "Not A Key": "x"})
+
+    assert "--setenv=KIDUX_SETTING_TYPE_IN=0" in argv
+    assert "--setenv=KIDUX_SETTING_SPEED=3" in argv
+    assert "--setenv=KIDUX_SETTING_NAME=Leo" in argv
+    assert not any("Not A Key" in arg for arg in argv)
+    assert argv.index("--") > argv.index("--setenv=KIDUX_SETTING_TYPE_IN=0")

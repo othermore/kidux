@@ -44,6 +44,11 @@
     const asked = new URLSearchParams(window.location.search).get("lang") || "en";
     const lang = PAGES[asked] ? asked : "en";
     window.BASIC = PAGES[lang];
+    // An adult may switch Type it in for me off for the child (D90): the
+    // buttons and the sentences about them go.
+    if (new URLSearchParams(window.location.search).get("type_in") === "0") {
+      document.documentElement.classList.add("no-type-in");
+    }
     document.documentElement.lang = lang;
     const words = window.BASIC.words;
     for (const id of ["run", "stop", "new", "save", "open", "back", "next", "contents", "yes", "no"]) {

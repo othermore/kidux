@@ -586,6 +586,11 @@ modules to do first.
 
 - **Install** adds one. The page shows how far it has got. The module then
   appears above, switched off for every child.
+- **Settings**, in the row of a module that has some, opens what an adult
+  can set in it for each child: one column for each child, and each
+  setting with what it does written under it. A change is saved as soon
+  as it is made. BASIC's is *Type it in for me*: switched off, the child
+  types every program of the guide.
 - **Remove**, at the end of an installed module's row, asks once and takes
   the module off the computer. What each child made with it stays in their
   own folders, and what the module kept for each child, such as their
@@ -851,7 +856,9 @@ line, and the editor marks it.
 The right half is the guide, one chapter at a time, with **Back**,
 **Next** and the list of **Chapters**. The child reads a program there
 and types it in the editor; the button under each program types it in for
-them. Its thirty chapters go from a first `PRINT` to drawing, colour,
+them, unless an adult has switched *Type it in for me* off for the child
+in BASIC's **Settings** on the panel, so that the child types every
+program. Its thirty chapters go from a first `PRINT` to drawing, colour,
 sound and games to keep. Each chapter ends with ideas to keep trying, and
 a box **For the adult** that says what the chapter teaches.
 

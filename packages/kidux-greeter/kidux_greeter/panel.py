@@ -571,7 +571,8 @@ class Panel(_NewChild):
                  "needs_windows": module.needs_windows,
                  "min_age": module.min_age, "max_age": module.max_age,
                  "before": list(module.recommended_before),
-                 "version": shown_version(module.version)}
+                 "version": shown_version(module.version),
+                 "settings": bool(module.settings)}
                 for module in kidux_modules.installed()]
         update = self._update_state()
         # Asked of apt, which takes a moment: once per page, not once a
@@ -646,6 +647,43 @@ class Panel(_NewChild):
                   "failed": words.MODULE_FAILED}.get(update["outcome"])
         return self.modules(notice, failure=update["detail"] if update["outcome"] == "failed"
                             else "")
+
+    def module_settings(self, module_id: str, notice: str | None = None) -> Screen:
+        """A module's settings, as its manifest declares them (D90): the
+        settings down, every child across, each child's value where they
+        meet; a secret only said to be set, never shown."""
+        module = kidux_modules.read(module_id)
+        if module is None or not module.settings:
+            return self.modules()
+        kids = self._daemon.children()
+        values, secrets = {}, {}
+        for child in kids:
+            result = self._guard(lambda child=child: self._daemon.module_settings(
+                self._token, child["username"], module_id))
+            if isinstance(result, Screen):
+                return result
+            values[child["username"]], secrets[child["username"]] = result[0], list(result[1])
+        settings = [{"key": setting.key, "kind": setting.kind,
+                     "label": kidux_modules.text_in(module, setting.label, self._language),
+                     "description": kidux_modules.text_in(module, setting.description,
+                                                          self._language),
+                     "minimum": setting.minimum, "maximum": setting.maximum}
+                    for setting in module.settings]
+        return self._screen("panel_module_settings", notice, module=module_id,
+                            module_name=kidux_modules.name_in(module, self._language),
+                            children=kids, settings=settings, values=values, secrets=secrets)
+
+    def set_module_setting(self, module_id: str, username: str, key: str, value) -> Screen:
+        """One setting for one child, saved as soon as it is changed; the
+        daemon refuses what is not of its kind, and the page says so."""
+        try:
+            result = self._guard(lambda: self._daemon.set_module_setting(
+                self._token, username, module_id, key, value))
+        except Invalid:
+            return self.module_settings(module_id, words.NOT_SAVED)
+        if isinstance(result, Screen):
+            return result
+        return self.module_settings(module_id, words.SAVED)
 
     def set_module(self, username: str, module_id: str, enabled: bool) -> Screen:
         """One switch, saved as soon as it is flipped. A refusal draws the
@@ -960,7 +998,8 @@ PANEL_ACTIONS = {
                        "set_time_left",
                        "ask_remove", "remove", "tab", "close"),
     "panel_modules": ("set_module", "install_module", "ask_remove_module", "remove_module",
-                      "look_for_modules", "poll_modules", "tab", "close"),
+                      "look_for_modules", "poll_modules", "module_settings", "tab", "close"),
+    "panel_module_settings": ("set_module_setting", "tab", "close"),
     "panel_system": ("show_recovery", "save_adult_password", "set_language_keyboard",
                      "set_scale", "set_idle", "look_for_updates", "install_updates",
                      "poll_updates",

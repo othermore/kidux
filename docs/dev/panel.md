@@ -155,7 +155,20 @@ the switch back where it was; the focus stays on the switch just flipped,
 and starts on the first switch. *Remove* asks once, on the page: *Remove
 <name>? The children's own files stay.*, with *Cancel*, which has the
 focus, and *Remove*, which calls `Modules1.Remove`. The tab order of a row
-is its switches, then *Remove*. With nothing installed, the part says so.
+is its switches, then *Settings*, for a module that declares settings
+(D90), then *Remove*. With nothing installed, the part says so.
+
+*Settings* opens a page of the module's own: its name, *Each child has
+their own. A change is saved as soon as it is made.*, then a grid with
+every child across and the module's settings down, each with its label
+and, under it, its description, in the adult's language. Where they meet,
+the control of the setting's kind: a switch, a number box within the
+setting's limits, a text box, or a password box for a secret, which says
+*Set. Type a new one to change it.* when one is set, with *Forget* beside
+it, and never shows it. A switch or a number is saved as it changes, a
+text or a secret when Enter is pressed or the focus leaves it, each by
+`Modules1.SetSetting`, and the page is drawn again with *Saved.* or *This
+was not saved*. The tab bar is above it, and *Modules* goes back.
 Both parts are by age (D73, `panel.ordered`): the youngest first, a module
 that says no age among them, by name at the same age, and a module whose
 name begins with a bracket, `[Test]` or `[Prueba]` (D70), last whatever

@@ -194,3 +194,92 @@ def test_a_module_names_the_hosts_its_pages_may_reach(tmp_path, caplog):
     assert modules.read("star", tmp_path).hosts == ()
     assert modules.read("none", tmp_path).hosts == ()
     assert caplog.text.count("hosts is not a list of host names") == 2
+
+
+SETTINGS = '''
+[[settings]]
+key = "type_in"
+kind = "switch"
+label = "Type it in for me"
+description = "A button types the listing."
+default = true
+
+[[settings]]
+key = "speed"
+kind = "integer"
+label = "Speed"
+description = "What it does."
+default = 3
+min = 1
+max = 5
+
+[[settings]]
+key = "password"
+kind = "secret"
+label = "Password"
+description = "What it does."
+
+[[settings]]
+key = "Bad Key"
+kind = "switch"
+label = "x"
+description = "What it does."
+
+[[settings]]
+key = "colour"
+kind = "colour"
+label = "Colour"
+description = "What it does."
+
+[[settings]]
+key = "quiet"
+kind = "switch"
+label = "Quiet"
+
+[[settings]]
+key = "big"
+kind = "integer"
+label = "Big"
+description = "What it does."
+default = 9
+max = 5
+'''
+
+
+def test_a_module_declares_its_own_settings_of_the_known_kinds(tmp_path, caplog):
+    # D90: no central list of settings; a module says which it has.
+    manifest(tmp_path, "basic", GOOD.format(id="basic") + SETTINGS)
+
+    settings = modules.read("basic", tmp_path).settings
+
+    assert [(s.key, s.kind, s.default) for s in settings] == [
+        ("type_in", "switch", True), ("speed", "integer", 3), ("password", "secret", "")]
+    assert settings[1].minimum == 1 and settings[1].maximum == 5
+    assert caplog.text.count("a setting is left out") == 4
+    assert "quiet does not say what it does in a description" in caplog.text
+    assert modules.read("basic", tmp_path).settings[0].description == "A button types the listing."
+
+
+def test_a_setting_takes_only_values_of_its_kind_within_its_limits(tmp_path):
+    manifest(tmp_path, "basic", GOOD.format(id="basic") + SETTINGS)
+    switch, speed, secret = modules.read("basic", tmp_path).settings
+
+    assert switch.value(False) is False
+    assert speed.value(5) == 5
+    assert secret.value("hunter2") == "hunter2"
+    for setting, wrong in ((switch, 1), (switch, "yes"), (speed, 6), (speed, 0), (speed, True),
+                           (speed, 2.5), (secret, 3), (secret, "two\nlines")):
+        try:
+            setting.value(wrong)
+        except ValueError:
+            continue
+        raise AssertionError(f"{setting.key} took {wrong!r}")
+
+
+def test_a_module_without_settings_has_none(tmp_path, caplog):
+    manifest(tmp_path, "hello", GOOD.format(id="hello"))
+    manifest(tmp_path, "odd", GOOD.format(id="odd") + 'settings = "type_in"\n')
+
+    assert modules.read("hello", tmp_path).settings == ()
+    assert modules.read("odd", tmp_path).settings == ()
+    assert "settings is not a list of tables" in caplog.text

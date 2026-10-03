@@ -1385,6 +1385,107 @@ class View:
             keep_place(self._modules_room, room)
         self._modules_room = room
 
+    def _draw_panel_module_settings(self, screen, page, middle, bottom):
+        """A module's settings, as its manifest declares them (D90): each down
+        the side with what it is for, every child across, and where they
+        meet the child's value, in the control of its kind, saved as soon as
+        it is changed. A secret is never shown, only said to be set."""
+        self._adult(page)
+        self._tab_bar(page, bottom, "modules")
+        data = screen.data
+        module_id, kids = data["module"], data.get("children") or []
+        values, secrets = data.get("values") or {}, data.get("secrets") or {}
+        title = Gtk.Label(label=self._(words.MODULE_SETTINGS_TITLE).format(
+            name=data.get("module_name", module_id)), wrap=True, justify=Gtk.Justification.CENTER,
+            max_width_chars=36, css_classes=["kidux-title"])
+        middle.append(title)
+        middle.append(self._text(words.MODULE_SETTINGS_HOW))
+        grid = Gtk.Grid(column_spacing=24, row_spacing=16, halign=Gtk.Align.CENTER)
+        for column, child in enumerate(kids, start=1):
+            who = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4, halign=Gtk.Align.CENTER)
+            who.append(self._avatar(child, 40))
+            who.append(Gtk.Label(label=child.get("display_name") or child["username"]))
+            grid.attach(who, column, 0, 1, 1)
+        for number, setting in enumerate(data.get("settings") or [], start=1):
+            about = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2, valign=Gtk.Align.CENTER)
+            about.append(Gtk.Label(label=setting["label"], xalign=0, wrap=True,
+                                   max_width_chars=36, css_classes=["kidux-module-name"]))
+            if setting.get("description"):
+                about.append(Gtk.Label(label=setting["description"], xalign=0, wrap=True,
+                                       max_width_chars=36, css_classes=["kidux-field-label"]))
+            grid.attach(about, 0, number, 1, 1)
+            for column, child in enumerate(kids, start=1):
+                username = child["username"]
+                control = self._setting_control(module_id, username, setting,
+                                                values.get(username, {}).get(setting["key"]),
+                                                setting["key"] in secrets.get(username, []))
+                grid.attach(control, column, number, 1, 1)
+                if self._focus is None:
+                    self._focus = control
+        room = scroll.scroller(grid, horizontal=True)
+        room.set_propagate_natural_width(True)
+        middle.set_valign(Gtk.Align.FILL)
+        middle.append(room)
+
+    def _setting_control(self, module_id: str, username: str, setting: dict, value,
+                         secret_set: bool) -> Gtk.Widget:
+        """The control of a setting's kind for one child, which saves itself
+        when it is changed: a switch when flipped, a number when it moves, a
+        text or a secret when Enter is pressed or the focus leaves it."""
+        key, kind = setting["key"], setting["kind"]
+
+        def save(new_value) -> None:
+            self.run("set_module_setting", module_id, username, key, new_value)
+
+        if kind == "switch":
+            switch = Gtk.Switch(active=bool(value), halign=Gtk.Align.CENTER,
+                                valign=Gtk.Align.CENTER)
+            switch.connect("notify::active", lambda widget, _spec: save(widget.get_active()))
+            return switch
+        if kind in ("integer", "number"):
+            low = setting.get("minimum")
+            high = setting.get("maximum")
+            spin = Gtk.SpinButton.new_with_range(-1e6 if low is None else low,
+                                                 1e6 if high is None else high,
+                                                 1 if kind == "integer" else 0.1)
+            spin.set_digits(0 if kind == "integer" else 2)
+            spin.set_value(float(value or 0))
+            spin.set_valign(Gtk.Align.CENTER)
+
+            def moved(widget) -> None:
+                number = widget.get_value()
+                save(int(round(number)) if kind == "integer" else float(number))
+
+            spin.connect("value-changed", moved)
+            return spin
+        entry = Gtk.PasswordEntry(show_peek_icon=True) if kind == "secret" else Gtk.Entry()
+        entry.set_valign(Gtk.Align.CENTER)
+        entry.set_size_request(220, -1)
+        if kind == "secret":
+            if secret_set:
+                entry.set_property("placeholder-text", self._(words.SECRET_IS_SET))
+        else:
+            entry.set_text(str(value or ""))
+        said = {"text": entry.get_text()}
+
+        def done(*_args) -> None:
+            text = entry.get_text()
+            if text == said["text"] or (kind == "secret" and not text):
+                return
+            said["text"] = text
+            save(text)
+
+        entry.connect("activate", done)
+        leaving = Gtk.EventControllerFocus()
+        leaving.connect("leave", done)
+        entry.add_controller(leaving)
+        if kind == "secret" and secret_set:
+            box = Gtk.Box(spacing=8, valign=Gtk.Align.CENTER)
+            box.append(entry)
+            box.append(self._button(words.SECRET_FORGET, lambda: save(""), quiet=True))
+            return box
+        return entry
+
     @staticmethod
     def _narrow_modules(typed: str, matchable: list[tuple[str, list[Gtk.Widget]]]) -> None:
         """Show only the rows whose words hold every word typed, in any
@@ -1489,6 +1590,13 @@ class View:
                 in_row.append(switch)
                 if self._focus is None or self._flipped == (username, row["id"]):
                     self._focus = switch
+            if row.get("settings") and row["id"] != installing:
+                settings = self._button(words.MODULE_SETTINGS,
+                                        self._ask("module_settings", row["id"]))
+                settings.set_valign(Gtk.Align.CENTER)
+                settings.set_sensitive(not busy)
+                grid.attach(settings, len(kids) + 1, number, 1, 1)
+                in_row.append(settings)
             if row["id"] == installing:
                 # Its manifest is in place before its install has ended.
                 remove = self._progress(update or {}, words.INSTALLING_MODULE)
@@ -1498,7 +1606,7 @@ class View:
                                       destructive=True)
                 remove.set_valign(Gtk.Align.CENTER)
                 remove.set_sensitive(not busy)
-            grid.attach(remove, len(kids) + 1, number, 1, 1)
+            grid.attach(remove, len(kids) + 2, number, 1, 1)
             in_row.append(remove)
             if row["id"] == confirm_remove:
                 asked = row

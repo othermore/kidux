@@ -31,6 +31,7 @@ on this machine's graphics. A line that is not a flag is left out and said.
 import os
 import shlex
 import sys
+from urllib.parse import urlencode
 
 from kidux import modules, paths
 
@@ -69,11 +70,24 @@ def bypass(module: modules.Module) -> str:
     return ";".join(["127.0.0.1", *(f"{host};*.{host}" for host in module.hosts)])
 
 
-def address(module: modules.Module, lang: str) -> str:
-    """Where Chromium opens: the server's application, or the website, with
-    {lang} the child's language."""
+def settings(environ) -> dict[str, str]:
+    """What an adult set in the module for this child (D90), as the
+    launcher put it in the environment: KIDUX_SETTING_TYPE_IN=0 is type_in."""
+    found = {}
+    for name, value in environ.items():
+        key = name[len("KIDUX_SETTING_"):].lower() if name.startswith("KIDUX_SETTING_") else ""
+        if modules.SETTING_KEY.match(key):
+            found[key] = value
+    return dict(sorted(found.items()))
+
+
+def address(module: modules.Module, lang: str, environ=None) -> str:
+    """Where Chromium opens: the server's application, with the child's
+    language and the module's settings, or the website, with {lang} the
+    child's language."""
     if isinstance(module.launch.get("webapp"), str):
-        return f"{SERVER}/{module.launch['webapp']}/?lang={lang}"
+        query = urlencode({"lang": lang, **settings(environ or {})})
+        return f"{SERVER}/{module.launch['webapp']}/?{query}"
     if modules.web_host(module.launch):
         return module.launch["web"].replace("{lang}", lang)
     raise ValueError(f"module {module.id} is neither a web application nor a website")
@@ -83,7 +97,7 @@ def argv(module: modules.Module, environ, flags=()) -> list[str]:
     """Chromium's command line for `module`, the machine's `flags` after
     Kidux's own; ValueError for a module that is not made of web pages."""
     lang = language(environ)
-    url = address(module, lang)
+    url = address(module, lang, environ)
     config = environ.get("XDG_CONFIG_HOME") or os.path.join(environ.get("HOME", ""), ".config")
     command = [
         CHROMIUM,

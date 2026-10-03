@@ -65,12 +65,13 @@ def test_the_page_holds_every_language_its_words_and_its_chapters(tmp_path):
     assert "@PAGES@" not in html
 
 
-def test_the_guide_s_four_conventions(tmp_path):
+def test_the_guide_s_five_conventions(tmp_path):
     words = {"typeIn": "Type it in for me", "adult": "For the adult"}
     heading, html = builder().chapter(
         "# A chapter\n\nWords.\n\n> [point] Look **here**.\n\n"
         "```basic keys=Leo,Enter\n10 INPUT \"NAME? \"; N$\n20 PRINT N$ < 3\n```\n\n"
-        "![A penguin](mascot.svg)\n\n::: adult\nFor *you*.\n:::\n",
+        "![A penguin](mascot.svg)\n\n::: adult\nFor *you*.\n:::\n\n"
+        "::: type-in\nThe button *types*.\n:::\n",
         PACKAGE / "drawings", words)
 
     assert heading == "A chapter"
@@ -80,6 +81,7 @@ def test_the_guide_s_four_conventions(tmp_path):
     assert '<div class="bubble"><svg aria-hidden="true"' in html and "<strong>here</strong>" in html
     assert '<figure class="drawing"><svg role="img" aria-label="A penguin"' in html
     assert '<details class="adult"><summary>For the adult</summary><p>For <em>you</em>.</p></details>' in html
+    assert '<div class="type-in-note"><p>The button <em>types</em>.</p></div>' in html
 
 
 def test_every_drawing_a_chapter_names_is_there():
@@ -110,3 +112,15 @@ def test_every_listing_of_the_guide_runs(listing, tmp_path):
         return
     assert result["error"] is None, f"{listing['code']}\n{result}"
     assert result["ended"] or listing["forever"], f"it did not end: {listing['code']}\n{result}"
+
+
+def test_type_in_for_me_switched_off_hides_the_buttons_and_what_speaks_of_them():
+    # D90: the adult's setting reaches the page as ?type_in=0.
+    template = (PACKAGE / "webapp" / "index.html.in").read_text()
+    style = (PACKAGE / "webapp" / "style.css").read_text()
+
+    assert '.get("type_in") === "0"' in template and 'classList.add("no-type-in")' in template
+    assert ".no-type-in .type-in, .no-type-in .type-in-note { display: none; }" in style
+    for language in ("en", "es"):
+        assert "::: type-in" in (CONTENT / language / "01-hello.md").read_text()
+

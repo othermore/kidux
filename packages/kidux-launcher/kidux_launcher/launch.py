@@ -107,10 +107,20 @@ def stop(module_id: str) -> None:
 WEBAPP = "/usr/libexec/kidux-webapp"
 
 
-def command(module, home: str) -> list[str]:
+def setting_text(value) -> str:
+    """A setting's value as the environment carries it: a switch 1 or 0,
+    a number as Python writes it, a text as it is."""
+    if isinstance(value, bool):
+        return "1" if value else "0"
+    return str(value)
+
+
+def command(module, home: str, settings: dict | None = None) -> list[str]:
     """The argv that starts `module` for the child whose home is `home`: its
     program, or for a web application or a website `kidux-webapp <module
-    id>`, which reads the module's manifest, in the scope.
+    id>`, which reads the module's manifest, in the scope. `settings`, what
+    an adult set in it for this child (D90), go into its environment as
+    KIDUX_SETTING_<KEY>.
 
     A web application whose name is not an id raises ValueError, as does a
     manifest with nothing to start.
@@ -133,5 +143,8 @@ def command(module, home: str) -> list[str]:
         f"--setenv=XDG_DATA_HOME={data}",
         f"--setenv=XDG_CONFIG_HOME={config}",
         f"--setenv=XDG_CACHE_HOME={cache}",
+        *(f"--setenv=KIDUX_SETTING_{key.upper()}={setting_text(value)}"
+          for key, value in sorted((settings or {}).items())
+          if kidux_modules.SETTING_KEY.match(key)),
         "--",
     ] + started

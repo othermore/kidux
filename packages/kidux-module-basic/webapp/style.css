@@ -173,3 +173,6 @@ dialog #yes { background: var(--sun); }
   .screen { height: auto; width: 100%; }
   .guide { height: auto; overflow: visible; }
 }
+
+/* Type it in for me, switched off by an adult for the child (D90). */
+.no-type-in .type-in, .no-type-in .type-in-note { display: none; }

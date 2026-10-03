@@ -40,15 +40,18 @@ them; Kidux knows only the kinds. A list of tables,
 key = "type_in"                 # [a-z][a-z0-9_]{0,31}
 kind = "switch"                 # switch | integer | number | text | secret
 label = "Type it in for me"     # English, translated through i18n_domain
-help = "A button under each program of the guide types it into the editor."
+description = "A button under each program of the guide types it into the editor."
+                                # what it does, required, translated the same way
 default = true                  # of the kind; text and secret default to ""
 min = 0                         # integer and number only, optional
 max = 10                        # integer and number only, optional
 ```
 
 read into `Module.settings`, a tuple of a small dataclass; a setting
-whose table is wrong, or whose default is not of its kind, is dropped
-with a line in the log, as `app_ids` is.
+whose table is wrong, which does not say what it does in a
+`description`, or whose default is not of its kind, is dropped with a
+line in the log, as `app_ids` is. The panel shows each setting's label
+and, under it, its description, both in the adult's language.
 
 **Where they are kept** (kidux-daemon): per child, in the child's state
 directory the daemon already keeps, root's alone (`modules.toml`, a table

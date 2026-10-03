@@ -11,7 +11,7 @@ the module's own catalogue, compiled into
 <locale dir>/<lang>/LC_MESSAGES/kidux-module-basic.mo.
 
 A chapter is a Markdown file, content/<lang>/NN-name.md, its first line the
-heading, read with four conventions and no others (docs/dev/basic.md):
+heading, read with five conventions and no others (docs/dev/basic.md):
 
 - a fenced block marked `basic` is a listing, shown as the screen prints
   it, with a button that types it into the editor; after `basic`,
@@ -25,6 +25,9 @@ heading, read with four conventions and no others (docs/dev/basic.md):
   [oops];
 - the lines between `::: adult` and `:::` are the box for the adult, shut
   until it is opened;
+- the lines between `::: type-in` and `:::` speak of *Type it in for me*,
+  and are not shown when an adult has switched the button off for the
+  child (D90);
 - a picture, ![words](name.svg), is a drawing from the drawings directory,
   put into the page as it is, with its words for those who cannot see it.
 """
@@ -80,6 +83,7 @@ WORDS = {
 POSES = ("think", "point", "cheer", "oops")
 LISTING = re.compile(r"^```basic(?P<info>[^\n]*)\n(?P<code>.*?)\n```[ \t]*$", re.M | re.S)
 ADULT = re.compile(r"^::: adult[ \t]*\n(?P<body>.*?)\n:::[ \t]*$", re.M | re.S)
+TYPE_IN = re.compile(r"^::: type-in[ \t]*\n(?P<body>.*?)\n:::[ \t]*$", re.M | re.S)
 QUOTE = re.compile(r"(?:^>[^\n]*(?:\n|$))+", re.M)
 DRAWING = re.compile(r'<img alt="(?P<alt>[^"]*)" src="(?P<name>[a-z0-9-]+\.svg)" ?/?>')
 
@@ -131,6 +135,9 @@ def chapter(text: str, drawings: Path, words: dict, number: int | None = None) -
         inner = render(found["body"])
         return keep(f'<details class="adult"><summary>{html.escape(words["adult"])}</summary>{inner}</details>')
 
+    def type_in(found: re.Match) -> str:
+        return keep(f'<div class="type-in-note">{render(found["body"])}</div>')
+
     def quote(found: re.Match) -> str:
         said = "\n".join(re.sub(r"^> ?", "", line) for line in found[0].rstrip("\n").split("\n"))
         pose = ""
@@ -153,6 +160,7 @@ def chapter(text: str, drawings: Path, words: dict, number: int | None = None) -
     rest = lines[1] if len(lines) > 1 else ""
     rest = LISTING.sub(listing, rest)
     rest = ADULT.sub(adult, rest)
+    rest = TYPE_IN.sub(type_in, rest)
     rest = QUOTE.sub(quote, rest)
     out = render(rest)
     out = re.sub(r"<p>KEPT(\d+)KEPT</p>", lambda found: kept[int(found[1])], out)

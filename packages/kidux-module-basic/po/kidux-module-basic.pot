@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidux-module-basic 0.1.0\n"
 "Report-Msgid-Bugs-To: info@kidux.org\n"
-"POT-Creation-Date: 2026-10-03 10:33+0200\n"
+"POT-Creation-Date: 2026-10-03 16:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,14 @@ msgstr ""
 msgid ""
 "BASIC as it was on the first home computers, with its guide beside it: write "
 "a program, press Run, and see. It draws, colours and sounds too."
+msgstr ""
+
+msgid "Type it in for me"
+msgstr ""
+
+msgid ""
+"A button under each program of the guide types it into the editor. Off, the "
+"child types every program."
 msgstr ""
 
 msgid "Run"
@@ -113,9 +121,6 @@ msgid "Next"
 msgstr ""
 
 msgid "Chapters"
-msgstr ""
-
-msgid "Type it in for me"
 msgstr ""
 
 msgid "For the adult"

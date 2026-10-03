@@ -138,6 +138,12 @@ stack, the machine first.
   opens the same dialog on `.bas` files. The guide's *Type it in for me*
   puts a listing in the editor, asking first when the editor holds the
   child's own work.
+- **Type it in for me is an adult's setting** for each child (D90): the
+  manifest declares `type_in`, a switch, on by default, which the panel
+  shows in BASIC's *Settings*. Off, `kidux-webapp` opens the page with
+  `type_in=0` in its address, and the page puts `no-type-in` on its root,
+  which hides every *Type it in for me* and every passage of the guide
+  marked `::: type-in`.
 
 The guide shows one chapter at a time with *Back*, *Next* and
 *Chapters*, and remembers the chapter it was on, `kidux-basic-chapter`.
@@ -161,7 +167,7 @@ heading, and its translation `content/es/NN-slug.md` with the English
 file's hash in its front matter, which `tests/project/content.py` checks
 and `--update` writes. `page.py` reads every language's chapters at build
 time with `python3-markdown` and writes them, with the page's words from
-the module's catalogue, into `index.html`. Four conventions, and no
+the module's catalogue, into `index.html`. Five conventions, and no
 others:
 
 - **A listing** is a fenced block marked `basic`. It is shown as the
@@ -178,6 +184,8 @@ others:
   `[cheer]` or `[oops]`, or standing.
 - **`::: adult`** to **`:::`** is the box for the adult, closed until it
   is opened.
+- **`::: type-in`** to **`:::`** speaks of *Type it in for me*, and is
+  not shown when an adult has switched it off for the child.
 - **A picture**, `![words](name.svg)`, is a drawing from `drawings/`, put
   into the page as it is, its words read to those who cannot see it.
   Drawings are outside `content/` because every directory there is a
@@ -235,7 +243,7 @@ catalogue and a directory of chapters, and no change to the code.
   the editor's line turned into a BASIC number, and the letters handed to
   the screen.
 - `tests/test_guide.py`: the page holds every language's words and
-  chapters, each numbered as its file is, the four conventions, every drawing named is there, the same
+  chapters, each numbered as its file is, the five conventions, every drawing named is there, the same
   chapters in every language, and every listing of the guide, in every
   language, runs through `run-basic.js` without an error and ends unless
   it is `forever`, or, marked `mistake`, stops BASIC before it prints.

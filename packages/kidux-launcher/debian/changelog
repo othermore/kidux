@@ -1,3 +1,10 @@
+kidux-launcher (0.3.19) trixie; urgency=medium
+
+  * A module starts with what an adult set in it for the child in its
+    environment.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 16:47:36 +0200
+
 kidux-launcher (0.3.18) trixie; urgency=medium
 
   * A module that opens a website starts as a web application does, by

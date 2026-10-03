@@ -1,3 +1,10 @@
+kidux-greeter (0.2.55) trixie; urgency=medium
+
+  * The Modules page opens the settings a module declares, for each
+    child, and saves each when it is changed.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 16:50:07 +0200
+
 kidux-greeter (0.2.54) trixie; urgency=medium
 
   * While a module installs, the Modules page stays where the adult had

@@ -145,3 +145,12 @@ def test_print_shows_the_command_line_and_runs_nothing(tmp_path, monkeypatch, ca
     assert printed.startswith("/usr/bin/chromium ") and printed.rstrip().endswith(
         "'--app=http://127.0.0.1:8123/hello-web/?lang=es' --disable-gpu")
     assert "--proxy-server=127.0.0.1:1 --proxy-bypass-list=127.0.0.1 " in printed
+
+
+def test_an_adult_s_settings_go_to_a_web_application_in_its_address():
+    # D90: the launcher puts them in the environment, the page reads them.
+    child = {**CHILD, "KIDUX_SETTING_TYPE_IN": "0", "KIDUX_SETTING_BAD KEY": "x"}
+
+    assert webapp.argv(HELLO, child)[-1] == "--app=http://127.0.0.1:8123/hello-web/?lang=es&type_in=0"
+    # A website gets nothing of them.
+    assert webapp.argv(COMBAT, child)[-1] == "--app=https://codecombat.com/"

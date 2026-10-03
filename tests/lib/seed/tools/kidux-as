@@ -177,6 +177,27 @@ elif action == "set-config":
     except GLib.Error as error:
         print(Gio.DBusError.get_remote_error(error))
         sys.exit(2)
+elif action == "set-setting":
+    # One of a module's settings for a child, its value as JSON (D90):
+    # set-setting leo basic type_in false. Prints the error's name when the
+    # daemon refuses it.
+    import json
+    value = json.loads(sys.argv[5])
+    variant = (GLib.Variant("b", value) if isinstance(value, bool)
+               else GLib.Variant("i", value) if isinstance(value, int)
+               else GLib.Variant("d", value) if isinstance(value, float)
+               else GLib.Variant("s", str(value)))
+    try:
+        call("Modules1", "SetSetting", "(ssssv)",
+             (unlock(), sys.argv[2], sys.argv[3], sys.argv[4], variant))
+    except GLib.Error as error:
+        print(Gio.DBusError.get_remote_error(error))
+        sys.exit(2)
+elif action == "my-settings":
+    # A module's settings as the child running this sees them, as JSON.
+    import json
+    print(json.dumps(call("Modules1", "MySettings", "(s)", (sys.argv[2],), "(a{sv})")[0],
+                     sort_keys=True))
 elif action in ("check-updates", "apply-updates", "install", "remove"):
     # One job, start to end: prints the outcome, the packages and any detail;
     # exits 2 with the error's name when the daemon refuses to start it.

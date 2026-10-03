@@ -16,7 +16,7 @@ Rules-Requires-Root: no
 Package: kidux-module-basic
 Architecture: all
 Depends: ${misc:Depends},
-         kidux-webapps (>= 0.1.9),
+         kidux-webapps (>= 0.1.11~),
 XB-Kidux-Name-en: BASIC
 XB-Kidux-Description-en: BASIC as it was on the first home computers, with its guide beside it: write a program, press Run, and see. It draws, colours and sounds too.
 XB-Kidux-Name-es: BASIC
