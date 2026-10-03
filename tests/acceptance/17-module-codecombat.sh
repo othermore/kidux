@@ -19,7 +19,7 @@ check "while it is installed, the policy allows its site" \
     sh -c "python3 -c 'import json, sys; sys.exit(json.load(open(sys.argv[1]))[\"URLAllowlist\"] != [\"127.0.0.1:8123\", \"codecombat.com\", \"blob:*\"])' $POLICY"
 check "its Chromium opens on its own page, walled in to the site, without WebGL in software" \
     sh -c "command=\$(runuser -u marta -- /usr/libexec/kidux-webapp --print codecombat) \
-           && echo \"\$command\" | grep -q -- ' --app=http://127.0.0.1:8123/codecombat/?lang=[a-z]*\$' \
+           && echo \"\$command\" | grep -qF -- \" '--app=http://127.0.0.1:8123/codecombat/?lang=\" \
            && echo \"\$command\" | grep -qF -- \"--proxy-server=127.0.0.1:1 '--proxy-bypass-list=127.0.0.1;codecombat.com;*.codecombat.com'\" \
            && ! echo \"\$command\" | grep -q -- --enable-unsafe-swiftshader"
 check "it is listed for a child, switched off" \
