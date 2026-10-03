@@ -373,9 +373,10 @@ the panel, the installer, the modules and the lesson content.
 
 ## 8. Technology per module
 
-Verified against trixie on 2026-09-22 (`qa.debian.org/madison`), and the
-typing and Scratch family's rows in phase 4, on 2026-10-01, against what
-was built and tested.
+Verified against trixie on 2026-09-22 (`qa.debian.org/madison`), the
+typing and Scratch family's rows in phase 4, on 2026-10-01, and the BASIC,
+CodeCombat and Wikipedia rows on 2026-10-03 (phase-4b-plan.md), against
+what was built and tested.
 
 | Module | Choice | Source | Why |
 |---|---|---|---|

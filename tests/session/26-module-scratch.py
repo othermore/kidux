@@ -32,6 +32,10 @@ from sessionlib import (
 #: Scratch's menu bar along the top of the editor, and the bar below it.
 MENU_PURPLE = (0x85, 0x5C, 0xD6)
 MENU_BAR = (0.0, 0.0, 1.0, 0.06)
+#: The cat of the project the editor starts with, on its stage: there once
+#: the project has loaded, which takes longer on a busy machine.
+CAT_ORANGE = (0xFF, 0xAB, 0x19)
+STAGE = (0.62, 0.12, 0.99, 0.56)
 BAR = (0xF2, 0xE2, 0xCC)
 BAR_BOX = (0.0, 0.94, 1.0, 1.0)
 
@@ -74,6 +78,7 @@ def run(machine: Machine) -> None:
     wait(lambda: on_screen() == "scratch", 10)
     # Its title is there before the editor is drawn: wait for its menu bar.
     machine.showing(MENU_PURPLE, MENU_BAR)
+    machine.showing(CAT_ORANGE, STAGE, share=0.005)
     machine.still(15)
     picture = machine.screenshot("module-scratch")
     window = scratch_window()
