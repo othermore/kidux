@@ -907,6 +907,20 @@ vez; esa pregunta es de la propia web.
 
 ![CodeCombat](../images/es/module-codecombat.png)
 
+### Wikipedia
+
+**Wikipedia** es una puerta a la enciclopedia entera, en el idioma del
+niño, y a los proyectos que enlaza, como Wikcionario y Wikilibros. Es la
+Wikipedia que lee todo el mundo, escrita para todos y no solo para niños,
+así que un adulto decide si un niño la lee, a partir de los ocho años. Un
+enlace que salga de Wikipedia y sus proyectos no lleva a ninguna parte.
+
+La ventana no tiene botón para volver atrás: **Alt+Izquierda** vuelve a la
+página anterior, y también el botón de volver de un ratón que lo tenga.
+Necesita internet siempre que se usa.
+
+![Wikipedia](../images/es/module-wikipedia.png)
+
 ## 10. Actualizar y reinstalar
 
 Las actualizaciones de seguridad se instalan solas, en segundo plano, tanto

@@ -1,0 +1,34 @@
+Source: kidux-module-wikipedia
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.53~) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-wikipedia
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-webapps (>= 0.1.10~),
+XB-Kidux-Name-en: Wikipedia
+XB-Kidux-Description-en: Wikipedia, the whole encyclopedia, in the child's language, with the rest of the internet closed. It is written for everyone, not only for children.
+XB-Kidux-Name-es: Wikipedia
+XB-Kidux-Description-es: Wikipedia, la enciclopedia entera, en el idioma del niño, con el resto de internet cerrado. Está escrita para todo el mundo, no solo para niños.
+XB-Kidux-Ages: 8-
+Description: Kidux learning module: Wikipedia, a door to the encyclopedia
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module opens Wikipedia in the child's language, in a window of its own,
+ with the Wikimedia projects it links to, Wiktionary, Wikibooks and the
+ others, and no other website: a link to anywhere else leads nowhere. It
+ is the whole of Wikipedia, written for everyone and not only for
+ children, so an adult decides whether a child reads it.
+ .
+ It needs the internet whenever it is used.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

@@ -114,6 +114,9 @@ Los módulos que ofrece Kidux:
   donde se aprende Python y JavaScript jugando; necesita internet y una
   cuenta, de pago para casi todo, y Kidux no tiene ninguna relación con
   CodeCombat.
+- Wikipedia: una puerta a toda la [Wikipedia](https://www.wikipedia.org/),
+  en el idioma del niño, y a sus proyectos hermanos, con el resto de
+  internet cerrado; está escrita para todo el mundo, no solo para niños.
 
 ![GCompris](docs/images/es/module-gcompris.png)
 

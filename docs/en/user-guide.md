@@ -882,6 +882,20 @@ site's own question.
 
 ![CodeCombat](../images/en/module-codecombat.png)
 
+### Wikipedia
+
+**Wikipedia** is a door to the whole encyclopedia, in the child's
+language, and to the projects it links to, such as Wiktionary and
+Wikibooks. It is Wikipedia as everyone reads it, written for everyone and
+not only for children, so an adult decides whether a child reads it, from
+eight up. A link out of Wikipedia and its projects leads nowhere.
+
+The window has no back button: **Alt+Left** goes back to the page before,
+and so does a mouse's own back button. It needs the internet whenever it
+is used.
+
+![Wikipedia](../images/en/module-wikipedia.png)
+
 ## 10. Updates and reinstalling
 
 Security updates install themselves in the background, from Debian and

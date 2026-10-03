@@ -116,6 +116,7 @@ can. Each phase assumes what it builds on is reasonably stable.
       that site's hosts (4.12, D85).
 - [x] CodeCombat, a door to codecombat.com, nothing of it shipped, not
       connected with CodeCombat (4.13, D86).
+- [x] Wikipedia, a door to the encyclopedia (4.14, D87).
 
 ## Phase 5 — AI learning module
 - [ ] `kidux-ai-gateway`: adult-held credentials, guardrails, logging visible to

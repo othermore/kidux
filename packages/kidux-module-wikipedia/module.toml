@@ -1,0 +1,17 @@
+# Wikipedia: a door to the encyclopedia, in the child's language (D85,
+# D87). Nothing of it is shipped: it is read on its own site.
+id = "wikipedia"
+version = "0.1.0"
+name = "Wikipedia"
+description = "Wikipedia, the whole encyclopedia, in the child's language, with the rest of the internet closed. It is written for everyone, not only for children."
+min_age = 8
+launch = { web = "https://{lang}.wikipedia.org/" }
+# Wikipedia, Wikimedia (its pictures and its sign-in) and the sister
+# projects a link in an article leads to. Chromium's net log, over the
+# front page, a search and an article, shows nothing else of theirs.
+hosts = ["wikipedia.org", "wikimedia.org", "wikidata.org", "wiktionary.org",
+         "wikibooks.org", "wikiquote.org", "wikisource.org", "wikinews.org",
+         "wikiversity.org", "wikivoyage.org", "mediawiki.org", "wikifunctions.org"]
+categories = ["reading"]
+i18n_domain = "kidux-module-wikipedia"
+memory_max = "2G"

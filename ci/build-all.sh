@@ -39,6 +39,7 @@ kidux-module-turbowarp
 kidux-module-blockly-games
 kidux-module-basic
 kidux-module-codecombat
+kidux-module-wikipedia
 kidux-webapps
 kidux-module-hello-web
 kidux-session

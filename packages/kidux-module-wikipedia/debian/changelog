@@ -1,0 +1,5 @@
+kidux-module-wikipedia (0.1.0) trixie; urgency=medium
+
+  * Initial release: a door to Wikipedia, in the child's language.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 12:49:44 +0200

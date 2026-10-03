@@ -1,0 +1,19 @@
+<!-- Wikipedia: an open book, on a sky-blue circle. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <circle cx="64" cy="64" r="60" fill="#cfe3f3"/>
+  <!-- the covers -->
+  <path d="M18 42 C34 36 50 38 64 46 C78 38 94 36 110 42 L110 96 C94 90 78 92 64 100 C50 92 34 90 18 96 Z"
+        fill="#24313f"/>
+  <!-- the pages -->
+  <path d="M24 40 C38 35 52 37 64 45 L64 93 C52 86 38 84 24 88 Z" fill="#fdf6f0"/>
+  <path d="M104 40 C90 35 76 37 64 45 L64 93 C76 86 90 84 104 88 Z" fill="#fdf6f0"/>
+  <!-- the lines of text -->
+  <g stroke="#3b2f2a" stroke-width="3" stroke-linecap="round" opacity="0.55">
+    <path d="M32 50 C40 48 48 49 56 53"/><path d="M32 59 C40 57 48 58 56 62"/>
+    <path d="M32 68 C40 66 48 67 56 71"/><path d="M32 77 C40 75 46 76 50 78"/>
+    <path d="M72 53 C80 49 88 48 96 50"/><path d="M72 62 C80 58 88 57 96 59"/>
+    <path d="M72 71 C80 67 88 66 96 68"/>
+  </g>
+  <!-- a bookmark -->
+  <path d="M84 30 L94 30 L94 52 L89 47 L84 52 Z" fill="#f0a202"/>
+</svg>

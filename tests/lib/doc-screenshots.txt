@@ -47,5 +47,6 @@ module-scratchjr        module-scratchjr.png
 module-blockly-games    module-blockly-games.png
 module-basic            module-basic.png
 module-codecombat       module-codecombat.png
+module-wikipedia        module-wikipedia.png
 launcher-modules        launcher-modules.png
 windows-modules         windows-modules.png

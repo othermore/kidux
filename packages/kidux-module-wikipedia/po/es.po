@@ -1,0 +1,27 @@
+# Spanish translation for kidux-module-wikipedia.
+# Copyright (C) 2026 Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-wikipedia package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-wikipedia 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-10-03 12:49+0200\n"
+"PO-Revision-Date: 2026-10-03 12:50+0200\n"
+"Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wikipedia"
+msgstr "Wikipedia"
+
+msgid ""
+"Wikipedia, the whole encyclopedia, in the child's language, with the rest of "
+"the internet closed. It is written for everyone, not only for children."
+msgstr ""
+"Wikipedia, la enciclopedia entera, en el idioma del niño, con el resto de "
+"internet cerrado. Está escrita para todo el mundo, no solo para niños."
