@@ -1,3 +1,9 @@
+kidux-common (0.1.54) trixie; urgency=medium
+
+  * The catalogue's references follow the sign-in screen's code.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 15:32:27 +0200
+
 kidux-common (0.1.53) trixie; urgency=medium
 
   * A module may open a website: launch.web, an https:// address, and
