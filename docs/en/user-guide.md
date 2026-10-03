@@ -588,7 +588,8 @@ modules to do first.
   appears above, switched off for every child.
 - **Remove**, at the end of an installed module's row, asks once and takes
   the module off the computer. What each child made with it stays in their
-  own folders.
+  own folders, and what the module kept for each child, such as their
+  progress and settings, stays too: installed again, it finds them.
 - **Look for modules** asks Kidux for what it offers now. It needs an
   internet connection.
 
@@ -767,7 +768,7 @@ to twelve, and GCompris, which teaches the keyboard's letters first, is a
 good start before it.
 
 Tux Typing keeps its scores and its settings for itself, not in the
-child's folders, and removing the module removes them.
+child's folders; removing the module keeps them for when it comes back.
 
 ![Tux Typing](../images/en/module-tuxtype.png)
 
@@ -792,7 +793,8 @@ ideas behind programming with blocks: guiding a character through a maze,
 flying a bird, drawing with a turtle, making a movie and music. They are
 for children from six to twelve who read a little, in the child's
 language, and they work without the internet. The games remember how far
-the child has got, and removing the module forgets it.
+the child has got, and removing the module keeps that for when it comes
+back.
 
 ![Blockly Games](../images/en/module-blockly-games.png)
 
@@ -860,6 +862,25 @@ what name, as a `.bas` file; **Open** opens the same window to bring one
 back.
 
 ![BASIC](../images/en/module-basic.png)
+
+### CodeCombat
+
+**CodeCombat** is a door to the CodeCombat website, where children from
+nine learn to write real Python and JavaScript by playing: a hero walks
+through each level as the child's program tells it. The site is
+CodeCombat's, in the child's language, and the module opens it and no
+other website. Kidux has no connection with CodeCombat.
+
+It needs the internet, and a CodeCombat account. The first levels are
+free; most of the site needs a subscription, which an adult buys on
+another computer, since the module opens no other site. The child signs
+in with the account's email address and password: signing in through
+Google, Facebook or Clever leads nowhere here. The site keeps the child
+signed in only while its window is open, so it asks again each time the
+module is opened. It may ask about its cookies the first time; that is the
+site's own question.
+
+![CodeCombat](../images/en/module-codecombat.png)
 
 ## 10. Updates and reinstalling
 

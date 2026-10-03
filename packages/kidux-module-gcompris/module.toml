@@ -3,7 +3,7 @@
 # that starts GCompris with its first questions answered (modules.md,
 # section 5).
 id = "gcompris"
-version = "0.1.8"
+version = "0.1.9"
 name = "GCompris"
 description = "Over a hundred activities: reading, counting, colours, the keyboard and the mouse. It needs the internet at first, to fetch its voices."
 min_age = 2

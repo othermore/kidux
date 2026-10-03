@@ -173,8 +173,9 @@ program of the child's user sees, the child's home above all, where the
 files a child makes in one module are there for every other (D42). What is
 the module's own is its settings, its data and its cache, in three
 directories under the child's home that the launcher makes, mode 0700,
-before the first start and hands it as the XDG variables, so that removing
-a module removes them and no other's. A web application (`launch = {
+before the first start and hands it as the XDG variables, so that they are
+its alone; removing the module leaves them in the child's home (D89). A
+web application (`launch = {
 webapp = "<id>" }`) or a website (`launch = { web = "https://…" }`) is
 started the same way, in its scope: the program is `/usr/libexec/kidux-webapp
 <module id>`, from `kidux-webapps`, which reads the module's manifest and

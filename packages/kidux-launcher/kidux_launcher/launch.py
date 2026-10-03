@@ -14,9 +14,9 @@ the program itself, so the launcher's child process is the module.
 A module sees what the child sees: their home, where the files they make
 are shared by every module (D42), and the machine as any program of the
 child's user sees it. What is the module's own is its settings and its
-cache, kept in directories of its own under the child's home so that
-removing the module removes them and no other module's. There is no
-sandbox: the child's Unix user is the boundary (D17).
+cache, kept in directories of its own under the child's home, apart from
+every other module's, which stay when the module is removed (D89). There
+is no sandbox: the child's Unix user is the boundary (D17).
 """
 
 import logging

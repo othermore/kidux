@@ -1,0 +1,20 @@
+# CodeCombat: a door to the CodeCombat website (D85, D86). Nothing of
+# CodeCombat is shipped: its levels are its own and live only on its site.
+id = "codecombat"
+version = "0.1.0"
+name = "CodeCombat"
+description = "The CodeCombat website, where you learn Python and JavaScript by playing. It needs the internet and a CodeCombat account, paid for most of it; Kidux is not connected with CodeCombat."
+min_age = 9
+max_age = 16
+recommended_before = ["scratch"]
+launch = { web = "https://codecombat.com/" }
+# Its pages, its levels and its accounts are all on codecombat.com: the
+# front page, the first level, signing in and the campaign's map, read from
+# Chromium's net log, need no other host. Left out: the front page's video,
+# on Cloudflare Stream; a sheet of fonts on CloudFront, without which the
+# site uses its own; Google's and Facebook's sign-ins and scripts, Stripe's
+# payments, and the site's analytics and advertising trackers.
+hosts = ["codecombat.com"]
+categories = ["programming"]
+i18n_domain = "kidux-module-codecombat"
+memory_max = "3G"

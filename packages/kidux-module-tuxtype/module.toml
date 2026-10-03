@@ -2,7 +2,7 @@
 # package holds this manifest, the tile, its words, and the small program
 # that starts Tux Typing in the child's language (modules.md, section 5).
 id = "tuxtype"
-version = "0.1.2"
+version = "0.1.3"
 name = "Tux Typing"
 description = "Learn to type: catch the falling letters and words with the keyboard, in the child's language."
 min_age = 6

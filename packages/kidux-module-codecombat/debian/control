@@ -1,0 +1,39 @@
+Source: kidux-module-codecombat
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.53~) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-codecombat
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-webapps (>= 0.1.10~),
+XB-Kidux-Name-en: CodeCombat
+XB-Kidux-Description-en: The CodeCombat website, where you learn Python and JavaScript by playing. It needs the internet and a CodeCombat account, paid for most of it; Kidux is not connected with CodeCombat.
+XB-Kidux-Name-es: CodeCombat
+XB-Kidux-Description-es: La web de CodeCombat, donde se aprende Python y JavaScript jugando. Necesita internet y una cuenta de CodeCombat, de pago para casi todo; Kidux no tiene ninguna relación con CodeCombat.
+XB-Kidux-Ages: 9-16
+XB-Kidux-Before: scratch
+Description: Kidux learning module: CodeCombat, a door to the CodeCombat website
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module opens the CodeCombat website, where children learn Python and
+ JavaScript by playing, in a window of its own, and no other website: a
+ link to anywhere else leads nowhere. Nothing of CodeCombat is in this
+ package; the site, its levels and its accounts are CodeCombat's.
+ .
+ It needs the internet and a CodeCombat account, and most of the site
+ needs a paid subscription, which an adult buys on another computer. The
+ child signs in with an email address and a password; signing in through
+ Google, Facebook or Clever does not work here.
+ .
+ Kidux and its author have no connection with CodeCombat Inc.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

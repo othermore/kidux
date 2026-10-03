@@ -14,8 +14,8 @@
 #
 # Tux Typing keeps its settings and a child's scores in ~/.tuxtype. It is
 # given the module's own XDG_DATA_HOME as its home, which the launcher makes
-# for it (modules.md, section 2), so that removing the module removes them
-# and the child's home is left as the child keeps it.
+# for it (modules.md, section 2), so that they are the module's alone, and
+# the child's home is left as the child keeps it.
 
 set -eu
 

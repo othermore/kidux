@@ -108,6 +108,10 @@ The modules Kidux offers:
 - BASIC: the language of the first home computers, through
   [wwwBASIC](https://github.com/google/wwwbasic), with a guide beside it
   for children from eight who read well, without the internet.
+- CodeCombat: a door to the [CodeCombat](https://codecombat.com/) website,
+  where children learn Python and JavaScript by playing; it needs the
+  internet and an account, paid for most of it, and Kidux has no
+  connection with CodeCombat.
 
 ![GCompris](docs/images/en/module-gcompris.png)
 

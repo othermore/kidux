@@ -19,8 +19,8 @@ hosts the module's manifest names: everything else fails. The managed
 policy, /etc/chromium/policies/managed/kidux.json, which
 kidux-chromium-policy writes from the installed modules, allows the server
 and those hosts and nothing else, whatever starts Chromium (D36, D85).
-Chromium's profile is the module's own, under its XDG_CONFIG_HOME, so
-removing the module removes it.
+Chromium's profile is the module's own, under its XDG_CONFIG_HOME, which
+stays when the module is removed (D89).
 
 After Kidux's own flags come the machine's, from /etc/kidux/chromium-flags,
 which the daemon writes from the panel's Advanced settings (D51, D52), so

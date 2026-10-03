@@ -46,5 +46,6 @@ module-turbowarp        module-turbowarp.png
 module-scratchjr        module-scratchjr.png
 module-blockly-games    module-blockly-games.png
 module-basic            module-basic.png
+module-codecombat       module-codecombat.png
 launcher-modules        launcher-modules.png
 windows-modules         windows-modules.png

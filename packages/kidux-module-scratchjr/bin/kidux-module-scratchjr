@@ -5,7 +5,7 @@
 # ScratchJR, which it makes: the child's own work, in their home, kept
 # when the module is removed (modules.md, section 2). Electron keeps its own
 # settings under the module's XDG_CONFIG_HOME, which the launcher gives it,
-# and which goes with the module.
+# and which stays when the module is removed too (D89).
 #
 # ScratchJr speaks the language the page is told the browser has, and
 # Electron does not take it from the session by itself: so it is given the

@@ -605,7 +605,9 @@ mismas edades y módulos que hacer antes.
   módulo aparece arriba, apagado para todos los niños.
 - **Eliminar**, al final de la fila de un módulo instalado, pregunta una
   vez y quita el módulo del ordenador. Lo que cada niño hizo con él se
-  queda en sus propias carpetas.
+  queda en sus propias carpetas, y lo que el módulo guardaba para cada
+  niño, como su avance y sus ajustes, también: si se vuelve a instalar, lo
+  encuentra.
 - **Buscar módulos** pregunta a Kidux qué ofrece ahora. Necesita conexión a
   internet.
 
@@ -788,7 +790,7 @@ doce años, y GCompris, que enseña primero las letras del teclado, es un
 buen comienzo antes.
 
 Tux Typing guarda sus puntuaciones y sus ajustes para sí, no en las
-carpetas del niño, y al quitar el módulo se quitan también.
+carpetas del niño; al quitar el módulo se conservan para cuando vuelva.
 
 ![Tux Typing](../images/es/module-tuxtype.png)
 
@@ -813,7 +815,8 @@ más difícil, las ideas de programar con bloques: guiar a un personaje por
 un laberinto, hacer volar un pájaro, dibujar con una tortuga, hacer una
 película y música. Son para niños de seis a doce años que ya leen un poco,
 en el idioma del niño, y funcionan sin internet. Los juegos recuerdan
-hasta dónde ha llegado el niño, y quitar el módulo lo olvida.
+hasta dónde ha llegado el niño, y al quitar el módulo se conserva para
+cuando vuelva.
 
 ![Juegos de Blockly](../images/es/module-blockly-games.png)
 
@@ -884,6 +887,25 @@ guardarlo y con qué nombre, como un archivo `.bas`; **Abrir** abre la
 misma ventana para traerlo de vuelta.
 
 ![BASIC](../images/es/module-basic.png)
+
+### CodeCombat
+
+**CodeCombat** es una puerta a la web de CodeCombat, donde los niños a
+partir de nueve años aprenden a escribir Python y JavaScript de verdad
+jugando: un héroe recorre cada nivel como le dice el programa del niño.
+La web es de CodeCombat, en el idioma del niño, y el módulo la abre a ella
+y a ninguna otra. Kidux no tiene ninguna relación con CodeCombat.
+
+Necesita internet y una cuenta de CodeCombat. Los primeros niveles son
+gratis; casi toda la web necesita una suscripción, que un adulto compra
+desde otro ordenador, porque el módulo no abre ninguna otra web. El niño
+entra con el correo y la contraseña de la cuenta: entrar con Google,
+Facebook o Clever no lleva a ninguna parte aquí. La web mantiene al niño
+dentro solo mientras su ventana está abierta, así que lo vuelve a pedir
+cada vez que se abre el módulo. Puede preguntar por sus cookies la primera
+vez; esa pregunta es de la propia web.
+
+![CodeCombat](../images/es/module-codecombat.png)
 
 ## 10. Actualizar y reinstalar
 

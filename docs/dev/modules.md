@@ -142,7 +142,7 @@ tile shows Kidux's mascot.
   this (section 4). What the child keeps
   is then a file in their home; what a page keeps in Chromium's own
   storage is under the module's settings directory, which no other module
-  reaches and which goes when the module is removed.
+  reaches and which stays when the module is removed (D89).
 - **A module may be a door to one website** (D85): the site's own pages,
   in a Chromium window like any web module's, and nothing else of the
   internet. It is for what cannot be shipped, a site whose content lives
@@ -154,8 +154,10 @@ tile shows Kidux's mascot.
 - Its own settings, data and cache go under `~/.config/kidux/<id>/`,
   `~/.local/share/kidux/<id>/` and `~/.cache/kidux/<id>/`, which the
   launcher creates and hands it as `XDG_CONFIG_HOME`, `XDG_DATA_HOME` and
-  `XDG_CACHE_HOME`, so that removing the module removes its settings and no
-  other module's. Into the first it links the child's `user-dirs.dirs` and
+  `XDG_CACHE_HOME`, so that its settings are its own and no other module's.
+  Removing the module leaves them in the child's home (D89): a child's
+  progress, settings and anything a module kept there for them are found
+  again when the module is installed again. Into the first it links the child's `user-dirs.dirs` and
   `user-dirs.locale`, where xdg-user-dirs looks them up: a program asking
   for Documents or Downloads finds the child's, named in their language,
   and not the home itself or an English `~/Downloads`.

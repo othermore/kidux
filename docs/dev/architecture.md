@@ -328,8 +328,9 @@ Beside it, `icon.svg`, the tile's picture. modules.md is the contract in full.
   trigger (modules.md section 4).
 - **Files.** The child's home is shared by every module: what a child makes in one
   is there for the next (D42). A module's own settings, data and cache go in three
-  XDG directories of its own under the child's home, so removing a module removes
-  its settings and no other module's. Web-app modules get a per-module Chromium
+  XDG directories of its own under the child's home, apart from every other
+  module's; removing a module leaves them, for when it is installed again (D89).
+  Web-app modules get a per-module Chromium
   profile directory and are held by Chromium's policy (D36).
 - **On screen.** Each open module's window fills the room above the launcher's
   bar under `labwc`, and the bar takes the child between them and closes the one
@@ -388,7 +389,7 @@ was built and tested.
 | micro:bit, blocks | MakeCode for micro:bit, `pxt staticpkg` build served locally | packaged by us (MIT upstream) | Official editor with simulator, offline, translated. Flashing over WebUSB in Chromium; hex download as fallback. |
 | micro:bit, Python | micro:bit Python Editor v3, static build served locally | packaged by us (MIT upstream) | Official editor with simulator and reference, offline, `es-ES` translation shipped upstream. Thonny is the advanced option once the child knows Python. |
 | Python | Our own course in Thonny 4.1: `turtle`, then Pygame Zero (`python3-pgzero`, Thonny has a built-in Pygame Zero mode), then micro:bit | `thonny` (trixie) | Real Python in a real editor, offline, free. This is the main road to Python. |
-| CodeCombat | optional online module | Chromium kiosk, network | Teaches real Python/JavaScript and is translated, but the levels are proprietary (`LICENSE-LEVELS.md`: not open source, not allowed on other servers), so it cannot be shipped locally. First world free, rest by subscription. |
+| CodeCombat | `kidux-module-codecombat`, a door to codecombat.com (D85, D86) | ours, nothing of CodeCombat's in it, step 4.13 | Teaches real Python/JavaScript and is translated, but the levels are proprietary (`LICENSE-LEVELS.md`: not open source, not allowed on other servers), so it cannot be shipped locally. First world free, rest by subscription bought by the adult. |
 | AI agents | `kidux-ai-gateway` (ours) | packaged by us | Local service that holds the adult's API key and applies guardrails; the child's projects talk to the gateway, never to the provider directly. Local models rejected for old hardware. |
 | Web (future) | Firefox ESR 140 in kiosk mode with policy-managed allow/deny lists | `firefox-esr` (trixie) | Enterprise policies give whitelist/blacklist without a proxy. |
 
@@ -1563,3 +1564,12 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   Apache licence asks. Nothing is added to wwwBASIC's language: a statement
   it lacks, such as `PLAY`'s tunes, is still left out of the guide
   (docs/dev/basic.md, section 2).
+
+- **D89 — A removed module's directories stay in the child's home.**
+  Decided 2026-10-03 by the owner, during step 4.13. Removing a module
+  removes its package, but not the three directories each child has of it,
+  `~/.config/kidux/<id>/`, `~/.local/share/kidux/<id>/` and
+  `~/.cache/kidux/<id>/`: they may hold a child's progress, settings or
+  work a module kept for itself, and a module installed again finds them.
+  The documents had said removing a module removed them, which nothing
+  did; they now say what is done.

@@ -112,9 +112,10 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [ ] Weigh offering wwwBASIC the fixes in kidux-module-basic's `patches/`
       as a pull request, documented and explained, once phase 4 is done
       (D88); the owner reviews and edits it before it is sent.
-- [ ] A web module that is a door to one website on the internet, held to
-      that site's hosts (4.12, D85): CodeCombat (4.13, D86) and Wikipedia
-      (4.14, D87) through it.
+- [x] A web module that is a door to one website on the internet, held to
+      that site's hosts (4.12, D85).
+- [x] CodeCombat, a door to codecombat.com, nothing of it shipped, not
+      connected with CodeCombat (4.13, D86).
 
 ## Phase 5 — AI learning module
 - [ ] `kidux-ai-gateway`: adult-held credentials, guardrails, logging visible to

@@ -10,8 +10,8 @@
 # language is the session's, and everything else is GCompris's own.
 #
 # The configuration is under the module's own XDG_CONFIG_HOME, which the
-# launcher gives it (modules.md, section 2), so removing the module removes
-# it; a configuration that is already there is never touched.
+# launcher gives it (modules.md, section 2), so it is the module's alone; a
+# configuration that is already there is never touched.
 #
 # GCompris starts in a window, --window, rather than asking for the whole
 # screen: the compositor gives it the room above the bar either way, and

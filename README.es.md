@@ -110,6 +110,10 @@ Los módulos que ofrece Kidux:
 - BASIC: el lenguaje de los primeros ordenadores de casa, con
   [wwwBASIC](https://github.com/google/wwwbasic), y una guía al lado para
   niños a partir de ocho años que ya leen bien, sin internet.
+- CodeCombat: una puerta a la web de [CodeCombat](https://codecombat.com/),
+  donde se aprende Python y JavaScript jugando; necesita internet y una
+  cuenta, de pago para casi todo, y Kidux no tiene ninguna relación con
+  CodeCombat.
 
 ![GCompris](docs/images/es/module-gcompris.png)
 
