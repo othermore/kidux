@@ -5,4 +5,4 @@ kidux-common is the library every component shares; `kiduxd` is the daemon's
 own code and nothing else imports it.
 """
 
-VERSION = "0.3.31"
+VERSION = "0.3.32"

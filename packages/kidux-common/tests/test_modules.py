@@ -152,3 +152,45 @@ def test_a_module_says_what_its_windows_are_called(tmp_path, caplog):
     # A web application's window is Chromium's, named after its address.
     assert modules.claims(web, "chrome-127.0.0.1__web_-Default")
     assert not modules.claims(web, "chrome-127.0.0.1__webby_-Default")
+
+
+def test_a_module_that_opens_a_website_reads_with_its_window_name(tmp_path):
+    # D85: a third kind of launch, an https:// address on the internet.
+    manifest(tmp_path, "codecombat",
+             'id = "codecombat"\nname = "CodeCombat"\nlaunch = { web = "https://codecombat.com/" }\n')
+    manifest(tmp_path, "wikipedia",
+             'id = "wikipedia"\nname = "Wikipedia"\nlaunch = { web = "https://{lang}.wikipedia.org/" }\n')
+
+    combat, wiki = modules.read("codecombat", tmp_path), modules.read("wikipedia", tmp_path)
+
+    assert combat.launch == {"web": "https://codecombat.com/"}
+    assert combat.app_ids == ("chrome-codecombat.com__*",)
+    assert modules.claims(combat, "chrome-codecombat.com__-Default")
+    # {lang} in the host stands for any language's.
+    assert wiki.app_ids == ("chrome-*.wikipedia.org__*",)
+    assert modules.claims(wiki, "chrome-es.wikipedia.org__-Default")
+    assert not modules.claims(wiki, "chrome-wikipedia.org.evil.com__-Default")
+
+
+def test_a_website_that_is_not_https_is_skipped(tmp_path, caplog):
+    for name, address in (("plain", "http://example.org/"), ("nohost", "https:///path"),
+                          ("number", "3")):
+        launch = f'"{address}"' if name != "number" else address
+        manifest(tmp_path, name, f'id = "{name}"\nname = "X"\nlaunch = {{ web = {launch} }}\n')
+
+    assert [modules.read(name, tmp_path) for name in ("plain", "nohost", "number")] == [None] * 3
+    assert "its website is not an https:// address" in caplog.text
+
+
+def test_a_module_names_the_hosts_its_pages_may_reach(tmp_path, caplog):
+    manifest(tmp_path, "site", GOOD.format(id="site")
+             + 'hosts = ["www.example.org", "cdn.example.org", "www.example.org"]\n')
+    manifest(tmp_path, "bad", GOOD.format(id="bad") + 'hosts = ["https://example.org"]\n')
+    manifest(tmp_path, "star", GOOD.format(id="star") + 'hosts = ["*.example.org"]\n')
+    manifest(tmp_path, "none", GOOD.format(id="none"))
+
+    assert modules.read("site", tmp_path).hosts == ("cdn.example.org", "www.example.org")
+    assert modules.read("bad", tmp_path).hosts == ()
+    assert modules.read("star", tmp_path).hosts == ()
+    assert modules.read("none", tmp_path).hosts == ()
+    assert caplog.text.count("hosts is not a list of host names") == 2

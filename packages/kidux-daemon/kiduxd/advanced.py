@@ -42,8 +42,8 @@ REFUSED = frozenset({
     "--allow-running-insecure-content", "--ignore-certificate-errors",
     "--unsafely-treat-insecure-origin-as-secure", "--disable-site-isolation-trials",
     # Another way to the network
-    "--proxy-server", "--proxy-pac-url", "--proxy-auto-detect", "--proxy-bypass-list",
-    "--host-resolver-rules", "--host-rules", "--auth-server-allowlist",
+    "--proxy-server", "--no-proxy-server", "--proxy-pac-url", "--proxy-auto-detect",
+    "--proxy-bypass-list", "--host-resolver-rules", "--host-rules", "--auth-server-allowlist",
     "--auth-server-whitelist",
 })
 

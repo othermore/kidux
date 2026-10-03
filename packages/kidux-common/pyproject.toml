@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kidux"
-version = "0.1.52"
+version = "0.1.53"
 description = "Shared library for the Kidux components"
 requires-python = ">=3.13"
 

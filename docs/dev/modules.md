@@ -21,7 +21,9 @@ description = "Make games and stories with blocks."
 min_age = 7
 max_age = 14
 recommended_before = ["typing"]        # best done first; optional
-launch = { webapp = "scratch" }        # or { exec = "/usr/libexec/kidux-module-x" }
+launch = { webapp = "scratch" }        # or { exec = "/usr/libexec/kidux-module-x" },
+                                       # or { web = "https://{lang}.example.org/" }
+hosts = ["assets.scratch.mit.edu"]     # internet hosts its pages may reach; optional
 app_ids = ["org.example.Scratch"]      # what its windows are called; see below
 categories = ["programming"]
 i18n_domain = "kidux-module-scratch"   # the gettext domain of name and description
@@ -43,27 +45,35 @@ icon theme is needed and the tile is the same on every machine.
   line of their own, *Recommended before: Typing*, by their names where
   the machine has them (D55). A suggestion
   too: nothing is enforced, and a module named there need not exist.
-- Whether a module uses the internet is not part of the manifest: what
-  matters is what a module lets a child reach, and that is decided by what
-  the module is. A native program or a web application held to its own
-  local server (D36) is closed; a module that opens the web, when there is
-  one, says so in its name and description, and an adult switches it on or
-  not (D42).
-- `launch` is either a web application the package installs under
-  `/usr/share/kidux/webapps/<id>/`, served on `127.0.0.1:8123` by
-  `kidux-webapps` and opened in a Chromium application window, or a native
-  program. Either way the
+- What a module lets a child reach on the internet is decided by what the
+  module is. A native program, or a web application held to its own local
+  server (D36), is closed; a web module reaches the hosts its `hosts` names
+  and nothing else (D85); a module that opens a website says so in its name
+  and description, and an adult switches it on or not (D42).
+- `launch` is one of three: `webapp`, a web application the package
+  installs under `/usr/share/kidux/webapps/<id>/`, served on
+  `127.0.0.1:8123` by `kidux-webapps` and opened in a Chromium application
+  window; `web`, an `https://` address on the internet, in which `{lang}`
+  stands for the child's language code (`https://{lang}.wikipedia.org/`),
+  opened the same way; or `exec`, a native program. Whichever it is, the
   launcher starts it in a systemd user scope, `kidux-module-<id>`, which is
   how it is ended and how its memory is capped.
+- `hosts` names the internet hosts a web module's pages may reach, each
+  standing for itself and every name under it: lower-case DNS names, no
+  scheme, port, path or `*`. A web application names the hosts its library
+  comes from, if it has one on the internet; a website names its own. The
+  module's Chromium reaches those and nothing else (section 4).
 - `name` and `description` are what the adult panel and the launcher show,
   in the language of whoever is looking, through the module's own gettext
   domain; the package installs the catalogue.
 - `app_ids` says what the module's windows are called, as globs: a Wayland
   window's `app_id`, an X11 window's `WM_CLASS` class. It is how the
   launcher knows which module a window is of, since the compositor says
-  nothing of a window's process (D58, launcher.md section 5). A web
-  application needs none: the reader adds Chromium's name for its window,
-  `chrome-127.0.0.1__<webapp>_-*`. A window no manifest claims is taken
+  nothing of a window's process (D58, launcher.md section 5). A web module
+  needs none: the reader adds Chromium's name for its window,
+  `chrome-127.0.0.1__<webapp>_-*` for a web application and
+  `chrome-<host>__*` for a website, `{lang}` in the host as `*`
+  (`chrome-*.wikipedia.org__*`). A window no manifest claims is taken
   for the module the child has just opened, so a module that forgets it
   still opens; the launcher's log names every window's `app_id`
   (`toplevels:`), which is where to read it.
@@ -76,14 +86,17 @@ icon theme is needed and the tile is the same on every machine.
 One reader, `kidux.modules` in `kidux-common` (D34), reads manifests for the
 daemon, the launcher and the panel alike. It uses a manifest only when its
 `id` is the directory's name and matches the rule above, `name` is there, and
-`launch` names a string `exec` or `webapp`; any other is skipped with a line
-in the log, and the other modules are unaffected. What a manifest leaves out
+`launch` names a string `exec` or `webapp`, or a `web` address that begins
+`https://` and has a host; any other is skipped with a line in the log, and
+the other modules are unaffected. What a manifest leaves out
 has a default: `i18n_domain` `kidux-module-<id>`; `memory_max` `2G`;
 `description` empty; the ages `0`, no suggestion; `recommended_before`
 none, and of a list only the strings that are module ids are kept, the
 rest dropped with a line in the log; `app_ids` none, and a value that is
-not a list of names is dropped with a line in the log; `needs_windows`
-false, as is any value but `true`. Without `icon.svg` the
+not a list of names is dropped with a line in the log; `hosts` none, kept
+sorted and each once, and a value that is not a list of host names is
+dropped with a line in the log; `needs_windows` false, as is any value but
+`true`. Without `icon.svg` the
 tile shows Kidux's mascot.
 
 ## 2. What a module may and may not do
@@ -130,6 +143,14 @@ tile shows Kidux's mascot.
   is then a file in their home; what a page keeps in Chromium's own
   storage is under the module's settings directory, which no other module
   reaches and which goes when the module is removed.
+- **A module may be a door to one website** (D85): the site's own pages,
+  in a Chromium window like any web module's, and nothing else of the
+  internet. It is for what cannot be shipped, a site whose content lives
+  only there, and it is the adult's choice: its name and description say
+  that it opens a website, whose site it is, and what the site asks for,
+  an account or a subscription, before the adult switches it on. What the
+  child does there is the site's, under the site's rules; Kidux only keeps
+  the door to that site and no other.
 - Its own settings, data and cache go under `~/.config/kidux/<id>/`,
   `~/.local/share/kidux/<id>/` and `~/.cache/kidux/<id>/`, which the
   launcher creates and hands it as `XDG_CONFIG_HOME`, `XDG_DATA_HOME` and
@@ -185,7 +206,9 @@ format, `debhelper-compat 13`, lintian clean, reproducible. It installs the
 manifest, the icon, its content and its translations, and depends on
 whatever program it runs. It never depends on another module. If it is a
 web application it depends on `kidux-webapps` and installs its pages
-under `/usr/share/kidux/webapps/<id>/`.
+under `/usr/share/kidux/webapps/<id>/`; a module that opens a website
+depends on `kidux-webapps` and installs no pages, only its manifest, its
+icon and its words.
 
 `kidux-webapps` is what web applications share, and nothing of any one of
 them: `kidux-webapps.service`, a static server of its own on
@@ -194,39 +217,52 @@ them: `kidux-webapps.service`, a static server of its own on
 address but the loopback one to reach; it serves files under
 `/usr/share/kidux/webapps/` and nothing else, refusing any path that leads
 out of it, by `..`, an encoded `..` or a symbolic link, and never listing a
-directory. `/usr/libexec/kidux-webapp <id>`, which the launcher runs,
-opens a Chromium application window (`--app`, no tabs and no address
-bar) on `http://127.0.0.1:8123/<id>/?lang=<the child's language>`, with a
-profile of the module's own under its `XDG_CONFIG_HOME` (D44), Chromium's own
-words in the child's language (`--lang=<the child's language>`, from
-`chromium-l10n`, which `kidux-webapps` depends on, since Debian's Chromium
-has only English without it), WebGL drawn in software where the machine has
-no graphics Chromium takes (`--enable-unsafe-swiftshader`: Scratch's stage
-needs WebGL, and Chromium no longer falls back to SwiftShader by itself; it
-is unsafe for pages from anywhere, and a module shows only its own), and
-after
-Kidux's own flags the machine's, one a line from `/etc/kidux/chromium-flags`,
-which the daemon writes from the panel's *Advanced* settings (D51, D52), so
-that one there wins over Kidux's for the same thing; `kidux-webapp --print
-<id>` prints the command line instead of running it. A module that carries
-Chromium of its own, as ScratchJr's Electron, draws as Chromium does on the
-machine's graphics, so its starter reads the same file and passes the same
-options. And `/etc/chromium/policies/managed/kidux.json`, the
-managed policy that blocks every address but that server's and the few
-hosts a module's own library comes from (D69: the Scratch Foundation's
-`assets.scratch.mit.edu`, `cdn.assets.scratch.mit.edu`,
-`cdn2.scratch.mit.edu` and `cdn.scratch.mit.edu`, and TurboWarp's
-`trampoline.turbowarp.org`), and `blob:`, the address of a file a page
-makes itself and hands to the browser to save, as Scratch saves a project
-(D75), and turns off signing in, sync, extensions,
-developer tools, incognito and guest windows, adding people, translation,
-the password manager, printing, the search engine and reporting (D36). It
-lets a child keep their work: the file dialogs are open, so that a module
-opens a child's files from their home, and a download is refused only when
-its type is dangerous (`DownloadRestrictions` 1), each asking in the file
-dialog where to keep it (`PromptForDownloadLocation`), from the child's
-Downloads folder, named in their language (D76). The policy is every Chromium's
-on the machine; a child has no other.
+directory. `/usr/libexec/kidux-webapp <module id>`, which the launcher
+runs, reads the module's manifest and opens a Chromium application window
+(`--app`, no tabs and no address bar) on its address: a web application's,
+`http://127.0.0.1:8123/<webapp>/?lang=<the child's language>`, or a
+website's, the manifest's `web` with `{lang}` the child's language. It
+gives it a profile of the module's own under its `XDG_CONFIG_HOME` (D44),
+Chromium's own words in the child's language (`--lang=<the child's
+language>`, from `chromium-l10n`, which `kidux-webapps` depends on, since
+Debian's Chromium has only English without it), and, for a web
+application only, WebGL drawn in software where the machine has no
+graphics Chromium takes (`--enable-unsafe-swiftshader`: Scratch's stage
+needs WebGL, and Chromium no longer falls back to SwiftShader by itself;
+it is unsafe for pages from anywhere, D85). After Kidux's own flags come
+the machine's, one a line from `/etc/kidux/chromium-flags`, which the
+daemon writes from the panel's *Advanced* settings (D51, D52), so that
+one there wins over Kidux's for the same thing; `kidux-webapp --print
+<module id>` prints the command line instead of running it. A module that
+carries Chromium of its own, as ScratchJr's Electron, draws as Chromium
+does on the machine's graphics, so its starter reads the same file and
+passes the same options.
+
+Two things hold a web module's Chromium to what is its own (D85). The
+first is each module's **wall**: every Chromium `kidux-webapp` starts has a
+proxy that answers nothing, `--proxy-server=127.0.0.1:1`, and a bypass
+list of the server and the module's `hosts`, each with every name under
+it (`--proxy-bypass-list=127.0.0.1;codecombat.com;*.codecombat.com`), so
+that whatever else a page asks for fails; the daemon refuses every proxy
+flag among the machine's, which would take the wall down. The second is
+the **policy** every Chromium on the machine is held by, whatever starts
+it, `/etc/chromium/policies/managed/kidux.json`.
+`/usr/libexec/kidux-chromium-policy` writes it, when `kidux-webapps` is
+configured and whenever a package installs or removes a module's manifest
+(a dpkg trigger on `/usr/share/kidux/modules`), from the base,
+`/usr/share/kidux-webapps/policy.json`, and the installed modules: it
+blocks every address but the server's, the union of the installed
+modules' `hosts`, and `blob:`, the address of a file a page makes itself
+and hands to the browser to save, as Scratch saves a project (D75); and
+it turns off signing in, sync, extensions, developer tools, incognito and
+guest windows, adding people, translation, the password manager, printing,
+the search engine and reporting (D36). Nothing but the allowlist comes from
+the modules. It lets a child keep their work: the file dialogs are open, so
+that a module opens a child's files from their home, and a download is
+refused only when its type is dangerous (`DownloadRestrictions` 1), each
+asking in the file dialog where to keep it (`PromptForDownloadLocation`),
+from the child's Downloads folder, named in their language (D76). A child
+has no other Chromium.
 
 ## 5. The reference module
 

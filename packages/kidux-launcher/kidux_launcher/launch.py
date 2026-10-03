@@ -102,23 +102,27 @@ def stop(module_id: str) -> None:
         log.warning("could not end %s", module_id, exc_info=True)
 
 
-#: What opens a web application, in Chromium held to kidux-webapps (D36).
+#: What opens a module made of web pages, a web application or a website,
+#: in Chromium walled in to its own hosts (D36, D85).
 WEBAPP = "/usr/libexec/kidux-webapp"
 
 
 def command(module, home: str) -> list[str]:
     """The argv that starts `module` for the child whose home is `home`: its
-    program, or for a web application `kidux-webapp <id>`, in the scope.
+    program, or for a web application or a website `kidux-webapp <module
+    id>`, which reads the module's manifest, in the scope.
 
-    A web application whose id is not one raises ValueError, as does a
-    manifest with neither.
+    A web application whose name is not an id raises ValueError, as does a
+    manifest with nothing to start.
     """
     program = module.launch.get("exec")
     webapp = module.launch.get("webapp")
     if isinstance(program, str) and program:
         started = shlex.split(program)
     elif isinstance(webapp, str) and kidux_modules.ID.match(webapp):
-        started = [WEBAPP, webapp]
+        started = [WEBAPP, module.id]
+    elif kidux_modules.web_host(module.launch):
+        started = [WEBAPP, module.id]
     else:
         raise ValueError(f"module {module.id} has nothing to start")
     data, config, cache = directories(home, module.id)

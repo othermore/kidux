@@ -2,7 +2,7 @@
 # development time from its repository (upstream.toml, D68) and served by
 # kidux-webapps under /scratch/ (modules.md, section 5).
 id = "scratch"
-version = "15.2.0+build2.2"
+version = "15.2.0+build2.3"
 name = "Scratch"
 description = "Make games and stories with blocks, as at school. Its characters, backdrops and sounds come from the internet."
 min_age = 8
@@ -12,3 +12,6 @@ launch = { webapp = "scratch" }
 categories = ["programming"]
 i18n_domain = "kidux-module-scratch"
 memory_max = "3G"
+# Where the library of characters, backdrops and sounds comes from, as the
+# editor asks for it (D85). Its code names no other host.
+hosts = ["assets.scratch.mit.edu", "cdn.assets.scratch.mit.edu"]

@@ -362,7 +362,12 @@ changes its bytes, and the battery's publish, which removes the development
 builds, puts the version itself in their place on every machine; a push of
 a version the archive already holds is refused, since a development build
 of it would be older than the archive's (D77). `ci/promote.sh` refuses
-while testing holds one.
+while testing holds one. pyproject.toml gets the version as Python writes
+one, `<version>.dev<time>`, which also sorts before the version. A package
+that needs a version another is bumped to in the same work depends on it
+with a tilde, `python3-kidux (>= 0.1.53~)`, which that version's
+development builds satisfy as well as the version itself; a `Breaks` on
+older versions is written `(<< <version>~)` the same way.
 
 ### The session, from outside the machine
 

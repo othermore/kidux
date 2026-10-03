@@ -1,0 +1,11 @@
+#!/bin/sh
+# The policy kidux-chromium-policy wrote goes when the package is purged.
+set -e
+
+#DEBHELPER#
+
+if [ "$1" = purge ]; then
+    rm -f /etc/chromium/policies/managed/kidux.json
+fi
+
+exit 0

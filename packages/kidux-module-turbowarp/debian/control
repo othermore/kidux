@@ -14,7 +14,7 @@ Rules-Requires-Root: no
 Package: kidux-module-turbowarp
 Architecture: all
 Depends: ${misc:Depends},
-         kidux-webapps (>= 0.1.5),
+         kidux-webapps (>= 0.1.10~),
 XB-Kidux-Name-en: TurboWarp
 XB-Kidux-Description-en: Scratch, made faster: the same blocks and the same projects, for a slower computer or when Scratch does not run well.
 XB-Kidux-Name-es: TurboWarp

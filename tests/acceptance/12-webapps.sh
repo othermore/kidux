@@ -1,8 +1,10 @@
 # Sourced by the acceptance VM's runner, which provides check() and $ARCHIVE.
 # phase-3-plan.md, step 3.7: a web-application module installs with its
 # server and Chromium; the server answers for the application and for
-# nothing else, on the loopback address only, as a user of its own; and
-# Chromium's policy, which holds it to that server, is root's.
+# nothing else, on the loopback address only, as a user of its own;
+# Chromium's policy, written from the installed modules, is root's; and
+# every module's Chromium is walled in by a proxy that answers nothing
+# (D85).
 
 ADMIN_AS="runuser -u debian -- /usr/local/bin/kidux-as"
 SERVER=http://127.0.0.1:8123
@@ -32,19 +34,23 @@ check "it listens on the loopback address and nowhere else" \
 check "it runs as a user made for it, without capabilities" \
     sh -c "systemctl show kidux-webapps -p DynamicUser -p CapabilityBoundingSet \
            | grep -qx 'DynamicUser=yes' && ! ps -o user= -C kidux-webapps | grep -qx root"
-# D69: the server's address, and the hosts Scratch's and TurboWarp's
-# libraries of characters, backdrops and sounds come from; and blob:, the
-# address of a file a page makes itself, which Scratch saves through (D75);
-# nothing else.
+# D85: the policy is written from the installed modules, not shipped: with
+# no module naming a host, it allows the server's address and blob:, the
+# address of a file a page makes itself, which Scratch saves through (D75),
+# and nothing else.
 # A child saves and opens their projects as files: the file dialogs are
 # open, a download asks in one where to keep it (D76), and is refused only
 # when its type is dangerous.
-check "Chromium's policy is root's, blocks every address but the server's and the libraries', and lets a child save and open files" \
+check "Chromium's policy is root's and no package's conffile, blocks every address but the server's, and lets a child save and open files" \
     sh -c "stat -c '%U %a' $POLICY | grep -qx 'root 644' \
+           && ! dpkg-query -W -f='\${Conffiles}' kidux-webapps | grep -q $POLICY \
            && python3 -c 'import json, sys; p = json.load(open(sys.argv[1])); \
-                          sys.exit(not (p[\"URLBlocklist\"] == [\"*\"] and p[\"URLAllowlist\"] == [\"127.0.0.1:8123\", \"assets.scratch.mit.edu\", \"cdn.assets.scratch.mit.edu\", \"cdn2.scratch.mit.edu\", \"cdn.scratch.mit.edu\", \"trampoline.turbowarp.org\", \"blob:*\"] \
+                          sys.exit(not (p[\"URLBlocklist\"] == [\"*\"] and p[\"URLAllowlist\"] == [\"127.0.0.1:8123\", \"blob:*\"] \
                                         and p[\"DownloadRestrictions\"] == 1 and p[\"AllowFileSelectionDialogs\"] is True \
                                         and p[\"PromptForDownloadLocation\"] is True))' $POLICY"
+check "a module's Chromium is walled in by a proxy that answers nothing, with only the server past it" \
+    sh -c "runuser -u marta -- /usr/libexec/kidux-webapp --print hello-web \
+           | grep -q -- \"--proxy-server=127.0.0.1:1 --proxy-bypass-list=127.0.0.1 .*'--app=\""
 # The machine's own flags for Chromium, from the panel's Advanced settings
 # (D51, D52): written by the daemon where kidux-webapp reads them, after
 # Kidux's own; none is no file; a flag that would take the module out of
@@ -56,9 +62,11 @@ check "Chromium's flags for this machine reach kidux-webapp's command line, afte
            && [ \"\$(stat -c '%U %a' $FLAGS)\" = 'root 644' ] \
            && runuser -u marta -- /usr/libexec/kidux-webapp --print hello-web \
               | grep -q -- \"--app=http://127.0.0.1:8123/hello-web/?lang=[a-z]*' --disable-gpu-compositing\$\""
-check "none is no file, and a flag that would open another page is refused" \
+check "none is no file, and a flag that would open another page or take the wall down is refused" \
     sh -c "$ADMIN_AS set-config chromium_flags '[]' && test ! -e $FLAGS \
            && $ADMIN_AS set-config chromium_flags '[\"--app=http://example.org\"]' \
+              | grep -qx org.kidux.Daemon1.Error.InvalidArgument && test ! -e $FLAGS \
+           && $ADMIN_AS set-config chromium_flags '[\"--no-proxy-server\"]' \
               | grep -qx org.kidux.Daemon1.Error.InvalidArgument && test ! -e $FLAGS"
 check "removing the module leaves nothing of it; the server stays for the next" \
     sh -c "$ADMIN_AS remove hello-web | grep -q '^removed ' \

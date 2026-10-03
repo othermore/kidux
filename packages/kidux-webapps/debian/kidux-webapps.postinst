@@ -1,0 +1,17 @@
+#!/bin/sh
+# Chromium's policy is written from the installed modules: when this
+# package is configured, and whenever a package installs or removes a
+# module's manifest (kidux-webapps.triggers). debhelper's part comes first:
+# it takes away an earlier version's policy conffile
+# (kidux-webapps.maintscript), and the policy is written after it.
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure|triggered)
+        /usr/libexec/kidux-chromium-policy
+        ;;
+esac
+
+exit 0

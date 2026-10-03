@@ -120,12 +120,16 @@ def changelog_entry(source: str, version: str, trailer: str, date: str) -> str:
 def restate(copy: Path, version: str, dev: str) -> None:
     """The development version wherever the package states its version
     besides its changelog, as tests/project/versions.sh holds it to: a
-    module's manifest, pyproject.toml, a VERSION constant."""
+    module's manifest, pyproject.toml, a VERSION constant. pyproject.toml's
+    is written as Python's versions are, `0.1.2.dev<time>`, which also sorts
+    before `0.1.2`: Python's build refuses a `~`."""
+    python = dev.replace("~dev.", ".dev")
     for path in [copy / "module.toml", copy / "pyproject.toml", *copy.glob("*/__init__.py")]:
         if path.is_file():
             text = path.read_text()
-            stated = text.replace(f'version = "{version}"\n', f'version = "{dev}"\n').replace(
-                f'VERSION = "{version}"\n', f'VERSION = "{dev}"\n')
+            stated = text.replace(f'version = "{version}"\n',
+                                  f'version = "{python if path.name == "pyproject.toml" else dev}"\n')
+            stated = stated.replace(f'VERSION = "{version}"\n', f'VERSION = "{dev}"\n')
             if stated != text:
                 path.write_text(stated)
 

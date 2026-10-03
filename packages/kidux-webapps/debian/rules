@@ -7,14 +7,15 @@ DEST = debian/kidux-webapps
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	pyflakes3 bin/kidux-webapps bin/kidux-webapp tests
+	pyflakes3 bin/kidux-webapps bin/kidux-webapp bin/kidux-chromium-policy tests
 	python3 -m pytest -q -p no:cacheprovider tests
 endif
 
 override_dh_auto_install:
 	install -D -m 0755 bin/kidux-webapps $(DEST)/usr/libexec/kidux-webapps
 	install -D -m 0755 bin/kidux-webapp $(DEST)/usr/libexec/kidux-webapp
-	install -D -m 0644 policies/kidux.json $(DEST)/etc/chromium/policies/managed/kidux.json
+	install -D -m 0755 bin/kidux-chromium-policy $(DEST)/usr/libexec/kidux-chromium-policy
+	install -D -m 0644 policies/kidux.json $(DEST)/usr/share/kidux-webapps/policy.json
 	install -d $(DEST)/usr/share/kidux/webapps
 
 override_dh_auto_clean:

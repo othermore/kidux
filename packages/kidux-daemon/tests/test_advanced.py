@@ -44,7 +44,8 @@ def test_anything_else_is_refused(flags):
                                   "--single-process", "--disable-setuid-sandbox",
                                   "--allow-file-access-from-files",
                                   "--ignore-certificate-errors", "--new-window",
-                                  "--host-rules=MAP * 1.2.3.4"])
+                                  "--host-rules=MAP * 1.2.3.4", "--no-proxy-server",
+                                  "--proxy-bypass-list=*"])
 def test_a_flag_that_would_take_a_module_out_of_kidux_s_hold_is_refused(flag):
     with pytest.raises(ValueError):
         check_flags([flag])

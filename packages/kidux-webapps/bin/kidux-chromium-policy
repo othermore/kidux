@@ -1,0 +1,71 @@
+#!/usr/bin/python3
+"""Chromium's managed policy, written from the installed modules (D85).
+
+    kidux-chromium-policy [--root <modules dir>] [--base <file>] [--output <file>]
+
+The policy holds every Chromium on the machine, whatever starts it. Its
+base, /usr/share/kidux-webapps/policy.json, closes every door: every
+address is blocked but the local server's and the pages a page makes for
+itself (`blob:`). This adds, between those two, the hosts the installed
+modules' manifests name, each once and in order, and writes the result to
+/etc/chromium/policies/managed/kidux.json, beside it first and then in its
+place, so that Chromium never reads half a file. Nothing but the allowlist
+comes from the modules.
+
+dpkg runs it, as root, from kidux-webapps' postinst: when kidux-webapps is
+configured, and whenever a package installs or removes a module's
+manifest (the trigger on /usr/share/kidux/modules).
+"""
+
+import json
+import os
+import sys
+import tempfile
+from pathlib import Path
+
+from kidux import modules
+
+BASE = Path("/usr/share/kidux-webapps/policy.json")
+OUTPUT = Path("/etc/chromium/policies/managed/kidux.json")
+SERVER = "127.0.0.1:8123"
+BLOB = "blob:*"
+
+
+def policy(base: dict, installed: list[modules.Module]) -> dict:
+    """The base policy with the modules' hosts in its allowlist."""
+    hosts = sorted({host for module in installed for host in module.hosts})
+    return {**base, "URLAllowlist": [SERVER, *hosts, BLOB]}
+
+
+def write(path: Path, document: dict) -> None:
+    """Write `document` to `path`, mode 0644, by a rename."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    handle, temporary = tempfile.mkstemp(dir=path.parent, prefix=".kidux.", suffix=".json")
+    try:
+        with os.fdopen(handle, "w") as file:
+            json.dump(document, file, indent=2)
+            file.write("\n")
+        os.chmod(temporary, 0o644)
+        os.replace(temporary, path)
+    except BaseException:
+        os.unlink(temporary)
+        raise
+
+
+def main(args: list[str]) -> int:
+    options = {"--root": None, "--base": BASE, "--output": OUTPUT}
+    rest = args[1:]
+    while rest:
+        if rest[0] not in options or len(rest) < 2:
+            print("usage: kidux-chromium-policy [--root <dir>] [--base <file>] [--output <file>]",
+                  file=sys.stderr)
+            return 2
+        options[rest[0]] = Path(rest[1])
+        rest = rest[2:]
+    base = json.loads(Path(options["--base"]).read_text())
+    write(Path(options["--output"]), policy(base, modules.installed(options["--root"])))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

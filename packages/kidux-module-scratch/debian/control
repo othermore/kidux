@@ -14,7 +14,7 @@ Rules-Requires-Root: no
 Package: kidux-module-scratch
 Architecture: all
 Depends: ${misc:Depends},
-         kidux-webapps (>= 0.1.5),
+         kidux-webapps (>= 0.1.10~),
 XB-Kidux-Name-en: Scratch
 XB-Kidux-Description-en: Make games and stories with blocks, as at school. Its characters, backdrops and sounds come from the internet.
 XB-Kidux-Name-es: Scratch

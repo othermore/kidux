@@ -5,7 +5,7 @@ Maintainer: Antonio Morales García <info@kidux.org>
 Build-Depends: debhelper-compat (= 13),
                pyflakes3 <!nocheck>,
                python3 <!nocheck>,
-               python3-kidux (>= 0.1.26) <!nocheck>,
+               python3-kidux (>= 0.1.53~) <!nocheck>,
                python3-pytest <!nocheck>,
 Standards-Version: 4.7.2
 Rules-Requires-Root: no
@@ -16,13 +16,18 @@ Depends: ${misc:Depends},
          chromium,
          chromium-l10n,
          python3,
-         python3-kidux (>= 0.1.26),
+         python3-kidux (>= 0.1.53~),
+Breaks: kidux-module-scratch (<< 15.2.0+build2.3~),
+        kidux-module-turbowarp (<< 0+git20260915.3~),
 Description: Kidux web applications, for learning modules made of web pages
  Kidux is a Debian derivative for a child's first computer. This package is
  what learning modules made of web pages need: a small server that serves
  them on this computer only, and Chromium, opened on one of them at a time
- in a window with no tabs and no address bar, and held by a managed policy
- to that server and nothing else, so a link out of a learning module leads
- nowhere.
+ in a window with no tabs and no address bar, and held to that server and
+ nothing else, so a link out of a learning module leads nowhere. A module
+ that opens a website on the internet names the site's hosts, and its
+ Chromium reaches those and nothing more.
  .
- The policy applies to every use of Chromium on this computer.
+ The managed policy is written from the installed modules whenever one is
+ installed or removed, and applies to every use of Chromium on this
+ computer.

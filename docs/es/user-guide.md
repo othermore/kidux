@@ -752,6 +752,13 @@ Chromium, en la página que muestra en lugar de una bloqueada o en sus
 menús, están en el idioma del niño. Chromium es un programa grande, de unos
 300 MB, que llega con el primer módulo de este tipo.
 
+Unos pocos módulos son una puerta a un sitio web de internet. Muestran ese
+sitio y nada más de internet: un enlace a cualquier otro sitio no lleva a
+ninguna parte, y Chromium enseña una página que dice que está bloqueado.
+Su nombre y su descripción dicen qué sitio abren y qué pide, como una
+cuenta o una suscripción, para que el adulto lo sepa antes de activarlo.
+Necesitan internet siempre que se usan.
+
 Los módulos cuyo nombre empieza por **[Prueba]** existen para comprobar
 que Kidux funciona, no para que los use un niño.
 

@@ -320,6 +320,12 @@ Beside it, `icon.svg`, the tile's picture. modules.md is the contract in full.
   (`--app`) on that URL, held to it by the managed policy (D36, D44). One
   module's files never depend on another's, so removing Scratch leaves MakeCode
   intact. Chromium is used (not Firefox) because micro:bit flashing needs WebUSB.
+  A third kind of launch, `launch = { web = "https://…" }`, is a door to one
+  website on the internet, opened the same way (D85). Every web module's
+  Chromium is walled in by a proxy that answers nothing, past which only the
+  server and the hosts its manifest names (`hosts`) are reached, and the
+  managed policy is written from the installed modules' hosts by a dpkg
+  trigger (modules.md section 4).
 - **Files.** The child's home is shared by every module: what a child makes in one
   is there for the next (D42). A module's own settings, data and cache go in three
   XDG directories of its own under the child's home, so removing a module removes
@@ -782,7 +788,9 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   network namespace.** A namespace without network has no loopback either, so
   a web app served on `127.0.0.1` cannot live in one; the managed policy
   allows that origin and nothing else. *Nothing else: superseded in part by D69,
-  which allows the child's own files, downloads and the Scratch library's servers.*
+  which allows the child's own files, downloads and the Scratch library's servers,
+  and by D85, which writes the allowlist from the installed modules' hosts and
+  walls each module's Chromium in to its own.*
 
 - **D37 — The adult panel is a set of forms, dense, not a sequence of
   screens.** Decided 2026-09-23 by the owner, after using the panel in the VM.

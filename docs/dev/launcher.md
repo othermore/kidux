@@ -175,12 +175,14 @@ the module's own is its settings, its data and its cache, in three
 directories under the child's home that the launcher makes, mode 0700,
 before the first start and hands it as the XDG variables, so that removing
 a module removes them and no other's. A web application (`launch = {
-webapp = "<id>" }`) is started the same way, in its scope: the program is
-`/usr/libexec/kidux-webapp <id>`, from `kidux-webapps`, which opens a
-Chromium application window (`--app`), with no tabs and no address bar, on
-the application `kidux-webapps` serves on `127.0.0.1:8123`, held to it by
-Chromium's managed policy (D36, D44); the id is checked before it goes
-into the command.
+webapp = "<id>" }`) or a website (`launch = { web = "https://…" }`) is
+started the same way, in its scope: the program is `/usr/libexec/kidux-webapp
+<module id>`, from `kidux-webapps`, which reads the module's manifest and
+opens a Chromium application window (`--app`), with no tabs and no address
+bar, on the application `kidux-webapps` serves on `127.0.0.1:8123` or on
+the website, walled in to the module's own hosts and held by Chromium's
+managed policy (D36, D44, D85); a web application's name is checked before
+it goes into the command.
 
 The launcher reads the manifest again when a tile is activated, so a module
 apt replaced since the tiles were drawn starts as its new manifest says,

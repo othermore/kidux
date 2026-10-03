@@ -4,11 +4,6 @@
   ],
   "URLAllowlist": [
     "127.0.0.1:8123",
-    "assets.scratch.mit.edu",
-    "cdn.assets.scratch.mit.edu",
-    "cdn2.scratch.mit.edu",
-    "cdn.scratch.mit.edu",
-    "trampoline.turbowarp.org",
     "blob:*"
   ],
   "BrowserSignin": 0,

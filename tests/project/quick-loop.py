@@ -66,10 +66,13 @@ with tempfile.TemporaryDirectory() as scratch:
     (copy / "module.toml").write_text('id = "x"\nversion = "0.1.2"\n')
     (copy / "pkg").mkdir()
     (copy / "pkg" / "__init__.py").write_text('VERSION = "0.1.2"\n')
+    (copy / "pyproject.toml").write_text('[project]\nname = "x"\nversion = "0.1.2"\n')
     vm.restate(copy, "0.1.2", "0.1.2~dev.1")
     check("the development version is restated in the manifest and a VERSION constant",
           'version = "0.1.2~dev.1"' in (copy / "module.toml").read_text()
           and 'VERSION = "0.1.2~dev.1"' in (copy / "pkg" / "__init__.py").read_text())
+    check("and in pyproject.toml as Python writes one, which it can build",
+          'version = "0.1.2.dev1"' in (copy / "pyproject.toml").read_text())
 
 commands, notes = vm.after_install(["kidux-daemon"], child_signed_in=True)
 check("the daemon is restarted", commands == ["systemctl restart kidux-daemon"], str(commands))

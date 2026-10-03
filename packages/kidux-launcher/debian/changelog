@@ -1,3 +1,10 @@
+kidux-launcher (0.3.18) trixie; urgency=medium
+
+  * A module that opens a website starts as a web application does, by
+    kidux-webapp and the module's id.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 11:48:21 +0200
+
 kidux-launcher (0.3.17) trixie; urgency=medium
 
   * The maintainer's address is info@kidux.org.

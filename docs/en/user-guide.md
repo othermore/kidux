@@ -730,6 +730,13 @@ nowhere. Chromium's own words, on the page it shows in place of a blocked
 one or in its menus, are in the child's language. Chromium is a large
 program, about 300 MB, which comes with the first module of this kind.
 
+A few modules are a door to one website on the internet. They show that
+site and nothing else of the internet: a link to any other site leads
+nowhere, and Chromium shows a page saying it is blocked. Their names and
+descriptions say which site they open and what it asks for, such as an
+account or a subscription, so that an adult knows before switching one
+on. They need the internet whenever they are used.
+
 The modules whose names begin with **[Test]** are there to check that
 Kidux works, not for a child to use.
 

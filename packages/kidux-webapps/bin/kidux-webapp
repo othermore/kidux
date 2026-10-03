@@ -1,26 +1,31 @@
 #!/usr/bin/python3
-"""One web application, for a child: `kidux-webapp <id>`.
+"""One module made of web pages, for a child: `kidux-webapp <module id>`.
 
-    kidux-webapp <id>            open it
-    kidux-webapp --print <id>    print Chromium's command line instead
+    kidux-webapp <module id>            open it
+    kidux-webapp --print <module id>    print Chromium's command line instead
 
 The launcher runs this, in the module's scope, for a module whose manifest
-says `launch = { webapp = "<id>" }` (launcher.md section 5). It opens
-Chromium on the application kidux-webapps serves, as an application
-window (`--app`): no tabs, no address bar, one window, which the launcher
-keeps on its workspace above the bar (D43). Not `--kiosk`, which hides
-Chromium's own bars only while the window is fullscreen, and the launcher
-gives no window the whole screen.
-The managed policy, /etc/chromium/policies/managed/kidux.json, allows that
-address and nothing else, so a link out of the application leads nowhere
-(D36). Chromium's profile is the module's own, under its XDG_CONFIG_HOME,
-so removing the module removes it.
+says `launch = { webapp = "<name>" }`, an application kidux-webapps serves,
+or `launch = { web = "https://…" }`, a website on the internet (D85;
+launcher.md section 5). It opens Chromium on that address as an
+application window (`--app`): no tabs, no address bar, one window, which
+the launcher keeps on its workspace above the bar (D43). Not `--kiosk`,
+which hides Chromium's own bars only while the window is fullscreen, and
+the launcher gives no window the whole screen.
 
-The id is checked before it goes anywhere near a URL. After Kidux's own
-flags come the machine's, from /etc/kidux/chromium-flags, which the daemon
-writes from the panel's Advanced settings (D51, D52), so that a flag there
-wins over Kidux's for the same thing: what draws cleanly on this machine's
-graphics. A line that is not a flag is left out and said.
+Every module's Chromium is walled in by a proxy that answers nothing,
+`--proxy-server=127.0.0.1:1`, with a bypass list of the server and the
+hosts the module's manifest names: everything else fails. The managed
+policy, /etc/chromium/policies/managed/kidux.json, which
+kidux-chromium-policy writes from the installed modules, allows the server
+and those hosts and nothing else, whatever starts Chromium (D36, D85).
+Chromium's profile is the module's own, under its XDG_CONFIG_HOME, so
+removing the module removes it.
+
+After Kidux's own flags come the machine's, from /etc/kidux/chromium-flags,
+which the daemon writes from the panel's Advanced settings (D51, D52), so
+that a flag there wins over Kidux's for the same thing: what draws cleanly
+on this machine's graphics. A line that is not a flag is left out and said.
 """
 
 import os
@@ -58,29 +63,52 @@ def machine_flags(path=None) -> list[str]:
     return flags
 
 
-def argv(webapp_id: str, environ, flags=()) -> list[str]:
-    """Chromium's command line for `webapp_id`, the machine's `flags` after
-    Kidux's own; ValueError for anything that is not a module id."""
-    if not modules.ID.match(webapp_id or ""):
-        raise ValueError(f"not a web application's id: {webapp_id!r}")
+def bypass(module: modules.Module) -> str:
+    """The proxy's bypass list: the server, then each host of the module and
+    every name under it."""
+    return ";".join(["127.0.0.1", *(f"{host};*.{host}" for host in module.hosts)])
+
+
+def address(module: modules.Module, lang: str) -> str:
+    """Where Chromium opens: the server's application, or the website, with
+    {lang} the child's language."""
+    if isinstance(module.launch.get("webapp"), str):
+        return f"{SERVER}/{module.launch['webapp']}/?lang={lang}"
+    if modules.web_host(module.launch):
+        return module.launch["web"].replace("{lang}", lang)
+    raise ValueError(f"module {module.id} is neither a web application nor a website")
+
+
+def argv(module: modules.Module, environ, flags=()) -> list[str]:
+    """Chromium's command line for `module`, the machine's `flags` after
+    Kidux's own; ValueError for a module that is not made of web pages."""
     lang = language(environ)
+    url = address(module, lang)
     config = environ.get("XDG_CONFIG_HOME") or os.path.join(environ.get("HOME", ""), ".config")
-    return [
+    command = [
         CHROMIUM,
         "--ozone-platform=wayland",
         "--no-first-run",
         "--no-default-browser-check",
         "--disable-session-crashed-bubble",
         "--password-store=basic",
+    ]
+    if "webapp" in module.launch:
         # WebGL drawn in software where the machine has no graphics Chromium
         # takes, as a virtual machine or an old computer's: Scratch's stage
         # and TurboWarp's need WebGL, and Chromium no longer falls back to
-        # SwiftShader by itself. It is "unsafe" for pages from anywhere; a
-        # module shows only its own pages, which the policy holds it to.
-        "--enable-unsafe-swiftshader",
+        # SwiftShader by itself. It is "unsafe" for pages from anywhere, so
+        # only the server's own applications get it (D85).
+        command.append("--enable-unsafe-swiftshader")
+    return [
+        *command,
+        # The wall: a proxy that answers nothing, and only the module's own
+        # hosts past it.
+        "--proxy-server=127.0.0.1:1",
+        f"--proxy-bypass-list={bypass(module)}",
         f"--user-data-dir={config}/chromium",
         f"--lang={lang}",
-        f"--app={SERVER}/{webapp_id}/?lang={lang}",
+        f"--app={url}",
         *flags,
     ]
 
@@ -88,10 +116,14 @@ def argv(webapp_id: str, environ, flags=()) -> list[str]:
 def main(args: list[str]) -> int:
     printing = args[1:2] == ["--print"]
     if len(args) != (3 if printing else 2):
-        print("usage: kidux-webapp [--print] <id>", file=sys.stderr)
+        print("usage: kidux-webapp [--print] <module id>", file=sys.stderr)
+        return 2
+    module = modules.read(args[-1]) if modules.ID.match(args[-1] or "") else None
+    if module is None:
+        print(f"not an installed module: {args[-1]!r}", file=sys.stderr)
         return 2
     try:
-        command = argv(args[-1], os.environ, machine_flags())
+        command = argv(module, os.environ, machine_flags())
     except ValueError as error:
         print(error, file=sys.stderr)
         return 2

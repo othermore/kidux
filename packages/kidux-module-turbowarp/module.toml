@@ -2,7 +2,7 @@
 # development time from its repository (upstream.toml, D68) and served by
 # kidux-webapps under /turbowarp/ (modules.md, section 5).
 id = "turbowarp"
-version = "0+git20260915.2"
+version = "0+git20260915.3"
 name = "TurboWarp"
 description = "Scratch, made faster: the same blocks and the same projects, for a slower computer or when Scratch does not run well."
 min_age = 8
@@ -12,3 +12,8 @@ launch = { webapp = "turbowarp" }
 categories = ["programming"]
 i18n_domain = "kidux-module-turbowarp"
 memory_max = "3G"
+# Where the library of characters, backdrops and sounds comes from, as the
+# editor asks for it (D85). Left out: trampoline.turbowarp.org, through
+# which TurboWarp fetches a project, a studio or an avatar from the Scratch
+# website by its number; here a project is opened from a file only.
+hosts = ["assets.scratch.mit.edu", "cdn.assets.scratch.mit.edu"]

@@ -58,8 +58,14 @@ def test_a_web_application_is_opened_by_kidux_webapp_in_its_scope():
     assert "--unit=kidux-module-scratch" in argv and "--property=MemoryMax=3G" in argv
 
 
+def test_a_website_is_opened_by_kidux_webapp_with_the_module_s_id():
+    web = Module(id="codecombat", name="CodeCombat", launch={"web": "https://codecombat.com/"})
+
+    assert launch.command(web, HOME)[-2:] == ["/usr/libexec/kidux-webapp", "codecombat"]
+
+
 @pytest.mark.parametrize("launch_", [{"webapp": "../x"}, {"webapp": "Scratch"}, {"webapp": ""},
-                                     {}, {"exec": ""}])
+                                     {}, {"exec": ""}, {"web": "http://example.org/"}])
 def test_a_manifest_with_nothing_to_start_starts_nothing(launch_):
     with pytest.raises(ValueError):
         launch.command(Module(id="scratch", name="Scratch", launch=launch_), HOME)
