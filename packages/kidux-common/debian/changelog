@@ -4,6 +4,8 @@ kidux-common (0.1.55) trixie; urgency=medium
     an integer, a number, a text or a secret.
   * kidux.browser drives Chromium through a pipe only its starter holds,
     and a module may say how the daemon signs a child in to its website.
+  * A module made of web pages may name a script of its own for every
+    page its window shows.
 
  -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 16:45:02 +0200
 

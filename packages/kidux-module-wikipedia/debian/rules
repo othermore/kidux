@@ -12,18 +12,21 @@ override_dh_auto_build:
 	    mkdir -p build/locale/$$lang/LC_MESSAGES; \
 	    msgfmt --check --output-file=build/locale/$$lang/LC_MESSAGES/kidux-module-wikipedia.mo $$po; \
 	done
+	python3 page/bar.py build/locale po page/bar.js.in build/bar.js
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	pyflakes3 tests
+	pyflakes3 page tests
 	python3 -m pytest -q -p no:cacheprovider tests
 endif
 
-# The manifest, the icon and the words: the website is Wikipedia's, on the
-# internet, and nothing of it is in the package (D87).
+# The manifest, the icon, the bar of Back and Forward and the words: the
+# website is Wikipedia's, on the internet, and nothing of it is in the
+# package (D87).
 override_dh_auto_install:
 	install -D -m 0644 module.toml $(MODULE)/module.toml
 	install -D -m 0644 icon.svg $(MODULE)/icon.svg
+	install -D -m 0644 build/bar.js $(MODULE)/bar.js
 	for mo in build/locale/*/LC_MESSAGES/kidux-module-wikipedia.mo; do \
 	    lang=$$(basename $$(dirname $$(dirname $$mo))); \
 	    install -D -m 0644 $$mo $(DEST)/usr/share/locale/$$lang/LC_MESSAGES/kidux-module-wikipedia.mo; \

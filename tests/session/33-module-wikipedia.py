@@ -1,12 +1,12 @@
-"""Wikipedia (phase-4b-plan.md, step 4.14).
+"""Wikipedia (phase-4b-plan.md, step 4.14; phase-4c-plan.md, step 4.18).
 
 kidux-module-wikipedia, a door to the encyclopedia in the child's language
 (D87), is installed through the daemon, as the panel installs it, and
 switched on for Leo from the command line. Leo opens it by keyboard:
 Chromium's application window, filling the room above the bar, shows the
-front page of Wikipedia in Leo's language. Leo searches for an article from
-the front page's search box, and Alt+Left, the way back an application
-window has, goes back to the front page. The machine reaches the internet
+front page of Wikipedia in Leo's language, under the module's own bar of
+Back and Forward. Leo searches for an article from the front page's search
+box, and the bar's Back, reached by keyboard, goes back to the front page. The machine reaches the internet
 through QEMU's own network; a site that does not answer is said so, and
 still fails the test. Alt+F4 closes it and gives the launcher back; the lock
 screen's *Log out* ends the session, and the daemon removes it.
@@ -33,6 +33,8 @@ from sessionlib import (
 
 #: The room above the launcher's bar.
 ABOVE_THE_BAR = (0.0, 0.0, 1.0, 0.92)
+#: The module's own bar of Back and Forward, along the window's top.
+WIKI_BAR = (0.0, 0.0, 1.0, 0.05)
 
 
 def daemon(command: str) -> bool:
@@ -80,16 +82,23 @@ def run(machine: Machine) -> None:
            and colour_share(picture, CREAM, ABOVE_THE_BAR) < 0.2,
            f"{window}; {picture}\n" + launcher_log())
 
+    report("and the module's bar of Back and Forward is along its top, in Kidux's cream",
+           colour_share(picture, CREAM, WIKI_BAR) > 0.5, picture)
+
     # The search box is the fourth stop of the front page: past the link to
-    # the content, the menu and the logo.
+    # the content, the menu and the logo; the bar's buttons, dimmed with
+    # nowhere to go, are not stops.
     for _ in range(4):
         machine.key("tab")
     machine.type("Debian\n")
     report("Leo searches from the front page, and the article opens",
            wait(lambda: "Debian" in (wiki_window().get("title") or ""), 30),
            f"title {wiki_window().get('title')!r}")
-    machine.key("alt-left")
-    report("Alt+Left goes back to the front page",
+    # On the article the bar's Back is the first stop.
+    machine.still(3)
+    machine.key("tab")
+    machine.key("ret")
+    report("the bar's Back, by keyboard, goes back to the front page",
            wait(lambda: "Debian" not in (wiki_window().get("title") or "Debian"), 20),
            f"title {wiki_window().get('title')!r}")
 

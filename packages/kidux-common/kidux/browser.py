@@ -7,7 +7,8 @@ and writes answers and events on 4, each a JSON message ended by a NUL
 byte. Nothing else can reach that pipe: there is no port, and the daemon
 refuses the flag among the machine's own. Through it `kidux-webapp` gives
 the window the cookies a module's sign-in returned, takes it to the site,
-and runs a module's script in a page.
+runs a module's script in a page, and has a module's page script run in
+every page the window shows.
 """
 
 import json
@@ -78,6 +79,16 @@ class Pipe:
                 return message
             if "method" in message:
                 self.events.append(message)
+
+    def drain(self) -> None:
+        """Read and drop whatever Chromium says until it closes the pipe, so
+        that nothing piles up on its side while the window is open."""
+        self.events.clear()
+        try:
+            while True:
+                self._read()
+        except BrowserGone:
+            return
 
     def page(self) -> str:
         """Attach to the window's page; the session its commands go to."""

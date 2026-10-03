@@ -1,0 +1,74 @@
+// Wikipedia's bar of Back and Forward (phase-4c-plan.md, 4.18).
+//
+// kidux-webapp runs this in every page the module's window shows, in a
+// world of its own beside the page's, with window.KIDUX.lang the child's
+// language. It puts a slim bar along the top, in Kidux's colours, whose
+// buttons go through the window's history and are dimmed where there is
+// nowhere to go, and moves the page down by the bar's height rather than
+// covering it.
+(() => {
+  // The words of every language, written in when the package is built.
+  const WORDS = @WORDS@;
+  const HEIGHT = 44;
+  const asked = (window.KIDUX && window.KIDUX.lang) || "en";
+  const words = WORDS[asked] || WORDS.en;
+
+  function build() {
+    if (!document.body || document.getElementById("kidux-bar")) {
+      return;
+    }
+    const host = document.createElement("div");
+    host.id = "kidux-bar";
+    // The bar's own look lives in a shadow root, out of reach of the
+    // page's styles; the page is told only to move down by its height,
+    // with what of it stays put as it scrolls: the columns of contents and
+    // appearance, 24 pixels from the top, and the header some of its
+    // pages keep there.
+    const room = document.createElement("style");
+    room.textContent = `
+      #kidux-bar { position: fixed; top: 0; left: 0; right: 0; height: ${HEIGHT}px;
+                   z-index: 2147483647; }
+      html { margin-top: ${HEIGHT}px !important; scroll-padding-top: ${HEIGHT}px; }
+      .vector-sticky-pinned-container { top: ${HEIGHT + 24}px !important;
+                                        max-height: calc(100vh - ${HEIGHT + 48}px) !important; }
+      .vector-sticky-header { top: ${HEIGHT}px !important; }`;
+    const shadow = host.attachShadow({ mode: "closed" });
+    shadow.innerHTML = `
+      <style>
+        nav { box-sizing: border-box; height: ${HEIGHT}px; display: flex; gap: 8px;
+              align-items: center; padding: 0 12px; background: #fff6e9;
+              border-bottom: 1px solid #e8dccb; font: bold 17px/1 "Andika", sans-serif; }
+        button { font: inherit; color: #3b2f2a; background: #efe3d3; border: 0;
+                 border-radius: 10px; padding: 7px 16px; cursor: pointer; }
+        button:hover:enabled { background: #e6d6c1; }
+        button:disabled { opacity: 0.4; cursor: default; }
+        button:focus-visible { outline: 3px solid #3584e4; outline-offset: 2px; }
+      </style>
+      <nav><button type="button" id="back"></button><button type="button" id="forward"></button></nav>`;
+    const nav = shadow.querySelector("nav");
+    const back = shadow.getElementById("back");
+    const forward = shadow.getElementById("forward");
+    nav.setAttribute("aria-label", words.bar);
+    back.textContent = "← " + words.back;
+    forward.textContent = words.forward + " →";
+    back.addEventListener("click", () => history.back());
+    forward.addEventListener("click", () => history.forward());
+
+    function update() {
+      back.disabled = !navigation.canGoBack;
+      forward.disabled = !navigation.canGoForward;
+    }
+    update();
+    navigation.addEventListener("currententrychange", update);
+    window.addEventListener("pageshow", update);
+
+    (document.head || document.documentElement).appendChild(room);
+    document.body.prepend(host);
+  }
+
+  if (document.body) {
+    build();
+  } else {
+    document.addEventListener("DOMContentLoaded", build);
+  }
+})();

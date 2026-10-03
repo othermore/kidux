@@ -130,7 +130,7 @@ PYTHON
         --msgid-bugs-address=info@kidux.org \
         --output="$module_pot" \
         "$words/manifest.py" $([ -d "$module/bin" ] && find "$module/bin" -maxdepth 1 -type f | sort) \
-        $([ -d "$module/webapp" ] && find "$module/webapp" -maxdepth 1 -name '*.py' | sort)
+        $(for dir in webapp page; do [ -d "$module/$dir" ] && find "$module/$dir" -maxdepth 1 -name '*.py'; done | sort)
     rm -rf "$words"
     if [ "$MERGE" = yes ]; then
         for po in "$module"/po/*.po; do

@@ -5,8 +5,8 @@ Maintainer: Antonio Morales García <info@kidux.org>
 Build-Depends: debhelper-compat (= 13),
                gettext,
                pyflakes3 <!nocheck>,
-               python3 <!nocheck>,
-               python3-kidux (>= 0.1.53~) <!nocheck>,
+               python3,
+               python3-kidux (>= 0.1.55~) <!nocheck>,
                python3-pytest <!nocheck>,
 Standards-Version: 4.7.2
 Rules-Requires-Root: no
@@ -14,7 +14,7 @@ Rules-Requires-Root: no
 Package: kidux-module-wikipedia
 Architecture: all
 Depends: ${misc:Depends},
-         kidux-webapps (>= 0.1.10~),
+         kidux-webapps (>= 0.1.11~),
 XB-Kidux-Name-en: Wikipedia
 XB-Kidux-Description-en: Wikipedia, the whole encyclopedia, in the child's language, with the rest of the internet closed. It is written for everyone, not only for children.
 XB-Kidux-Name-es: Wikipedia

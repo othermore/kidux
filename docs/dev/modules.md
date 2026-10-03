@@ -111,6 +111,14 @@ icon theme is needed and the tile is the same on every machine.
   and then drives the window through Chromium's DevTools pipe
   (`kidux.browser`, D91). Without an account given, the website opens as
   it is. CodeCombat is the one that does (phase-4c-plan.md, 4.17).
+- `page_script` names a file beside the manifest that runs in every page
+  the window of a module made of web pages shows, as Wikipedia's bar of
+  Back and Forward does (phase-4c-plan.md, 4.18). `kidux-webapp` hands it
+  to Chromium through the same pipe, in a world of its own beside the
+  page's, so that the two share the page and none of their names, with
+  `window.KIDUX.lang` the child's language; its words are the module's,
+  written into it when its package is built. A module that signs in gets
+  it on its site's pages, not on its own *Connecting…* page.
 - `needs_windows = true` says the module is only for a child whose modules
   open in windows (D46): a real web browser, an editor with several files
   open. The launcher shows no tile for it to a child without windows, and
@@ -131,8 +139,10 @@ not a list of names is dropped with a line in the log; `settings` none,
 and a setting whose table is wrong, which has no `description`, or whose
 default is not of its kind, is dropped with a line in the log; `hosts` none, kept
 sorted and each once, and a value that is not a list of host names is
-dropped with a line in the log; `needs_windows` false, as is any value but
-`true`. Without `icon.svg` the
+dropped with a line in the log; `sign_in` none, and a table that is wrong
+is dropped with a line in the log; `page_script` none, and a name that is
+not a file beside the manifest is dropped with a line in the log;
+`needs_windows` false, as is any value but `true`. Without `icon.svg` the
 tile shows Kidux's mascot.
 
 ## 2. What a module may and may not do

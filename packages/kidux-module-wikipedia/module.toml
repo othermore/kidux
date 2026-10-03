@@ -1,11 +1,14 @@
 # Wikipedia: a door to the encyclopedia, in the child's language (D85,
 # D87). Nothing of it is shipped: it is read on its own site.
 id = "wikipedia"
-version = "0.1.0"
+version = "0.1.1"
 name = "Wikipedia"
 description = "Wikipedia, the whole encyclopedia, in the child's language, with the rest of the internet closed. It is written for everyone, not only for children."
 min_age = 8
 launch = { web = "https://{lang}.wikipedia.org/" }
+# A slim bar of Back and Forward along the top of every page: an
+# application window has no buttons of its own to go back (page/bar.py).
+page_script = "bar.js"
 # Wikipedia, Wikimedia (its pictures and its sign-in) and the sister
 # projects a link in an article leads to. Chromium's net log, over the
 # front page, a search and an article, shows nothing else of theirs.

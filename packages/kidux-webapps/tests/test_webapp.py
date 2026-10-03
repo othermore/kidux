@@ -177,6 +177,9 @@ class FakePipe:
         self.calls.append(("wait", {"for": method}, ""))
         return {"method": method}
 
+    def drain(self):
+        self.calls.append(("drain", {}, ""))
+
 
 class FakeProcess:
     def wait(self):
@@ -189,10 +192,10 @@ SIGNING = modules.Module(id="combat", name="Combat", launch={"web": "https://exa
                                                 ("sess",), start="https://example.org/play"))
 
 
-def sign_in(monkeypatch, client):
+def sign_in(monkeypatch, client, module=SIGNING):
     pipe = FakePipe()
     monkeypatch.setattr(webapp.browser, "start", lambda command: (FakeProcess(), pipe))
-    assert webapp.sign_in_and_follow(SIGNING, ["chromium"], "es", client) == 0
+    assert webapp.drive(module, ["chromium"], "es", client) == 0
     return [(method, params) for method, params, _session in pipe.calls]
 
 
@@ -211,6 +214,8 @@ def test_signed_in_the_window_gets_the_cookies_and_goes_to_the_site_then_its_sta
     assert navigations == ["https://example.org/", "https://example.org/play"]
     assert calls.index(("Storage.setCookies", {"cookies": [cookie]})) < calls.index(
         ("Page.navigate", {"url": "https://example.org/"}))
+    # Then it keeps the pipe, reading, until the window is closed.
+    assert calls[-1] == ("drain", {})
 
 
 def test_a_refused_account_is_said_on_the_page_and_tried_again_when_asked(monkeypatch):
@@ -241,4 +246,34 @@ def test_no_account_set_opens_the_site_as_it_is(monkeypatch):
     assert [params["url"] for method, params in calls if method == "Page.navigate"] == [
         "https://example.org/"]
     assert not any(method == "Storage.setCookies" for method, _params in calls)
+
+
+def test_a_page_script_runs_in_every_page_in_a_world_of_its_own(monkeypatch, tmp_path):
+    script = tmp_path / "bar.js"
+    script.write_text("document.title;\n")
+    wiki = modules.Module(id="wiki", name="Wiki", launch={"web": "https://{lang}.example.org/"},
+                          hosts=("example.org",), page_script=str(script))
+
+    calls = sign_in(monkeypatch, None, wiki)
+
+    added = [params for method, params in calls
+             if method == "Page.addScriptToEvaluateOnNewDocument"]
+    assert added == [{"source": 'window.KIDUX = {"lang": "es"};\ndocument.title;\n',
+                      "worldName": "kidux", "runImmediately": True}]
+    assert not any(method == "Page.navigate" for method, _params in calls)
+    assert calls[-1] == ("drain", {})
+    assert webapp.argv(wiki, CHILD)[-1] == "--app=https://es.example.org/"
+
+
+def test_a_signing_module_s_page_script_waits_for_its_site(monkeypatch, tmp_path):
+    script = tmp_path / "bar.js"
+    script.write_text("1;\n")
+    module = SIGNING.__class__(**{**SIGNING.__dict__, "page_script": str(script)})
+    client = type("C", (), {"sign_in_module": lambda self, module_id: []})()
+
+    calls = sign_in(monkeypatch, client, module)
+
+    added = calls.index(next(c for c in calls if c[0] == "Page.addScriptToEvaluateOnNewDocument"))
+    assert calls[added][1]["runImmediately"] is False
+    assert added < calls.index(("Page.navigate", {"url": "https://example.org/"}))
 

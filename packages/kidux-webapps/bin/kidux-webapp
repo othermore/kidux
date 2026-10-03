@@ -20,7 +20,10 @@ port), opens the module's own Connecting… page, asks the daemon for the
 session's cookies, which it gets from the account an adult gave and never
 shows this program the password of, puts them in the window, takes it to
 the site, runs the module's script there, and goes to its start; a
-failure is said on the page, which asks to try again.
+failure is said on the page, which asks to try again. A module that names
+a page script (`page_script`, 4.18), as Wikipedia does for its Back and
+Forward, is held the same way, and the script runs in every page its
+window shows, in a world of its own beside the page's.
 
 Every module's Chromium is walled in by a proxy that answers nothing,
 `--proxy-server=127.0.0.1:1`, with a bypass list of the server and the
@@ -150,50 +153,83 @@ def site(module: modules.Module, lang: str) -> str:
 #: What the module's Connecting… page is told, by the daemon's error.
 FAILURES = {"SignInRefused": "refused", "SignInUnreachable": "unreachable"}
 
+#: The world a module's page script runs in: its own, so that the page's
+#: scripts and the module's share the page and none of their names.
+WORLD = "kidux"
 
-def sign_in_and_follow(module: modules.Module, command: list[str], lang: str, client) -> int:
-    """Open the module's Connecting… page, have the daemon sign the child
-    in, give the window the session's cookies, take it to the site, run the
+
+def told(path: str, lang: str) -> str:
+    """A module's script, told the child's language as window.KIDUX.lang."""
+    with open(path, encoding="utf-8") as file:
+        return f"window.KIDUX = {json.dumps({'lang': lang})};\n{file.read()}"
+
+
+def add_page_script(pipe, page: str, module: modules.Module, lang: str, now: bool) -> None:
+    """Have every page the window shows from now run the module's page
+    script; `now`, the page it shows already too."""
+    pipe.call("Page.addScriptToEvaluateOnNewDocument", {
+        "source": told(module.page_script, lang), "worldName": WORLD,
+        "runImmediately": now}, page)
+
+
+def sign_in(pipe, page: str, module: modules.Module, lang: str, client) -> None:
+    """On the module's Connecting… page, have the daemon sign the child in,
+    give the window the session's cookies, take it to the site, run the
     module's script there in the child's language, and go to its start. A
     failure is shown on the page, which asks to try again; no account set
-    opens the site as it is. Returns when the window is closed."""
+    opens the site as it is."""
+    pipe.call("Runtime.enable", {}, page)
+    pipe.call("Runtime.addBinding", {"name": "kiduxTryAgain"}, page)
+
+    def show(state: str) -> None:
+        pipe.call("Runtime.evaluate", {
+            "expression": f"window.kidux && window.kidux.show({json.dumps(state)})"}, page)
+
+    while True:
+        show("connecting")
+        try:
+            cookies = client.sign_in_module(module.id)
+            break
+        except Exception as error:  # noqa: BLE001 - what it was is all the page needs
+            said = str(error)
+            if "SignInNotSet" in said:
+                cookies = None
+                break
+            show(next((state for name, state in FAILURES.items() if name in said),
+                      "unreachable"))
+            print(f"could not sign in to {module.id}: {said}", file=sys.stderr)
+            pipe.event("Runtime.bindingCalled")
+    if module.page_script:
+        add_page_script(pipe, page, module, lang, now=False)
+    if cookies is None:
+        pipe.call("Page.navigate", {"url": site(module, lang)}, page)
+        pipe.call("Runtime.disable", {}, page)
+        return
+    pipe.call("Storage.setCookies", {"cookies": cookies})
+    pipe.events.clear()
+    pipe.call("Page.navigate", {"url": site(module, lang)}, page)
+    pipe.event("Page.loadEventFired")
+    if module.sign_in.script:
+        pipe.call("Runtime.evaluate", {"expression": told(module.sign_in.script, lang),
+                                       "awaitPromise": True}, page)
+    if module.sign_in.start:
+        pipe.call("Page.navigate", {"url": module.sign_in.start}, page)
+    pipe.call("Runtime.disable", {}, page)
+
+
+def drive(module: modules.Module, command: list[str], lang: str, client) -> int:
+    """Start Chromium holding its pipe, sign the child in or add the page
+    script, as the module's manifest says, and keep the pipe, reading what
+    Chromium says, until the window is closed; returns Chromium's status."""
     process, pipe = browser.start(command)
     try:
         page = pipe.page()
-        pipe.call("Runtime.enable", {}, page)
         pipe.call("Page.enable", {}, page)
-        pipe.call("Runtime.addBinding", {"name": "kiduxTryAgain"}, page)
-
-        def show(state: str) -> None:
-            pipe.call("Runtime.evaluate", {
-                "expression": f"window.kidux && window.kidux.show({json.dumps(state)})"}, page)
-
-        while True:
-            show("connecting")
-            try:
-                cookies = client.sign_in_module(module.id)
-                break
-            except Exception as error:  # noqa: BLE001 - what it was is all the page needs
-                said = str(error)
-                if "SignInNotSet" in said:
-                    pipe.call("Page.navigate", {"url": site(module, lang)}, page)
-                    return process.wait()
-                show(next((state for name, state in FAILURES.items() if name in said),
-                          "unreachable"))
-                print(f"could not sign in to {module.id}: {said}", file=sys.stderr)
-                pipe.event("Runtime.bindingCalled")
-        pipe.call("Storage.setCookies", {"cookies": cookies})
-        pipe.events.clear()
-        pipe.call("Page.navigate", {"url": site(module, lang)}, page)
-        pipe.event("Page.loadEventFired")
-        if module.sign_in.script:
-            with open(module.sign_in.script, encoding="utf-8") as file:
-                script = file.read()
-            pipe.call("Runtime.evaluate", {
-                "expression": f"window.KIDUX = {json.dumps({'lang': lang})};\n{script}",
-                "awaitPromise": True}, page)
-        if module.sign_in.start:
-            pipe.call("Page.navigate", {"url": module.sign_in.start}, page)
+        if module.sign_in is not None:
+            sign_in(pipe, page, module, lang, client)
+        elif module.page_script:
+            add_page_script(pipe, page, module, lang, now=True)
+        pipe.drain()
     except browser.BrowserGone:
         pass
     return process.wait()
@@ -216,9 +252,9 @@ def main(args: list[str]) -> int:
     if printing:
         print(shlex.join(command))
         return 0
-    if module.sign_in is not None:
+    if module.sign_in is not None or module.page_script:
         from kidux import client
-        return sign_in_and_follow(module, command, language(os.environ), client.Client())
+        return drive(module, command, language(os.environ), client.Client())
     os.execv(command[0], command)
     return 1
 

@@ -928,9 +928,10 @@ Wikipedia que lee todo el mundo, escrita para todos y no solo para niños,
 así que un adulto decide si un niño la lee, a partir de los ocho años. Un
 enlace que salga de Wikipedia y sus proyectos no lleva a ninguna parte.
 
-La ventana no tiene botón para volver atrás: **Alt+Izquierda** vuelve a la
-página anterior, y también el botón de volver de un ratón que lo tenga.
-Necesita internet siempre que se usa.
+Una barra arriba de la ventana tiene **Atrás** y **Adelante**, que van a
+la página anterior y a la siguiente, y se ven apagados cuando no hay
+adónde ir; **Alt+Izquierda** y el botón de volver de un ratón que lo tenga
+también vuelven. Necesita internet siempre que se usa.
 
 ![Wikipedia](../images/es/module-wikipedia.png)
 

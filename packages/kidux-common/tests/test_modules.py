@@ -328,3 +328,17 @@ def test_a_sign_in_that_would_send_an_account_elsewhere_is_left_out(tmp_path, ca
 
         assert modules.read(name, tmp_path).sign_in is None, name
     assert caplog.text.count("its sign_in is left out") == 4
+
+
+def test_a_website_module_names_a_script_for_its_pages(tmp_path, caplog):
+    for name, script in (("site", "bar.js"), ("away", "../bar.js"), ("none", "gone.js")):
+        manifest(tmp_path, name, f'id = "{name}"\nname = "X"\n'
+                 f'launch = {{ web = "https://example.org/" }}\npage_script = "{script}"\n')
+        (tmp_path / name / "bar.js").write_text("// every page\n")
+
+    assert modules.read("site", tmp_path).page_script == str(tmp_path / "site" / "bar.js")
+    assert modules.read("away", tmp_path).page_script == ""
+    assert modules.read("none", tmp_path).page_script == ""
+    assert caplog.text.count("is not a file beside the manifest") == 2
+    manifest(tmp_path, "plain", GOOD.format(id="plain"))
+    assert modules.read("plain", tmp_path).page_script == ""

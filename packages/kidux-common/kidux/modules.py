@@ -167,6 +167,18 @@ def _sign_in(module_id: str, table, hosts: list[str], directory: Path) -> SignIn
         return None
 
 
+def _page_script(module_id: str, name, directory: Path) -> str:
+    """The file a module made of web pages names to run in every page its
+    window shows (phase-4c-plan.md, 4.18), beside its manifest; "" for none."""
+    if not name:
+        return ""
+    if not isinstance(name, str) or "/" in name or not (directory / name).is_file():
+        log.warning("module %s: its page_script %r is not a file beside the manifest",
+                    module_id, name)
+        return ""
+    return str(directory / name)
+
+
 #: A name in a manifest's `hosts`: a lower-case DNS name, at least two
 #: labels, nothing else.
 HOST = re.compile(r"\A(?=.{1,253}\Z)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?"
@@ -206,6 +218,8 @@ class Module:
     settings: tuple["Setting", ...] = ()
     #: How the daemon signs a child in to its website, when it does.
     sign_in: "SignIn | None" = None
+    #: A script of its own that runs in every page its window shows, or "".
+    page_script: str = ""
 
 
 #: What Chromium calls the window of `kidux-webapp <id>` (launch.py): the
@@ -318,6 +332,7 @@ def read(module_id: str, root: Path | None = None) -> Module | None:
         settings=_settings(module_id, manifest.get("settings", [])),
         sign_in=_sign_in(module_id, manifest.get("sign_in"),
                          sorted(set(hosts)), directory),
+        page_script=_page_script(module_id, manifest.get("page_script"), directory),
     )
 
 

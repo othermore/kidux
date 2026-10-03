@@ -61,6 +61,19 @@ def test_commands_go_on_3_and_answers_come_on_4(tmp_path):
         process.wait()
 
 
+def test_what_chromium_says_is_drained_until_it_closes(tmp_path):
+    talker = tmp_path / "talker.py"
+    talker.write_text("import os\nfor n in range(5000):\n"
+                      "    os.write(4, b'{\"method\": \"Page.frameNavigated\"}\\0')\n")
+    process, pipe = browser.start([sys.executable, str(talker)])
+    pipe.events.append({"method": "Page.loadEventFired"})
+
+    pipe.drain()
+
+    assert process.wait() == 0
+    assert pipe.events == []
+
+
 def test_a_closed_browser_is_said(tmp_path):
     gone = tmp_path / "gone.py"
     gone.write_text("import os\nos.close(4)\n")
