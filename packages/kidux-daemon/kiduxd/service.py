@@ -20,7 +20,7 @@ from typing import Callable
 from kidux import log, paths, state
 from kidux import modules as kidux_modules
 
-from . import VERSION, catalogue
+from . import VERSION, catalogue, signin
 from .access import (
     MAX_MINUTES, UNLIMITED, available, check_access, days_text, grant, set_left,
     validate_policy, weekday_of,
@@ -35,6 +35,7 @@ from .errors import (
     NoSession,
     NoTimeLeft,
     NotAuthorized,
+    SignInNotSet,
     SessionActive,
     WrongPassword,
 )
@@ -84,6 +85,15 @@ class SystemClock:
 Emit = Callable[[str, str, str, tuple], None]
 
 
+class Later:
+    """An answer that takes time, such as a website's: `work`, run by the
+    bus layer in a thread of its own so that the daemon goes on answering
+    everyone else, and answered when it returns or raises."""
+
+    def __init__(self, work: Callable[[], object]) -> None:
+        self.work = work
+
+
 class Service:
     def __init__(
         self,
@@ -119,6 +129,9 @@ class Service:
         self._ending: set[str] = set()
         self._emit = emit or (lambda interface, signal, signature, args: None)
         self._audit = audit
+        #: How a child is signed in to a module's website: one HTTPS request,
+        #: replaced in the tests by a fake website.
+        self.sign_in_request = signin.request_in_unit
         if check_child_password is None:
             from .pamcheck import check_password as check_child_password
         self._check_child_password = check_child_password
@@ -467,6 +480,38 @@ class Service:
         if username is None or not self.gate.caller_is_child(caller):
             raise NotAuthorized("only a child's own session asks for its module settings")
         return self._settings_of(username, self._module_with_settings(module_id))[0]
+
+    def Modules1_SignIn(self, caller: Caller, module_id: str) -> list[dict]:
+        """Sign the child asking in to their module's website, with the
+        account an adult gave it (phase-4c-plan.md, 4.17), and hand back
+        only the cookies the module names: the password never leaves the
+        daemon. What is sent where is the manifest's `sign_in`, data the
+        daemon acts on; nothing of the module's runs here."""
+        username = self.accounts.username_of(caller.uid)
+        if username is None or not self.gate.caller_is_child(caller):
+            raise NotAuthorized("only a child's own session signs in to a module")
+        module = self._module_with_settings(module_id)
+        if module.sign_in is None:
+            raise InvalidArgument(f"{module_id} does not sign in")
+        stored = self._stored_settings(username).get(module_id, {})
+        values = {}
+        for setting in module.settings:
+            try:
+                values[setting.key] = str(setting.value(stored[setting.key]))
+            except (KeyError, ValueError):
+                values[setting.key] = ""
+        body = {}
+        for field, template in module.sign_in.body:
+            filled = template
+            for key, value in values.items():
+                if "{" + key + "}" in filled:
+                    if not value:
+                        raise SignInNotSet(f"{module_id}: no {key} is set for {username}")
+                    filled = filled.replace("{" + key + "}", value)
+            body[field] = filled
+        self._audit("module sign-in", "asked", child=username, module=module_id)
+        request, url, wanted = self.sign_in_request, module.sign_in.url, module.sign_in.cookies
+        return Later(lambda: request(url, body, wanted))
 
     def _enabled_modules(self, username: str) -> list[str]:
         document = state.read(paths.child_modules(username), "modules", default={"enabled": []})

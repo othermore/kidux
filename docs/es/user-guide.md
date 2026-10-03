@@ -905,12 +905,18 @@ y a ninguna otra. Kidux no tiene ninguna relación con CodeCombat.
 
 Necesita internet y una cuenta de CodeCombat. Los primeros niveles son
 gratis; casi toda la web necesita una suscripción, que un adulto compra
-desde otro ordenador, porque el módulo no abre ninguna otra web. El niño
-entra con el correo y la contraseña de la cuenta: entrar con Google,
-Facebook o Clever no lleva a ninguna parte aquí. La web mantiene al niño
-dentro solo mientras su ventana está abierta, así que lo vuelve a pedir
-cada vez que se abre el módulo. Puede preguntar por sus cookies la primera
-vez; esa pregunta es de la propia web.
+desde otro ordenador, porque el módulo no abre ninguna otra web.
+
+Un adulto pone la cuenta de cada niño en los **Ajustes** de CodeCombat del
+panel: su correo y su contraseña. Entonces el módulo entra solo cada vez
+que se abre, diciendo *Conectándose a CodeCombat…* mientras tanto, pone la
+web en el idioma del niño y abre donde se empieza a jugar. El niño nunca
+ve la contraseña. Si la cuenta no es correcta o la web no contesta, el
+módulo lo dice y ofrece intentarlo otra vez. Sin cuenta puesta, el módulo
+abre la portada de la web, y el niño entra allí con el correo y la
+contraseña de la cuenta: entrar con Google, Facebook o Clever no lleva a
+ninguna parte aquí. La web puede preguntar por sus cookies la primera vez;
+esa pregunta es de la propia web.
 
 ![CodeCombat](../images/es/module-codecombat.png)
 

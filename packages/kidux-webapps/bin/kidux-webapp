@@ -13,6 +13,15 @@ the launcher keeps on its workspace above the bar (D43). Not `--kiosk`,
 which hides Chromium's own bars only while the window is fullscreen, and
 the launcher gives no window the whole screen.
 
+A module that signs a child in to its website (`[sign_in]` in its
+manifest, phase-4c-plan.md 4.17) is not handed to Chromium and left: this
+stays, holding Chromium's DevTools pipe (`--remote-debugging-pipe`, no
+port), opens the module's own Connecting… page, asks the daemon for the
+session's cookies, which it gets from the account an adult gave and never
+shows this program the password of, puts them in the window, takes it to
+the site, runs the module's script there, and goes to its start; a
+failure is said on the page, which asks to try again.
+
 Every module's Chromium is walled in by a proxy that answers nothing,
 `--proxy-server=127.0.0.1:1`, with a bypass list of the server and the
 hosts the module's manifest names: everything else fails. The managed
@@ -28,12 +37,13 @@ that a flag there wins over Kidux's for the same thing: what draws cleanly
 on this machine's graphics. A line that is not a flag is left out and said.
 """
 
+import json
 import os
 import shlex
 import sys
 from urllib.parse import urlencode
 
-from kidux import modules, paths
+from kidux import browser, modules, paths
 
 CHROMIUM = "/usr/bin/chromium"
 SERVER = "http://127.0.0.1:8123"
@@ -88,6 +98,11 @@ def address(module: modules.Module, lang: str, environ=None) -> str:
     if isinstance(module.launch.get("webapp"), str):
         query = urlencode({"lang": lang, **settings(environ or {})})
         return f"{SERVER}/{module.launch['webapp']}/?{query}"
+    if module.sign_in is not None:
+        # Its own page first, Connecting…, which the module's package puts
+        # where kidux-webapps serves it; the window goes on to the site once
+        # the child is signed in (sign_in_and_follow).
+        return f"{SERVER}/{module.id}/?lang={lang}"
     if modules.web_host(module.launch):
         return module.launch["web"].replace("{lang}", lang)
     raise ValueError(f"module {module.id} is neither a web application nor a website")
@@ -127,6 +142,63 @@ def argv(module: modules.Module, environ, flags=()) -> list[str]:
     ]
 
 
+def site(module: modules.Module, lang: str) -> str:
+    """The website itself, with {lang} the child's language."""
+    return module.launch["web"].replace("{lang}", lang)
+
+
+#: What the module's Connecting… page is told, by the daemon's error.
+FAILURES = {"SignInRefused": "refused", "SignInUnreachable": "unreachable"}
+
+
+def sign_in_and_follow(module: modules.Module, command: list[str], lang: str, client) -> int:
+    """Open the module's Connecting… page, have the daemon sign the child
+    in, give the window the session's cookies, take it to the site, run the
+    module's script there in the child's language, and go to its start. A
+    failure is shown on the page, which asks to try again; no account set
+    opens the site as it is. Returns when the window is closed."""
+    process, pipe = browser.start(command)
+    try:
+        page = pipe.page()
+        pipe.call("Runtime.enable", {}, page)
+        pipe.call("Page.enable", {}, page)
+        pipe.call("Runtime.addBinding", {"name": "kiduxTryAgain"}, page)
+
+        def show(state: str) -> None:
+            pipe.call("Runtime.evaluate", {
+                "expression": f"window.kidux && window.kidux.show({json.dumps(state)})"}, page)
+
+        while True:
+            show("connecting")
+            try:
+                cookies = client.sign_in_module(module.id)
+                break
+            except Exception as error:  # noqa: BLE001 - what it was is all the page needs
+                said = str(error)
+                if "SignInNotSet" in said:
+                    pipe.call("Page.navigate", {"url": site(module, lang)}, page)
+                    return process.wait()
+                show(next((state for name, state in FAILURES.items() if name in said),
+                          "unreachable"))
+                print(f"could not sign in to {module.id}: {said}", file=sys.stderr)
+                pipe.event("Runtime.bindingCalled")
+        pipe.call("Storage.setCookies", {"cookies": cookies})
+        pipe.events.clear()
+        pipe.call("Page.navigate", {"url": site(module, lang)}, page)
+        pipe.event("Page.loadEventFired")
+        if module.sign_in.script:
+            with open(module.sign_in.script, encoding="utf-8") as file:
+                script = file.read()
+            pipe.call("Runtime.evaluate", {
+                "expression": f"window.KIDUX = {json.dumps({'lang': lang})};\n{script}",
+                "awaitPromise": True}, page)
+        if module.sign_in.start:
+            pipe.call("Page.navigate", {"url": module.sign_in.start}, page)
+    except browser.BrowserGone:
+        pass
+    return process.wait()
+
+
 def main(args: list[str]) -> int:
     printing = args[1:2] == ["--print"]
     if len(args) != (3 if printing else 2):
@@ -144,6 +216,9 @@ def main(args: list[str]) -> int:
     if printing:
         print(shlex.join(command))
         return 0
+    if module.sign_in is not None:
+        from kidux import client
+        return sign_in_and_follow(module, command, language(os.environ), client.Client())
     os.execv(command[0], command)
     return 1
 

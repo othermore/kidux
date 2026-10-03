@@ -6,6 +6,7 @@ the introspection XML. A `DaemonError` becomes its D-Bus error; anything else
 becomes `Failed` with the details in the journal and none on the wire.
 """
 
+import threading
 from importlib import resources
 
 from gi.repository import Gio, GLib
@@ -16,7 +17,7 @@ from kidux.log import get_logger
 from . import VERSION
 from .errors import DaemonError, Failed
 from .gate import Caller
-from .service import Service
+from .service import Later, Service
 
 _log = get_logger("bus")
 
@@ -134,6 +135,30 @@ class BusObject:
 
         method = self._node.lookup_interface(interface_name).lookup_method(method_name)
         out = [arg.signature for arg in method.out_args]
+        if isinstance(result, Later):
+            self._answer_later(invocation, interface, method_name, out, result)
+            return
+        self._answer(invocation, out, result)
+
+    def _answer_later(self, invocation, interface, method_name, out, later: Later) -> None:
+        """Run `later`'s work in a thread, and answer from the main loop."""
+        def work() -> None:
+            try:
+                value = later.work()
+            except DaemonError as error:
+                name, text = error.dbus_name, str(error)
+                GLib.idle_add(lambda: invocation.return_dbus_error(name, text) and False)
+                return
+            except Exception:
+                _log.exception("%s.%s failed", interface, method_name)
+                GLib.idle_add(lambda: invocation.return_dbus_error(Failed().dbus_name,
+                                                                   "internal error") and False)
+                return
+            GLib.idle_add(lambda: self._answer(invocation, out, value) and False)
+
+        threading.Thread(target=work, name=f"{interface}.{method_name}", daemon=True).start()
+
+    def _answer(self, invocation, out, result) -> None:
         if not out:
             invocation.return_value(None)
         elif len(out) == 1:

@@ -11,7 +11,7 @@
   "ExtensionInstallBlocklist": [
     "*"
   ],
-  "DeveloperToolsAvailability": 2,
+  "DeveloperToolsAvailability": 1,
   "IncognitoModeAvailability": 1,
   "PasswordManagerEnabled": false,
   "DownloadRestrictions": 1,

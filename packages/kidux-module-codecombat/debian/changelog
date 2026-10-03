@@ -1,3 +1,11 @@
+kidux-module-codecombat (0.1.1) trixie; urgency=medium
+
+  * An adult may give a child's CodeCombat account on the panel: the
+    module then signs in by itself, in the child's language, and opens
+    the play screen.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 17:16:59 +0200
+
 kidux-module-codecombat (0.1.0) trixie; urgency=medium
 
   * Initial release: a door to the CodeCombat website.

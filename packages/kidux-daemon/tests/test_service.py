@@ -21,6 +21,7 @@ from kiduxd.errors import (
     NotAuthorized,
     NotUnlocked,
     SessionActive,
+    SignInNotSet,
     WrongPassword,
 )
 from kiduxd.gate import Caller, Gate
@@ -370,6 +371,104 @@ def test_settings_need_the_token(machine):
     with pytest.raises(NotUnlocked):
         machine.call(ADMIN, "Modules1", "SetSetting", "not a token", "ana", "basic", "type_in",
                      False)
+
+
+SIGN_IN = """
+hosts = ["example.org"]
+
+[[settings]]
+key = "email"
+kind = "text"
+label = "Email"
+description = "The account's email address."
+
+[[settings]]
+key = "password"
+kind = "secret"
+label = "Password"
+description = "The account's password."
+
+[sign_in]
+url = "https://example.org/auth/login"
+body = { username = "{email}", password = "{password}" }
+cookies = ["site.sess"]
+"""
+
+
+def install_site():
+    directory = paths.MODULES_DIR / "site"
+    directory.mkdir(parents=True)
+    (directory / "module.toml").write_text(
+        'id = "site"\nname = "Site"\nlaunch = { web = "https://example.org/" }\n' + SIGN_IN)
+
+
+def test_a_child_is_signed_in_with_the_account_an_adult_gave_and_gets_only_cookies(machine):
+    install_site()
+    token = machine.unlock()
+    machine.call(ADMIN, "Modules1", "SetSetting", token, "ana", "site", "email", "ana@example.org")
+    machine.call(ADMIN, "Modules1", "SetSetting", token, "ana", "site", "password", "hunter2")
+    sent = []
+    cookie = {"name": "site.sess", "value": "abc", "domain": "example.org", "path": "/",
+              "secure": True, "httpOnly": True, "sameSite": "None"}
+    machine.service.sign_in_request = lambda url, body, wanted: sent.append(
+        (url, body, wanted)) or [cookie]
+
+    # The website is asked in a thread of the bus layer's: the daemon goes on
+    # answering everyone else meanwhile.
+    later = machine.call(ANA, "Modules1", "SignIn", "site")
+    assert sent == []
+    assert later.work() == [cookie]
+    assert sent == [("https://example.org/auth/login",
+                     {"username": "ana@example.org", "password": "hunter2"}, ("site.sess",))]
+    assert "hunter2" not in repr(machine.audit)
+
+
+def test_no_account_set_is_said_and_nothing_is_sent(machine):
+    install_site()
+    machine.service.sign_in_request = lambda *args: pytest.fail("it sent something")
+
+    with pytest.raises(SignInNotSet):
+        machine.call(ANA, "Modules1", "SignIn", "site")
+
+
+def test_only_a_child_s_own_session_signs_in(machine):
+    install_site()
+    with pytest.raises(NotAuthorized):
+        machine.call(ADMIN, "Modules1", "SignIn", "site")
+
+
+def test_the_request_hands_back_only_the_named_cookies_and_says_why_it_failed():
+    import io
+    import urllib.error
+
+    from kiduxd import signin
+    from kiduxd.errors import SignInRefused, SignInUnreachable
+
+    class Answer(io.BytesIO):
+        def __init__(self, cookies):
+            super().__init__(b"{}")
+            self.headers = type("H", (), {"get_all": lambda _self, name: cookies})()
+
+    def site(cookies):
+        return lambda request, timeout: Answer(cookies)
+
+    got = signin.request("https://example.org/auth", {"a": "b"}, ("site.sess",), opener=site([
+        "site.sess=abc; path=/; samesite=none; secure; httponly", "tracker=1; path=/"]))
+    assert got == [{"name": "site.sess", "value": "abc", "domain": "example.org", "path": "/",
+                    "secure": True, "httpOnly": True, "sameSite": "None"}]
+
+    def refused(request, timeout):
+        raise urllib.error.HTTPError(request.full_url, 401, "no", {}, None)
+
+    def away(request, timeout):
+        raise urllib.error.URLError("no route")
+
+    with pytest.raises(SignInRefused):
+        signin.request("https://example.org/auth", {}, ("site.sess",), opener=refused)
+    with pytest.raises(SignInUnreachable):
+        signin.request("https://example.org/auth", {}, ("site.sess",), opener=away)
+    with pytest.raises(SignInUnreachable):
+        signin.request("https://example.org/auth", {}, ("site.sess",), opener=site([]))
 
 
 # --- tokens and the adult password -------------------------------------------
@@ -891,3 +990,32 @@ def test_without_dpkg_the_versions_are_none(machine):
 
     machine.service.kidux_packages = broken
     assert machine.call(GREETER, "System1", "Versions") == {}
+
+
+def test_the_request_runs_in_a_unit_of_its_own_with_the_password_on_its_input():
+    import json
+    import subprocess
+
+    from kiduxd import signin
+    from kiduxd.errors import SignInRefused, SignInUnreachable
+
+    ran = []
+
+    def run(argv, input, capture_output, text, timeout):
+        ran.append((argv, json.loads(input)))
+        return subprocess.CompletedProcess(argv, 0, stdout=json.dumps(answer), stderr="")
+
+    answer = {"cookies": [{"name": "sess", "value": "v"}]}
+    assert signin.request_in_unit("https://example.org/auth", {"p": "hunter2"}, ("sess",),
+                                  run=run) == [{"name": "sess", "value": "v"}]
+    argv, given = ran[0]
+    assert argv[:2] == ["systemd-run", "--wait"] and "--property=DynamicUser=yes" in argv
+    assert "hunter2" not in " ".join(argv) and given["body"] == {"p": "hunter2"}
+
+    answer = {"error": "refused", "detail": "401"}
+    with pytest.raises(SignInRefused):
+        signin.request_in_unit("https://example.org/auth", {}, ("sess",), run=run)
+    answer = {"error": "unreachable", "detail": "no route"}
+    with pytest.raises(SignInUnreachable):
+        signin.request_in_unit("https://example.org/auth", {}, ("sess",), run=run)
+

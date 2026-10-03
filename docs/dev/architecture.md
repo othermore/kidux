@@ -1589,3 +1589,14 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   module's own; the launcher hands them to the module in its environment,
   and `kidux-webapp` in a web application's address. A secret never
   reaches the child's session: the daemon uses it itself.
+
+- **D91 — Chromium's DevTools are allowed by the policy, and their pages
+  stay blocked.** Decided 2026-10-03 during phase-4c-plan.md's 4.17,
+  refining D36. `kidux-webapp` signs a child in to a module's website by
+  driving its Chromium through `--remote-debugging-pipe`, a pipe only it
+  holds, and `DeveloperToolsAvailability` 2, which D36 set, refuses that
+  pipe too. It is 1 now; the tools a child could open with F12 or
+  Ctrl+Shift+I stay closed, since their pages are addresses the policy's
+  `URLBlocklist` of `*` blocks, and Chromium says *DevTools is not allowed
+  on this page* (tried 2026-10-03); the daemon still refuses every flag
+  that would open a debugging port or another profile.

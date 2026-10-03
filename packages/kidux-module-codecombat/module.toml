@@ -1,7 +1,7 @@
 # CodeCombat: a door to the CodeCombat website (D85, D86). Nothing of
 # CodeCombat is shipped: its levels are its own and live only on its site.
 id = "codecombat"
-version = "0.1.0"
+version = "0.1.1"
 name = "CodeCombat"
 description = "The CodeCombat website, where you learn Python and JavaScript by playing. It needs the internet and a CodeCombat account, paid for most of it; Kidux is not connected with CodeCombat."
 min_age = 9
@@ -18,3 +18,28 @@ hosts = ["codecombat.com"]
 categories = ["programming"]
 i18n_domain = "kidux-module-codecombat"
 memory_max = "3G"
+
+# The child's CodeCombat account, which an adult gives on the panel (D90).
+[[settings]]
+key = "email"
+kind = "text"
+label = "Email"
+description = "The email address of the child's CodeCombat account. Empty, the child signs in on the site."
+
+[[settings]]
+key = "password"
+kind = "secret"
+label = "Password"
+description = "The password of the child's CodeCombat account. Kidux signs in with it, and the child never sees it."
+
+# How the daemon signs the child in (phase-4c-plan.md, 4.17), as the site's
+# own sign-in page does, read from Chromium's net log: the account as JSON
+# to /auth/login, and the session's two cookies back. sign-in.js then sets
+# the account's language to the child's, and the window goes to the play
+# screen.
+[sign_in]
+url = "https://codecombat.com/auth/login"
+body = { username = "{email}", password = "{password}" }
+cookies = ["codecombat.sess", "codecombat.sess.sig"]
+script = "sign-in.js"
+start = "https://codecombat.com/play"

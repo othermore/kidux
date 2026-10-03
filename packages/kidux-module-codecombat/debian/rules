@@ -2,6 +2,7 @@
 
 DEST = debian/kidux-module-codecombat
 MODULE = $(DEST)/usr/share/kidux/modules/codecombat
+WEBAPP = $(DEST)/usr/share/kidux/webapps/codecombat
 
 %:
 	dh $@
@@ -12,18 +13,22 @@ override_dh_auto_build:
 	    mkdir -p build/locale/$$lang/LC_MESSAGES; \
 	    msgfmt --check --output-file=build/locale/$$lang/LC_MESSAGES/kidux-module-codecombat.mo $$po; \
 	done
+	python3 -B webapp/page.py build/locale po webapp/index.html.in build/index.html
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	pyflakes3 tests
+	pyflakes3 webapp/page.py tests
 	python3 -m pytest -q -p no:cacheprovider tests
 endif
 
-# The manifest, the icon and the words: the website is CodeCombat's, on the
+# The manifest, the icon, the words, the Connecting… page and the script
+# that sets the account's language: the website is CodeCombat's, on the
 # internet, and nothing of it is in the package (D86).
 override_dh_auto_install:
 	install -D -m 0644 module.toml $(MODULE)/module.toml
 	install -D -m 0644 icon.svg $(MODULE)/icon.svg
+	install -D -m 0644 sign-in.js $(MODULE)/sign-in.js
+	install -D -m 0644 build/index.html $(WEBAPP)/index.html
 	for mo in build/locale/*/LC_MESSAGES/kidux-module-codecombat.mo; do \
 	    lang=$$(basename $$(dirname $$(dirname $$mo))); \
 	    install -D -m 0644 $$mo $(DEST)/usr/share/locale/$$lang/LC_MESSAGES/kidux-module-codecombat.mo; \

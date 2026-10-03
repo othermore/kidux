@@ -103,27 +103,38 @@ change the site's language, nor find the play screen.
 
 **The settings**: `email` (text) and `password` (secret), per child.
 
-**How it starts.** `kidux-webapp` opens a page of its own first, served
-by `kidux-webapps`: *Connecting to CodeCombat…*, in the child's language,
-with the mascot. Meanwhile it signs in (section 4, decision 1), sets the
+**How it starts.** `kidux-webapp` opens a page of the module's own first,
+served by `kidux-webapps`: *Connecting to CodeCombat…*, in the child's
+language, with the mascot. Meanwhile it signs in (section 4, decision 1), sets the
 account's language to the child's, and then takes the window to the
 play screen, `https://codecombat.com/play`. Chromium is started with
 `--remote-debugging-pipe`, a pipe only `kidux-webapp` holds, never a
 port: through it `kidux-webapp` gives Chromium the session's cookies and
 moves the window to the site. The daemon already refuses that flag among
-the machine's own.
+the machine's own. The pipe needs the policy's
+`DeveloperToolsAvailability` at 1, and the tools' own pages stay blocked
+by its `URLBlocklist` (D91).
 
 **Signing in** is the daemon's (section 4, decision 1): it keeps the
 password, root's alone, asks CodeCombat for a session over HTTPS when
 the child's `kidux-webapp` asks it to through a new method,
-`SignInModule(module)`, answered only for the caller's own uid, and
-returns the session's cookie and nothing else. What it sends where is
+`Modules1.SignIn(module)`, answered only for the caller's own uid, and
+returns the session's cookie and nothing else. The daemon's unit opens no
+internet socket, so the request runs in a transient unit of its own, a
+dynamic user with no homes, given the account on its standard input.
+CodeCombat refuses a request that does not say what sends it, so it says
+`Kidux (https://kidux.org)`. What it sends where is
 data in the module's manifest, not code: a `[sign_in]` table with the
 `https://` address, which must be on one of the module's `hosts`, the
 body to send with `{email}` and `{password}` where the settings go, and
 the names of the cookies to hand back. The daemon makes that one
 request and runs nothing of the module's, so that it knows nothing of
 CodeCombat and no module's code runs as root.
+
+**Setting the language and going to play** is a script of the module's,
+`sign-in.js`, which `kidux-webapp` runs in the site's first page once
+the cookies are in: it asks who is signed in and stores the child's
+language in that account.
 
 **When it cannot**: a wrong email or password, no internet, the site not
 answering, no account set. The page says which, in a sentence a child

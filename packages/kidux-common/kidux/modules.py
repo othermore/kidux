@@ -116,6 +116,57 @@ def _settings(module_id: str, declared) -> tuple[Setting, ...]:
     return tuple(found)
 
 
+@dataclass(frozen=True)
+class SignIn:
+    """How a module that opens a website signs a child in (phase-4c-plan.md,
+    4.17): data the daemon acts on, never code. It sends `body`, with
+    `{email}` and `{password}` where the child's settings go, as JSON to
+    `url`, an https:// address on one of the module's hosts, and hands the
+    child's session the cookies named in `cookies`. `script`, a file beside
+    the manifest, then runs in the site's first page, with the child's
+    language; `start` is where the window goes once it has."""
+    url: str
+    body: tuple[tuple[str, str], ...]
+    cookies: tuple[str, ...]
+    script: str = ""
+    start: str = ""
+
+
+def _sign_in(module_id: str, table, hosts: list[str], directory: Path) -> SignIn | None:
+    if table is None:
+        return None
+    def on_hosts(address) -> bool:
+        if not isinstance(address, str) or not address.startswith("https://"):
+            return False
+        host = urlsplit(address).hostname or ""
+        return any(host == name or host.endswith("." + name) for name in hosts)
+
+    try:
+        if not isinstance(table, dict):
+            raise ValueError("it is not a table")
+        url, body, cookies = table.get("url"), table.get("body"), table.get("cookies")
+        if not on_hosts(url):
+            raise ValueError(f"its url {url!r} is not an https:// address on its hosts")
+        if not isinstance(body, dict) or not body or \
+                not all(isinstance(k, str) and isinstance(v, str) for k, v in body.items()):
+            raise ValueError("its body is not a table of texts")
+        if not isinstance(cookies, list) or not cookies or \
+                not all(isinstance(c, str) and re.fullmatch(r"[A-Za-z0-9_.-]+", c) for c in cookies):
+            raise ValueError("its cookies are not a list of cookie names")
+        script = table.get("script", "")
+        if script and (not isinstance(script, str) or "/" in script
+                       or not (directory / script).is_file()):
+            raise ValueError(f"its script {script!r} is not a file beside the manifest")
+        start = table.get("start", "")
+        if start and not on_hosts(start):
+            raise ValueError(f"its start {start!r} is not an https:// address on its hosts")
+        return SignIn(url, tuple(body.items()), tuple(cookies),
+                      str(directory / script) if script else "", start or "")
+    except ValueError as error:
+        log.warning("module %s: its sign_in is left out: %s", module_id, error)
+        return None
+
+
 #: A name in a manifest's `hosts`: a lower-case DNS name, at least two
 #: labels, nothing else.
 HOST = re.compile(r"\A(?=.{1,253}\Z)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?"
@@ -153,6 +204,8 @@ class Module:
     hosts: tuple[str, ...] = ()
     #: What an adult sets in it for each child, as its manifest declares.
     settings: tuple["Setting", ...] = ()
+    #: How the daemon signs a child in to its website, when it does.
+    sign_in: "SignIn | None" = None
 
 
 #: What Chromium calls the window of `kidux-webapp <id>` (launch.py): the
@@ -234,6 +287,10 @@ def read(module_id: str, root: Path | None = None) -> Module | None:
         app_ids = [*app_ids, WEBAPP_APP_ID.format(id=launch["webapp"])]
     elif web_host(launch):
         app_ids = [*app_ids, WEB_APP_ID.format(host=web_host(launch).replace("{lang}", "*"))]
+        if "sign_in" in manifest:
+            # Its window opens on its own page first, Connecting…, served
+            # by kidux-webapps, and keeps that page's name.
+            app_ids.append(WEBAPP_APP_ID.format(id=module_id))
 
     hosts = manifest.get("hosts", [])
     if not isinstance(hosts, list) or not all(isinstance(h, str) and HOST.match(h) for h in hosts):
@@ -259,6 +316,8 @@ def read(module_id: str, root: Path | None = None) -> Module | None:
         version=str(manifest.get("version", "")),
         hosts=tuple(sorted(set(hosts))),
         settings=_settings(module_id, manifest.get("settings", [])),
+        sign_in=_sign_in(module_id, manifest.get("sign_in"),
+                         sorted(set(hosts)), directory),
     )
 
 

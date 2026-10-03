@@ -1,7 +1,7 @@
 kidux-launcher (0.3.19) trixie; urgency=medium
 
   * A module starts with what an adult set in it for the child in its
-    environment.
+    environment, and the journal is not told what that is.
 
  -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 16:47:36 +0200
 

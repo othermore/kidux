@@ -65,6 +65,7 @@ ACTIONS: dict[tuple[str, str], str | None] = {
     ("Modules1", "Settings"): MANAGE,
     ("Modules1", "SetSetting"): MANAGE,
     ("Modules1", "MySettings"): SELF,
+    ("Modules1", "SignIn"): SELF,
     ("System1", "Shutdown"): None,
     ("System1", "Reboot"): None,
     ("System1", "CheckUpdates"): MANAGE,

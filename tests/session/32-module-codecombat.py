@@ -78,6 +78,21 @@ def run(machine: Machine) -> None:
            and colour_share(picture, CREAM, ABOVE_THE_BAR) < 0.2,
            f"{window}; {picture}\n" + launcher_log())
 
+    # The policy lets kidux-webapp's own pipe drive the window, and blocks
+    # the developer tools' pages: Chromium says they are not allowed (D91).
+    for keys in ("f12", "ctrl-shift-i", "ctrl-shift-j", "ctrl-shift-c"):
+        machine.key(keys)
+        machine.still(1)
+        machine.key("esc")
+    machine.still(2)
+    shown = windows()
+    report("F12 and Ctrl+Shift+I open no developer tools: the one window, and Chromium "
+           "listens on no port",
+           [w.get("module") for w in shown].count("codecombat") == 1
+           and not any("DevTools" in (w.get("title") or "") for w in shown)
+           and "chromium" not in root("ss -ltnp").stdout,
+           f"{shown}\n" + root("ss -ltnp").stdout)
+
     # Alt+F4 asks Chromium to close; a page that asks first whether to
     # leave is ended by Alt+F4 again, as the bar's question says (D45).
     ended = journal_count("kidux-launcher", "module codecombat ended")

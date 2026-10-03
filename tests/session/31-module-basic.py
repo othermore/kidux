@@ -73,6 +73,10 @@ def run(machine: Machine) -> None:
                     ).stdout.strip() == '{"type_in": false}',
            root("tail -2 /home/.kidux/state/audit.log").stdout)
 
+    # The editor keeps its program, and a removed module's folders stay
+    # (D89): it starts empty only in a home that never had BASIC.
+    root(f"rm -rf /home/{CHILD}/.local/share/kidux/basic /home/{CHILD}/.config/kidux/basic "
+         f"/home/{CHILD}/.cache/kidux/basic")
     before = journal_count("kidux-launcher", "tiles: basic")
     password = machine.mark()
     machine.key("ret")                           # Leo, the first picture

@@ -2,6 +2,8 @@ kidux-common (0.1.55) trixie; urgency=medium
 
   * A module may declare settings an adult sets for each child: a switch,
     an integer, a number, a text or a secret.
+  * kidux.browser drives Chromium through a pipe only its starter holds,
+    and a module may say how the daemon signs a child in to its website.
 
  -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 16:45:02 +0200
 

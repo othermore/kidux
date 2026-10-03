@@ -26,7 +26,10 @@ def test_the_policy_allows_the_server_and_closes_every_other_door():
     policy = json.loads(POLICY.read_text())
 
     assert policy["URLBlocklist"] == ["*"]
-    assert policy["DeveloperToolsAvailability"] == 2
+    # Allowed, so that kidux-webapp can drive a module's Chromium through its
+    # pipe (D91); the tools themselves stay closed, since every address but
+    # the server's and the modules' hosts is blocked, devtools:// among them.
+    assert policy["DeveloperToolsAvailability"] == 1
     assert policy["IncognitoModeAvailability"] == 1
     assert policy["ExtensionInstallBlocklist"] == ["*"]
     assert not policy["PrintingEnabled"]
@@ -154,3 +157,88 @@ def test_an_adult_s_settings_go_to_a_web_application_in_its_address():
     assert webapp.argv(HELLO, child)[-1] == "--app=http://127.0.0.1:8123/hello-web/?lang=es&type_in=0"
     # A website gets nothing of them.
     assert webapp.argv(COMBAT, child)[-1] == "--app=https://codecombat.com/"
+
+
+class FakePipe:
+    """Chromium's pipe as the sign-in uses it: every command kept, and the
+    events it waits for there at once."""
+
+    def __init__(self):
+        self.calls, self.events = [], []
+
+    def page(self):
+        return "page"
+
+    def call(self, method, params=None, session=""):
+        self.calls.append((method, params or {}, session))
+        return {}
+
+    def event(self, method):
+        self.calls.append(("wait", {"for": method}, ""))
+        return {"method": method}
+
+
+class FakeProcess:
+    def wait(self):
+        return 0
+
+
+SIGNING = modules.Module(id="combat", name="Combat", launch={"web": "https://example.org/"},
+                         hosts=("example.org",),
+                         sign_in=modules.SignIn("https://example.org/auth", (("a", "{email}"),),
+                                                ("sess",), start="https://example.org/play"))
+
+
+def sign_in(monkeypatch, client):
+    pipe = FakePipe()
+    monkeypatch.setattr(webapp.browser, "start", lambda command: (FakeProcess(), pipe))
+    assert webapp.sign_in_and_follow(SIGNING, ["chromium"], "es", client) == 0
+    return [(method, params) for method, params, _session in pipe.calls]
+
+
+def test_a_signing_module_opens_on_its_own_page_first():
+    assert webapp.argv(SIGNING, CHILD)[-1] == "--app=http://127.0.0.1:8123/combat/?lang=es"
+
+
+def test_signed_in_the_window_gets_the_cookies_and_goes_to_the_site_then_its_start(monkeypatch):
+    cookie = {"name": "sess", "value": "v", "domain": "example.org", "path": "/"}
+    client = type("C", (), {"sign_in_module": lambda self, module_id: [cookie]})()
+
+    calls = sign_in(monkeypatch, client)
+
+    assert ("Storage.setCookies", {"cookies": [cookie]}) in calls
+    navigations = [params["url"] for method, params in calls if method == "Page.navigate"]
+    assert navigations == ["https://example.org/", "https://example.org/play"]
+    assert calls.index(("Storage.setCookies", {"cookies": [cookie]})) < calls.index(
+        ("Page.navigate", {"url": "https://example.org/"}))
+
+
+def test_a_refused_account_is_said_on_the_page_and_tried_again_when_asked(monkeypatch):
+    answers = [RuntimeError("GDBus.Error:org.kidux.Daemon1.Error.SignInRefused: 401"), []]
+
+    class Client:
+        def sign_in_module(self, module_id):
+            answer = answers.pop(0)
+            if isinstance(answer, Exception):
+                raise answer
+            return answer
+
+    calls = sign_in(monkeypatch, Client())
+
+    shown = [params["expression"] for method, params in calls if method == "Runtime.evaluate"]
+    assert 'window.kidux.show("refused")' in shown[1]
+    assert ("wait", {"for": "Runtime.bindingCalled"}) in calls
+    assert answers == []
+
+
+def test_no_account_set_opens_the_site_as_it_is(monkeypatch):
+    class Client:
+        def sign_in_module(self, module_id):
+            raise RuntimeError("GDBus.Error:org.kidux.Daemon1.Error.SignInNotSet: none")
+
+    calls = sign_in(monkeypatch, Client())
+
+    assert [params["url"] for method, params in calls if method == "Page.navigate"] == [
+        "https://example.org/"]
+    assert not any(method == "Storage.setCookies" for method, _params in calls)
+

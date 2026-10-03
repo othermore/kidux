@@ -140,3 +140,14 @@ def test_an_adult_s_settings_reach_the_module_in_its_environment():
     assert "--setenv=KIDUX_SETTING_NAME=Leo" in argv
     assert not any("Not A Key" in arg for arg in argv)
     assert argv.index("--") > argv.index("--setenv=KIDUX_SETTING_TYPE_IN=0")
+
+
+def test_the_journal_is_not_told_a_setting_s_value():
+    codecombat = Module(id="codecombat", name="CodeCombat",
+                        launch={"web": "https://codecombat.com/"})
+
+    told = launch.shown(launch.command(codecombat, HOME, {"email": "leo@example.org"}))
+
+    assert "leo@example.org" not in told
+    assert "--setenv=KIDUX_SETTING_EMAIL=…" in told
+    assert "--setenv=XDG_DATA_HOME=" in told

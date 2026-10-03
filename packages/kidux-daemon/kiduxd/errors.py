@@ -77,3 +77,21 @@ class Busy(DaemonError):
     """An update job is already running."""
 
     name = "Busy"
+
+
+class SignInNotSet(DaemonError):
+    """An adult has not given the account a module signs in with."""
+
+    name = "SignInNotSet"
+
+
+class SignInRefused(DaemonError):
+    """The website said no to the account: a wrong email or password."""
+
+    name = "SignInRefused"
+
+
+class SignInUnreachable(DaemonError):
+    """The website did not answer: no internet, or the site down."""
+
+    name = "SignInUnreachable"

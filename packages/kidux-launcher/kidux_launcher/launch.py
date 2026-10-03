@@ -106,6 +106,9 @@ def stop(module_id: str) -> None:
 #: in Chromium walled in to its own hosts (D36, D85).
 WEBAPP = "/usr/libexec/kidux-webapp"
 
+#: How a setting an adult gave starts in the module's environment (D90).
+SETTING_ENV = "--setenv=KIDUX_SETTING_"
+
 
 def setting_text(value) -> str:
     """A setting's value as the environment carries it: a switch 1 or 0,
@@ -113,6 +116,14 @@ def setting_text(value) -> str:
     if isinstance(value, bool):
         return "1" if value else "0"
     return str(value)
+
+
+def shown(argv: list[str]) -> str:
+    """`argv` as the journal is told it: the settings' values left out, since
+    what an adult set for a child, an account's address among them, is not
+    the journal's."""
+    return shlex.join(arg[:arg.index("=", len(SETTING_ENV)) + 1] + "…"
+                      if arg.startswith(SETTING_ENV) else arg for arg in argv)
 
 
 def command(module, home: str, settings: dict | None = None) -> list[str]:
@@ -143,7 +154,7 @@ def command(module, home: str, settings: dict | None = None) -> list[str]:
         f"--setenv=XDG_DATA_HOME={data}",
         f"--setenv=XDG_CONFIG_HOME={config}",
         f"--setenv=XDG_CACHE_HOME={cache}",
-        *(f"--setenv=KIDUX_SETTING_{key.upper()}={setting_text(value)}"
+        *(f"{SETTING_ENV}{key.upper()}={setting_text(value)}"
           for key, value in sorted((settings or {}).items())
           if kidux_modules.SETTING_KEY.match(key)),
         "--",

@@ -544,6 +544,19 @@ written only here.
   settings for the child asking, every one but the secrets, which the
   launcher puts in the module's environment when it starts it. Only a
   child's own session asks; anyone else is `NotAuthorized`.
+- **`Modules1.SignIn(module_id) → aa{sv}`**, `self` action: signs the
+  child asking in to their module's website with the account an adult
+  gave, as the manifest's `sign_in` says, and answers with the cookies it
+  names, as Chromium's `Storage.setCookies` takes them. `{key}` in the
+  body is the setting of that key, a secret too; one that is empty is
+  `SignInNotSet`, with nothing sent. The daemon's unit may open no
+  internet socket, so the request runs in a transient unit of its own
+  (`kiduxd/signin.py`, `python3 -m kiduxd.signin` as a dynamic user, no
+  homes, the internet allowed), given the account on its standard input,
+  never on a command line; it waits in a thread of the bus layer's
+  (`Later`), so that the daemon goes on answering everyone else. A 4xx
+  answer is `SignInRefused`, no answer or no cookie `SignInUnreachable`.
+  The audit line says `module sign-in asked`, never the account.
 - **Removing a module keeps its settings**, as it keeps its folders (D89).
 - **An id whose module is no longer installed** stays in the file and is
   never listed. Removing a package must not rewrite every child's file, and

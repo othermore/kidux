@@ -189,6 +189,10 @@
       <arg name="module_id" type="s" direction="in"/>
       <arg name="values" type="a{sv}" direction="out"/>
     </method>
+    <method name="SignIn">
+      <arg name="module_id" type="s" direction="in"/>
+      <arg name="cookies" type="aa{sv}" direction="out"/>
+    </method>
     <signal name="ModulesChanged">
       <arg name="username" type="s"/>
     </signal>

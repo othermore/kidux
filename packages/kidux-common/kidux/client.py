@@ -77,8 +77,10 @@ class Client:
         method: str,
         arguments: GLib.Variant | None = None,
         reply_type: GLib.VariantType | None = None,
+        timeout_ms: int | None = None,
     ) -> GLib.Variant:
-        """Call one method and return its reply.
+        """Call one method and return its reply, waiting `timeout_ms` for
+        it, or the client's own time.
 
         `interface` is the short name, without the bus prefix: "Parental1",
         "Access1", "Children1", "Modules1", "System1", or "" for the daemon's
@@ -95,7 +97,7 @@ class Client:
                 arguments,
                 reply_type,
                 Gio.DBusCallFlags.NONE,
-                self._timeout_ms,
+                timeout_ms or self._timeout_ms,
                 None,
             )
         except GLib.Error as error:
@@ -321,6 +323,15 @@ class Client:
         reply = self.call("Modules1", "MySettings", GLib.Variant("(s)", (module_id,)),
                           GLib.VariantType("(a{sv})"))
         return dict(reply[0])
+
+    def sign_in_module(self, module_id: str) -> list[dict[str, Any]]:
+        """Ask the daemon to sign the child asking in to their module's
+        website (phase-4c-plan.md, 4.17): the session's cookies, never the
+        password. The error's text names SignInNotSet, SignInRefused or
+        SignInUnreachable when it fails."""
+        reply = self.call("Modules1", "SignIn", GLib.Variant("(s)", (module_id,)),
+                          GLib.VariantType("(aa{sv})"), timeout_ms=60000)
+        return [dict(cookie) for cookie in reply[0]]
 
     def available_modules(self) -> list[dict[str, Any]]:
         """Every module the archive offers, installed or not, as apt's lists

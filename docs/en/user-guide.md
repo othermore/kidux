@@ -880,12 +880,19 @@ other website. Kidux has no connection with CodeCombat.
 
 It needs the internet, and a CodeCombat account. The first levels are
 free; most of the site needs a subscription, which an adult buys on
-another computer, since the module opens no other site. The child signs
-in with the account's email address and password: signing in through
-Google, Facebook or Clever leads nowhere here. The site keeps the child
-signed in only while its window is open, so it asks again each time the
-module is opened. It may ask about its cookies the first time; that is the
-site's own question.
+another computer, since the module opens no other site.
+
+An adult gives each child's account in CodeCombat's **Settings** on the
+panel: its email address and its password. Then the module signs the
+child in by itself each time it is opened, saying *Connecting to
+CodeCombat…* meanwhile, sets the site's language to the child's, and
+opens where the playing starts. The child never sees the password. When
+the account is wrong or the site does not answer, the module says so and
+offers to try again. Without an account given, the module opens the
+site's front page, and the child signs in there with the account's email
+address and password: signing in through Google, Facebook or Clever leads
+nowhere here. The site may ask about its cookies the first time; that is
+the site's own question.
 
 ![CodeCombat](../images/en/module-codecombat.png)
 

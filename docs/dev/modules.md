@@ -96,7 +96,21 @@ icon theme is needed and the tile is the same on every machine.
   as `KIDUX_SETTING_<KEY>` in its environment, a switch as `1` or `0`;
   a web application finds them in its address too, `?lang=es&type_in=0`.
   A secret never reaches the child's session: the daemon keeps it and
-  uses it itself, as 4.17 of phase-4c-plan.md describes for signing in.
+  uses it itself, for `sign_in`.
+- `[sign_in]` says how a module that opens a website signs a child in
+  with the account an adult gave: data, never code. `url`, an `https://`
+  address on the module's `hosts`; `body`, a table of texts sent as JSON
+  in which `{key}` is the setting of that key; `cookies`, the names of the
+  session's cookies the answer sets; `script`, optional, a file beside
+  the manifest run in the site's first page with `window.KIDUX.lang` the
+  child's language; and `start`, optional, where the window goes then.
+  The daemon makes the request (`Modules1.SignIn`, daemon.md) and hands
+  the child's session only those cookies; `kidux-webapp` opens the
+  module's own page first, `webapps/<id>/index.html`, which its package
+  ships and which says *Connecting…* or what went wrong with *Try again*,
+  and then drives the window through Chromium's DevTools pipe
+  (`kidux.browser`, D91). Without an account given, the website opens as
+  it is. CodeCombat is the one that does (phase-4c-plan.md, 4.17).
 - `needs_windows = true` says the module is only for a child whose modules
   open in windows (D46): a real web browser, an editor with several files
   open. The launcher shows no tile for it to a child without windows, and
@@ -278,9 +292,11 @@ configured and whenever a package installs or removes a module's manifest
 blocks every address but the server's, the union of the installed
 modules' `hosts`, and `blob:`, the address of a file a page makes itself
 and hands to the browser to save, as Scratch saves a project (D75); and
-it turns off signing in, sync, extensions, developer tools, incognito and
-guest windows, adding people, translation, the password manager, printing,
-the search engine and reporting (D36). Nothing but the allowlist comes from
+it turns off signing in, sync, extensions, incognito and guest windows,
+adding people, translation, the password manager, printing, the search
+engine and reporting (D36), and leaves the developer tools to
+`kidux-webapp`'s own pipe, their pages blocked like any other address
+(D91). Nothing but the allowlist comes from
 the modules. It lets a child keep their work: the file dialogs are open, so
 that a module opens a child's files from their home, and a download is
 refused only when its type is dangerous (`DownloadRestrictions` 1), each

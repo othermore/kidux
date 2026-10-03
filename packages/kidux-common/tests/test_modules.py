@@ -283,3 +283,48 @@ def test_a_module_without_settings_has_none(tmp_path, caplog):
     assert modules.read("hello", tmp_path).settings == ()
     assert modules.read("odd", tmp_path).settings == ()
     assert "settings is not a list of tables" in caplog.text
+
+
+SIGN_IN = '''
+hosts = ["example.org"]
+
+[sign_in]
+url = "https://example.org/auth/login"
+body = { username = "{email}", password = "{password}" }
+cookies = ["site.sess", "site.sess.sig"]
+script = "sign-in.js"
+start = "https://example.org/play"
+'''
+
+
+def test_a_website_module_says_how_it_signs_a_child_in(tmp_path):
+    manifest(tmp_path, "site", 'id = "site"\nname = "Site"\n'
+             'launch = { web = "https://example.org/" }\n' + SIGN_IN)
+    (tmp_path / "site" / "sign-in.js").write_text("// the site's first page\n")
+
+    site = modules.read("site", tmp_path)
+
+    assert site.sign_in.url == "https://example.org/auth/login"
+    assert dict(site.sign_in.body) == {"username": "{email}", "password": "{password}"}
+    assert site.sign_in.cookies == ("site.sess", "site.sess.sig")
+    assert site.sign_in.script == str(tmp_path / "site" / "sign-in.js")
+    assert site.sign_in.start == "https://example.org/play"
+    # Its window opens on its own Connecting… page first.
+    assert modules.claims(site, "chrome-127.0.0.1__site_-Default")
+    assert modules.claims(site, "chrome-example.org__-Default")
+
+
+def test_a_sign_in_that_would_send_an_account_elsewhere_is_left_out(tmp_path, caplog):
+    for name, change in (("http", ("https://example.org/auth", "http://example.org/auth")),
+                         ("away", ("https://example.org/auth", "https://evil.example.com/auth")),
+                         ("noscript", ('script = "sign-in.js"', 'script = "../x.js"')),
+                         ("cookies", ('cookies = ["site.sess", "site.sess.sig"]', 'cookies = []'))):
+        manifest(tmp_path, name, f'id = "{name}"\nname = "X"\n'
+                 'launch = { web = "https://example.org/" }\n'
+                 + SIGN_IN.replace(*change).replace('script = "sign-in.js"\n', "")
+                 if name != "noscript" else
+                 f'id = "{name}"\nname = "X"\nlaunch = {{ web = "https://example.org/" }}\n'
+                 + SIGN_IN.replace(*change))
+
+        assert modules.read(name, tmp_path).sign_in is None, name
+    assert caplog.text.count("its sign_in is left out") == 4

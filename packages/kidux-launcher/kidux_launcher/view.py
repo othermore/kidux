@@ -11,7 +11,6 @@ known and shown by `desk.py`; the bar along the bottom is `bar.py`.
 import logging
 import os
 import pwd
-import shlex
 import time
 
 import gi
@@ -469,7 +468,7 @@ class Launcher:
             self._problem = words.DID_NOT_OPEN
             self._show_home()
             return False
-        log.info("opening %s: %s", module.id, shlex.join(argv))
+        log.info("opening %s: %s", module.id, launch.shown(argv))
         started = time.monotonic()
         process.wait_async(None, lambda done, result: self._ended(done, result, module.id,
                                                                   argv, started))
@@ -485,7 +484,7 @@ class Launcher:
         if (process.get_if_exited() and process.get_exit_status() != 0
                 and time.monotonic() - started < FAILED_START_SECONDS):
             log.warning("module %s did not open: %s ended with status %d", module_id,
-                        shlex.join(argv), process.get_exit_status())
+                        launch.shown(argv), process.get_exit_status())
             self._problem = words.DID_NOT_OPEN
             self._desk.home()
             self._show_home()
