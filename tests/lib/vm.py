@@ -22,12 +22,12 @@
 
 tests/README.md, "The quick loop". A development version is the tree's
 version with `~dev.<the time, to the second>` appended in a copy of the
-source: Debian's `~` sorts before, so it is older than the tree's own
-build of that version, which replaces it when the battery publishes it,
-and never the same as an earlier try. So the tree's version has to be one
-the archive has not published: a package is bumped in its changelog when
-it is first changed, and a push of one the archive already holds at that
-version, or above it, is refused (D77). The MacBook, which follows the
+source (ci/devbuild.py): Debian's `~` sorts before, so it is older than
+the version itself, which replaces it when it is published once the owner
+has said yes (D93), and never the same as an earlier try. So the tree's
+version has to be one the archive has not published: a package gets its
+version at its first change, and a push of one the archive already holds
+at that version, or above it, is refused (D77). The MacBook, which follows the
 same suite, takes a pushed package with `sudo apt update && sudo apt
 upgrade` (rollout.md, section 5).
 """
@@ -35,16 +35,18 @@ upgrade` (rollout.md, section 5).
 import datetime
 import os
 import re
-import shutil
 import subprocess
 import sys
-import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import sessionlib  # noqa: E402
 from sessionlib import KEY, MONITOR, REPO, SSH_PORT, VM, Machine, root  # noqa: E402
+
+sys.path.insert(0, str(REPO / "ci"))
+# What makes a development build, shared with the battery's (ci/devbuild.py).
+from devbuild import copy, held_at_or_above, tree_version  # noqa: E402
 
 DEV = REPO / "build" / "dev"
 #: The VNC display the machine offers its screen on: 1 is port 5901, beside
@@ -53,85 +55,6 @@ VNC_DISPLAY = "1"
 #: Sources a development build of makes no sense: the archive's key and
 #: sources, which every machine trusts and follows.
 NOT_PUSHED = {"kidux-archive-keyring"}
-
-
-#: The archive the machines follow, asked what it holds before a push.
-ARCHIVE = os.environ.get("KIDUX_ARCHIVE_URL", "http://kidux.local/apt")
-
-
-def dev_version(version: str, now: datetime.datetime) -> str:
-    """The development version of `version` built at `now`: before it."""
-    return f"{version}~dev.{now:%Y%m%d%H%M%S}"
-
-
-def tree_version(source: str) -> str:
-    changelog = (REPO / "packages" / source / "debian" / "changelog").read_text()
-    return re.match(r"\S+ \(([^)]+)\)", changelog).group(1)
-
-
-def binaries_of(source: str) -> set[str]:
-    control = (REPO / "packages" / source / "debian" / "control").read_text()
-    return set(re.findall(r"^Package: (\S+)", control, re.MULTILINE))
-
-
-def versions_in(packages: str, binaries: set[str]) -> list[str]:
-    """Every version a suite's Packages index holds of these binaries."""
-    found = []
-    for stanza in packages.split("\n\n"):
-        fields = dict(line.split(": ", 1) for line in stanza.splitlines() if ": " in line)
-        if fields.get("Package") in binaries and fields.get("Version"):
-            found.append(fields["Version"])
-    return found
-
-
-def published_versions(source: str) -> list[str]:
-    """What the archive's testing suite holds of the source's binaries;
-    nothing where the archive cannot be asked, as off the development host."""
-    try:
-        with urllib.request.urlopen(f"{ARCHIVE}/dists/testing/main/binary-amd64/Packages",
-                                    timeout=5) as answer:
-            packages = answer.read().decode()
-    except (OSError, ValueError):
-        return []
-    return versions_in(packages, binaries_of(source))
-
-
-def newer(first: str, second: str) -> bool:
-    return subprocess.run(["dpkg", "--compare-versions", first, "gt", second]).returncode == 0
-
-
-def held_at_or_above(source: str, version: str) -> list[str]:
-    """The archive's versions of the source that a development build of
-    `version` would sort below: the version itself, or a later one. A
-    development build of the same version sorts below it and is not one."""
-    return [held for held in published_versions(source) if not newer(version, held)]
-
-
-def changelog_entry(source: str, version: str, trailer: str, date: str) -> str:
-    """A changelog entry for a development build, above the tree's own:
-    `trailer` is the maintainer as the newest entry names them, `date` the
-    time from `date -R`."""
-    return (f"{source} ({version}) trixie; urgency=medium\n\n"
-            "  * Development build of the working tree, for trying a change; never\n"
-            "    released.\n\n"
-            f" -- {trailer}  {date}\n\n")
-
-
-def restate(copy: Path, version: str, dev: str) -> None:
-    """The development version wherever the package states its version
-    besides its changelog, as tests/project/versions.sh holds it to: a
-    module's manifest, pyproject.toml, a VERSION constant. pyproject.toml's
-    is written as Python's versions are, `0.1.2.dev<time>`, which also sorts
-    before `0.1.2`: Python's build refuses a `~`."""
-    python = dev.replace("~dev.", ".dev")
-    for path in [copy / "module.toml", copy / "pyproject.toml", *copy.glob("*/__init__.py")]:
-        if path.is_file():
-            text = path.read_text()
-            stated = text.replace(f'version = "{version}"\n',
-                                  f'version = "{python if path.name == "pyproject.toml" else dev}"\n')
-            stated = stated.replace(f'VERSION = "{version}"\n', f'VERSION = "{dev}"\n')
-            if stated != text:
-                path.write_text(stated)
 
 
 def after_install(sources: list[str], child_signed_in: bool) -> tuple[list[str], list[str]]:
@@ -196,7 +119,6 @@ def push(sources: list[str]) -> int:
     sources = sorted(set(sources), key=lambda s: (s != "kidux-common", s))
     now = datetime.datetime.now()
     out = DEV / f"{now:%Y%m%d%H%M%S}"
-    date = subprocess.run(["date", "-R"], capture_output=True, text=True, check=True).stdout.strip()
     # A development build sorts below the version it tries, so the version
     # must be one the archive has not published, or apt would keep the
     # archive's: the package's changelog is bumped first (D77).
@@ -210,22 +132,14 @@ def push(sources: list[str]) -> int:
             return 1
     built: dict[str, tuple[str, list[str]]] = {}
     for source in sources:
-        tree = REPO / "packages" / source
-        changelog = (tree / "debian" / "changelog").read_text()
-        version = tree_version(source)
-        trailer = re.search(r"^ -- (.+?)  ", changelog, re.MULTILINE).group(1)
-        copy = out / "src" / source
-        shutil.copytree(tree, copy, ignore=shutil.ignore_patterns("__pycache__", ".pytest_cache"))
-        dev = dev_version(version, now)
-        (copy / "debian" / "changelog").write_text(
-            changelog_entry(source, dev, trailer, date) + changelog)
-        restate(copy, version, dev)
+        copied = out / "src" / source
+        dev = copy(source, now, copied)
         print(f"==> Building {source} {dev}", flush=True)
         log = out / f"{source}.log"
         with log.open("w") as handle:
             result = subprocess.run(
                 [str(REPO / "ci" / "build-package.sh"), source],
-                env={**os.environ, "KIDUX_BUILD_DIR": str(out), "KIDUX_SOURCE_DIR": str(copy)},
+                env={**os.environ, "KIDUX_BUILD_DIR": str(out), "KIDUX_SOURCE_DIR": str(copied)},
                 stdout=handle, stderr=subprocess.STDOUT)
         if result.returncode != 0:
             print(f"{source} did not build; the end of {log}:", file=sys.stderr)

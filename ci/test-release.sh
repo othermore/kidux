@@ -5,8 +5,16 @@
 #   ci/test-release.sh <label> --only <stage>
 #
 # Two things that are not tests, then every test there is. Build: every
-# package, with its own unit tests and lintian. Publish: the result into the
-# local archive's testing suite, which is what the VMs install from. Then
+# package, with its own unit tests and lintian, into a directory of the
+# run's own, build/releases/<label>/packages/; a package whose version the
+# archive's testing suite does not hold yet, one changed in the work, as a
+# development build of that version, <version>~dev.<time> (ci/devbuild.py),
+# never as the version itself. Publish: the result into the local archive's
+# testing suite, which is what the VMs and the MacBook install from. The
+# versions themselves are built and published, with ci/build-all.sh and
+# ci/publish-local.sh, only once the owner has tried the work and said yes,
+# and then pushed (D93); an error found before that is fixed within the
+# same version. Then
 # tests/run, kind by kind: the project's checks first and alone, since they
 # are quick; then reproducibility, the acceptance VM and the session VMs, one
 # set up in Spanish and one in English, which use every screen by keyboard and
@@ -62,6 +70,7 @@ elif [ "$#" -gt 1 ]; then
 fi
 RELEASES="$REPO_ROOT/build/releases"
 OUT="$RELEASES/$LABEL"
+PACKAGES_DIR="$OUT/packages"
 VERDICTS="$OUT/verdicts"
 PREVIOUS="$(ls -1dt "$RELEASES"/*/ 2>/dev/null | grep -v "/$LABEL/\$" | head -1)"
 mkdir -p "$OUT/logs"
@@ -200,7 +209,11 @@ if [ -n "$ONLY" ]; then
     case "$ONLY" in session*) pictures ;; esac
 else
     rm -f "$VERDICTS" "$OUT/published"
-    if stage build ./ci/build-all.sh && stage publish ./ci/publish-local.sh; then
+    rm -rf "$PACKAGES_DIR"
+    stamp="$(date +%Y%m%d%H%M%S)"
+    if stage build env KIDUX_BUILD_DIR="$PACKAGES_DIR" KIDUX_DEV_STAMP="$stamp" ./ci/build-all.sh \
+            && stage publish env KIDUX_BUILD_DIR="$PACKAGES_DIR" KIDUX_DEV_BUILD=1 \
+                ./ci/publish-local.sh; then
         published > "$OUT/published"
         stage "test: project" ./tests/run project
         stage_start "test: reproducible" nice -n 10 ./tests/run reproducible

@@ -4,11 +4,13 @@
 #   ci/publish-local.sh              put everything in build/ into testing
 #   ci/publish-local.sh stable       ... into stable instead
 #
-# A development build (`tests/run vm push`) is published from a directory of
-# its own, named in KIDUX_BUILD_DIR, with KIDUX_DEV_BUILD=1 and a version
-# ending ~dev.<time>, which sorts before the version itself (D77). Any other
-# publish first removes every such version from the suite, and the version it
-# adds replaces the tries on every machine that followed them.
+# A development build (`tests/run vm push`, the battery) is published from a
+# directory of its own, named in KIDUX_BUILD_DIR, with KIDUX_DEV_BUILD=1 and
+# a version ending ~dev.<time>, which sorts before the version itself (D77).
+# Any other publish first removes every such version from the suite, and the
+# version it adds replaces the tries on every machine that followed them:
+# it publishes the versions themselves, which is done only once the owner
+# has tried them and said yes (D93).
 #
 # The archive root is outside the repository because it is served by nginx and
 # because reprepro keeps a database there that must survive a git checkout.

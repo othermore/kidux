@@ -1607,3 +1607,20 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   not fit, and show it, as every screen does; the greeter does not log
   them as screens that should fit (`GROWS` in view.py), and every other
   screen still must.
+- **D93 — A version without `~dev` is published only when the owner
+  confirms it.** Decided 2026-10-03 by the owner, a fundamental rule that
+  refines D77. A package still gets its new version at its first change in
+  a piece of work, and the work stays in that number: every try, and
+  every fix an error found later needs, is a `~dev` build of it, so that
+  no error costs another number. The version itself, without `~dev`, is
+  not published anywhere, the testing archive included, and nothing goes
+  to GitHub (a push, a release, the site, the public archive) until the
+  owner has tried the work and said yes, so that nothing breaks for
+  anyone who uses Kidux. So the battery builds and publishes every package
+  changed in the work as a `~dev` build of its version, as `tests/run vm
+  push` does (`ci/devbuild.py`), and the MacBook, which follows testing,
+  takes those for the owner to try; once the owner says yes,
+  `ci/build-all.sh` and `ci/publish-local.sh` build and publish the
+  versions themselves, and then they are promoted and pushed. Until then
+  the battery published each version it tested to the testing archive, so
+  a fix after a battery cost a new number.

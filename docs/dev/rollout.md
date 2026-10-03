@@ -156,8 +156,9 @@ while a child is signed in. What each package needs afterwards:
 | `kidux-session` | at the next restart of the machine |
 
 A development build's version ends `~dev.<time>`, which sorts before the
-version itself; the battery's build of that version replaces it at the
-next upgrade (D77).
+version itself; a step's battery publishes development builds too, which
+the owner tries here, and the version itself replaces them at the next
+upgrade once the owner has said yes and it is published (D77, D93).
 
 ### Chromium on this machine's graphics
 

@@ -262,11 +262,19 @@ ci/promote.sh kidux-base       one package
 The full cycle for a change, then:
 
 ```
-ci/build-all.sh                build it
-ci/publish-local.sh            into testing
-tests/run                      every test: the VMs install it and check
-ci/promote.sh                  into stable, once that passed
+ci/test-release.sh             the battery: every package built, the changed
+                               ones as development builds, published into
+                               testing and tested; the MacBook takes them too
+                               (the owner tries the work, and says yes)
+ci/build-all.sh                the versions themselves, built
+ci/publish-local.sh            into testing, in place of the development builds
+ci/promote.sh                  into stable
 ```
+
+The versions themselves are built and published only after the owner's
+yes (D93): until then every try, the battery's included, is a development
+build of the version a package got at its first change, and an error found
+is fixed within that version.
 
 Promotion copies what is already in `testing` rather than publishing a fresh
 build, so the bits a family gets are the bits that were tested, byte for byte.
@@ -358,10 +366,14 @@ publishes that to the testing suite with `KIDUX_DEV_BUILD=1`, which keeps
 the other development builds there, installs it on the machine left up, and
 starts again what it runs. The version sorts before the tree's own build of
 the same version and is never the same twice, so no published version ever
-changes its bytes, and the battery's publish, which removes the development
-builds, puts the version itself in their place on every machine; a push of
-a version the archive already holds is refused, since a development build
-of it would be older than the archive's (D77). `ci/promote.sh` refuses
+changes its bytes. The battery builds and publishes the packages changed in
+a piece of work the same way, with `KIDUX_DEV_STAMP` (`ci/build-package.sh`,
+`ci/devbuild.py`), into a directory of its run's own; the version itself is
+published, once the owner has tried it and confirmed (D93), by
+`ci/publish-local.sh` without `KIDUX_DEV_BUILD`, which removes the
+development builds and puts the version in their place on every machine.
+A push of a version the archive already holds is refused, since a
+development build of it would be older than the archive's (D77). `ci/promote.sh` refuses
 while testing holds one. pyproject.toml gets the version as Python writes
 one, `<version>.dev<time>`, which also sorts before the version. A package
 that needs a version another is bumped to in the same work depends on it

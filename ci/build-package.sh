@@ -12,7 +12,8 @@ PACKAGE="${1:-}"
 DIST="${KIDUX_DIST:-trixie}"
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # A copy of the package's source elsewhere, for a development build
-# (tests/lib/vm.py push); the package's own directory otherwise.
+# (tests/lib/vm.py push, or below for the battery); the package's own
+# directory otherwise.
 SOURCE_DIR="${KIDUX_SOURCE_DIR:-$REPO_ROOT/packages/$PACKAGE}"
 BUILD_DIR="${KIDUX_BUILD_DIR:-$REPO_ROOT/build}"
 CHROOT_TARBALL="$HOME/.cache/sbuild/$DIST-amd64.tar"
@@ -37,6 +38,20 @@ if [ ! -f "$CHROOT_TARBALL" ]; then
 fi
 
 mkdir -p "$BUILD_DIR"
+
+# The battery's build (ci/test-release.sh, D93): with KIDUX_DEV_STAMP, a
+# package whose version the archive's testing suite does not hold yet is
+# built as a development build of that version, <version>~dev.<stamp>, from
+# a copy of its source (ci/devbuild.py), so that the version itself is
+# built for publishing only once the owner has tried it and said yes. One
+# the archive holds is built as it is.
+if [ -n "${KIDUX_DEV_STAMP:-}" ] && [ -z "${KIDUX_SOURCE_DIR:-}" ] \
+        && "$REPO_ROOT/ci/devbuild.py" unpublished "$PACKAGE"; then
+    KIDUX_SOURCE_DIR="$BUILD_DIR/dev-src/$PACKAGE"
+    rm -rf "$KIDUX_SOURCE_DIR"
+    echo "==> $PACKAGE as $("$REPO_ROOT/ci/devbuild.py" copy "$PACKAGE" "$KIDUX_DEV_STAMP" "$KIDUX_SOURCE_DIR")"
+    SOURCE_DIR="$KIDUX_SOURCE_DIR"
+fi
 
 # The build cache (packaging.md, "The build cache"): a package whose source,
 # build scripts, chroot and packages of ours it builds against are what they
@@ -153,7 +168,7 @@ if [ ! -f "$CHANGES" ]; then
 fi
 
 echo "==> Checking $PACKAGE with lintian"
-# A development build's version (tests/lib/vm.py push) carries the time it
+# A development build's version (ci/devbuild.py) carries the time it
 # was made, which makes a long module's .buildinfo name longer than
 # lintian likes; the version a release builds does not.
 LINTIAN_SUPPRESS=""

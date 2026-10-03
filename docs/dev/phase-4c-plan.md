@@ -9,7 +9,8 @@ door to a website; and a pointer and a two-finger scroll that are not too
 fast on a MacBook's touchpad. This plan is how. It follows
 phase-4b-plan.md's rules (section 3 there): a commit per step, partial
 tests while building, the battery once at the end, every user-facing word
-through i18n in both languages, packages bumped when first touched.
+through i18n in both languages, a package's new version at its first
+change and `~dev` builds of it until the owner confirms it (D93).
 
 Section 4 records what the owner decided on 2026-10-03, which the steps
 follow.

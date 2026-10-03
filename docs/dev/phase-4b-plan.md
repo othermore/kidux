@@ -52,8 +52,8 @@ their own package; 4.13 and 4.14 cannot start before 4.12.
 
 The rules of phase-4-plan.md section 3 apply unchanged: the development
 machine may have tools, a Kidux machine gets only what a package depends
-on; versions bumped when a package is first touched, `~dev` builds, dated
-by `date -R`; unit tests beside the code, acceptance checks in
+on; a new version at a package's first change and `~dev` builds of it until
+the owner confirms it (D93), dated by `date -R`; unit tests beside the code, acceptance checks in
 `tests/acceptance/`, session tests in `tests/session/` with the purge test
 renamed to stay last; a module test installs its module at its start and
 removes it at its end; every picture the guide shows listed in

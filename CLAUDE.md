@@ -87,15 +87,21 @@ instead of scattering decisions across chats.
   commits are pushed to GitHub, or when the work is done, just before asking the
   owner whether to push it. A battery whose only failures are a test's own fault,
   not the product's, needs no second run: fix the test and run it alone.
-- **A package is bumped when it is first changed, and tried as `~dev`.** The
-  tree's `debian/changelog` always names a version the archive has not
-  published: the first change to a package in a piece of work adds its entry,
-  dated by `date -R`. `tests/run vm push` builds `<version>~dev.<time>`, which
-  Debian sorts before `<version>`, so the battery's build of the version
-  replaces every try on every machine; a push of a version the archive already
-  holds is refused until the changelog is bumped (D77).
+- **Fundamental: a version without `~dev` is never published, and nothing
+  goes to GitHub, until the owner has tried it and confirmed (D93).** A
+  package gets its new version at its first change in a piece of work,
+  dated by `date -R`, and stays in that number while the work goes on:
+  every try of it, and every fix found later, is a `~dev` build of that
+  version (`tests/run vm push` builds `<version>~dev.<time>`, which Debian
+  sorts before `<version>`), so that no error found later costs another
+  number. The version itself is built for publishing, published anywhere,
+  the testing archive included, and pushed to GitHub, released, or put on
+  the site or the public archive only after the owner's yes, so that
+  nothing breaks for anyone who uses Kidux. A push of a version the archive
+  already holds is refused (D77).
 - **The battery, `ci/test-release.sh`**: every check, every package built and
-  built again identically, the VMs, and every screen photographed in Spanish and in
+  built again identically, the packages changed in the work published as `~dev`
+  builds and installed on the VMs, and every screen photographed in Spanish and in
   English and compared with the previous run. Look at its report
   (`build/releases/<label>/report/index.html`) and commit the pictures it refreshed
   in `docs/images/es/` and `docs/images/en/`. A new screen
