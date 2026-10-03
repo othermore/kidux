@@ -69,7 +69,7 @@ instead, in English and Spanish.
 - [phase-4c-plan.md](phase-4c-plan.md): the current plan: settings an
   adult gives a module for each child, CodeCombat signed in, Back and
   Forward on a website module, and the pointer's and the touchpad's
-  speed; waiting for the owner's decisions in its section 4.
+  speed.
 - [test-battery-plan.md](test-battery-plan.md): making `ci/test-release.sh`
   faster without making it mean less.
 

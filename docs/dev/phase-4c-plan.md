@@ -11,7 +11,8 @@ phase-4b-plan.md's rules (section 3 there): a commit per step, partial
 tests while building, the battery once at the end, every user-facing word
 through i18n in both languages, packages bumped when first touched.
 
-Section 4 lists what the owner decides before the steps start.
+Section 4 records what the owner decided on 2026-10-03, which the steps
+follow.
 
 ## 1. Steps
 
@@ -30,19 +31,24 @@ Section 4 lists what the owner decides before the steps start.
 **Cause.** An adult wants BASIC's listings typed by the child, and a
 child's CodeCombat account given once, not typed every time.
 
-**The manifest** (`kidux.modules`, kidux-common): a list of tables,
+**The manifest** (`kidux.modules`, kidux-common): each module declares
+its own settings and their kinds, and nothing outside the module lists
+them; Kidux knows only the kinds. A list of tables,
 
 ```toml
 [[settings]]
 key = "type_in"                 # [a-z][a-z0-9_]{0,31}
-kind = "switch"                 # switch | text | secret
+kind = "switch"                 # switch | integer | number | text | secret
 label = "Type it in for me"     # English, translated through i18n_domain
 help = "A button under each program of the guide types it into the editor."
-default = true                  # a switch's; text and secret default to ""
+default = true                  # of the kind; text and secret default to ""
+min = 0                         # integer and number only, optional
+max = 10                        # integer and number only, optional
 ```
 
 read into `Module.settings`, a tuple of a small dataclass; a setting
-whose table is wrong is dropped with a line in the log, as `app_ids` is.
+whose table is wrong, or whose default is not of its kind, is dropped
+with a line in the log, as `app_ids` is.
 
 **Where they are kept** (kidux-daemon): per child, in the child's state
 directory the daemon already keeps, root's alone (`modules.toml`, a table
@@ -51,22 +57,25 @@ own. New D-Bus methods: `ModuleSettings(token, child, module)` and
 `SetModuleSetting(token, child, module, key, value)` for the panel, with
 the adult's token; and `MyModuleSettings(module)` for the child's own
 session, which the daemon answers only for the caller's own uid and only
-with switches and text, never a secret (section 4, decision 1, says where
-secrets go). Removing a module keeps its settings, as it keeps its
-folders (D89).
+with every kind but a secret: a secret never reaches the child's
+session (section 4, decision 1). Removing a module keeps its settings, as
+it keeps its folders (D89).
 
 **The panel** (kidux-greeter): on the Modules page, an installed module
 that declares settings has *Settings* at the end of its row, before
 *Remove*. It opens a page of its own: one column per child, the module's
 settings down, a switch, a text box or a password box where they meet,
-each saved when changed, as the module switches are. A secret is shown
-as dots and never read back into the box.
+each saved when changed, as the module switches are: a switch for a
+switch, a number box with its limits for an integer or a number, a text
+box for text, and a password box for a secret, shown as dots and never
+read back into it. The daemon refuses a value not of the setting's kind
+or outside its limits, and the panel says so.
 
 **Into the module** (kidux-launcher, kidux-webapps): the launcher asks
 `MyModuleSettings` when a tile is opened and passes each as
-`KIDUX_SETTING_<KEY>` in the module's scope; `kidux-webapp` adds the
-switches and the text of a web application to its address,
-`?lang=es&type_in=0`, which is how BASIC's page reads them.
+`KIDUX_SETTING_<KEY>` in the module's scope; `kidux-webapp` adds them
+to a web application's address, `?lang=es&type_in=0`, which is how
+BASIC's page reads them.
 
 **BASIC**: `type_in`, a switch, on by default. Off, the page draws no
 *Type it in for me* button, and the guide's sentences about the button,
@@ -101,6 +110,18 @@ port: through it `kidux-webapp` gives Chromium the session's cookies and
 moves the window to the site. The daemon already refuses that flag among
 the machine's own.
 
+**Signing in** is the daemon's (section 4, decision 1): it keeps the
+password, root's alone, asks CodeCombat for a session over HTTPS when
+the child's `kidux-webapp` asks it to through a new method,
+`SignInModule(module)`, answered only for the caller's own uid, and
+returns the session's cookie and nothing else. What it sends where is
+data in the module's manifest, not code: a `[sign_in]` table with the
+`https://` address, which must be on one of the module's `hosts`, the
+body to send with `{email}` and `{password}` where the settings go, and
+the names of the cookies to hand back. The daemon makes that one
+request and runs nothing of the module's, so that it knows nothing of
+CodeCombat and no module's code runs as root.
+
 **When it cannot**: a wrong email or password, no internet, the site not
 answering, no account set. The page says which, in a sentence a child
 reads (*I could not sign in to CodeCombat. Ask an adult to check your
@@ -124,22 +145,26 @@ typed into the panel by hand, the play screen in Spanish.
 account on the panel); modules.md, a website module that signs in;
 architecture.md's decision.
 
-### 4.18 — Back and Forward on a website module
+### 4.18 — Back and Forward on Wikipedia
 
 **Cause.** An application window has no buttons to go back; a child does
 not know Alt+Left.
 
-**Change.** Every website module's Chromium is started with
-`--remote-debugging-pipe` as in 4.17, and `kidux-webapp` asks Chromium
-to add, to every page the module shows, a slim bar along the top with
-*Back* and *Forward*, in the child's language and the brand's colours,
+**Change.** Something of the Wikipedia module's own (section 4, decision
+4): its manifest names a script of its own, `page_script`, which
+`kidux-webapp` starts Chromium with `--remote-debugging-pipe` to add to
+every page the module shows, as 4.17's pipe; any other module may do the
+same when it needs to. Wikipedia's script is a slim bar along the top
+with *Back* and *Forward*, in the child's language and the brand's colours,
 which go through the window's history and are dimmed where there is
 nowhere to go. The bar pushes the page down by its own height rather
 than covering it. Web applications Kidux serves itself, BASIC or
 Scratch, get none: their pages have their own buttons.
 
-**Considered and not chosen**: Back and Forward on the launcher's bar,
-which would need the launcher to reach into another program's window;
+**Considered and not chosen**: a bar for every website module, which
+CodeCombat, with its own buttons, does not need; Back and Forward on the
+launcher's bar, which would need the launcher to reach into another
+program's window;
 a Chromium extension, which every policy of D36 keeps closed.
 
 **Tests.** Unit: the script the bar is, and its words. Session:
@@ -155,14 +180,15 @@ Wikipedia section.
 
 **Change.** The panel's *Advanced* page gains two settings for the
 machine: *Pointer speed* (slower … faster, five steps) and *Scrolling
-with two fingers* (slower … faster, five steps). The daemon keeps them
-in its configuration and writes `/etc/kidux/input.xml`; the session puts
+with two fingers* (slower … faster, five steps), applied when the next
+session starts, so that the owner tries them on the MacBook and keeps
+the one that feels right. The daemon keeps them in its configuration and writes `/etc/kidux/input.xml`; the session puts
 them, at every start of a child's session and of the sign-in screen, in
 the `<libinput>` part of labwc's `rc.xml` it gives labwc
 (`pointerSpeed`, and `scrollFactor` for the touchpad category), which
 labwc 0.8.3, in trixie, reads. The middle step is today's speed for the
-pointer; for the touchpad's scroll the default is the step the owner
-finds right on the MacBook (section 4, decision 3).
+pointer; for the touchpad's scroll, half of today's (section 4,
+decision 3).
 
 **Tests.** Unit: the daemon's settings and the file it writes; the
 session's `rc.xml` with and without them. Session: the Advanced page's
@@ -183,21 +209,17 @@ As phase-4b-plan.md section 3. In addition: no file, test or document
 holds a real account; the owner's test account is typed by hand on the
 machine left up and nowhere else.
 
-## 4. What the owner decides first
+## 4. What the owner decided
 
-1. **Where a child's CodeCombat password goes.** (a) The daemon keeps it
-   and signs in itself, root, over HTTPS, handing the child's session
-   only the cookie that results: the password never reaches the child's
-   session, and the daemon gains a network request to one site. (b) The
-   daemon hands the password to the child's own session, which signs in:
-   simpler, but the password is then readable in that session, by a
-   child who knows how. Recommended: (a).
-2. **Whether *Type it in for me* is also a choice for each child in
-   other modules' guides**, when there are some, or only BASIC's for now.
-   Recommended: BASIC's only; the framework allows the rest later.
-3. **The touchpad's default scroll speed.** Recommended: half of today's,
-   then tried by the owner on the MacBook before it is fixed.
-4. **The bar of 4.18 on CodeCombat too**, or only on Wikipedia.
-   CodeCombat moves between its own screens with its own buttons.
-   Recommended: Wikipedia only, and any website module that asks for it
-   in its manifest (`bar = true`).
+Decided 2026-10-03 by the owner.
+
+1. **A child's CodeCombat password stays with the daemon**, which signs
+   in and hands the child's session only the cookie that results: the
+   password never reaches the child's session.
+2. **Each module declares its own settings and their kinds**, a switch,
+   an integer, a number, a text or a secret, and there is no central list
+   of settings; *Type it in for me* is BASIC's alone.
+3. **The touchpad's scroll defaults to half of today's**, and the owner
+   tunes it on the panel on the MacBook once it is there.
+4. **Back and Forward are the Wikipedia module's own**, not every website
+   module's; another module may do the same when it needs to.
