@@ -30,6 +30,7 @@ SCOPE = [
     f"--setenv=XDG_CONFIG_HOME={CONFIG}",
     f"--setenv=XDG_CACHE_HOME={CACHE}",
     "--",
+    "systemd-cat", "--identifier=kidux-module-hello",
 ]
 PROGRAM = ["/usr/libexec/kidux-module-hello", "--fullscreen"]
 
@@ -140,6 +141,16 @@ def test_an_adult_s_settings_reach_the_module_in_its_environment():
     assert "--setenv=KIDUX_SETTING_NAME=Leo" in argv
     assert not any("Not A Key" in arg for arg in argv)
     assert argv.index("--") > argv.index("--setenv=KIDUX_SETTING_TYPE_IN=0")
+
+
+def test_what_a_module_writes_goes_to_the_journal_under_its_own_name():
+    hello = Module(id="hello", name="Hello", launch={"exec": "/usr/bin/kidux-module-hello"})
+
+    argv = launch.command(hello, HOME)
+
+    after = argv[argv.index("--") + 1:]
+    assert after == ["systemd-cat", "--identifier=kidux-module-hello",
+                     "/usr/bin/kidux-module-hello"]
 
 
 def test_the_journal_is_not_told_a_setting_s_value():

@@ -131,7 +131,9 @@ def command(module, home: str, settings: dict | None = None) -> list[str]:
     program, or for a web application or a website `kidux-webapp <module
     id>`, which reads the module's manifest, in the scope. `settings`, what
     an adult set in it for this child (D90), go into its environment as
-    KIDUX_SETTING_<KEY>.
+    KIDUX_SETTING_<KEY>. What it writes on its standard output and error
+    goes to the journal as `kidux-module-<id>`: a session's own, inherited,
+    is the console of the terminal labwc draws on, which nobody sees.
 
     A web application whose name is not an id raises ValueError, as does a
     manifest with nothing to start.
@@ -158,4 +160,6 @@ def command(module, home: str, settings: dict | None = None) -> list[str]:
           for key, value in sorted((settings or {}).items())
           if kidux_modules.SETTING_KEY.match(key)),
         "--",
+        # It runs the module itself in its place, the same process.
+        "systemd-cat", f"--identifier={unit(module.id)}",
     ] + started

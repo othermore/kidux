@@ -160,6 +160,7 @@ systemd-run --user --scope --quiet --collect --unit=kidux-module-<id>
     --setenv=XDG_DATA_HOME=<home>/.local/share/kidux/<id>
     --setenv=XDG_CONFIG_HOME=<home>/.config/kidux/<id>
     --setenv=XDG_CACHE_HOME=<home>/.cache/kidux/<id> --
+systemd-cat --identifier=kidux-module-<id>
 <exec, split as a shell would, never run through one>
 ```
 
@@ -167,7 +168,11 @@ The scope, under the child's user manager, is what ends a module, caps its
 memory, is frozen with the session under the lock screen (D40) and keeps
 the module running if the launcher crashes; with `--scope`, `systemd-run`
 runs the program itself, so the launcher's `Gio.Subprocess` is the module
-and its end is the module's; the layer-shell library the launcher itself
+and its end is the module's; `systemd-cat` gives the module the journal as
+its standard output and error and runs it in its own place, so that what
+it writes is in the journal as `kidux-module-<id>` (`journalctl -t
+kidux-module-codecombat`), where the session's own, the console of the
+terminal labwc draws on, would show it to nobody; the layer-shell library the launcher itself
 runs with (below) is taken out of the module's environment. There is no sandbox: a module sees what any
 program of the child's user sees, the child's home above all, where the
 files a child makes in one module are there for every other (D42). What is

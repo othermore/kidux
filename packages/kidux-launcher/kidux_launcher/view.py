@@ -457,9 +457,9 @@ class Launcher:
                 os.makedirs(directory, mode=0o700, exist_ok=True)
                 os.chmod(directory, 0o700)
             launch.share_user_dirs(home, module.id)
-            # stdout and stderr are inherited: a module's complaints go to
-            # the session's journal. The layer-shell library the launcher
-            # runs with (main.py) is the launcher's, not the module's.
+            # A module's complaints go to the journal under its own name
+            # (launch.command). The layer-shell library the launcher runs
+            # with (main.py) is the launcher's, not the module's.
             launcher = Gio.SubprocessLauncher.new(Gio.SubprocessFlags.NONE)
             launcher.unsetenv("LD_PRELOAD")
             process = launcher.spawnv(argv)

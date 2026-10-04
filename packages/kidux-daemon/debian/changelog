@@ -1,3 +1,10 @@
+kidux-daemon (0.3.34) trixie; urgency=medium
+
+  * A caller that leaves before the daemon can ask who it is, as a
+    session ending does, is answered quietly, not logged as a failure.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 04 Oct 2026 18:16:29 +0200
+
 kidux-daemon (0.3.33) trixie; urgency=medium
 
   * Settings an adult gives a module for each child: kept per child, the

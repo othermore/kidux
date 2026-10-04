@@ -142,6 +142,13 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [x] Public name and visual identity (`branding/`).
 - [x] The website (`site/`, website.md).
 - [x] The website counts its visits, once the visitor says yes (D83).
+- [ ] The website's visits: a notice a visitor cannot miss, with *Yes* and
+      *No* as easy as each other, or a count of visits without cookies that
+      needs no notice; the owner chooses.
+- [x] A module's complaints reach the journal under its own name,
+      `kidux-module-<id>` (launcher.md).
+- [x] The daemon answers quietly a caller that left before it was asked who
+      it is, as a session ending does, instead of logging a traceback.
 - [ ] Its download page: `download` in `site/site.toml`, once there is an image.
 - [x] A Plymouth splash screen with Kidux's logo for the installed system.
 - [ ] A themed GRUB menu for the ISO, in the project's visual identity.

@@ -123,7 +123,19 @@ class BusObject:
     ) -> None:
         interface = short_interface(interface_name)
         try:
-            caller = Caller(sender, self._caller_uid(sender))
+            uid = self._caller_uid(sender)
+        except GLib.Error as error:
+            # A caller that left before the bus could say who it was, as a
+            # session ending does: nobody waits for the answer, and nothing
+            # went wrong here.
+            if "NameHasNoOwner" not in error.message:
+                raise
+            _log.info("%s.%s from %s, gone before it was answered",
+                      interface, method_name, sender)
+            invocation.return_dbus_error(Failed().dbus_name, "the caller is gone")
+            return
+        try:
+            caller = Caller(sender, uid)
             result = self._service.dispatch(caller, interface, method_name, *parameters.unpack())
         except DaemonError as error:
             invocation.return_dbus_error(error.dbus_name, str(error))
