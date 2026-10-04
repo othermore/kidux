@@ -1,8 +1,9 @@
 """Every learning module at once, as a family has them (docs/dev/website.md).
 
-The six modules a child is meant to use are installed through the daemon, as
-the panel installs them, and switched on for Leo. Signed in, his launcher
-shows a tile for each: the picture the website and the README open with.
+Six of the modules a child is meant to use, enough for a clean picture, are
+installed through the daemon, as the panel installs them, and switched on
+for Leo. Signed in, his launcher shows a tile for each: the picture the
+website and the README open with.
 Logged out, given windows and signed in again, he opens Blockly Games from
 its tile and Tux Typing from the desk, each a window in labwc's frame, both
 in view at once and both on the bar: the website's picture of windows. Both
@@ -32,7 +33,7 @@ from sessionlib import (
 )
 
 #: The modules, in the order of their tiles.
-MODULES = ("blockly-games", "gcompris", "scratch", "scratchjr", "turbowarp", "tuxtype")
+MODULES = ("basic", "blockly-games", "codecombat", "scratch", "tuxtype", "wikipedia")
 AS = "runuser -u debian -- /usr/local/bin/kidux-as"
 #: A tile's white, and where the row of tiles is.
 WHITE, TILES = (0xFF, 0xFF, 0xFF), (0.08, 0.33, 0.92, 0.63)
@@ -114,9 +115,11 @@ def run(machine: Machine) -> None:
     report("with windows, Leo signs in to the same tiles", sign_in(machine),
            f"tiles: {last('tiles')}\n" + greeter_log() + launcher_log())
 
-    # From Lock, which has the focus, back to the tiles, the first: Blockly Games.
+    # From Lock, which has the focus, back to the tiles, the first, then the
+    # second: Blockly Games.
     machine.key("shift-tab")
     machine.key("home")
+    machine.key("right")
     machine.key("ret")
     opened = wait(lambda: window("blockly-games") != {}, 90, 2)
     machine.still(8)
@@ -125,11 +128,12 @@ def run(machine: Machine) -> None:
            opened and not games.get("maximized") and not games.get("fullscreen"), str(games))
 
     # Super shows the desk, the focus on the tile last used; End is the last
-    # tile, Tux Typing.
+    # tile, and the one before it Tux Typing.
     machine.key("meta_l")
     wait(lambda: on_screen() == "home", 10)
     launcher_shown(machine)
     machine.key("end")
+    machine.key("left")
     machine.key("ret")
     opened = wait(lambda: window("tuxtype") != {}, 60, 2)
     drawn = machine.showing(TUX_BLUE, MIDDLE, share=0.4, seconds=60, tolerance=40)

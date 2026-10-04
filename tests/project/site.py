@@ -8,8 +8,9 @@ The site is built into a scratch directory as ci/build-site.py builds it
 for and no others, so that a sentence added in one is missing nowhere and
 one dropped from the page is not left behind; every picture, style and
 link a page names must be there; each page must lead to the others, to the
-contact address and to where a donation is made; and the steps to install
-it sends a visitor to must be a section of the user guide in its language.
+contact address and to where a donation is made; and every section of the
+user guide it sends a visitor to, the steps to install it and each module's,
+must be a heading of the guide in its language.
 Given the package archive's tarball, it must unpack it under apt/. With a
 measurement id for Google Analytics, each page asks before it counts a
 visit and carries nothing of Google's as a tag; without one, nothing of it
@@ -76,9 +77,13 @@ with tempfile.TemporaryDirectory() as scratch:
         headings = {anchor(line.lstrip("#").strip())
                     for line in guide.read_text(encoding="utf-8").splitlines()
                     if line.startswith("#")} if guide.is_file() else set()
-        check(f"{language}: the steps to install it sends to are a section of the user guide",
-              table.get("get.debian.anchor") in headings,
-              f"{table.get('get.debian.anchor')!r} in {guide}")
+        # The steps to install it, the modules and each module: every
+        # heading of the guide the page sends a visitor to.
+        anchors = {key: value for key, value in table.items() if key.endswith(".anchor")}
+        missing = sorted(f"{key} = {value!r}" for key, value in anchors.items()
+                         if value not in headings)
+        check(f"{language}: every section of the user guide it sends to is there",
+              anchors and not missing, f"{missing} in {guide}")
     check("every fact the page asks for is in site.toml",
           all(key in facts for key in asked if key.startswith("site.")),
           str(sorted(key for key in asked if key.startswith("site.") and key not in facts)))

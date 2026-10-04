@@ -27,6 +27,7 @@
     <nav aria-label="{{ nav.label }}">
       <a href="#what">{{ nav.what }}</a>
       <a href="#modules">{{ nav.modules }}</a>
+      <a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md">{{ nav.docs }}</a>
       <a href="#adults">{{ nav.adults }}</a>
       <a href="#licence">{{ nav.licence }}</a>
       <a href="#contact">{{ nav.contact }}</a>
@@ -49,6 +50,7 @@
       <p class="lead">{{ hero.lead }}</p>
       <div class="actions">
         <a class="button primary" href="#get">{{ hero.get }}</a>
+        <a class="button quiet" href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md">{{ hero.docs }}</a>
         <a class="button give" href="{{ site.sponsors }}">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.3C.3 8.300 2 4.500 5.700 4.500c2.200 0 3.600 1.200 4.300 2.300h4c.7-1.100 2.100-2.300 4.300-2.300 3.700 0 5.400 3.800 3.700 7.200C19.500 16.400 12 21 12 21z"/></svg>
           {{ hero.support }}</a>
@@ -134,29 +136,42 @@
     <div class="modules">
       <article class="module">
         <img src="{{ root }}images/{{ lang }}/module-gcompris.png" alt="" width="1280" height="800" loading="lazy">
-        <div><h3>{{ modules.gcompris.name }} <span class="age">{{ modules.gcompris.age }}</span></h3><p>{{ modules.gcompris.text }}</p></div>
+        <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.gcompris.anchor }}">{{ modules.gcompris.name }}</a> <span class="age">{{ modules.gcompris.age }}</span></h3><p>{{ modules.gcompris.text }}</p></div>
       </article>
       <article class="module">
         <img src="{{ root }}images/{{ lang }}/module-scratchjr.png" alt="" width="1280" height="800" loading="lazy">
-        <div><h3>{{ modules.scratchjr.name }} <span class="age">{{ modules.scratchjr.age }}</span></h3><p>{{ modules.scratchjr.text }}</p></div>
+        <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.scratchjr.anchor }}">{{ modules.scratchjr.name }}</a> <span class="age">{{ modules.scratchjr.age }}</span></h3><p>{{ modules.scratchjr.text }}</p></div>
       </article>
       <article class="module">
         <img src="{{ root }}images/{{ lang }}/module-blockly-games.png" alt="" width="1280" height="800" loading="lazy">
-        <div><h3>{{ modules.blockly.name }} <span class="age">{{ modules.blockly.age }}</span></h3><p>{{ modules.blockly.text }}</p></div>
+        <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.blockly.anchor }}">{{ modules.blockly.name }}</a> <span class="age">{{ modules.blockly.age }}</span></h3><p>{{ modules.blockly.text }}</p></div>
       </article>
       <article class="module">
         <img src="{{ root }}images/{{ lang }}/module-tuxtype.png" alt="" width="1280" height="800" loading="lazy">
-        <div><h3>{{ modules.tuxtype.name }} <span class="age">{{ modules.tuxtype.age }}</span></h3><p>{{ modules.tuxtype.text }}</p></div>
+        <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.tuxtype.anchor }}">{{ modules.tuxtype.name }}</a> <span class="age">{{ modules.tuxtype.age }}</span></h3><p>{{ modules.tuxtype.text }}</p></div>
       </article>
       <article class="module">
         <img src="{{ root }}images/{{ lang }}/module-scratch.png" alt="" width="1280" height="800" loading="lazy">
-        <div><h3>{{ modules.scratch.name }} <span class="age">{{ modules.scratch.age }}</span></h3><p>{{ modules.scratch.text }}</p></div>
+        <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.scratch.anchor }}">{{ modules.scratch.name }}</a> <span class="age">{{ modules.scratch.age }}</span></h3><p>{{ modules.scratch.text }}</p></div>
       </article>
       <article class="module">
         <img src="{{ root }}images/{{ lang }}/module-turbowarp.png" alt="" width="1280" height="800" loading="lazy">
-        <div><h3>{{ modules.turbowarp.name }} <span class="age">{{ modules.turbowarp.age }}</span></h3><p>{{ modules.turbowarp.text }}</p></div>
+        <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.turbowarp.anchor }}">{{ modules.turbowarp.name }}</a> <span class="age">{{ modules.turbowarp.age }}</span></h3><p>{{ modules.turbowarp.text }}</p></div>
+      </article>
+      <article class="module">
+        <img src="{{ root }}images/{{ lang }}/module-basic.png" alt="" width="1280" height="800" loading="lazy">
+        <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.basic.anchor }}">{{ modules.basic.name }}</a> <span class="age">{{ modules.basic.age }}</span></h3><p>{{ modules.basic.text }}</p></div>
+      </article>
+      <article class="module">
+        <img src="{{ root }}images/{{ lang }}/module-wikipedia.png" alt="" width="1280" height="800" loading="lazy">
+        <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.wikipedia.anchor }}">{{ modules.wikipedia.name }}</a> <span class="age">{{ modules.wikipedia.age }}</span></h3><p>{{ modules.wikipedia.text }}</p></div>
+      </article>
+      <article class="module">
+        <img src="{{ root }}images/{{ lang }}/module-codecombat.png" alt="" width="1280" height="800" loading="lazy">
+        <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.codecombat.anchor }}">{{ modules.codecombat.name }}</a> <span class="age">{{ modules.codecombat.age }}</span></h3><p>{{ modules.codecombat.text }}</p></div>
       </article>
     </div>
+    <p class="more">{{ modules.more }} <a class="button quiet small" href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.anchor }}">{{ modules.guide }}</a></p>
   </div>
 </section>
 

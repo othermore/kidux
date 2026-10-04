@@ -12,6 +12,7 @@ description = "Un sistema operativo completo y seguro para niños. Sin distracci
 label = "Secciones"
 what = "Qué es"
 modules = "Módulos"
+docs = "Manual"
 adults = "Para adultos"
 licence = "Licencia"
 contact = "Contacto"
@@ -21,6 +22,7 @@ support = "Donar"
 title = "Su primer ordenador. Seguro y sin distracciones."
 lead = "Kidux es un sistema operativo completo para niños, con todo listo para aprender. Instálalo en un ordenador viejo y dáselo con tranquilidad."
 get = "Consigue Kidux"
+docs = "Leer el manual"
 support = "Apoya el proyecto"
 note = "Gratis para las familias · En español y en inglés · Código publicado"
 picture = "La pantalla de un niño en Kidux, con un dibujo por cada módulo de aprendizaje"
@@ -61,38 +63,66 @@ windows_text = "Para un niño mayor: varios programas a la vista, que se mueven 
 windows_picture = "Dos módulos de aprendizaje abiertos en ventanas"
 
 [modules]
-title = "Seis formas de aprender, de 2 a 16 años"
-lead = "Los programas en los que confían los profesores, instalados y configurados por ti."
+title = "Muchas formas de aprender, de 2 a 16 años"
+lead = "Los programas en los que confían los profesores, instalados y configurados por ti. Tú eliges cuáles puede usar cada niño."
+more = "Cada módulo tiene su página en el manual: qué es, para quién, qué necesita y qué puede ajustar en él un adulto."
+guide = "Los módulos, en el manual"
+# The heading of the user guide's modules section, as its address has it.
+anchor = "9-módulos-de-aprendizaje"
 
 [modules.gcompris]
 name = "GCompris"
 age = "De 2 a 10 años"
 text = "Más de cien actividades: leer, contar, los colores, el teclado y el ratón."
+anchor = "gcompris"
 
 [modules.scratchjr]
 name = "ScratchJr"
 age = "De 5 a 7 años"
 text = "Historias y juegos hechos con bloques de dibujos. Sin saber leer."
+anchor = "scratchjr"
 
 [modules.blockly]
 name = "Juegos de Blockly"
 age = "De 6 a 12 años"
 text = "Rompecabezas que enseñan a programar, cada vez un paso más difícil."
+anchor = "juegos-de-blockly"
 
 [modules.tuxtype]
 name = "Tux Typing"
 age = "De 6 a 12 años"
 text = "Aprender a escribir a máquina atrapando las letras y las palabras que caen."
+anchor = "tux-typing"
 
 [modules.scratch]
 name = "Scratch"
 age = "Desde 8 años"
 text = "Hacer juegos e historias con bloques, como en el colegio."
+anchor = "scratch"
 
 [modules.turbowarp]
 name = "TurboWarp"
 age = "Desde 8 años"
 text = "Scratch más rápido, para un ordenador más lento."
+anchor = "turbowarp"
+
+[modules.basic]
+name = "BASIC"
+age = "De 8 a 14 años"
+text = "El lenguaje de los primeros ordenadores de casa, con una guía de treinta capítulos al lado."
+anchor = "basic"
+
+[modules.wikipedia]
+name = "Wikipedia"
+age = "Desde 8 años"
+text = "La enciclopedia entera en el idioma del niño, con el resto de internet cerrado."
+anchor = "wikipedia"
+
+[modules.codecombat]
+name = "CodeCombat"
+age = "De 9 a 16 años"
+text = "Python y JavaScript jugando, en la web de CodeCombat, con una cuenta que prepara un adulto."
+anchor = "codecombat"
 
 [adults]
 title = "Tú decides. Desde un solo sitio."
@@ -162,7 +192,7 @@ code_text = "Kidux en GitHub"
 [footer]
 rights = "© 2026"
 licence = "Kidux se publica bajo la Business Source License 1.1."
-others = "GCompris, ScratchJr, Juegos de Blockly, Tux Typing, Scratch y TurboWarp pertenecen a sus autores y conservan sus propias licencias. Kidux está construido sobre Debian y no está afiliado a ninguno de ellos."
+others = "GCompris, ScratchJr, Juegos de Blockly, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat y Wikipedia pertenecen a sus autores y conservan sus propias licencias. Kidux está construido sobre Debian y no está afiliado a ninguno de ellos."
 
 [cookies]
 text = "Esta web cuenta sus visitas con Google Analytics, que deja cookies en tu navegador. ¿Puede?"

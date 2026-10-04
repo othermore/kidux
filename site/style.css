@@ -216,7 +216,11 @@ h3 { font-size: 22px; line-height: 1.25; }
 .module div { padding: 18px 22px 24px; }
 .module h3 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; }
 .module p { margin-top: 6px; font-size: 18px; color: var(--soft); }
+.module h3 a { text-decoration: none; }
+.module h3 a:hover { text-decoration: underline; text-decoration-color: var(--sun); text-decoration-thickness: 3px; text-underline-offset: 5px; }
 .age { font-size: 15px; color: var(--soft); white-space: nowrap; }
+.more { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 30px; font-size: 19px; color: var(--soft); }
+.more .button { margin: 0; }
 
 /* Where to give: the one dark place on the page. */
 .support { background: var(--night); color: var(--snow); text-align: center; }

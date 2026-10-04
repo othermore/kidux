@@ -47,7 +47,10 @@ language. The brand's pieces come from `branding/` the same way. A picture
 the page names and the battery does not take stops the build. The two the
 page opens with, a child's launcher with a tile for every module and two
 modules in windows, are taken by `tests/session/30-every-module.py`, which
-installs the six modules for it.
+installs six of them, so that the picture stays clean: BASIC, Blockly
+Games, CodeCombat, Scratch, Tux Typing and Wikipedia. The pictures are
+written by a release run of the battery alone (D93), so the site shows
+released screens.
 
 **The font.** `site/fonts/Andika-*.woff2` are Debian's `fonts-sil-andika`
 6.200 in the web's format and otherwise untouched, since the font's
@@ -77,7 +80,13 @@ where the image is downloaded from is a fact, `download` in
 *available today*, and its button leads to the steps, section 2 of the
 user guide in the page's language, by the heading's address in the words,
 `get.debian.anchor`; `tests/project/site.py` fails if the guide has no
-such section. Both states of the image's card are written, in every
+such section. The guide itself is a step away everywhere: *Guide* in the
+page's header, *Read the guide* beside *Get Kidux* at the top, and, in
+the part that shows the modules, each module's name leads to its own
+section of the guide and a button to the modules' section, by headings'
+addresses the words hold (`modules.anchor`, `modules.<id>.anchor`), every
+one of which the same check holds to a heading of the guide in that
+language; so a visitor sees how much there is and what each module does. Both states of the image's card are written, in every
 language, and checked.
 
 ## 3. Building and looking at it
