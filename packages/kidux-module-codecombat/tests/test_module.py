@@ -87,7 +87,9 @@ def test_the_connecting_page_holds_every_language_s_words(tmp_path):
     words = json.loads(html.split("const WORDS = ", 1)[1].split(";\n", 1)[0])
     assert set(words) == {"en", "es"}
     assert words["es"]["connecting"] == "Conectándose a CodeCombat…"
-    assert set(words["en"]) == {"connecting", "refused", "unreachable", "again"}
+    assert set(words["en"]) == {"connecting", "refused", "unreachable", "again", "notset",
+                                "byhand"}
+    assert words["es"]["byhand"] == "Entrar yo"
     assert "window.kidux = {" in html and "kiduxTryAgain" in html
 
 

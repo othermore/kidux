@@ -1,7 +1,7 @@
 # CodeCombat: a door to the CodeCombat website (D85, D86). Nothing of
 # CodeCombat is shipped: its levels are its own and live only on its site.
 id = "codecombat"
-version = "0.1.1"
+version = "0.1.2"
 name = "CodeCombat"
 description = "The CodeCombat website, where you learn Python and JavaScript by playing. It needs the internet and a CodeCombat account, paid for most of it; Kidux is not connected with CodeCombat."
 min_age = 9
@@ -36,10 +36,11 @@ description = "The password of the child's CodeCombat account. Kidux signs in wi
 # own sign-in page does, read from Chromium's net log: the account as JSON
 # to /auth/login, and the session's two cookies back. sign-in.js then sets
 # the account's language to the child's, and the window goes to the play
-# screen.
+# screen. With no account set, the child may go to the site's sign-in page.
 [sign_in]
 url = "https://codecombat.com/auth/login"
 body = { username = "{email}", password = "{password}" }
 cookies = ["codecombat.sess", "codecombat.sess.sig"]
 script = "sign-in.js"
 start = "https://codecombat.com/play"
+manual = "https://codecombat.com/login"

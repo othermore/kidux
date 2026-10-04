@@ -6,7 +6,8 @@
 The window opens on this page first, served by kidux-webapps, while
 kidux-webapp has the daemon sign the child in (phase-4c-plan.md, 4.17); it
 says so, and says what went wrong when something does, with *Try again*.
-kidux-webapp tells it which by calling `kidux.show(state)` in it. Every
+kidux-webapp tells it which by calling `kidux.show(state)` in it; with no
+account set, the page offers to sign in by hand. Every
 language's words are written into it here, English and each of po/*.po,
 translated through the module's own catalogue, compiled into
 <locale dir>/<lang>/LC_MESSAGES/kidux-module-codecombat.mo.
@@ -30,6 +31,10 @@ WORDS = {
     "unreachable": N_("CodeCombat does not answer. Check that the internet works, "
                       "or try again in a while."),
     "again": N_("Try again"),
+    "notset": N_("No CodeCombat account is set for you yet. The easiest is for an adult to "
+                 "put it in CodeCombat's Settings on the adult panel. Until then, you can "
+                 "sign in yourself:"),
+    "byhand": N_("Sign in myself"),
 }
 
 

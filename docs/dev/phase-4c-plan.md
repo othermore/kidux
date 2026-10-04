@@ -141,7 +141,9 @@ language in that account.
 answering, no account set. The page says which, in a sentence a child
 reads (*I could not sign in to CodeCombat. Ask an adult to check your
 account.*), with *Try again*; nothing of the site is shown. No account set
-opens the site's front page as today.
+says that the easiest is for an adult to put it on the panel, and offers
+*Sign in myself*, which opens the site's own sign-in page, `manual` in
+the manifest.
 
 **Found on the machine first**, with the net log and the owner's test
 account, never written to any file: the address CodeCombat signs in at,

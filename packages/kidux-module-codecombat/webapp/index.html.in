@@ -35,20 +35,23 @@
   document.documentElement.lang = WORDS[asked] ? asked : "en";
   const said = document.getElementById("said");
   const again = document.getElementById("again");
-  again.textContent = words.again;
-  // What kidux-webapp tells the page: "connecting", "refused" or
-  // "unreachable"; Try again asks it to sign in once more.
+  // What kidux-webapp tells the page: "connecting", "refused",
+  // "unreachable" or "notset"; the button asks it to sign in once more,
+  // or, with no account set, to go to the site's own sign-in page.
   window.kidux = {
     show(state) {
       said.textContent = words[state] || words.unreachable;
-      said.className = state === "connecting" ? "waiting" : "wrong";
+      said.className = state === "connecting" ? "waiting" : state === "notset" ? "" : "wrong";
+      again.textContent = state === "notset" ? words.byhand : words.again;
+      again.dataset.asks = state === "notset" ? "manual" : "";
       again.hidden = state === "connecting";
       if (!again.hidden) { again.focus(); }
     },
   };
   again.addEventListener("click", () => {
+    const asks = again.dataset.asks;
     window.kidux.show("connecting");
-    if (window.kiduxTryAgain) { window.kiduxTryAgain(""); }
+    if (window.kiduxTryAgain) { window.kiduxTryAgain(asks); }
   });
   window.kidux.show("connecting");
 </script>

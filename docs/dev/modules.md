@@ -103,14 +103,17 @@ icon theme is needed and the tile is the same on every machine.
   in which `{key}` is the setting of that key; `cookies`, the names of the
   session's cookies the answer sets; `script`, optional, a file beside
   the manifest run in the site's first page with `window.KIDUX.lang` the
-  child's language; and `start`, optional, where the window goes then.
-  The daemon makes the request (`Modules1.SignIn`, daemon.md) and hands
+  child's language; `start`, optional, where the window goes then; and
+  `manual`, optional, the site's own sign-in page, where the window goes
+  when no account is set and the child asks to sign in by hand. The daemon
+  makes the request (`Modules1.SignIn`, daemon.md) and hands
   the child's session only those cookies; `kidux-webapp` opens the
   module's own page first, `webapps/<id>/index.html`, which its package
   ships and which says *Connecting…* or what went wrong with *Try again*,
   and then drives the window through Chromium's DevTools pipe
-  (`kidux.browser`, D91). Without an account given, the website opens as
-  it is. CodeCombat is the one that does (phase-4c-plan.md, 4.17).
+  (`kidux.browser`, D91). Without an account given, the page says that an
+  adult puts it on the panel, and its button takes the window to `manual`,
+  or to the website as it is. CodeCombat is the one that does (phase-4c-plan.md, 4.17).
 - `page_script` names a file beside the manifest that runs in every page
   the window of a module made of web pages shows, as Wikipedia's bar of
   Back and Forward does (phase-4c-plan.md, 4.18). `kidux-webapp` hands it
@@ -255,8 +258,11 @@ manifest, the icon, its content and its translations, and depends on
 whatever program it runs. It never depends on another module. If it is a
 web application it depends on `kidux-webapps` and installs its pages
 under `/usr/share/kidux/webapps/<id>/`; a module that opens a website
-depends on `kidux-webapps` and installs no pages, only its manifest, its
-icon and its words.
+depends on `kidux-webapps` and installs nothing of the website, only its
+manifest, its icon and its words, and what of its own the manifest names
+beside it: the script of its `sign_in` or its `page_script`, and, for one
+that signs in, its *Connecting…* page under `/usr/share/kidux/webapps/<id>/`
+(section 1).
 
 `kidux-webapps` is what web applications share, and nothing of any one of
 them: `kidux-webapps.service`, a static server of its own on

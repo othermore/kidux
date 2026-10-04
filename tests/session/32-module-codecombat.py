@@ -3,7 +3,9 @@
 kidux-module-codecombat, a door to the CodeCombat website (D86), is
 installed through the daemon, as the panel installs it, and switched on for
 Leo from the command line. Leo opens it by keyboard: Chromium's application
-window, filling the room above the bar, shows CodeCombat's front page from
+window, filling the room above the bar, shows the module's own page, which
+says no account is set and offers to sign in by hand; its button opens
+CodeCombat's sign-in page from
 the internet. The machine reaches the internet through QEMU's own network;
 a site that does not answer is said so, and still fails the test. Alt+F4
 closes it and gives the launcher back; the lock screen's *Log out* ends the
@@ -67,16 +69,28 @@ def run(machine: Machine) -> None:
     opened = wait(lambda: "CodeCombat" in (combat_window().get("title") or ""), 90, 2)
     wait(lambda: on_screen() == "codecombat", 10)
     machine.still(5)
-    picture = machine.screenshot("module-codecombat")
+    told = machine.screenshot("module-codecombat-no-account")
     window = combat_window()
-    if window and not opened:
-        print("      the site did not answer: the window is there, CodeCombat's title never came",
-              flush=True)
-    report("Leo opens it by keyboard: CodeCombat's front page, in Chromium, above the bar",
+    report("Leo opens it by keyboard: the module's own page, in Chromium, above the bar, "
+           "says no account is set",
            opened and on_screen() == "codecombat" and window.get("maximized")
            and not window.get("fullscreen")
-           and colour_share(picture, CREAM, ABOVE_THE_BAR) < 0.2,
-           f"{window}; {picture}\n" + launcher_log())
+           and colour_share(told, CREAM, ABOVE_THE_BAR) > 0.5,
+           f"{window}; {told}\n" + launcher_log())
+    # Its button, Sign in myself, has the focus; the site's page takes a
+    # while to come.
+    before = machine.settled()
+    machine.key("ret")
+    arrived = machine.changes(before, 60, 0.3)
+    machine.still(5)
+    picture = machine.screenshot("module-codecombat")
+    if not arrived:
+        print("      the site did not answer: the window stayed on the module's page",
+              flush=True)
+    report("and Sign in myself opens CodeCombat's sign-in page",
+           arrived and colour_share(picture, CREAM, ABOVE_THE_BAR) < 0.2
+           and "CodeCombat" in (combat_window().get("title") or ""),
+           f"{combat_window()}; {picture}")
 
     # The policy lets kidux-webapp's own pipe drive the window, and blocks
     # the developer tools' pages: Chromium says they are not allowed (D91).

@@ -294,6 +294,7 @@ body = { username = "{email}", password = "{password}" }
 cookies = ["site.sess", "site.sess.sig"]
 script = "sign-in.js"
 start = "https://example.org/play"
+manual = "https://example.org/login"
 '''
 
 
@@ -309,6 +310,7 @@ def test_a_website_module_says_how_it_signs_a_child_in(tmp_path):
     assert site.sign_in.cookies == ("site.sess", "site.sess.sig")
     assert site.sign_in.script == str(tmp_path / "site" / "sign-in.js")
     assert site.sign_in.start == "https://example.org/play"
+    assert site.sign_in.manual == "https://example.org/login"
     # Its window opens on its own Connecting… page first.
     assert modules.claims(site, "chrome-127.0.0.1__site_-Default")
     assert modules.claims(site, "chrome-example.org__-Default")
@@ -317,6 +319,7 @@ def test_a_website_module_says_how_it_signs_a_child_in(tmp_path):
 def test_a_sign_in_that_would_send_an_account_elsewhere_is_left_out(tmp_path, caplog):
     for name, change in (("http", ("https://example.org/auth", "http://example.org/auth")),
                          ("away", ("https://example.org/auth", "https://evil.example.com/auth")),
+                         ("manual", ("https://example.org/login", "https://evil.example.com/login")),
                          ("noscript", ('script = "sign-in.js"', 'script = "../x.js"')),
                          ("cookies", ('cookies = ["site.sess", "site.sess.sig"]', 'cookies = []'))):
         manifest(tmp_path, name, f'id = "{name}"\nname = "X"\n'
@@ -327,7 +330,7 @@ def test_a_sign_in_that_would_send_an_account_elsewhere_is_left_out(tmp_path, ca
                  + SIGN_IN.replace(*change))
 
         assert modules.read(name, tmp_path).sign_in is None, name
-    assert caplog.text.count("its sign_in is left out") == 4
+    assert caplog.text.count("its sign_in is left out") == 5
 
 
 def test_a_website_module_names_a_script_for_its_pages(tmp_path, caplog):

@@ -177,7 +177,8 @@ def sign_in(pipe, page: str, module: modules.Module, lang: str, client) -> None:
     give the window the session's cookies, take it to the site, run the
     module's script there in the child's language, and go to its start. A
     failure is shown on the page, which asks to try again; no account set
-    opens the site as it is."""
+    is said on the page too, which offers to sign in by hand: that takes
+    the window to the site's own sign-in page, or to the site as it is."""
     pipe.call("Runtime.enable", {}, page)
     pipe.call("Runtime.addBinding", {"name": "kiduxTryAgain"}, page)
 
@@ -193,16 +194,21 @@ def sign_in(pipe, page: str, module: modules.Module, lang: str, client) -> None:
         except Exception as error:  # noqa: BLE001 - what it was is all the page needs
             said = str(error)
             if "SignInNotSet" in said:
+                show("notset")
+            else:
+                show(next((state for name, state in FAILURES.items() if name in said),
+                          "unreachable"))
+                print(f"could not sign in to {module.id}: {said}", file=sys.stderr)
+            # The page's button: "manual" to sign in by hand, anything else
+            # to try again.
+            asked = pipe.event("Runtime.bindingCalled").get("params", {}).get("payload", "")
+            if asked == "manual":
                 cookies = None
                 break
-            show(next((state for name, state in FAILURES.items() if name in said),
-                      "unreachable"))
-            print(f"could not sign in to {module.id}: {said}", file=sys.stderr)
-            pipe.event("Runtime.bindingCalled")
     if module.page_script:
         add_page_script(pipe, page, module, lang, now=False)
     if cookies is None:
-        pipe.call("Page.navigate", {"url": site(module, lang)}, page)
+        pipe.call("Page.navigate", {"url": module.sign_in.manual or site(module, lang)}, page)
         pipe.call("Runtime.disable", {}, page)
         return
     pipe.call("Storage.setCookies", {"cookies": cookies})

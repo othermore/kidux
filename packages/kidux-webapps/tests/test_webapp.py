@@ -163,9 +163,6 @@ class FakePipe:
     """Chromium's pipe as the sign-in uses it: every command kept, and the
     events it waits for there at once."""
 
-    def __init__(self):
-        self.calls, self.events = [], []
-
     def page(self):
         return "page"
 
@@ -173,9 +170,15 @@ class FakePipe:
         self.calls.append((method, params or {}, session))
         return {}
 
+    def __init__(self):
+        self.calls, self.events = [], []
+        #: What the page's button answers each time it is waited for.
+        self.answers = []
+
     def event(self, method):
         self.calls.append(("wait", {"for": method}, ""))
-        return {"method": method}
+        payload = self.answers.pop(0) if self.answers else ""
+        return {"method": method, "params": {"payload": payload}}
 
     def drain(self):
         self.calls.append(("drain", {}, ""))
@@ -189,11 +192,13 @@ class FakeProcess:
 SIGNING = modules.Module(id="combat", name="Combat", launch={"web": "https://example.org/"},
                          hosts=("example.org",),
                          sign_in=modules.SignIn("https://example.org/auth", (("a", "{email}"),),
-                                                ("sess",), start="https://example.org/play"))
+                                                ("sess",), start="https://example.org/play",
+                                                manual="https://example.org/login"))
 
 
-def sign_in(monkeypatch, client, module=SIGNING):
+def sign_in(monkeypatch, client, module=SIGNING, answers=()):
     pipe = FakePipe()
+    pipe.answers = list(answers)
     monkeypatch.setattr(webapp.browser, "start", lambda command: (FakeProcess(), pipe))
     assert webapp.drive(module, ["chromium"], "es", client) == 0
     return [(method, params) for method, params, _session in pipe.calls]
@@ -236,15 +241,18 @@ def test_a_refused_account_is_said_on_the_page_and_tried_again_when_asked(monkey
     assert answers == []
 
 
-def test_no_account_set_opens_the_site_as_it_is(monkeypatch):
+def test_no_account_set_is_said_and_the_child_may_sign_in_by_hand(monkeypatch):
     class Client:
         def sign_in_module(self, module_id):
             raise RuntimeError("GDBus.Error:org.kidux.Daemon1.Error.SignInNotSet: none")
 
-    calls = sign_in(monkeypatch, Client())
+    calls = sign_in(monkeypatch, Client(), answers=["", "manual"])
 
+    shown = [params["expression"] for method, params in calls if method == "Runtime.evaluate"]
+    assert sum('window.kidux.show("notset")' in said for said in shown) == 2
+    # The first answer tries again, the second goes to the site's sign-in page.
     assert [params["url"] for method, params in calls if method == "Page.navigate"] == [
-        "https://example.org/"]
+        "https://example.org/login"]
     assert not any(method == "Storage.setCookies" for method, _params in calls)
 
 
