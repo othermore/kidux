@@ -78,10 +78,11 @@ def run(machine: Machine) -> None:
            and colour_share(told, CREAM, ABOVE_THE_BAR) > 0.5,
            f"{window}; {told}\n" + launcher_log())
     # Its button, Sign in myself, has the focus; the site's page takes a
-    # while to come.
+    # while to come, minutes on a machine that shares its processor with
+    # the battery's builds.
     before = machine.settled()
     machine.key("ret")
-    arrived = machine.changes(before, 60, 0.3)
+    arrived = machine.changes(before, 180, 0.3)
     machine.still(5)
     picture = machine.screenshot("module-codecombat")
     if not arrived:
