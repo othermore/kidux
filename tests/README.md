@@ -92,8 +92,9 @@ which replaces it when it is published, after removing every development
 build from the suite (ci/publish-local.sh), once the owner has tried the
 work and said yes (D93); `ci/promote.sh` refuses while testing holds one.
 The battery tests development builds too, of every package changed in the
-work (ci/test-release.sh). So the tree's version is always one the archive
-has not published: a package gets its version at its first change, and
+work (ci/test-release.sh); the release run, `--release`, builds and tests
+the versions themselves, and is the one that writes the guide's pictures
+(D93). So the tree's version is always one the archive has not published: a package gets its version at its first change, and
 `vm push` refuses a package the archive already holds at the tree's
 version or above (D77). The owner's machine, which follows the testing suite, takes a pushed
 package with `sudo apt update && sudo apt upgrade` (docs/dev/rollout.md,

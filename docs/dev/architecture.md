@@ -1607,20 +1607,23 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   not fit, and show it, as every screen does; the greeter does not log
   them as screens that should fit (`GROWS` in view.py), and every other
   screen still must.
-- **D93 — A version without `~dev` is published only when the owner
-  confirms it.** Decided 2026-10-03 by the owner, a fundamental rule that
-  refines D77. A package still gets its new version at its first change in
-  a piece of work, and the work stays in that number: every try, and
-  every fix an error found later needs, is a `~dev` build of it, so that
-  no error costs another number. The version itself, without `~dev`, is
-  not published anywhere, the testing archive included, and nothing goes
-  to GitHub (a push, a release, the site, the public archive) until the
-  owner has tried the work and said yes, so that nothing breaks for
-  anyone who uses Kidux. So the battery builds and publishes every package
-  changed in the work as a `~dev` build of its version, as `tests/run vm
-  push` does (`ci/devbuild.py`), and the MacBook, which follows testing,
-  takes those for the owner to try; once the owner says yes,
-  `ci/build-all.sh` and `ci/publish-local.sh` build and publish the
-  versions themselves, and then they are promoted and pushed. Until then
-  the battery published each version it tested to the testing archive, so
-  a fix after a battery cost a new number.
+- **D93 — A version made only of numbers is a release, built once every
+  test and the owner have passed the work.** Decided 2026-10-03 by the
+  owner, refining D77. A release never changes: a version once published
+  keeps its bytes, and the next change to the package goes under the next
+  number. A package gets that number at its first change in a piece of
+  work, and everything until the release is a `~dev` build of it, the
+  quick loop's pushes and the battery's own builds alike, which the
+  testing archive and the owner's machine take. So the numbers run on
+  without a gap, since no number is spent on a try that turns out wrong,
+  and no release goes out unreviewed: the battery must have passed, the
+  owner must have tried the work and said yes, and the further review the
+  owner asks for, when they ask for one, is done first. Then
+  `ci/test-release.sh <label> --release` builds the versions themselves,
+  the bytes the reproducibility stage already built twice and kept, publishes
+  them into testing in place of the `~dev` builds, runs every test again
+  on them and writes the guide's pictures, which only a release run does;
+  the push, `ci/promote.sh` and `ci/publish-public.sh` follow, each on the
+  owner's word. Nothing is released as part of developing or testing.
+  Before D93 the battery published each version it tested, so a fix found
+  after a battery cost the next number.

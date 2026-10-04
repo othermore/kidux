@@ -128,8 +128,18 @@ for package in $packages; do
 
     if [ "$differences" -eq 0 ]; then
         echo "PASS  $package builds identically twice"
+        # Into the build cache, as ci/build-package.sh keeps a build: the
+        # release's build of this source is then these bytes, the ones
+        # shown to build identically, and takes no time.
         mark="$(proven_mark "$package")"
-        mkdir -p "$(dirname "$mark")"
+        cache="$(dirname "$mark")"
+        mkdir -p "$cache"
+        names="$(basename "$changes")
+$(awk '/^Files:/ { files = 1; next } /^[^ ]/ { files = 0 } files { print $NF }' "$changes")"
+        for name in $names; do
+            cp -p "$WORK/first/$name" "$cache/$name"
+        done
+        printf '%s\n' $names > "$cache/files"
         touch "$mark"
     else
         failures=$((failures + differences))

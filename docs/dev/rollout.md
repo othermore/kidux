@@ -157,8 +157,9 @@ while a child is signed in. What each package needs afterwards:
 
 A development build's version ends `~dev.<time>`, which sorts before the
 version itself; a step's battery publishes development builds too, which
-the owner tries here, and the version itself replaces them at the next
-upgrade once the owner has said yes and it is published (D77, D93).
+the owner tries here, and the release, which the owner's yes starts,
+replaces them with the versions themselves at the next upgrade (D77,
+D93).
 
 ### Chromium on this machine's graphics
 

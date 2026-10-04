@@ -262,19 +262,28 @@ ci/promote.sh kidux-base       one package
 The full cycle for a change, then:
 
 ```
-ci/test-release.sh             the battery: every package built, the changed
+ci/test-release.sh <label>     the battery: every package built, the changed
                                ones as development builds, published into
                                testing and tested; the MacBook takes them too
-                               (the owner tries the work, and says yes)
-ci/build-all.sh                the versions themselves, built
-ci/publish-local.sh            into testing, in place of the development builds
+                               (the owner tries the work, asks for any further
+                               review, and says yes)
+ci/test-release.sh <label> --release
+                               the release: the versions themselves, built from
+                               the bytes the reproducibility stage kept,
+                               published into testing in place of the
+                               development builds, every test run on them,
+                               the guide's pictures written
+git push                       then, each on the owner's word
 ci/promote.sh                  into stable
+ci/publish-public.sh           and the public archive
 ```
 
-The versions themselves are built and published only after the owner's
-yes (D93): until then every try, the battery's included, is a development
-build of the version a package got at its first change, and an error found
-is fixed within that version.
+A version made only of numbers is a release, and a release never changes
+(D93): until the owner's yes every try, the battery's included, is a
+development build of the version a package got at its first change, and
+an error found is fixed within that version, so the numbers run on
+without a gap. `--release` is refused on a tree with changes not
+committed, so that a release is a commit.
 
 Promotion copies what is already in `testing` rather than publishing a fresh
 build, so the bits a family gets are the bits that were tested, byte for byte.
@@ -369,9 +378,9 @@ the same version and is never the same twice, so no published version ever
 changes its bytes. The battery builds and publishes the packages changed in
 a piece of work the same way, with `KIDUX_DEV_STAMP` (`ci/build-package.sh`,
 `ci/devbuild.py`), into a directory of its run's own; the version itself is
-published, once the owner has tried it and confirmed (D93), by
-`ci/publish-local.sh` without `KIDUX_DEV_BUILD`, which removes the
-development builds and puts the version in their place on every machine.
+built and published by the release run (D93), `ci/publish-local.sh`
+without `KIDUX_DEV_BUILD`, which removes the development builds and puts
+the version in their place on every machine.
 A push of a version the archive already holds is refused, since a
 development build of it would be older than the archive's (D77). `ci/promote.sh` refuses
 while testing holds one. pyproject.toml gets the version as Python writes

@@ -87,26 +87,32 @@ instead of scattering decisions across chats.
   commits are pushed to GitHub, or when the work is done, just before asking the
   owner whether to push it. A battery whose only failures are a test's own fault,
   not the product's, needs no second run: fix the test and run it alone.
-- **Fundamental: a version without `~dev` is never published, and nothing
-  goes to GitHub, until the owner has tried it and confirmed (D93).** A
-  package gets its new version at its first change in a piece of work,
-  dated by `date -R`, and stays in that number while the work goes on:
-  every try of it, and every fix found later, is a `~dev` build of that
-  version (`tests/run vm push` builds `<version>~dev.<time>`, which Debian
-  sorts before `<version>`), so that no error found later costs another
-  number. The version itself is built for publishing, published anywhere,
-  the testing archive included, and pushed to GitHub, released, or put on
-  the site or the public archive only after the owner's yes, so that
-  nothing breaks for anyone who uses Kidux. A push of a version the archive
+- **Fundamental: a version made only of numbers is a release (D93).** A
+  release never changes: once a version is published, its bytes are final,
+  and the next change to that package goes under the next number. So a
+  package gets its next version at its first change in a piece of work,
+  dated by `date -R`, and all the work stays in that number as `~dev`
+  builds: `tests/run vm push` and the battery build `<version>~dev.<time>`,
+  which Debian sorts before `<version>`, so the numbers run on without a
+  gap, since no number is spent on a try. The release itself is built and
+  published only when every test has passed, the owner has tried the work
+  and said yes, and the further review the owner asks for, when they ask
+  for one, is done: `ci/test-release.sh <label> --release`, then the push,
+  `ci/promote.sh` and `ci/publish-public.sh`, each on the owner's word.
+  Nothing is released as part of developing or testing, and nothing goes
+  to GitHub before the owner's yes. A push of a version the archive
   already holds is refused (D77).
 - **The battery, `ci/test-release.sh`**: every check, every package built and
   built again identically, the packages changed in the work published as `~dev`
   builds and installed on the VMs, and every screen photographed in Spanish and in
   English and compared with the previous run. Look at its report
-  (`build/releases/<label>/report/index.html`) and commit the pictures it refreshed
-  in `docs/images/es/` and `docs/images/en/`. A new screen
-  or behaviour gets its check in `tests/run session` in the same commit, and its
-  picture listed in `tests/lib/doc-screenshots.txt` if the guide shows it.
+  (`build/releases/<label>/report/index.html`). **The guide's pictures come
+  from the release run alone**, `--release`, which writes them into
+  `docs/images/es/` and `docs/images/en/`: a battery run never touches them,
+  since a `~dev` version shows on the screens. They are committed before the
+  push. A new screen or behaviour gets its check in `tests/run session` in the
+  same commit, and its picture listed in `tests/lib/doc-screenshots.txt` if the
+  guide shows it.
 - Commits: imperative subject line in English, body explains why. Commit only when
   the owner asks. They are authored as `othermore <info@kidux.org>`, the
   repository's own `git config`, never with a personal address (D80).

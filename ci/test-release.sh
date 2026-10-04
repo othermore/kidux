@@ -1,7 +1,9 @@
 #!/bin/sh
-# Everything that has to be true before a release, in one command.
+# Everything that has to be true before a release, in one command; and the
+# release itself.
 #
-#   ci/test-release.sh [label]
+#   ci/test-release.sh [label]               the battery, on ~dev builds
+#   ci/test-release.sh <label> --release     the release: the versions themselves
 #   ci/test-release.sh <label> --only <stage>
 #
 # Two things that are not tests, then every test there is. Build: every
@@ -10,11 +12,18 @@
 # archive's testing suite does not hold yet, one changed in the work, as a
 # development build of that version, <version>~dev.<time> (ci/devbuild.py),
 # never as the version itself. Publish: the result into the local archive's
-# testing suite, which is what the VMs and the MacBook install from. The
-# versions themselves are built and published, with ci/build-all.sh and
-# ci/publish-local.sh, only once the owner has tried the work and said yes,
-# and then pushed (D93); an error found before that is fixed within the
-# same version. Then
+# testing suite, which is what the VMs and the MacBook install from. Then
+# every test. That is the battery, run as often as the work needs.
+#
+# --release is run once, on a clean tree, when the battery has passed, the
+# owner has tried the work and said yes, and any further review the owner
+# asked for is done (D93): it builds the versions themselves, which the
+# reproducibility stage of the battery left in the build cache, publishes
+# them into testing in place of the development builds, runs every test
+# on them, and writes the guide's pictures, which only a release run does,
+# since a development build's version shows on the screens. The push, the
+# promotion to stable and the public archive follow, each on the owner's
+# word. Then
 # tests/run, kind by kind: the project's checks first and alone, since they
 # are quick; then reproducibility, the acceptance VM and the session VMs, one
 # set up in Spanish and one in English, which use every screen by keyboard and
@@ -39,8 +48,8 @@
 # or the publishing failed, because they would test something that was not
 # built; each kind of test runs even if another failed. Every stage's line
 # says when it started and how many minutes it took, and the verdicts are
-# kept in build/releases/<label>/verdicts. The exit status is the number of
-# stages that failed.
+# kept in build/releases/<label>/verdicts, with a `release` mark for a
+# release run. The exit status is the number of stages that failed.
 #
 # --only reruns one test stage (project, reproducible, acceptance, session or
 # session-en)
@@ -57,7 +66,15 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_ROOT"
 LABEL="${1:-$(git describe --always --dirty)}"
 ONLY=""
-if [ "${2:-}" = --only ]; then
+RELEASE=""
+if [ "${2:-}" = --release ] && [ "$#" -eq 2 ]; then
+    RELEASE=yes
+    if [ -n "$(git status --porcelain)" ]; then
+        echo "$0: a release is built from a commit, and the tree has changes not committed:" >&2
+        git status --short >&2
+        exit 2
+    fi
+elif [ "${2:-}" = --only ]; then
     ONLY="${3:-}"
     case "$ONLY" in
         project|reproducible|acceptance|session|session-en) ;;
@@ -65,7 +82,7 @@ if [ "${2:-}" = --only ]; then
            exit 2 ;;
     esac
 elif [ "$#" -gt 1 ]; then
-    echo "usage: $0 [label] | $0 <label> --only <stage>" >&2
+    echo "usage: $0 [label] | $0 <label> --release | $0 <label> --only <stage>" >&2
     exit 2
 fi
 RELEASES="$REPO_ROOT/build/releases"
@@ -163,8 +180,8 @@ stages_wait() {
 pictures() {
     # The session runs' pictures into the report, compared with the previous
     # run's; the guide's own copied to docs/images/<language>/ when every
-    # stage passed. The Spanish run's are session-NN-<screen>.png, the
-    # English run's session-en-NN-<screen>.png.
+    # stage of a release run passed. The Spanish run's are
+    # session-NN-<screen>.png, the English run's session-en-NN-<screen>.png.
     rm -rf "$OUT/screens"
     mkdir -p "$OUT/screens"
     cp build/vm/session-[0-9]*.png build/vm/session-en-[0-9]*.png "$OUT/screens/" 2>/dev/null
@@ -174,7 +191,9 @@ pictures() {
             | tee "$OUT/logs/screens.log"
     fi
 
-    if ! grep -q '^FAIL' "$VERDICTS"; then
+    if [ ! -f "$OUT/release" ]; then
+        echo "==> A development run: the guide's pictures are left as they are (D93)"
+    elif ! grep -q '^FAIL' "$VERDICTS"; then
         echo "==> Updating the user guide's pictures"
         for language in es en; do
             run=session
@@ -208,11 +227,18 @@ if [ -n "$ONLY" ]; then
     fi
     case "$ONLY" in session*) pictures ;; esac
 else
-    rm -f "$VERDICTS" "$OUT/published"
+    rm -f "$VERDICTS" "$OUT/published" "$OUT/release"
     rm -rf "$PACKAGES_DIR"
-    stamp="$(date +%Y%m%d%H%M%S)"
+    if [ -n "$RELEASE" ]; then
+        touch "$OUT/release"
+        stamp=""
+        dev=""
+    else
+        stamp="$(date +%Y%m%d%H%M%S)"
+        dev=1
+    fi
     if stage build env KIDUX_BUILD_DIR="$PACKAGES_DIR" KIDUX_DEV_STAMP="$stamp" ./ci/build-all.sh \
-            && stage publish env KIDUX_BUILD_DIR="$PACKAGES_DIR" KIDUX_DEV_BUILD=1 \
+            && stage publish env KIDUX_BUILD_DIR="$PACKAGES_DIR" KIDUX_DEV_BUILD="$dev" \
                 ./ci/publish-local.sh; then
         published > "$OUT/published"
         stage "test: project" ./tests/run project
@@ -227,7 +253,7 @@ fi
 
 failed="$(grep -c '^FAIL' "$VERDICTS" 2>/dev/null)"
 echo
-echo "==> Release $LABEL"
+echo "==> $([ -f "$OUT/release" ] && echo Release || echo Battery) $LABEL"
 for name in build publish "test: project" "test: reproducible" "test: acceptance" "test: session" \
         "test: session-en"; do
     grep "^[A-Z]*  $name (" "$VERDICTS" 2>/dev/null
