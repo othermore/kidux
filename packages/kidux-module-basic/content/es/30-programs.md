@@ -1,5 +1,5 @@
 ---
-source_sha256 = "a449b4331e65975b8a38a0105f3b8b4d6bb2fee92e302ae73d0b59d0c815baa0"
+source_sha256 = "924f12dbb27b0e22cfa96ce9b83c5f5e9eeff65f0032f2ec22d13b93fbec0ce1"
 ---
 # Programas para guardar
 
@@ -16,14 +16,16 @@ cámbialos, y guarda los que te gusten con **Guardar**.
 30 PRINT "¡CUANDO SALGA LA ESTRELLA, PULSA UNA TECLA!"
 40 SLEEP 1000 + INT(RND * 3000)
 50 PRINT "*"
-60 LET T = TIMER
+60 LET T# = TIMER
 70 IF INKEY$ = "" THEN 70
-80 PRINT "HAS TARDADO "; INT((TIMER - T) * 100) / 100; " SEGUNDOS"
+80 PRINT "HAS TARDADO "; INT((TIMER - T#) * 100) / 100; " SEGUNDOS"
 ```
 
-`TIMER` es el reloj del ordenador: los segundos desde medianoche, con
-decimales. La línea 60 apunta la hora a la que salió la estrella, y la
-línea 80 la resta de la hora a la que llegó la tecla.
+`TIMER` es el reloj del ordenador: los segundos que lleva contados desde
+el principio de 1970, con decimales, un número de diez cifras. Es más de
+lo que guarda una caja normal, así que la hora va en una caja `#`, como
+enseñó el capítulo 17. La línea 60 apunta la hora a la que salió la
+estrella, y la línea 80 la resta de la hora a la que llegó la tecla.
 
 ## La Liga del Hielo
 

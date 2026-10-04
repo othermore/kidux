@@ -13,13 +13,15 @@ How fast are you? Press a key as soon as the star appears.
 30 PRINT "WHEN THE STAR APPEARS, PRESS A KEY!"
 40 SLEEP 1000 + INT(RND * 3000)
 50 PRINT "*"
-60 LET T = TIMER
+60 LET T# = TIMER
 70 IF INKEY$ = "" THEN 70
-80 PRINT "YOU TOOK "; INT((TIMER - T) * 100) / 100; " SECONDS"
+80 PRINT "YOU TOOK "; INT((TIMER - T#) * 100) / 100; " SECONDS"
 ```
 
-`TIMER` is the computer's clock: the seconds since midnight, with
-decimals. Line 60 notes the time the star appeared, and line 80 takes it
+`TIMER` is the computer's clock: the seconds it has counted since the
+start of 1970, with decimals, a number of ten figures. That is more than
+an ordinary box keeps, so the time goes in a `#` box, as chapter 17
+showed. Line 60 notes the time the star appeared, and line 80 takes it
 away from the time the key came.
 
 ## The Ice League

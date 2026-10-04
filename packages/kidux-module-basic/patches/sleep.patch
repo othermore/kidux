@@ -6,8 +6,8 @@
  // limitations under the License.
 +//
 +// Changed for Kidux (kidux-module-basic): SLEEP reads the number after it,
-+// as wwwbasic.js does, and TIMER counts the seconds since midnight, as the
-+// PC's did.
++// as wwwbasic.js does; this is what tools/to_mjs.js makes of wwwbasic.js,
++// offered to wwwBASIC (github.com/othermore/wwwbasic).
  
  'use strict';
  
@@ -19,13 +19,3 @@
        Invoke('Sleep', Arguments('i'));
        NewOp();
      } else if (tok == 'swap') {
-@@ -2363,7 +2368,8 @@
- var timer_offset = 0;
- 
- function GetTimer() {
--  var t = new Date().getTime() / 1000;
-+  var now = new Date();
-+  var t = (now.getTime() - new Date(now).setHours(0, 0, 0, 0)) / 1000;
-   return t + timer_offset;
- }
- 

@@ -56,15 +56,41 @@ places the point moves to the right. Very big numbers are not exact any
 more: a number worked out in a `PRINT` keeps about sixteen figures, and
 one kept in a box about seven.
 
+## Boxes with more figures
+
+A box keeps about seven figures. Put a longer number in one and the
+last figures are lost:
+
+```basic
+10 LET A = 123456789
+20 PRINT A
+```
+
+It prints 123456792: close, but not the number you put in. A box whose
+name ends in `#` is a bigger box, which keeps about sixteen figures, as
+a `PRINT` does:
+
+```basic
+10 LET A = 123456789
+20 LET B# = 123456789
+30 PRINT A, B#
+```
+
+> [point] As `$` at the end of a name means a box for words, `#` means a
+> box with room for more figures. Use one when a number is long and every
+> figure matters, as the computer's clock in chapter 30.
+
 ## Keep trying
 
 - How many days does it take until the penguin has more than a thousand
   fish in one day? And more than a million?
 - Print the powers of 3, from `3 ^ 0` to `3 ^ 10`.
+- Put 16777217 in an ordinary box and in a `#` box, and print both.
 
 ::: adult
 The story is the old one of the grains of rice on a chessboard, told
 with fish. The last numbers are not exact: a calculation keeps about
 sixteen significant figures, and a variable, single precision as in the
-BASICs of the time, about seven.
+BASICs of the time, about seven. `#` marks a double-precision variable,
+with sixteen; the guide uses one only where it must, for the clock.
 :::

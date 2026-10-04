@@ -1,5 +1,5 @@
 ---
-source_sha256 = "a32755d758c552101ffd222f0afc8a8039e24acb158d2b8011b382a9f6a9afcc"
+source_sha256 = "bbc1cd3ac40b73cc2de10442d8863ebdbd46fc36f46e4d5bcbdd117307f261f8"
 ---
 # La quinta operación
 
@@ -60,15 +60,43 @@ números muy grandes ya no son exactos: un número calculado en un
 `PRINT` guarda unas dieciséis cifras, y uno guardado en una caja, unas
 siete.
 
+## Cajas con más cifras
+
+Una caja guarda unas siete cifras. Mete en una un número más largo y
+las últimas cifras se pierden:
+
+```basic
+10 LET A = 123456789
+20 PRINT A
+```
+
+Escribe 123456792: cerca, pero no el número que metiste. Una caja cuyo
+nombre termina en `#` es una caja más grande, que guarda unas dieciséis
+cifras, como hace un `PRINT`:
+
+```basic
+10 LET A = 123456789
+20 LET B# = 123456789
+30 PRINT A, B#
+```
+
+> [point] Igual que `$` al final de un nombre quiere decir una caja para
+> palabras, `#` quiere decir una caja con sitio para más cifras. Úsala
+> cuando un número sea largo y todas sus cifras importen, como el reloj
+> del ordenador en el capítulo 30.
+
 ## Sigue probando
 
 - ¿Cuántos días tienen que pasar hasta que el pingüino reciba más de mil
   peces en un día? ¿Y más de un millón?
 - Escribe las potencias de 3, desde `3 ^ 0` hasta `3 ^ 10`.
+- Mete 16777217 en una caja normal y en una caja `#`, y escribe las dos.
 
 ::: adult
 Es la vieja historia de los granos de trigo en el tablero de ajedrez,
 contada con peces. Los últimos números no son exactos: un cálculo guarda
 unas dieciséis cifras significativas, y una variable, de precisión
-simple como en los BASIC de la época, unas siete.
+simple como en los BASIC de la época, unas siete. `#` marca una variable
+de doble precisión, con dieciséis; la guía usa una solo donde hace
+falta, para el reloj.
 :::

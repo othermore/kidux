@@ -1,3 +1,10 @@
+kidux-module-basic (0+git20260223.4) trixie; urgency=medium
+
+  * TIMER is wwwBASIC's own, the seconds since 1970; the guide keeps a
+    time in a double-precision box, and says why.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 22:04:49 +0200
+
 kidux-module-basic (0+git20260223.3) trixie; urgency=medium
 
   * An adult may switch Type it in for me off for a child.

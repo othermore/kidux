@@ -52,18 +52,24 @@ What a binding cannot do, a small fix to wwwBASIC can (D88): each is a
 patch in the package's `patches/`, applied by `debian/rules` to a copy
 of `wwwbasic.mjs` in `build/wwwbasic/`, which the tests try and the
 package installs, while the tarball stays wwwBASIC's own. The patched
-file says at its top that Kidux changed it, as its licence asks. The
-fixes, `patches/sleep-and-timer.patch`:
-
-- `SLEEP n` waits n thousandths of a second. `wwwbasic.mjs` read `SLEEP`
-  itself as its number and stopped every program that used it; the fix
-  is the line `wwwbasic.js` already has.
-- `TIMER` is the seconds since midnight, as on the PC. wwwBASIC counted
-  them from 1970, a number too long for a variable, which keeps about
-  seven figures, so `T = TIMER` lost the seconds.
+file says at its top that Kidux changed it, as its licence asks. The one
+fix, `patches/sleep.patch`: `SLEEP n` waits n thousandths of a second,
+and `wwwbasic.mjs` read `SLEEP` itself as its number and stopped every
+program that used it. wwwBASIC's `wwwbasic.mjs` is made from
+`wwwbasic.js` by its `tools/to_mjs.js`, and was not made again after the
+fix went into `wwwbasic.js`; the patch is what making it again gives. It
+is offered to wwwBASIC from the owner's fork, `github.com/othermore/wwwbasic`,
+branch `regenerate-mjs-after-sleep-fix`, as the roadmap says.
 
 Anything bigger, a statement wwwBASIC lacks, is not added: the guide is
 written for what the machine does. What it had to be written around:
+
+- **`TIMER` is the seconds since 1970**, not since midnight as on the
+  PC: a number of ten figures, which a single-precision variable, about
+  seven figures, rounds to the nearest hundreds of seconds, so `T =
+  TIMER` loses the seconds. The guide keeps a time in a double-precision
+  box, `T#`, which chapter 17 explains, and the reflex game of chapter
+  30 uses.
 
 - **The program is read whole before it runs.** A mistake on any line
   stops the run before the first line prints; the guide's chapter 2 shows
