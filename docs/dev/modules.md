@@ -104,16 +104,17 @@ icon theme is needed and the tile is the same on every machine.
   session's cookies the answer sets; `script`, optional, a file beside
   the manifest run in the site's first page with `window.KIDUX.lang` the
   child's language; `start`, optional, where the window goes then; and
-  `manual`, optional, the site's own sign-in page, where the window goes
-  when no account is set and the child asks to sign in by hand. The daemon
+  `manual`, optional, a file beside the manifest too, run in the site's
+  first page when no account is set and the child asks to sign in by
+  hand, which takes the page to where the site signs one in. The daemon
   makes the request (`Modules1.SignIn`, daemon.md) and hands
   the child's session only those cookies; `kidux-webapp` opens the
   module's own page first, `webapps/<id>/index.html`, which its package
   ships and which says *Connecting…* or what went wrong with *Try again*,
   and then drives the window through Chromium's DevTools pipe
   (`kidux.browser`, D91). Without an account given, the page says that an
-  adult puts it on the panel, and its button takes the window to `manual`,
-  or to the website as it is. CodeCombat is the one that does (phase-4c-plan.md, 4.17).
+  adult puts it on the panel, and its button takes the window to the
+  website and runs `manual` there, when there is one. CodeCombat is the one that does (phase-4c-plan.md, 4.17).
 - `page_script` names a file beside the manifest that runs in every page
   the window of a module made of web pages shows, as Wikipedia's bar of
   Back and Forward does (phase-4c-plan.md, 4.18). `kidux-webapp` hands it

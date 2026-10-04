@@ -87,6 +87,8 @@ def run(machine: Machine) -> None:
     before = machine.settled()
     machine.key("ret")
     arrived = machine.changes(before, 180, 0.3)
+    # The site draws its page dark first, and its sign-in window on it.
+    machine.changes(machine.frame(), 60, 0.3)
     machine.still(5)
     picture = machine.screenshot("module-codecombat")
     if not arrived:

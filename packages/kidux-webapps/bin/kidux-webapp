@@ -198,7 +198,9 @@ def sign_in(pipe, page: str, module: modules.Module, lang: str, client) -> None:
     module's script there in the child's language, and go to its start. A
     failure is shown on the page, which asks to try again; no account set
     is said on the page too, which offers to sign in by hand: that takes
-    the window to the site's own sign-in page, or to the site as it is."""
+    the window to the site and runs the module's script for it there,
+    which opens where the site signs one in; without one, the site as it
+    is."""
     pipe.call("Runtime.enable", {}, page)
     pipe.call("Runtime.addBinding", {"name": "kiduxTryAgain"}, page)
     if not ready(pipe, page):
@@ -230,7 +232,12 @@ def sign_in(pipe, page: str, module: modules.Module, lang: str, client) -> None:
     if module.page_script:
         add_page_script(pipe, page, module, lang, now=False)
     if cookies is None:
-        pipe.call("Page.navigate", {"url": module.sign_in.manual or site(module, lang)}, page)
+        pipe.events.clear()
+        pipe.call("Page.navigate", {"url": site(module, lang)}, page)
+        if module.sign_in.manual:
+            pipe.event("Page.loadEventFired")
+            pipe.call("Runtime.evaluate", {"expression": told(module.sign_in.manual, lang),
+                                           "awaitPromise": True}, page)
         pipe.call("Runtime.disable", {}, page)
         return
     pipe.call("Storage.setCookies", {"cookies": cookies})

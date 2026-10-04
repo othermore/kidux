@@ -925,8 +925,8 @@ web en el idioma del niño y abre donde se empieza a jugar. El niño nunca
 ve la contraseña. Si la cuenta no es correcta o la web no contesta, el
 módulo lo dice y ofrece intentarlo otra vez. Sin cuenta puesta, el módulo
 dice que lo más fácil es que un adulto la ponga en el panel, y ofrece un
-botón para entrar a mano mientras tanto, que abre la página de entrada de
-la web: allí el niño escribe el correo y la contraseña de la cuenta.
+botón para entrar a mano mientras tanto, que abre la ventana de entrada
+de la web: allí el niño escribe el correo y la contraseña de la cuenta.
 Entrar con Google, Facebook o Clever no lleva a ninguna parte aquí. La web puede preguntar por sus cookies la primera vez;
 esa pregunta es de la propia web.
 

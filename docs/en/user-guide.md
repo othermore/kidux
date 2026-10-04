@@ -900,8 +900,8 @@ opens where the playing starts. The child never sees the password. When
 the account is wrong or the site does not answer, the module says so and
 offers to try again. Without an account given, the module says that the
 easiest is for an adult to put it in the panel, and offers a button to
-sign in by hand meanwhile, which opens the site's sign-in page: there the
-child types the account's email address and password. Signing in through
+sign in by hand meanwhile, which opens the site's sign-in window: there
+the child types the account's email address and password. Signing in through
 Google, Facebook or Clever leads nowhere here. The site may ask about its cookies the first time; that is
 the site's own question.
 

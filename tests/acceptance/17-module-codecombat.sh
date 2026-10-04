@@ -12,7 +12,7 @@ POLICY=/etc/chromium/policies/managed/kidux.json
 check "kidux-module-codecombat installs through the daemon, with kidux-webapps" \
     sh -c "$ADMIN_AS install codecombat | grep -q '^installed ' && dpkg -s kidux-webapps >/dev/null"
 check "its manifest, icon, sign-in script, Connecting page and Spanish words are in place, and nothing of CodeCombat's" \
-    sh -c "test -f $COMBAT/module.toml && test -f $COMBAT/icon.svg && test -f $COMBAT/sign-in.js \
+    sh -c "test -f $COMBAT/module.toml && test -f $COMBAT/icon.svg && test -f $COMBAT/sign-in.js && test -f $COMBAT/sign-in-by-hand.js \
            && test -f /usr/share/locale/es/LC_MESSAGES/kidux-module-codecombat.mo \
            && test \"\$(ls /usr/share/kidux/webapps/codecombat)\" = index.html"
 check "while it is installed, the policy allows its site" \

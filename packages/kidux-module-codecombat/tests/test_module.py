@@ -13,7 +13,7 @@ PACKAGE = Path(__file__).resolve().parents[1]
 
 def test_the_manifest_reads_as_a_door_to_the_website(tmp_path):
     (tmp_path / "codecombat").mkdir()
-    for name in ("module.toml", "icon.svg", "sign-in.js"):
+    for name in ("module.toml", "icon.svg", "sign-in.js", "sign-in-by-hand.js"):
         shutil.copy(PACKAGE / name, tmp_path / "codecombat" / name)
 
     combat = modules.read("codecombat", root=tmp_path)
@@ -50,7 +50,7 @@ def test_the_catalogue_is_complete():
 
 def test_an_adult_gives_the_account_and_the_daemon_signs_in_with_it(tmp_path):
     (tmp_path / "codecombat").mkdir()
-    for name in ("module.toml", "icon.svg", "sign-in.js"):
+    for name in ("module.toml", "icon.svg", "sign-in.js", "sign-in-by-hand.js"):
         shutil.copy(PACKAGE / name, tmp_path / "codecombat" / name)
 
     combat = modules.read("codecombat", root=tmp_path)
@@ -61,6 +61,8 @@ def test_an_adult_gives_the_account_and_the_daemon_signs_in_with_it(tmp_path):
     assert dict(combat.sign_in.body) == {"username": "{email}", "password": "{password}"}
     assert combat.sign_in.cookies == ("codecombat.sess", "codecombat.sess.sig")
     assert combat.sign_in.start == "https://codecombat.com/play"
+    assert combat.sign_in.manual == str(tmp_path / "codecombat" / "sign-in-by-hand.js")
+    assert ".login-button" in (PACKAGE / "sign-in-by-hand.js").read_text()
     # Its window opens on its own Connecting… page, served by kidux-webapps.
     assert modules.claims(combat, "chrome-127.0.0.1__codecombat_-Default")
 

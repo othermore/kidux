@@ -1,3 +1,10 @@
+kidux-webapps (0.1.14) trixie; urgency=medium
+
+  * Signing in by hand opens the site and runs the module's script for
+    it there, since a site's sign-in may be no page of its own.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 04 Oct 2026 13:02:12 +0200
+
 kidux-webapps (0.1.13) trixie; urgency=medium
 
   * A module's own page is given time to load before it is told anything:

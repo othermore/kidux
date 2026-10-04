@@ -1,8 +1,13 @@
+kidux-common (0.1.57) trixie; urgency=medium
+
+  * A module that signs in may name a script that takes a child with no
+    account set to where its site signs one in.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 04 Oct 2026 13:02:12 +0200
+
 kidux-common (0.1.56) trixie; urgency=medium
 
   * The catalogue's references follow the panel's code.
-  * A module that signs in may name its site's own sign-in page, for a
-    child with no account set.
 
  -- Antonio Morales García <info@kidux.org>  Sat, 03 Oct 2026 20:09:54 +0200
 

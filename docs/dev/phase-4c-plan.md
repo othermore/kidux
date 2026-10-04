@@ -142,8 +142,9 @@ answering, no account set. The page says which, in a sentence a child
 reads (*I could not sign in to CodeCombat. Ask an adult to check your
 account.*), with *Try again*; nothing of the site is shown. No account set
 says that the easiest is for an adult to put it on the panel, and offers
-*Sign in myself*, which opens the site's own sign-in page, `manual` in
-the manifest.
+*Sign in myself*, which opens the site and runs the manifest's `manual`
+script there: CodeCombat's presses the Login button, since the site's
+sign-in is a window of the front page with no address of its own.
 
 **Found on the machine first**, with the net log and the owner's test
 account, never written to any file: the address CodeCombat signs in at,

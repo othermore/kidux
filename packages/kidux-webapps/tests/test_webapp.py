@@ -198,8 +198,7 @@ class FakeProcess:
 SIGNING = modules.Module(id="combat", name="Combat", launch={"web": "https://example.org/"},
                          hosts=("example.org",),
                          sign_in=modules.SignIn("https://example.org/auth", (("a", "{email}"),),
-                                                ("sess",), start="https://example.org/play",
-                                                manual="https://example.org/login"))
+                                                ("sess",), start="https://example.org/play"))
 
 
 def sign_in(monkeypatch, client, module=SIGNING, answers=()):
@@ -265,18 +264,29 @@ def test_a_refused_account_is_said_on_the_page_and_tried_again_when_asked(monkey
     assert answers == []
 
 
-def test_no_account_set_is_said_and_the_child_may_sign_in_by_hand(monkeypatch):
+def test_no_account_set_is_said_and_the_child_may_sign_in_by_hand(monkeypatch, tmp_path):
     class Client:
         def sign_in_module(self, module_id):
             raise RuntimeError("GDBus.Error:org.kidux.Daemon1.Error.SignInNotSet: none")
 
-    calls = sign_in(monkeypatch, Client(), answers=["", "manual"])
+    by_hand = tmp_path / "by-hand.js"
+    by_hand.write_text("document.querySelector('.login').click();\n")
+    module = SIGNING.__class__(**{**SIGNING.__dict__, "sign_in": modules.SignIn(
+        **{**SIGNING.sign_in.__dict__, "manual": str(by_hand)})})
+
+    calls = sign_in(monkeypatch, Client(), module, answers=["", "manual"])
 
     shown = [params["expression"] for method, params in calls if method == "Runtime.evaluate"]
     assert sum('window.kidux.show("notset")' in said for said in shown) == 2
-    # The first answer tries again, the second goes to the site's sign-in page.
+    # The first answer tries again; the second goes to the site, and runs
+    # the module's script there once the site has loaded.
     assert [params["url"] for method, params in calls if method == "Page.navigate"] == [
-        "https://example.org/login"]
+        "https://example.org/"]
+    loaded = calls.index(("wait", {"for": "Page.loadEventFired"}))
+    ran = next(index for index, (method, params) in enumerate(calls)
+               if method == "Runtime.evaluate" and ".login" in params["expression"])
+    assert calls.index(("Page.navigate", {"url": "https://example.org/"})) < loaded < ran
+    assert 'window.KIDUX = {"lang": "es"}' in calls[ran][1]["expression"]
     assert not any(method == "Storage.setCookies" for method, _params in calls)
 
 

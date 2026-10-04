@@ -124,9 +124,10 @@ class SignIn:
     `url`, an https:// address on one of the module's hosts, and hands the
     child's session the cookies named in `cookies`. `script`, a file beside
     the manifest, then runs in the site's first page, with the child's
-    language; `start` is where the window goes once it has; `manual` is
-    the site's own sign-in page, where the child goes to sign in by hand
-    while no account is set."""
+    language; `start` is where the window goes once it has; `manual`, a
+    file beside the manifest too, runs in the site's first page when the
+    child asks to sign in by hand while no account is set, and takes the
+    page to where the site signs one in."""
     url: str
     body: tuple[tuple[str, str], ...]
     cookies: tuple[str, ...]
@@ -164,10 +165,12 @@ def _sign_in(module_id: str, table, hosts: list[str], directory: Path) -> SignIn
         if start and not on_hosts(start):
             raise ValueError(f"its start {start!r} is not an https:// address on its hosts")
         manual = table.get("manual", "")
-        if manual and not on_hosts(manual):
-            raise ValueError(f"its manual {manual!r} is not an https:// address on its hosts")
+        if manual and (not isinstance(manual, str) or "/" in manual
+                       or not (directory / manual).is_file()):
+            raise ValueError(f"its manual {manual!r} is not a file beside the manifest")
         return SignIn(url, tuple(body.items()), tuple(cookies),
-                      str(directory / script) if script else "", start or "", manual or "")
+                      str(directory / script) if script else "", start or "",
+                      str(directory / manual) if manual else "")
     except ValueError as error:
         log.warning("module %s: its sign_in is left out: %s", module_id, error)
         return None
