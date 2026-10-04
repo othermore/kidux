@@ -44,6 +44,7 @@ import json
 import os
 import shlex
 import sys
+import time
 from urllib.parse import urlencode
 
 from kidux import browser, modules, paths
@@ -172,6 +173,25 @@ def add_page_script(pipe, page: str, module: modules.Module, lang: str, now: boo
         "runImmediately": now}, page)
 
 
+#: How long the module's own page is given to load.
+PAGE_SECONDS = 60
+
+
+def ready(pipe, page: str, seconds: float = PAGE_SECONDS) -> bool:
+    """Wait until the module's own page is loaded and offers `window.kidux`:
+    on a profile Chromium has never run with, it shows about:blank for a
+    while first, and what is said to that is lost."""
+    end = time.monotonic() + seconds
+    while True:
+        found = pipe.call("Runtime.evaluate", {"expression": "typeof window.kidux",
+                                               "returnByValue": True}, page)
+        if found.get("result", {}).get("value") == "object":
+            return True
+        if time.monotonic() >= end:
+            return False
+        time.sleep(0.25)
+
+
 def sign_in(pipe, page: str, module: modules.Module, lang: str, client) -> None:
     """On the module's Connecting… page, have the daemon sign the child in,
     give the window the session's cookies, take it to the site, run the
@@ -181,6 +201,8 @@ def sign_in(pipe, page: str, module: modules.Module, lang: str, client) -> None:
     the window to the site's own sign-in page, or to the site as it is."""
     pipe.call("Runtime.enable", {}, page)
     pipe.call("Runtime.addBinding", {"name": "kiduxTryAgain"}, page)
+    if not ready(pipe, page):
+        print(f"{module.id}'s own page did not load", file=sys.stderr)
 
     def show(state: str) -> None:
         pipe.call("Runtime.evaluate", {

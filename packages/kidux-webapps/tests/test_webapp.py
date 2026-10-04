@@ -168,12 +168,18 @@ class FakePipe:
 
     def call(self, method, params=None, session=""):
         self.calls.append((method, params or {}, session))
+        if method == "Runtime.evaluate" and params.get("expression") == "typeof window.kidux":
+            # The page is there, unless the test says it is still coming.
+            return {"result": {"value": self.pages.pop(0) if self.pages else "object"}}
         return {}
 
     def __init__(self):
         self.calls, self.events = [], []
         #: What the page's button answers each time it is waited for.
         self.answers = []
+        #: What `typeof window.kidux` answers, each time it is asked, until
+        #: the page is there.
+        self.pages = []
 
     def event(self, method):
         self.calls.append(("wait", {"for": method}, ""))
@@ -202,6 +208,23 @@ def sign_in(monkeypatch, client, module=SIGNING, answers=()):
     monkeypatch.setattr(webapp.browser, "start", lambda command: (FakeProcess(), pipe))
     assert webapp.drive(module, ["chromium"], "es", client) == 0
     return [(method, params) for method, params, _session in pipe.calls]
+
+
+def test_the_page_is_waited_for_before_it_is_told_anything(monkeypatch):
+    cookie = {"name": "sess", "value": "v", "domain": "example.org", "path": "/"}
+    client = type("C", (), {"sign_in_module": lambda self, module_id: [cookie]})()
+    pipe = FakePipe()
+    pipe.pages = ["undefined", "undefined"]
+    monkeypatch.setattr(webapp.browser, "start", lambda command: (FakeProcess(), pipe))
+    monkeypatch.setattr(webapp.time, "sleep", lambda seconds: None)
+
+    assert webapp.drive(SIGNING, ["chromium"], "es", client) == 0
+
+    asked = [index for index, (method, params, _session) in enumerate(pipe.calls)
+             if method == "Runtime.evaluate" and params.get("expression") == "typeof window.kidux"]
+    told = next(index for index, (method, params, _session) in enumerate(pipe.calls)
+                if method == "Runtime.evaluate" and "show(" in params.get("expression", ""))
+    assert len(asked) == 3 and asked[-1] < told
 
 
 def test_a_signing_module_opens_on_its_own_page_first():
@@ -235,7 +258,8 @@ def test_a_refused_account_is_said_on_the_page_and_tried_again_when_asked(monkey
 
     calls = sign_in(monkeypatch, Client())
 
-    shown = [params["expression"] for method, params in calls if method == "Runtime.evaluate"]
+    shown = [params["expression"] for method, params in calls
+             if method == "Runtime.evaluate" and "show(" in params["expression"]]
     assert 'window.kidux.show("refused")' in shown[1]
     assert ("wait", {"for": "Runtime.bindingCalled"}) in calls
     assert answers == []

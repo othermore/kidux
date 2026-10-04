@@ -97,8 +97,10 @@ instead of scattering decisions across chats.
   gap, since no number is spent on a try. The release itself is built and
   published only when every test has passed, the owner has tried the work
   and said yes, and the further review the owner asks for, when they ask
-  for one, is done: `ci/test-release.sh <label> --release`, then the push,
-  `ci/promote.sh` and `ci/publish-public.sh`, each on the owner's word.
+  for one, is done: `ci/test-release.sh <label> --release`, which refuses
+  to run unless a battery of that very commit has passed, since a release
+  publishes its versions to test them; then the push, `ci/promote.sh` and
+  `ci/publish-public.sh`, each on the owner's word.
   Nothing is released as part of developing or testing, and nothing goes
   to GitHub before the owner's yes. A push of a version the archive
   already holds is refused (D77).

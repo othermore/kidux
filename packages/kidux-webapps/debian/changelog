@@ -1,3 +1,10 @@
+kidux-webapps (0.1.13) trixie; urgency=medium
+
+  * A module's own page is given time to load before it is told anything:
+    on a profile Chromium had never run with, what was said to it was lost.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 04 Oct 2026 11:25:10 +0200
+
 kidux-webapps (0.1.12) trixie; urgency=medium
 
   * A child with no account set is told so, and may go on to the site's

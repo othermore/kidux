@@ -15,9 +15,10 @@
 # testing suite, which is what the VMs and the MacBook install from. Then
 # every test. That is the battery, run as often as the work needs.
 #
-# --release is run once, on a clean tree, when the battery has passed, the
-# owner has tried the work and said yes, and any further review the owner
-# asked for is done (D93): it builds the versions themselves, which the
+# --release is run once, on a clean tree, when the battery has passed on
+# the same commit, which it checks in build/releases/*/commit, the owner
+# has tried the work and said yes, and any further review the owner asked
+# for is done (D93): it builds the versions themselves, which the
 # reproducibility stage of the battery left in the build cache, publishes
 # them into testing in place of the development builds, runs every test
 # on them, and writes the guide's pictures, which only a release run does,
@@ -65,6 +66,7 @@ set -u
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_ROOT"
 LABEL="${1:-$(git describe --always --dirty)}"
+RELEASES="$REPO_ROOT/build/releases"
 ONLY=""
 RELEASE=""
 if [ "${2:-}" = --release ] && [ "$#" -eq 2 ]; then
@@ -74,6 +76,21 @@ if [ "${2:-}" = --release ] && [ "$#" -eq 2 ]; then
         git status --short >&2
         exit 2
     fi
+    # A release publishes its versions to test them, and a published
+    # version never changes (D93): so the battery, on ~dev builds of this
+    # very commit, must have passed first.
+    commit="$(git rev-parse HEAD)"
+    green=""
+    for run in "$RELEASES"/*/; do
+        [ -f "$run/commit" ] && [ "$(cat "$run/commit")" = "$commit" ] \
+            && [ ! -f "$run/release" ] && [ -s "$run/verdicts" ] \
+            && ! grep -q '^FAIL' "$run/verdicts" && green="$run"
+    done
+    if [ -z "$green" ]; then
+        echo "$0: no battery of commit $commit has passed; run $0 <label> first, whole" >&2
+        exit 2
+    fi
+    echo "==> Releasing commit $commit, which $(basename "$green") passed"
 elif [ "${2:-}" = --only ]; then
     ONLY="${3:-}"
     case "$ONLY" in
@@ -85,7 +102,6 @@ elif [ "$#" -gt 1 ]; then
     echo "usage: $0 [label] | $0 <label> --release | $0 <label> --only <stage>" >&2
     exit 2
 fi
-RELEASES="$REPO_ROOT/build/releases"
 OUT="$RELEASES/$LABEL"
 PACKAGES_DIR="$OUT/packages"
 VERDICTS="$OUT/verdicts"
@@ -229,6 +245,7 @@ if [ -n "$ONLY" ]; then
 else
     rm -f "$VERDICTS" "$OUT/published" "$OUT/release"
     rm -rf "$PACKAGES_DIR"
+    git rev-parse HEAD > "$OUT/commit"
     if [ -n "$RELEASE" ]; then
         touch "$OUT/release"
         stamp=""

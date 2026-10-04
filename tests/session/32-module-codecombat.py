@@ -33,6 +33,9 @@ from sessionlib import (
 
 #: The room above the launcher's bar.
 ABOVE_THE_BAR = (0.0, 0.0, 1.0, 0.92)
+#: The page's button, Sign in myself, in the brand's sun: the Connecting
+#: page, which has no button, shows only a thin arc of it.
+SUN = (0xF0, 0xA2, 0x02)
 
 
 def daemon(command: str) -> bool:
@@ -75,7 +78,8 @@ def run(machine: Machine) -> None:
            "says no account is set",
            opened and on_screen() == "codecombat" and window.get("maximized")
            and not window.get("fullscreen")
-           and colour_share(told, CREAM, ABOVE_THE_BAR) > 0.5,
+           and colour_share(told, CREAM, ABOVE_THE_BAR) > 0.5
+           and colour_share(told, SUN, ABOVE_THE_BAR) > 0.003,
            f"{window}; {told}\n" + launcher_log())
     # Its button, Sign in myself, has the focus; the site's page takes a
     # while to come, minutes on a machine that shares its processor with

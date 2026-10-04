@@ -283,7 +283,10 @@ A version made only of numbers is a release, and a release never changes
 development build of the version a package got at its first change, and
 an error found is fixed within that version, so the numbers run on
 without a gap. `--release` is refused on a tree with changes not
-committed, so that a release is a commit.
+committed, so that a release is a commit, and unless a battery of that
+very commit has passed (`build/releases/*/commit`): a release publishes
+its versions to test them, and a version once published never changes,
+so a release that fails costs the next number.
 
 Promotion copies what is already in `testing` rather than publishing a fresh
 build, so the bits a family gets are the bits that were tested, byte for byte.

@@ -14,7 +14,7 @@ Rules-Requires-Root: no
 Package: kidux-module-codecombat
 Architecture: all
 Depends: ${misc:Depends},
-         kidux-webapps (>= 0.1.12~),
+         kidux-webapps (>= 0.1.13~),
 XB-Kidux-Name-en: CodeCombat
 XB-Kidux-Description-en: The CodeCombat website, where you learn Python and JavaScript by playing. It needs the internet and a CodeCombat account, paid for most of it; Kidux is not connected with CodeCombat.
 XB-Kidux-Name-es: CodeCombat
