@@ -26,11 +26,12 @@ tests/project/site.py   checks it, with every other project check
 English) at the site's root and every other in a folder of its name
 (`es/`), each linking to the others. A first visit to the root goes to the
 visitor's own language when the site has it, and a language chosen by hand
-is remembered in the browser. Its font is its own. It takes two things
+is remembered in the browser. Its font is its own. It takes three things
 from other servers: GitHub's Sponsor button, in the part of the page that
-asks for a donation, fetched when that part comes into view; and, once the
-visitor has said yes in the notice at the foot of the page, Google's tag,
-which counts visits (section 5). It sets no cookie of its own.
+asks for a donation, fetched when that part comes into view; Google's tag,
+which counts visits, without cookies until the visitor says yes in the
+card the page shows; and GoatCounter's script, which counts them without
+cookies (section 5). It sets no cookie of its own.
 
 **The words.** A sentence on the page is a key in every `site/<language>.toml`.
 `tests/project/site.py` fails when a language lacks a word the page asks
