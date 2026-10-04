@@ -142,9 +142,8 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [x] Public name and visual identity (`branding/`).
 - [x] The website (`site/`, website.md).
 - [x] The website counts its visits, once the visitor says yes (D83).
-- [ ] The website's visits: a notice a visitor cannot miss, with *Yes* and
-      *No* as easy as each other, or a count of visits without cookies that
-      needs no notice; the owner chooses.
+- [x] The website counts every visit: Google's consent mode with a card a
+      visitor cannot miss, and GoatCounter beside it to compare (D94).
 - [x] A module's complaints reach the journal under its own name,
       `kidux-module-<id>` (launcher.md).
 - [x] The daemon answers quietly a caller that left before it was asked who

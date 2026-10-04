@@ -23,3 +23,6 @@ download = ""
 # whether it may count visits and, on a yes, loads Google's tag; empty, the
 # page carries no tag and no notice.
 analytics = "G-LHD6DKXB9P"
+# Where GoatCounter counts the site's visits, without cookies, beside
+# Google's, so that the owner can compare the two (D94); empty, no count.
+goatcounter = "https://kidux.goatcounter.com/count"

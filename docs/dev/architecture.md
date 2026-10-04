@@ -1474,7 +1474,7 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   development archive and adds its key (rollout.md, section 3).
 
 - **D83 — The website counts its visits with Google Analytics, and only
-  after the visitor says yes.** Decided 2026-10-03 by the owner, on
+  after the visitor says yes.** *Superseded by D94.* Decided 2026-10-03 by the owner, on
   phase-4b-plan.md. The owner wants to know whether anyone comes, and from
   where. Google's tag, `gtag.js`, with the measurement id as a fact of the
   site, `analytics` in `site/site.toml`; empty, the page carries no tag and
@@ -1627,3 +1627,18 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   owner's word. Nothing is released as part of developing or testing.
   Before D93 the battery published each version it tested, so a fix found
   after a battery cost the next number.
+- **D94 — The website counts every visit: Google Analytics with consent,
+  Google Analytics in consent mode without it, and GoatCounter always.**
+  Decided 2026-10-04 by the owner, replacing D83, whose notice, a thin bar
+  at the foot of the page in the page's own colour, was easy to miss, and
+  a visit went uncounted until it was answered. Three counts:
+  - **Google Analytics with consent.** A card in the brand's night over
+    the page's corner asks whether it may use cookies, to tell a new
+    visit from a returning one; a yes grants Google's tag its storage.
+    The two answers weigh the same, and the card says what each does.
+  - **Google Analytics in consent mode without it.** Google's tag loads on
+    every visit with its storage denied, and counts the visit without
+    cookies until a yes, and after a no.
+  - **GoatCounter in any case.** It uses no cookies and counts every
+    visit, `goatcounter` in `site/site.toml`, so that the owner can compare
+    it with Google's and keep one; the footer says so.

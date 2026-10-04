@@ -12,9 +12,9 @@ contact address and to where a donation is made; and every section of the
 user guide it sends a visitor to, the steps to install it and each module's,
 must be a heading of the guide in its language.
 Given the package archive's tarball, it must unpack it under apt/. With a
-measurement id for Google Analytics, each page asks before it counts a
-visit and carries nothing of Google's as a tag; without one, nothing of it
-at all (D83).
+measurement id for Google Analytics, each page counts a visit in Google's
+consent mode, its storage denied until a yes in the card; without one,
+nothing of it at all (D94).
 """
 
 import io
@@ -123,7 +123,8 @@ with tempfile.TemporaryDirectory() as scratch:
           (Path(scratch) / "with-archive" / "apt" / "dists" / "stable" / "InRelease").read_bytes()
           == b"signed" and (Path(scratch) / "with-archive" / "index.html").is_file())
 
-    # Visits are counted only after the visitor says yes (D83).
+    # Visits are counted with Google's consent mode (D94): its storage
+    # denied before anything is sent, granted only on a yes in the card.
     analytics = facts.get("site.analytics", "")
     check("the measurement id is empty or Google's G-…",
           analytics == "" or re.fullmatch(r"G-[A-Z0-9]{4,}", analytics) is not None, analytics)
@@ -131,21 +132,37 @@ with tempfile.TemporaryDirectory() as scratch:
         for language, page in pages.items():
             text = page.read_text(encoding="utf-8")
             scripts = "".join(re.findall(r"<script>(.*?)</script>", text, re.DOTALL))
-            check(f"{language}: it asks before counting a visit, and loads Google's tag only from its script",
+            denied = scripts.find('gtag("consent", "default"')
+            configured = scripts.find(f'gtag("config", "{analytics}")')
+            check(f"{language}: Google's storage is denied before it counts, and granted only on a yes",
                   'id="cookies"' in text and 'data-cookies="ask"' in text
                   and 'data-cookies="yes"' in text and 'data-cookies="no"' in text
+                  and 0 <= denied < configured
+                  and '"analytics_storage": "denied"' in scripts[denied:configured]
+                  and 'granted ? "granted" : "denied"' in scripts
                   and 'localStorage.getItem("kidux-cookies")' in scripts
                   and f"googletagmanager.com/gtag/js?id={analytics}" in scripts
                   and scripts.count(f'gtag("config", "{analytics}")') == 1
-                  and "<script async" not in text
-                  and '<script src="https://www.googletagmanager.com' not in text, str(page))
-    quiet_facts = dict(facts, **{"site.analytics": ""})
+                  and not re.search(r"<script[^>]*googletagmanager", text), str(page))
+    # GoatCounter counts beside it, without cookies, by its own script.
+    goatcounter = facts.get("site.goatcounter", "")
+    check("GoatCounter's address is empty or one of GoatCounter's own",
+          goatcounter == "" or re.fullmatch(r"https://[a-z0-9-]+\.goatcounter\.com/count",
+                                            goatcounter) is not None, goatcounter)
+    for language, page in pages.items():
+        text = page.read_text(encoding="utf-8")
+        tag = f'<script data-goatcounter="{goatcounter}" async src="https://gc.zgo.at/count.js">'
+        check(f"{language}: GoatCounter counts the visit, and the footer says so",
+              (tag in text and words[language]["footer.visits"] in text) if goatcounter
+              else "goatcounter" not in text, str(page))
+    quiet_facts = dict(facts, **{"site.analytics": "", "site.goatcounter": ""})
     for language, table in words.items():
         page, _ = site.render(template, {**quiet_facts, **table, "lang": language, "root": "",
                                          "page_url": ""}, site.markup(facts, words, language))
-        check(f"{language}: without a measurement id, nothing of Google's and no notice",
+        check(f"{language}: without a measurement id or GoatCounter, nothing of either and no notice",
               "googletagmanager" not in page and "kidux-cookies" not in page
-              and 'id="cookies"' not in page and "{{" not in page)
+              and 'id="cookies"' not in page and "goatcounter" not in page.lower()
+              and "{{" not in page)
 
     # The same page with an image to download: the other half of what it says.
     template_facts = dict(facts, **{"site.download": "https://example.org/kidux.iso"})

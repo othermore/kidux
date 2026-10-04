@@ -301,6 +301,10 @@
     <img src="{{ root }}brand/wordmark.svg" alt="Kidux" width="94" height="32" loading="lazy">
     <p>{{ footer.rights }} <a href="{{ site.owner_url }}">{{ site.owner }}</a>. {{ footer.licence }}</p>
     <p>{{ footer.others }}</p>
+{{#if site.goatcounter}}
+    <p>{{ footer.visits }}</p>
+{{#else}}
+{{/if}}
 {{#if site.analytics}}
     <p><a href="#" data-cookies="ask">{{ cookies.footer }}</a></p>
 {{#else}}
@@ -317,28 +321,42 @@ document.querySelectorAll("a[data-language]").forEach(function (link) {
   });
 });
 </script>
+{{#if site.goatcounter}}
+<script data-goatcounter="{{ site.goatcounter }}" async src="https://gc.zgo.at/count.js"></script>
+{{#else}}
+{{/if}}
 {{#if site.analytics}}
 
-<div class="cookies" id="cookies" hidden role="dialog" aria-live="polite" aria-label="{{ cookies.footer }}">
-  <div class="wrap">
+<div class="cookies" id="cookies" hidden role="dialog" aria-live="polite" aria-labelledby="cookies-title">
+  <img src="{{ root }}brand/mascot-on-dark.svg" alt="" width="56" height="56">
+  <div>
+    <p class="cookies-title" id="cookies-title">{{ cookies.title }}</p>
     <p>{{ cookies.text }}</p>
     <div class="answers">
-      <button type="button" class="button small primary" data-cookies="yes">{{ cookies.accept }}</button>
-      <button type="button" class="button small quiet" data-cookies="no">{{ cookies.reject }}</button>
+      <button type="button" class="button small answer" data-cookies="yes">{{ cookies.accept }}</button>
+      <button type="button" class="button small answer" data-cookies="no">{{ cookies.reject }}</button>
     </div>
   </div>
 </div>
 
 <script>
-// Visits are counted by Google's tag, which sets cookies; nothing of
-// Google's loads until the visitor says yes in the notice, and the answer
-// is remembered in the browser. The footer's link asks again.
+// Visits are counted with Google's tag in its consent mode (D94): it loads
+// on every visit with storage denied, and then counts the visit without
+// cookies; a yes in the card lets it use its cookies, to tell a new visit
+// from a returning one. The answer is remembered in the browser, and the
+// footer's link asks again. The two answers weigh the same.
 (function () {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag("consent", "default", {
+    "analytics_storage": "denied", "ad_storage": "denied",
+    "ad_user_data": "denied", "ad_personalization": "denied"
+  });
   var notice = document.getElementById("cookies");
-  // While the notice shows, the page leaves room for it under the footer.
+  // While the card shows, the page leaves room for it under the footer.
   function show(shown) {
     notice.hidden = !shown;
-    document.body.style.paddingBottom = shown ? notice.offsetHeight + "px" : "";
+    document.body.style.paddingBottom = shown ? notice.offsetHeight + 32 + "px" : "";
   }
   function answer() {
     try { return localStorage.getItem("kidux-cookies"); } catch (error) { return null; }
@@ -349,16 +367,8 @@ document.querySelectorAll("a[data-language]").forEach(function (link) {
       else { localStorage.removeItem("kidux-cookies"); }
     } catch (error) {}
   }
-  function count() {
-    if (window.gtag) { return; }
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { window.dataLayer.push(arguments); };
-    window.gtag("js", new Date());
-    window.gtag("config", "{{ site.analytics }}");
-    var tag = document.createElement("script");
-    tag.async = true;
-    tag.src = "https://www.googletagmanager.com/gtag/js?id={{ site.analytics }}";
-    document.head.appendChild(tag);
+  function storage(granted) {
+    window.gtag("consent", "update", { "analytics_storage": granted ? "granted" : "denied" });
   }
   function forget() {
     var host = location.hostname, parts = host.split(".");
@@ -373,19 +383,26 @@ document.querySelectorAll("a[data-language]").forEach(function (link) {
       });
     });
   }
+  if (answer() === "yes") { storage(true); }
+  window.gtag("js", new Date());
+  window.gtag("config", "{{ site.analytics }}");
+  var tag = document.createElement("script");
+  tag.async = true;
+  tag.src = "https://www.googletagmanager.com/gtag/js?id={{ site.analytics }}";
+  document.head.appendChild(tag);
+
   document.querySelectorAll("[data-cookies]").forEach(function (control) {
     control.addEventListener("click", function (event) {
       event.preventDefault();
       var what = control.dataset.cookies;
-      if (what === "ask") { remember(null); show(true); return; }
+      if (what === "ask") { show(true); return; }
       remember(what);
       show(false);
-      if (what === "yes") { count(); } else { forget(); }
+      storage(what === "yes");
+      if (what === "no") { forget(); }
     });
   });
-  var given = answer();
-  if (given === "yes") { count(); }
-  else if (given !== "no") { show(true); }
+  if (answer() !== "yes" && answer() !== "no") { show(true); }
 })();
 </script>
 {{#else}}

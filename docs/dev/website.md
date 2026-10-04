@@ -135,18 +135,30 @@ donation shows GitHub's own button under ours, `sponsors_button`.
 
 ## 5. Visits
 
-The site counts its visits with Google Analytics (D83). The measurement id
-is a fact, `analytics` in `site/site.toml`; the reports are at
-`analytics.google.com`, in the property the id belongs to, which the
-owner's Google account holds.
+The site counts its visits twice, so that the owner can compare the two
+and keep one (D94).
 
-Google's tag sets cookies in the visitor's browser, so nothing of Google's
-loads until the visitor accepts: a first visit shows a notice at the foot
-of the page, *Yes* loads the tag and *No* loads nothing and clears any
-`_ga` cookie a yes left. The answer is kept in the visitor's browser
-(`kidux-cookies` in its local storage), for every language of the site,
-and the footer's *Cookies* forgets it and asks again. The tag is made by
-the page's own script, never written in the page as a `<script src>`,
-which `tests/project/site.py` checks, with the notice and its words in
-every language. With `analytics` empty the page carries neither the tag
-nor the notice.
+**Google Analytics**, in its consent mode. The measurement id is a fact,
+`analytics` in `site/site.toml`; the reports are at
+`analytics.google.com`, in the property the id belongs to, which the
+owner's Google account holds. The page's own script loads Google's tag on
+every visit, after telling it that its storage is denied: the visit is
+counted without cookies. A notice, a card in the brand's night over the
+page's corner, asks whether it may use cookies, to tell a new visit from
+a returning one, with *Yes, with cookies* and *No, without cookies* weighing
+the same: a yes grants the tag its storage, a no keeps it denied and
+clears any `_ga` cookie a yes left. The answer is kept in the visitor's
+browser (`kidux-cookies` in its local storage), for every language of the
+site, and the footer's *Cookies* asks again; while the card shows, the
+page leaves room for it under the footer. The tag is made by the script,
+never written in the page as a `<script src>`.
+
+**GoatCounter**, which uses no cookies: `goatcounter` in `site/site.toml`,
+the address it counts at, `https://kidux.goatcounter.com/count`, with its
+reports at `https://kidux.goatcounter.com`. Its script, `count.js`, loads
+on every visit, and the footer says that visits are also counted with it.
+
+`tests/project/site.py` checks both: Google's storage denied before the
+tag counts and granted only on a yes, the card and its words in every
+language, GoatCounter's script and the footer's line; and that with both
+facts empty the page carries nothing of either and no card.

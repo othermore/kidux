@@ -192,10 +192,12 @@ code_text = "Kidux on GitHub"
 [footer]
 rights = "© 2026"
 licence = "Kidux is published under the Business Source License 1.1."
+visits = "Visits are also counted with GoatCounter, which uses no cookies."
 others = "GCompris, ScratchJr, Blockly Games, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat and Wikipedia belong to their authors and keep their own licences. Kidux is built on Debian and is not affiliated with any of them."
 
 [cookies]
-text = "This site counts its visits with Google Analytics, which sets cookies in your browser. May it?"
-accept = "Yes"
-reject = "No"
+title = "May we use cookies to count visits?"
+text = "We count visits with Google Analytics. With cookies, it can tell a new visit from a returning one. Without them, it only counts that someone came, and stores nothing in your browser."
+accept = "Yes, with cookies"
+reject = "No, without cookies"
 footer = "Cookies"
