@@ -139,8 +139,9 @@ There are two ways to install Kidux:
 
 ## Supporting Kidux
 
-Kidux is free for families. Keeping it going is not: a donation pays for
-the time to build it and for testing it on real computers.
+Kidux is an independent project, made over weekends and in spare time.
+Donations boost our motivation to keep maintaining and improving it, and
+help cover some of the costs.
 
 <p align="center"><a href="https://github.com/sponsors/othermore"><img src="https://img.shields.io/badge/Donate-GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Donate with GitHub Sponsors"></a></p>
 

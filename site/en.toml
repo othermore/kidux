@@ -175,8 +175,8 @@ text = "Every line is published on GitHub. Each version becomes free software, u
 button = "See the code"
 
 [support]
-title = "Kidux is free. Keeping it going is not."
-text = "Kidux is an independent project. A donation pays for the time to build it and for testing it on real computers."
+title = "Supporting Kidux"
+text = "Kidux is an independent project, made over weekends and in spare time. Donations boost our motivation to keep maintaining and improving it, and help cover some of the costs."
 button = "Donate with GitHub Sponsors"
 frame = "Sponsor Kidux's developer on GitHub"
 note = "Any amount helps. Thank you."
