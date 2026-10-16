@@ -6,6 +6,8 @@ kidux-launcher (0.3.21) trixie; urgency=medium
     rising from the bar, without a sound; the bar's bell keeps the last
     ones, with how many came since it was opened. The warnings that time
     is running out are such bubbles, and the bar keeps only the time.
+  * Whether the child's screen fits is judged once labwc has maximised the
+    window, not at its own size before that.
 
  -- Antonio Morales García <info@kidux.org>  Thu, 15 Oct 2026 18:11:18 +0200
 

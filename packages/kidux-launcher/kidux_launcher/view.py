@@ -341,7 +341,11 @@ class Launcher:
 
     def _check_fits(self, way: str, needed: int, shown: int) -> None:
         """Say so in the log, once each way, "tall" or "wide", when the
-        child's screen has to scroll; the session tests read it."""
+        child's screen has to scroll; the session tests read it. Until labwc
+        has maximised the window, its room is its own natural size, which
+        says nothing about the screen: judged once it fills it."""
+        if not self._window.is_maximized():
+            return
         if way not in self._overflowed:
             self._overflowed.add(way)
             log.warning("the child's screen does not fit: %d pixels %s, %d shown",

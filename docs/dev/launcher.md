@@ -173,7 +173,9 @@ whose manifest no longer reads gets no tile. The tiles are a `Gtk.FlowBox`
 in the scrolling middle, homogeneous, six to a row at 1280 pixels and more
 rows scrolling, which the middle shows (`kidux.scroll`, D63): a scrollbar
 drawn for as long as there is more, a shade along the edge that has more,
-and `the child's screen does not fit: <n> pixels tall` in the log. Each is one `Gtk.FlowBoxChild`: the module's `icon.svg`
+and `the child's screen does not fit: <n> pixels tall` in the log, judged
+once labwc has maximised the window, since before that its room is its
+own natural size. Each is one `Gtk.FlowBoxChild`: the module's `icon.svg`
 drawn with librsvg at 128 pixels, as the mascot is, or the mascot when the
 module has none, over its name in the child's language
 (`kidux.modules.name_in` with `LANG`). Tab reaches the tiles as one stop,
