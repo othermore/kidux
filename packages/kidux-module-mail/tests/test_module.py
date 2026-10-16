@@ -156,6 +156,19 @@ def test_the_databases_answer_is_kept_and_not_asked_again(tmp_path):
     assert got["mail.server.server1.hostname"] == "imap.example.com"
 
 
+def test_a_provider_the_database_does_not_know_is_not_asked_about_again(tmp_path):
+    asked = []
+
+    def ask(domain):
+        asked.append(domain)
+        return ""                       # the database answered: no such provider
+
+    for _ in range(2):
+        got = written(tmp_path, ask=ask, email="leo@unknown.example")
+        assert got["mail.accountmanager.accounts"] == "account2"
+    assert asked == ["unknown.example"]
+
+
 def test_a_server_given_takes_the_place_of_the_databases(tmp_path):
     got = written(tmp_path, ask={"example.com": OAUTH}.get, email="leo@example.com",
                   imap_host="imap.other.example:143")

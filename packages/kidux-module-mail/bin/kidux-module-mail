@@ -117,11 +117,14 @@ def from_database(answer: str, email: str) -> dict | None:
 
 
 def ask_database(domain: str) -> str | None:
-    """The database's answer for `domain`, or None when it has none or
-    cannot be reached."""
+    """The database's answer for `domain`: its XML, "" when it says it has
+    none, which is kept so that a provider it does not know is not asked
+    about at every start, or None when it cannot be reached."""
     try:
         with urllib.request.urlopen(AUTOCONFIG.format(domain=domain), timeout=TIMEOUT) as answer:
             return answer.read(1_000_000).decode("utf-8", "replace")
+    except urllib.error.HTTPError as error:
+        return "" if error.code == 404 else None
     except (OSError, urllib.error.URLError, ValueError):
         return None
 
