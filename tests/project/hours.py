@@ -76,8 +76,8 @@ with tempfile.TemporaryDirectory() as scratch:
                               check=True).stdout.strip()
 
     git("init", "-q", "-b", "main")
-    git("config", "user.name", "othermore")
-    git("config", "user.email", "info@kidux.org")
+    git("config", "user.name", "Kidux tests")
+    git("config", "user.email", "tests@example.org")
     for number, when in enumerate(("2026-10-13T10:00:00+02:00", "2026-10-13T11:00:00+02:00",
                                    "2026-10-13T12:00:00+02:00")):
         Path(scratch, f"file{number}").write_text(f"{number}\n")
