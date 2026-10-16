@@ -375,6 +375,13 @@ class Panel(_NewChild):
         self._removing_row: dict | None = None
         #: The installed modules' rows as last drawn.
         self._rows_shown: list = []
+        #: Installs and removals asked for while a job runs, in order, as
+        #: ("install" | "remove" | "look", module id): each starts when the
+        #: one before ends (`poll_modules`).
+        self._queue: list[tuple[str, str | None]] = []
+        #: The module whose removal the page is asking about, kept through
+        #: the polls while a job runs.
+        self._confirming: str | None = None
         #: The module the adult asked to install, whose row shows how far it
         #: has got while the job runs.
         self._installing: str | None = None
@@ -567,6 +574,7 @@ class Panel(_NewChild):
         archive offers that are not installed, each with Install. While a
         module is installed or removed, or the lists refreshed, the page
         shows it and asks again every second."""
+        self._confirming = confirm_remove
         kids = self._daemon.children()
         enabled = {child["username"]: {entry.get("id") for entry in
                                        self._daemon.modules(child["username"])
@@ -607,13 +615,19 @@ class Panel(_NewChild):
         # place of its buttons. Neither moves the page.
         installing = self._installing if update["job"] == "installing" else None
         removing = self._removing if update["job"] == "removing" else None
+        to_install = [module for action, module in self._queue if action == "install"]
+        to_remove = [module for action, module in self._queue if action == "remove"]
         for row in rows:
             row["job"] = ("installing" if row["id"] == installing
-                          else "removing" if row["id"] == removing else None)
+                          else "removing" if row["id"] == removing
+                          else "to-remove" if row["id"] in to_remove else None)
         if removing and removing not in installed and self._removing_row is not None:
             rows.append({**self._removing_row, "job": "removing"})
-        if installing and installing not in installed:
-            entry = next((e for e in offered if e["id"] == installing), None)
+        coming = ([installing] if installing else []) + to_install
+        for module in coming:
+            if module in installed:
+                continue
+            entry = next((e for e in offered if e["id"] == module), None)
             if entry is not None:
                 rows.append({"id": entry["id"], "name": entry["name"],
                              "description": entry.get("description", ""), "enabled": {},
@@ -621,14 +635,15 @@ class Panel(_NewChild):
                              "max_age": entry.get("max_age", 0),
                              "before": list(entry.get("before", [])),
                              "version": shown_version(entry.get("offered_version", "")),
-                             "settings": False, "job": "installing"})
+                             "settings": False,
+                             "job": "installing" if module == installing else "to-install"})
         rows = ordered([{**row, "first": first(row)} for row in rows])
         self._rows_shown = rows
         on_offer = ordered([{**entry, "first": first(entry),
                              "offered_version": shown_version(entry.get("offered_version", ""))}
                             for entry in offered
                             if entry["id"] not in installed and not entry["installed"]
-                            and entry["id"] != installing])
+                            and entry["id"] not in coming])
         return self._screen("panel_modules", notice, children=kids, modules=rows,
                             offered=on_offer, installing=installing,
                             source=bool(offered), confirm_remove=confirm_remove,
@@ -637,52 +652,85 @@ class Panel(_NewChild):
                                                       "away"),
                             poll="poll_modules")
 
-    def _module_job(self, start) -> Screen:
-        """Start installing or removing, or say why not."""
+    def _module_job(self, start, toast: str | None = None,
+                    confirm_remove: str | None = None) -> Screen:
+        """Start installing or removing, or say why not; what waited behind
+        a job that could not start is dropped, since nothing would start it."""
         try:
             result = self._guard(start)
         except SessionActive:
+            self._queue.clear()
             return self.modules(words.MODULES_WAIT)
         except Busy:
+            self._queue.clear()
             return self.modules(words.UPDATE_BUSY)
         except Invalid:
+            self._queue.clear()
             return self.modules(words.NOT_SAVED)
-        return result if isinstance(result, Screen) else self.modules()
+        return result if isinstance(result, Screen) else self.modules(
+            toast=toast, confirm_remove=confirm_remove)
+
+    def _queued(self, action: str, module_id: str | None) -> Screen | None:
+        """The job, queued while another runs: the page, with it waiting;
+        None when nothing runs and it may start now."""
+        if self._update_state()["job"] == "idle" and not self._queue:
+            return None
+        if (action, module_id) not in self._queue:
+            self._queue.append((action, module_id))
+        return self.modules(confirm_remove=self._confirming)
+
+    def _start(self, action: str, module_id: str | None, toast: str | None = None,
+               confirm_remove: str | None = None) -> Screen:
+        """Start the job now; `toast` says how the one before went, and
+        `confirm_remove` keeps a question the page is asking."""
+        if action == "install":
+            self._installing = module_id
+            return self._module_job(lambda: self._daemon.install_module(self._token, module_id),
+                                    toast, confirm_remove)
+        if action == "remove":
+            self._removing = module_id
+            self._removing_row = next((row for row in self._rows_shown
+                                       if row["id"] == module_id), None)
+            return self._module_job(lambda: self._daemon.remove_module(self._token, module_id),
+                                    toast, confirm_remove)
+        try:
+            result = self._guard(lambda: self._daemon.check_updates(self._token))
+        except Busy:
+            self._queue.clear()
+            return self.modules(words.UPDATE_BUSY)
+        return result if isinstance(result, Screen) else self.modules(
+            toast=toast, confirm_remove=confirm_remove)
 
     def install_module(self, module_id: str) -> Screen:
-        self._installing = module_id
-        return self._module_job(lambda: self._daemon.install_module(self._token, module_id))
+        return self._queued("install", module_id) or self._start("install", module_id)
 
     def ask_remove_module(self, module_id: str) -> Screen:
         return self.modules(confirm_remove=module_id)
 
     def remove_module(self, module_id: str) -> Screen:
-        self._removing = module_id
-        self._removing_row = next((row for row in self._rows_shown if row["id"] == module_id),
-                                  None)
-        return self._module_job(lambda: self._daemon.remove_module(self._token, module_id))
+        return self._queued("remove", module_id) or self._start("remove", module_id)
 
     def look_for_modules(self) -> Screen:
         """Refresh apt's lists, which is what the list of modules to add is
         read from; allowed while children are signed in."""
-        try:
-            result = self._guard(lambda: self._daemon.check_updates(self._token))
-        except Busy:
-            return self.modules(words.UPDATE_BUSY)
-        return result if isinstance(result, Screen) else self.modules()
+        return self._queued("look", None) or self._start("look", None)
 
     def poll_modules(self) -> Screen:
         """Once a second while a job runs; the page it ends on says how the
-        job went."""
+        job went, and starts the next job waiting, if any."""
         update = self._update_state()
+        asking = self._confirming
         if update["job"] != "idle":
-            return self.modules()
+            return self.modules(confirm_remove=asking)
         # How it went is said in passing, in a toast, so that the page
         # stays where it is; what apt said of a failure stays on the page.
         toast = {"installed": words.MODULE_INSTALLED, "removed": words.MODULE_REMOVED,
                  "failed": words.MODULE_FAILED}.get(update["outcome"])
-        return self.modules(toast=toast,
-                            failure=update["detail"] if update["outcome"] == "failed" else "")
+        failure = update["detail"] if update["outcome"] == "failed" else ""
+        if self._queue:
+            action, module_id = self._queue.pop(0)
+            return self._start(action, module_id, toast, asking)
+        return self.modules(toast=toast, failure=failure, confirm_remove=asking)
 
     def module_settings(self, module_id: str, notice: str | None = None) -> Screen:
         """A module's settings, as its manifest declares them (D90): the

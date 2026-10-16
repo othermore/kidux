@@ -161,6 +161,8 @@ MODULE_SETTINGS_HOW = N_("Each child has their own. A change is saved as soon as
 SECRET_IS_SET = N_("Set. Type a new one to change it.")
 SECRET_FORGET = N_("Forget")
 REMOVING_MODULE = N_("Removing…")
+#: A module's row while its install or removal waits for the one before.
+WAITING = N_("Waiting…")
 MODULE_INSTALLED = N_("Installed.")
 MODULE_REMOVED = N_("Removed.")
 MODULE_FAILED = N_("That did not work.")

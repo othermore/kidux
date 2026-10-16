@@ -291,6 +291,9 @@ class View:
         #: What Back does on the screen on display, for the Escape key.
         self._back_action = None
         self._refocus: Gtk.Widget | None = None
+        #: Whether what is out is a poll, and the tap that waits for it.
+        self._poll_out = False
+        self._pending: tuple | None = None
         #: Screens already reported as too tall or too wide, each way logged once.
         self._overflowed: set[tuple[str, str]] = set()
         #: The Modules page's scrolling room as last drawn, while it is the
@@ -329,24 +332,32 @@ class View:
             owner = self._screen.owner if self._screen is not None else ""
         return (getattr(self._flow, owner, None) if owner else None) or self._flow
 
-    def run(self, method: str, *args, owner: str | None = None) -> None:
+    def run(self, method: str, *args, owner: str | None = None, poll: bool = False) -> None:
         """Ask the flow, off the main loop.
 
         greetd takes a few seconds to turn down a wrong password (PAM's own
         delay), and the screen must not freeze while it does. One question at
         a time: while one is out, the screen is insensitive and further taps
-        are ignored.
+        are ignored. A `poll`, a page asking how a job goes, is no question
+        of the adult's: the screen stays as it is while it is out, a tap
+        that comes meanwhile is asked once it is answered, and a poll that
+        comes while a question is out is left to the question's answer,
+        which asks again.
         """
         if self._busy:
+            if not poll and self._poll_out and self._pending is None:
+                self._pending = (method, args, owner)
             return
         target = self._target(owner)
         self._busy = True
-        # Making the screen insensitive takes the keyboard focus away, and
-        # making it sensitive again does not give it back: remember it.
-        self._refocus = self._window.get_focus()
-        content = self._window.get_content()
-        if content is not None:
-            content.set_sensitive(False)
+        self._poll_out = poll
+        if not poll:
+            # Making the screen insensitive takes the keyboard focus away, and
+            # making it sensitive again does not give it back: remember it.
+            self._refocus = self._window.get_focus()
+            content = self._window.get_content()
+            if content is not None:
+                content.set_sensitive(False)
 
         def work():
             try:
@@ -361,21 +372,26 @@ class View:
 
     def _answered(self, screen: Screen | None, failed: bool) -> bool:
         self._busy = False
+        was_poll, self._poll_out = self._poll_out, False
         if failed:
             self.show_error()
         elif screen is not None:
             self.show(screen)
-        else:
-            content = self._window.get_content()
-            if content is not None:
-                content.set_sensitive(True)
-            if self._refocus is not None:
-                self._refocus.grab_focus()
+        # The page on display is sensitive again whether it was drawn afresh
+        # or kept, as a poll keeps it.
+        content = self._window.get_content()
+        if content is not None and not content.get_sensitive():
+            content.set_sensitive(True)
+        if screen is None and not failed and not was_poll and self._refocus is not None:
+            self._refocus.grab_focus()
         if getattr(self._flow, "exit_requested", False):
             self._on_exit()
         elif self._children_pending and not failed:
             self._children_pending = False
             self.children_changed()
+        pending, self._pending = self._pending, None
+        if pending is not None and not failed:
+            self.run(pending[0], *pending[1], owner=pending[2])
         return GLib.SOURCE_REMOVE
 
     def attention(self) -> None:
@@ -644,12 +660,13 @@ class View:
             GLib.source_remove(self._idle_timer)
             self._idle_timer = 0
 
-    def _after(self, seconds: int, method: str, owner: str | None = "") -> None:
+    def _after(self, seconds: int, method: str, owner: str | None = "",
+               poll: bool = False) -> None:
         """Ask `method` in `seconds`: of the sign-in or lock screen, or, with
         owner None, of whichever machine owns the screen then on display."""
         def fire():
             self._timers.remove(source)
-            self.run(method, owner=owner)
+            self.run(method, owner=owner, poll=poll)
             return GLib.SOURCE_REMOVE
 
         source = GLib.timeout_add_seconds(seconds, fire)
@@ -662,7 +679,7 @@ class View:
             self._after(RETRY_SECONDS, "start")
         elif screen.owner == "panel" and screen.data.get("polling"):
             # A job is running: the page asks again every second.
-            self._after(1, screen.data.get("poll", "poll_updates"), owner=None)
+            self._after(1, screen.data.get("poll", "poll_updates"), owner=None, poll=True)
         self._restart_idle()
 
     def _idle_method(self) -> tuple[str, int] | None:
@@ -1334,7 +1351,6 @@ class View:
         data = screen.data
         rows, kids = data.get("modules") or [], data.get("children") or []
         update = data.get("update") or {}
-        busy = update.get("job") in ("installing", "removing", "checking")
         lists = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20,
                         valign=Gtk.Align.CENTER, halign=Gtk.Align.CENTER)
         job = update.get("job")
@@ -1354,7 +1370,7 @@ class View:
         lists.append(self._row(find, how))
 
         if rows:
-            lists.append(self._installed_modules(rows, kids, data.get("confirm_remove"), busy,
+            lists.append(self._installed_modules(rows, kids, data.get("confirm_remove"),
                                                  matchable, update))
         else:
             lists.append(self._text(words.NO_MODULES_YET))
@@ -1376,7 +1392,6 @@ class View:
                 grid.attach(about, 0, number, 1, 1)
                 install = self._button(words.INSTALL, self._ask("install_module", entry["id"]))
                 install.set_valign(Gtk.Align.CENTER)
-                install.set_sensitive(not busy)
                 grid.attach(install, 1, number, 1, 1)
                 matchable.append((f"{entry['name']} {entry.get('description', '')}",
                                   [about, install]))
@@ -1387,7 +1402,6 @@ class View:
             lists.append(self._text(words.ALL_MODULES_INSTALLED if data.get("source")
                                      else words.NO_MODULE_SOURCE))
         look = self._button(words.LOOK_FOR_MODULES, self._ask("look_for_modules"))
-        look.set_sensitive(not busy)
         lists.append(self._row(look))
         if self._focus is None:
             self._focus = look
@@ -1396,12 +1410,7 @@ class View:
         middle.set_valign(Gtk.Align.FILL)
         middle.append(room)
         # Drawn again while a job runs only when something but its progress
-        # changes, and then it stays where the adult had scrolled it. Its
-        # buttons are off then, so the focus lands elsewhere, and the room
-        # does not follow it there.
-        if busy:
-            self._focus = None
-            room.get_child().set_scroll_to_focus(False)
+        # changes, and then it stays where the adult had scrolled it.
         if self._modules_room is not None:
             keep_place(self._modules_room, room)
         self._modules_room = room
@@ -1569,7 +1578,7 @@ class View:
             return ""
         return self._(words.FIRST).format(modules=", ".join(entry["first"]))
 
-    def _installed_modules(self, rows, kids, confirm_remove, busy, matchable,
+    def _installed_modules(self, rows, kids, confirm_remove, matchable,
                            update=None) -> Gtk.Widget:
         """The grid of switches, with Settings and Remove at the end of each
         row. The row of a module being installed, or removed, shows how far
@@ -1580,6 +1589,10 @@ class View:
         words, for the box that narrows the lists."""
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
         grid = Gtk.Grid(column_spacing=24, row_spacing=12, halign=Gtk.Align.CENTER)
+        # The switches, then Settings when any module has them, then Remove:
+        # a column with nothing in it would still be spaced when something
+        # spans it, and the page would widen with it.
+        last = len(kids) + (2 if any(row.get("settings") for row in rows) else 1)
         for column, child in enumerate(kids, start=1):
             who = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4, halign=Gtk.Align.CENTER)
             who.append(self._avatar(child, 40))
@@ -1601,14 +1614,21 @@ class View:
             in_row: list[Gtk.Widget] = [about]
             matchable.append((f"{row['name']} {description}", in_row))
             job = row.get("job")
-            if job in ("installing", "removing"):
-                # Not on the computer yet, or on its way off it: how far
-                # that has got, across the room its switches and buttons
-                # take.
-                progress = self._progress(update or {}, words.INSTALLING_MODULE
-                                          if job == "installing" else words.REMOVING_MODULE)
-                grid.attach(progress, 1, number, len(kids) + 2, 1)
-                in_row.append(progress)
+            if job is not None or row["id"] == confirm_remove:
+                # Not on the computer yet, on its way off it, or asked
+                # about: how far that has got, that its turn is coming, or
+                # the question, across the room its switches and buttons
+                # take and no wider, so that nothing on the page moves.
+                if job in ("to-install", "to-remove"):
+                    instead = Gtk.Label(label=self._(words.WAITING), valign=Gtk.Align.CENTER,
+                                        css_classes=["kidux-field-label"])
+                elif job is not None:
+                    instead = self._progress(update or {}, words.INSTALLING_MODULE
+                                             if job == "installing" else words.REMOVING_MODULE)
+                else:
+                    instead = self._remove_question(row)
+                grid.attach(instead, 1, number, last, 1)
+                in_row.append(instead)
                 continue
             for column, child in enumerate(kids, start=1):
                 username = child["username"]
@@ -1629,33 +1649,36 @@ class View:
                 in_row.append(switch)
                 if self._focus is None or self._flipped == (username, row["id"]):
                     self._focus = switch
-            if row["id"] == confirm_remove:
-                asked = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8,
-                                valign=Gtk.Align.CENTER)
-                asked.append(Gtk.Label(label=self._(words.REMOVE_MODULE_QUESTION).format(
-                    name=row["name"]), wrap=True, max_width_chars=26,
-                    justify=Gtk.Justification.CENTER, css_classes=["kidux-field-label"]))
-                cancel = self._button(vocabulary.CANCEL, self._ask("tab", "modules"))
-                self._focus = cancel
-                asked.append(self._row(cancel, self._button(
-                    words.REMOVE, self._ask("remove_module", row["id"]), destructive=True)))
-                grid.attach(asked, len(kids) + 1, number, 2, 1)
-                in_row.append(asked)
-            else:
-                if row.get("settings"):
-                    settings = self._button(words.MODULE_SETTINGS,
-                                            self._ask("module_settings", row["id"]))
-                    settings.set_valign(Gtk.Align.CENTER)
-                    grid.attach(settings, len(kids) + 1, number, 1, 1)
-                    in_row.append(settings)
-                remove = self._button(words.REMOVE, self._ask("ask_remove_module", row["id"]),
-                                      destructive=True)
-                remove.set_valign(Gtk.Align.CENTER)
-                remove.set_sensitive(not busy)
-                grid.attach(remove, len(kids) + 2, number, 1, 1)
-                in_row.append(remove)
+            if row.get("settings"):
+                settings = self._button(words.MODULE_SETTINGS,
+                                        self._ask("module_settings", row["id"]))
+                settings.set_valign(Gtk.Align.CENTER)
+                grid.attach(settings, len(kids) + 1, number, 1, 1)
+                in_row.append(settings)
+            remove = self._button(words.REMOVE, self._ask("ask_remove_module", row["id"]),
+                                  destructive=True)
+            remove.set_valign(Gtk.Align.CENTER)
+            grid.attach(remove, last, number, 1, 1)
+            in_row.append(remove)
         box.append(grid)
         return box
+
+    def _remove_question(self, row: dict) -> Gtk.Widget:
+        """Whether to remove a module, in its row: the question in short
+        lines, Cancel as a cross, which has the focus, and Remove."""
+        asked = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6,
+                        valign=Gtk.Align.CENTER, halign=Gtk.Align.CENTER)
+        asked.append(Gtk.Label(label=self._(words.REMOVE_MODULE_QUESTION).format(
+            name=row["name"]), wrap=True, width_chars=14, max_width_chars=18,
+            justify=Gtk.Justification.CENTER, css_classes=["kidux-field-label"]))
+        cancel = Gtk.Button(icon_name="window-close-symbolic",
+                            tooltip_text=self._(vocabulary.CANCEL), valign=Gtk.Align.CENTER)
+        cancel.update_property([Gtk.AccessibleProperty.LABEL], [self._(vocabulary.CANCEL)])
+        cancel.connect("clicked", lambda _b: self._ask("tab", "modules")())
+        self._focus = cancel
+        asked.append(self._row(cancel, self._button(
+            words.REMOVE, self._ask("remove_module", row["id"]), destructive=True)))
+        return asked
 
     def _updates_row(self, update: dict) -> Gtk.Widget:
         """What the update job is doing, and the one thing to do next."""

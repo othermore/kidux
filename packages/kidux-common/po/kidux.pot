@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidux 0.1.0\n"
 "Report-Msgid-Bugs-To: info@kidux.org\n"
-"POT-Creation-Date: 2026-10-16 15:44+0200\n"
+"POT-Creation-Date: 2026-10-16 16:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,7 +174,7 @@ msgstr ""
 msgid "The computer is being updated. Wait a moment and try again."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/view.py:1694
+#: packages/kidux-greeter/kidux_greeter/view.py:1717
 #, python-brace-format
 msgid "{count} update:"
 msgid_plural "{count} updates:"
@@ -629,7 +629,7 @@ msgid "Set. Type a new one to change it."
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:162
-#: packages/kidux-greeter/kidux_greeter/words.py:239
+#: packages/kidux-greeter/kidux_greeter/words.py:241
 msgid "Forget"
 msgstr ""
 
@@ -637,289 +637,293 @@ msgstr ""
 msgid "Removing…"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:164
-msgid "Installed."
-msgstr ""
-
 #: packages/kidux-greeter/kidux_greeter/words.py:165
-msgid "Removed."
+msgid "Waiting…"
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:166
-msgid "That did not work."
+msgid "Installed."
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:167
-msgid "Version"
+msgid "Removed."
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:168
-msgid "Look for updates"
+msgid "That did not work."
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:169
-msgid "Looking for updates…"
+msgid "Version"
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:170
-msgid "Everything is up to date."
+msgid "Look for updates"
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:171
-msgid "Install"
+msgid "Looking for updates…"
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:172
-msgid "Installing updates…"
+msgid "Everything is up to date."
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:173
-msgid "The updates are installed."
+msgid "Install"
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:174
-msgid "Restart the computer to finish."
+msgid "Installing updates…"
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:175
-msgid "Restart now"
+msgid "The updates are installed."
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:176
-msgid "Something went wrong with the updates."
+msgid "Restart the computer to finish."
 msgstr ""
 
 #: packages/kidux-greeter/kidux_greeter/words.py:177
+msgid "Restart now"
+msgstr ""
+
+#: packages/kidux-greeter/kidux_greeter/words.py:178
+msgid "Something went wrong with the updates."
+msgstr ""
+
+#: packages/kidux-greeter/kidux_greeter/words.py:179
 msgid ""
 "Children are signed in. Updates can be installed once they have logged out."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:178
+#: packages/kidux-greeter/kidux_greeter/words.py:180
 msgid "An update is already running."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:179
+#: packages/kidux-greeter/kidux_greeter/words.py:181
 msgid "Keyboard"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:180
+#: packages/kidux-greeter/kidux_greeter/words.py:182
 msgid "Recovery password"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:182
+#: packages/kidux-greeter/kidux_greeter/words.py:184
 msgid ""
 "It starts the computer another way, from the boot menu, if Kidux ever fails "
 "to start. Keep it somewhere safe."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:185
+#: packages/kidux-greeter/kidux_greeter/words.py:187
 msgid "Show"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:186
+#: packages/kidux-greeter/kidux_greeter/words.py:188
 msgid "Change the adult password"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:187
+#: packages/kidux-greeter/kidux_greeter/words.py:189
 msgid "Current adult password"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:188
+#: packages/kidux-greeter/kidux_greeter/words.py:190
 msgid "New adult password"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:189
+#: packages/kidux-greeter/kidux_greeter/words.py:191
 msgid "Language and keyboard of this computer"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:190
+#: packages/kidux-greeter/kidux_greeter/words.py:192
 msgid "Size of everything on the screen"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:191
+#: packages/kidux-greeter/kidux_greeter/words.py:193
 msgid "Saved. It applies the next time the screen starts."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:193
+#: packages/kidux-greeter/kidux_greeter/words.py:195
 msgid "Saved. It applies when you close the panel."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:195
+#: packages/kidux-greeter/kidux_greeter/words.py:197
 msgid "Left alone"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:196
+#: packages/kidux-greeter/kidux_greeter/words.py:198
 msgid "Lock after"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:197
+#: packages/kidux-greeter/kidux_greeter/words.py:199
 msgid "screen off after"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:198
+#: packages/kidux-greeter/kidux_greeter/words.py:200
 msgid "min"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:199
+#: packages/kidux-greeter/kidux_greeter/words.py:201
 msgid ""
 "Saved. This panel closes after that long from now on, and a child's screen "
 "locks after it from the child's next sign-in."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:201
+#: packages/kidux-greeter/kidux_greeter/words.py:203
 msgid "The adult panel has closed. Open it again with the adult password."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:207
+#: packages/kidux-greeter/kidux_greeter/words.py:209
 #, python-brace-format
 msgid "Kidux {version}"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:210
+#: packages/kidux-greeter/kidux_greeter/words.py:212
 msgid "service"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:211
+#: packages/kidux-greeter/kidux_greeter/words.py:213
 msgid "session"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:212
+#: packages/kidux-greeter/kidux_greeter/words.py:214
 msgid "child's screen"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:213
+#: packages/kidux-greeter/kidux_greeter/words.py:215
 msgid "sign-in screen"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:214
+#: packages/kidux-greeter/kidux_greeter/words.py:216
 msgid "common parts"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:215
+#: packages/kidux-greeter/kidux_greeter/words.py:217
 msgid "web modules"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:217
+#: packages/kidux-greeter/kidux_greeter/words.py:219
 #, python-brace-format
 msgid "version {version}"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:221
+#: packages/kidux-greeter/kidux_greeter/words.py:223
 msgid "Network"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:224
+#: packages/kidux-greeter/kidux_greeter/words.py:226
 msgid "Connection"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:225
+#: packages/kidux-greeter/kidux_greeter/words.py:227
 msgid "Wi-Fi"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:226
+#: packages/kidux-greeter/kidux_greeter/words.py:228
 msgid "Cable"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:227
+#: packages/kidux-greeter/kidux_greeter/words.py:229
 msgid "Other"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:228
+#: packages/kidux-greeter/kidux_greeter/words.py:230
 msgid "Not connected"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:230
+#: packages/kidux-greeter/kidux_greeter/words.py:232
 msgid "Router"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:231
+#: packages/kidux-greeter/kidux_greeter/words.py:233
 msgid "It answers."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:232
+#: packages/kidux-greeter/kidux_greeter/words.py:234
 msgid "It does not answer."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:233
+#: packages/kidux-greeter/kidux_greeter/words.py:235
 msgid "Asking it…"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:234
+#: packages/kidux-greeter/kidux_greeter/words.py:236
 msgid "There is none: this computer is not connected to a network."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:235
+#: packages/kidux-greeter/kidux_greeter/words.py:237
 msgid "Look again"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:236
+#: packages/kidux-greeter/kidux_greeter/words.py:238
 msgid "Wi-Fi networks"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:237
+#: packages/kidux-greeter/kidux_greeter/words.py:239
 msgid "No Wi-Fi network is in reach."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:238
+#: packages/kidux-greeter/kidux_greeter/words.py:240
 msgid "Connect"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:240
+#: packages/kidux-greeter/kidux_greeter/words.py:242
 msgid "Connected"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:241
+#: packages/kidux-greeter/kidux_greeter/words.py:243
 msgid "The network's password"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:244
+#: packages/kidux-greeter/kidux_greeter/words.py:246
 msgid "Kidux cannot join this one from here."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:247
+#: packages/kidux-greeter/kidux_greeter/words.py:249
 msgid ""
 "This computer's Wi-Fi was set up when Debian was installed, so it cannot be "
 "changed here. The user guide says how to make it changeable from this page."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:250
+#: packages/kidux-greeter/kidux_greeter/words.py:252
 msgid ""
 "Changing the network can leave the children's modules without a connection "
 "for a moment."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:252
+#: packages/kidux-greeter/kidux_greeter/words.py:254
 msgid "Connecting…"
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:253
+#: packages/kidux-greeter/kidux_greeter/words.py:255
 msgid "Connected."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:254
+#: packages/kidux-greeter/kidux_greeter/words.py:256
 msgid "That is not the network's password."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:255
+#: packages/kidux-greeter/kidux_greeter/words.py:257
 msgid "It did not connect."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:256
+#: packages/kidux-greeter/kidux_greeter/words.py:258
 msgid "A Wi-Fi password has 8 to 63 characters."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:257
+#: packages/kidux-greeter/kidux_greeter/words.py:259
 msgid "Forgotten. This computer no longer joins it by itself."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:259
+#: packages/kidux-greeter/kidux_greeter/words.py:261
 #, python-brace-format
 msgid ""
 "Forget {name}? This computer will leave it now, and not join it again by "
 "itself."
 msgstr ""
 
-#: packages/kidux-greeter/kidux_greeter/words.py:261
+#: packages/kidux-greeter/kidux_greeter/words.py:263
 msgid "The network is busy. Try again in a moment."
 msgstr ""
 

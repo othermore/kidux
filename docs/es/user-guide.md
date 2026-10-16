@@ -617,7 +617,9 @@ mismas edades y módulos que hacer antes.
 - **Instalar** añade uno. El módulo sube al momento entre los instalados,
   con una barra que enseña cuánto le falta donde irán sus interruptores;
   al terminar queda apagado para todos los niños, y una palabra abajo en
-  la página lo dice.
+  la página lo dice. Mientras tanto la página sigue siendo tuya: muévela,
+  e instala o elimina otros módulos, que esperan su turno, cada fila
+  diciendo *Esperando…*, y van uno detrás de otro.
 - **Ajustes**, en la fila de un módulo que los tenga, abre lo que un adulto
   puede ajustar en él para cada niño: una columna por niño, y cada ajuste
   con lo que hace escrito debajo. Un cambio se guarda en cuanto se hace. El

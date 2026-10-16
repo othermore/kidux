@@ -618,3 +618,8 @@ Decided 2026-10-16 by the owner, on the review of 4.26.
     and buttons will be; Remove asks in the row; how it went is a toast,
     and nothing on the page moves.
 16. **Removing a module purges what was installed for it alone** (D100).
+17. **The page stays in the adult's hands while a module installs or is
+    removed**: it scrolls, and Install and Remove pressed meanwhile wait
+    their turn, each row saying so, and start one after the other. The
+    question Remove asks takes the room of the row's switches and
+    buttons and no wider, so that the page never changes width.

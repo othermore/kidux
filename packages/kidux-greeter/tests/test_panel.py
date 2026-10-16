@@ -786,6 +786,45 @@ def test_installing_starts_the_job_and_the_module_is_installed_from_then_on(pane
     assert screen.data["installing"] is None
 
 
+def test_installs_and_removals_asked_while_a_job_runs_wait_their_turn(panel, daemon,
+                                                                       installed):
+    daemon.offered = [GCOMPRIS, {**GCOMPRIS, "id": "scratchjr", "name": "ScratchJr"}]
+    panel.install_module("gcompris")
+
+    screen = panel.install_module("scratchjr")
+    screen = panel.remove_module("hello")
+
+    # Nothing more was asked of the daemon: both wait, and the page says so.
+    assert [c for c in daemon.calls if c[0] in ("install_module", "remove_module")] == [
+        ("install_module", "gcompris")]
+    jobs = {r["id"]: r["job"] for r in screen.data["modules"]}
+    assert (jobs["gcompris"], jobs["scratchjr"], jobs["hello"]) == (
+        "installing", "to-install", "to-remove")
+    assert "scratchjr" not in [e["id"] for e in screen.data["offered"]]
+
+    daemon.update = ("idle", 0.0, "", "installed", "", [])
+    screen = panel.poll_modules()
+    # The first done is said, and the next waiting starts at once.
+    assert screen.data["toast"] == words.MODULE_INSTALLED
+    assert ("install_module", "scratchjr") in daemon.calls
+    assert screen.data["polling"] and screen.data["installing"] == "scratchjr"
+    assert {r["id"]: r["job"] for r in screen.data["modules"]}["hello"] == "to-remove"
+
+
+def test_a_removal_asked_about_while_a_job_runs_stays_asked(panel, daemon, installed):
+    daemon.offered = [GCOMPRIS]
+    panel.install_module("gcompris")
+    assert panel.ask_remove_module("hello").data["confirm_remove"] == "hello"
+
+    # The polls keep the question, and so does the next job starting.
+    assert panel.poll_modules().data["confirm_remove"] == "hello"
+    panel.install_module("gcompris")
+    daemon.update = ("idle", 0.0, "", "installed", "", [])
+    assert panel.poll_modules().data["confirm_remove"] == "hello"
+    # Cancel takes it away.
+    assert panel.modules().data["confirm_remove"] is None
+
+
 def test_a_failed_job_says_so_and_what_apt_said(panel, daemon, installed):
     daemon.update = ("idle", 0.0, "", "failed", "E: Unable to locate package", [])
 

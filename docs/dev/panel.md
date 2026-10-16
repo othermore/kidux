@@ -153,8 +153,9 @@ switch calls `Modules1.SetEnabled` at once and draws the page again from
 what the daemon then says, with *Saved.*, or with *This was not saved* and
 the switch back where it was; the focus stays on the switch just flipped,
 and starts on the first switch. *Remove* asks once, in the module's own
-row, where *Settings* and *Remove* were: *Remove <name>? The children's
-own files stay.*, with *Cancel*, which has the focus, and *Remove*, which
+row, across the room its switches and buttons take and no wider, so
+that nothing on the page moves: *Remove <name>? The children's own files
+stay.*, with *Cancel*, a cross, which has the focus, and *Remove*, which
 calls `Modules1.Remove`. The tab order of a row is its switches, then
 *Settings*, for a module that declares settings (D90), then *Remove*. With
 nothing installed, the part says so.
@@ -201,12 +202,22 @@ moment *Install* is pressed, as the archive describes it until its
 manifest is in place, with a bar of how far it has got across the room
 its switches and buttons will take; while one is removed, its row stays,
 as last drawn, with the bar across the same room, until the removal
-ends. *Install*, *Remove* and *Look for modules* are insensitive
-meanwhile, the switches and *Settings* of the other modules are not, and
-the page asks `System1.UpdateState` once a second
+ends. The page stays in the adult's hands meanwhile: it scrolls, the
+switches and *Settings* of the other modules work, and *Install*,
+*Remove* and *Look for modules* can be pressed again. What they ask for
+waits its turn, in order, each row saying *Waiting…* where its bar will
+be, a module to install among the installed ones from the moment
+*Install* is pressed and one to remove where it is, and each starts the
+moment the job before it ends; a job that cannot start, with a child
+signed in or the daemon busy, drops what waited behind it, since nothing
+would start it. The page asks `System1.UpdateState` once a second
 (`poll_modules`), following the bar in place: the page is drawn again
 only when something else changes, so that it never moves under the adult
-(`screen.only_progress_differs`). How the job went, *Installed.*,
+(`screen.only_progress_differs`), and a poll is no question of the
+adult's: the screen is not made insensitive for it, a tap that comes
+while one is out is asked once it is answered, and a poll that comes
+while a question is out is left to that question's answer, which asks
+again (`view.run(poll=True)`). How the job went, *Installed.*,
 *Removed.* or *That did not work.*, is a toast over the bottom of the
 page for five seconds, which moves nothing; apt's own line of a failure
 stays on the page. With a child signed in, *Install* and *Remove* answer

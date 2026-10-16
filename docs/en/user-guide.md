@@ -600,7 +600,9 @@ modules to do first.
 - **Install** adds one. The module moves up among the installed ones at
   once, with a bar that shows how far it has got where its switches will
   be; done, it is switched off for every child, and a word at the bottom
-  of the page says so.
+  of the page says so. The page is yours meanwhile: scroll it, and
+  install or remove other modules, which wait their turn, each row saying
+  *Waiting…*, and go one after the other.
 - **Settings**, in the row of a module that has some, opens what an adult
   can set in it for each child: one column for each child, and each
   setting with what it does written under it. A change is saved as soon
