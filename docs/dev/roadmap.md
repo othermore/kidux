@@ -124,6 +124,9 @@ can. Each phase assumes what it builds on is reasonably stable.
       for me* the first (4.16, D90); CodeCombat signed in by itself (4.17,
       D91); Back and Forward on Wikipedia (4.18); the pointer's speed and
       the touchpad's scroll on the panel (4.19; phase-4c-plan.md).
+- [ ] Mail: Thunderbird as a module, with the account an adult gives on
+      the panel, locked down for a child; Gmail as a door to the website;
+      and the keyboard's light off with the lid (phase-4d-plan.md).
 
 ## Phase 5 — AI learning module
 - [ ] `kidux-ai-gateway`: adult-held credentials, guardrails, logging visible to

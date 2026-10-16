@@ -66,10 +66,12 @@ instead, in English and Spanish.
 - [phase-4b-plan.md](phase-4b-plan.md): the website's visits behind a
   cookie notice, BASIC with its guide, and modules that are a door to one
   website, CodeCombat and Wikipedia, built.
-- [phase-4c-plan.md](phase-4c-plan.md): the current plan: settings an
-  adult gives a module for each child, CodeCombat signed in, Back and
-  Forward on a website module, and the pointer's and the touchpad's
-  speed.
+- [phase-4c-plan.md](phase-4c-plan.md): settings an adult gives a module
+  for each child, CodeCombat signed in, Back and Forward on a website
+  module, and the pointer's and the touchpad's speed, built.
+- [phase-4d-plan.md](phase-4d-plan.md): the current plan: a mailbox of
+  the child's own in Thunderbird, a door to Gmail, and the keyboard's
+  light with the lid.
 - [test-battery-plan.md](test-battery-plan.md): making `ci/test-release.sh`
   faster without making it mean less.
 
