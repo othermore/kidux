@@ -336,8 +336,10 @@ session, `Access1.LockFor("idle")`, as the child: the same lock as the Lock
 button, so the counter stops (D13). After the second, `kidux-idle screen
 off` turns every output off through the compositor, `wlopm` under `labwc`,
 which has output power management, and `wlr-randr --off` under `cage`,
-which has not; the first touch runs `kidux-idle screen on`. Brightness is
-left alone, so a desktop's screen turns off as a laptop's does.
+which has not, and the keyboard's light after them; the first touch runs
+`kidux-idle screen on`, which gives the light back first, as it was. The
+screen's brightness is left alone, so a desktop's screen turns off as a
+laptop's does.
 
 `kidux-idle` counts only while its screen's terminal is the one in front:
 it reads its own from `XDG_VTNR`, which greetd and the lock screen's unit
@@ -365,6 +367,19 @@ well, since `input` reads every keyboard and no child is in it. The
 takes effect without a restart; `postrm` takes `_greetd` out of `video`
 again.
 
+The keyboard's light goes off with the screen, for the lid or for being
+left alone, and comes back as it was (D97): `kidux.hardware`'s
+`keyboard_light_off` remembers its level, in the light's own steps, and
+sets it to 0, and `keyboard_light_back` sets the level remembered and
+forgets it. A level already remembered is kept, since the screen may go
+off for both reasons at once, and a light already off stays off. It is
+remembered in `/run/kidux-light/keyboard`, a directory
+`kidux-session`'s `tmpfiles.d` makes, root's, group `video`, mode 2770,
+so that a child's session and the trusted screens share it: a lid closed
+in a child's session is opened on the lock screen, which finds the level
+there and gives it back. Where it cannot be remembered, the light is left
+on rather than turned off for good.
+
 The lid (D61, D67): in a child's session, closing it locks the session,
 `Access1.LockFor("lid")`, and powers the laptop's own panel off; opening it
 powers it on, and shows the lock screen. `wlopm` asks labwc's output power
@@ -373,16 +388,19 @@ reading the lid switch that `70-kidux-switches.rules` makes readable to
 anyone (`ID_INPUT_SWITCH` devices, mode 0644: a switch's state gives away
 nothing). The rule applies to a device as udev sees it, so
 `kidux-session`'s `postinst` reloads udev's rules and triggers the input
-devices: an upgrade takes effect without a restart. Brightness is
-untouched; with the lid closed, `kidux-idle screen on` leaves the laptop's
-own panel off; and logind keeps ignoring the lid (section 6).
+devices: an upgrade takes effect without a restart. The keyboard's light
+goes off after the panel and comes back before it, as above; the screen's
+brightness is untouched; with the lid closed, `kidux-idle screen on`
+leaves the laptop's own panel and the light off; and logind keeps
+ignoring the lid (section 6).
 
 On the trusted screens, under `cage`, no launcher watches the lid:
 `session-inner` starts `/usr/lib/kidux/kidux-lid-watch` beside the sign-in
 or lock screen, which reads the same switch through `kidux.hardware` and
 turns the laptop's own panel off with `wlr-randr --output <panel> --off`
 while the lid is closed, and `--on` when it opens (`cage` implements
-output management, not output power management). It ends with the screen
+output management, not output power management), with the keyboard's
+light as in a child's session. It ends with the screen
 it was started for, when its parent, the screen's process, is gone, and on
 a machine without a lid it says so in the journal (`kidux-lid-watch`) and
 ends at once; a switch that can no longer be read is logged and left, and

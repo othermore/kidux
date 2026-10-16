@@ -125,6 +125,70 @@ def set_level(level: Level, percent: int) -> bool:
     return _run(["brightnessctl", "--quiet", "--device", level.name, "set", f"{percent}%"])
 
 
+# --- the keyboard's light with the screen ------------------------------------
+
+#: Where the keyboard's light is remembered while the screen is off, for the
+#: lid or for being left alone, so that it comes back as it was. A child's
+#: session and the trusted screens share it, since a lid closed in a child's
+#: session is opened on the lock screen; their users are both in group
+#: video, which owns its directory (kidux-session's tmpfiles.d, 2770).
+KEYBOARD_LIGHT = Path("/run/kidux-light/keyboard")
+
+
+def keyboard_light_off(root: Path = SYS, kept: Path = KEYBOARD_LIGHT) -> bool:
+    """The keyboard's light off, its level remembered in `kept`; a level
+    already remembered is kept, since the screen may go off for the lid and
+    for being left alone at once. Nothing on a machine without the light,
+    with it already off and nothing remembered, or where it cannot be
+    remembered: a light turned off for good would be worse than one left
+    on. True when it was turned off."""
+    level = keyboard_backlight(root)
+    if level is None:
+        return False
+    if not kept.exists():
+        if level.value == 0:
+            return False
+        try:
+            descriptor = os.open(kept, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o660)
+            with os.fdopen(descriptor, "w") as file:
+                # The umask aside: the other screens' user writes it too.
+                os.fchmod(file.fileno(), 0o660)
+                file.write(f"{level.value}\n")
+        except OSError as error:
+            log.warning("the keyboard's light cannot be remembered: %s", error)
+            return False
+    changed = set_raw(level, 0)
+    if changed:
+        note_levels_changed()
+    return changed
+
+
+def keyboard_light_back(root: Path = SYS, kept: Path = KEYBOARD_LIGHT) -> bool:
+    """The keyboard's light as `keyboard_light_off` remembered it, never
+    brighter than its maximum, and forgotten; nothing when nothing is
+    remembered. True when it was set."""
+    try:
+        remembered = kept.read_text().strip()
+    except OSError:
+        return False
+    try:
+        kept.unlink()
+    except OSError as error:
+        log.warning("the keyboard's light cannot be forgotten: %s", error)
+    level = keyboard_backlight(root)
+    if level is None or not remembered.isdigit():
+        return False
+    changed = set_raw(level, min(int(remembered), level.maximum))
+    if changed:
+        note_levels_changed()
+    return changed
+
+
+def set_raw(level: Level, value: int) -> bool:
+    """Set a light to `value` in its own steps, as `/sys` reads it."""
+    return _run(["brightnessctl", "--quiet", "--device", level.name, "set", str(value)])
+
+
 # --- sound ------------------------------------------------------------------
 
 SINK = "@DEFAULT_AUDIO_SINK@"

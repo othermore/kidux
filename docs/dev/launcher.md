@@ -359,10 +359,14 @@ asks labwc through `wlopm` to power the machine's own panel (`eDP-*`,
 closed and on when it opens; at start, the lid's state as it is. Closing
 it also locks the session first, `Access1.LockFor("lid")` (D67), so that
 a laptop shut and carried off opens on the lock screen; the lid's state
-when the launcher starts is not a closing. Nothing else changes:
-brightness stays, windows stay, an external screen stays on, and logind
-ignores the lid (session.md section 6), so closing it is never a way out
-of a time limit. A session left alone locks itself too, through
+when the launcher starts is not a closing. The keyboard's light goes off
+after the panel, its level remembered where the lock screen, on which the
+lid is opened, finds it to give it back, and comes back before the panel
+when the launcher sees the lid open (`kidux.hardware.keyboard_light_off`
+and `keyboard_light_back`, session.md section 5, D97). Nothing else
+changes: the screen's brightness stays, windows stay, an external screen
+stays on, and logind ignores the lid (session.md section 6), so closing it
+is never a way out of a time limit. A session left alone locks itself too, through
 `kidux-idle` (session.md section 5). Under the lock screen the session is
 frozen and the launcher with it; the trusted screens have a watcher of
 their own (session.md section 5).

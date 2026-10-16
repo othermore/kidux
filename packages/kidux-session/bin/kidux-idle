@@ -18,8 +18,10 @@ when it finds it was frozen, so that a count never runs under the lock
 screen and a timer that ran out while the session was frozen never fires
 (kidux.idle). The screen is turned off through the compositor: `wlopm`
 under labwc, which has output power management, and `wlr-randr` under
-cage, which has not (KIDUX_IDLE_SCREEN). It ends with the screen it was
-started for: its parent is the screen's process.
+cage, which has not (KIDUX_IDLE_SCREEN), and the keyboard's light with it,
+remembered and given back as it was when the screen comes on, unless the
+lid is closed (D97). It ends with the screen it was started for: its
+parent is the screen's process.
 """
 
 import logging
@@ -94,20 +96,26 @@ def lid_closed() -> bool:
 
 
 def screen(on: bool) -> int:
-    """Every output off, or on; with the lid closed, the laptop's own
-    panel stays off, as the lid left it."""
+    """Every output off, and the keyboard's light, or on; with the lid
+    closed, the laptop's own panel and the light stay off, as the lid left
+    them."""
     if os.environ.get("KIDUX_IDLE_SCREEN", "wlopm") == "wlr-randr":
         outputs = hardware.wlr_randr_outputs(run("wlr-randr"))
     else:
         outputs = hardware.wlopm_outputs(run("wlopm"))
-    if on and lid_closed():
+    closed = on and lid_closed()
+    if closed:
         panels = set(hardware.panel_outputs(outputs))
         outputs = [name for name in outputs if name not in panels]
+    elif on:
+        hardware.keyboard_light_back()
     for name in outputs:
         if os.environ.get("KIDUX_IDLE_SCREEN", "wlopm") == "wlr-randr":
             run("wlr-randr", "--output", name, "--on" if on else "--off")
         else:
             run("wlopm", "--on" if on else "--off", name)
+    if not on:
+        hardware.keyboard_light_off()
     log.info("screen %s (%s)", "on" if on else "off", where())
     return 0
 

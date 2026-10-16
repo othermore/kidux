@@ -371,13 +371,14 @@ del teclado y el sonido (más alto, más bajo y silencio) hacen lo que
 dicen, dentro de cualquier módulo. La esquina de la pantalla del niño
 muestra el nuevo nivel al momento.
 
-Cerrar la tapa bloquea la sesión del niño y apaga la pantalla. Al abrirla
-la pantalla se enciende en la pantalla de bloqueo, donde el niño escribe
-su contraseña para seguir. El tiempo no cuenta mientras la tapa está
+Cerrar la tapa bloquea la sesión del niño y apaga la pantalla y la luz
+del teclado. Al abrirla se encienden de nuevo, la luz tan fuerte como
+estaba, en la pantalla de bloqueo, donde el niño escribe su contraseña
+para seguir. El tiempo no cuenta mientras la tapa está
 cerrada.
 
 Las mismas teclas funcionan en la pantalla de inicio y en la de bloqueo,
-y cerrar la tapa allí también apaga la pantalla.
+y cerrar la tapa allí también apaga la pantalla y la luz del teclado.
 
 ### Los archivos, bloquear y salir
 
@@ -400,8 +401,9 @@ Abajo, en la pantalla del niño, hay tres botones:
 Una sesión que se deja sola también se bloquea sola: tras cinco minutos
 sin que nadie toque el teclado ni el ratón, como haría un salvapantallas, y
 un módulo que se mueve solo no es una excepción. A los diez minutos la
-pantalla se apaga, en todas las pantallas del ordenador, también la de
-inicio y la de bloqueo, y el primer toque la vuelve a encender. Un adulto
+pantalla se apaga, con la luz del teclado, en todas las pantallas del
+ordenador, también la de inicio y la de bloqueo, y el primer toque las
+vuelve a encender. Un adulto
 puede cambiar los dos tiempos en la página **Sistema** del panel de adulto
 (sección 8).
 

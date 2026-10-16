@@ -272,3 +272,76 @@ def test_without_a_runtime_directory_a_key_still_works(monkeypatch):
     monkeypatch.setattr(hardware, "volume", lambda: (40, False))
     monkeypatch.setattr(hardware, "set_volume", lambda percent: True)
     assert hardware.key("volume", "up")
+
+
+def test_the_keyboard_s_light_goes_off_remembered_and_comes_back(macbook, recorded, tmp_path,
+                                                                 monkeypatch):
+    calls, _ = recorded
+    monkeypatch.setenv("XDG_RUNTIME_DIR", str(tmp_path))
+    kept = tmp_path / "light" / "keyboard"
+    kept.parent.mkdir()
+    write(macbook, "class/leds/smc::kbd_backlight/brightness", "128")
+
+    assert hardware.keyboard_light_off(macbook, kept)
+    assert calls[-1] == ["brightnessctl", "--quiet", "--device", "smc::kbd_backlight", "set", "0"]
+    assert kept.read_text() == "128\n" and kept.stat().st_mode & 0o777 == 0o660
+    assert (tmp_path / "kidux" / "levels").exists()
+
+    write(macbook, "class/leds/smc::kbd_backlight/brightness", "0")
+    assert hardware.keyboard_light_back(macbook, kept)
+    assert calls[-1] == ["brightnessctl", "--quiet", "--device", "smc::kbd_backlight", "set", "128"]
+    assert not kept.exists()
+
+
+def test_a_second_reason_for_the_screen_off_keeps_the_first_level(macbook, recorded, tmp_path):
+    calls, _ = recorded
+    kept = tmp_path / "keyboard"
+    write(macbook, "class/leds/smc::kbd_backlight/brightness", "200")
+    hardware.keyboard_light_off(macbook, kept)
+    write(macbook, "class/leds/smc::kbd_backlight/brightness", "0")
+
+    assert hardware.keyboard_light_off(macbook, kept)
+    assert kept.read_text() == "200\n"
+    hardware.keyboard_light_back(macbook, kept)
+    assert calls[-1][-1] == "200"
+    # Once back, a second opening has nothing to put back.
+    calls.clear()
+    assert not hardware.keyboard_light_back(macbook, kept)
+    assert calls == []
+
+
+def test_a_light_already_off_stays_off(macbook, recorded, tmp_path):
+    calls, _ = recorded
+    kept = tmp_path / "keyboard"
+
+    assert not hardware.keyboard_light_off(macbook, kept)
+    assert not hardware.keyboard_light_back(macbook, kept)
+    assert calls == [] and not kept.exists()
+
+
+def test_the_light_is_never_put_back_brighter_than_it_can_be(macbook, recorded, tmp_path):
+    calls, _ = recorded
+    kept = tmp_path / "keyboard"
+    kept.write_text("9999\n")
+
+    assert hardware.keyboard_light_back(macbook, kept)
+    assert calls[-1][-1] == "255"
+
+
+def test_a_light_that_cannot_be_remembered_is_left_on(macbook, recorded, tmp_path, caplog):
+    calls, _ = recorded
+    write(macbook, "class/leds/smc::kbd_backlight/brightness", "128")
+
+    with caplog.at_level("WARNING", logger="kidux.hardware"):
+        assert not hardware.keyboard_light_off(macbook, tmp_path / "missing" / "keyboard")
+    assert calls == [] and "cannot be remembered" in caplog.text
+
+
+def test_a_machine_without_a_keyboard_light_has_nothing_to_turn_off(desktop, recorded, tmp_path):
+    calls, _ = recorded
+    kept = tmp_path / "keyboard"
+
+    assert not hardware.keyboard_light_off(desktop, kept)
+    kept.write_text("128\n")
+    assert not hardware.keyboard_light_back(desktop, kept)
+    assert calls == [] and not kept.exists()

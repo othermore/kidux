@@ -1,0 +1,5 @@
+# Where the keyboard's light is remembered while the screen is off for the
+# lid or for being left alone (D97): written by a child's session and by the
+# trusted screens, whose users are both in group video, so that a lid closed
+# in a child's session and opened on the lock screen gives it back.
+d /run/kidux-light 2770 root video -

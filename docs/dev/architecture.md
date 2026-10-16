@@ -1678,3 +1678,15 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   `{lang}`, encoded and never a secret. The adult signs in with the child
   the first time, in Google's page, and the module's Chromium profile
   keeps the session (D89); the daemon holds nothing of it.
+- **D97 — The keyboard's light goes off with the screen and comes back as
+  it was.** Decided 2026-10-12 by the owner, on phase-4d-plan.md, refining
+  D61, from the MacBook: closing the lid turned the screen off and left the
+  keyboard lit under it. Wherever the screen goes off for the lid or for
+  being left alone, the launcher, `kidux-lid-watch` on the trusted screens
+  and `kidux-idle`, the keyboard's light goes off after it, its level
+  remembered, and comes back before it, as it was; a level already
+  remembered is kept, and a light already off stays off. The level is
+  remembered in `/run/kidux-light/`, group `video`, which a child's session
+  and the trusted screens share, since a lid closed in a child's session is
+  opened on the lock screen; where it cannot be remembered, the light is
+  left on. The screen's own brightness is still left alone.

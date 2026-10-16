@@ -362,13 +362,14 @@ A laptop's own keys for the screen's brightness, the keyboard's light and
 the sound (louder, quieter and mute) do what they say, inside any module.
 The corner of the child's screen shows the new level at once.
 
-Closing the lid locks the child's session and turns the screen off.
-Opening it turns the screen back on, on the lock screen, where the child
-types their password to carry on. Time does not count while the lid is
+Closing the lid locks the child's session and turns the screen and the
+keyboard's light off. Opening it turns them back on, the light as bright
+as it was, on the lock screen, where the child types their password to
+carry on. Time does not count while the lid is
 closed.
 
 The same keys work on the sign-in screen and on the lock screen, and
-closing the lid there turns the screen off too.
+closing the lid there turns the screen and the keyboard's light off too.
 
 ### Files, locking and logging out
 
@@ -391,8 +392,9 @@ Three buttons sit at the bottom of the child's screen:
 A session left alone locks itself too: after five minutes without anyone
 touching the keyboard or the mouse, as a screensaver would, and a module
 that plays on its own is no exception. After ten minutes the screen turns
-off, on every screen of the computer, the sign-in and lock screens
-included, and the first touch turns it on again. An adult can change both
+off, with the keyboard's light, on every screen of the computer, the
+sign-in and lock screens included, and the first touch turns them on
+again. An adult can change both
 times on the adult panel's **System** page (section 8).
 
 Locking the screen leaves every module exactly where it was. Logging out,

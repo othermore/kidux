@@ -1,3 +1,11 @@
+kidux-session (0.5.17) trixie; urgency=medium
+
+  * The lid and a screen left alone turn the keyboard's light off on the
+    trusted screens too, and give it back as it was; /run/kidux-light
+    keeps its level, shared with a child's session.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 15 Oct 2026 18:11:18 +0200
+
 kidux-session (0.5.16) trixie; urgency=medium
 
   * Ctrl+Shift+I and Ctrl+Shift+D open no GTK inspector, on the lock

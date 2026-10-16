@@ -429,32 +429,46 @@ locks the session (D61, D67), but the keyboard stays lit under the lid;
 opening it should give back the light it had.
 
 **Change.** `kidux.hardware` gains `keyboard_light_off()`, which reads the
-keyboard's light (`keyboard_backlight`), remembers its percentage in the
-session's runtime directory (`$XDG_RUNTIME_DIR/kidux/keyboard-light`,
-beside the levels file of D61) and sets it to 0, and
-`keyboard_light_back()`, which sets the remembered percentage again and
-forgets it; both do nothing on a machine without a keyboard light, and
-both touch the levels file, so that the corner's indicator follows. The
-launcher's `lid.py` calls the first when the lid closes, after the panel
-goes off, and the second when it opens, before the panel comes on;
-`kidux-lid-watch` does the same on the trusted screens, under `cage`.
-And `kidux-idle screen off` and `screen on` do the same, so that a
-screen turned off for being left alone does not leave a lit keyboard
-either; the owner may strike this last part out. The light is never put
-back to more than it was, and a light that was already 0 stays 0.
+keyboard's light (`keyboard_backlight`), remembers its level, in the
+light's own steps, and sets it to 0, and `keyboard_light_back()`, which
+sets the remembered level again and forgets it; both do nothing on a
+machine without a keyboard light, and both touch the levels file of D61,
+so that the corner's indicator follows. The level is remembered in
+`/run/kidux-light/keyboard`, a directory `kidux-session` makes through
+`tmpfiles.d`, root's, group `video`, mode 2770, and not in the session's
+own runtime directory: a lid closed in a child's session locks it, and is
+opened on the lock screen, which runs as `_greetd` and must find the
+level to give it back; the child and `_greetd` are both in `video`. A
+level already remembered is kept, since the screen may go off for the lid
+and for being left alone at once; where it cannot be remembered, the
+light is left on rather than turned off for good. The launcher's `lid.py`
+calls the first when the lid closes, after the panel goes off, and the
+second when it opens, before the panel comes on; `kidux-lid-watch` does
+the same on the trusted screens, under `cage`. And `kidux-idle screen off`
+and `screen on` do the same, so that a screen turned off for being left
+alone does not leave a lit keyboard either, except that `screen on` with
+the lid closed leaves the light off, as it leaves the panel; the owner may
+strike this last part out. The light is never put back to more than its
+maximum, and a light that was already 0 stays 0.
 
 **Tests.** Unit: `lid.py` with the screen and the light faked, closing
 and opening, the lid's state at the start not a closing, a machine
 without a light; `kidux.hardware`'s two functions against a fake `/sys`
-and a fake runtime directory, the level remembered and forgotten. The
-test machines have no keyboard light, so the session tests only check
-that the launcher's log says nothing wrong; the owner tries it on the
-MacBook, by hand, at the end. kidux-launcher, kidux-session and
+and a fake directory to remember in, the level remembered, kept for a
+second reason and forgotten, a light already off, one that cannot be
+remembered. The test machines have no keyboard light, so the session
+tests only check that nothing else changes. On the quick loop's machine,
+once and by hand, a lid made through `uinput` and a light on a `tmpfs`
+over `/sys/class/leds` take the whole way: the lid closed in Leo's
+session, opened on the lock screen, and the screen left alone. The owner
+tries it on the MacBook, by hand, at the end. kidux-launcher, kidux-session and
 kidux-common take new versions.
 
 **Documents.** session.md section 5 and launcher.md section 5, which say
-today that brightness and the light are left alone; keys.md if it says
-so; architecture.md, a decision refining D61.
+what the lid and idleness do to the light; the user guide's section on a
+laptop's keys and its lid, and on a session left alone, in both
+languages; architecture.md, a decision refining D61. keys.md says nothing
+of the lid.
 
 ### 4.25 — Closing
 

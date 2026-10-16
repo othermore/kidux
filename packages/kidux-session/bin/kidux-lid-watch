@@ -1,13 +1,18 @@
 #!/usr/bin/python3
-"""The lid on the trusted screens: the panel off while it is closed (D61).
+"""The lid on the trusted screens: the panel and the keyboard's light off
+while it is closed (D61, D97).
 
 session-inner starts this under cage, beside the sign-in or lock screen:
 cage binds no key and powers no output off by itself, so this reads the lid
 switch (`kidux.hardware.lid_devices`, readable since kidux-session's udev
 rule) and turns the laptop's own panel off with `wlr-randr --off` while the
-lid is closed, and on again when it opens. Brightness is left alone, and an
-external screen stays on. A child's session does the same in its launcher
-(launcher.md section 5).
+lid is closed, and on again when it opens. The keyboard's light goes off
+after the panel and comes back before it, as it was: a lid closed in a
+child's session is opened here, on the lock screen, which finds the level
+the child's launcher remembered (`kidux.hardware.keyboard_light_back`,
+D97). The screen's brightness is left alone, and an external screen stays
+on. A child's session does the same in its launcher (launcher.md section
+5).
 
 It ends by itself with the screen it was started for: its parent is the
 screen's process, and when that goes, it goes. On a machine without a lid
@@ -47,10 +52,14 @@ def wlr_randr(*args: str) -> str:
 
 
 def set_panel(on: bool) -> None:
+    if on:
+        hardware.keyboard_light_back()
     for name in hardware.panel_outputs(hardware.wlr_randr_outputs(wlr_randr())):
         wlr_randr("--output", name, "--on" if on else "--off")
         log.info("the lid %s: %s %s", "opened" if on else "closed", name,
                  "on" if on else "off")
+    if not on:
+        hardware.keyboard_light_off()
 
 
 def main() -> int:

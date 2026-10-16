@@ -1,14 +1,18 @@
-"""The lid: the screen off while it is closed, on again when it opens (D61).
+"""The lid: the screen and the keyboard's light off while it is closed, on
+again when it opens (D61, D97).
 
 The lid is an input switch the kernel lists (`kidux.hardware.lid_devices`),
 readable by anyone since `kidux-session`'s udev rule; the launcher reads it
 in GLib's main loop and asks the compositor, through `wlopm`
 (wlr-output-power-management), to power the machine's own panel off or on.
 Closing it also locks the session, as the Lock button does (D67), so that a
-laptop closed and carried away is locked when it is opened. Nothing else
-changes: brightness stays what it was, windows stay where they are, and an
-external screen stays on. logind is told to do nothing about the lid
-(session.md, section 6), so closing it is never a way out of a time limit.
+laptop closed and carried away is locked when it is opened, and turns the
+keyboard's light off after the screen, remembered where the lock screen,
+on which the lid is opened, finds it to give it back (D97). Nothing else
+changes: the screen's brightness stays what it was, windows stay where
+they are, and an external screen stays on. logind is told to do nothing
+about the lid (session.md, section 6), so closing it is never a way out of
+a time limit.
 """
 
 import logging
@@ -37,8 +41,11 @@ def set_screen(on: bool) -> None:
 
 
 class Lid:
-    def __init__(self, devices: list[str], set_screen=set_screen, on_closed=None) -> None:
+    def __init__(self, devices: list[str], set_screen=set_screen, on_closed=None,
+                 light_off=hardware.keyboard_light_off,
+                 light_back=hardware.keyboard_light_back) -> None:
         self._set_screen = set_screen
+        self._light_off, self._light_back = light_off, light_back
         #: Called when the lid closes, before the screen goes off: the
         #: launcher locks the session (D67).
         self._on_closed = on_closed
@@ -78,4 +85,9 @@ class Lid:
         self.closed = closed
         if closing and self._on_closed is not None:
             self._on_closed()
-        self._set_screen(not closed)
+        if closed:
+            self._set_screen(False)
+            self._light_off()
+        else:
+            self._light_back()
+            self._set_screen(True)

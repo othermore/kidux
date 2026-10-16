@@ -7,9 +7,11 @@
 # one. The exceptions are udev's rules for input switches and a keyboard's
 # light: a rule applies to a device as udev sees it, so the lid's mode and
 # the light's group are set again at once, and a screen finds both usable
-# without a restart; and _greetd's group video, which the trusted screens
+# without a restart; _greetd's group video, which the trusted screens
 # need to set the backlight and the light, and which takes effect at their
-# next start.
+# next start; and the directory where the keyboard's light is remembered
+# while the screen is off (D97), which debhelper's tmpfiles snippet below
+# makes at once.
 
 set -e
 
