@@ -80,13 +80,16 @@ instead of scattering decisions across chats.
 - Everything that ends up on a user's machine must be reproducible from this repo:
   `.deb` packages in `packages/`, image config in `image/`. Never hand-edit a built
   system and call it done.
-- **Partial tests while developing, the whole battery before pushing.** While a
-  change is made, test what it touches on the machine left up, with nothing
-  installed from scratch: `tests/run vm up NN`, `vm push <package>` for a changed
-  package, `vm test NN` for its test. The whole battery runs in one go before the
-  commits are pushed to GitHub, or when the work is done, just before asking the
-  owner whether to push it. A battery whose only failures are a test's own fault,
-  not the product's, needs no second run: fix the test and run it alone.
+- **Partial tests while developing, the whole battery only for a release.**
+  While a change is made, test only what it touches, on the machine left up,
+  with nothing installed from scratch: its unit tests, `tests/run vm up NN`,
+  `vm push <package>` for a changed package, `vm test NN` for its session test,
+  and its acceptance test. The whole battery is never run while developing,
+  nor at the end of a piece of work: the owner first tries the work by hand
+  (their acceptance test), then asks for a release, and only then does the
+  whole battery run, once, just before the release. A battery whose only
+  failures are a test's own fault, not the product's, needs no second run:
+  fix the test and run it alone.
 - **Fundamental: a version made only of numbers is a release (D93).** A
   release never changes: once a version is published, its bytes are final,
   and the next change to that package goes under the next number. So a
