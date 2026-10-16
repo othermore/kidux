@@ -128,7 +128,8 @@ can. Each phase assumes what it builds on is reasonably stable.
       the panel, locked down by its policies (4.22, D95); Gmail as a door
       to the website, the way for a Family Link account, with the child's
       address filled in (4.23, D96); and the keyboard's light off with the
-      lid and with a screen left alone, back as it was (4.24, D97;
+      lid and with a screen left alone, back as it was (4.24, D97); and a
+      module's notices as a bubble in the child's screen (4.26, D98;
       phase-4d-plan.md).
 
 ## Phase 5 — AI learning module

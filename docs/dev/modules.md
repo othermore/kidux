@@ -401,7 +401,13 @@ To make `kidux-module-<id>` from it, copy the directory and then:
   whose policies bind it machine-wide, as Thunderbird's in
   `/etc/thunderbird/policies/` do, gets them from the module's package,
   which is then the only one that may ship them, as Chromium's are
-  `kidux-webapps`' (D36).
+  `kidux-webapps`' (D36). A program that tells the child something, a
+  server that does not answer or new mail, does it through the desktop's
+  notifications, `org.freedesktop.Notifications`, which the launcher
+  shows as a bubble from the module (launcher.md section 2, D98); never
+  in a window of its own, which the kiosk would show full screen. A
+  program that reaches them through a libnotify it loads only when it is
+  there, as Thunderbird does, has its module depend on `libnotify4`.
 - **Keep** the rest: the build, the tests, the rule that the program reads
   its language from the session, writes only in the child's home and in the
   three directories the launcher gives it, and starts in a window

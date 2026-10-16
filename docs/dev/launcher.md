@@ -75,6 +75,31 @@ it runs as is who they are.
 - **Bottom:** *Lock* on the left (D13), *Log out* and *Turn off* on the
   right, and Kidux's logo small in the middle, as on the sign-in screen.
 
+**Notices** (`bubbles.py`, `notices.py`, D98): a module tells the child
+something through the desktop's notifications, freedesktop.org's *Desktop
+Notifications*, as Thunderbird does when a server does not answer. The
+launcher owns `org.freedesktop.Notifications` on the child's session bus
+and draws each notice as a bubble in the top right corner, below the
+corner of the battery, the light and the sound, on gtk4-layer-shell's
+overlay layer, over every module and taking no keyboard; the newest is at
+the top. A bubble says who it is from: the module's name and tile when
+the sender runs in a module's scope (its cgroup's
+`kidux-module-<id>.scope`), the program's own name otherwise. Then the
+notice's summary and its text, plain; a close button; the program's
+actions as buttons, with its own words; and a click on the bubble does
+its default action, when it has one. A notice goes after eight seconds,
+or stays until it is closed when its program marks it urgent or never
+expiring. The server answers `GetCapabilities` with `body` and `actions`,
+and nothing about sound: a notice is never heard. The journal says each
+notice's number, who it is from and why it closed (`notice 1 from mail`,
+`notice 1 closed (1)`), never its words, which may be a child's mail. The
+sign-in and lock screens run no launcher, so a bubble is never on them,
+and under the lock the launcher is frozen with the session. A program
+reaches the desktop's notifications through libnotify, which some load
+only when it is there, as Thunderbird does: the module that runs one
+depends on `libnotify4`. A website never notifies: Chromium's policy
+blocks it (D36).
+
 **Lock** calls `Access1.Lock()`. The daemon puts the trusted lock screen up
 and freezes the session; the launcher does nothing else and has nothing to
 draw while it is frozen.

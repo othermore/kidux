@@ -34,8 +34,7 @@
       "browser.download.useDownloadDir": {"Value": true, "Status": "locked"},
       "browser.download.always_ask_before_handling_new_types": {"Value": false, "Status": "locked"},
       "mail.chat.enabled": {"Value": false, "Status": "locked"},
-      "mail.suppressAlertsForTests": {"Value": true, "Status": "locked"},
-      "mail.biff.show_alert": {"Value": false, "Status": "locked"}
+      "mail.biff.use_system_alert": {"Value": true, "Status": "locked"}
     }
   }
 }

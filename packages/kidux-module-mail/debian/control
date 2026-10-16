@@ -14,6 +14,7 @@ Rules-Requires-Root: no
 Package: kidux-module-mail
 Architecture: all
 Depends: ${misc:Depends},
+         libnotify4,
          python3,
          thunderbird,
          thunderbird-l10n-all,

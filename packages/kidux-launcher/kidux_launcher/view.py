@@ -26,6 +26,7 @@ from kidux import modules as kidux_modules  # noqa: E402
 
 from . import launch, words  # noqa: E402
 from .bar import Bar  # noqa: E402
+from .bubbles import CSS as BUBBLES_CSS, Bubbles  # noqa: E402
 from .desk import CLOSE_SECONDS, HOME  # noqa: E402
 from .daemon import DaemonError, DaemonUnavailableError  # noqa: E402
 from .lid import Lid  # noqa: E402
@@ -98,7 +99,7 @@ def child_name() -> str:
 
 def install_style(display: Gdk.Display) -> None:
     provider = Gtk.CssProvider()
-    provider.load_from_string(CSS + CORNER_CSS + scroll.CSS)
+    provider.load_from_string(CSS + CORNER_CSS + scroll.CSS + BUBBLES_CSS)
     Gtk.StyleContext.add_provider_for_display(display, provider,
                                               Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
@@ -141,6 +142,7 @@ class Launcher:
         self._daemon = daemon
         self._desk = desk
         self._bar = None
+        self._bubbles = None
         self._last_step = 0
         self._on_log_out = on_log_out
         self._model = Model()
@@ -175,6 +177,9 @@ class Launcher:
                             on_end=self._desk.end_anyway, on_window=self._desk.raise_window,
                             keys=KEYS)
             self._bar.present()
+            # A module's notices, as a bubble in the corner (bubbles.py, D98).
+            self._bubbles = Bubbles(application, shell, translate=self._,
+                                    language=self._language)
             # The lid, under labwc, which powers the panel off and on, and
             # locks the session when it closes (lid.py, D67).
             devices = hardware.lid_devices()

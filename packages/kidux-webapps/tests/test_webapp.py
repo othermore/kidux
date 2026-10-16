@@ -35,6 +35,8 @@ def test_the_policy_allows_the_server_and_closes_every_other_door():
     assert not policy["PrintingEnabled"]
     assert not policy["DefaultSearchProviderEnabled"]
     assert not policy["TranslateEnabled"]
+    # A website never sends the child a notice (phase-4d-plan.md, 4.26).
+    assert policy["DefaultNotificationsSetting"] == 2
 
 
 def test_the_base_policy_allows_the_server_and_no_module_s_host():

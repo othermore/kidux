@@ -9,9 +9,9 @@ ADMIN_AS="runuser -u debian -- /usr/local/bin/kidux-as"
 MAIL=/usr/share/kidux/modules/mail
 POLICIES=/etc/thunderbird/policies/policies.json
 
-check "kidux-module-mail installs through the daemon, with Thunderbird in Spanish" \
+check "kidux-module-mail installs through the daemon, with Thunderbird in Spanish and libnotify" \
     sh -c "$ADMIN_AS install mail | grep -q '^installed ' \
-           && dpkg -s thunderbird thunderbird-l10n-es-es >/dev/null"
+           && dpkg -s thunderbird thunderbird-l10n-es-es libnotify4 >/dev/null"
 check "its manifest, icon, program and Spanish words are in place" \
     sh -c "test -f $MAIL/module.toml && test -f $MAIL/icon.svg \
            && test -x /usr/libexec/kidux-module-mail \

@@ -298,6 +298,13 @@ un control deslizante. El del sonido tiene **Silenciar** debajo. Un
 ordenador que no tenga alguna de estas cosas, sencillamente, no la
 muestra.
 
+Cuando un módulo tiene algo que decirle al niño, como Correo cuando su
+servidor no contesta, aparece una burbuja en la esquina de arriba a la
+derecha, encima de lo que esté abierto, que dice de qué módulo viene. Se
+va sola a los pocos segundos; una que avisa de algo que ha ido mal puede
+quedarse hasta que el niño la cierra con su **×**. Una burbuja nunca
+suena, y nunca viene de una web.
+
 ![La pantalla de un niño](../images/es/launcher.png)
 
 ### Abrir un módulo
@@ -988,7 +995,8 @@ solo con sus carpetas locales.
 Un enlace en un mensaje no lleva a ninguna parte. Un adjunto se guarda en
 las **Descargas** del niño, y nunca se abre con otro programa. El chat de
 Correo, sus complementos y sus ajustes avanzados están cerrados. Cuando un
-servidor no contesta, Correo lo dice en la línea de su parte de abajo.
+servidor no contesta, Correo lo dice en una burbuja en la esquina de la
+pantalla, y en la línea de su parte de abajo.
 
 ![Correo](../images/es/module-mail.png)
 

@@ -25,6 +25,7 @@ Section 4 records what the owner decided, on 2026-10-12 and, after
 | 4.23 | Gmail: a door to the website | S |
 | 4.24 | The keyboard's light goes off with the lid, and comes back | S |
 | 4.25 | Closing: the battery, the documents, the report | S |
+| 4.26 | A bubble for a module's notices, in the child's screen | M |
 
 ## 2. The steps
 
@@ -291,12 +292,12 @@ application* (`browser.download.forbid_open_with` true,
 in the download directory without being asked where
 (`browser.download.useDownloadDir` true,
 `browser.download.always_ask_before_handling_new_types` false), no
-chat (`mail.chat.enabled` false), and no pop-up notice, which is a
-window of its own that the kiosk would show full screen until it is
-closed: a server that does not answer is told of in the status bar and
-the activity manager only (`mail.suppressAlertsForTests` true), and new
-mail in the folder pane only (`mail.biff.show_alert` false). What a
-policy cannot lock, the rewritten `user.js` puts back.
+chat (`mail.chat.enabled` false), and never a notice of Thunderbird's
+own, a window with no parent that the kiosk would show full screen: its
+notices, a server that does not answer or new mail, go to the
+desktop's notifications (`mail.biff.use_system_alert` true), which
+Kidux's bubble shows (4.26). What a policy cannot lock, the rewritten
+`user.js` puts back.
 
 **The security of a shared machine**, as usual on Linux and nothing
 more (section 4, decision 3): the profile is in the child's home, which
@@ -446,9 +447,9 @@ calls the first when the lid closes, after the panel goes off, and the
 second when it opens, before the panel comes on; `kidux-lid-watch` does
 the same on the trusted screens, under `cage`. And `kidux-idle screen off`
 and `screen on` do the same, so that a screen turned off for being left
-alone does not leave a lit keyboard either, except that `screen on` with
-the lid closed leaves the light off, as it leaves the panel; the owner may
-strike this last part out. The light is never put back to more than its
+alone does not leave a lit keyboard either, as the owner decided
+(section 4, decision 12), except that `screen on` with the lid closed
+leaves the light off, as it leaves the panel. The light is never put back to more than its
 maximum, and a light that was already 0 stays 0.
 
 **Tests.** Unit: `lid.py` with the screen and the light faked, closing
@@ -478,6 +479,67 @@ the owner tries each module on the MacBook, and what the owner has to
 do for the release (D93: the owner tries the work, says yes, and the
 release, the push, the promotion and the public archive follow on their
 word).
+
+### 4.26 — A bubble for a module's notices
+
+**Cause.** A program on Linux tells its user something through the
+desktop's notifications (freedesktop.org's *Desktop Notifications*,
+`org.freedesktop.Notifications` on the session's bus): Thunderbird a
+server that does not answer, or new mail; any program something it has
+done. A child's session had no one to show them, so Thunderbird showed its
+own notice, a window of its own with no parent, which labwc maximised over
+the whole screen and which neither Escape nor time closed; 4.22 kept it
+away by silencing Thunderbird's notices, and so the reason a Family Link
+mailbox stayed empty, Gmail's *IMAP access is not allowed for this
+account*, showed nowhere. Kidux shows them itself now, as a bubble of its
+own (section 4, decisions 8 to 11).
+
+**Where.** In the launcher, which already draws the bar on
+`gtk4-layer-shell` (1.0.4 in trixie) and speaks the child's language: it
+owns `org.freedesktop.Notifications` on the child's session bus and draws
+each notice as a bubble in the screen's top right corner, on the overlay
+layer, over every module, taking no keyboard. So a bubble is only ever in
+a child's session: the sign-in and lock screens run no launcher, and under
+the lock the launcher is frozen with the session.
+
+**A bubble** says who it is from, the module's name and tile when the
+sender runs in a module's scope (its process's cgroup,
+`kidux-module-<id>.scope`), the program's own name otherwise; the notice's
+summary, and its text, plain. It has a close button; a click on it does
+the notice's default action, when it has one, as Thunderbird's new mail
+opens the message, and other actions are buttons with the program's own
+words. It goes after eight seconds, or stays until it is closed when the
+program marks it urgent or as never expiring, as an error is; several are
+stacked, the newest at the top. Never a sound: the server says it has
+none, and takes no sound from a notice.
+
+**The server** answers `GetCapabilities` with `body` and `actions`,
+`GetServerInformation` with Kidux's name and version, `Notify` with the
+notice's number, replacing one when asked, `CloseNotification`, and sends
+`NotificationClosed`, with why, and `ActionInvoked`. The journal says who
+each notice is from and when it closes, never its words, which may be a
+child's mail.
+
+**Thunderbird** shows its notices through it: the policies no longer
+silence them (`mail.suppressAlertsForTests` goes), and new mail, a
+notice too, uses the desktop's notifications and never Thunderbird's own
+window (`mail.biff.use_system_alert` locked true).
+
+**Websites never notify** (section 4, decision 9): Chromium's policy
+blocks every site's notifications (`DefaultNotificationsSetting` 2).
+
+**Tests.** Unit, without a display: the server's answers, a notice's
+number and its replacing, how long one stays, its actions, and the module
+a process belongs to from its cgroup; Chromium's policy. Session
+(`34-module-mail.py`): Thunderbird's notice that 127.0.0.1 does not answer
+comes up as a bubble from Mail, and as no window; a notice sent from Leo's
+session with `gdbus`, urgent, stays until it is closed by its number; one
+that is not goes by itself.
+
+**Documents.** launcher.md, the bubble; modules.md, that a module tells
+the child something through the desktop's notifications; the user guide,
+the child's screen; architecture.md, a decision; the plan of 4.22 and its
+section of the guide, which said Thunderbird's notices were silenced.
 
 ## 3. Rules for this plan
 
@@ -517,3 +579,16 @@ Decided 2026-10-15 by the owner, from what 4.21 found.
    other account, Google's included; Gmail is the module for a Family
    Link child, and for a family that prefers the website. The modules'
    descriptions and the user guide say which to choose.
+
+Decided 2026-10-15 by the owner, after the work of 4.21 to 4.24.
+
+8. **Kidux shows a module's notices itself, as a bubble**, rather than a
+   program's own window or silence: for Thunderbird, and for any module
+   that tells the child something the same way. A bubble goes after eight
+   seconds; an error, one its program marks urgent or never expiring,
+   stays until it is closed.
+9. **Websites never send notifications.**
+10. **A notice never makes a sound.**
+11. **A bubble is never shown on the sign-in or lock screens.**
+12. **The keyboard's light goes off with the screen left alone too**, not
+    only with the lid (4.24).

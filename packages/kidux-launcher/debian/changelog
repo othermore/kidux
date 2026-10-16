@@ -2,6 +2,8 @@ kidux-launcher (0.3.21) trixie; urgency=medium
 
   * Closing the lid turns the keyboard's light off after the screen;
     opening it gives the light back before the screen.
+  * A module's notices, the desktop's notifications, show as a bubble in
+    the corner of the child's screen, without a sound.
 
  -- Antonio Morales García <info@kidux.org>  Thu, 15 Oct 2026 18:11:18 +0200
 

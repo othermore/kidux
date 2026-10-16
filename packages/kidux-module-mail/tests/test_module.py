@@ -245,8 +245,7 @@ def test_the_policies_are_whole():
                       "browser.download.useDownloadDir": True,
                       "browser.download.always_ask_before_handling_new_types": False,
                       "mail.chat.enabled": False,
-                      "mail.suppressAlertsForTests": True,
-                      "mail.biff.show_alert": False}
+                      "mail.biff.use_system_alert": True}
 
 
 def test_the_manifests_version_is_the_packages():

@@ -1690,3 +1690,18 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   and the trusted screens share, since a lid closed in a child's session is
   opened on the lock screen; where it cannot be remembered, the light is
   left on. The screen's own brightness is still left alone.
+- **D98 — Kidux shows a module's notices itself, as a bubble.** Decided
+  2026-10-15 by the owner, on phase-4d-plan.md's 4.26. A program tells its
+  user something through the desktop's notifications; a child's session
+  had nobody to show them, so Thunderbird showed its own notice, a window
+  with no parent that labwc maximised over everything and that neither
+  Escape nor time closed, and silencing it hid why a Family Link mailbox
+  stayed empty. The launcher owns `org.freedesktop.Notifications` on the
+  child's session bus and draws each notice as a bubble in the screen's
+  top right corner, on gtk4-layer-shell's overlay layer, from the module
+  whose scope sent it: eight seconds, or until it is closed when its
+  program marks it urgent or never expiring; never a sound; never on the
+  sign-in or lock screens, which run no launcher. Websites never notify:
+  Chromium's policy blocks it (`DefaultNotificationsSetting` 2). Not
+  `mako`, `dunst` or `fnott`, all in trixie: none speaks Kidux's language
+  or looks like it, or knows a module from a program.

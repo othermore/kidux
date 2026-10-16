@@ -19,6 +19,7 @@
   "PrintingEnabled": false,
   "DefaultSearchProviderEnabled": false,
   "DefaultBrowserSettingEnabled": false,
+  "DefaultNotificationsSetting": 2,
   "MetricsReportingEnabled": false,
   "BackgroundModeEnabled": false,
   "PromptForDownloadLocation": true,

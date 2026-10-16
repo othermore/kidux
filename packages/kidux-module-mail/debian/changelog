@@ -1,6 +1,8 @@
 kidux-module-mail (0.1.0) trixie; urgency=medium
 
   * Mail: Thunderbird as a child's own mailbox, with the account an adult
-    gives on the panel, locked down by Thunderbird's policies.
+    gives on the panel, locked down by Thunderbird's policies; its notices
+    go to the desktop's notifications, which Thunderbird reaches through
+    libnotify.
 
  -- Antonio Morales García <info@kidux.org>  Thu, 15 Oct 2026 17:41:54 +0200
