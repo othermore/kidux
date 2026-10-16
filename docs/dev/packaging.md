@@ -39,9 +39,11 @@ Once, as root:
 sudo ci/setup-dev-host.sh
 ```
 
-It creates `/srv/kidux-apt` owned by you, points nginx at it, and puts you in the
-`kvm` group so test VMs run at full speed. Log out and back in afterwards for the
-group to take effect. It is safe to run again.
+It creates `/srv/kidux-apt` owned by you, points nginx at it, puts you in the
+`kvm` group so test VMs run at full speed, and lets your systemd linger, so
+that a push set for the evening (`ci/push.sh --later`, D99) outlives your
+session. Log out and back in afterwards for the group to take effect. It is
+safe to run again.
 
 Then the build chroot, which is a tarball rather than a `schroot` installation,
 so that `sbuild` needs no root and CI runs the same command:

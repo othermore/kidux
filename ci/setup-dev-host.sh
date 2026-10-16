@@ -94,5 +94,14 @@ else
     echo "    $DEV_USER must log out and back in before it takes effect."
 fi
 
+# A push set for the evening (ci/push.sh --later, D99) is a timer of the
+# developer's own systemd, which otherwise ends with their last session.
+if [ "$(loginctl show-user "$DEV_USER" -p Linger --value 2>/dev/null)" = yes ]; then
+    echo "==> $DEV_USER's systemd already lingers"
+else
+    echo "==> Letting $DEV_USER's systemd linger, for a push set for the evening"
+    loginctl enable-linger "$DEV_USER"
+fi
+
 echo
 echo "Done. The archive is empty until ci/publish-local.sh runs."
