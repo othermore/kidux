@@ -28,5 +28,5 @@ check "removing it leaves nothing of the module behind" \
     sh -c "$ADMIN_AS remove codecombat | grep -q '^removed ' && test ! -e $COMBAT \
            && test ! -e /usr/share/kidux/webapps/codecombat \
            && test -z \"\$(find /usr/share/locale -name 'kidux-module-codecombat.*')\""
-check "and the policy no longer allows its site" \
-    sh -c "python3 -c 'import json, sys; sys.exit(json.load(open(sys.argv[1]))[\"URLAllowlist\"] != [\"127.0.0.1:8123\", \"blob:*\"])' $POLICY"
+check "and the policy went with the server, installed for it alone (D100)" \
+    sh -c "test ! -e $POLICY"

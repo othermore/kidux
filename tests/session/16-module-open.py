@@ -37,6 +37,7 @@ from sessionlib import (
     active_terminal,
     as_child,
     child_session,
+    colour_extent,
     colour_middle,
     colour_share,
     copy,
@@ -61,12 +62,10 @@ SHARED = f"{HOME}/canary-note.txt"
 #: The stand-in modules' windows (tests/lib/seed/modules/*/run), and the bar.
 YELLOW = (0xF5, 0xC5, 0x18)
 BLUE = (0x3A, 0x86, 0xFF)
-#: Lock on the bar: the end of the button, whatever the word's length in
-#: the machine's language, and the margin beyond it, which a Lock pushed off
-#: the screen would cover.
+#: Lock on the bar, whole: as wide as when the bar asks nothing, whatever
+#: the word's length in the machine's language, and short of the bell at
+#: the bar's end (D98).
 LOCK = (0x35, 0x84, 0xE4)
-LOCK_END = (0.982, 0.94, 0.988, 0.98)
-BEYOND_LOCK = (0.994, 0.94, 1.0, 0.98)
 BAR = (0xF2, 0xE2, 0xCC)
 #: A button of the bar lit while Alt+Tab goes round, and where Home is.
 LIT = (0xDB, 0xE8, 0xFB)
@@ -351,6 +350,7 @@ def run(machine: Machine) -> None:
     shown = show_by_its_tile(machine, "canary")
     machine.still()
     picture = machine.screenshot("module-two-open")
+    lock_at_rest = colour_extent(picture, LOCK, BAR_BOX)
     report("an open module's tile brings it forward, with no frame, both in the bar",
            shown and sorted(bar().split()) == ["canary", "robin"]
            and colour_share(picture, YELLOW, TOP_STRIP) > 0.95,
@@ -395,10 +395,14 @@ def run(machine: Machine) -> None:
            and colour_share(picture, BLUE, ABOVE_THE_BAR) > 0.8,
            f"on screen: {on_screen()}; {picture}\n" + launcher_log())
     # The question takes the room of the time, of Close and of the other
-    # modules' buttons, so that Lock stays whole on the bar (D63).
-    ends = (colour_share(picture, LOCK, LOCK_END), colour_share(picture, LOCK, BEYOND_LOCK))
+    # modules' buttons, so that Lock stays whole on the bar (D63): as wide
+    # as before the question, and not pushed into the bell or off the screen.
+    lock_asked = colour_extent(picture, LOCK, BAR_BOX)
     report("and Lock stays whole on the bar while it asks",
-           ends[0] > 0.8 and ends[1] < 0.1, f"{picture}: {ends[0]:.2f}, {ends[1]:.2f}")
+           lock_at_rest is not None and lock_asked is not None
+           and abs((lock_asked[1] - lock_asked[0]) - (lock_at_rest[1] - lock_at_rest[0])) < 0.01
+           and lock_asked[1] < 0.99,
+           f"{picture}: Lock at rest {lock_at_rest}, asked {lock_asked}")
     machine.key("alt-f4")
     report("Alt+F4 again, while the bar asks, ends it: its scope stopped",
            wait(lambda: pid_of("robin") == "" and bar() == "none", 15)

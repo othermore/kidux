@@ -29,5 +29,5 @@ check "it is listed for a child, switched off" \
 check "removing it leaves nothing of the module behind" \
     sh -c "$ADMIN_AS remove wikipedia | grep -q '^removed ' && test ! -e $WIKI \
            && test -z \"\$(find /usr/share/locale -name 'kidux-module-wikipedia.*')\""
-check "and the policy no longer allows its hosts" \
-    sh -c "python3 -c 'import json, sys; sys.exit(json.load(open(sys.argv[1]))[\"URLAllowlist\"] != [\"127.0.0.1:8123\", \"blob:*\"])' $POLICY"
+check "and the policy went with the server, installed for it alone (D100)" \
+    sh -c "test ! -e $POLICY"

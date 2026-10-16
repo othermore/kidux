@@ -588,6 +588,25 @@ def colour_share(picture: Path, colour: tuple, box=(0.0, 0.0, 1.0, 1.0), toleran
     return hits / max(1, total)
 
 
+def colour_extent(picture: Path, colour: tuple, box=(0.0, 0.0, 1.0, 1.0),
+                  tolerance: int = 10) -> tuple[float, float] | None:
+    """Where a colour starts and ends across a picture, inside `box`: the
+    leftmost and rightmost columns with a pixel close to it, as fractions
+    of the picture's width; None where it is not. Every fourth row is
+    read, every column, so an edge is found to the pixel."""
+    try:
+        width, height, rows = _png().read_png(picture)
+    except (OSError, ValueError):
+        return None
+    left, top, right, bottom = box
+    found = [x for x in range(int(left * width), int(right * width))
+             if any(all(abs(rows[y][x * 3 + i] - colour[i]) <= tolerance for i in range(3))
+                    for y in range(int(top * height), int(bottom * height), 4))]
+    if not found:
+        return None
+    return found[0] / width, (found[-1] + 1) / width
+
+
 def colour_middle(picture: Path, colour: tuple, box=(0.0, 0.0, 1.0, 1.0),
                   tolerance: int = 10) -> float | None:
     """Where a colour is across a picture, inside `box`: the mean x of its

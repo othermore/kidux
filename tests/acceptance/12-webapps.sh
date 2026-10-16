@@ -68,7 +68,9 @@ check "none is no file, and a flag that would open another page or take the wall
               | grep -qx org.kidux.Daemon1.Error.InvalidArgument && test ! -e $FLAGS \
            && $ADMIN_AS set-config chromium_flags '[\"--no-proxy-server\"]' \
               | grep -qx org.kidux.Daemon1.Error.InvalidArgument && test ! -e $FLAGS"
-check "removing the module leaves nothing of it; the server stays for the next" \
+check "removing the module leaves nothing of it, nor the server and the policy, installed for it alone (D100)" \
     sh -c "$ADMIN_AS remove hello-web | grep -q '^removed ' \
            && test ! -e /usr/share/kidux/modules/hello-web && test ! -e /usr/share/kidux/webapps/hello-web \
-           && systemctl is-active --quiet kidux-webapps"
+           && ! systemctl is-active --quiet kidux-webapps \
+           && [ \"\$(dpkg-query -W -f '\${db:Status-Status}' kidux-webapps 2>/dev/null)\" != installed ] \
+           && test ! -e /etc/chromium/policies/managed/kidux.json"

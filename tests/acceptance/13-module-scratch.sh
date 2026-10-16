@@ -24,5 +24,5 @@ check "it is listed for a child, switched off" \
 check "removing it leaves nothing of the module behind" \
     sh -c "$ADMIN_AS remove scratch | grep -q '^removed ' && test ! -e $SCRATCH && test ! -e $SITE \
            && test -z \"\$(find /usr/share/locale -name 'kidux-module-scratch.*')\""
-check "and when it went, no longer" \
-    sh -c "python3 -c 'import json, sys; sys.exit(json.load(open(sys.argv[1]))[\"URLAllowlist\"] != [\"127.0.0.1:8123\", \"blob:*\"])' $POLICY"
+check "and the policy went with the server, installed for it alone (D100)" \
+    sh -c "test ! -e $POLICY"
