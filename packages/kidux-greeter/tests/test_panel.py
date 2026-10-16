@@ -950,6 +950,10 @@ def test_escape_closes_without_saving(panel, daemon):
     assert not [c for c in daemon.calls if c[0] == "set_profile"]
 
 
+def test_back_from_a_modules_settings_is_the_modules_page(panel):
+    assert panel.back("panel_module_settings").name == "panel_modules"
+
+
 def test_a_lost_token_closes_the_panel_and_says_so(panel, daemon):
     daemon.token_valid = False
 

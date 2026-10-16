@@ -992,7 +992,10 @@ class Panel(_NewChild):
     # --- anywhere --------------------------------------------------------------
 
     def back(self, screen: str = "") -> Screen:
-        """Escape and *Close*: the panel closes, and nothing unsaved is kept."""
+        """Escape and *Close*: the panel closes, and nothing unsaved is kept;
+        from a module's settings, Back is the Modules page."""
+        if screen == "panel_module_settings":
+            return self.modules()
         return self.close()
 
     def idle(self) -> Screen:
@@ -1019,7 +1022,7 @@ PANEL_ACTIONS = {
                        "ask_remove", "remove", "tab", "close"),
     "panel_modules": ("set_module", "install_module", "ask_remove_module", "remove_module",
                       "look_for_modules", "poll_modules", "module_settings", "tab", "close"),
-    "panel_module_settings": ("set_module_setting", "tab", "close"),
+    "panel_module_settings": ("set_module_setting", "back", "tab", "close"),
     "panel_system": ("show_recovery", "save_adult_password", "set_language_keyboard",
                      "set_scale", "set_idle", "look_for_updates", "install_updates",
                      "poll_updates",

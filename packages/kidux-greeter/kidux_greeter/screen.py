@@ -18,3 +18,28 @@ class Screen:
     #: one the program started with (the sign-in or the lock screen),
     #: "wizard" or "panel" for the ones it hands over to.
     owner: str = ""
+
+
+#: What moves on from one look at a running job to the next: a page drawn
+#: again for it alone would only flicker over itself.
+PROGRESS = ("fraction", "package", "packages")
+
+
+def only_progress_differs(old: Screen, new: Screen) -> bool:
+    """Whether `new` is `old` with a job's progress moved on, and nothing
+    else: the same polled screen, so that the page on display keeps its
+    place and only its bars and words follow."""
+    if (old.name, old.owner, old.language, old.notice) != (new.name, new.owner, new.language,
+                                                            new.notice):
+        return False
+    if not (old.data.get("polling") and new.data.get("polling")):
+        return False
+
+    def rest(data: dict) -> dict:
+        return {key: value for key, value in data.items() if key != "update"}
+
+    def still(data: dict) -> dict:
+        return {key: value for key, value in (data.get("update") or {}).items()
+                if key not in PROGRESS}
+
+    return rest(old.data) == rest(new.data) and still(old.data) == still(new.data)

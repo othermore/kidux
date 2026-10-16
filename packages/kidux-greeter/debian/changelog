@@ -1,3 +1,12 @@
+kidux-greeter (0.2.57) trixie; urgency=medium
+
+  * The Modules and System pages follow a running job's progress in place,
+    drawn again only when something else changes.
+  * A module's settings have Back, to the Modules page, and Escape does
+    the same.
+
+ -- Antonio Morales García <info@kidux.org>  Fri, 16 Oct 2026 01:59:00 +0200
+
 kidux-greeter (0.2.56) trixie; urgency=medium
 
   * The Advanced page and a module's settings, pages that grow, scroll

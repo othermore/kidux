@@ -28,6 +28,7 @@ from kidux.corner import CSS as CORNER_CSS, Corner  # noqa: E402
 
 from . import words  # noqa: E402
 from .flow import FINAL, GRANT_CHOICES, Screen  # noqa: E402
+from .screen import only_progress_differs  # noqa: E402
 from . import laptop  # noqa: E402
 from .panel import (  # noqa: E402
     IDLE_LOCK_MINUTES, IDLE_LOCK_RANGE, MODES, SCREEN_OFF_MINUTES, SCREEN_OFF_RANGE, parse_access,
@@ -301,6 +302,9 @@ class View:
         #: The Modules page's scrolling room as last drawn, while it is the
         #: page shown, so that drawing it again keeps its place.
         self._modules_room = None
+        #: What follows a running job's progress on the page on display, each
+        #: given the job's state, so that the page is not drawn again for it.
+        self._progress_followers: list = []
         #: The module switch last flipped, (username, module id), which keeps
         #: the focus when the page is drawn again.
         self._flipped: tuple[str, str] | None = None
@@ -403,10 +407,21 @@ class View:
             self.show_error()
 
     def _show(self, screen: Screen) -> None:
+        if self._screen is not None and only_progress_differs(self._screen, screen):
+            # A job's progress moved on and nothing else: the page keeps its
+            # place, its bars and words follow, and it asks again.
+            self._screen = screen
+            update = screen.data.get("update") or {}
+            for follow_progress in self._progress_followers:
+                follow_progress(update)
+            self._cancel_timers()
+            self._schedule(screen)
+            return
         log.info("showing %s", screen.name)
         if screen.name != "panel_modules":
             self._modules_room = None
         self._screen = screen
+        self._progress_followers = []
         self._translations = i18n.translations(screen.language)
         self._cancel_timers()
         self._clock = None
@@ -529,6 +544,8 @@ class View:
         box.append(bar)
         said = Gtk.Label(label=self._(message), css_classes=["kidux-field-label"])
         box.append(said)
+        self._progress_followers.append(
+            lambda moved: bar.set_fraction(float(moved.get("fraction", 0.0))))
         return box
 
     def _button(self, message: str, on_click, *, suggested=False, destructive=False,
@@ -1333,8 +1350,11 @@ class View:
                                   valign=Gtk.Align.CENTER)
             bar.set_size_request(200, -1)
             message = words.INSTALLING_MODULE if job == "installing" else words.REMOVING_MODULE
-            lists.append(self._row(bar, Gtk.Label(
-                label=f"{self._(message)} {update.get('package', '')}".strip())))
+            said = Gtk.Label(label=f"{self._(message)} {update.get('package', '')}".strip())
+            lists.append(self._row(bar, said))
+            self._progress_followers.append(lambda moved, message=message: (
+                bar.set_fraction(float(moved.get("fraction", 0.0))),
+                said.set_label(f"{self._(message)} {moved.get('package', '')}".strip())))
         elif job == "checking":
             lists.append(self._row(spinner_small(),
                                     Gtk.Label(label=self._(words.LOOKING_FOR_MODULES))))
@@ -1396,6 +1416,10 @@ class View:
         it is changed. A secret is never shown, only said to be set."""
         self._adult(page)
         self._tab_bar(page, bottom, "modules")
+        # Back, to the Modules page, in the corner where the panel's own pages
+        # have Close, which moves to the other corner here.
+        self._back(bottom)
+        bottom.set_end_widget(self._button(words.CLOSE, self._ask("close"), quiet=True))
         data = screen.data
         module_id, kids = data["module"], data.get("children") or []
         values, secrets = data.get("values") or {}, data.get("secrets") or {}
@@ -1630,14 +1654,16 @@ class View:
         job, outcome = update.get("job"), update.get("outcome")
         packages = update.get("packages") or []
 
-        def say(message: str, detail: str = "", whole: str = "") -> None:
+        def say(message: str, detail: str = "", whole: str = "") -> Gtk.Label:
             # Two lines at most, the rest behind an ellipsis and in the
             # tooltip: the System page fits 1280x800 with little to spare,
             # and a long list of updates or apt's line must not push it over.
             text = self._(message) + (f" {detail}" if detail else "")
-            row.append(Gtk.Label(label=text, xalign=0.0, wrap=True, max_width_chars=40,
-                                 lines=2, ellipsize=Pango.EllipsizeMode.END,
-                                 tooltip_text=whole or text))
+            said = Gtk.Label(label=text, xalign=0.0, wrap=True, max_width_chars=40,
+                             lines=2, ellipsize=Pango.EllipsizeMode.END,
+                             tooltip_text=whole or text)
+            row.append(said)
+            return said
 
         def act(message: str, method: str) -> None:
             row.append(self._button(message, self._ask(method), text=self._(message)))
@@ -1649,7 +1675,10 @@ class View:
             bar = Gtk.ProgressBar(fraction=float(update.get("fraction", 0.0)), valign=Gtk.Align.CENTER)
             bar.set_size_request(200, -1)
             row.append(bar)
-            say(words.INSTALLING, update.get("package", ""))
+            said = say(words.INSTALLING, update.get("package", ""))
+            self._progress_followers.append(lambda moved: (
+                bar.set_fraction(float(moved.get("fraction", 0.0))),
+                said.set_label(f"{self._(words.INSTALLING)} {moved.get('package', '')}".strip())))
         elif outcome == "checked" and packages:
             count = len(packages)
             shown = ", ".join(packages[:4]) + (", …" if count > 4 else "")
