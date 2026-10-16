@@ -1,7 +1,10 @@
 kidux-greeter (0.2.57) trixie; urgency=medium
 
-  * The Modules and System pages follow a running job's progress in place,
-    drawn again only when something else changes.
+  * A module installs and is removed in its own row of the Modules page:
+    among the installed ones from the moment Install is pressed, its
+    progress where its switches and buttons will be, Remove asking in the
+    row, and how it went said in a toast; the page never moves for it. The
+    System page follows an update's progress in place the same way.
   * A module's settings have Back, to the Modules page, and Escape does
     the same.
 

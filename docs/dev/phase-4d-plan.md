@@ -612,3 +612,9 @@ Decided 2026-10-16 by the owner, on the review of 4.26.
     went by itself is read again.
 14. **The warnings that time is running out are bubbles too**, from
     Kidux, and the bar keeps only the time left.
+15. **A module installs and is removed in its own row of the Modules
+    page**: the module being installed is among the installed ones from
+    the moment Install is pressed, with its progress where its switches
+    and buttons will be; Remove asks in the row; how it went is a toast,
+    and nothing on the page moves.
+16. **Removing a module purges what was installed for it alone** (D100).

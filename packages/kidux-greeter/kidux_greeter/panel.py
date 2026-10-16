@@ -368,6 +368,13 @@ class Panel(_NewChild):
         self._recovery: str | None = None
         #: What the archive offers, as the Modules page last asked it.
         self._offered: list | None = None
+        #: The module being removed, and its row as last shown, which stays
+        #: on the page with how far its removal has got once its manifest
+        #: is gone.
+        self._removing: str | None = None
+        self._removing_row: dict | None = None
+        #: The installed modules' rows as last drawn.
+        self._rows_shown: list = []
         #: The module the adult asked to install, whose row shows how far it
         #: has got while the job runs.
         self._installing: str | None = None
@@ -552,7 +559,8 @@ class Panel(_NewChild):
     # --- the other pages -----------------------------------------------------
 
     def modules(self, notice: str | None = None, confirm_remove: str | None = None,
-                failure: str = "") -> Screen:
+                failure: str = "",
+                toast: str | None = None) -> Screen:
         """Two parts. The installed modules down, every child across, a
         switch where they meet, and Remove at the end of each; names and
         descriptions in the machine's language. Then the modules the
@@ -592,16 +600,39 @@ class Panel(_NewChild):
         def first(entry: dict) -> list[str]:
             return [names.get(other, other) for other in entry.get("before", [])]
 
+        # The module being installed is in the installed list from the
+        # moment Install is pressed, with how far it has got where its
+        # switches and buttons will be, as the archive describes it until
+        # its manifest is in place; the one being removed shows the same in
+        # place of its buttons. Neither moves the page.
+        installing = self._installing if update["job"] == "installing" else None
+        removing = self._removing if update["job"] == "removing" else None
+        for row in rows:
+            row["job"] = ("installing" if row["id"] == installing
+                          else "removing" if row["id"] == removing else None)
+        if removing and removing not in installed and self._removing_row is not None:
+            rows.append({**self._removing_row, "job": "removing"})
+        if installing and installing not in installed:
+            entry = next((e for e in offered if e["id"] == installing), None)
+            if entry is not None:
+                rows.append({"id": entry["id"], "name": entry["name"],
+                             "description": entry.get("description", ""), "enabled": {},
+                             "needs_windows": False, "min_age": entry.get("min_age", 0),
+                             "max_age": entry.get("max_age", 0),
+                             "before": list(entry.get("before", [])),
+                             "version": shown_version(entry.get("offered_version", "")),
+                             "settings": False, "job": "installing"})
         rows = ordered([{**row, "first": first(row)} for row in rows])
+        self._rows_shown = rows
         on_offer = ordered([{**entry, "first": first(entry),
                              "offered_version": shown_version(entry.get("offered_version", ""))}
                             for entry in offered
-                            if entry["id"] not in installed and not entry["installed"]])
+                            if entry["id"] not in installed and not entry["installed"]
+                            and entry["id"] != installing])
         return self._screen("panel_modules", notice, children=kids, modules=rows,
-                            offered=on_offer,
-                            installing=self._installing if update["job"] == "installing" else None,
+                            offered=on_offer, installing=installing,
                             source=bool(offered), confirm_remove=confirm_remove,
-                            failure=failure, update=update,
+                            failure=failure, update=update, toast=toast,
                             polling=update["job"] in ("checking", "installing", "removing",
                                                       "away"),
                             poll="poll_modules")
@@ -626,6 +657,9 @@ class Panel(_NewChild):
         return self.modules(confirm_remove=module_id)
 
     def remove_module(self, module_id: str) -> Screen:
+        self._removing = module_id
+        self._removing_row = next((row for row in self._rows_shown if row["id"] == module_id),
+                                  None)
         return self._module_job(lambda: self._daemon.remove_module(self._token, module_id))
 
     def look_for_modules(self) -> Screen:
@@ -643,10 +677,12 @@ class Panel(_NewChild):
         update = self._update_state()
         if update["job"] != "idle":
             return self.modules()
-        notice = {"installed": words.MODULE_INSTALLED, "removed": words.MODULE_REMOVED,
-                  "failed": words.MODULE_FAILED}.get(update["outcome"])
-        return self.modules(notice, failure=update["detail"] if update["outcome"] == "failed"
-                            else "")
+        # How it went is said in passing, in a toast, so that the page
+        # stays where it is; what apt said of a failure stays on the page.
+        toast = {"installed": words.MODULE_INSTALLED, "removed": words.MODULE_REMOVED,
+                 "failed": words.MODULE_FAILED}.get(update["outcome"])
+        return self.modules(toast=toast,
+                            failure=update["detail"] if update["outcome"] == "failed" else "")
 
     def module_settings(self, module_id: str, notice: str | None = None) -> Screen:
         """A module's settings, as its manifest declares them (D90): the

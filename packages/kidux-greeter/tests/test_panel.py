@@ -625,10 +625,10 @@ def test_the_modules_page_has_a_switch_per_module_and_child(panel, daemon, insta
     assert screen.data["modules"] == [
         {"id": "hello", "name": "Hello", "description": "About Hello.",
          "enabled": {"ana": False, "tom": False}, "needs_windows": False,
-         "min_age": 0, "max_age": 0, "before": [], "version": "", "settings": False, "first": []},
+         "min_age": 0, "max_age": 0, "before": [], "version": "", "settings": False, "job": None, "first": []},
         {"id": "paint", "name": "Paint", "description": "About Paint.",
          "enabled": {"ana": False, "tom": True}, "needs_windows": False,
-         "min_age": 0, "max_age": 0, "before": [], "version": "", "settings": False, "first": []},
+         "min_age": 0, "max_age": 0, "before": [], "version": "", "settings": False, "job": None, "first": []},
     ]
 
 
@@ -761,7 +761,8 @@ def test_a_machine_without_the_archive_has_no_source_of_modules(panel, daemon, i
     assert (screen.data["offered"], screen.data["source"]) == ([], False)
 
 
-def test_installing_starts_the_job_and_the_page_follows_it(panel, daemon, installed):
+def test_installing_starts_the_job_and_the_module_is_installed_from_then_on(panel, daemon,
+                                                                           installed):
     daemon.offered = [GCOMPRIS]
 
     screen = panel.install_module("gcompris")
@@ -769,12 +770,19 @@ def test_installing_starts_the_job_and_the_page_follows_it(panel, daemon, instal
     assert ("install_module", "gcompris") in daemon.calls
     assert screen.data["update"]["job"] == "installing"
     assert (screen.data["polling"], screen.data["poll"]) == (True, "poll_modules")
-    # Its row shows how far it has got, where the adult pressed Install.
+    # Its row is among the installed ones, as the archive describes it, with
+    # how far it has got; it is no longer on offer.
     assert screen.data["installing"] == "gcompris"
+    row = next(r for r in screen.data["modules"] if r["id"] == "gcompris")
+    assert (row["job"], row["name"], row["enabled"], row["settings"]) == ("installing", "GCompris",
+                                                                          {}, False)
+    assert "gcompris" not in [e["id"] for e in screen.data["offered"]]
+    assert all(r["job"] is None for r in screen.data["modules"] if r["id"] != "gcompris")
 
     daemon.update = ("idle", 0.0, "", "installed", "", [])
     screen = panel.poll_modules()
-    assert (screen.notice, screen.data["polling"]) == (words.MODULE_INSTALLED, False)
+    assert (screen.notice, screen.data["toast"], screen.data["polling"]) == (
+        None, words.MODULE_INSTALLED, False)
     assert screen.data["installing"] is None
 
 
@@ -783,11 +791,11 @@ def test_a_failed_job_says_so_and_what_apt_said(panel, daemon, installed):
 
     screen = panel.poll_modules()
 
-    assert (screen.notice, screen.data["failure"]) == (words.MODULE_FAILED,
-                                                       "E: Unable to locate package")
+    assert (screen.data["toast"], screen.data["failure"]) == (words.MODULE_FAILED,
+                                                              "E: Unable to locate package")
 
 
-def test_removing_asks_first_then_removes(panel, daemon, installed):
+def test_removing_asks_first_then_removes(panel, daemon, installed, tmp_path):
     screen = panel.ask_remove_module("hello")
     assert screen.data["confirm_remove"] == "hello"
     assert daemon.calls == []
@@ -795,9 +803,18 @@ def test_removing_asks_first_then_removes(panel, daemon, installed):
     screen = panel.remove_module("hello")
     assert ("remove_module", "hello") in daemon.calls
     assert screen.data["update"]["job"] == "removing"
+    # Its row shows how far it has got, where its switches and buttons were,
+    # and stays once its manifest is gone, until the job ends.
+    assert [r["job"] for r in screen.data["modules"] if r["id"] == "hello"] == ["removing"]
+    import shutil
+    shutil.rmtree(tmp_path / "hello")
+    daemon.update = ("removing", 0.8, "kidux-module-hello", "", "", [])
+    screen = panel.poll_modules()
+    assert [(r["job"], r["name"]) for r in screen.data["modules"] if r["id"] == "hello"] == [
+        ("removing", "Hello")]
 
     daemon.update = ("idle", 0.0, "", "removed", "", [])
-    assert panel.poll_modules().notice == words.MODULE_REMOVED
+    assert panel.poll_modules().data["toast"] == words.MODULE_REMOVED
 
 
 @pytest.mark.parametrize("method", ["install_module", "remove_module"])

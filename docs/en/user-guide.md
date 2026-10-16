@@ -597,16 +597,19 @@ Under the installed modules, **Add modules** lists the learning modules
 Kidux offers that are not on the computer yet, with the same ages and
 modules to do first.
 
-- **Install** adds one. The page shows how far it has got. The module then
-  appears above, switched off for every child.
+- **Install** adds one. The module moves up among the installed ones at
+  once, with a bar that shows how far it has got where its switches will
+  be; done, it is switched off for every child, and a word at the bottom
+  of the page says so.
 - **Settings**, in the row of a module that has some, opens what an adult
   can set in it for each child: one column for each child, and each
   setting with what it does written under it. A change is saved as soon
   as it is made. BASIC's is *Type it in for me*: switched off, the child
   types every program of the guide.
-- **Remove**, at the end of an installed module's row, asks once and takes
-  the module off the computer. What each child made with it stays in their
-  own folders, and what the module kept for each child, such as their
+- **Remove**, at the end of an installed module's row, asks once, in that
+  row, and takes the module off the computer, with the programs that were
+  installed for it alone. What each child made with it stays in their own
+  folders, and what the module kept for each child, such as their
   progress and settings, stays too: installed again, it finds them.
 - **Look for modules** asks Kidux for what it offers now. It needs an
   internet connection.

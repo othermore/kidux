@@ -152,11 +152,12 @@ and a notice. Flipping a
 switch calls `Modules1.SetEnabled` at once and draws the page again from
 what the daemon then says, with *Saved.*, or with *This was not saved* and
 the switch back where it was; the focus stays on the switch just flipped,
-and starts on the first switch. *Remove* asks once, on the page: *Remove
-<name>? The children's own files stay.*, with *Cancel*, which has the
-focus, and *Remove*, which calls `Modules1.Remove`. The tab order of a row
-is its switches, then *Settings*, for a module that declares settings
-(D90), then *Remove*. With nothing installed, the part says so.
+and starts on the first switch. *Remove* asks once, in the module's own
+row, where *Settings* and *Remove* were: *Remove <name>? The children's
+own files stay.*, with *Cancel*, which has the focus, and *Remove*, which
+calls `Modules1.Remove`. The tab order of a row is its switches, then
+*Settings*, for a module that declares settings (D90), then *Remove*. With
+nothing installed, the part says so.
 
 *Settings* opens a page of the module's own: its name, *Each child has
 their own. A change is saved as soon as it is made.*, then a grid with
@@ -195,13 +196,22 @@ own between the tabs and the bottom row that scrolls, centred there while
 they fit, and following the keyboard's focus (D63's scrollbar and
 shades); the page itself fits 1280x800 however many modules there are.
 
-While a module is installed or removed, the page shows a bar and the
-package, as the System page does for updates, with *Install*, *Remove* and
-*Look for modules* insensitive, and asks `System1.UpdateState` once a
-second (`poll_modules`); the page the job ends on says *Installed.*,
-*Removed.* or *That did not work.* with apt's own line. With a child
-signed in, *Install* and *Remove* answer *Children are signed in. Modules
-can be installed and removed once they have logged out.*
+While a module is installed, it is among the installed modules from the
+moment *Install* is pressed, as the archive describes it until its
+manifest is in place, with a bar of how far it has got across the room
+its switches and buttons will take; while one is removed, its row stays,
+as last drawn, with the bar across the same room, until the removal
+ends. *Install*, *Remove* and *Look for modules* are insensitive
+meanwhile, the switches and *Settings* of the other modules are not, and
+the page asks `System1.UpdateState` once a second
+(`poll_modules`), following the bar in place: the page is drawn again
+only when something else changes, so that it never moves under the adult
+(`screen.only_progress_differs`). How the job went, *Installed.*,
+*Removed.* or *That did not work.*, is a toast over the bottom of the
+page for five seconds, which moves nothing; apt's own line of a failure
+stays on the page. With a child signed in, *Install* and *Remove* answer
+*Children are signed in. Modules can be installed and removed once they
+have logged out.*
 
 **System.** One form:
 

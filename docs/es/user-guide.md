@@ -614,16 +614,19 @@ Debajo de los módulos instalados, **Añadir módulos** muestra los módulos de
 aprendizaje que ofrece Kidux y que aún no están en el ordenador, con las
 mismas edades y módulos que hacer antes.
 
-- **Instalar** añade uno. La página enseña cuánto le falta. Después, el
-  módulo aparece arriba, apagado para todos los niños.
+- **Instalar** añade uno. El módulo sube al momento entre los instalados,
+  con una barra que enseña cuánto le falta donde irán sus interruptores;
+  al terminar queda apagado para todos los niños, y una palabra abajo en
+  la página lo dice.
 - **Ajustes**, en la fila de un módulo que los tenga, abre lo que un adulto
   puede ajustar en él para cada niño: una columna por niño, y cada ajuste
   con lo que hace escrito debajo. Un cambio se guarda en cuanto se hace. El
   de BASIC es *Escríbemelo*: apagado, el niño escribe todos los programas
   de la guía.
 - **Eliminar**, al final de la fila de un módulo instalado, pregunta una
-  vez y quita el módulo del ordenador. Lo que cada niño hizo con él se
-  queda en sus propias carpetas, y lo que el módulo guardaba para cada
+  vez, en esa misma fila, y quita el módulo del ordenador, con los
+  programas que se instalaron solo para él. Lo que cada niño hizo con él
+  se queda en sus propias carpetas, y lo que el módulo guardaba para cada
   niño, como su avance y sus ajustes, también: si se vuelve a instalar, lo
   encuentra.
 - **Buscar módulos** pregunta a Kidux qué ofrece ahora. Necesita conexión a
