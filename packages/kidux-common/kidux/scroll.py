@@ -58,13 +58,50 @@ def scroller(child, *, horizontal: bool = True, expand: bool = True):
     return area
 
 
+#: How long an area's size is let settle before it is judged: a window takes
+#: passing sizes while it is first shown, before the compositor maximises it.
+SETTLE_MS = 500
+
+
+def overflows(shown: float, needed: float) -> bool:
+    """Whether content `needed` pixels long does not fit in `shown`; a pixel
+    of slack is none, and an area not shown yet overflows nothing."""
+    return shown > 0 and needed > shown + 1
+
+
+class Settling:
+    """Calls `judge(key)` once `SETTLE_MS` have passed since the last
+    `changed(key)`, through `add` and `remove`, GLib's timeouts by default."""
+
+    def __init__(self, judge, add=None, remove=None) -> None:
+        if add is None or remove is None:
+            from gi.repository import GLib
+            add, remove = GLib.timeout_add, GLib.source_remove
+        self._judge, self._add, self._remove = judge, add, remove
+        self._pending: dict = {}
+
+    def changed(self, key) -> None:
+        if key in self._pending:
+            self._remove(self._pending.pop(key))
+        self._pending[key] = self._add(SETTLE_MS, self._settled, key)
+
+    def _settled(self, key) -> bool:
+        self._pending.pop(key, None)
+        self._judge(key)
+        return False
+
+
 def watch(area, on_overflow) -> None:
     """Call `on_overflow(way, needed, shown)`, `way` "tall" or "wide", each
-    time `area`'s content needs more room than it is given that way."""
-    def changed(adjustment, way):
-        shown, needed = adjustment.get_page_size(), adjustment.get_upper()
-        if shown > 0 and needed > shown + 1:
+    time `area`'s content needs more room than it is given that way, once
+    its size has settled."""
+    adjustments = {"tall": area.get_vadjustment(), "wide": area.get_hadjustment()}
+
+    def judge(way):
+        shown, needed = adjustments[way].get_page_size(), adjustments[way].get_upper()
+        if overflows(shown, needed):
             on_overflow(way, int(needed), int(shown))
 
-    area.get_vadjustment().connect("changed", changed, "tall")
-    area.get_hadjustment().connect("changed", changed, "wide")
+    settling = Settling(judge)
+    for way, adjustment in adjustments.items():
+        adjustment.connect("changed", lambda _adjustment, way=way: settling.changed(way))
