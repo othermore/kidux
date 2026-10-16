@@ -4,16 +4,17 @@ A child's first email, in two modules an adult chooses between by the
 family's provider: **Mail**, Thunderbird with the account an adult gives
 on the panel, for Gmail, Outlook, iCloud and any provider that speaks
 IMAP; and **Gmail**, a door to Gmail's website, for a family that prefers
-the website as it is. And one fix the owner found on the MacBook: closing
-the lid turns the screen off but leaves the keyboard lit. This plan is
-how. It follows phase-4c-plan.md's rules (section 3 there) and D93: a
+the website as it is, and for a child whose Google account is managed
+with Family Link, which Google does not let sign in to Thunderbird. And
+one fix the owner found on the MacBook: closing the lid turns the screen
+off but leaves the keyboard lit. This plan is how. It follows phase-4c-plan.md's rules (section 3 there) and D93: a
 commit per step, partial tests while building, the battery once at the
 end, every user-facing word through i18n in both languages, a package's
 new version at its first change and `~dev` builds of it until the owner
 tries the work and says yes.
 
-Section 4 records what the owner decided on 2026-10-12, which the steps
-follow.
+Section 4 records what the owner decided, on 2026-10-12 and, after
+4.21, on 2026-10-15, which the steps follow.
 
 ## 1. Steps
 
@@ -30,82 +31,109 @@ follow.
 ### 4.21 — Found on the machine first
 
 **Cause.** Three things this plan rests on are facts about Thunderbird,
-Google and the MacBook, not about Kidux, and each is cheaper to try on
-the test machine than to build around a guess. Nothing of 4.22 to 4.24
-is written until these are known; what is found goes into the steps
-below, and into the documents, as facts.
+Google and the MacBook, not about Kidux, and each was cheaper to try on
+the test machine than to build around a guess. They were tried on the
+quick loop's machine (`tests/run vm up 04`, `thunderbird` installed there
+by hand), each program run from a child's session as a module runs it,
+and on the MacBook for its light. What was found is below, and the steps
+that follow are written from it.
 
-**Thunderbird in a child's session**, on the quick loop's machine
-(`tests/run vm up 04`, `apt-get install thunderbird` there by hand), run
-from a child's session as a module would run it, with
-`XDG_CONFIG_HOME` set as the launcher sets it (launcher.md section 5):
+**Thunderbird in a child's session** (Debian's 140.17 ESR):
 
-1. **The policies file Debian's Thunderbird reads**: expected
-   `/etc/thunderbird/policies/policies.json`, as Debian's Firefox reads
-   `/etc/firefox-esr/policies/`; confirmed with a policy that shows
-   (`DisableAppUpdate`, then *Help → About*), or found in
-   `dpkg -L thunderbird` and the package's patches. Which policies 140 ESR
-   knows (the Thunderbird policy templates of that version), of the list
-   in 4.22, and whether `Preferences` accepts `mail.*` prefs.
-2. **Its window's name under labwc**: the `app_id` the launcher sees
-   (`toplevels:` in the launcher's log), expected `thunderbird`; and
-   that it draws under Wayland (`MOZ_ENABLE_WAYLAND=1` is set by
-   kidux-session) rather than through XWayland.
-3. **An account seeded from `user.js`**: a profile made by hand with the
-   prefs of 4.22 for an IMAP account on a made-up host, and whether
-   Thunderbird starts on that account without its account setup, with
-   the folder pane showing it; then a change made by hand in *Account
-   Settings* and whether a fresh `user.js` at the next start reverts it.
-   Also what Thunderbird does when `user.js` names no account: its setup
-   window, which is what a child sees when no address was given.
-4. **The password, once**: with a real IMAP account of the owner's, typed
-   by hand on the machine and never written to any file (phase-4c-plan.md
-   section 3), whether Thunderbird asks for the password at the first
-   connection with *Use Password Manager to remember this password*
-   offered, keeps it across restarts, and whether
-   `DisableMasterPasswordCreation` keeps the primary password out of a
-   child's reach.
-5. **Gmail with OAuth**: with a Google account the owner gives for the
-   try, typed by hand and never stored, whether Thunderbird's own sign-in
-   to Google (`authMethod` 10, `oauth2`) opens Google's window inside the
-   session, takes the second factor, and keeps the grant across restarts;
-   and, if the owner can make one, **a Family Link account** (a child
-   under 13): whether Google lets it authorise Thunderbird, with the
-   parent's approval or not at all. If it cannot, the Mail module still
-   serves every other account, and the Gmail module (4.23) is the way for
-   a Family Link child: the user guide says so.
-6. **Links and attachments**: where a link in a message goes (expected:
-   Thunderbird asks the system for a browser, which is Chromium walled
-   by the policy of D36 to the installed modules' hosts, which is a door
-   this plan closes: a link must lead nowhere, as in every module, through
-   a `Handlers` policy or a handler that does nothing, found here); and
-   where an attachment is saved (`DefaultDownloadDirectory` or
-   `browser.download.dir`, to the child's Downloads folder in their
-   language, D76).
-7. **Memory and start time** on the test machine, for `memory_max` and for
-   the session test's patience.
+1. **Its policies** are read from `/etc/thunderbird/policies/policies.json`
+   (`browser.policies.applied` is true once a policy there takes). Version
+   140 knows every policy step 4.22 names; the primary password's is
+   `DisableMasterPasswordCreation`. `Preferences` takes, among others,
+   prefs beginning `mail.`, `mailnews.`, `browser.`, `network.` and
+   `signon.`, and can lock them.
+2. **Its window** is `thunderbird`, drawn under Wayland, above the bar.
+   It is up in about two seconds and holds about 370 MB with an empty
+   mailbox.
+3. **Its language** is the session's only with its language pack installed:
+   without one, Thunderbird is in English for every child. Debian has one
+   package a language, and `thunderbird-l10n-all` brings them all.
+4. **An account seeded from `user.js`** comes up without Thunderbird's
+   account setup, in the folder pane. Thunderbird connects to it at start
+   only with `login_at_startup` and `check_new_mail` set on the incoming
+   server. *Local Folders* has to be declared in `user.js` beside it, with
+   its name, or Thunderbird makes a new one at every start: an account of
+   type `none` of its own, named in the child's language.
+   A `user.js` written afresh at every start puts the account list back,
+   so that an account added by hand is gone at the next start.
+5. **With no account in `user.js`**, only Local Folders, Thunderbird opens
+   no setup window: it shows Local Folders' page, *Choose what to set up*,
+   from which an account can be set up by hand, and which the next start
+   forgets, as above. A bar along the bottom about Thunderbird's licence
+   (*Know your rights*) is kept away with `mail.rights.version` 1.
+6. **Links and attachments.** A link in a message, and an attachment of a
+   kind Thunderbird does not know, offered *Choose another application…*, a
+   chooser of any program on the machine. That door is closed with a
+   `Handlers` policy that hands `http` and `https` to `/usr/bin/true`, so a
+   link leads nowhere, and with `browser.download.forbid_open_with` and
+   `network.protocol-handler.external-default` locked by the policy, so
+   that an attachment offers only *Save File* and *Cancel*. It is saved in
+   the folder `browser.download.dir` names, written in `user.js` from the
+   child's `user-dirs.dirs` (D76): `/home/leo/Descargas` for Leo in Spanish.
+   `mail.chat.enabled` locked off takes Chat out of the side bar.
+7. **Google's sign-in from Thunderbird** (`authMethod` 10) opens Google's
+   own window inside Thunderbird, in the child's language, with the address
+   filled in. **A Family Link account cannot use it**: after the password,
+   Google answers *Accounts managed with Family Link can't sign in here*.
+   This is Google's rule, and nothing on the machine changes it. So Mail
+   serves every account but a Family Link one, and Gmail (4.23) is the way
+   for a Family Link child. The owner chose this on 2026-10-15
+   (section 4, decision 7).
+8. **A password account** was not tried: the owner has no IMAP account for
+   the test, and tries one on the MacBook before the release.
+9. **Mozilla's autoconfiguration database**
+   (`https://autoconfig.thunderbird.net/v1.1/<domain>`) answers Gmail,
+   Outlook, Hotmail, iCloud and Yahoo with their servers, `OAuth2` first
+   for Google and Microsoft, and answers 404 for a domain it does not know.
 
-**Gmail's hosts**, as 4.12 found CodeCombat's: Chromium's net log over
-Gmail's front page, the sign-in, the inbox, opening a message, writing
-one, an attachment, and signing out, from a `kidux-webapp` window; the
-hosts that are Gmail's, each named as narrowly as the manifest's `hosts`
-allows (`mail.google.com`, `accounts.google.com`, `ssl.gstatic.com` and
-the like, never `google.com` whole, which would open Search, Drive and
-Docs too), and the ones left out, with why. Also whether Google's sign-in
-page takes the address from the URL (`login_hint`, `Email`, the account
-chooser) so that the panel's `email` setting can fill it, and whether
-Google's sign-in works at all in a Chromium under a managed policy with
-`BrowserSignin` off (D36).
+**Gmail in Kidux's Chromium**, a throwaway module on the same machine:
 
-**The keyboard's light** on the owner's MacBook, by hand: the LED's name
-under `/sys/class/leds/` (`kidux.hardware.keyboard_backlight` looks for
-`*kbd_backlight*`), that `brightnessctl` can set it to 0 and back as the
-child (group `video`, D61), and whether closing the lid changes it by
-itself at all today (it does not, the owner found). Done by the owner at
-the agent's request, since the test machines have no keyboard light.
+1. **Signing in works**, with a Family Link account too: Google's page,
+   in the child's language, takes the address, then the password, and
+   asks no second step of a known account; the window goes on to the
+   inbox. The session stays across closing the window and across logging
+   out and in again, in the module's Chromium profile (D89).
+2. **The address can be filled in from the URL**: Google's sign-in page,
+   `https://accounts.google.com/ServiceLogin?service=mail&continue=…`, takes
+   it as `Email=`, and with `Email=` empty it is the ordinary page with an
+   empty field. So no page script is needed: the panel's `email` setting
+   goes into the module's address.
+3. **Signing in passes through the country's own Google**: on the way to
+   the inbox Google calls `accounts.google.<the country's domain>`
+   (`accounts.google.es` in Spain), and without it the sign-in stops on a
+   blocked page. The country is the family's, so the module allows the
+   `accounts.` host of every domain Google publishes as its own
+   (`https://www.google.com/supported_domains`, 187 of them), and nothing
+   else of those domains.
+4. **Gmail's hosts**, from Chromium's net log over signing in, the inbox, a
+   message with pictures, an attachment's preview, writing a message and
+   signing out: `mail.google.com`, `accounts.google.com` and the country's
+   `accounts.google.<domain>`, `apis.google.com`, `contacts.google.com`,
+   `ogs.google.com` (the account's menu), `clients6.google.com` (new mail,
+   contacts' suggestions), `ssl.gstatic.com`, `www.gstatic.com`,
+   `fonts.gstatic.com`, `fonts.googleapis.com`, `lh3.google.com` and
+   `lh3.googleusercontent.com` (pictures of people),
+   `mail-attachment.googleusercontent.com` (an attachment's preview and its
+   download) and `ci3` to `ci6.googleusercontent.com` (the pictures inside
+   messages, which Google serves from these four). Left out, with all of
+   Gmail working without them: `www.google.com`, which is Search, and only
+   gave Gmail its icon and a script of Google's against abuse;
+   `play.google.com`, which only took usage logs; `mail-ads.google.com`,
+   the ads; `content.googleapis.com`, Drive's list of programs to open an
+   attachment with; and the hosts Chromium calls by itself, which Kidux's
+   policy keeps closed.
 
-**Tests.** None of Kidux's: this step finds facts. **Documents.** The
-facts go into this plan's steps, replacing the expectations above.
+**The keyboard's light** on the owner's MacBook: the LED is
+`/sys/class/leds/smc::kbd_backlight` (which `*kbd_backlight*` finds), at
+most 255, in group `video` with mode 664, so the child's session sets it
+to 0 and back; closing the lid leaves it as it is.
+
+**Tests.** None of Kidux's: this step found facts. The accounts were typed
+on the test machine only, and the machine was destroyed after.
 
 ### 4.22 — Mail: Thunderbird as a module
 
@@ -117,8 +145,10 @@ to 4).
 5): the manifest, the tile, its words, a program that starts Thunderbird
 with the account in place, and Thunderbird's policies file. It depends
 on `thunderbird` (140 ESR in trixie, Debian's own, with its security
-updates), and ships nothing of Thunderbird's. Its name is *Mail*, in
-Spanish *Correo*; its icon an envelope in the brand's style
+updates) and on `thunderbird-l10n-all`, every language's pack, so that
+Thunderbird speaks each child's language with no change to the package
+when Kidux gains one (4.21); it ships nothing of Thunderbird's. Its name
+is *Mail*, in Spanish *Correo*; its icon an envelope in the brand's style
 (branding/README.md), drawn as the other modules' icons are.
 
 **The manifest**:
@@ -127,12 +157,12 @@ Spanish *Correo*; its icon an envelope in the brand's style
 id = "mail"
 version = "0.1.0"
 name = "Mail"
-description = "A mailbox of the child's own, in Thunderbird, with the account an adult gives: Gmail, Outlook, iCloud or any provider."
+description = "A mailbox of the child's own, in Thunderbird, with the account an adult gives: Gmail, Outlook, iCloud or any provider. A Google account managed with Family Link cannot sign in to it; the Gmail module is for one."
 min_age = 8
 launch = { exec = "/usr/libexec/kidux-module-mail" }
-app_ids = ["thunderbird"]              # as 4.21 found it
+app_ids = ["thunderbird"]
 i18n_domain = "kidux-module-mail"
-memory_max = "3G"                      # as 4.21 found it
+memory_max = "2G"
 
 [[settings]]
 key = "email"
@@ -173,25 +203,31 @@ launcher as the child with the settings in `KIDUX_SETTING_<KEY>`
    `~/.config/kidux/mail/` (D44), made with mode 0700. Thunderbird is
    started on it with `thunderbird --profile <dir> --no-remote`, so that
    no other profile of the child's is ever read.
-2. **The servers**: the settings' `imap_host` and `smtp_host` when given;
-   otherwise Mozilla's autoconfiguration database, the one Thunderbird's
+2. **The servers**: the settings' `imap_host` and `smtp_host` when given,
+   each a host, or a host and its port (`host:143` and `host:587` with
+   STARTTLS, otherwise 993 and 465 with TLS), signed in to with a
+   password; otherwise Mozilla's autoconfiguration database, the one Thunderbird's
    own setup uses, `https://autoconfig.thunderbird.net/v1.1/<domain>`,
    fetched with a short timeout and kept in the profile
    (`kidux-autoconfig.json`), so that a later start needs no network.
    Its XML gives the incoming server (type, host, port, socket type,
    authentication) and the outgoing one; `OAuth2` for Google and
-   Microsoft, a password for the rest. Without an address, or with a
-   domain the database does not know and no servers given, the program
-   seeds no account and Thunderbird opens its own setup, which the guide
-   says is the adult's to answer.
+   Microsoft, a password for the rest; the first of the database's
+   incoming servers of type `imap`. Without an address, or with a domain
+   the database does not know and no servers given, the program seeds no
+   account: Thunderbird shows Local Folders' page, and what is set up by
+   hand there is gone at the next start (4.21), so the guide says that
+   the address, and the servers when Mail cannot find them, go on the
+   panel.
 3. **`user.js`**, written afresh at every start from the settings, so
    that whatever a child changes in *Account Settings* is back the next
    time (section 4, decision 4): one account, one identity, one incoming
-   server, one outgoing server, as 4.21 found the prefs to be, in the
+   server, one outgoing server, and Local Folders beside them, named in
+   the child's language through the module's catalogue (4.21), in the
    shape of
 
    ```
-   user_pref("mail.accountmanager.accounts", "account1");
+   user_pref("mail.accountmanager.accounts", "account1,account2");
    user_pref("mail.accountmanager.defaultaccount", "account1");
    user_pref("mail.account.account1.identities", "id1");
    user_pref("mail.account.account1.server", "server1");
@@ -205,6 +241,14 @@ launcher as the child with the settings in `KIDUX_SETTING_<KEY>`
    user_pref("mail.server.server1.userName", "<email>");
    user_pref("mail.server.server1.authMethod", 3);   // 10 for OAuth2
    user_pref("mail.server.server1.name", "<email>");
+   user_pref("mail.server.server1.login_at_startup", true);
+   user_pref("mail.server.server1.check_new_mail", true);
+   user_pref("mail.account.account2.server", "server2");
+   user_pref("mail.accountmanager.localfoldersserver", "server2");
+   user_pref("mail.server.server2.type", "none");
+   user_pref("mail.server.server2.hostname", "Local Folders");
+   user_pref("mail.server.server2.userName", "nobody");
+   user_pref("mail.server.server2.name", "<Local Folders, translated>");
    user_pref("mail.smtpservers", "smtp1");
    user_pref("mail.smtp.defaultserver", "smtp1");
    user_pref("mail.smtpserver.smtp1.hostname", "<smtp host>");
@@ -217,27 +261,36 @@ launcher as the child with the settings in `KIDUX_SETTING_<KEY>`
    and the prefs that keep Thunderbird quiet and small for a child: no
    start page (`mailnews.start_page.enabled` false), no offer of a new
    address (`mail.provider.enabled` false), no default-client question
-   (`mail.shell.checkDefaultClient` false), no data reporting, no
-   *What's new*, the three-pane view, and the download directory the
-   child's Downloads folder in their language (`browser.download.dir`,
-   from `user-dirs.dirs`, D76), as 4.21 found. Nothing else is written
+   (`mail.shell.checkDefaultClient` false), no bar about the licence
+   (`mail.rights.version` 1), no data reporting, and the download
+   directory the child's Downloads folder in their language
+   (`browser.download.dir` and `browser.download.folderList` 2, from
+   `user-dirs.dirs`, D76). Without an account, only Local Folders and
+   these. Nothing else is written
    into the profile: what Thunderbird keeps there, the password among it,
    is Thunderbird's.
 4. **`--print`** writes the `user.js` it would make to standard output and
    starts nothing: what the unit tests and the acceptance test read.
 
 **The policies**, `/etc/thunderbird/policies/policies.json`, a conffile
-of the package (the path as 4.21 found it; it binds every Thunderbird on
-the machine, and the module's is the only one, as Chromium's policy is
-D36's): no application updates (`DisableAppUpdate`, Debian's are the
-updates), no extensions and no installing any (`ExtensionSettings`
-`"*": blocked`, `InstallAddonsPermission`), no developer tools, no
-`about:config`, `about:addons`, `about:profiles` or `about:support`, no
-telemetry, no primary password a child could set and forget
-(`DisableMasterPasswordCreation`), the password manager on and offering
-to remember (`PasswordManagerEnabled`, `OfferToSaveLogins`), links in
-messages leading nowhere (the way 4.21 found), and the download
-directory where `user.js` says. What a policy cannot lock, the
+of the package (it binds every Thunderbird on the machine, and the
+module's is the only one, as Chromium's policy is D36's): no application
+updates (`DisableAppUpdate`, Debian's are the updates), no safe mode
+(`DisableSafeMode`), no installing extensions (`InstallAddonsPermission`
+with `Default` false, and `about:addons` blocked; not `ExtensionSettings`
+with every extension blocked, since the language packs are extensions),
+no developer tools, no `about:config`, `about:addons`, `about:profiles`
+or `about:support`, no telemetry, no primary password a child could set
+and forget (`DisableMasterPasswordCreation`), the password manager on and
+offering to remember (`PasswordManagerEnabled`, `OfferToSaveLogins`),
+links in messages leading nowhere (`Handlers`: `http` and `https` to
+`/usr/bin/true`), and, locked through `Preferences`: no *Choose another
+application* (`browser.download.forbid_open_with` true,
+`network.protocol-handler.external-default` false), an attachment saved
+in the download directory without being asked where
+(`browser.download.useDownloadDir` true,
+`browser.download.always_ask_before_handling_new_types` false), and no
+chat (`mail.chat.enabled` false). What a policy cannot lock, the
 rewritten `user.js` puts back.
 
 **The security of a shared machine**, as usual on Linux and nothing
@@ -259,9 +312,10 @@ Outlook, Google's or Microsoft's own sign-in window appears, where the
 adult signs in, with the second factor, once, and the account stays
 signed in; for any other provider, Thunderbird asks the password once,
 with *remember* ticked, and keeps it. Under thirteen, a Google account is
-a Family Link one, and what 4.21 found about it. What a child can and
-cannot change. That links in messages lead nowhere, and attachments are
-saved in the child's Downloads.
+a Family Link one, which Google does not let sign in to Mail: the Gmail
+module is for it. What a child can and cannot change. That links in
+messages lead nowhere, and attachments are saved in the child's
+Downloads.
 
 **Tests.** Unit: the `user.js` from each kind of setting (an address
 with servers given; an address whose domain the autoconfiguration
@@ -270,8 +324,11 @@ saved answers of the database; no address), the profile's mode, and the
 policies file read as JSON with every key above. Acceptance: the module
 installs through the daemon with Thunderbird, the policies file is in
 place and whole, and `kidux-module-mail --print` as a child with the
-settings in its environment gives the account. Session
-(`34-module-mail.py`): an adult sets Leo's address, name and both servers
+settings in its environment gives the account
+(`19-module-mail.sh`; the key's test, which has to be last, becomes
+`20-no-key-no-archive.sh`, and `21-no-key-no-archive.sh` in 4.23).
+Session (`34-module-mail.py`; the purge, which has to be last, becomes
+`35-purge.py`, and `36-purge.py` in 4.23): an adult sets Leo's address, name and both servers
 (`127.0.0.1`, so that nothing leaves the machine) from the command line;
 Leo opens the tile; Thunderbird's window comes up above the bar, named
 as the manifest says, with the account in its folder pane and no setup
@@ -289,40 +346,68 @@ architecture.md's decision (section 4); `tests/lib/doc-screenshots.txt`.
 ### 4.23 — Gmail: a door to the website
 
 **Cause.** A family that uses Gmail as a website, or a child under
-thirteen with a Family Link account that cannot authorise Thunderbird,
-gets Gmail as it is, as CodeCombat and Wikipedia are doors (D85, D87).
+thirteen with a Family Link account, which cannot sign in to Thunderbird
+(4.21), gets Gmail as it is, as CodeCombat and Wikipedia are doors (D85,
+D87).
 
 **The package** `kidux-module-gmail`, as Wikipedia's: the manifest, the
 tile (an envelope with a different colour, never Google's mark), its
-words. `launch = { web = "https://mail.google.com/" }`, `hosts` the ones
-4.21 found, each as narrow as the rule allows, `min_age = 8`,
-`memory_max = "3G"`, the description saying it needs the internet and a
-Google account, that an adult signs in with the child the first time,
-and that Kidux is not connected with Google.
+words. Its address is Google's sign-in page for Gmail with the child's
+address and language in it,
+`https://accounts.google.com/ServiceLogin?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&Email={email}&hl={lang}`,
+which goes straight on to the inbox once the child is signed in (4.21);
+`hosts` the ones 4.21 found, with the `accounts.` host of each of the 187
+domains Google publishes as its own, written out in the manifest, with a
+comment saying where the list comes from; `min_age = 8`,
+`memory_max = "3G"`; the description saying it needs the internet and a
+Google account, that it is the module for a Family Link account, that an
+adult signs in with the child the first time, and that Kidux is not
+connected with Google. Its window, opened on `accounts.google.com`, is
+Chromium's `chrome-accounts.google.com__*`, which the launcher knows as
+the module's from the address's host, as every door's.
+
+One setting, the child's address:
+
+```toml
+[[settings]]
+key = "email"
+kind = "text"
+label = "Email address"
+description = "The child's Google account. Gmail's sign-in page opens with it filled in."
+```
+
+**A setting in a website's address.** `kidux-webapp` puts the value of
+each of a module's settings, encoded for a URL, where its key stands in
+braces in a `web` address, as it puts the language in `{lang}`; an empty
+setting leaves an empty value, which Google's page takes as no address. A
+secret never goes into an address: only the settings of kind `text`,
+`integer`, `number` and `switch`. modules.md says so beside `{lang}`.
 
 **Signing in** is Google's: the adult signs in with the child in the
-module's window, with the second factor, and leaves *don't ask again on
-this device* on; the module's Chromium profile keeps the session (D89),
-and Google asks again only when it chooses to. Nothing of the daemon's
-(the daemon could not sign in to Google, and section 4, decision 5, does
-not ask it to). If 4.21 found that Google's sign-in page takes the
-address from the URL, the manifest declares an `email` setting and the
-module's `page_script` fills it in, with the non-secret settings handed
-to page scripts as `window.KIDUX.settings` (a small change to
-`kidux-webapp`'s `told()`, documented in modules.md); if it did not,
-there is no setting.
+module's window, with the second factor if Google asks for it; the
+module's Chromium profile keeps the session (D89), and Google asks again
+only when it chooses to. Nothing of the daemon's (the daemon could not
+sign in to Google, and section 4, decision 5, does not ask it to).
 
-**Tests.** Unit: the manifest reads as a door with its hosts. Acceptance:
-as Wikipedia's, the policy allows its hosts while it is installed and no
-longer after. Session (`35-module-gmail.py`): Leo opens the tile and
-Google's sign-in page comes up above the bar, its picture taken
+**Tests.** Unit: the manifest reads as a door with its hosts and its
+setting, the `accounts.` hosts among them; `kidux-webapp`'s address with
+a setting, with an empty one, with one that needs encoding, and with a
+secret left out. Acceptance (`20-module-gmail.sh`; the key's test becomes
+`21-no-key-no-archive.sh`): as Wikipedia's, the policy allows its hosts
+while it is installed and no longer after, and `kidux-webapp --print`
+opens the sign-in page with the child's address and language in it.
+Session (`35-module-gmail.py`; the purge becomes `36-purge.py`): an adult
+sets Leo's address, a made-up one, from the command line; Leo opens the
+tile and Google's sign-in page comes up above the bar, its picture taken
 (`module-gmail`); nothing is typed into it; Alt+F4, log out, removed. In
 every language.
 
 **Documents.** The user guide's section (the account, Family Link under
 thirteen, the first sign-in with the adult, that the session stays, and
-that the site's own questions about cookies are the site's); the READMEs;
-the website's card and anchor; architecture.md's decision.
+that the site's own questions about cookies are the site's); Mail's
+section pointing a Family Link child here; the READMEs; the website's
+card and anchor; modules.md (a setting in a door's address);
+architecture.md's decision.
 
 ### 4.24 — The keyboard's light goes off with the lid
 
@@ -397,3 +482,11 @@ Decided 2026-10-12 by the owner.
 5. **Gmail is a door module too**, for a family that wants the website,
    with the adult signing in with the child the first time.
 6. **The keyboard's light goes off with the lid and comes back as it was.**
+
+Decided 2026-10-15 by the owner, from what 4.21 found.
+
+7. **Both modules, each for the accounts it can serve.** Google does not
+   let a Family Link account sign in to Thunderbird. Mail is for every
+   other account, Google's included; Gmail is the module for a Family
+   Link child, and for a family that prefers the website. The modules'
+   descriptions and the user guide say which to choose.
