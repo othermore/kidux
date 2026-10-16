@@ -1621,7 +1621,9 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   and no release goes out unreviewed: the battery must have passed, the
   owner must have tried the work and said yes, and the further review the
   owner asks for, when they ask for one, is done first. Then
-  `ci/test-release.sh <label> --release` builds the versions themselves,
+  `ci/test-release.sh <label> --release`, which takes a battery of the
+  same commit, or of one the commit differs from only outside the
+  packages' sources, builds the versions themselves,
   the bytes the reproducibility stage already built twice and kept, publishes
   them into testing in place of the `~dev` builds, runs every test again
   on them and writes the guide's pictures, which only a release run does;

@@ -101,9 +101,11 @@ instead of scattering decisions across chats.
   published only when every test has passed, the owner has tried the work
   and said yes, and the further review the owner asks for, when they ask
   for one, is done: `ci/test-release.sh <label> --release`, which refuses
-  to run unless a battery of that very commit has passed, since a release
-  publishes its versions to test them; then the push, `ci/promote.sh` and
-  `ci/publish-public.sh`, each on the owner's word.
+  to run unless a battery has passed of that very commit, or of one it
+  differs from only outside the packages' sources (a fixed test, a
+  document), since a release publishes its versions to test them; then
+  the push, `ci/promote.sh` and `ci/publish-public.sh`, each on the
+  owner's word.
   Nothing is released as part of developing or testing, and nothing goes
   to GitHub before the owner's yes. A push of a version the archive
   already holds is refused (D77).

@@ -16,7 +16,8 @@
 # every test. That is the battery, run as often as the work needs.
 #
 # --release is run once, on a clean tree, when the battery has passed on
-# the same commit, which it checks in build/releases/*/commit, the owner
+# the same commit, or on one from which this differs only outside the
+# packages' sources, which it checks in build/releases/*/commit, the owner
 # has tried the work and said yes, and any further review the owner asked
 # for is done (D93): it builds the versions themselves, which the
 # reproducibility stage of the battery left in the build cache, publishes
@@ -67,6 +68,9 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_ROOT"
 LABEL="${1:-$(git describe --always --dirty)}"
 RELEASES="$REPO_ROOT/build/releases"
+#: What the packages are built from: a commit that differs from a tested one
+#: only outside these builds the same bytes.
+SOURCES="packages tests/lib/seed ci/build-all.sh ci/build-package.sh ci/devbuild.py ci/publish-local.sh"
 ONLY=""
 RELEASE=""
 if [ "${2:-}" = --release ] && [ "$#" -eq 2 ]; then
@@ -78,19 +82,27 @@ if [ "${2:-}" = --release ] && [ "$#" -eq 2 ]; then
     fi
     # A release publishes its versions to test them, and a published
     # version never changes (D93): so the battery, on ~dev builds of this
-    # very commit, must have passed first.
+    # commit, must have passed first. A battery of an earlier commit counts
+    # when nothing the packages are built from has changed since, as after
+    # a test's own fault was fixed and that test rerun alone (--only): the
+    # bytes it tested are the bytes this builds.
     commit="$(git rev-parse HEAD)"
     green=""
     for run in "$RELEASES"/*/; do
-        [ -f "$run/commit" ] && [ "$(cat "$run/commit")" = "$commit" ] \
-            && [ ! -f "$run/release" ] && [ -s "$run/verdicts" ] \
-            && ! grep -q '^FAIL' "$run/verdicts" && green="$run"
+        [ -f "$run/commit" ] && [ ! -f "$run/release" ] && [ -s "$run/verdicts" ] \
+            && ! grep -q '^FAIL' "$run/verdicts" || continue
+        tested="$(cat "$run/commit")"
+        git merge-base --is-ancestor "$tested" "$commit" 2>/dev/null || continue
+        git diff --quiet "$tested" "$commit" -- $SOURCES || continue
+        green="$run"
     done
     if [ -z "$green" ]; then
-        echo "$0: no battery of commit $commit has passed; run $0 <label> first, whole" >&2
+        echo "$0: no battery has passed of commit $commit, or of one it differs from only" >&2
+        echo "outside the packages' sources; run $0 <label> first, whole" >&2
         exit 2
     fi
-    echo "==> Releasing commit $commit, which $(basename "$green") passed"
+    echo "==> Releasing commit $commit, which $(basename "$green") passed" \
+         "$([ "$(cat "$green/commit")" = "$commit" ] || echo "as $(cat "$green/commit" | cut -c1-7)")"
 elif [ "${2:-}" = --only ]; then
     ONLY="${3:-}"
     case "$ONLY" in
