@@ -9,10 +9,13 @@ where there is neither.
 
 A notice goes after `SECONDS`, or stays until it is closed when its program
 marks it urgent or never expiring, as an error is. It never makes a sound:
-the capabilities say none, and a notice's sound is never read.
+the capabilities say none, and a notice's sound is never read. The last
+`HISTORY` notices are kept, gone or not, for the bar's bell to show again,
+with how many came since the child last looked.
 """
 
 import re
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -63,6 +66,8 @@ SPEC_VERSION = "1.2"
 
 #: How long a notice that is not urgent stays, in seconds.
 SECONDS = 8
+#: How many notices the bell keeps, the oldest dropped.
+HISTORY = 20
 #: The specification's urgencies, and why a notice was closed.
 CRITICAL = 2
 EXPIRED, DISMISSED, CLOSED = 1, 2, 3
@@ -85,6 +90,8 @@ class Notice:
     actions: tuple = ()
     stays: bool = False
     hints: dict = field(default_factory=dict, repr=False)
+    #: When it came, as `time.time()` gives it.
+    when: float = 0.0
 
     @property
     def buttons(self) -> tuple:
@@ -121,31 +128,56 @@ def module_of(pid: int, proc: Path = Path("/proc")) -> str:
 
 
 class Notices:
-    """The notices shown, by number. `show(notice)` and `hide(id)` draw and
-    take away a bubble; `closed(id, reason)` and `invoked(id, key)` are the
-    signals the server sends."""
+    """The notices shown, by number, and the last `HISTORY` that came.
+    `show(notice)` and `hide(id)` draw and take away a bubble; `closed(id,
+    reason)` and `invoked(id, key)` are the signals the server sends;
+    `history_changed()` is told when the history, or how many of it are
+    unseen, changes."""
 
-    def __init__(self, *, show, hide, closed, invoked) -> None:
+    def __init__(self, *, show, hide, closed, invoked, history_changed=None,
+                 clock=time.time) -> None:
         self._show, self._hide = show, hide
         self._closed, self._invoked = closed, invoked
+        self._history_changed = history_changed or (lambda: None)
+        self._clock = clock
         self.shown: dict[int, Notice] = {}
+        #: The last notices that came, the newest last, gone or not.
+        self.history: list[Notice] = []
+        #: How many came since the child last looked at the history.
+        self.unseen = 0
         self._last = 0
 
     def notify(self, module: str, app_name: str, replaces_id: int, summary: str, body: str,
                actions, hints: dict, expire_timeout: int) -> Notice:
         """A notice from a program; one it asked to replace takes that one's
-        number and place."""
+        number and place, in the history too."""
         if replaces_id and replaces_id in self.shown:
             number = replaces_id
             self._hide(number)
+            self.history = [kept for kept in self.history if kept.id != number]
         else:
             self._last += 1
             number = self._last
         notice = Notice(number, module, app_name, summary, body, pairs(actions),
-                        stays(hints, expire_timeout), dict(hints))
+                        stays(hints, expire_timeout), dict(hints), self._clock())
         self.shown[number] = notice
+        self.history = (self.history + [notice])[-HISTORY:]
+        self.unseen = min(self.unseen + 1, len(self.history))
         self._show(notice)
+        self._history_changed()
         return notice
+
+    def seen(self) -> None:
+        """The child looked at the history: nothing in it is new now."""
+        if self.unseen:
+            self.unseen = 0
+            self._history_changed()
+
+    def clear(self) -> None:
+        """The child emptied the history; what is still on screen stays."""
+        self.history = []
+        self.unseen = 0
+        self._history_changed()
 
     def close(self, number: int, reason: int) -> bool:
         """Take a notice away, and say why; False for one not shown."""

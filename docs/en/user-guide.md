@@ -293,11 +293,14 @@ The sound's slider has **Mute** under it. A computer without one of these
 things simply does not show it.
 
 When a module has something to tell the child, such as Mail when its
-server does not answer, a bubble comes up in the top right corner, over
-whatever is open, saying which module it is from. It goes by itself after
-a few seconds; one about something that went wrong may stay until the
-child closes it with its **×**. A bubble never makes a sound, and never
-comes from a website.
+server does not answer, a bubble rises from the bar at the bottom right,
+over whatever is open, saying which module it is from. It goes by itself
+after a few seconds; one about something that went wrong may stay until
+the child closes it with its **×**. The bell at the right end of the bar
+keeps the last ones, with the time each came, so that one that went by
+can be read again; a number beside the bell says how many came since it
+was last opened, and **Clear** empties it. A bubble never makes a sound,
+and never comes from a website.
 
 ![A child's screen](../images/en/launcher.png)
 
@@ -968,8 +971,8 @@ local folders.
 A link in a message leads nowhere. An attachment is saved in the child's
 **Downloads**, and never opened with another program. Mail's chat, its
 add-ons and its advanced settings are closed. When a server does not
-answer, Mail says so in a bubble in the corner of the screen, and in the
-line along its bottom.
+answer, Mail says so in a bubble above the bar, and in the line along its
+bottom.
 
 ![Mail](../images/en/module-mail.png)
 

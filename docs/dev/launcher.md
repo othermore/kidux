@@ -79,11 +79,12 @@ it runs as is who they are.
 something through the desktop's notifications, freedesktop.org's *Desktop
 Notifications*, as Thunderbird does when a server does not answer. The
 launcher owns `org.freedesktop.Notifications` on the child's session bus
-and draws each notice as a bubble in the top right corner, below the
-corner of the battery, the light and the sound, on gtk4-layer-shell's
-overlay layer, over every module and taking no keyboard; the newest is at
-the top. A bubble says who it is from: the module's name and tile when
-the sender runs in a module's scope (its cgroup's
+and draws each notice as a bubble rising from the bar, above its right
+end, on gtk4-layer-shell's overlay layer (anchored to the bottom and the
+right, its margin the bar's height, its exclusive zone -1 so that it
+stands where it is told), over every module and taking no keyboard; the
+newest is nearest the bar. A bubble says who it is from: the module's
+name and tile when the sender runs in a module's scope (its cgroup's
 `kidux-module-<id>.scope`), the program's own name otherwise. Then the
 notice's summary and its text, plain; a close button; the program's
 actions as buttons, with its own words; and a click on the bubble does
@@ -93,6 +94,11 @@ expiring. The server answers `GetCapabilities` with `body` and `actions`,
 and nothing about sound: a notice is never heard. The journal says each
 notice's number, who it is from and why it closed (`notice 1 from mail`,
 `notice 1 closed (1)`), never its words, which may be a child's mail. The
+bar's bell, at its right end, keeps the last twenty notices that came,
+gone or not (`notices.HISTORY`), the newest first with the time each came,
+in a popover above the bell; a count beside the bell says how many came
+since the child last opened it, and *Clear* empties it. The launcher logs
+`notices: the bell opened, N kept`. The
 sign-in and lock screens run no launcher, so a bubble is never on them,
 and under the lock the launcher is frozen with the session. A program
 reaches the desktop's notifications through libnotify, which some load
@@ -306,7 +312,9 @@ windows, with an exclusive zone of its own height, 56 logical pixels, which
 `labwc` keeps free of maximised windows; it never takes the keyboard. In it: *Home*
 (the mascot, small, and the word), then one button per open module, its
 icon at 32 pixels and its name, in the order they were opened; the one on
-screen is marked, *Home* when it is the launcher. While a module is on
+screen is marked, *Home* when it is the launcher; and, at the far right
+whatever is on screen, the bell of the notices (section 2), from which
+the bubbles rise. While a module is on
 screen it also shows, on the right, the time left as on the child's
 screen, the hourglass and `00:51`, the warning banner of
 section 3 when there is one, *Close* for the module on screen (a cross

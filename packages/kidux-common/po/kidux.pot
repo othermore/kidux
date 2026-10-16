@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidux 0.1.0\n"
 "Report-Msgid-Bugs-To: info@kidux.org\n"
-"POT-Creation-Date: 2026-10-03 20:09+0200\n"
+"POT-Creation-Date: 2026-10-16 00:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -965,4 +965,16 @@ msgstr ""
 
 #: packages/kidux-launcher/kidux_launcher/words.py:16
 msgid "Close it anyway"
+msgstr ""
+
+#: packages/kidux-launcher/kidux_launcher/words.py:19
+msgid "Notices"
+msgstr ""
+
+#: packages/kidux-launcher/kidux_launcher/words.py:20
+msgid "Nothing to show yet."
+msgstr ""
+
+#: packages/kidux-launcher/kidux_launcher/words.py:21
+msgid "Clear"
 msgstr ""

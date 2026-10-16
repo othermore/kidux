@@ -170,16 +170,17 @@ class Launcher:
         this one."""
         self._window.present()
         if shell is not None:
+            # A module's notices, as bubbles rising from the bar, and the
+            # bar's bell that keeps them (bubbles.py, D98).
+            self._bubbles = Bubbles(application, shell, translate=self._,
+                                    language=self._language)
             self._bar = Bar(application, shell, translate=self._, drawing=drawing,
                             mascot=MASCOT, on_home=self._desk.home, on_module=self._desk.show,
                             on_lock=self._lock, on_dismiss=self._dismiss,
                             on_close=self.close_module, on_keep=self._desk.keep,
                             on_end=self._desk.end_anyway, on_window=self._desk.raise_window,
-                            keys=KEYS)
+                            keys=KEYS, bell=self._bubbles.bell)
             self._bar.present()
-            # A module's notices, as a bubble in the corner (bubbles.py, D98).
-            self._bubbles = Bubbles(application, shell, translate=self._,
-                                    language=self._language)
             # The lid, under labwc, which powers the panel off and on, and
             # locks the session when it closes (lid.py, D67).
             devices = hardware.lid_devices()

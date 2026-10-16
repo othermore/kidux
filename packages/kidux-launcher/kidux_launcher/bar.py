@@ -8,7 +8,9 @@ marked (Home when it is the launcher), or, for a child with windows, one per
 window, the one in use marked and a minimised one faded (D57); and while a
 module is on screen, the time left, the launcher's warning if there is one,
 *Close* for that module, and *Lock*, which the launcher's own page already
-shows when it is on screen. Home and Close say their key on hover, and
+shows when it is on screen; and, at the far right whatever is on screen,
+the bell of the module's notices (bubbles.py, D98), from which the
+bubbles rise. Home and Close say their key on hover, and
 the button Alt+Tab would go to, the next to the right of the one on
 screen, says so too (D64, D66); on a Mac the key is written with fn where
 fn is needed (`kidux.hardware`). When a module asked
@@ -64,7 +66,7 @@ def layer_shell():
 class Bar:
     def __init__(self, application: Gtk.Application, shell, *, translate, drawing, mascot: str,
                  on_home, on_module, on_lock, on_dismiss, on_close, on_keep, on_end,
-                 on_window=None, keys: dict | None = None) -> None:
+                 on_window=None, keys: dict | None = None, bell=None) -> None:
         self._ = translate
         self._drawing = drawing
         #: How the keys are written on this machine, for the tooltips of
@@ -155,6 +157,10 @@ class Bar:
         lock.add_css_class("suggested-action")
         end.append(lock)
         row.append(end)
+        # The bell is there on the launcher's own screen too: a notice may
+        # come while the child is on it.
+        if bell is not None:
+            row.append(bell)
         window.set_child(row)
         # The keyboard's state, which labwc sends every program, the one
         # with the keyboard or not: whether Alt is down while Alt+Tab goes

@@ -94,3 +94,46 @@ def test_a_process_s_module_is_its_scope_s(tmp_path):
     assert notices.module_of(10, tmp_path) == "mail"
     assert notices.module_of(11, tmp_path) == ""
     assert notices.module_of(12, tmp_path) == ""
+
+
+def test_the_last_notices_are_kept_for_the_bell_the_newest_last():
+    changes = []
+    recorded = Recorded()
+    recorded.notices._history_changed = lambda: changes.append(len(recorded.notices.history))
+    recorded.notices._clock = lambda: 1000.0
+    for _ in range(notices.HISTORY + 3):
+        recorded.notify()
+
+    assert len(recorded.notices.history) == notices.HISTORY
+    assert [n.id for n in recorded.notices.history][-2:] == [notices.HISTORY + 2,
+                                                              notices.HISTORY + 3]
+    assert recorded.notices.history[0].when == 1000.0
+    assert changes[-1] == notices.HISTORY
+
+
+def test_a_gone_notice_stays_in_the_history_and_a_replaced_one_does_not():
+    recorded = Recorded()
+    first = recorded.notify()
+    recorded.notices.expire(first.id)
+    second = recorded.notify()
+    recorded.notify(replaces=second.id)
+
+    assert [n.id for n in recorded.notices.history] == [1, 2]
+    assert first.id not in recorded.notices.shown
+
+
+def test_the_bell_counts_what_came_since_the_child_looked():
+    recorded = Recorded()
+    recorded.notify()
+    recorded.notify()
+    assert recorded.notices.unseen == 2
+
+    recorded.notices.seen()
+    assert recorded.notices.unseen == 0
+    recorded.notify()
+    assert recorded.notices.unseen == 1
+
+    recorded.notices.clear()
+    assert recorded.notices.history == [] and recorded.notices.unseen == 0
+    # The bubble still on screen is untouched by clearing the history.
+    assert len(recorded.notices.shown) == 3

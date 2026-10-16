@@ -15,3 +15,7 @@ CLOSE_MODULE = N_("Close {name}")
 NOT_CLOSED = N_("{name} has not closed. It may have something to save.")
 CLOSE_ANYWAY = N_("Close it anyway")
 
+#: The bar's bell, which keeps the last notices (bubbles.py, D98).
+NOTICES = N_("Notices")
+NO_NOTICES = N_("Nothing to show yet.")
+CLEAR_NOTICES = N_("Clear")

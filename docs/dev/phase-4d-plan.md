@@ -497,8 +497,8 @@ own (section 4, decisions 8 to 11).
 **Where.** In the launcher, which already draws the bar on
 `gtk4-layer-shell` (1.0.4 in trixie) and speaks the child's language: it
 owns `org.freedesktop.Notifications` on the child's session bus and draws
-each notice as a bubble in the screen's top right corner, on the overlay
-layer, over every module, taking no keyboard. So a bubble is only ever in
+each notice as a bubble rising from the bar, above its right end, on the
+overlay layer, over every module, taking no keyboard. So a bubble is only ever in
 a child's session: the sign-in and lock screens run no launcher, and under
 the lock the launcher is frozen with the session.
 
@@ -510,8 +510,15 @@ the notice's default action, when it has one, as Thunderbird's new mail
 opens the message, and other actions are buttons with the program's own
 words. It goes after eight seconds, or stays until it is closed when the
 program marks it urgent or as never expiring, as an error is; several are
-stacked, the newest at the top. Never a sound: the server says it has
+stacked, the newest nearest the bar. Never a sound: the server says it has
 none, and takes no sound from a notice.
+
+**The bell**, at the bar's right end, whatever is on screen: a button
+that opens, above it, the last twenty notices that came, gone or not, the
+newest first, each with who it is from, the time it came, its summary and
+its text, so that a notice the child missed, or one an adult is asked
+about, is read again; beside the bell, how many came since it was last
+opened; *Clear* empties it (section 4, decision 13).
 
 **The server** answers `GetCapabilities` with `body` and `actions`,
 `GetServerInformation` with Kidux's name and version, `Notify` with the
@@ -529,8 +536,9 @@ window (`mail.biff.use_system_alert` locked true).
 blocks every site's notifications (`DefaultNotificationsSetting` 2).
 
 **Tests.** Unit, without a display: the server's answers, a notice's
-number and its replacing, how long one stays, its actions, and the module
-a process belongs to from its cgroup; Chromium's policy. Session
+number and its replacing, how long one stays, its actions, the module a
+process belongs to from its cgroup, and the bell's history and count;
+Chromium's policy. Session
 (`34-module-mail.py`): Thunderbird's notice that 127.0.0.1 does not answer
 comes up as a bubble from Mail, and as no window; a notice sent from Leo's
 session with `gdbus`, urgent, stays until it is closed by its number; one
@@ -592,3 +600,10 @@ Decided 2026-10-15 by the owner, after the work of 4.21 to 4.24.
 11. **A bubble is never shown on the sign-in or lock screens.**
 12. **The keyboard's light goes off with the screen left alone too**, not
     only with the lid (4.24).
+
+Decided 2026-10-16 by the owner, on the review of 4.26.
+
+13. **The bubbles rise from the bar, and the bar keeps them.** A bubble
+    stands on the bar at its right end, not in the screen's top corner,
+    and a bell on the bar opens the notices that came, so that one that
+    went by itself is read again.

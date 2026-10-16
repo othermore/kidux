@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidux 0.1.0\n"
 "Report-Msgid-Bugs-To: info@kidux.org\n"
-"POT-Creation-Date: 2026-10-03 20:09+0200\n"
+"POT-Creation-Date: 2026-10-16 00:12+0200\n"
 "PO-Revision-Date: 2026-10-03 18:28+0200\n"
 "Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
 "Language-Team: Spanish\n"
@@ -1006,6 +1006,18 @@ msgstr "{name} no se ha cerrado. Puede que tenga algo sin guardar."
 #: packages/kidux-launcher/kidux_launcher/words.py:16
 msgid "Close it anyway"
 msgstr "Cerrarlo igualmente"
+
+#: packages/kidux-launcher/kidux_launcher/words.py:19
+msgid "Notices"
+msgstr "Avisos"
+
+#: packages/kidux-launcher/kidux_launcher/words.py:20
+msgid "Nothing to show yet."
+msgstr "Todavía no hay nada que ver."
+
+#: packages/kidux-launcher/kidux_launcher/words.py:21
+msgid "Clear"
+msgstr "Vaciar"
 
 #, python-brace-format
 #~ msgid "First: {modules}"

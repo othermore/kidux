@@ -1697,11 +1697,14 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   with no parent that labwc maximised over everything and that neither
   Escape nor time closed, and silencing it hid why a Family Link mailbox
   stayed empty. The launcher owns `org.freedesktop.Notifications` on the
-  child's session bus and draws each notice as a bubble in the screen's
-  top right corner, on gtk4-layer-shell's overlay layer, from the module
-  whose scope sent it: eight seconds, or until it is closed when its
-  program marks it urgent or never expiring; never a sound; never on the
-  sign-in or lock screens, which run no launcher. Websites never notify:
+  child's session bus and draws each notice as a bubble rising from the
+  bar, above its right end, on gtk4-layer-shell's overlay layer, from the
+  module whose scope sent it: eight seconds, or until it is closed when
+  its program marks it urgent or never expiring; never a sound; never on
+  the sign-in or lock screens, which run no launcher. The bar's bell, at
+  its right end, keeps the last twenty, gone or not, with how many came
+  since the child last looked, so that a notice missed, or one an adult is
+  asked about, is read again. Websites never notify:
   Chromium's policy blocks it (`DefaultNotificationsSetting` 2). Not
   `mako`, `dunst` or `fnott`, all in trixie: none speaks Kidux's language
   or looks like it, or knows a module from a program.
