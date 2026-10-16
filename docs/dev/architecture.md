@@ -1727,3 +1727,11 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   not after now, since a changelog date is in the package and in the
   repository; a date in the past keeps a build reproducible (D23). A
   commit once pushed never changes.
+- **D100 — Removing a module takes with it what was installed for it
+  alone.** Decided 2026-10-16 by the owner. `remove` is `apt-get purge
+  --auto-remove` of the module's package: Thunderbird and its sixty-five
+  language packs go with Mail, GCompris with its module. A program nothing
+  else needs has no business on a child's computer, and a family machine
+  holds nothing an adult installed by hand for apt to mistake; the
+  children's own files stay. Installing the module again brings it all
+  back.

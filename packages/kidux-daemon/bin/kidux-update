@@ -103,9 +103,9 @@ case "$kind" in
                 || fail "$(last_error "$out")"
             say "done:installed"
         else
-            # Only the module's own files: what it depended on stays, since
-            # autoremove cannot be held to one package's dependencies.
-            out="$(apt-get -y $LOCK -o APT::Status-Fd=3 purge "$package" 2>&1)" \
+            # The module, and what was installed for it alone: a program
+            # nothing else needs has no business staying (D100).
+            out="$(apt-get -y $LOCK -o APT::Status-Fd=3 purge --auto-remove "$package" 2>&1)" \
                 || fail "$(last_error "$out")"
             say "done:removed"
         fi

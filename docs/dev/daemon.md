@@ -790,10 +790,10 @@ daemon answers `Busy`.
   wrong name. `install` is `dpkg --configure -a`, `apt-get update`, then
   `apt-get install --no-install-recommends` of that package, with the lock
   timeout, the status descriptor and the configuration-file options of
-  `apply`; `remove` is `apt-get purge` of that package alone. What the
-  module depended on stays installed, since `autoremove` cannot be held to
-  one package's dependencies and could take something an administrator
-  wanted, and the children's own files under their homes stay theirs. The
+  `apply`; `remove` is `apt-get purge --auto-remove` of that package: the
+  module, and with it what was installed for it alone and nothing else
+  needs, Thunderbird and its language packs after Mail, say (D100); the
+  children's own files under their homes stay theirs. The
   verdict is `done:installed`, `done:removed` or `failed:<apt's last
   line>`; a `kidux:module:<package>` line says which package, so that a
   daemon restarted mid-job still audits the right module.

@@ -633,12 +633,11 @@ never while a child's session could be running what apt replaces.
      as root. `install` is `dpkg --configure -a`, `apt-get update`, then
      `apt-get install -y --no-install-recommends <package>`, with the
      lock timeout, the status descriptor and the configuration-file
-     options `apply` uses; `remove` is `apt-get purge -y <package>`. A
-     purge leaves nothing of the module's own files on the system; what
-     the module depended on (GCompris itself, say) stays installed, since
-     `autoremove` cannot be held to one package's dependencies and could
-     take something an administrator wanted, and the children's own files
-     under their homes stay theirs. The verdict is `done:installed`,
+     options `apply` uses; `remove` is `apt-get purge --auto-remove
+     <package>`. A purge leaves nothing of the module's own files on the
+     system, and takes with it what was installed for the module alone
+     (GCompris itself, say; D100); the children's own files under their
+     homes stay theirs. The verdict is `done:installed`,
      `done:removed` or `failed:<apt's last E: line>`.
    - The job's progress and end go on the signals and `UpdateState` an
      update has: `UpdateProgress(fraction, package)` while it runs, then
