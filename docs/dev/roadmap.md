@@ -131,6 +131,15 @@ can. Each phase assumes what it builds on is reasonably stable.
       lid and with a screen left alone, back as it was (4.24, D97); and a
       module's notices as a bubble in the child's screen (4.26, D98;
       phase-4d-plan.md).
+- [ ] With the next module, two things seen on the Modules page: *Remove*
+      pressed on a module below the fold scrolls the page to the top, so
+      the question is out of sight, and the scrollbar still shows the page
+      at its end until it is scrolled up and down again; and a module that
+      is a directory under `/usr/share/kidux/modules/` with no package
+      behind it (a test's stand-in, such as the X11 canary, copied there
+      by hand) answers *That did not work.* to *Remove*, since
+      `apt-get purge` has nothing to purge: the page should say what the
+      module is, and remove the directory or say how to.
 
 ## Phase 5 — AI learning module
 - [ ] `kidux-ai-gateway`: adult-held credentials, guardrails, logging visible to

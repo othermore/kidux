@@ -136,5 +136,15 @@ instead of scattering decisions across chats.
   `--then-publish` has the timer promote and publish after the push, so
   that nobody waits up for it. Never `git push` by hand, never rewrite a
   commit already on GitHub.
+- **More than one development machine.** Each has its own archive, test
+  machines and `~dev` builds; `main` on GitHub is the only thing they share.
+  Start a piece of work with `git pull --rebase origin main`, and before
+  bumping a package read its changelog on `origin/main`, since the other
+  machine's unpushed work is invisible; the owner says which machine works
+  on which package. Push from any of them with `ci/push.sh`, which refuses
+  until `origin/main` is behind. A release, the promotion and the public
+  archive happen only on the machine that holds the production key and the
+  archive whose `stable` goes public, from a tree that holds everything on
+  `origin/main`.
 - Before proposing a technology, check it is in trixie (`qa.debian.org/madison.php`)
   or has a maintained Linux build, and note the version in the docs.
