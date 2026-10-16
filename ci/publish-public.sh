@@ -29,6 +29,11 @@ case "${1:-}" in
     ""|--pack) ;;
     *) echo "usage: $0 [--pack]" >&2; exit 2 ;;
 esac
+# The release on GitHub, and the site's run, show when they were made: inside
+# the hours Kidux is seen working (D99); ci/push.sh --then-publish keeps to them.
+if [ "${1:-}" != "--pack" ] && ! "$REPO_ROOT/ci/hours.py" allowed; then
+    exit 2
+fi
 
 if [ ! -s "$INDEX" ]; then
     echo "$0: the stable suite at $ARCHIVE_ROOT holds nothing; run ci/promote.sh" >&2

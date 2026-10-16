@@ -677,7 +677,8 @@ the plan and the code refer to them by number.
   The cause was a changelog dated in the future. `dpkg` clamps file modification times
   to `SOURCE_DATE_EPOCH`, taken from the newest changelog entry, but only clamps times
   that are newer than it — so a future date clamps nothing and each build writes its
-  own wall clock into the package. **Changelog dates come from `date -R`.**
+  own wall clock into the package. **Changelog dates come from the clock**,
+  through `ci/hours.py changelog-date` since D99, never from memory.
 
 - **D24 — A child's session gets its environment from the greeter, through greetd;
   a child's session never reads `/home/.kidux`.** Decided 2026-09-22 while designing

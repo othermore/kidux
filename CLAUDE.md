@@ -94,7 +94,7 @@ instead of scattering decisions across chats.
   release never changes: once a version is published, its bytes are final,
   and the next change to that package goes under the next number. So a
   package gets its next version at its first change in a piece of work,
-  dated by `date -R`, and all the work stays in that number as `~dev`
+  dated by `ci/hours.py changelog-date`, and all the work stays in that number as `~dev`
   builds: `tests/run vm push` and the battery build `<version>~dev.<time>`,
   which Debian sorts before `<version>`, so the numbers run on without a
   gap, since no number is spent on a try. The release itself is built and
@@ -124,8 +124,17 @@ instead of scattering decisions across chats.
   the owner asks. They are authored as `othermore <info@kidux.org>`, the
   repository's own `git config`, never with a personal address (D80).
 - **Never write a timestamp from memory.** A `debian/changelog` date comes from
-  `date -R`, a dated note from `date -I`. A changelog dated in the future breaks
-  build reproducibility, because `dpkg` only clamps file times that are newer than
-  `SOURCE_DATE_EPOCH` (D23). `tests/run reproducible` catches it.
+  `ci/hours.py changelog-date <package>`, a dated note from `date -I`. A
+  changelog dated in the future breaks build reproducibility, because `dpkg`
+  only clamps file times that are newer than `SOURCE_DATE_EPOCH` (D23);
+  `tests/run reproducible` catches it. A date in the past is safe.
+- **GitHub only in the evening and at the weekend (D99).** Nothing is pushed,
+  released or run on GitHub outside Madrid's 19:00 to 02:00 on a weekday and
+  the whole weekend. `ci/push.sh` is the one way to push: it dates the
+  commits not yet on GitHub inside those hours and pushes; outside them,
+  `ci/push.sh --later` sets a timer for the hours' next opening, and
+  `--then-publish` has the timer promote and publish after the push, so
+  that nobody waits up for it. Never `git push` by hand, never rewrite a
+  commit already on GitHub.
 - Before proposing a technology, check it is in trixie (`qa.debian.org/madison.php`)
   or has a maintained Linux build, and note the version in the docs.

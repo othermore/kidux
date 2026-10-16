@@ -238,7 +238,8 @@ tested.
 say otherwise: a `pyproject.toml`, or the daemon's `VERSION`, which `Ping`
 answers with, carries the same number. `tests/project/versions.sh` checks it.
 
-**Take changelog dates from `date -R`, never from your head.** `dpkg` clamps
+**Take changelog dates from `ci/hours.py changelog-date <package>`, never
+from your head.** `dpkg` clamps
 every file's modification time to `SOURCE_DATE_EPOCH`, which it reads from the
 newest `debian/changelog` entry — but it only clamps times that are *newer*
 than that. A changelog dated in the future clamps nothing, so each build stamps
@@ -273,9 +274,11 @@ ci/test-release.sh <label> --release
                                published into testing in place of the
                                development builds, every test run on them,
                                the guide's pictures written
-git push                       then, each on the owner's word
+ci/push.sh [--later]           then, each on the owner's word: the push, inside
+                               the hours (below), now or at a timer's next chance
 ci/promote.sh                  into stable
-ci/publish-public.sh           and the public archive
+ci/publish-public.sh           and the public archive, inside the hours too;
+                               ci/push.sh --then-publish does both after the push
 ```
 
 A version made only of numbers is a release, and a release never changes
@@ -293,6 +296,28 @@ published never changes, so a release that fails costs the next number.
 
 Promotion copies what is already in `testing` rather than publishing a fresh
 build, so the bits a family gets are the bits that were tested, byte for byte.
+
+**The hours.** Nothing of Kidux's reaches GitHub, or carries a time that is
+read there, outside the hours it is seen working (D99, `ci/hours.py`):
+Madrid's 19:00 to 02:00 around a weekday night, and all of Saturday and
+Sunday, so Friday 19:00 to Monday 02:00 without a break. `ci/push.sh` is
+the one way to push: inside the hours it dates the commits not yet on
+`origin/main` again, the author's and the committer's dates alike, the
+last at the push and each earlier one a minute before (closer when the
+hours have just opened), the same trees, messages and author, and pushes;
+outside them it refuses, or with `--later` sets a timer of the user's
+systemd for the moment they open (`systemctl --user list-timers`,
+`journalctl --user -u kidux-push-<time>`), which lives while the user has
+a session or lingers (`sudo loginctl enable-linger`). `--then-publish`
+runs `ci/promote.sh` and `ci/publish-public.sh` after the push, and
+`ci/publish-public.sh` keeps to the hours by itself. A commit once pushed
+never changes, so only the commits still to push are dated again, and as
+the last step: after a release, the battery's record of its commit names
+the one before the dating, which only matters to a `--release` run again.
+A changelog's date, which the built package carries, comes from
+`ci/hours.py changelog-date <package>`: the last moment inside the hours
+not after now, and after the package's last entry; a date in the past is
+safe for reproducibility (D23). A dated note in a document has no hour.
 
 ## The public archive
 
@@ -331,7 +356,7 @@ So a release reaches a family in four commands, the last two new:
 ```
 ci/test-release.sh <label>     everything built, published to testing and tested
 ci/promote.sh                  into stable
-git push                       the tree it was built from
+ci/push.sh                     the tree it was built from, inside the hours
 ci/publish-public.sh           stable, to kidux.org/apt
 ```
 

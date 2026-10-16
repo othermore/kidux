@@ -86,7 +86,7 @@ def held_at_or_above(source: str, version: str) -> list[str]:
 def changelog_entry(source: str, version: str, trailer: str, date: str) -> str:
     """A changelog entry for a development build, above the tree's own:
     `trailer` is the maintainer as the newest entry names them, `date` the
-    time from `date -R`."""
+    time from the clock (`ci/hours.py changelog-date`)."""
     return (f"{source} ({version}) trixie; urgency=medium\n\n"
             "  * Development build of the working tree, for trying a change; never\n"
             "    released.\n\n"

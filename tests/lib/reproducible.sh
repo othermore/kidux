@@ -18,7 +18,7 @@
 # SOURCE_DATE_EPOCH, which it takes from the newest debian/changelog entry — but
 # only clamps times that are *newer* than it. A changelog dated in the future
 # therefore clamps nothing, and each build stamps its own wall clock into the
-# package. Always take a changelog date from `date -R`.
+# package. Always take a changelog date from `ci/hours.py changelog-date`.
 
 set -eu
 
