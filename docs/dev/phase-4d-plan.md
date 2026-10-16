@@ -519,6 +519,9 @@ newest first, each with who it is from, the time it came, its summary and
 its text, so that a notice the child missed, or one an adult is asked
 about, is read again; beside the bell, how many came since it was last
 opened; *Clear* empties it (section 4, decision 13).
+The launcher's own warnings that time is running out (launcher.md section
+3) are bubbles from Kidux, with the mascot, staying until closed, each in
+place of the one before; the bar keeps only the time left (decision 14).
 
 **The server** answers `GetCapabilities` with `body` and `actions`,
 `GetServerInformation` with Kidux's name and version, `Notify` with the
@@ -607,3 +610,5 @@ Decided 2026-10-16 by the owner, on the review of 4.26.
     stands on the bar at its right end, not in the screen's top corner,
     and a bell on the bar opens the notices that came, so that one that
     went by itself is read again.
+14. **The warnings that time is running out are bubbles too**, from
+    Kidux, and the bar keeps only the time left.

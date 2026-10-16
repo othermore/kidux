@@ -425,9 +425,10 @@ los módulos con la sesión, así que conviene guardar antes.
 
 ### Cuando el tiempo está a punto de acabarse
 
-Diez, cinco y un minuto antes de que se le acabe el tiempo, un mensaje en
-la pantalla le dice al niño que guarde su trabajo. Cuando el tiempo se
-acaba, la pantalla de bloqueo aparece sola.
+Diez, cinco y un minuto antes de que se le acabe el tiempo, una burbuja
+de Kidux sale de la barra y le dice al niño que guarde su trabajo; se
+queda hasta que el niño la cierra, y la siguiente ocupa su sitio. Cuando
+el tiempo se acaba, la pantalla de bloqueo aparece sola.
 
 ![Se ha acabado el tiempo](../images/es/time-is-up.png)
 

@@ -415,9 +415,10 @@ the session, so it is worth saving first.
 
 ### When time is about to run out
 
-Ten, five and one minute before the child's time runs out, a message on
-the screen tells them to save their work. When the time runs out, the lock
-screen comes up by itself.
+Ten, five and one minute before the child's time runs out, a bubble from
+Kidux rises from the bar and tells them to save their work; it stays until
+the child closes it, and the next one takes its place. When the time runs
+out, the lock screen comes up by itself.
 
 ![Time is up](../images/en/time-is-up.png)
 

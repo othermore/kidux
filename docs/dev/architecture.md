@@ -1706,7 +1706,23 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   the sign-in or lock screens, which run no launcher. The bar's bell, at
   its right end, keeps the last twenty, gone or not, with how many came
   since the child last looked, so that a notice missed, or one an adult is
-  asked about, is read again. Websites never notify:
+  asked about, is read again. The launcher's own warnings that time is
+  running out are bubbles too, from Kidux, staying until closed: the bar
+  keeps only the time left. Websites never notify:
   Chromium's policy blocks it (`DefaultNotificationsSetting` 2). Not
   `mako`, `dunst` or `fnott`, all in trixie: none speaks Kidux's language
   or looks like it, or knows a module from a program.
+- **D99 — Kidux is seen working on GitHub only in the evening and at the
+  weekend.** Decided 2026-10-16 by the owner. Nothing of Kidux's reaches
+  GitHub, or carries a time that is read there, outside Madrid's 19:00 to
+  02:00 around a weekday night and the whole weekend. The work itself goes
+  on whenever it does, in commits as encapsulated and reviewable as ever;
+  what changes is their dates, set at the push: `ci/push.sh`, the one way
+  to push, dates the commits not yet on GitHub inside the hours, the
+  author's and the committer's dates alike, and pushes, now or by a timer
+  at the hours' next opening, so that nobody has to wait for them; the
+  release of the archive on GitHub keeps to them too. A changelog's date
+  comes from `ci/hours.py changelog-date`, the last moment inside the hours
+  not after now, since a changelog date is in the package and in the
+  repository; a date in the past keeps a build reproducible (D23). A
+  commit once pushed never changes.

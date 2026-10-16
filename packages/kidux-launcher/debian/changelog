@@ -4,7 +4,8 @@ kidux-launcher (0.3.21) trixie; urgency=medium
     opening it gives the light back before the screen.
   * A module's notices, the desktop's notifications, show as bubbles
     rising from the bar, without a sound; the bar's bell keeps the last
-    ones, with how many came since it was opened.
+    ones, with how many came since it was opened. The warnings that time
+    is running out are such bubbles, and the bar keeps only the time.
 
  -- Antonio Morales García <info@kidux.org>  Thu, 15 Oct 2026 18:11:18 +0200
 

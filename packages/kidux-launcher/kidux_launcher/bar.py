@@ -6,8 +6,8 @@ compositor keeps free, so a maximised window never covers it. *Home*, one
 button per open module in the order they were opened, the one on screen
 marked (Home when it is the launcher), or, for a child with windows, one per
 window, the one in use marked and a minimised one faded (D57); and while a
-module is on screen, the time left, the launcher's warning if there is one,
-*Close* for that module, and *Lock*, which the launcher's own page already
+module is on screen, the time left, *Close* for that module, and *Lock*,
+which the launcher's own page already
 shows when it is on screen; and, at the far right whatever is on screen,
 the bell of the module's notices (bubbles.py, D98), from which the
 bubbles rise. Home and Close say their key on hover, and
@@ -15,7 +15,7 @@ the button Alt+Tab would go to, the next to the right of the one on
 screen, says so too (D64, D66); on a Mac the key is written with fn where
 fn is needed (`kidux.hardware`). When a module asked
 to close is still open, the question whether to close it anyway takes the
-place of the time, the warning and Close (D45). While Alt+Tab goes round,
+place of the time and Close (D45). While Alt+Tab goes round,
 the bar lights the button it points at. It never takes the keyboard:
 Super, Alt+Tab and Alt+F4 are the keyboard's way (labwc's configuration),
 and the bar is the mouse's.
@@ -65,7 +65,7 @@ def layer_shell():
 
 class Bar:
     def __init__(self, application: Gtk.Application, shell, *, translate, drawing, mascot: str,
-                 on_home, on_module, on_lock, on_dismiss, on_close, on_keep, on_end,
+                 on_home, on_module, on_lock, on_close, on_keep, on_end,
                  on_window=None, keys: dict | None = None, bell=None) -> None:
         self._ = translate
         self._drawing = drawing
@@ -144,10 +144,6 @@ class Bar:
         question.append(anyway)
         self._question = question
         end.append(question)
-        self._warning = Gtk.Button(visible=False)
-        self._warning.add_css_class("kidux-notice")
-        self._warning.connect("clicked", lambda _b: on_dismiss())
-        end.append(self._warning)
         self._time = TimeLeft(can_focus=False)
         end.append(self._time.widget)
         self._close = self._button(self._(words.CLOSE), on_close, icon="window-close-symbolic",
@@ -378,17 +374,12 @@ class Bar:
             self._modules.append(button)
         self._light()
 
-    def show_time(self, clock: str | None, sentence: str | None, warning: str | None,
-                  on_a_module: bool) -> None:
+    def show_time(self, clock: str | None, sentence: str | None, on_a_module: bool) -> None:
         """The time left, as a clock reads it and in a sentence on hover,
-        the warning the launcher shows, Close and Lock, while a module is on
-        screen: the bar is what a child looking at one sees."""
+        Close and Lock, while a module is on screen: the bar is what a child
+        looking at one sees."""
         self._end.set_visible(on_a_module)
-        if warning:
-            self._warning.set_label(warning)
-        asking = self._question.get_visible()
-        self._warning.set_visible(warning is not None and not asking)
-        self._time.show(clock, sentence, room=not asking)
+        self._time.show(clock, sentence, room=not self._question.get_visible())
 
     def show_closing(self, name: str | None, question: str | None) -> None:
         """Close names the module on screen, `name`, for a screen reader;
@@ -400,7 +391,6 @@ class Bar:
         self._question.set_visible(question is not None)
         if question is not None:
             self._question_text.set_label(question)
-            self._warning.set_visible(False)
         # While it asks, Close it anyway is Close: both would not fit beside
         # Lock on a 1280-pixel screen; nor would the other modules' buttons,
         # which step aside with their arrows until it is answered, the

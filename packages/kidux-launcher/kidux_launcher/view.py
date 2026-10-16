@@ -143,6 +143,9 @@ class Launcher:
         self._desk = desk
         self._bar = None
         self._bubbles = None
+        #: The number of the bubble of the last time warning, for the next
+        #: to take its place.
+        self._warning_notice = 0
         self._last_step = 0
         self._on_log_out = on_log_out
         self._model = Model()
@@ -172,11 +175,11 @@ class Launcher:
         if shell is not None:
             # A module's notices, as bubbles rising from the bar, and the
             # bar's bell that keeps them (bubbles.py, D98).
-            self._bubbles = Bubbles(application, shell, translate=self._,
+            self._bubbles = Bubbles(application, shell, translate=self._, drawing=drawing,
                                     language=self._language)
             self._bar = Bar(application, shell, translate=self._, drawing=drawing,
                             mascot=MASCOT, on_home=self._desk.home, on_module=self._desk.show,
-                            on_lock=self._lock, on_dismiss=self._dismiss,
+                            on_lock=self._lock,
                             on_close=self.close_module, on_keep=self._desk.keep,
                             on_end=self._desk.end_anyway, on_window=self._desk.raise_window,
                             keys=KEYS, bell=self._bubbles.bell)
@@ -270,13 +273,6 @@ class Launcher:
         corner.append(self._corner.widget)
         top.set_end_widget(corner)
         page.append(top)
-
-        self._banner = Gtk.Revealer()
-        self._warning = Gtk.Button(halign=Gtk.Align.CENTER)
-        self._warning.add_css_class("kidux-notice")
-        self._warning.connect("clicked", lambda _b: self._dismiss())
-        self._banner.set_child(self._warning)
-        page.append(self._banner)
 
         self._middle = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20,
                                valign=Gtk.Align.CENTER, halign=Gtk.Align.CENTER, vexpand=True)
@@ -544,18 +540,15 @@ class Launcher:
     def _draw_time(self) -> None:
         self._clock.set_label(GLib.DateTime.new_now_local().format("%H:%M"))
         self._time.show(self._model.time_clock(), self._model.time_text(self._t))
-        warning = self._model.warning_text(self._t)
-        if warning:
-            self._warning.set_label(warning)
-        self._banner.set_reveal_child(warning is not None)
         if self._bar is not None:
             self._bar.show_time(self._model.time_clock(), self._model.time_text(self._t),
-                                warning, self._desk.current != HOME)
+                                self._desk.current != HOME)
 
     def _warned(self, seconds_left: int) -> None:
+        """TimeWarning from the daemon: a bubble of Kidux's own says it, the
+        newer in place of the older, until the child closes it."""
         self._model.warn(seconds_left)
+        said = self._model.warning_text(self._t)
+        if self._bubbles is not None and said:
+            self._warning_notice = self._bubbles.tell(said, replaces=self._warning_notice)
         self.refresh()
-
-    def _dismiss(self) -> None:
-        self._model.dismiss()
-        self._draw_time()

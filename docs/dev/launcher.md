@@ -94,6 +94,8 @@ expiring. The server answers `GetCapabilities` with `body` and `actions`,
 and nothing about sound: a notice is never heard. The journal says each
 notice's number, who it is from and why it closed (`notice 1 from mail`,
 `notice 1 closed (1)`), never its words, which may be a child's mail. The
+launcher's own notices, the time warnings of section 3, go the same way
+(`Bubbles.tell`): from Kidux, with the mascot, staying until closed. The
 bar's bell, at its right end, keeps the last twenty notices that came,
 gone or not (`notices.HISTORY`), the newest first with the time each came,
 in a popover above the bell; a count beside the bell says how many came
@@ -129,9 +131,12 @@ asking the daemon every minute. The daemon, not the launcher, decides when
 time is up; the launcher never locks on its own count.
 
 **Warnings.** `TimeWarning(username, seconds_left)` at ten, five and one
-minute (`WARNINGS` in the daemon's `access.py`) shows a banner that stays
-until tapped: *5 minutes left. Save your work.* It never covers the tiles'
-content and never steals the keyboard from a module.
+minute (`WARNINGS` in the daemon's `access.py`) is a bubble of Kidux's
+own, rising from the bar as a module's notices do (section 2, D98): *5
+minutes left. Save your work.*, from Kidux with the mascot, which stays
+until the child closes it, each warning in place of the one before, and
+kept in the bar's bell. The bar shows the time left and nothing else of
+it. A bubble never steals the keyboard from a module.
 
 **Locked and unlocked.** `Locked` and `Unlocked` for this child only refresh
 the time. The session is frozen between them; nothing the launcher does
@@ -316,13 +321,12 @@ screen is marked, *Home* when it is the launcher; and, at the far right
 whatever is on screen, the bell of the notices (section 2), from which
 the bubbles rise. While a module is on
 screen it also shows, on the right, the time left as on the child's
-screen, the hourglass and `00:51`, the warning banner of
-section 3 when there is one, *Close* for the module on screen (a cross
+screen, the hourglass and `00:51`, *Close* for the module on screen (a cross
 and the word; a screen reader hears *Close <name>*), and *Lock*, since
 that is what the child is looking at; on the launcher those are on its own
 page already. While the bar asks about a module that has not closed, the
-question and its two buttons take the place of the time, the warning and
-*Close*, and of the other modules' buttons with their arrows, which step
+question and its two buttons take the place of the time and *Close*, and
+of the other modules' buttons with their arrows, which step
 aside until it is answered, on that module's screen: so *Lock* stays whole
 on a 1280-pixel screen, which `16-module-open.py` checks. A module's
 button brings its window forward, *Home* the launcher's. For a child with
@@ -498,7 +502,8 @@ As built, and used by the owner:
 
 - **The time left** is an hourglass and `00:51`, and the words, "51
   minutes left", on hover and on a tap.
-- **The warnings** are a banner that stays until tapped, and nothing else.
+- **The warnings** are a bubble from Kidux that stays until closed, and
+  nothing else: the bar keeps only the time.
 - **The clock** is digital, like the sign-in screen's.
 - **Log out** always asks *Have you saved your work?*, even while there is
   nothing to save: the habit is the point.

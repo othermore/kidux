@@ -24,7 +24,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gio, GLib, Gtk, Pango  # noqa: E402
 
-from kidux import modules as kidux_modules, scroll  # noqa: E402
+from kidux import modules as kidux_modules, paths, scroll  # noqa: E402
 
 from . import notices, words  # noqa: E402
 from .bar import HEIGHT as BAR_HEIGHT  # noqa: E402
@@ -40,6 +40,8 @@ ABOVE_BAR = BAR_HEIGHT + 8
 LINES = 6
 #: How tall the bell's list may grow before it scrolls.
 HISTORY_HEIGHT = 440
+#: Who a notice of the launcher's own is from, shown with the mascot.
+KIDUX = "Kidux"
 
 CSS = """
 window.kidux-bubbles { background-color: transparent; }
@@ -81,9 +83,11 @@ class Bubbles:
     """The bubbles' window, the bar's bell, and the notices' server on the
     session bus."""
 
-    def __init__(self, application: Gtk.Application, shell, *, translate,
+    def __init__(self, application: Gtk.Application, shell, *, translate, drawing,
                  language: str) -> None:
         self._ = translate
+        #: Draws an SVG at a size, as the bar draws the mascot (view.drawing).
+        self._drawing = drawing
         self._language = language
         self._bubbles: dict[int, Gtk.Widget] = {}
         self._timers: dict[int, int] = {}
@@ -184,6 +188,8 @@ class Bubbles:
         module = kidux_modules.read(notice.module) if notice.module else None
         if module is not None:
             return kidux_modules.name_in(module, self._language), module.icon
+        if notice.app_name == KIDUX:
+            return KIDUX, str(paths.MASCOT)
         return notice.app_name, ""
 
     def _card(self, notice, *, closable: bool, when: bool) -> Gtk.Box:
@@ -195,7 +201,9 @@ class Bubbles:
         card.add_css_class("kidux-bubble")
 
         top = Gtk.Box(spacing=8)
-        if icon:
+        if name == KIDUX and icon:
+            top.append(self._drawing(icon, 28, 28))
+        elif icon:
             image = Gtk.Image.new_from_gicon(Gio.FileIcon.new(Gio.File.new_for_path(icon)))
             image.set_pixel_size(28)
             top.append(image)
@@ -226,6 +234,13 @@ class Bubbles:
         return card
 
     # --- the bubbles --------------------------------------------------------
+
+    def tell(self, summary: str, body: str = "", *, replaces: int = 0) -> int:
+        """A notice of the launcher's own, from Kidux, which stays until it
+        is closed, in place of the one numbered `replaces` when that is
+        still shown: its number."""
+        hints = {"urgency": notices.CRITICAL}
+        return self.notices.notify("", KIDUX, replaces, summary, body, [], hints, -1).id
 
     def _show(self, notice) -> None:
         log.info("notice %d from %s%s", notice.id, notice.module or notice.app_name or "?",
