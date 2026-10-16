@@ -1,0 +1,20 @@
+<!-- Gmail: an open envelope, a letter rising out of it, on a peach circle.
+     Kidux's tile, not Google's mark; flat shapes like the avatars, legible
+     down to the 32 px of the launcher's bar (branding/README.md). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"
+     role="img" aria-label="Gmail">
+  <circle cx="64" cy="64" r="60" fill="#f6d7c4"/>
+  <!-- the open flap, behind the letter -->
+  <path d="M20 58 L64 30 L108 58 Z" fill="#e2703a" stroke="#24313f" stroke-width="4"
+        stroke-linejoin="round"/>
+  <!-- the letter, with its lines -->
+  <rect x="34" y="34" width="60" height="50" rx="4" fill="#fdf6f0" stroke="#24313f" stroke-width="4"/>
+  <g stroke="#3b2f2a" stroke-width="4" stroke-linecap="round" opacity="0.55">
+    <path d="M44 46 H84"/><path d="M44 56 H84"/><path d="M44 66 H72"/>
+  </g>
+  <!-- the envelope's front -->
+  <path d="M20 58 L64 86 L108 58 L108 96 Q108 102 102 102 L26 102 Q20 102 20 96 Z"
+        fill="#e2703a" stroke="#24313f" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M22 100 L56 76 M106 100 L72 76" fill="none" stroke="#24313f" stroke-width="4"
+        stroke-linecap="round"/>
+</svg>

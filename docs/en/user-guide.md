@@ -963,6 +963,28 @@ answer, Mail says so in the line along its bottom.
 
 ![Mail](../images/en/module-mail.png)
 
+### Gmail
+
+**Gmail** is a door to Gmail's website, for a child with a Google account,
+from eight. It is Gmail as it is on any computer, in the child's language,
+and the module opens it and no other website: a link out of it leads
+nowhere. It is the module for a child under thirteen, whose Google account
+is managed with Family Link, which Google does not let sign in to **Mail**;
+it suits any Google account, for a family that prefers the website. Kidux
+has no connection with Google. It needs the internet whenever it is used.
+
+An adult gives the child's Google account in Gmail's **Settings** on the
+panel, its **Email address**, and Google's sign-in page opens with it
+already written. Then the adult opens Gmail with the child the first time
+and signs in there, with the password and, if Google asks for it, the
+second step. Gmail stays signed in afterwards: closing it, logging out
+or turning the computer off does not sign the child out, and Google asks
+again only when it chooses to. The password is typed only in Google's
+page; the panel never has it. The site may ask about its cookies the
+first time; that is Google's own question.
+
+![Gmail](../images/en/module-gmail.png)
+
 ## 10. Updates and reinstalling
 
 Security updates install themselves in the background, from Debian and

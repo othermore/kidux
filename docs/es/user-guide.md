@@ -990,6 +990,30 @@ servidor no contesta, Correo lo dice en la línea de su parte de abajo.
 
 ![Correo](../images/es/module-mail.png)
 
+### Gmail
+
+**Gmail** es una puerta a la web de Gmail, para un niño con una cuenta de
+Google, desde los ocho años. Es Gmail tal como es en cualquier ordenador,
+en el idioma del niño, y el módulo la abre a ella y a ninguna otra web: un
+enlace que salga de ella no lleva a ninguna parte. Es el módulo para un
+niño menor de trece años, cuya cuenta de Google se gestiona con Family
+Link, que Google no deja entrar en **Correo**; sirve con cualquier cuenta
+de Google, para una familia que prefiera la web. Kidux no tiene ninguna
+relación con Google. Necesita internet siempre que se usa.
+
+Un adulto pone la cuenta de Google del niño en los **Ajustes** de Gmail
+del panel, su **Dirección de correo**, y la página de entrada de Google se
+abre con ella ya escrita. Después, el adulto abre Gmail con el niño la
+primera vez y entra allí, con la contraseña y, si Google lo pide, el
+segundo paso. Gmail se queda dentro después:
+cerrarlo, salir de la sesión o apagar el ordenador no cierra la sesión del
+niño, y Google vuelve a preguntar solo cuando él lo decide. La contraseña
+se escribe solo en la página de Google; el panel no la tiene nunca. La
+web puede preguntar por sus cookies la primera vez; esa pregunta es de
+Google.
+
+![Gmail](../images/es/module-gmail.png)
+
 ## 10. Actualizar y reinstalar
 
 Las actualizaciones de seguridad se instalan solas, en segundo plano, tanto

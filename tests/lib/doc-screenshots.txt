@@ -49,5 +49,6 @@ module-basic            module-basic.png
 module-codecombat       module-codecombat.png
 module-wikipedia        module-wikipedia.png
 module-mail             module-mail.png
+module-gmail            module-gmail.png
 launcher-modules        launcher-modules.png
 windows-modules         windows-modules.png

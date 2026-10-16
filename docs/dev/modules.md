@@ -61,8 +61,9 @@ icon theme is needed and the tile is the same on every machine.
   installs under `/usr/share/kidux/webapps/<id>/`, served on
   `127.0.0.1:8123` by `kidux-webapps` and opened in a Chromium application
   window; `web`, an `https://` address on the internet, in which `{lang}`
-  stands for the child's language code (`https://{lang}.wikipedia.org/`),
-  opened the same way; or `exec`, a native program. Whichever it is, the
+  stands for the child's language code (`https://{lang}.wikipedia.org/`)
+  and `{<key>}` for the value of one of the module's settings, encoded
+  for an address (`&Email={email}`, Gmail's), opened the same way; or `exec`, a native program. Whichever it is, the
   launcher starts it in a systemd user scope, `kidux-module-<id>`, which is
   how it is ended and how its memory is capped.
 - `hosts` names the internet hosts a web module's pages may reach, each
@@ -94,8 +95,10 @@ icon theme is needed and the tile is the same on every machine.
   English in the manifest and translated through the module's catalogue,
   and a `default` of its kind (a secret has none). The module reads them
   as `KIDUX_SETTING_<KEY>` in its environment, a switch as `1` or `0`;
-  a web application finds them in its address too, `?lang=es&type_in=0`.
-  A secret never reaches the child's session: the daemon keeps it and
+  a web application finds them in its address too, `?lang=es&type_in=0`,
+  and a website where its address names them in braces, empty when the
+  adult gave nothing. A secret never reaches the child's session, nor an
+  address: the daemon keeps it and
   uses it itself, for `sign_in`.
 - `[sign_in]` says how a module that opens a website signs a child in
   with the account an adult gave: data, never code. `url`, an `https://`
@@ -276,7 +279,8 @@ directory. `/usr/libexec/kidux-webapp <module id>`, which the launcher
 runs, reads the module's manifest and opens a Chromium application window
 (`--app`, no tabs and no address bar) on its address: a web application's,
 `http://127.0.0.1:8123/<webapp>/?lang=<the child's language>`, or a
-website's, the manifest's `web` with `{lang}` the child's language. It
+website's, the manifest's `web` with `{lang}` the child's language and
+each setting it names, as the launcher handed it over. It
 gives it a profile of the module's own under its `XDG_CONFIG_HOME` (D44),
 Chromium's own words in the child's language (`--lang=<the child's
 language>`, from `chromium-l10n`, which `kidux-webapps` depends on, since

@@ -1,0 +1,6 @@
+kidux-module-gmail (0.1.0) trixie; urgency=medium
+
+  * Gmail: a door to Gmail's website, with the child's address filled in
+    on Google's sign-in page.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 15 Oct 2026 18:00:07 +0200

@@ -45,7 +45,7 @@ import os
 import shlex
 import sys
 import time
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 
 from kidux import browser, modules, paths
 
@@ -95,10 +95,23 @@ def settings(environ) -> dict[str, str]:
     return dict(sorted(found.items()))
 
 
+def website(module: modules.Module, lang: str, environ=None) -> str:
+    """A website's address, with {lang} the child's language and each
+    {<key>} of one of the module's settings what an adult gave, encoded for
+    an address; empty when nothing was given. A secret never goes into an
+    address: it is not in the child's session at all (D90)."""
+    found = module.launch["web"].replace("{lang}", lang)
+    given = settings(environ or {})
+    for setting in module.settings:
+        if setting.kind != "secret":
+            found = found.replace("{" + setting.key + "}", quote(given.get(setting.key, ""), safe=""))
+    return found
+
+
 def address(module: modules.Module, lang: str, environ=None) -> str:
     """Where Chromium opens: the server's application, with the child's
-    language and the module's settings, or the website, with {lang} the
-    child's language."""
+    language and the module's settings, or the website, with the child's
+    language and the settings its address names."""
     if isinstance(module.launch.get("webapp"), str):
         query = urlencode({"lang": lang, **settings(environ or {})})
         return f"{SERVER}/{module.launch['webapp']}/?{query}"
@@ -108,7 +121,7 @@ def address(module: modules.Module, lang: str, environ=None) -> str:
         # the child is signed in (sign_in_and_follow).
         return f"{SERVER}/{module.id}/?lang={lang}"
     if modules.web_host(module.launch):
-        return module.launch["web"].replace("{lang}", lang)
+        return website(module, lang, environ)
     raise ValueError(f"module {module.id} is neither a web application nor a website")
 
 

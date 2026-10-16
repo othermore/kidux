@@ -121,6 +121,10 @@ Los módulos que ofrece Kidux:
   [Thunderbird](https://www.thunderbird.net/), con la cuenta que da un
   adulto: Gmail, Outlook, iCloud o cualquier proveedor, y nada que
   configurar para el niño.
+- Gmail: una puerta a la web de [Gmail](https://mail.google.com/), para
+  una cuenta de Google, la única forma para un niño cuya cuenta se
+  gestiona con Family Link; necesita internet, y Kidux no tiene ninguna
+  relación con Google.
 
 ![GCompris](docs/images/es/module-gcompris.png)
 

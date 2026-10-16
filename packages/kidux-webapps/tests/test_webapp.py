@@ -159,6 +159,23 @@ def test_an_adult_s_settings_go_to_a_web_application_in_its_address():
     assert webapp.argv(COMBAT, child)[-1] == "--app=https://codecombat.com/"
 
 
+def test_a_website_s_address_takes_the_settings_it_names():
+    email = modules.Setting("email", "text", "Email address")
+    secret = modules.Setting("password", "secret", "Password")
+    mail = modules.Module(
+        id="gmail", name="Gmail", settings=(email, secret),
+        launch={"web": "https://accounts.example.com/in?Email={email}&p={password}&hl={lang}"},
+        hosts=("accounts.example.com",))
+    child = {**CHILD, "KIDUX_SETTING_EMAIL": "leo+box@example.com",
+             "KIDUX_SETTING_PASSWORD": "never"}
+
+    assert webapp.argv(mail, child)[-1] == \
+        "--app=https://accounts.example.com/in?Email=leo%2Bbox%40example.com&p={password}&hl=es"
+    # An address an adult left empty is an empty value.
+    assert webapp.argv(mail, CHILD)[-1] == \
+        "--app=https://accounts.example.com/in?Email=&p={password}&hl=es"
+
+
 class FakePipe:
     """Chromium's pipe as the sign-in uses it: every command kept, and the
     events it waits for there at once."""

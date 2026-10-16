@@ -408,16 +408,19 @@ while it is installed and no longer after, and `kidux-webapp --print`
 opens the sign-in page with the child's address and language in it.
 Session (`35-module-gmail.py`; the purge becomes `36-purge.py`): an adult
 sets Leo's address, a made-up one, from the command line; Leo opens the
-tile and Google's sign-in page comes up above the bar, its picture taken
-(`module-gmail`); nothing is typed into it; Alt+F4, log out, removed. In
-every language.
+tile and Google's sign-in page comes up above the bar with the address in
+its field, its picture taken (`module-gmail`); nothing is typed into it;
+Alt+F4, log out, removed. In every language. The address Chromium is given
+is the acceptance test's to check: Chromium writes its own command line
+over at 4096 bytes, and Gmail's list of hosts comes before it.
 
 **Documents.** The user guide's section (the account, Family Link under
 thirteen, the first sign-in with the adult, that the session stays, and
 that the site's own questions about cookies are the site's); Mail's
-section pointing a Family Link child here; the READMEs; the website's
-card and anchor; modules.md (a setting in a door's address);
-architecture.md's decision.
+section pointing a Family Link child here; the READMEs; modules.md (a
+setting in a door's address); architecture.md's decision;
+`tests/lib/doc-screenshots.txt`. The website's card and anchor go on the
+local branch `site-mail-gmail` with Mail's (4.22).
 
 ### 4.24 — The keyboard's light goes off with the lid
 

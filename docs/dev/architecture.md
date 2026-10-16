@@ -393,6 +393,7 @@ what was built and tested.
 | CodeCombat | `kidux-module-codecombat`, a door to codecombat.com (D85, D86) | ours, nothing of CodeCombat's in it, step 4.13 | Teaches real Python/JavaScript and is translated, but the levels are proprietary (`LICENSE-LEVELS.md`: not open source, not allowed on other servers), so it cannot be shipped locally. First world free, rest by subscription bought by the adult. |
 | Wikipedia (8–) | `kidux-module-wikipedia`, a door to the encyclopedia in the child's language and the Wikimedia projects (D85, D87) | ours, nothing of Wikipedia's in it, step 4.14 | The whole encyclopedia, free and in every language Kidux ships, with the rest of the internet closed; written for everyone, so the adult decides. |
 | Mail (8–) | `kidux-module-mail`: Thunderbird 140 ESR with the account an adult gives, locked by its policies (D95) | `thunderbird`, `thunderbird-l10n-all` (trixie), step 4.22 | A real mail client that signs in to Google and Microsoft by itself and speaks IMAP to every other provider, with nothing for the child to set up; not for a Family Link account, which Google keeps out of it. |
+| Gmail (8–) | `kidux-module-gmail`, a door to Gmail's website with the child's address filled in (D85, D96) | ours, nothing of Google's in it, step 4.23 | The way for a Family Link account, which Google keeps out of Thunderbird, and for a family that prefers the website. |
 | AI agents | `kidux-ai-gateway` (ours) | packaged by us | Local service that holds the adult's API key and applies guardrails; the child's projects talk to the gateway, never to the provider directly. Local models rejected for old hardware. |
 | Web (future) | Firefox ESR 140 in kiosk mode with policy-managed allow/deny lists | `firefox-esr` (trixie) | Enterprise policies give whitelist/blacklist without a proxy. |
 
@@ -1662,3 +1663,18 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   kiosk would show full screen. Google does not let a Family Link account
   sign in to Thunderbird (tried 2026-10-12), so Mail serves every other
   account and Gmail, a door module, serves that one.
+- **D96 — Gmail is a door to its website, and a website's address may
+  name a module's settings.** Decided 2026-10-12 by the owner, on
+  phase-4d-plan.md, and 2026-10-15 after its step 4.21. Gmail is the way
+  for a Family Link account (D95), and for a family that prefers the
+  website: a door module (D85), its Chromium walled in to Gmail's own
+  hosts, read from Chromium's net log, and to the `accounts.` host of
+  every domain Google lists as its own, since signing in passes through
+  the family's country's (`accounts.google.es` in Spain); never Google
+  whole, nor Search, Play or Drive. It opens Google's sign-in for Gmail
+  with the child's address in it, which Google's page takes from its
+  address: `kidux-webapp` puts a module's settings into a website's
+  address where it names them in braces, as it puts the language in
+  `{lang}`, encoded and never a secret. The adult signs in with the child
+  the first time, in Google's page, and the module's Chromium profile
+  keeps the session (D89); the daemon holds nothing of it.

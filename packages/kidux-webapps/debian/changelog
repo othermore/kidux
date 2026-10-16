@@ -1,3 +1,10 @@
+kidux-webapps (0.1.15) trixie; urgency=medium
+
+  * A website's address takes the module's settings it names in braces,
+    as it takes the language in {lang}; a secret never.
+
+ -- Antonio Morales García <info@kidux.org>  Thu, 15 Oct 2026 17:59:19 +0200
+
 kidux-webapps (0.1.14) trixie; urgency=medium
 
   * Signing in by hand opens the site and runs the module's script for
