@@ -124,6 +124,18 @@ age = "De 9 a 16 años"
 text = "Python y JavaScript jugando, en la web de CodeCombat, con una cuenta que prepara un adulto."
 anchor = "codecombat"
 
+[modules.mail]
+name = "Correo"
+age = "Desde 8 años"
+text = "Un buzón de correo propio del niño, en Thunderbird, con la cuenta que da un adulto y nada que configurar."
+anchor = "correo"
+
+[modules.gmail]
+name = "Gmail"
+age = "Desde 8 años"
+text = "La web de Gmail, para una cuenta de Google, también la de un niño con Family Link, con el resto de internet cerrado."
+anchor = "gmail"
+
 [adults]
 title = "Tú decides. Desde un solo sitio."
 lead = "Un panel para adultos, tras una contraseña que nunca se escribe donde un niño pueda verla."

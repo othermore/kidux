@@ -124,6 +124,18 @@ age = "Ages 9 to 16"
 text = "Python and JavaScript by playing, on the CodeCombat website, with an account an adult sets up."
 anchor = "codecombat"
 
+[modules.mail]
+name = "Mail"
+age = "Ages 8 and up"
+text = "A mailbox of the child's own, in Thunderbird, with the account an adult gives and nothing to set up."
+anchor = "mail"
+
+[modules.gmail]
+name = "Gmail"
+age = "Ages 8 and up"
+text = "Gmail's website, for a Google account, a child's under Family Link too, with the rest of the internet closed."
+anchor = "gmail"
+
 [adults]
 title = "You decide. From one place."
 lead = "An adult panel, behind a password that is never typed where a child could catch it."
