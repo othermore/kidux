@@ -16,6 +16,7 @@ from `function_key` and `super_key`, never from a literal.
 import fcntl
 import logging
 import os
+import stat
 import struct
 import subprocess
 from dataclasses import dataclass
@@ -163,18 +164,39 @@ def keyboard_light_off(root: Path = SYS, kept: Path = KEYBOARD_LIGHT) -> bool:
     return changed
 
 
-def keyboard_light_back(root: Path = SYS, kept: Path = KEYBOARD_LIGHT) -> bool:
-    """The keyboard's light as `keyboard_light_off` remembered it, never
-    brighter than its maximum, and forgotten; nothing when nothing is
-    remembered. True when it was set."""
+def remembered_level(kept: Path) -> str:
+    """What `kept` holds, and its removal; "" when there is nothing. Its
+    directory is every child's to write in, so only a plain file is read,
+    never followed as a link nor waited on as a pipe, and only its first
+    bytes."""
+    held = ""
     try:
-        remembered = kept.read_text().strip()
+        descriptor = os.open(kept, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    except FileNotFoundError:
+        return ""
     except OSError:
-        return False
+        # A link, or something else that is not a file: not read, and gone.
+        descriptor = None
+    if descriptor is not None:
+        try:
+            if stat.S_ISREG(os.fstat(descriptor).st_mode):
+                held = os.read(descriptor, 32).decode("ascii", "replace").strip()
+        except OSError:
+            held = ""
+        finally:
+            os.close(descriptor)
     try:
         kept.unlink()
     except OSError as error:
         log.warning("the keyboard's light cannot be forgotten: %s", error)
+    return held
+
+
+def keyboard_light_back(root: Path = SYS, kept: Path = KEYBOARD_LIGHT) -> bool:
+    """The keyboard's light as `keyboard_light_off` remembered it, never
+    brighter than its maximum, and forgotten; nothing when nothing is
+    remembered. True when it was set."""
+    remembered = remembered_level(kept)
     level = keyboard_backlight(root)
     if level is None or not remembered.isdigit():
         return False

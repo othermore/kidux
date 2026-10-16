@@ -345,3 +345,21 @@ def test_a_machine_without_a_keyboard_light_has_nothing_to_turn_off(desktop, rec
     kept.write_text("128\n")
     assert not hardware.keyboard_light_back(desktop, kept)
     assert calls == [] and not kept.exists()
+
+
+def test_what_remembers_the_light_is_read_only_as_a_plain_file(macbook, recorded, tmp_path):
+    # Its directory is every child's to write in: a pipe left there would
+    # hold the lock screen's lid watcher for ever, and a link would read
+    # whatever it points at.
+    import os
+    calls, _ = recorded
+    kept = tmp_path / "keyboard"
+    os.mkfifo(kept)
+    assert not hardware.keyboard_light_back(macbook, kept)
+    assert not kept.exists()
+
+    (tmp_path / "elsewhere").write_text("128\n")
+    kept.symlink_to(tmp_path / "elsewhere")
+    assert not hardware.keyboard_light_back(macbook, kept)
+    assert not kept.exists() and (tmp_path / "elsewhere").exists()
+    assert calls == []

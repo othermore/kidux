@@ -5,6 +5,8 @@ kidux-common (0.1.58) trixie; urgency=medium
     both find it.
   * An area's size is judged once it has settled, so that a window's
     passing size while it is first shown is not logged as not fitting.
+  * What remembers the keyboard's light is read only as a plain file,
+    never followed as a link nor waited on as a pipe.
 
  -- Antonio Morales García <info@kidux.org>  Thu, 15 Oct 2026 18:11:18 +0200
 
