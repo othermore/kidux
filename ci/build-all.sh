@@ -40,6 +40,7 @@ kidux-module-blockly-games
 kidux-module-basic
 kidux-module-codecombat
 kidux-module-wikipedia
+kidux-module-mail
 kidux-webapps
 kidux-module-hello-web
 kidux-session

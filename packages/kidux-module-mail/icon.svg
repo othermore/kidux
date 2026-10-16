@@ -1,0 +1,17 @@
+<!-- Mail: an envelope, its flap closed on a sun-yellow seal, on a sky-blue
+     circle. Flat shapes like the avatars, legible down to the 32 px of the
+     launcher's bar (branding/README.md). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"
+     role="img" aria-label="Mail">
+  <circle cx="64" cy="64" r="60" fill="#cfe3f3"/>
+  <!-- the envelope -->
+  <rect x="20" y="36" width="88" height="60" rx="8" fill="#fdf6f0" stroke="#24313f" stroke-width="4"/>
+  <!-- its folds, from the lower corners -->
+  <path d="M24 92 L54 66 M104 92 L74 66" fill="none" stroke="#24313f" stroke-width="4"
+        stroke-linecap="round"/>
+  <!-- the flap -->
+  <path d="M22 40 L64 72 L106 40" fill="#fdf6f0" stroke="#24313f" stroke-width="4"
+        stroke-linejoin="round"/>
+  <!-- the seal -->
+  <circle cx="64" cy="70" r="9" fill="#f0a202" stroke="#24313f" stroke-width="3"/>
+</svg>

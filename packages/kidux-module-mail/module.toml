@@ -1,0 +1,40 @@
+# Mail: Thunderbird, Debian's own, as a child's mailbox, with the account an
+# adult gives on the panel (phase-4d-plan.md, 4.22). The package holds this
+# manifest, the tile, its words, the program that starts Thunderbird with the
+# account in place, and Thunderbird's policies (modules.md, section 5).
+id = "mail"
+version = "0.1.0"
+name = "Mail"
+description = "A mailbox of the child's own, in Thunderbird, with the account an adult gives: Gmail, Outlook, iCloud or any provider. A Google account managed with Family Link cannot sign in to it; the Gmail module is for one."
+min_age = 8
+launch = { exec = "/usr/libexec/kidux-module-mail" }
+app_ids = ["thunderbird"]                # what Thunderbird calls its window
+i18n_domain = "kidux-module-mail"
+memory_max = "2G"
+
+# The child's account (D90). No password: Thunderbird asks for it once and
+# keeps it, and a Google or Microsoft account has none to give, only a
+# sign-in in their own window.
+[[settings]]
+key = "email"
+kind = "text"
+label = "Email address"
+description = "The child's email address. Mail finds the provider's servers from it by itself."
+
+[[settings]]
+key = "name"
+kind = "text"
+label = "Name"
+description = "The name the child's messages are sent as."
+
+[[settings]]
+key = "imap_host"
+kind = "text"
+label = "Incoming server"
+description = "Only for a provider Mail cannot find by itself: its IMAP server, such as imap.example.org."
+
+[[settings]]
+key = "smtp_host"
+kind = "text"
+label = "Outgoing server"
+description = "Only for a provider Mail cannot find by itself: its SMTP server, such as smtp.example.org."

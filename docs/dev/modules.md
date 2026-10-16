@@ -388,7 +388,16 @@ To make `kidux-module-<id>` from it, copy the directory and then:
   own in `bin/`, installed to `/usr/libexec/kidux-module-<id>`, that sets
   it and `exec`s the program. `kidux-module-gcompris` is one: its starter
   answers GCompris's first-start questions, which a child who cannot read
-  could not.
+  could not. `kidux-module-mail` configures more: its starter, in Python,
+  writes Thunderbird's `user.js` afresh at every start from the settings
+  an adult gave (the account, Local Folders beside it, the child's
+  Downloads), on a profile of the module's own under its
+  `XDG_CONFIG_HOME`, so that what a child changes is back the next time;
+  `--print` writes it without starting anything, for the tests. A program
+  whose policies bind it machine-wide, as Thunderbird's in
+  `/etc/thunderbird/policies/` do, gets them from the module's package,
+  which is then the only one that may ship them, as Chromium's are
+  `kidux-webapps`' (D36).
 - **Keep** the rest: the build, the tests, the rule that the program reads
   its language from the session, writes only in the child's home and in the
   three directories the launcher gives it, and starts in a window

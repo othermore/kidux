@@ -251,6 +251,7 @@ launcher as the child with the settings in `KIDUX_SETTING_<KEY>`
    user_pref("mail.server.server2.name", "<Local Folders, translated>");
    user_pref("mail.smtpservers", "smtp1");
    user_pref("mail.smtp.defaultserver", "smtp1");
+   user_pref("mail.smtpserver.smtp1.type", "smtp");
    user_pref("mail.smtpserver.smtp1.hostname", "<smtp host>");
    user_pref("mail.smtpserver.smtp1.port", 465);
    user_pref("mail.smtpserver.smtp1.try_ssl", 3);
@@ -289,9 +290,13 @@ application* (`browser.download.forbid_open_with` true,
 `network.protocol-handler.external-default` false), an attachment saved
 in the download directory without being asked where
 (`browser.download.useDownloadDir` true,
-`browser.download.always_ask_before_handling_new_types` false), and no
-chat (`mail.chat.enabled` false). What a policy cannot lock, the
-rewritten `user.js` puts back.
+`browser.download.always_ask_before_handling_new_types` false), no
+chat (`mail.chat.enabled` false), and no pop-up notice, which is a
+window of its own that the kiosk would show full screen until it is
+closed: a server that does not answer is told of in the status bar and
+the activity manager only (`mail.suppressAlertsForTests` true), and new
+mail in the folder pane only (`mail.biff.show_alert` false). What a
+policy cannot lock, the rewritten `user.js` puts back.
 
 **The security of a shared machine**, as usual on Linux and nothing
 more (section 4, decision 3): the profile is in the child's home, which
@@ -338,10 +343,15 @@ it; the profile is Leo's, 0700, with the `user.js` the settings make; Leo
 logs out and the daemon removes the module. In every language.
 
 **Documents.** The user guide's section, in both languages; the READMEs'
-list of modules; the website's modules (a card with its picture, its
-section's anchor in both languages, D94's words untouched); modules.md
-section 5, a program module that configures the program it runs;
-architecture.md's decision (section 4); `tests/lib/doc-screenshots.txt`.
+list of modules; modules.md section 5, a program module that configures
+the program it runs; architecture.md's decision (section 4);
+`tests/lib/doc-screenshots.txt`. The website's card (its picture, its
+section's anchor in both languages, D94's words untouched) waits for its
+picture: the site names only pictures that are in `docs/images/`, which
+the release run alone writes (D93), and its project check stops the
+battery over one that is not there. So the cards of Mail and Gmail are
+one commit on a local branch, `site-mail-gmail`, which goes onto `main`
+with the release's pictures, before the push.
 
 ### 4.23 — Gmail: a door to the website
 

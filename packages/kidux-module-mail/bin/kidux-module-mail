@@ -1,0 +1,265 @@
+#!/usr/bin/python3
+"""kidux-module-mail: Thunderbird as a child's own mailbox (phase-4d-plan.md, 4.22).
+
+    kidux-module-mail            start Thunderbird on the child's account
+    kidux-module-mail --print    write the user.js it would make, start nothing
+
+The account is the one an adult gives in Mail's Settings on the panel,
+which the launcher hands over as KIDUX_SETTING_<KEY> (D90): the address,
+the name the child's messages go out under, and, for a provider Mail
+cannot find by itself, its servers. Thunderbird runs on a profile of the
+module's own, $XDG_CONFIG_HOME/thunderbird, mode 0700, and this writes its
+user.js afresh at every start, so that whatever is changed in Thunderbird's
+account settings, or added there by hand, is gone the next time. The
+password is not here: Thunderbird asks for it, or Google's or Microsoft's
+sign-in window opens, the first time, and Thunderbird keeps it in the
+profile, which only the child can read.
+
+The servers come from the settings when given, and otherwise from Mozilla's
+autoconfiguration database, the one Thunderbird's own account setup asks,
+kept in the profile once answered so that a later start needs no network.
+Without an address, or with a provider neither knows, there is no account:
+Thunderbird shows Local Folders, and the panel is where an adult gives one.
+"""
+
+import gettext
+import json
+import os
+import re
+import sys
+import urllib.error
+import urllib.request
+import xml.etree.ElementTree as ElementTree
+from pathlib import Path
+
+DOMAIN = "kidux-module-mail"
+THUNDERBIRD = "/usr/bin/thunderbird"
+#: Mozilla's database of providers' servers, by the address's domain.
+AUTOCONFIG = "https://autoconfig.thunderbird.net/v1.1/{domain}"
+#: How long Thunderbird's start waits for the database.
+TIMEOUT = 5
+#: The database's answers, in the profile, by domain.
+SAVED = "kidux-autoconfig.json"
+
+_ = gettext.translation(DOMAIN, fallback=True).gettext
+
+
+def N_(message: str) -> str:
+    return message
+
+
+#: The name of Thunderbird's folders that are on the computer and no server.
+LOCAL_FOLDERS = N_("Local Folders")
+
+#: Thunderbird's numbers for a connection's security and a sign-in.
+TLS, STARTTLS = 3, 2
+PASSWORD, ENCRYPTED_PASSWORD, OAUTH2 = 3, 4, 10
+SOCKETS = {"SSL": TLS, "STARTTLS": STARTTLS}
+SIGN_INS = {"OAuth2": OAUTH2, "password-cleartext": PASSWORD,
+            "password-encrypted": ENCRYPTED_PASSWORD}
+
+HOST = re.compile(r"\A[A-Za-z0-9](?:[A-Za-z0-9.-]{0,251}[A-Za-z0-9])?\Z")
+ADDRESS = re.compile(r"\A[^@\s]+@([A-Za-z0-9](?:[A-Za-z0-9.-]{0,251}[A-Za-z0-9])?)\Z")
+
+
+def settings(environ) -> dict[str, str]:
+    """What an adult set in Mail for this child, each stripped, "" when not."""
+    return {key: environ.get(f"KIDUX_SETTING_{key.upper()}", "").strip()
+            for key in ("email", "name", "imap_host", "smtp_host")}
+
+
+def given(text: str, default_port: int, starttls_port: int) -> dict | None:
+    """A server an adult typed, `host` or `host:port`, as Thunderbird's
+    prefs: STARTTLS on its usual port, TLS otherwise, signed in to with a
+    password; None for anything that is not a host."""
+    host, _colon, port = text.partition(":")
+    if not HOST.match(host) or (port and not port.isdigit()):
+        return None
+    number = int(port) if port else default_port
+    if not 0 < number < 65536:
+        return None
+    return {"hostname": host.lower(), "port": number,
+            "socket": STARTTLS if number == starttls_port else TLS, "auth": PASSWORD}
+
+
+def from_database(answer: str, email: str) -> dict | None:
+    """The incoming IMAP server and the outgoing one an autoconfiguration
+    answer gives for `email`, as Thunderbird's prefs; OAuth2 where the
+    provider offers it; None when it gives no secure pair."""
+    try:
+        root = ElementTree.fromstring(answer)
+    except ElementTree.ParseError:
+        return None
+    local, _at, domain = email.partition("@")
+    names = {"%EMAILADDRESS%": email, "%EMAILLOCALPART%": local, "%EMAILDOMAIN%": domain}
+
+    def server(element) -> dict | None:
+        socket = SOCKETS.get((element.findtext("socketType") or "").strip())
+        offered = [(a.text or "").strip() for a in element.findall("authentication")]
+        signs_in = [SIGN_INS[a] for a in offered if a in SIGN_INS]
+        host, port = (element.findtext("hostname") or "").strip(), element.findtext("port") or ""
+        if socket is None or not signs_in or not HOST.match(host) or not port.strip().isdigit():
+            return None
+        username = (element.findtext("username") or "%EMAILADDRESS%").strip()
+        for placeholder, value in names.items():
+            username = username.replace(placeholder, value)
+        return {"hostname": host.lower(), "port": int(port), "socket": socket,
+                "auth": OAUTH2 if OAUTH2 in signs_in else signs_in[0], "username": username}
+
+    provider = root.find("emailProvider")
+    if provider is None:
+        return None
+    incoming = next((found for found in map(server, provider.findall("incomingServer[@type='imap']"))
+                     if found), None)
+    outgoing = next((found for found in map(server, provider.findall("outgoingServer[@type='smtp']"))
+                     if found), None)
+    return {"imap": incoming, "smtp": outgoing} if incoming and outgoing else None
+
+
+def ask_database(domain: str) -> str | None:
+    """The database's answer for `domain`, or None when it has none or
+    cannot be reached."""
+    try:
+        with urllib.request.urlopen(AUTOCONFIG.format(domain=domain), timeout=TIMEOUT) as answer:
+            return answer.read(1_000_000).decode("utf-8", "replace")
+    except (OSError, urllib.error.URLError, ValueError):
+        return None
+
+
+def database(domain: str, profile: Path, ask=ask_database) -> str | None:
+    """The database's answer for `domain`, from the profile when it was kept,
+    otherwise asked for and kept."""
+    saved = profile / SAVED
+    try:
+        answers = json.loads(saved.read_text())
+    except (OSError, ValueError):
+        answers = {}
+    if not isinstance(answers, dict):
+        answers = {}
+    if isinstance(answers.get(domain), str):
+        return answers[domain]
+    answer = ask(domain)
+    if answer is not None:
+        answers[domain] = answer
+        saved.write_text(json.dumps(answers))
+    return answer
+
+
+def servers(chosen: dict[str, str], profile: Path, ask=ask_database) -> dict | None:
+    """The account's two servers: the ones an adult gave, each in place of
+    the database's; None when there is no address, or a server is missing."""
+    found = ADDRESS.match(chosen["email"])
+    if not found:
+        return None
+    imap = given(chosen["imap_host"], 993, 143) if chosen["imap_host"] else None
+    smtp = given(chosen["smtp_host"], 465, 587) if chosen["smtp_host"] else None
+    if not (imap and smtp):
+        answer = database(found.group(1).lower(), profile, ask)
+        looked_up = from_database(answer, chosen["email"]) if answer else None
+        if looked_up:
+            imap, smtp = imap or looked_up["imap"], smtp or looked_up["smtp"]
+    if not (imap and smtp):
+        return None
+    for server in (imap, smtp):
+        server.setdefault("username", chosen["email"])
+    return {"imap": imap, "smtp": smtp}
+
+
+def downloads(environ) -> str:
+    """The child's Downloads folder, in their language (D76): the launcher
+    links the child's user-dirs.dirs into the module's configuration."""
+    home = environ.get("HOME", "")
+    config = environ.get("XDG_CONFIG_HOME") or os.path.join(home, ".config")
+    try:
+        lines = Path(config, "user-dirs.dirs").read_text().splitlines()
+    except OSError:
+        lines = []
+    for line in lines:
+        name, _equals, value = line.partition("=")
+        if name.strip() == "XDG_DOWNLOAD_DIR":
+            value = value.strip().strip('"').replace("$HOME", home)
+            if value.startswith("/"):
+                return value
+    return os.path.join(home, "Downloads")
+
+
+def pref(name: str, value) -> str:
+    return f"user_pref({json.dumps(name)}, {json.dumps(value)});"
+
+
+def user_js(chosen: dict[str, str], account: dict | None, local_folders: str,
+            download_dir: str) -> str:
+    """Thunderbird's user.js for the child: the account, when there is one,
+    Local Folders beside it, and Thunderbird kept quiet and small."""
+    lines = []
+    if account:
+        imap, smtp = account["imap"], account["smtp"]
+        lines += [
+            pref("mail.accountmanager.accounts", "account1,account2"),
+            pref("mail.accountmanager.defaultaccount", "account1"),
+            pref("mail.account.account1.identities", "id1"),
+            pref("mail.account.account1.server", "server1"),
+            pref("mail.identity.id1.fullName", chosen["name"]),
+            pref("mail.identity.id1.useremail", chosen["email"]),
+            pref("mail.identity.id1.smtpServer", "smtp1"),
+            pref("mail.identity.id1.valid", True),
+            pref("mail.server.server1.type", "imap"),
+            pref("mail.server.server1.hostname", imap["hostname"]),
+            pref("mail.server.server1.port", imap["port"]),
+            pref("mail.server.server1.socketType", imap["socket"]),
+            pref("mail.server.server1.userName", imap["username"]),
+            pref("mail.server.server1.authMethod", imap["auth"]),
+            pref("mail.server.server1.name", chosen["email"]),
+            pref("mail.server.server1.login_at_startup", True),
+            pref("mail.server.server1.check_new_mail", True),
+            pref("mail.smtpservers", "smtp1"),
+            pref("mail.smtp.defaultserver", "smtp1"),
+            pref("mail.smtpserver.smtp1.type", "smtp"),
+            pref("mail.smtpserver.smtp1.hostname", smtp["hostname"]),
+            pref("mail.smtpserver.smtp1.port", smtp["port"]),
+            pref("mail.smtpserver.smtp1.try_ssl", smtp["socket"]),
+            pref("mail.smtpserver.smtp1.username", smtp["username"]),
+            pref("mail.smtpserver.smtp1.authMethod", smtp["auth"]),
+        ]
+    else:
+        lines.append(pref("mail.accountmanager.accounts", "account2"))
+    lines += [
+        # Local Folders, declared, or Thunderbird makes another at every start.
+        pref("mail.account.account2.server", "server2"),
+        pref("mail.accountmanager.localfoldersserver", "server2"),
+        pref("mail.server.server2.type", "none"),
+        pref("mail.server.server2.hostname", "Local Folders"),
+        pref("mail.server.server2.userName", "nobody"),
+        pref("mail.server.server2.name", local_folders),
+        pref("mailnews.start_page.enabled", False),
+        pref("mail.provider.enabled", False),
+        pref("mail.shell.checkDefaultClient", False),
+        pref("mail.rights.version", 1),
+        pref("datareporting.policy.dataSubmissionEnabled", False),
+        pref("browser.download.dir", download_dir),
+        pref("browser.download.folderList", 2),
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def main(args: list[str], environ=os.environ) -> int:
+    printing = args[1:] == ["--print"]
+    if args[1:] and not printing:
+        print("usage: kidux-module-mail [--print]", file=sys.stderr)
+        return 2
+    home = environ.get("HOME", "")
+    profile = Path(environ.get("XDG_CONFIG_HOME") or os.path.join(home, ".config"), "thunderbird")
+    profile.mkdir(mode=0o700, parents=True, exist_ok=True)
+    profile.chmod(0o700)
+    chosen = settings(environ)
+    written = user_js(chosen, servers(chosen, profile), _(LOCAL_FOLDERS), downloads(environ))
+    if printing:
+        sys.stdout.write(written)
+        return 0
+    (profile / "user.js").write_text(written)
+    os.execv(THUNDERBIRD, [THUNDERBIRD, "--profile", str(profile), "--no-remote"])
+    return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

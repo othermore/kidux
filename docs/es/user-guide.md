@@ -947,6 +947,49 @@ también vuelven. Necesita internet siempre que se usa.
 
 ![Wikipedia](../images/es/module-wikipedia.png)
 
+### Correo
+
+**Correo** es un buzón de correo propio del niño, en Thunderbird, el
+programa de correo, para niños desde los ocho años. El niño lee y escribe
+allí sus mensajes, y no tiene nada que configurar: la cuenta es la que da
+un adulto, y sirve con Gmail, Outlook, iCloud y cualquier proveedor que
+hable IMAP. Necesita internet para enviar y recibir.
+
+Un adulto pone la cuenta en los **Ajustes** de Correo del panel: la
+**Dirección de correo** del niño, y el **Nombre** con el que salen sus
+mensajes. Correo encuentra por sí solo los servidores del proveedor para
+Gmail, Outlook, Hotmail, iCloud, Yahoo y casi todos los demás. Para un
+proveedor que no encuentra, **Servidor de entrada** y **Servidor de
+salida** llevan los servidores IMAP y SMTP del proveedor, tal como él los
+da, como `imap.example.org`; uno en un puerto propio se escribe con él,
+como `imap.example.org:143`.
+
+Después, el adulto abre Correo con el niño la primera vez. Con una cuenta
+de Gmail o de Outlook, se abre dentro de Correo la ventana de entrada de
+Google o de Microsoft: el adulto entra allí, con el segundo paso si la
+cuenta lo tiene, y Correo se queda dentro. Con cualquier otro proveedor,
+Correo pide la contraseña una vez: el adulto la escribe, con la casilla
+de recordarla marcada, y Correo la guarda. La contraseña se queda en la
+parte del ordenador que es solo del niño, que nadie más en él puede leer;
+el panel no la tiene nunca.
+
+La cuenta de Google de un niño menor de trece años se gestiona con Family
+Link, y Google no deja que una cuenta así entre en Correo. Para ella está
+el módulo **Gmail**.
+
+Lo que el niño cambie en la cuenta vuelve a estar como era la próxima vez
+que se abre Correo, y una cuenta añadida a mano desaparece: la cuenta es
+siempre la que se dio en el panel. Sin una dirección en el panel, o con un
+proveedor que Correo no encuentra y sin servidores puestos, Correo se abre
+solo con sus carpetas locales.
+
+Un enlace en un mensaje no lleva a ninguna parte. Un adjunto se guarda en
+las **Descargas** del niño, y nunca se abre con otro programa. El chat de
+Correo, sus complementos y sus ajustes avanzados están cerrados. Cuando un
+servidor no contesta, Correo lo dice en la línea de su parte de abajo.
+
+![Correo](../images/es/module-mail.png)
+
 ## 10. Actualizar y reinstalar
 
 Las actualizaciones de seguridad se instalan solas, en segundo plano, tanto

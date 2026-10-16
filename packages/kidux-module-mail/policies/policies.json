@@ -1,0 +1,41 @@
+{
+  "policies": {
+    "DisableAppUpdate": true,
+    "DisableSafeMode": true,
+    "DisableDeveloperTools": true,
+    "DisableTelemetry": true,
+    "DisableMasterPasswordCreation": true,
+    "BlockAboutConfig": true,
+    "BlockAboutAddons": true,
+    "BlockAboutProfiles": true,
+    "BlockAboutSupport": true,
+    "InstallAddonsPermission": {
+      "Default": false
+    },
+    "PasswordManagerEnabled": true,
+    "OfferToSaveLogins": true,
+    "Handlers": {
+      "schemes": {
+        "http": {
+          "action": "useHelperApp",
+          "ask": false,
+          "handlers": [{"name": "Kidux", "path": "/usr/bin/true"}]
+        },
+        "https": {
+          "action": "useHelperApp",
+          "ask": false,
+          "handlers": [{"name": "Kidux", "path": "/usr/bin/true"}]
+        }
+      }
+    },
+    "Preferences": {
+      "browser.download.forbid_open_with": {"Value": true, "Status": "locked"},
+      "network.protocol-handler.external-default": {"Value": false, "Status": "locked"},
+      "browser.download.useDownloadDir": {"Value": true, "Status": "locked"},
+      "browser.download.always_ask_before_handling_new_types": {"Value": false, "Status": "locked"},
+      "mail.chat.enabled": {"Value": false, "Status": "locked"},
+      "mail.suppressAlertsForTests": {"Value": true, "Status": "locked"},
+      "mail.biff.show_alert": {"Value": false, "Status": "locked"}
+    }
+  }
+}

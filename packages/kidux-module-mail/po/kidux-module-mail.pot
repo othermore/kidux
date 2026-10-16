@@ -1,0 +1,60 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-mail package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-mail 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-10-15 17:42+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Mail"
+msgstr ""
+
+msgid ""
+"A mailbox of the child's own, in Thunderbird, with the account an adult "
+"gives: Gmail, Outlook, iCloud or any provider. A Google account managed with "
+"Family Link cannot sign in to it; the Gmail module is for one."
+msgstr ""
+
+msgid "Email address"
+msgstr ""
+
+msgid ""
+"The child's email address. Mail finds the provider's servers from it by "
+"itself."
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "The name the child's messages are sent as."
+msgstr ""
+
+msgid "Incoming server"
+msgstr ""
+
+msgid ""
+"Only for a provider Mail cannot find by itself: its IMAP server, such as "
+"imap.example.org."
+msgstr ""
+
+msgid "Outgoing server"
+msgstr ""
+
+msgid ""
+"Only for a provider Mail cannot find by itself: its SMTP server, such as "
+"smtp.example.org."
+msgstr ""
+
+msgid "Local Folders"
+msgstr ""

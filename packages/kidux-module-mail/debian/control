@@ -1,0 +1,40 @@
+Source: kidux-module-mail
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.53~) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-mail
+Architecture: all
+Depends: ${misc:Depends},
+         python3,
+         thunderbird,
+         thunderbird-l10n-all,
+XB-Kidux-Name-en: Mail
+XB-Kidux-Description-en: A mailbox of the child's own, in Thunderbird, with the account an adult gives: Gmail, Outlook, iCloud or any provider. A Google account managed with Family Link cannot sign in to it; the Gmail module is for one.
+XB-Kidux-Name-es: Correo
+XB-Kidux-Description-es: Un buzón de correo propio del niño, en Thunderbird, con la cuenta que da un adulto: Gmail, Outlook, iCloud o cualquier proveedor. Una cuenta de Google gestionada con Family Link no puede entrar en él; para esa está el módulo Gmail.
+XB-Kidux-Ages: 8-
+Description: Kidux learning module: Mail, a child's own mailbox in Thunderbird
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is a mailbox of the child's own, in Thunderbird, with the account
+ an adult gives on the adult panel: Gmail, Outlook, iCloud or any provider
+ that speaks IMAP. The child has nothing to set up, and what the child
+ changes in the account is put back the next time; Thunderbird's own
+ policies close what a child could break, and a link in a message leads
+ nowhere.
+ .
+ The password is given once in Thunderbird, by the adult, or in Google's or
+ Microsoft's own sign-in window; Thunderbird keeps it in the child's home.
+ A Google account managed with Family Link cannot sign in to Thunderbird:
+ the Gmail module is for one.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

@@ -1,0 +1,35 @@
+#!/usr/bin/make -f
+
+DEST = debian/kidux-module-mail
+MODULE = $(DEST)/usr/share/kidux/modules/mail
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	for po in po/*.po; do \
+	    lang=$$(basename $$po .po); \
+	    mkdir -p build/$$lang; \
+	    msgfmt --check --output-file=build/$$lang/kidux-module-mail.mo $$po; \
+	done
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 bin/kidux-module-mail tests
+	python3 -m pytest -q -p no:cacheprovider tests
+endif
+
+# Thunderbird's policies bind every Thunderbird on the machine, as
+# Chromium's do (D36): the module's is the only one.
+override_dh_auto_install:
+	install -D -m 0644 module.toml $(MODULE)/module.toml
+	install -D -m 0644 icon.svg $(MODULE)/icon.svg
+	install -D -m 0755 bin/kidux-module-mail $(DEST)/usr/libexec/kidux-module-mail
+	install -D -m 0644 policies/policies.json $(DEST)/etc/thunderbird/policies/policies.json
+	for mo in build/*/kidux-module-mail.mo; do \
+	    lang=$$(basename $$(dirname $$mo)); \
+	    install -D -m 0644 $$mo $(DEST)/usr/share/locale/$$lang/LC_MESSAGES/kidux-module-mail.mo; \
+	done
+
+override_dh_auto_clean:
+	rm -rf build tests/__pycache__

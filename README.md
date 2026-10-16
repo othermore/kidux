@@ -115,6 +115,10 @@ The modules Kidux offers:
 - Wikipedia: a door to the whole [Wikipedia](https://www.wikipedia.org/),
   in the child's language, and its sister projects, with the rest of the
   internet closed; it is written for everyone, not only for children.
+- Mail: a mailbox of the child's own, in
+  [Thunderbird](https://www.thunderbird.net/), with the account an adult
+  gives: Gmail, Outlook, iCloud or any provider, and nothing for the child
+  to set up.
 
 ![GCompris](docs/images/en/module-gcompris.png)
 

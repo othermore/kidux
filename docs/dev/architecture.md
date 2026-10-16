@@ -392,6 +392,7 @@ what was built and tested.
 | Python | Our own course in Thonny 4.1: `turtle`, then Pygame Zero (`python3-pgzero`, Thonny has a built-in Pygame Zero mode), then micro:bit | `thonny` (trixie) | Real Python in a real editor, offline, free. This is the main road to Python. |
 | CodeCombat | `kidux-module-codecombat`, a door to codecombat.com (D85, D86) | ours, nothing of CodeCombat's in it, step 4.13 | Teaches real Python/JavaScript and is translated, but the levels are proprietary (`LICENSE-LEVELS.md`: not open source, not allowed on other servers), so it cannot be shipped locally. First world free, rest by subscription bought by the adult. |
 | Wikipedia (8–) | `kidux-module-wikipedia`, a door to the encyclopedia in the child's language and the Wikimedia projects (D85, D87) | ours, nothing of Wikipedia's in it, step 4.14 | The whole encyclopedia, free and in every language Kidux ships, with the rest of the internet closed; written for everyone, so the adult decides. |
+| Mail (8–) | `kidux-module-mail`: Thunderbird 140 ESR with the account an adult gives, locked by its policies (D95) | `thunderbird`, `thunderbird-l10n-all` (trixie), step 4.22 | A real mail client that signs in to Google and Microsoft by itself and speaks IMAP to every other provider, with nothing for the child to set up; not for a Family Link account, which Google keeps out of it. |
 | AI agents | `kidux-ai-gateway` (ours) | packaged by us | Local service that holds the adult's API key and applies guardrails; the child's projects talk to the gateway, never to the provider directly. Local models rejected for old hardware. |
 | Web (future) | Firefox ESR 140 in kiosk mode with policy-managed allow/deny lists | `firefox-esr` (trixie) | Enterprise policies give whitelist/blacklist without a proxy. |
 
@@ -1642,3 +1643,22 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   - **GoatCounter in any case.** It uses no cookies and counts every
     visit, `goatcounter` in `site/site.toml`, so that the owner can compare
     it with Google's and keep one; the footer says so.
+- **D95 — Mail is Thunderbird, with the account an adult gives and its
+  policies closing what a child could break.** Decided 2026-10-12 by the
+  owner, on phase-4d-plan.md, and 2026-10-15 after its step 4.21. A
+  child's mailbox is Debian's Thunderbird, not a client of Kidux's own: it
+  signs in to Google and Microsoft by itself and speaks IMAP to every
+  other provider. The adult gives the address, the name and, for a
+  provider Mozilla's autoconfiguration database does not know, the
+  servers, as the module's settings (D90); never a password, which
+  Thunderbird asks for once and keeps in the child's profile, as any mail
+  client keeps it on a shared Linux machine, while Google and Microsoft
+  accounts have none to give, only a sign-in in their own window. The
+  module writes Thunderbird's `user.js` afresh at every start, so the
+  account a child changes or adds is back as given the next time, and
+  ships `/etc/thunderbird/policies/policies.json`, which closes updates,
+  add-ons, `about:` pages, the primary password, chat, the choice of
+  another program for a link or an attachment, and the pop-up notices a
+  kiosk would show full screen. Google does not let a Family Link account
+  sign in to Thunderbird (tried 2026-10-12), so Mail serves every other
+  account and Gmail, a door module, serves that one.
