@@ -83,6 +83,15 @@ these are known:
 What is found goes into this plan's section 4 where it changes a
 decision, and into labwc-notes.md where it is about labwc.
 
+**Found, 2026-10-17.** A pane on the right, 426 pixels, anchored right,
+top and bottom with an exclusive zone of its width: Kig's window and the
+X11 canary's, maximised by the kiosk's rule or, with windows, through
+foreign-toplevel, fill the room to its left; the pane stops above the
+bar, which keeps the whole width; the launcher's own window does the same
+(labwc-notes.md). The layout stands as planned. As Leo, the desktop's
+default for `text/html` and `x-scheme-handler/http` is
+`chromium.desktop`, and `xdg-open` is there, as 4.38 assumes.
+
 ### 4.33 — The guide in the manifest, and the lessons' reader
 
 **The manifest** (modules.md section 1) gets `guide = true`: the module

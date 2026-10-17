@@ -56,6 +56,15 @@ softness is judged on the owner's MacBook (step 3.21).
   parent window is mapped has no parent, and is `normal`: a program's
   real dialogs have one; the test module that makes one waits for its
   window.)
+- **A layer surface's exclusive zone is kept out of every maximised
+  window.** A surface anchored to the right, top and bottom edges with an
+  exclusive zone of its width, as the launcher's guide is (launcher.md),
+  leaves a maximised window the room to its left, whether labwc's kiosk
+  rule maximised it, the launcher did through foreign-toplevel, or the
+  child did by the frame's button, for a Wayland window and an X11 one
+  alike; and it stops above the bar, whose zone along the bottom was
+  there first. Found on 2026-10-17 with a throwaway pane beside Kig and
+  the X11 canary, in both configurations.
 - **A window that comes up fullscreen keeps a title bar.** labwc 0.8.3
   does not change a fullscreen window's decoration, and gives one taken
   out of fullscreen its frame back whatever a rule said;
