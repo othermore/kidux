@@ -77,6 +77,14 @@ done
 
 REPOSITORY="$(field repository)"
 COMMIT="$(field commit)"
+# A program taken as built files, PhET's simulations, has no repository and
+# no commit: its build script fetches each file by its address and checks
+# it, and writes the time its tarball is dated by into kept/time.
+if [ -n "$REPOSITORY" ]; then
+    ORIGIN="$REPOSITORY at $COMMIT"
+else
+    ORIGIN="the files its build script names"
+fi
 VERSION="$(field version)"
 NODE="$(field node)"
 BUILD="$(field build)"
@@ -134,7 +142,7 @@ if [ -n "$NODE" ]; then
     PATH_FOR_BUILD="$NODE_HOME/bin:$PATH"
 fi
 
-echo "==> Building $PACKAGE $VERSION from ${FROM:+its source tarball, }$REPOSITORY at $COMMIT (log: ${LOG#"$REPO_ROOT"/})"
+echo "==> Building $PACKAGE $VERSION from ${FROM:+its source tarball, }$ORIGIN (log: ${LOG#"$REPO_ROOT"/})"
 # Test browsers and drivers some packages download when installed are not
 # part of any build here, and are not fetched.
 if ! ( cd "$WORK" && $NETWORK env PATH="$PATH_FOR_BUILD" HOME="$AROUND/home" \
@@ -180,10 +188,10 @@ if [ -z "$RECORDED_SOURCE" ]; then
     mkdir -p "$SOURCES/kidux/ci/upstream" "$SOURCES/kidux/packages/$PACKAGE"
     cp ci/build-upstream.sh ci/fetch-upstream.sh "$SOURCES/kidux/ci/"
     cp ci/upstream/* "$SOURCES/kidux/ci/upstream/"
-    cp "packages/$PACKAGE/upstream.toml" "$SOURCES/kidux/packages/$PACKAGE/"
+    cp "packages/$PACKAGE"/*.toml "$SOURCES/kidux/packages/$PACKAGE/"
     cat > "$SOURCES/README.txt" <<EOF
 The source of $TARBALL: $PACKAGE $VERSION, built by Kidux from
-$REPOSITORY at $COMMIT.
+$ORIGIN.
 
 git/        every repository the build fetched, at its commit, without its
             history, each with its commit's time beside it
@@ -204,7 +212,11 @@ builds it again from this alone, without the network, and checks that the
 result is the same bytes. Each program is under its own licence, in its
 tree under git/ and in its packages under npm-cache/.
 EOF
-    time="$(cat "$SOURCES"/git/*-"$COMMIT".time)"
+    if [ -n "$COMMIT" ]; then
+        time="$(cat "$SOURCES"/git/*-"$COMMIT".time)"
+    else
+        time="$(cat "$SOURCES/kept/time")"
+    fi
     sh ci/upstream/pack.sh "$SOURCES" "$PACKAGE-$VERSION-source" "$OUT/$SOURCE" "$time"
     SOURCE_SUM="$(sha256sum "$OUT/$SOURCE" | cut -d' ' -f1)"
     python3 ci/upstream/upstream.py "$PACKAGE" set-source-sha256 "$SOURCE_SUM"
@@ -220,7 +232,7 @@ if [ "$MODE" = --publish ]; then
     TAG="upstream/$PACKAGE/$VERSION"
     if ! gh release view "$TAG" >/dev/null 2>&1; then
         gh release create "$TAG" --title "$PACKAGE upstream $VERSION" \
-            --notes "$REPOSITORY at $COMMIT, node ${NODE:-none}. $TARBALL sha256 $SUM; its source, $SOURCE, sha256 $SOURCE_SUM." \
+            --notes "$ORIGIN, node ${NODE:-none}. $TARBALL sha256 $SUM; its source, $SOURCE, sha256 $SOURCE_SUM." \
             "$OUT/$TARBALL"
         echo "==> Published as the release $TAG"
     fi

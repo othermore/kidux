@@ -47,6 +47,7 @@ kidux-module-mail
 kidux-module-gmail
 kidux-webapps
 kidux-module-hello-web
+kidux-module-simulations
 kidux-session
 kidux-base
 "

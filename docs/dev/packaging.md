@@ -148,6 +148,19 @@ that way before it is published. A script that has something else to keep,
 such as the lock file npm wrote for a repository without one, puts it in
 `$UPSTREAM_KEEP` and reads it back from `$UPSTREAM_KEPT`.
 
+A program taken as files someone else built, with nothing to build, has no
+repository and no commit: `repository` and `commit` are both empty, and
+`tests/project/upstream.sh` accepts the pair only empty together. Its
+build script fetches each file by its address through
+`ci/upstream/fetch.sh`, checks it against a list of the package's own,
+and writes the time its tarball is dated by into `$UPSTREAM_KEEP/time`,
+which dates its source tarball too, there being no commit's time. PhET's
+simulations are the one (`ci/upstream/simulations.sh`, reading
+`packages/kidux-module-simulations/sims.toml`, which
+`ci/upstream/simulations-versions.py` fills in by hand; phase-4e-plan.md,
+4.30). The source tarball carries every `*.toml` of the package, the list
+with `upstream.toml`.
+
 `ci/build-package.sh` builds such a package from a staged copy of its
 source, `build/staged/<package>/`, with the tarball, found in `build/upstream/`
 or downloaded from its release by `ci/fetch-upstream.sh` and checked against

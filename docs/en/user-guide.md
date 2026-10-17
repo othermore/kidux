@@ -1038,6 +1038,24 @@ as a file in the child's folders.
 
 ![Step](../images/en/module-step.png)
 
+### Simulations
+
+**Simulations** are experiments to play with on the screen: build a
+number, balance a seesaw, bend a ray of light, rub a balloon on a
+sweater, build an atom, put planets in orbit. They are PhET's
+interactive simulations, made by the University of Colorado Boulder
+and used in schools everywhere, chosen here for children from six to
+fourteen and sorted by group and age, in the child's language. They
+are on the computer and work without the internet. Each one opens in
+its own frame, with **Simulations** at the top to come back to the
+list. The simulations are the versions PhET published under the
+Creative Commons Attribution 4.0 licence; Kidux is not connected with
+PhET.
+
+![Simulations](../images/en/module-simulations.png)
+
+![A simulation open](../images/en/module-simulations-open.png)
+
 ## 10. Updates and reinstalling
 
 Security updates install themselves in the background, from Debian and

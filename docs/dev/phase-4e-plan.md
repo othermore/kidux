@@ -17,8 +17,8 @@ building and never the battery, every user-facing word through i18n in
 both languages, a package's new version at its first change and `~dev`
 builds of it until the owner tries the work and says yes.
 
-Section 4 records what the owner decided on 2026-10-16, and the one
-thing left for the owner to confirm, which the steps follow. Section 5
+Section 4 records what the owner decided on 2026-10-16, which the steps
+follow. Section 5
 is the content, ready to use: every word of the four modules in English
 and Spanish, and the list of simulations.
 
@@ -200,7 +200,7 @@ own *About* dialog that names its authors and licence. The module serves
 a chosen set of them on the computer, under `kidux-webapps`, in a page
 of Kidux's own that lists them by group and age in the child's language
 and opens each one, so that nothing needs the internet (section 4,
-decision 2 and the one to confirm).
+decisions 2 and 4).
 
 **The licence, and the versions this takes.** PhET relicensed its
 simulations on 29 March 2026: the files it publishes since are
@@ -220,13 +220,16 @@ used for nothing promotional. PhET still serves every published
 version at `https://phet.colorado.edu/sims/html/<sim>/<version>/<sim>_all.html`
 (the `latest` directory holds the current one; a listing of the
 directory is refused), and each file says inside it when it was built
-(`buildTimestamp = '2026-01-30 13:30:03 UTC'`) and which licence it
-carries (a link to `creativecommons.org/licenses/by/4.0`, or to
-`by-nc/4.0`). So the module takes, for each simulation, the newest
-version built before 29 March 2026 whose file names CC BY 4.0, and no
-other: the build refuses a file that names `by-nc`, and the list
-records each version and its sum, so that the same list gives the same
-bytes. These versions are the ones PhET calls outdated and unmaintained:
+(`buildTimestamp = '2026-01-30 13:30:03 UTC'`). A file built in 2026
+names its licence by a link to `creativecommons.org/licenses/by/4.0`,
+or to `by-nc/4.0`; an older one names none and links to PhET's
+licensing page, where the agreement for the historical collection is;
+and a few built in March 2026, before the day, already name `by-nc`.
+So the module takes, for each simulation, the newest version built
+before 29 March 2026 that does not name `by-nc`, and no other: the build
+refuses any file that does, or was built on that day or after, and the
+list records each version and its sum, so that the same list gives the
+same bytes. These versions are the ones PhET calls outdated and unmaintained:
 they are the simulations as they were in early 2026, which is what a
 child needs, and they never change under the module.
 
@@ -249,31 +252,33 @@ script takes the tarball's time from the newest `buildTimestamp` among
 the files, since there is no commit's. The script reads the list,
 `packages/kidux-module-simulations/sims.toml` (section 5.4), fetches
 each file through `ci/upstream/fetch.sh url`, checks its sum against
-the list's, its `buildTimestamp` against the cut-off and its licence
-link, and packs them as `sims/<sim>_all.html` under one directory, with
+the list's, its `buildTimestamp` against the cut-off and that it names
+no `by-nc`, and packs them as `sims/<sim>_all.html` under one directory, with
 PhET's attribution in a `LICENSE` beside them. The source tarball holds
-the same files (D71). The first build of the list is what fills the
-sums: `sims.toml` is written with each simulation's version and an
-empty sum, the script writes the sums it finds into `build/` and the
-developer copies them in, as `upstream.toml`'s sum is written by the
-first build; a sum that then differs is an error. Finding each
-version: from the current version's number, which the `latest` file
-names (`"version":"1.9.3"`), the script that *prepares* the list (a
-development tool, `ci/upstream/simulations-versions.py`, run by hand
-once) tries the same minor's patches downwards and then the previous
-minor's, and keeps the newest whose file is built before the cut-off
-and names CC BY 4.0; what it finds is written into `sims.toml` and
-committed, and the build never guesses.
+the same files (D71), with `sims.toml` beside `upstream.toml`. Finding
+each version and its sum: from the current version's number, which
+PhET's metadata gives
+(`https://phet.colorado.edu/services/metadata/1.3/simulations?format=json&type=html&summary`),
+a development tool, `ci/upstream/simulations-versions.py`, run by hand
+when the list changes, asks PhET's site whether each version below it is
+there, newest first, through the same minor's patches, the minors
+below, and the major before; reads each one that is; and keeps the
+newest built before the cut-off that names no `by-nc`, writing its
+version and SHA-256 into `sims.toml`, which is committed. The build never
+guesses.
 
 **The page.** One `index.html` written at build time by
 `webapp/page.py`, as hello-web's and BASIC's are, with every language's
 words in it: Kidux's colours and type, a heading, the groups of section
-5.4 in order, each a row of tiles, a tile the simulation's title in the
-child's language and its ages; a tile opens the simulation *in the same
-page*, in an `iframe` that fills the room under a slim bar of Kidux's
-own with *Simulations* (back to the list) and the simulation's title,
-so that a child always has the way back, which a simulation's page has
-not. The simulation's address is `sims/<sim>_all.html?locale=<lang>`,
+5.4 in order, each with its name and its ages and a row of tiles, a
+tile the simulation's title in the child's language; a tile opens the
+simulation *in the same page*, in an `iframe` that fills the room under
+a slim bar of Kidux's own with *Simulations* (back to the list) and the
+simulation's title, so that a child always has the way back, which a
+simulation's page has not. Opening one is a step of the window's
+history, and the frame is loaded without a step of its own, so that the
+bar's button, Alt+Left and the window's Back all return to the list;
+the window's title is the simulation's while it is open. The simulation's address is `sims/<sim>_all.html?locale=<lang>`,
 the file choosing its language by that parameter. At the foot of the
 list, the attribution line, translated into the child's language as
 the agreement allows, with PhET's address as text. The page needs
@@ -289,8 +294,8 @@ depends on `kidux-webapps` and installs the page and the files under
 names that each file carries, in its *About*, the libraries inside it
 under their own licences.
 
-**Size.** The set in section 5.4 is 49 simulations of about 3.3 MB
-each, all languages in each file: about 160 MB installed, between
+**Size.** The set in section 5.4 is 51 simulations of about 3.3 MB
+each, all languages in each file: about 170 MB installed, between
 Blockly Games and ScratchJr. The owner may cut the list; the groups
 and the page take any number.
 
@@ -315,8 +320,7 @@ whose files are fetched, not built; packaging.md's "Programs built at
 development time" the same, and `upstream.toml`'s empty pair; the user
 guide's section, with the licence and the attribution said plainly;
 the website's card and its licence line; architecture.md section 8 and
-the two decisions of section 4 as D101 and D102, once the owner has
-confirmed the one to confirm.
+the two decisions of section 4 as D101 and D102.
 
 ### 4.31 — Closing
 
@@ -355,17 +359,12 @@ Decided 2026-10-16 by the owner.
    plan with partial tests only; Fable then reviews everything; the
    owner tries the work; the battery and the release come after.
 
-**To confirm by the owner, before 4.30 starts** (proposed by Fable on
-2026-10-16, after reading PhET's licensing): that the module takes the
-historical versions of the simulations, published before 29 March 2026
-under CC BY 4.0, and never a file under CC BY-NC 4.0, which Kidux's own
-licence to organisations could not carry; and that the module is named
-*Simulations*, with PhET named in its description as the simulations'
-author, not in its name. The alternative, if the owner prefers the
-current versions, is a door to phet.colorado.edu (D85), which ships
-nothing and needs the internet; then 4.30 is a module like Wikipedia's,
-with a page of Kidux's own that links to each simulation on the site,
-and the rest of this plan stands.
+4. **The simulations are PhET's historical versions**, published before
+   29 March 2026 under CC BY 4.0, and never a file under CC BY-NC 4.0,
+   which Kidux's own licence to organisations could not carry; and the
+   module is named *Simulations*, with PhET named in its description as
+   the simulations' author, not in its name (D102). The current versions
+   would be a door to phet.colorado.edu (D85), shipping nothing.
 
 ## 5. The content
 
@@ -390,8 +389,7 @@ The `debian/control` short descriptions: *Kidux learning module: Kig,
 geometry to move for ages ten to fourteen*; *Kidux learning module:
 Kalzium, the periodic table for ages ten and up*; *Kidux learning
 module: Step, a physics playground for ages ten and up*; *Kidux learning
-module: Simulations, PhET's simulations of science and maths, served on
-this computer*. The long descriptions follow Tux Typing's shape: what
+module: Simulations, PhET's science and maths experiments*. The long descriptions follow Tux Typing's shape: what
 the program is, in the child's language, and the sentence about the
 Modules page.
 
@@ -500,9 +498,9 @@ read it. The groups are the page's rows, in this order, each with its
 title in both languages through the module's catalogue; a simulation
 has its PhET name (its directory on the site), its title as PhET gives
 it in each language (the Spanish ones are PhET's own translations), its
-ages, its version (the newest built before 29 March 2026, found by the
-versions tool and filled in by Opus) and its sum (filled in by the first
-build). The titles are data of the simulations, not words of Kidux's,
+its version (the newest built before 29 March 2026 that names no
+`by-nc`) and its sum, both written by the versions tool. The ages are
+the groups'. The titles are data of the simulations, not words of Kidux's,
 which is why they are here and not in the catalogue.
 
 ```toml

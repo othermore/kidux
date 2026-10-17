@@ -5,7 +5,9 @@
 #   tests/project/upstream.sh
 #
 # A packages/<package>/upstream.toml has its fields; its commit is a whole
-# git hash; its sha256 and source_sha256 are both empty, before the first
+# git hash, or the repository and the commit are both empty, for a program
+# taken as built files, PhET's simulations, whose build script fetches each
+# file by its address; its sha256 and source_sha256 are both empty, before the first
 # build, or both whole SHA-256s (D71); the package's changelog version
 # starts with its version; its build script is there, parses, and fetches
 # nothing itself but through ci/upstream/fetch.sh, so that its source
@@ -27,7 +29,7 @@ for toml in packages/*/upstream.toml; do
     package="$(basename "$(dirname "$toml")")"
     field() { python3 ci/upstream/upstream.py "$package" "$1" 2>/dev/null; }
     missing=""
-    for name in name repository commit version build; do
+    for name in name version build; do
         [ -n "$(field "$name")" ] || missing="$missing $name"
     done
     if [ -n "$missing" ]; then
@@ -35,18 +37,25 @@ for toml in packages/*/upstream.toml; do
         continue
     fi
     commit="$(field commit)"
+    repository="$(field repository)"
     sum="$(field sha256)"
     source_sum="$(field source_sha256)"
     version="$(field version)"
     build="$(field build)"
     released="$(sed -n '1s/^[^(]*(\([^)]*\)).*/\1/p' "packages/$package/debian/changelog")"
-    if printf '%s' "$commit" | grep -Eqx '[0-9a-f]{40}' \
+    if { { [ -n "$repository" ] && printf '%s' "$commit" | grep -Eqx '[0-9a-f]{40}'; } \
+             || { [ -z "$repository" ] && [ -z "$commit" ]; }; } \
             && { { [ -z "$sum" ] && [ -z "$source_sum" ]; } \
                  || { printf '%s' "$sum" | grep -Eqx '[0-9a-f]{64}' \
                       && printf '%s' "$source_sum" | grep -Eqx '[0-9a-f]{64}'; }; } \
             && case "$released" in "$version"*) true ;; *) false ;; esac \
             && [ -f "$build" ] && sh -n "$build"; then
-        pass "$package: built from $(field name) at ${commit%"${commit#????????????}"}, $version"
+        if [ -n "$commit" ]; then
+            from="at ${commit%"${commit#????????????}"}"
+        else
+            from="as files"
+        fi
+        pass "$package: built from $(field name) $from, $version"
     else
         fail "$package: upstream.toml is not whole: commit $commit, sha256 ${sum:-none}, source_sha256 ${source_sum:-none}, version $version against the changelog's $released, build $build"
     fi

@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-simulations package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-simulations 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-10-16 23:12+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Simulations"
+msgstr ""
+
+msgid ""
+"Experiments to play with on the screen: numbers, forces, light, electricity, "
+"matter, planets and life. Simulations by PhET Interactive Simulations, "
+"University of Colorado Boulder, licensed under CC BY 4.0; Kidux is not "
+"connected with PhET."
+msgstr ""
+
+#, python-brace-format
+msgid "Ages {low} to {high}"
+msgstr ""
+
+msgid ""
+"Simulations by PhET Interactive Simulations, University of Colorado Boulder, "
+"licensed under CC BY 4.0 (https://phet.colorado.edu)"
+msgstr ""
+
+msgid "Numbers and shapes"
+msgstr ""
+
+msgid "More numbers"
+msgstr ""
+
+msgid "Forces and energy"
+msgstr ""
+
+msgid "Light, sound and waves"
+msgstr ""
+
+msgid "Electricity and magnets"
+msgstr ""
+
+msgid "Matter and atoms"
+msgstr ""
+
+msgid "Earth, space and life"
+msgstr ""

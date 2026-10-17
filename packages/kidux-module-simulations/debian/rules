@@ -1,0 +1,42 @@
+#!/usr/bin/make -f
+
+DEST = debian/kidux-module-simulations
+MODULE = $(DEST)/usr/share/kidux/modules/simulations
+WEBAPP = $(DEST)/usr/share/kidux/webapps/simulations
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	for po in po/*.po; do \
+	    lang=$$(basename $$po .po); \
+	    mkdir -p build/locale/$$lang/LC_MESSAGES; \
+	    msgfmt --check --output-file=build/locale/$$lang/LC_MESSAGES/kidux-module-simulations.mo $$po; \
+	done
+	python3 -B webapp/page.py build/locale sims.toml webapp/index.html.in build/index.html
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 webapp/page.py tests
+	test -f upstream/sims/build-an-atom_all.html
+	test -f upstream/LICENSE
+	python3 -m pytest -q -p no:cacheprovider tests
+endif
+
+# The page Kidux lists them in, and PhET's simulations as
+# ci/build-upstream.sh fetched them (upstream.toml, D68): served by
+# kidux-webapps under /simulations/.
+override_dh_auto_install:
+	install -D -m 0644 module.toml $(MODULE)/module.toml
+	install -D -m 0644 icon.svg $(MODULE)/icon.svg
+	install -D -m 0644 build/index.html $(WEBAPP)/index.html
+	cp -r upstream/. $(WEBAPP)/
+	find $(WEBAPP) -type d -exec chmod 0755 {} +
+	find $(WEBAPP) -type f -exec chmod 0644 {} +
+	for mo in build/locale/*/LC_MESSAGES/kidux-module-simulations.mo; do \
+	    lang=$$(basename $$(dirname $$(dirname $$mo))); \
+	    install -D -m 0644 $$mo $(DEST)/usr/share/locale/$$lang/LC_MESSAGES/kidux-module-simulations.mo; \
+	done
+
+override_dh_auto_clean:
+	rm -rf build tests/__pycache__ webapp/__pycache__

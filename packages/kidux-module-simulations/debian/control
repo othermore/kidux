@@ -1,0 +1,34 @@
+Source: kidux-module-simulations
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-simulations
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-webapps (>= 0.1.5),
+XB-Kidux-Name-en: Simulations
+XB-Kidux-Description-en: Experiments to play with on the screen: numbers, forces, light, electricity, matter, planets and life. Simulations by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY 4.0; Kidux is not connected with PhET.
+XB-Kidux-Name-es: Simulaciones
+XB-Kidux-Description-es: Experimentos para jugar en la pantalla: números, fuerzas, luz, electricidad, materia, planetas y vida. Simulaciones de PhET Interactive Simulations, Universidad de Colorado Boulder, bajo licencia CC BY 4.0; Kidux no tiene relación con PhET.
+XB-Kidux-Ages: 6-14
+Description: Kidux learning module: Simulations, PhET's science and maths experiments
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is a set of PhET Interactive Simulations, of the University of
+ Colorado Boulder: experiments with numbers, forces, light, electricity,
+ matter, planets and life, chosen for ages six to fourteen and sorted by
+ group and age in a page of Kidux's own, served on this computer and shown
+ in Chromium, in the child's language, without the internet. They are the
+ versions PhET published under the Creative Commons Attribution 4.0
+ licence; Kidux is not connected with PhET.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

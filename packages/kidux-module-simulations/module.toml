@@ -1,0 +1,14 @@
+# Simulations: PhET's interactive simulations, the versions published
+# under CC BY 4.0, served by kidux-webapps under /simulations/ in a page of
+# Kidux's own that lists them (phase-4e-plan.md, 4.30; modules.md,
+# section 5).
+id = "simulations"
+version = "0+phet20260328"
+name = "Simulations"
+description = "Experiments to play with on the screen: numbers, forces, light, electricity, matter, planets and life. Simulations by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY 4.0; Kidux is not connected with PhET."
+min_age = 6
+max_age = 14
+launch = { webapp = "simulations" }
+categories = ["science", "maths"]
+i18n_domain = "kidux-module-simulations"
+memory_max = "2G"

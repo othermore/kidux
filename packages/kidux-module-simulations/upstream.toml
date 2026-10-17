@@ -1,0 +1,11 @@
+[upstream]
+name = "PhET Interactive Simulations"
+# No repository and no commit: the simulations are PhET's built files, each
+# fetched at the version sims.toml names (phase-4e-plan.md, 4.30).
+repository = ""
+commit = ""
+version = "0+phet20260328"
+node = ""
+build = "ci/upstream/simulations.sh"
+sha256 = "22ee490d3276b9d95cb8a0c5a2ac01f70dc27cc1f9e9025a9db8e1a29fc7b76e"
+source_sha256 = "06360e38bb7ff3aadc1240c07d79b09c6ee517fc98232344b6a4609b8cc6df68"

@@ -261,7 +261,10 @@ format, `debhelper-compat 13`, lintian clean, reproducible. It installs the
 manifest, the icon, its content and its translations, and depends on
 whatever program it runs. It never depends on another module. If it is a
 web application it depends on `kidux-webapps` and installs its pages
-under `/usr/share/kidux/webapps/<id>/`; a module that opens a website
+under `/usr/share/kidux/webapps/<id>/`, built from their sources at
+development time, or taken as the files their authors publish when
+there is nothing to build, as PhET's simulations are (packaging.md,
+"Programs built at development time"); a module that opens a website
 depends on `kidux-webapps` and installs nothing of the website, only its
 manifest, its icon and its words, and what of its own the manifest names
 beside it: the script of its `sign_in` or its `page_script`, and, for one

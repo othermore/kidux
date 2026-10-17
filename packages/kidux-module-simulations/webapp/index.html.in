@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulations</title>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { background: #fff6e9; color: #3b2f2a; font-family: "Andika", sans-serif;
+         font-size: 22px; }
+  #list { height: 100%; overflow-y: auto; box-sizing: border-box; padding: 1.2em 2em 2em; }
+  h1 { font-size: 40px; margin: 0 0 0.4em; }
+  section { margin: 0 0 1.4em; }
+  h2 { font-size: 28px; margin: 0 0 0.4em; display: flex; align-items: baseline; gap: 0.6em; }
+  .ages { font-size: 20px; font-weight: normal; color: #7a6a60; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+           gap: 14px; }
+  .tile { font: inherit; font-weight: bold; color: #3b2f2a; background: #ffffff;
+          border: none; border-left: 10px solid var(--colour); border-radius: 18px;
+          min-height: 96px; padding: 0.4em 0.8em; text-align: left; cursor: pointer;
+          box-shadow: 0 2px 0 #e8dccb; }
+  .tile:hover { background: #fdf0dc; }
+  button:focus-visible { outline: 4px solid #24313f; outline-offset: 4px; }
+  footer { font-size: 16px; color: #7a6a60; margin-top: 1em; }
+  #open { display: none; height: 100%; flex-direction: column; }
+  #open.shown { display: flex; }
+  #bar { display: flex; align-items: center; gap: 1em; padding: 6px 12px;
+         background: #f2e2cc; }
+  #back { font: inherit; font-weight: bold; color: #fff; background: #3584e4; border: none;
+          border-radius: 14px; min-height: 48px; padding: 0 1em; cursor: pointer; }
+  #name { font-weight: bold; }
+  iframe { flex: 1; border: none; width: 100%; background: #000; }
+</style>
+</head>
+<body>
+<div id="list">
+  <h1 id="title"></h1>
+  <div id="groups"></div>
+  <footer id="attribution"></footer>
+</div>
+<div id="open">
+  <div id="bar"><button id="back"></button><span id="name"></span></div>
+  <iframe id="frame" title=""></iframe>
+</div>
+<script>
+  "use strict";
+  const PAGES = @PAGES@;
+  const COLOURS = ["#ffd27a", "#a8dadc", "#e4572e", "#3a86ff", "#43aa8b", "#c9b8e8", "#f4a261"];
+  const asked = new URLSearchParams(window.location.search).get("lang") || "en";
+  const lang = PAGES[asked] ? asked : "en";
+  const page = PAGES[lang];
+  document.documentElement.lang = lang;
+  document.title = page.words.title;
+  document.getElementById("title").textContent = page.words.title;
+  document.getElementById("attribution").textContent = page.words.attribution;
+  document.getElementById("back").textContent = "‹ " + page.words.back;
+
+  const list = document.getElementById("list");
+  const open = document.getElementById("open");
+  const frame = document.getElementById("frame");
+  const tileOf = {};
+  let opener = null;
+
+  // Opening a simulation is a step of the window's history, so that the
+  // bar's button, Alt+Left and the window's own Back all come back to the
+  // list; the frame is loaded with location.replace, which adds no step of
+  // its own.
+  function show(sim) {
+    opener = tileOf[sim.id];
+    document.getElementById("name").textContent = sim.title;
+    document.title = sim.title;
+    frame.title = sim.title;
+    // The simulation's own file, every language in it, told the child's.
+    frame.contentWindow.location.replace(
+      "sims/" + sim.id + "_all.html?locale=" + encodeURIComponent(asked));
+    list.style.display = "none";
+    open.classList.add("shown");
+    frame.focus();
+  }
+
+  function close() {
+    open.classList.remove("shown");
+    frame.contentWindow.location.replace("about:blank");
+    document.title = page.words.title;
+    list.style.display = "";
+    if (opener) opener.focus();
+  }
+
+  const byId = {};
+  window.addEventListener("popstate", (event) => {
+    const sim = event.state && byId[event.state.sim];
+    if (sim) show(sim); else close();
+  });
+  document.getElementById("back").addEventListener("click", () => history.back());
+
+  const groups = document.getElementById("groups");
+  page.groups.forEach((group, number) => {
+    const section = document.createElement("section");
+    const heading = document.createElement("h2");
+    heading.textContent = group.name;
+    const ages = document.createElement("span");
+    ages.className = "ages";
+    ages.textContent = group.ages;
+    heading.appendChild(ages);
+    section.appendChild(heading);
+    const tiles = document.createElement("div");
+    tiles.className = "tiles";
+    for (const sim of group.sims) {
+      const tile = document.createElement("button");
+      tile.className = "tile";
+      tile.style.setProperty("--colour", COLOURS[number % COLOURS.length]);
+      tile.textContent = sim.title;
+      tileOf[sim.id] = tile;
+      byId[sim.id] = sim;
+      tile.addEventListener("click", () => {
+        history.pushState({sim: sim.id}, "");
+        show(sim);
+      });
+      tiles.appendChild(tile);
+    }
+    section.appendChild(tiles);
+    groups.appendChild(section);
+  });
+  const first = groups.querySelector(".tile");
+  if (first) first.focus();
+</script>
+</body>
+</html>

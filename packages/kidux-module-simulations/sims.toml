@@ -1,0 +1,256 @@
+# The simulations the module serves (phase-4e-plan.md, 4.30): PhET's
+# historical versions, under CC BY 4.0, each the newest built before
+# 29 March 2026. Versions and sums are filled in by the tools, never by
+# hand; the build refuses a file that is not what is written here.
+cutoff = "2026-03-29"
+attribution = "Simulation by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY 4.0 (https://phet.colorado.edu)"
+
+[[groups]]
+id = "numbers"          # Numbers and shapes / Números y formas
+ages = "6-10"
+sims = ["make-a-ten", "number-play", "number-compare", "number-pairs", "arithmetic",
+        "area-builder", "quadrilateral", "fractions-intro", "build-a-fraction",
+        "fraction-matcher"]
+
+[[groups]]
+id = "more-numbers"     # More numbers / Más números
+ages = "9-14"
+sims = ["number-line-integers", "ratio-and-proportion", "proportion-playground",
+        "area-model-introduction", "equality-explorer-basics", "function-builder-basics",
+        "unit-rates", "plinko-probability", "graphing-lines"]
+
+[[groups]]
+id = "forces"           # Forces and energy / Fuerzas y energía
+ages = "8-14"
+sims = ["forces-and-motion-basics", "balancing-act", "friction", "energy-skate-park-basics",
+        "energy-forms-and-changes", "masses-and-springs-basics", "pendulum-lab",
+        "projectile-motion", "gravity-force-lab-basics"]
+
+[[groups]]
+id = "light"            # Light, sound and waves / Luz, sonido y ondas
+ages = "8-14"
+sims = ["color-vision", "bending-light", "geometric-optics-basics", "waves-intro",
+        "wave-on-a-string"]
+
+[[groups]]
+id = "electricity"      # Electricity and magnets / Electricidad e imanes
+ages = "8-14"
+sims = ["balloons-and-static-electricity", "john-travoltage", "magnet-and-compass",
+        "magnets-and-electromagnets", "circuit-construction-kit-dc"]
+
+[[groups]]
+id = "matter"           # Matter and atoms / La materia y los átomos
+ages = "9-14"
+sims = ["states-of-matter-basics", "gases-intro", "density", "buoyancy-basics",
+        "build-an-atom", "build-a-molecule", "concentration", "ph-scale-basics"]
+
+[[groups]]
+id = "earth"            # Earth, space and life / La Tierra, el espacio y la vida
+ages = "8-14"
+sims = ["gravity-and-orbits", "my-solar-system", "greenhouse-effect", "under-pressure",
+        "natural-selection"]
+
+[sims.make-a-ten]
+title = { en = "Make a Ten", es = "Haz un Diez" }
+version = "1.0.25"
+sha256 = "fa75410113b57c7566376c13c90fd2ef222f5fbe01a0fa4219fd3399b387393c"
+[sims.number-play]
+title = { en = "Number Play", es = "Juego de Números" }
+version = "1.1.11"
+sha256 = "32308acbb291c7ba086bab268d3b9e39d1ab890a12241d1a561a0ed4a6d1e3c7"
+[sims.number-compare]
+title = { en = "Number Compare", es = "Comparar Números" }
+version = "1.0.11"
+sha256 = "78312fe994cacb72a0f924e586ba75f6bda79e582069bc6b3b7ad1571ebbc74a"
+[sims.number-pairs]
+title = { en = "Number Pairs", es = "Pares de Números" }
+version = "2.0.1"
+sha256 = "285943d1d3bdf625041440f2611caa7e11d2f24f9ed3e90c449b3634a1d90273"
+[sims.arithmetic]
+title = { en = "Arithmetic", es = "Aritmética" }
+version = "1.2.6"
+sha256 = "c48233064c43a39f33838c07922357210a1f26072c86c11e79a1197986427ca5"
+[sims.area-builder]
+title = { en = "Area Builder", es = "Constructor de Áreas" }
+version = "1.1.36"
+sha256 = "806d9e2f1310dc87c1b66b7d6f1fb6237ed75e68fbb8e1df92abbc8c3a77150f"
+[sims.quadrilateral]
+title = { en = "Quadrilateral", es = "Cuadrilátero" }
+version = "1.1.12"
+sha256 = "34d622dc5627ea7bd5c92dc8c63fda655e0b19f2ad36453acf34ecb2e4598379"
+[sims.fractions-intro]
+title = { en = "Fractions: Intro", es = "Fracciones: Intro" }
+version = "1.0.31"
+sha256 = "ca80912888000df62c2a8ed72fff0e64d56b2e4b43b3fc1387bb18412680038b"
+[sims.build-a-fraction]
+title = { en = "Build a Fraction", es = "Construye una fracción" }
+version = "1.0.29"
+sha256 = "2b64d2e31a2bd926e688a6e9e89bf191f20b0e59909c17373342b360fef9db38"
+[sims.fraction-matcher]
+title = { en = "Fraction Matcher", es = "Parejas de Fracciones" }
+version = "1.2.19"
+sha256 = "d1b0a6f2d7cf97a9957d86492e81e1dc055c77973c461b15cf00fe3bb6b79d8f"
+[sims.number-line-integers]
+title = { en = "Number Line: Integers", es = "Recta Numérica: Enteros" }
+version = "1.2.10"
+sha256 = "0852e29243234e68aacc2f6b8478d2747e669cdea08fd4e1e434a9ef0963b8bc"
+[sims.ratio-and-proportion]
+title = { en = "Ratio and Proportion", es = "Razón y Proporción" }
+version = "1.2.18"
+sha256 = "cd5f51812a17b38debe67e6f9a109f555038e24f123aaa033145cc699111c670"
+[sims.proportion-playground]
+title = { en = "Proportion Playground", es = "Pista de juego de proporciones" }
+version = "1.0.31"
+sha256 = "985f9bb48d5abd3d197c631d905fff335d62aae20ed5c0501c257b906ebd7a76"
+[sims.area-model-introduction]
+title = { en = "Area Model Introduction", es = "Modelo de Áreas: Introducción" }
+version = "1.3.6"
+sha256 = "09a7fe27fd7504b044d9f7e9a214829f4cf274f28e2fd877c1b6c355466e8e1c"
+[sims.equality-explorer-basics]
+title = { en = "Equality Explorer: Basics", es = "Explorador de Igualdades: Intro" }
+version = "1.2.3"
+sha256 = "87a03b9c41d681ed6920c291e0b5a4dc7c3c7ce069a56af55c7dacbdc0091194"
+[sims.function-builder-basics]
+title = { en = "Function Builder: Basics", es = "Generador de funciones: Intro" }
+version = "1.2.17"
+sha256 = "d8e24541f3fb4d428359dece949f11bd2f9a34e54b3ef82d75230b07892fb344"
+[sims.unit-rates]
+title = { en = "Unit Rates", es = "Razón unitaria" }
+version = "1.1.3"
+sha256 = "04ecc78f0165db8e3b81245fb0c71890db0ce9bee1ed30b483366cecab6d5b91"
+[sims.plinko-probability]
+title = { en = "Plinko Probability", es = "Probabilidad Plinko" }
+version = "1.1.34"
+sha256 = "4a0631efde9ae645a497f9e55b5b20845f00eca6913567e4ba33cf8e4ae897dd"
+[sims.graphing-lines]
+title = { en = "Graphing Lines", es = "Graficando Rectas" }
+version = "1.4.6"
+sha256 = "09b62a5b1b1067ac48a3c33b3b2803048621b5726b11ffbca78927ff9a8ddd63"
+[sims.forces-and-motion-basics]
+title = { en = "Forces and Motion: Basics", es = "Fuerzas y Movimiento: Intro" }
+version = "2.6.2"
+sha256 = "465626cfc9c7c137e54ac51bce221f943d53ea86affdacc95abd2b5a56de5d69"
+[sims.balancing-act]
+title = { en = "Balancing Act", es = "Ley de equilibrio" }
+version = "1.3.5"
+sha256 = "b3921e2e52be50cb4839064ce39232028ad4e48d392f23cc1ffdd04a2c785f7c"
+[sims.friction]
+title = { en = "Friction", es = "Fricción" }
+version = "1.6.19"
+sha256 = "77f60844fc3eb6aad2925a3a391ac1fadee93e71532dbaf512213c446eda01ea"
+[sims.energy-skate-park-basics]
+title = { en = "Energy Skate Park: Basics", es = "Energía en la pista de patinaje: Intro" }
+version = "1.1.36"
+sha256 = "7a8531c03fdcfc9b92b36e7459f584c987dbce24e2a6bf2012f110183e05ce0c"
+[sims.energy-forms-and-changes]
+title = { en = "Energy Forms and Changes", es = "Formas y Cambios de Energía" }
+version = "1.4.22"
+sha256 = "61d08e995ceabdb71ff6caf8ac011e1a14062b9390f17cf8939a09deebbdf55c"
+[sims.masses-and-springs-basics]
+title = { en = "Masses and Springs: Basics", es = "Masas y Resortes: Intro" }
+version = "1.0.26"
+sha256 = "0ad59044007d9aff4d08dbd06e345ff3c208e3ae897f5dc0f475491f718d0c1d"
+[sims.pendulum-lab]
+title = { en = "Pendulum Lab", es = "Lab de Péndulo" }
+version = "1.0.33"
+sha256 = "cc2b06757aa259e8b94b155f33ba85de96110f9bbb5a51193a1fa6af4346ec51"
+[sims.projectile-motion]
+title = { en = "Projectile Motion", es = "Movimiento de un Proyectil" }
+version = "1.0.32"
+sha256 = "e333a2bad9adda5b89f8bb4701b8e8d404834f059d07790069ab8f5f3026239f"
+[sims.gravity-force-lab-basics]
+title = { en = "Gravity Force Lab: Basics", es = "Lab de Fuerza de Gravedad: Intro" }
+version = "1.1.23"
+sha256 = "7b2fb7fcee4ae6cd47f12f370ff1f21dd748f4ea7fb9cf22b1fdcf820e688d3b"
+[sims.color-vision]
+title = { en = "Color Vision", es = "Visión del color" }
+version = "1.3.4"
+sha256 = "f236e7c70b99bee332307c6b78a277bb0c362c0a1e832511ce58d5f9afb5a25f"
+[sims.bending-light]
+title = { en = "Bending Light", es = "Reflexión y Refracción de la Luz" }
+version = "1.2.3"
+sha256 = "49c63d311c0c67235daeb949e2160e3213b9bd9feabc5ac66fcfd8d130dee798"
+[sims.geometric-optics-basics]
+title = { en = "Geometric Optics: Basics", es = "Óptica Geométrica: Intro" }
+version = "1.3.14"
+sha256 = "12aae27649a5ba58c0fe89add69c9ffc483c3ce8f8ceb6977dc7cacbe364fb2b"
+[sims.waves-intro]
+title = { en = "Waves Intro", es = "Ondas: Intro" }
+version = "1.1.21"
+sha256 = "6db9d891b637b2b5c3e6dd376d910707442d14abd1d65f38c688eebdc009b3d7"
+[sims.wave-on-a-string]
+title = { en = "Wave on a String", es = "Onda en una cuerda" }
+version = "1.2.1"
+sha256 = "6c7a1d2c87ac5e5366ea11cd6d85ff25ce8f7388839e262ae6de1bdffd033978"
+[sims.balloons-and-static-electricity]
+title = { en = "Balloons and Static Electricity", es = "Globos y electricidad estática" }
+version = "1.5.21"
+sha256 = "cd998efeee13b2a35e9283a0c2f44972637ff43842295a0bd2ae05ac5a931b7f"
+[sims.john-travoltage]
+title = { en = "John Travoltage", es = "Travoltaje" }
+version = "1.6.22"
+sha256 = "099d92b133fd687d883c03324942b19ae58c214d906a6ead6bffbbdfbbe40942"
+[sims.magnet-and-compass]
+title = { en = "Magnet and Compass", es = "Imán y brújula" }
+version = "1.0.5"
+sha256 = "a61b366c7f1bc8d36c927864ce16e5baa215825e4d026a15ed775a58d1a5478f"
+[sims.magnets-and-electromagnets]
+title = { en = "Magnets and Electromagnets", es = "Imanes y Electroimanes" }
+version = "1.0.5"
+sha256 = "ff5311a31439439a79503cf4bf0fe5ab0e214fc2a313522ed0f284586fd71699"
+[sims.circuit-construction-kit-dc]
+title = { en = "Circuit Construction Kit: DC", es = "Kit de Construcción de Circuitos: CD" }
+version = "1.4.3"
+sha256 = "c359e25d21220ae1f1b32ea3e2f7230885773a8d59e10431b9083f87d30f7c79"
+[sims.states-of-matter-basics]
+title = { en = "States of Matter: Basics", es = "Estados de la Materia: Intro" }
+version = "1.2.21"
+sha256 = "e4881bf9570ad195b3f295eb5744c46c9b2536a5d9722d0a98d297ff50313a72"
+[sims.gases-intro]
+title = { en = "Gases Intro", es = "Gases: Intro" }
+version = "1.1.5"
+sha256 = "ad2fb4da7b86be4823a7016f8a36884190f0298b9a4b60e66c2333e4a6d5ed5e"
+[sims.density]
+title = { en = "Density", es = "Densidad" }
+version = "1.2.8"
+sha256 = "32315d3ed29921f4c8c55874a34d652b8a5a4ee0e818918b3f346158c80d9644"
+[sims.buoyancy-basics]
+title = { en = "Buoyancy: Basics", es = "Flotabilidad: Intro" }
+version = "1.2.8"
+sha256 = "b662cac506b2c3856cc6c57406f0890f690406c9634b329cfe3458a03651e0b0"
+[sims.build-an-atom]
+title = { en = "Build an Atom", es = "Construye un Átomo" }
+version = "1.8.4"
+sha256 = "da76c10f8b8aa2ffedf82fe61109a5ef7e47b726d42fbe505f997a8c588fadcb"
+[sims.build-a-molecule]
+title = { en = "Build a Molecule", es = "Construye una Molécula" }
+version = "1.0.23"
+sha256 = "e4a75f9d6c8ee3531d1371b3b4ac908ad9413c0f7f5f2976e781b669696a5464"
+[sims.concentration]
+title = { en = "Concentration", es = "Concentración" }
+version = "1.8.3"
+sha256 = "81fb5f551b2e0efed8d8268ec0fdca04e9e0d2b771680f332d3a10062d981aa1"
+[sims.ph-scale-basics]
+title = { en = "pH Scale: Basics", es = "Escala pH: Intro" }
+version = "1.7.2"
+sha256 = "f38262847738902283a2cf1f305748882467b12d05a359000800344915295f52"
+[sims.gravity-and-orbits]
+title = { en = "Gravity and Orbits", es = "Gravedad y Órbitas" }
+version = "1.6.26"
+sha256 = "44107eb02046a236451be8dafa084d0c9b03ec1cb49640ddb2a9c0152249138b"
+[sims.my-solar-system]
+title = { en = "My Solar System", es = "Mi Sistema Solar" }
+version = "1.3.12"
+sha256 = "11f6a9c29a813f6ce8a0288491c7ed0d84e7b402047ee7614104c478c991b341"
+[sims.greenhouse-effect]
+title = { en = "Greenhouse Effect", es = "Efecto Invernadero" }
+version = "1.3.9"
+sha256 = "b4ffbc231bd887fc58bebc43e66d5c70e8474dd7eddced35b100a48d7b72f948"
+[sims.under-pressure]
+title = { en = "Under Pressure", es = "Bajo presión" }
+version = "1.1.34"
+sha256 = "d2769b49d137e29f5adc8e23c61a3daf0bad9bc477c0fb5f59131ccd4af5075c"
+[sims.natural-selection]
+title = { en = "Natural Selection", es = "Selección Natural" }
+version = "1.5.13"
+sha256 = "b89b8fabc42f87120d73b4ae93fb8018e37e9fe10a568d94403fa8c4115b2516"

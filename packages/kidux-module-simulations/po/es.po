@@ -1,0 +1,51 @@
+# Spanish translation for kidux-module-simulations.
+# Copyright (C) 2026 Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-simulations package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-simulations 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-10-16 23:12+0200\n"
+"PO-Revision-Date: 2026-10-16 23:12+0200\n"
+"Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Simulations"
+msgstr "Simulaciones"
+
+msgid "Experiments to play with on the screen: numbers, forces, light, electricity, matter, planets and life. Simulations by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY 4.0; Kidux is not connected with PhET."
+msgstr "Experimentos para jugar en la pantalla: números, fuerzas, luz, electricidad, materia, planetas y vida. Simulaciones de PhET Interactive Simulations, Universidad de Colorado Boulder, bajo licencia CC BY 4.0; Kidux no tiene relación con PhET."
+
+#, python-brace-format
+msgid "Ages {low} to {high}"
+msgstr "De {low} a {high} años"
+
+msgid "Simulations by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY 4.0 (https://phet.colorado.edu)"
+msgstr "Simulaciones de PhET Interactive Simulations, Universidad de Colorado Boulder, bajo licencia CC BY 4.0 (https://phet.colorado.edu)"
+
+msgid "Numbers and shapes"
+msgstr "Números y formas"
+
+msgid "More numbers"
+msgstr "Más números"
+
+msgid "Forces and energy"
+msgstr "Fuerzas y energía"
+
+msgid "Light, sound and waves"
+msgstr "Luz, sonido y ondas"
+
+msgid "Electricity and magnets"
+msgstr "Electricidad e imanes"
+
+msgid "Matter and atoms"
+msgstr "La materia y los átomos"
+
+msgid "Earth, space and life"
+msgstr "La Tierra, el espacio y la vida"

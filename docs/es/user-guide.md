@@ -1067,6 +1067,24 @@ guardar como un archivo en las carpetas del niño.
 
 ![Step](../images/es/module-step.png)
 
+### Simulaciones
+
+**Simulaciones** son experimentos para jugar en la pantalla: formar un
+número, equilibrar un balancín, doblar un rayo de luz, frotar un globo
+en un jersey, construir un átomo, poner planetas en órbita. Son las
+simulaciones interactivas de PhET, hechas por la Universidad de
+Colorado Boulder y usadas en escuelas de todo el mundo, elegidas aquí
+para niños de seis a catorce años y ordenadas por grupo y edad, en el
+idioma del niño. Están en el ordenador y funcionan sin internet. Cada
+una se abre en su propio marco, con **Simulaciones** arriba para
+volver a la lista. Las simulaciones son las versiones que PhET publicó
+bajo la licencia Creative Commons Atribución 4.0; Kidux no tiene
+relación con PhET.
+
+![Simulaciones](../images/es/module-simulations.png)
+
+![Una simulación abierta](../images/es/module-simulations-open.png)
+
 ## 10. Actualizar y reinstalar
 
 Las actualizaciones de seguridad se instalan solas, en segundo plano, tanto
