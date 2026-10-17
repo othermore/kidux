@@ -154,6 +154,14 @@ Estos son los módulos que ofrece Kidux:
 
 ## Cómo conseguir Kidux
 
+Kidux necesita un ordenador con procesador de 64 bits, que tiene casi
+cualquier PC o portátil fabricado a partir de 2008; 2 GB de memoria, y
+mejor 4 GB; 32 GB de disco, el disco entero; y una pantalla de al menos
+1280 por 800 píxeles, y mejor de 1920 por 1080 o más. En una pantalla más
+pequeña que 1280 por 800, algunas pantallas de Kidux se desplazan, y
+algunos módulos de aprendizaje pueden tener partes ocultas o no funcionar
+bien.
+
 Hay dos formas de instalar Kidux:
 
 - **Con la imagen de Kidux. Muy pronto.** Se descarga la imagen, se graba

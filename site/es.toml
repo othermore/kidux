@@ -154,7 +154,7 @@ needs = "Qué necesitas"
 need1 = "Un ordenador de 64 bits: casi cualquiera desde 2008."
 need2 = "2 GB de memoria. Mejor 4 GB."
 need3 = "32 GB de disco."
-need4 = "Una pantalla de 1280 por 800 o más. En una más pequeña, algunas actividades pueden no verse bien."
+need4 = "Una pantalla de 1280 por 800 como mínimo, y mejor de 1920 por 1080. En una más pequeña, algunas actividades pueden tener partes ocultas o no funcionar bien."
 
 [get.image]
 title = "La imagen de Kidux"

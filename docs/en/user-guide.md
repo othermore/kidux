@@ -14,10 +14,16 @@ not need a guide: every screen they can reach explains itself.
   of the disk and the children's work on another. That way the system can
   be updated, or even reinstalled, without touching anything the children
   have made.
-- A screen of at least **1280 by 800** pixels. Every screen of Kidux is
-  made to fit that size whole. Kidux works on a smaller screen, such as
-  1366 by 768 or 1024 by 768, but then some of its screens scroll, and some
-  learning modules may not show properly.
+- A screen of at least **1280 by 800** pixels, and better **1920 by 1080**
+  or more. Every screen of Kidux is made to fit 1280 by 800 whole. The
+  learning modules with panels at their sides, such as Step, Kig and
+  Scratch, and the ones with a guide beside them, work at that size but
+  are cramped; at 1920 by 1080 they have room. On a screen smaller than
+  1280 by 800, such as 1366 by 768 or 1024 by 768, some of Kidux's screens
+  scroll, and some learning modules may have parts hidden or not work
+  well. What counts is the room left after the size of everything is
+  chosen on the adult panel (section 8): at 200 %, a screen of 2560 by
+  1600 has the room of one of 1280 by 800.
 
 ## 2. Installing Kidux
 

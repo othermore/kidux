@@ -15,11 +15,17 @@ explica sola.
   parte del disco y el trabajo de los niños en otra. Así el sistema se
   puede actualizar, o incluso reinstalar, sin tocar nada de lo que los
   niños han hecho.
-- Una pantalla de al menos **1280 por 800** píxeles. Todas las pantallas
-  de Kidux están hechas para caber enteras en ese tamaño. Kidux funciona
-  en una pantalla más pequeña, como 1366 por 768 o 1024 por 768, pero
-  entonces algunas de sus pantallas se desplazan, y algunos módulos de
-  aprendizaje pueden no verse bien.
+- Una pantalla de al menos **1280 por 800** píxeles, y mejor de **1920
+  por 1080** o más. Todas las pantallas de Kidux están hechas para caber
+  enteras en 1280 por 800. Los módulos de aprendizaje con paneles a los
+  lados, como Step, Kig y Scratch, y los que llevan una guía al lado,
+  funcionan en ese tamaño pero van apretados; en 1920 por 1080 tienen
+  sitio. En una pantalla más pequeña que 1280 por 800, como 1366 por 768
+  o 1024 por 768, algunas pantallas de Kidux se desplazan, y algunos
+  módulos de aprendizaje pueden tener partes ocultas o no funcionar bien.
+  Lo que cuenta es el sitio que queda después de elegir el tamaño de todo
+  en el panel de adulto (sección 8): a 200 %, una pantalla de 2560 por
+  1600 tiene el sitio de una de 1280 por 800.
 
 ## 2. Instalar Kidux
 

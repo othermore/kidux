@@ -151,6 +151,13 @@ These are the modules Kidux offers:
 
 ## Getting Kidux
 
+Kidux needs a computer with a 64-bit processor, which almost any PC or
+laptop made from 2008 onwards has; 2 GB of memory, and better 4 GB; 32 GB
+of disk, the whole disk; and a screen of at least 1280 by 800 pixels, and
+better 1920 by 1080 or more. On a screen smaller than 1280 by 800, some of
+Kidux's screens scroll, and some learning modules may have parts hidden or
+not work well.
+
 There are two ways to install Kidux:
 
 - **From the Kidux image. Coming soon.** Download the image, write it to a
