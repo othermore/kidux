@@ -1033,6 +1033,18 @@ Google.
 
 ![Gmail](../images/es/module-gmail.png)
 
+### Kig
+
+**Kig** es geometría que el niño puede mover. Los puntos, las rectas,
+las circunferencias y las figuras se ponen sobre el lienzo, y cada una
+conserva su regla cuando el niño arrastra aquello de lo que se
+construyó: el punto medio sigue en medio, la paralela sigue paralela.
+Es para niños de diez a catorce años, en el idioma del niño, y
+funciona sin internet. Lo que el niño dibuja se puede guardar como un
+archivo en sus carpetas.
+
+![Kig](../images/es/module-kig.png)
+
 ## 10. Actualizar y reinstalar
 
 Las actualizaciones de seguridad se instalan solas, en segundo plano, tanto

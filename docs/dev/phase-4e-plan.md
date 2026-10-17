@@ -89,12 +89,12 @@ three and decided once, in 4.27:
   restrictions once and `exec`s the program (a stand-in `kig` on the
   `PATH` prints what it got), the manifest's version is the package's.
   Acceptance, `tests/acceptance/21-module-kig.sh` and the next two
-  numbers (`21-no-key-no-archive.sh` becomes `24-…`, since it stays
-  last): installs through the daemon with its program and its Wayland
+  numbers, with 24 left for 4.30 (`21-no-key-no-archive.sh` becomes
+  `25-no-key-no-archive.sh` in 4.27, since it stays last): installs through the daemon with its program and its Wayland
   plugin, the manifest, icon and Spanish words in place, listed for a
   child switched off, removed without a trace and the program gone with
-  it (D100). Session, `tests/session/36-module-kig.py` and the next two
-  (`36-purge.py` becomes `39-…`): as `25-module-tuxtype.py`, Leo opens
+  it (D100). Session, `tests/session/36-module-kig.py` and the next two,
+  with 39 left for 4.30 (`36-purge.py` becomes `40-purge.py` in 4.27): as `25-module-tuxtype.py`, Leo opens
   the tile, the window fills the room above the bar with the bar whole
   under it, its process has the module's directories and the
   restrictions file is there, the picture `module-<id>` taken once the
@@ -104,7 +104,10 @@ three and decided once, in 4.27:
 - **The documents.** The user guide, a section each after Gmail's in
   section 9, in both languages, with the words of section 5; the website,
   a card each in `site/en.toml` and `site/es.toml` and its place in
-  `site/page.html`, and the licence line that names the modules' authors;
+  `site/page.html`, and the licence line that names the modules' authors,
+  on a branch of its own, `site-phase-4e`, since the site is built only
+  with every picture it shows, and the modules' pictures come from the
+  release run; the branch is picked onto `main` after it;
   architecture.md's table in section 8, a row each; the roadmap.
 - **The icons**, drawn like the avatars (branding/README.md): flat
   shapes, no gradients, nothing thinner than four units, and nothing of
@@ -133,8 +136,8 @@ package pushed: whether Kig opens on labwc with `qtwayland5` and what
 its window's `app_id` is; whether it asks anything at its first start
 (it should not: an empty canvas); that its *Help* entries fail quietly
 with the restrictions and that no menu reaches a terminal; and how the
-canvas looks at scale 2 (`20-scale.py`'s setting), since Qt 5 scales
-by `QT_SCALE_FACTOR`, which the session sets for GCompris already.
+canvas looks at scale 2 (`20-scale.py`'s setting): the session sets only
+`QT_QPA_PLATFORM=wayland`, and Qt takes the scale from the compositor.
 What is found goes into the starter's comment and this plan's section
 4 if it changes a decision.
 
@@ -291,7 +294,8 @@ new case. Acceptance: installs through the daemon with
 simulation's file in Spanish, the file carries the CC BY 4.0 link and
 not `by-nc`, listed for a child switched off, removed with the server
 and the policy when it was the last web module (D100). Session,
-`tests/session/39-module-simulations.py` (`36-purge.py` becomes `40-…`):
+`tests/session/39-module-simulations.py`, and acceptance
+`tests/acceptance/24-module-simulations.sh`:
 Leo opens the tile, the list is drawn in Spanish (the picture
 `module-simulations`), a tile opened by keyboard shows a simulation in
 the frame with the bar's *Simulations* above it (the picture

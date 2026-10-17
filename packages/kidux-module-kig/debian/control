@@ -1,0 +1,32 @@
+Source: kidux-module-kig
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-kig
+Architecture: all
+Depends: ${misc:Depends},
+         kig,
+         qtwayland5,
+XB-Kidux-Name-en: Kig
+XB-Kidux-Description-en: Geometry you can move: points, lines, circles and shapes that keep their rules when you drag them.
+XB-Kidux-Name-es: Kig
+XB-Kidux-Description-es: Geometría que se mueve: puntos, rectas, circunferencias y figuras que conservan sus reglas cuando las arrastras.
+XB-Kidux-Ages: 10-14
+XB-Kidux-Before: gcompris
+Description: Kidux learning module: Kig, geometry to move for ages ten to fourteen
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is Kig: points, lines, circles and shapes a child puts on a canvas
+ and drags, each keeping its rule, the middle in the middle and the
+ parallel parallel, in the child's language and without the internet.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

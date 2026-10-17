@@ -1,0 +1,16 @@
+# Kig, interactive geometry: a program already in Debian, so the package
+# holds this manifest, the tile, its words, and the small program that
+# starts Kig with KDE's actions a child has no business in switched off
+# (modules.md, section 5; phase-4e-plan.md, 4.27).
+id = "kig"
+version = "0.1.0"
+name = "Kig"
+description = "Geometry you can move: points, lines, circles and shapes that keep their rules when you drag them."
+min_age = 10
+max_age = 14
+recommended_before = ["gcompris"]
+launch = { exec = "/usr/libexec/kidux-module-kig" }
+app_ids = ["org.kde.kig"]                 # what Kig calls its window
+categories = ["maths"]
+i18n_domain = "kidux-module-kig"
+memory_max = "1G"

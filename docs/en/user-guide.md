@@ -1004,6 +1004,17 @@ first time; that is Google's own question.
 
 ![Gmail](../images/en/module-gmail.png)
 
+### Kig
+
+**Kig** is geometry a child can move. Points, lines, circles and
+shapes go on the canvas, and each keeps its rule when the child drags
+what it was built from: the middle stays in the middle, the parallel
+stays parallel. It is for children from ten to fourteen, in the
+child's language, and it works without the internet. What a child
+draws can be saved as a file in their folders.
+
+![Kig](../images/en/module-kig.png)
+
 ## 10. Updates and reinstalling
 
 Security updates install themselves in the background, from Debian and

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- kidux-module-kig's tile: a compass drawing an arc over a point on a
+     line, on the module's own colour. Kidux's tile, not Kig's icon; flat
+     shapes on a filled circle, like the avatars, legible down to the 32 px
+     of the launcher's bar. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Kig">
+  <circle cx="60" cy="60" r="60" fill="#b8e0d2"/>
+  <path d="M18 92 L102 92" stroke="#3b2f2a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M30 92 A34 34 0 0 1 96 80" fill="none" stroke="#3a86ff" stroke-width="6"
+        stroke-linecap="round"/>
+  <path d="M48 92 L60 30 L84 86" fill="none" stroke="#3b2f2a" stroke-width="7"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="60" cy="28" r="8" fill="#e4572e"/>
+  <circle cx="48" cy="92" r="7" fill="#e4572e"/>
+  <path d="M84 86 L88 94" stroke="#ffd27a" stroke-width="6" stroke-linecap="round"/>
+</svg>
