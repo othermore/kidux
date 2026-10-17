@@ -206,7 +206,9 @@ def run(machine: Machine) -> None:
            and wait(lambda: '"module": "canary"' in root(
                f"grep '\"action\": \"module removed\"' {AUDIT} | tail -1").stdout, 10),
            root(f"tail -3 {AUDIT}").stdout + greeter_log())
+    closed = machine.mark()
     machine.key("esc")
+    machine.shown("choose", closed, 30)          # the panel closed before the next test
     root(f"rm -rf {CANARY} {BIRD}-*")
 
     # Since this run began: the machine left up logs that the choose screen
