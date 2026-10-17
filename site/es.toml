@@ -142,6 +142,12 @@ age = "De 10 a 14 años"
 text = "Geometría que se arrastra: figuras que conservan sus reglas."
 anchor = "kig"
 
+[modules.kalzium]
+name = "Kalzium"
+age = "De 10 años en adelante"
+text = "La tabla periódica, elemento a elemento."
+anchor = "kalzium"
+
 [adults]
 title = "Tú decides. Desde un solo sitio."
 lead = "Un panel para adultos, tras una contraseña que nunca se escribe donde un niño pueda verla."
@@ -212,7 +218,7 @@ code_text = "Kidux en GitHub"
 rights = "© 2026"
 licence = "Kidux se publica bajo la Business Source License 1.1."
 visits = "Las visitas también se cuentan con GoatCounter, que no usa cookies."
-others = "GCompris, ScratchJr, Juegos de Blockly, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat, Wikipedia y Kig pertenecen a sus autores y conservan sus propias licencias. Kidux está construido sobre Debian y no está afiliado a ninguno de ellos."
+others = "GCompris, ScratchJr, Juegos de Blockly, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat, Wikipedia, Kig y Kalzium pertenecen a sus autores y conservan sus propias licencias. Kidux está construido sobre Debian y no está afiliado a ninguno de ellos."
 
 [cookies]
 title = "¿Podemos usar cookies para contar las visitas?"
