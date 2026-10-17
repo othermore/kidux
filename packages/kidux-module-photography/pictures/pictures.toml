@@ -35,3 +35,117 @@ licence = "CC-BY-2.0"
 author = "Stefan-Xp"
 source = "https://commons.wikimedia.org/wiki/File:Pistenbully_Modell_(verwackelt).jpg"
 licence = "CC-BY-SA-3.0"
+
+["exposure-0.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+
+["exposure-minus2.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+made = "given two stops less light, its pixels' light divided by four (prepare.py --stops -2)"
+
+["exposure-plus2.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+made = "given two stops more light, its pixels' light multiplied by four (prepare.py --stops 2)"
+
+["fountain-frozen.jpg"]
+author = "Michael Pardo"
+source = "https://commons.wikimedia.org/wiki/File:Frozen_but_not_Cold_(19053613133).jpg"
+licence = "CC0-1.0"
+
+["fountain-silky.jpg"]
+author = "S E Sammut"
+source = "https://commons.wikimedia.org/wiki/File:Triton_Fountain_1.jpg"
+licence = "CC-BY-SA-4.0"
+
+["muybridge-horse.jpg"]
+author = "Eadweard Muybridge"
+source = "https://commons.wikimedia.org/wiki/File:The_Horse_in_Motion_high_res.jpg"
+licence = "public-domain"
+made = "1878, The Horse in Motion"
+
+["aperture-real.jpg"]
+author = "Mark Turnauckas"
+source = "https://commons.wikimedia.org/wiki/File:Canon_G12_Aperture_Blades_(2013-02-02_19.47.15_by_Mark_Turnauckas_@_Flickr_8438851605).jpg"
+licence = "CC-BY-2.0"
+
+["iso-200.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISO200.jpg"
+licence = "CC-BY-4.0"
+made = "a detail at full size"
+
+["iso-6400.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISO6400.jpg"
+licence = "CC-BY-4.0"
+made = "a detail at full size"
+
+["snow-white.jpg"]
+author = "Stephen Craven"
+source = "https://commons.wikimedia.org/wiki/File:Smiling_snowman_-_geograph.org.uk_-_2792532.jpg"
+licence = "CC-BY-SA-2.0"
+
+["snow-grey.jpg"]
+author = "Stephen Craven"
+source = "https://commons.wikimedia.org/wiki/File:Smiling_snowman_-_geograph.org.uk_-_2792532.jpg"
+licence = "CC-BY-SA-2.0"
+made = "given 1.7 stops less light, which makes its average middle grey, as an averaging meter would (prepare.py --stops -1.7)"
+
+["backlit-as-measured.jpg"]
+author = "MiZe"
+source = "https://commons.wikimedia.org/wiki/File:Fill_flash.jpg"
+licence = "CC-BY-SA-3.0"
+made = "the left half, without flash"
+
+["backlit-on-the-face.jpg"]
+author = "MiZe"
+source = "https://commons.wikimedia.org/wiki/File:Fill_flash.jpg"
+licence = "CC-BY-SA-3.0"
+made = "the left half, without flash, given 1.7 stops more light (prepare.py --stops 1.7)"
+
+["fill-flash-pair.jpg"]
+author = "MiZe"
+source = "https://commons.wikimedia.org/wiki/File:Fill_flash.jpg"
+licence = "CC-BY-SA-3.0"
+
+["daguerre-boulevard.jpg"]
+author = "Louis Daguerre"
+source = "https://commons.wikimedia.org/wiki/File:Boulevard_du_Temple_by_Daguerre.jpg"
+licence = "public-domain"
+made = "1838, Boulevard du Temple"
+
+["car-trails.jpg"]
+author = "Benedikt Beuttler"
+source = "https://commons.wikimedia.org/wiki/File:Long_Exposure_Street_(70708613).jpeg"
+licence = "CC-BY-SA-3.0"
+
+["silky-river.jpg"]
+author = "paul saad"
+source = "https://commons.wikimedia.org/wiki/File:Long_exposure_river.jpg"
+licence = "CC-BY-SA-4.0"
+
+["star-trails.jpg"]
+author = "Fausto.lubatti"
+source = "https://commons.wikimedia.org/wiki/File:Star_trails_over_Grigna_peak.jpg"
+licence = "CC-BY-SA-4.0"
+
+["light-painting-orb.jpg"]
+author = "JJ Harrison"
+source = "https://commons.wikimedia.org/wiki/File:Light_Painting_1_-_Booyeembara_Park.jpg"
+licence = "CC-BY-SA-3.0"
+
+["light-painting-circle.jpg"]
+author = "Subhrajyoti07"
+source = "https://commons.wikimedia.org/wiki/File:A_circular_shape_created_using_light_painting.jpg"
+licence = "CC-BY-SA-4.0"
+
+["flash-splash.jpg"]
+author = "Giuseppe Milo"
+source = "https://commons.wikimedia.org/wiki/File:Splash_(58544580).jpeg"
+licence = "CC-BY-3.0"

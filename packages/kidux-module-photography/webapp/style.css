@@ -109,6 +109,8 @@ figure.photo .frame { position: relative; line-height: 0; }
 figure.photo img {
   display: block;
   max-width: 100%;
+  width: auto;
+  height: auto;
   max-height: 60vh;
   margin: 0 auto;
   border-radius: 10px;
@@ -134,7 +136,10 @@ figure.photo.thirds .frame::after {
 /* Two to four pictures side by side. */
 .compare { display: flex; gap: 14px; align-items: flex-start; margin: 18px 0; }
 .compare > figure { flex: 1 1 0; min-width: 0; margin: 0; }
-.compare figure.photo img { max-height: 40vh; }
+/* A picture side by side has the width of its column: it may not have
+   loaded yet, and a lazy picture with no size of its own would have none. */
+.compare figure.photo img { width: 100%; height: auto; max-height: none; }
+.compare figure.drawing figcaption { margin-top: 6px; text-align: center; font-size: 16px; }
 
 .list { display: flex; flex-direction: column; gap: 6px; padding-top: 12px; }
 .list button { text-align: left; background: var(--paper); font-weight: 400; }

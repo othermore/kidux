@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 9: in P, the time and the aperture blink when the camera cannot make the picture bright enough: 60 seconds and F1.8 (manual, p. 15). Drawn afresh after the manual's pictures of the screen; the
+     only letters are the camera's own. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+  <rect x="0" y="0" width="480" height="360" rx="18" fill="#141c26"/>
+  <rect x="14" y="14" width="452" height="332" rx="8" fill="#5e554b"/>
+  <rect x="14" y="236" width="452" height="110" fill="#4a3826"/>
+  <ellipse cx="240" cy="248" rx="70" ry="14" fill="#8a6440" opacity="0.5"/>
+  <circle cx="240" cy="196" r="52" fill="#43301c"/>
+  <circle cx="198" cy="148" r="20" fill="#43301c"/>
+  <circle cx="282" cy="148" r="20" fill="#43301c"/>
+  <circle cx="240" cy="176" r="30" fill="#57412b"/>
+  <circle cx="226" cy="168" r="5" fill="#24313f"/>
+  <circle cx="254" cy="168" r="5" fill="#24313f"/>
+  <circle cx="240" cy="184" r="6" fill="#24313f"/>
+  <rect x="14" y="306" width="452" height="40" fill="#141c26" opacity="0.6"/>
+  <rect x="24" y="312" width="30" height="28" rx="4" fill="#fdf6f0"/>
+  <text x="39" y="334" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="22" fill="#141c26" text-anchor="middle">P</text>
+  <text x="28" y="54" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="14" fill="#fdf6f0" text-anchor="start">ISO</text>
+  <text x="28" y="74" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="18" fill="#fdf6f0" text-anchor="start">200</text>
+  <text x="150" y="334" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="24" fill="#ff8a7a" text-anchor="start">60"</text>
+  <text x="218" y="334" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="24" fill="#ff8a7a" text-anchor="start">F1.8</text>
+  <g stroke="#ff8a7a" stroke-width="3"><line x1="146" y1="308" x2="140" y2="300"/><line x1="176" y1="306" x2="176" y2="296"/><line x1="206" y1="308" x2="212" y2="300"/><line x1="250" y1="306" x2="250" y2="296"/></g>
+</svg>

@@ -46,9 +46,135 @@ Copyright: Stefan-Xp
 License: CC-BY-SA-3.0
 Comment: https://commons.wikimedia.org/wiki/File:Pistenbully_Modell_(verwackelt).jpg
 
+Files: pictures/exposure-0.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+
+Files: pictures/exposure-minus2.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+ Given two stops less light, its pixels' light divided by four (prepare.py --stops -2).
+
+Files: pictures/exposure-plus2.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+ Given two stops more light, its pixels' light multiplied by four (prepare.py --stops 2).
+
+Files: pictures/fountain-frozen.jpg
+Copyright: Michael Pardo
+License: CC0-1.0
+Comment: https://commons.wikimedia.org/wiki/File:Frozen_but_not_Cold_(19053613133).jpg
+
+Files: pictures/fountain-silky.jpg
+Copyright: S E Sammut
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Triton_Fountain_1.jpg
+
+Files: pictures/muybridge-horse.jpg
+Copyright: Eadweard Muybridge
+License: public-domain
+Comment: https://commons.wikimedia.org/wiki/File:The_Horse_in_Motion_high_res.jpg
+ 1878, The Horse in Motion.
+
+Files: pictures/aperture-real.jpg
+Copyright: Mark Turnauckas
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Canon_G12_Aperture_Blades_(2013-02-02_19.47.15_by_Mark_Turnauckas_@_Flickr_8438851605).jpg
+
+Files: pictures/iso-200.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISO200.jpg
+ A detail at full size.
+
+Files: pictures/iso-6400.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISO6400.jpg
+ A detail at full size.
+
+Files: pictures/snow-white.jpg
+Copyright: Stephen Craven
+License: CC-BY-SA-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Smiling_snowman_-_geograph.org.uk_-_2792532.jpg
+
+Files: pictures/snow-grey.jpg
+Copyright: Stephen Craven
+License: CC-BY-SA-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Smiling_snowman_-_geograph.org.uk_-_2792532.jpg
+ Given 1.7 stops less light, which makes its average middle grey, as an averaging meter would (prepare.py --stops -1.7).
+
+Files: pictures/backlit-as-measured.jpg
+Copyright: MiZe
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Fill_flash.jpg
+ The left half, without flash.
+
+Files: pictures/backlit-on-the-face.jpg
+Copyright: MiZe
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Fill_flash.jpg
+ The left half, without flash, given 1.7 stops more light (prepare.py --stops 1.7).
+
+Files: pictures/fill-flash-pair.jpg
+Copyright: MiZe
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Fill_flash.jpg
+
+Files: pictures/daguerre-boulevard.jpg
+Copyright: Louis Daguerre
+License: public-domain
+Comment: https://commons.wikimedia.org/wiki/File:Boulevard_du_Temple_by_Daguerre.jpg
+ 1838, Boulevard du Temple.
+
+Files: pictures/car-trails.jpg
+Copyright: Benedikt Beuttler
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Long_Exposure_Street_(70708613).jpeg
+
+Files: pictures/silky-river.jpg
+Copyright: paul saad
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Long_exposure_river.jpg
+
+Files: pictures/star-trails.jpg
+Copyright: Fausto.lubatti
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Star_trails_over_Grigna_peak.jpg
+
+Files: pictures/light-painting-orb.jpg
+Copyright: JJ Harrison
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Light_Painting_1_-_Booyeembara_Park.jpg
+
+Files: pictures/light-painting-circle.jpg
+Copyright: Subhrajyoti07
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:A_circular_shape_created_using_light_painting.jpg
+
+Files: pictures/flash-splash.jpg
+Copyright: Giuseppe Milo
+License: CC-BY-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Splash_(58544580).jpeg
+
 License: CC-BY-2.0
  Creative Commons Attribution 2.0 Generic:
  https://creativecommons.org/licenses/by/2.0/legalcode
+
+License: CC-BY-3.0
+ Creative Commons Attribution 3.0 Unported:
+ https://creativecommons.org/licenses/by/3.0/legalcode
+
+License: CC-BY-4.0
+ Creative Commons Attribution 4.0 International:
+ https://creativecommons.org/licenses/by/4.0/legalcode
+
+License: CC-BY-SA-2.0
+ Creative Commons Attribution-ShareAlike 2.0 Generic:
+ https://creativecommons.org/licenses/by-sa/2.0/legalcode
 
 License: CC-BY-SA-3.0
  Creative Commons Attribution-ShareAlike 3.0 Unported:
@@ -57,6 +183,10 @@ License: CC-BY-SA-3.0
 License: CC-BY-SA-4.0
  Creative Commons Attribution-ShareAlike 4.0 International:
  https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+License: CC0-1.0
+ Creative Commons CC0 1.0 Universal, no rights reserved:
+ https://creativecommons.org/publicdomain/zero/1.0/legalcode
 
 License: public-domain
  The work is in the public domain: its author died more than a hundred

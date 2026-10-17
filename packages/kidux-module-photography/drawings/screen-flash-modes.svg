@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 15: the flash's modes, as the right arrow shows them: auto, red-eye reduction, fill-in, flash off and slow synchronization; fill-in chosen (manual, p. 24). Drawn afresh after the manual's pictures of the screen; the
+     only letters are the camera's own. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+  <rect x="0" y="0" width="480" height="360" rx="18" fill="#141c26"/>
+  <rect x="14" y="14" width="452" height="332" rx="8" fill="#e8d9c4"/>
+  <rect x="14" y="236" width="452" height="110" fill="#b98a5e"/>
+  <ellipse cx="240" cy="248" rx="70" ry="14" fill="#8a6440" opacity="1"/>
+  <circle cx="240" cy="196" r="52" fill="#a8743f"/>
+  <circle cx="198" cy="148" r="20" fill="#a8743f"/>
+  <circle cx="282" cy="148" r="20" fill="#a8743f"/>
+  <circle cx="240" cy="176" r="30" fill="#c99566"/>
+  <circle cx="226" cy="168" r="5" fill="#24313f"/>
+  <circle cx="254" cy="168" r="5" fill="#24313f"/>
+  <circle cx="240" cy="184" r="6" fill="#24313f"/>
+  <rect x="14" y="300" width="452" height="46" fill="#141c26" opacity="0.8"/>
+  <rect x="60" y="306" width="62" height="34" rx="4" fill="none" stroke="#fdf6f0" stroke-width="3"/>
+  <polygon points="84,310 76,326 86,326 80,338 96,320 86,320 92,310" fill="#fdf6f0"/>
+  <text x="118" y="338" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="10" fill="#fdf6f0" text-anchor="end">AUTO</text>
+  <rect x="136" y="306" width="62" height="34" rx="4" fill="none" stroke="#fdf6f0" stroke-width="3"/>
+  <circle cx="167" cy="323" r="11" fill="none" stroke="#fdf6f0" stroke-width="3"/><circle cx="167" cy="323" r="4" fill="#fdf6f0"/>
+  <rect x="212" y="306" width="62" height="34" rx="4" fill="none" stroke="#f0a202" stroke-width="3"/>
+  <polygon points="236,310 228,326 238,326 232,338 248,320 238,320 244,310" fill="#fdf6f0"/>
+  <rect x="288" y="306" width="62" height="34" rx="4" fill="none" stroke="#fdf6f0" stroke-width="3"/>
+  <polygon points="312,310 304,326 314,326 308,338 324,320 314,320 320,310" fill="#fdf6f0"/>
+  <circle cx="314" cy="323" r="14" fill="none" stroke="#fdf6f0" stroke-width="2"/><line x1="302" y1="333" x2="326" y2="313" stroke="#fdf6f0" stroke-width="2"/>
+  <rect x="364" y="306" width="62" height="34" rx="4" fill="none" stroke="#fdf6f0" stroke-width="3"/>
+  <polygon points="388,310 380,326 390,326 384,338 400,320 390,320 396,310" fill="#fdf6f0"/>
+  <text x="422" y="338" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="10" fill="#fdf6f0" text-anchor="end">SLOW</text>
+</svg>

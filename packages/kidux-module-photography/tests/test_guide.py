@@ -87,6 +87,8 @@ def test_the_page_holds_every_language_its_words_and_its_chapters(tmp_path):
             assert "KEPT" not in chapter["html"] and ":::" not in chapter["html"]
             assert "![" not in chapter["html"]
     assert "@PAGES@" not in html
+    # Every photograph says its size, so that the page keeps its room.
+    assert re.search(r'<img src=\\"pictures/[a-z0-9-]+\.jpg\\" alt=\\"[^"]*\\" width=\\"\d+\\" height=\\"\d+\\"', html)
 
 
 def test_the_guide_s_seven_conventions():
@@ -102,7 +104,7 @@ def test_the_guide_s_seven_conventions():
         "::: adult\nFor *you*.\n:::\n\n"
         "![A penguin](mascot.svg)\n\n"
         "![A cat](cat.jpg \"thirds\")\n\n"
-        "::: compare\n![A dog](dog.jpg)\n\n![Old](old.jpg)\n:::\n",
+        "::: compare\n![A dog](dog.jpg)\n\n![Old](old.jpg)\n\n![The chick](mascot.svg)\n:::\n",
         DRAWINGS, words, pictures)
 
     assert heading == "A chapter"
@@ -118,6 +120,7 @@ def test_the_guide_s_seven_conventions():
     assert '<div class="compare"><figure class="photo">' in html
     assert '<span class="credit">Picture made by a computer</span>' in html
     assert '<span class="credit">Photo: Niépce, public domain</span>' in html
+    assert '<svg role="img" aria-label="The chick"' in html and "<figcaption>The chick</figcaption>" in html
     assert "<p><figure" not in html
 
 

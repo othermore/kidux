@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 11 and 12: the screen in M, manual: you choose both, the time and the aperture, framed; there is no exposure compensation in M (manual, p. 18). Drawn afresh after the manual's pictures of the screen; the
+     only letters are the camera's own. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+  <rect x="0" y="0" width="480" height="360" rx="18" fill="#141c26"/>
+  <rect x="14" y="14" width="452" height="332" rx="8" fill="#e8d9c4"/>
+  <rect x="14" y="236" width="452" height="110" fill="#b98a5e"/>
+  <ellipse cx="240" cy="248" rx="70" ry="14" fill="#8a6440" opacity="1"/>
+  <circle cx="240" cy="196" r="52" fill="#a8743f"/>
+  <circle cx="198" cy="148" r="20" fill="#a8743f"/>
+  <circle cx="282" cy="148" r="20" fill="#a8743f"/>
+  <circle cx="240" cy="176" r="30" fill="#c99566"/>
+  <circle cx="226" cy="168" r="5" fill="#24313f"/>
+  <circle cx="254" cy="168" r="5" fill="#24313f"/>
+  <circle cx="240" cy="184" r="6" fill="#24313f"/>
+  <rect x="14" y="306" width="452" height="40" fill="#141c26" opacity="0.6"/>
+  <rect x="24" y="312" width="30" height="28" rx="4" fill="#fdf6f0"/>
+  <text x="39" y="334" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="22" fill="#141c26" text-anchor="middle">M</text>
+  <text x="28" y="54" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="14" fill="#fdf6f0" text-anchor="start">ISO</text>
+  <text x="28" y="74" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="18" fill="#fdf6f0" text-anchor="start">200</text>
+  <rect x="144" y="310" width="58" height="32" rx="4" fill="none" stroke="#f0a202" stroke-width="3"/>
+  <text x="146" y="334" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="24" fill="#fdf6f0" text-anchor="start">125</text>
+  <rect x="212" y="310" width="70" height="32" rx="4" fill="none" stroke="#f0a202" stroke-width="3"/>
+  <text x="218" y="334" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="24" fill="#fdf6f0" text-anchor="start">F5.6</text>
+</svg>

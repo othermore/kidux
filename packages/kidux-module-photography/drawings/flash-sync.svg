@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 15: a ball rolling from left to right during a one-second
+     picture with the flash. Above, the flash fires as the shutter opens
+     (Sync 1): the ball is sharp where it started and its trail runs on ahead
+     of it, as if it went backwards. Below, the flash fires just before the
+     shutter closes (Sync 2): the trail is behind the ball, sharp where it
+     ended. Flat, in the brand's colours, no words. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="640" height="260">
+  <defs>
+    <linearGradient id="ahead" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#e2703a" stop-opacity="0.7"/><stop offset="1" stop-color="#e2703a" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="behind" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#e2703a" stop-opacity="0"/><stop offset="1" stop-color="#e2703a" stop-opacity="0.7"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="640" height="260" fill="#24313f"/>
+  <rect x="0" y="118" width="640" height="10" fill="#3b4c61"/>
+  <rect x="0" y="240" width="640" height="10" fill="#3b4c61"/>
+  <!-- Sync 1: sharp at the start, the trail ahead -->
+  <rect x="120" y="54" width="440" height="56" rx="28" fill="url(#ahead)"/>
+  <circle cx="120" cy="82" r="30" fill="#e2703a"/>
+  <path d="M100 70 Q120 58 140 70" fill="none" stroke="#fdf6f0" stroke-width="5" stroke-linecap="round"/>
+  <!-- Sync 2: the trail behind, sharp at the end -->
+  <rect x="80" y="176" width="440" height="56" rx="28" fill="url(#behind)"/>
+  <circle cx="520" cy="204" r="30" fill="#e2703a"/>
+  <path d="M500 192 Q520 180 540 192" fill="none" stroke="#fdf6f0" stroke-width="5" stroke-linecap="round"/>
+  <!-- the way it rolled -->
+  <polygon points="600,82 584,72 584,92" fill="#fdf6f0"/>
+  <polygon points="600,204 584,194 584,214" fill="#fdf6f0"/>
+</svg>

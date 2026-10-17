@@ -24,7 +24,8 @@ heading, read with seven conventions and no others:
 - the lines between `::: adult` and `:::` are the box for the adult, shut
   until it is opened;
 - the lines between `::: compare` and `:::` hold two to four pictures,
-  photographs or drawings, shown side by side;
+  photographs or drawings, shown side by side, each with its words under
+  it;
 - a drawing, ![words](name.svg), is a drawing from the drawings directory,
   put into the page as it is, with its words for those who cannot see it;
 - a photograph, ![caption](name.jpg), is a picture from the pictures
@@ -37,6 +38,7 @@ import gettext
 import html
 import json
 import re
+import struct
 import sys
 import tomllib
 from pathlib import Path
@@ -127,17 +129,35 @@ def drawing(drawings: Path, name: str, alt: str) -> str:
     return svg.strip()
 
 
-def photo(name: str, alt: str, title: str | None, entry: dict, words: dict) -> str:
+def jpeg_size(path: Path) -> tuple[int, int]:
+    """A JPEG's width and height, from its frame header."""
+    data = path.read_bytes()
+    at = 2
+    while at + 9 < len(data):
+        marker, length = data[at + 1], struct.unpack(">H", data[at + 2:at + 4])[0]
+        if 0xC0 <= marker <= 0xCF and marker not in (0xC4, 0xC8, 0xCC):
+            height, width = struct.unpack(">HH", data[at + 5:at + 9])
+            return width, height
+        at += 2 + length
+    raise ValueError(f"{path.name} has no frame header")
+
+
+def photo(name: str, alt: str, title: str | None, entry: dict, words: dict,
+          size: tuple[int, int] | None = None) -> str:
+    """A photograph's figure. Its size is written into it, so that the page
+    keeps its room before it has loaded, which a picture loaded only when
+    it comes into view needs to come into view at all."""
     caption = html.unescape(alt)
     classes = "photo thirds" if title == "thirds" else "photo"
+    sized = f' width="{size[0]}" height="{size[1]}"' if size else ""
     return (f'<figure class="{classes}"><div class="frame">'
-            f'<img src="pictures/{name}" alt="{html.escape(caption)}" loading="lazy"></div>'
+            f'<img src="pictures/{name}" alt="{html.escape(caption)}"{sized} loading="lazy"></div>'
             f'<figcaption>{html.escape(caption)}'
             f'<span class="credit">{html.escape(credit(entry, words))}</span></figcaption></figure>')
 
 
 def chapter(text: str, drawings: Path, words: dict, pictures: dict | None = None,
-            number: int | None = None) -> tuple[str, str]:
+            number: int | None = None, folder: Path | None = None) -> tuple[str, str]:
     """A chapter's heading, and its HTML for the page; with its number,
     from its file's name, before the heading, so that a child remembers
     where they were."""
@@ -159,6 +179,11 @@ def chapter(text: str, drawings: Path, words: dict, pictures: dict | None = None
             heading = words["camera"].format(camera=CAMERA)
             return keep(f'<section class="camera"><h3>{html.escape(heading)}</h3>'
                         f'<p class="others">{html.escape(words["others"])}</p>{inner}</section>')
+        # Side by side, a drawing has its words under it too, since the
+        # pictures are told apart by them.
+        inner = DRAWING.sub(lambda found: f'<figure class="drawing">'
+                            f'{drawing(drawings, found["name"], html.unescape(found["alt"]))}'
+                            f'<figcaption>{found["alt"]}</figcaption></figure>', inner)
         return keep(f'<div class="compare">{inner}</div>')
 
     def quote(found: re.Match) -> str:
@@ -189,8 +214,12 @@ def chapter(text: str, drawings: Path, words: dict, pictures: dict | None = None
         out = re.sub(r"KEPT(\d+)KEPT", lambda found: kept[int(found[1])], out)
     out = DRAWING.sub(lambda found: f'<figure class="drawing">'
                       f'{drawing(drawings, found["name"], html.unescape(found["alt"]))}</figure>', out)
+    def sized(name: str) -> tuple[int, int] | None:
+        return jpeg_size(folder / name) if folder is not None and (folder / name).is_file() else None
+
     out = PHOTO.sub(lambda found: photo(found["name"], found["alt"], found["title"],
-                                        pictures.get(found["name"], {}), words), out)
+                                        pictures.get(found["name"], {}), words,
+                                        sized(found["name"])), out)
     out = re.sub(r"<p>((?:<figure .*?</figure>\s*)+)</p>", r"\1", out, flags=re.S)
     return heading, f"<h1>{html.escape(heading)}</h1>\n{out}"
 
@@ -206,7 +235,7 @@ def pages(locale: Path, content: Path, drawings: Path, pictures: Path) -> dict:
         chapters = []
         for path in sorted(directory.glob("*.md")):
             heading, html_ = chapter(body(path), drawings, words, listed,
-                                     int(path.stem.split("-", 1)[0]))
+                                     int(path.stem.split("-", 1)[0]), pictures)
             chapters.append({"slug": path.stem, "title": heading, "html": html_})
         found[lang] = {"lang": lang, "words": words, "chapters": chapters}
     return found
