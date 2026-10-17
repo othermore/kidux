@@ -1,6 +1,7 @@
-// The guide: one chapter at a time, with Back, Next and the list of
-// chapters, remembering where the child was. Its chapters are written into
-// the page when the package is built (page.py).
+// The guide: one chapter at a time, with Back and Next above it and the
+// list of chapters beside it, the one shown marked, remembering where the
+// child was. Its chapters are written into the page when the package is
+// built (page.py).
 
 (function () {
   "use strict";
@@ -12,44 +13,35 @@
   const list = document.getElementById("list");
   const back = document.getElementById("back");
   const next = document.getElementById("next");
-  const contents = document.getElementById("contents");
+  const items = [];
 
   let shown = 0;
 
   function show(index) {
     shown = Math.max(0, Math.min(chapters.length - 1, index));
     article.innerHTML = chapters[shown].html;
-    article.hidden = false;
-    list.hidden = true;
     window.scrollTo(0, 0);
     back.disabled = shown === 0;
     next.disabled = shown === chapters.length - 1;
-    contents.setAttribute("aria-expanded", "false");
+    items.forEach((item, at) => {
+      item.classList.toggle("here", at === shown);
+      item.setAttribute("aria-current", at === shown ? "page" : "false");
+    });
+    items[shown].scrollIntoView({ block: "nearest" });
     try { localStorage.setItem(STORED, chapters[shown].slug); } catch (error) { /* not kept */ }
   }
 
-  function showList() {
-    list.innerHTML = "";
-    chapters.forEach((chapter, index) => {
-      const item = document.createElement("button");
-      item.type = "button";
-      item.textContent = chapter.title;
-      item.className = index === shown ? "here" : "";
-      // The list goes away with the item that has the focus, so the focus
-      // goes back to Chapters, where the keyboard can go on from.
-      item.addEventListener("click", () => { show(index); contents.focus(); });
-      list.appendChild(item);
-    });
-    article.hidden = true;
-    list.hidden = false;
-    window.scrollTo(0, 0);
-    contents.setAttribute("aria-expanded", "true");
-    list.querySelector(".here").focus();
-  }
+  chapters.forEach((chapter, index) => {
+    const item = document.createElement("button");
+    item.type = "button";
+    item.textContent = chapter.title;
+    item.addEventListener("click", () => show(index));
+    list.appendChild(item);
+    items.push(item);
+  });
 
   back.addEventListener("click", () => show(shown - 1));
   next.addEventListener("click", () => show(shown + 1));
-  contents.addEventListener("click", () => (list.hidden ? showList() : show(shown)));
 
   let start = 0;
   try {
@@ -58,6 +50,6 @@
   } catch (error) { start = 0; }
   show(start);
   // Next has the focus, for a child to go on with Enter; on the last
-  // chapter, where it cannot be pressed, Chapters.
-  (next.disabled ? contents : next).focus();
+  // chapter, where it cannot be pressed, the chapter's place in the list.
+  (next.disabled ? items[shown] : next).focus();
 })();

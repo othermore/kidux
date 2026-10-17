@@ -64,9 +64,9 @@ source = "https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISO200.jpg"
 licence = "CC-BY-4.0"
 made = "a detail at full size"
 
-["iso-6400.jpg"]
+["iso-51200.jpg"]
 author = "Trougnouf (Benoit Brummer)"
-source = "https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISO6400.jpg"
+source = "https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISOH3.jpg"
 licence = "CC-BY-4.0"
 made = "a detail at full size"
 
@@ -442,3 +442,21 @@ licence = "CC-BY-SA-2.0"
 author = "Basile Morin"
 source = "https://commons.wikimedia.org/wiki/File:Four_dogs_running_at_golden_hour_in_the_countryside_of_Don_Det_Laos.jpg"
 licence = "CC-BY-SA-4.0"
+
+["exposure-minus2-histogram.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+made = "given two stops less light (prepare.py --stops -2), with its own histogram drawn in its corner (--histogram)"
+
+["exposure-0-histogram.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+made = "with its own histogram drawn in its corner (prepare.py --histogram)"
+
+["exposure-plus2-histogram.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+made = "given two stops more light (prepare.py --stops 2), with its own histogram drawn in its corner (--histogram)"

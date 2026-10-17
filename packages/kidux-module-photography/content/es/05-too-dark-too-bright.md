@@ -1,5 +1,5 @@
 ---
-source_sha256 = "216abde1b5e92ac46b308d34b03f30b22b61b08d9961c7d4b73c48ebe275d78f"
+source_sha256 = "a206ed82754cdf5f78bfc49629a7470b87db649eb08af6caa16a6d0a82d8e25d"
 ---
 # Demasiado oscura, demasiado clara
 
@@ -41,6 +41,17 @@ muy claros a la derecha, y los de en medio en medio. El histograma es la
 forma de esos montones.
 
 ![La pantalla con el histograma: los puntos oscuros a la izquierda, los claros a la derecha](screen-histogram.svg)
+
+Aquí están otra vez las tres fotos del principio del capítulo, cada una con
+su histograma en la esquina, como lo dibuja la cámara:
+
+::: compare
+![Dos pasos demasiado oscura: el montón está aplastado contra la izquierda](exposure-minus2-histogram.jpg)
+
+![Bien: el montón está en medio, con sitio a los dos lados](exposure-0-histogram.jpg)
+
+![Dos pasos demasiado clara: el montón está aplastado contra la derecha, y al blanco no le queda detalle](exposure-plus2-histogram.jpg)
+:::
 
 > [think] Una montaña aplastada contra el lado derecho quiere decir que
 > muchos puntos son todo lo blancos que pueden ser, y su detalle se ha
@@ -87,7 +98,8 @@ Este capítulo presenta la exposición, la sub y la sobreexposición, la
 compensación de la exposición en pasos y el histograma. Las tres fotos de
 arriba son la misma fotografía, hecha dos pasos más oscura y dos pasos más
 clara multiplicando su luz, que es exactamente lo que hacen dos pasos de
-exposición.
+exposición; las tres con histograma son las mismas otra vez, cada
+histograma contado a partir de la propia foto.
 
 Recuerde al niño que vuelva a poner la compensación a cero al acabar: una
 cámara que se queda en +2 hace todas las fotos siguientes demasiado claras.

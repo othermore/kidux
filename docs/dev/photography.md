@@ -20,7 +20,7 @@ packages/kidux-module-photography/
   webapp/index.html.in    the page, with @PAGES@ where the languages go
   webapp/page.py          writes index.html at build time (section 2)
   webapp/style.css        the page, in the brand's colours
-  webapp/guide.js         a chapter at a time: Back, Next, Chapters
+  webapp/guide.js         a chapter at a time: Back and Next, the list beside
   content/<lang>/NN-slug.md   the guide's chapters, English the source
   drawings/               the guide's drawings, shared by every language
   pictures/               the photographs, their credits, and the two
@@ -41,9 +41,10 @@ chapters with `python3-markdown`, translates the page's words through the
 module's catalogue, and writes both, as one JSON object per language, into
 `index.html` in place of `@PAGES@`. The page picks the language its
 address names, `?lang=es`, or English. `guide.js` shows one chapter at a
-time, numbered as its file is, with **Back**, **Next** and the list of
-**Chapters**, and the keyboard's focus on *Next*, or on *Chapters* where
-there is no next.
+time, numbered as its file is, with **Back** and **Next** above it and the
+list of chapters down the right, the one shown marked and kept in view,
+and the keyboard's focus on *Next*, or on the chapter's place in the list
+where there is no next.
 
 A photograph is an `<img>` with its width and height written in, read from
 the JPEG at build time, so that one loaded only when it comes into view

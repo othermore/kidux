@@ -3,6 +3,7 @@
 
     pictures/prepare.py <source> <name> [--crop LEFT,TOP,WIDTH,HEIGHT]
                         [--grey | --red-filter] [--stops N] [--light R,G,B]
+                        [--histogram]
 
 A development-time tool, run by hand and not installed (docs/dev/photography.md,
 section 5). It writes pictures/<name>.jpg: the source, cropped when asked,
@@ -18,7 +19,9 @@ is what a camera's white balance does, so that one photograph shows how
 it looks under a lamp with the white balance set for daylight. With
 --red-filter, the picture is made grey from its red light alone, which is
 what a red filter does to black and white: blue things, a sky, go dark.
-pictures.toml says in its `made` which of these a photograph had. The
+With --histogram, the picture's own histogram is drawn in its corner, as
+the camera's screen draws it: every pixel counted by its brightness, the
+dark ones on the left. pictures.toml says in its `made` which of these a photograph had. The
 credits are pictures.toml's, written by hand beside it.
 
 It needs python3-pil, which only the development machine has: the package
@@ -30,7 +33,7 @@ import io
 import sys
 from pathlib import Path
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageDraw, ImageOps
 
 PICTURES = Path(__file__).resolve().parent
 LONG_SIDE = 1400
@@ -58,9 +61,37 @@ def exposed(picture: Image.Image, stops: float,
     return picture.point(table)
 
 
+def with_histogram(picture: Image.Image) -> Image.Image:
+    """`picture` with its histogram drawn in its bottom right corner, in a
+    dark box with the brand's snow, as the camera's screen shows it: 64
+    bars, the darkest pixels' on the left."""
+    counts = picture.convert("L").histogram()
+    bars = [sum(counts[i * 4:(i + 1) * 4]) for i in range(64)]
+    tallest = max(bars) or 1
+    width, height = picture.size
+    box_w, box_h = width // 3, height // 5
+    left, top = width - box_w - width // 40, height - box_h - height // 40
+    drawn = picture.copy()
+    overlay = Image.new("RGBA", drawn.size, (0, 0, 0, 0))
+    paint = ImageDraw.Draw(overlay)
+    paint.rounded_rectangle((left, top, left + box_w, top + box_h), radius=box_h // 8,
+                            fill=(20, 28, 38, 200))
+    pad = box_h // 10
+    plot_w, plot_h = box_w - 2 * pad, box_h - 2 * pad
+    for i, count in enumerate(bars):
+        x0 = left + pad + i * plot_w / 64
+        x1 = left + pad + (i + 1) * plot_w / 64
+        bar = plot_h * count / tallest
+        if bar >= 1:
+            paint.rectangle((x0, top + pad + plot_h - bar, x1, top + pad + plot_h),
+                            fill=(253, 246, 240, 255))
+    drawn.paste(overlay, (0, 0), overlay)
+    return drawn.convert("RGB")
+
+
 def prepared(source: Path, crop: tuple[int, int, int, int] | None, grey: bool,
              stops: float = 0.0, light: tuple[float, float, float] | None = None,
-             red_filter: bool = False) -> bytes:
+             red_filter: bool = False, histogram: bool = False) -> bytes:
     with Image.open(source) as opened:
         picture = ImageOps.exif_transpose(opened).convert("RGB")
     if crop is not None:
@@ -74,6 +105,8 @@ def prepared(source: Path, crop: tuple[int, int, int, int] | None, grey: bool,
     if stops or light:
         picture = exposed(picture, stops, light or (1.0, 1.0, 1.0))
     picture.thumbnail((LONG_SIDE, LONG_SIDE), Image.Resampling.LANCZOS)
+    if histogram:
+        picture = with_histogram(picture)
     for quality in range(QUALITY, 40, -6):
         out = io.BytesIO()
         # A new image has no EXIF, XMP or ICC of the source's: nothing is
@@ -98,6 +131,8 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--stops", type=float, default=0.0,
                         help="this many stops more light, or fewer when negative")
     parser.add_argument("--light", help="R,G,B: each colour's light times its number")
+    parser.add_argument("--histogram", action="store_true",
+                        help="the picture's own histogram drawn in its corner")
     arguments = parser.parse_args(argv)
     crop = tuple(int(n) for n in arguments.crop.split(",")) if arguments.crop else None
     if crop is not None and len(crop) != 4:
@@ -106,7 +141,7 @@ def main(argv: list[str]) -> int:
     if light is not None and len(light) != 3:
         parser.error("--light takes three numbers")
     data = prepared(arguments.source, crop, arguments.grey, arguments.stops, light,
-                    arguments.red_filter)
+                    arguments.red_filter, arguments.histogram)
     target = PICTURES / f"{arguments.name}.jpg"
     target.write_bytes(data)
     with Image.open(target) as written:

@@ -12,18 +12,19 @@ up the volume of a quiet radio. How much it turns it up is called **ISO**.
   for daylight.
 - **ISO 800**, **1600**: turned up a lot. Fine for a room with lamps.
 - **ISO 6400**, **12800**: turned up as far as it goes. The camera can
-  see in the dark, but the picture is full of grain.
+  see in the dark, but the picture is full of grain. Some cameras go
+  further still, to 25600 or 51200, and the grain with them.
 
 That grain is called **noise**, and it is just like the hiss of a radio
 turned up too far: tiny specks of the wrong brightness and the wrong
 colour, everywhere, worst in the dark parts. Here are the same clay
-figures, photographed at ISO 200 and at ISO 6400, both shown as large as
+figures, photographed at ISO 200 and at ISO 51200, both shown as large as
 the camera made them.
 
 ::: compare
 ![ISO 200: smooth clay](iso-200.jpg)
 
-![ISO 6400: the same clay, full of coloured grain](iso-6400.jpg)
+![ISO 51200: the same clay, full of coloured grain](iso-51200.jpg)
 :::
 
 Every step from ISO 100 to 200 to 400 to 800 is one stop more: twice as
@@ -74,7 +75,8 @@ also wipes away a little detail.
 This chapter introduces ISO as amplification of the sensor's signal, its
 cost in noise, and its place as the third exposure control. The two
 pictures of the clay figures are real photographs from the Natural Image
-Noise Dataset, taken at ISO 200 and ISO 6400 and shown at full size, so
+Noise Dataset, taken at ISO 200 and at ISO 51200, the most that camera
+reaches, and shown at full size, so
 the noise is the camera's own.
 
 A child should leave ISO on AUTO for most pictures and set it by hand only

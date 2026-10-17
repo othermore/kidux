@@ -39,6 +39,17 @@ shape of those piles.
 
 ![The screen with the histogram: dark dots on the left, bright ones on the right](screen-histogram.svg)
 
+Here are the three pictures from the top of the chapter again, each with
+its own histogram in the corner, as the camera draws it:
+
+::: compare
+![Two stops too dark: the pile is squashed against the left](exposure-minus2-histogram.jpg)
+
+![Just right: the pile sits in the middle, with room on both sides](exposure-0-histogram.jpg)
+
+![Two stops too bright: the pile is squashed against the right, and the white has no detail left](exposure-plus2-histogram.jpg)
+:::
+
 > [think] A mountain squashed against the right side means lots of dots
 > are as white as they can be, and their detail is gone. Squashed against
 > the left, lots of dots are black. A mountain with room on both sides is
@@ -83,7 +94,9 @@ that will be too bright and blue the parts too dark.
 This chapter introduces exposure, under- and overexposure, exposure
 compensation in stops, and the histogram. The three pictures at the top
 are the same photograph, made two stops darker and two stops lighter by
-multiplying its light, which is exactly what two stops of exposure do.
+multiplying its light, which is exactly what two stops of exposure do;
+the three with histograms are the same again, each histogram counted from
+the picture itself.
 
 Remind the child to set the compensation back to zero when done: a camera
 left at +2 makes every later picture too bright.

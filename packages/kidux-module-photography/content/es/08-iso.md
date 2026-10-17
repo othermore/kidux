@@ -1,5 +1,5 @@
 ---
-source_sha256 = "f369c305afab1b68e34af52d6a44b846535581845becea39f4bbe06e3d7c19eb"
+source_sha256 = "43bebc42615566119406b2da1827bc229f0ba8e04456acd814dd9e27d85861e5"
 ---
 # ISO: cuánto se esfuerza la cámara en escuchar
 
@@ -15,19 +15,20 @@ una radio que suena bajito. Cuánto lo sube se llama **ISO**.
   la luz del día.
 - **ISO 800**, **1600**: subido mucho. Va bien para una habitación con
   lámparas.
-- **ISO 6400**, **12800**: subido todo lo que da. La cámara ve en la
+- **ISO 6400**, **12800**: subido todo lo que da. Algunas cámaras llegan
+  aún más lejos, a 25600 o 51200, y el grano con ellas. La cámara ve en la
   oscuridad, pero la foto sale llena de grano.
 
 Ese grano se llama **ruido**, y es igual que el siseo de una radio con el
 volumen demasiado alto: motitas diminutas del brillo y del color
 equivocados, por todas partes, y peor en las zonas oscuras. Aquí están las
-mismas figuritas de arcilla, fotografiadas a ISO 200 y a ISO 6400, las
+mismas figuritas de arcilla, fotografiadas a ISO 200 y a ISO 51200, las
 dos enseñadas al tamaño en que las hizo la cámara.
 
 ::: compare
 ![ISO 200: arcilla lisa](iso-200.jpg)
 
-![ISO 6400: la misma arcilla, llena de grano de colores](iso-6400.jpg)
+![ISO 51200: la misma arcilla, llena de grano de colores](iso-51200.jpg)
 :::
 
 Cada escalón de ISO 100 a 200, a 400, a 800, es un paso más: el doble de
@@ -78,7 +79,8 @@ grano también se lleva un poco de detalle.
 Este capítulo presenta el ISO como la amplificación de la señal del sensor,
 su coste en ruido y su lugar como tercer control de la exposición. Las dos
 fotos de las figuritas son fotografías reales del Natural Image Noise
-Dataset, hechas a ISO 200 y a ISO 6400 y enseñadas a tamaño completo, así
+Dataset, hechas a ISO 200 y a ISO 51200, lo más que da esa cámara, y
+enseñadas a tamaño completo, así
 que el ruido es el de la cámara.
 
 Lo mejor es que el niño deje el ISO en AUTO en la mayoría de las fotos y lo

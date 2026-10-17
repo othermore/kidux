@@ -74,10 +74,10 @@ License: CC-BY-4.0
 Comment: https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISO200.jpg
  A detail at full size.
 
-Files: pictures/iso-6400.jpg
+Files: pictures/iso-51200.jpg
 Copyright: Trougnouf (Benoit Brummer)
 License: CC-BY-4.0
-Comment: https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISO6400.jpg
+Comment: https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISOH3.jpg
  A detail at full size.
 
 Files: pictures/snow-white.jpg
@@ -304,6 +304,24 @@ Files: pictures/golden-hour.jpg
 Copyright: Basile Morin
 License: CC-BY-SA-4.0
 Comment: https://commons.wikimedia.org/wiki/File:Four_dogs_running_at_golden_hour_in_the_countryside_of_Don_Det_Laos.jpg
+
+Files: pictures/exposure-minus2-histogram.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+ Given two stops less light (prepare.py --stops -2), with its own histogram drawn in its corner (--histogram).
+
+Files: pictures/exposure-0-histogram.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+ With its own histogram drawn in its corner (prepare.py --histogram).
+
+Files: pictures/exposure-plus2-histogram.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+ Given two stops more light (prepare.py --stops 2), with its own histogram drawn in its corner (--histogram).
 
 License: CC-BY-2.0
  Creative Commons Attribution 2.0 Generic:

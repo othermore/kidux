@@ -7,15 +7,19 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="guide">
-  <nav class="pager">
-    <button type="button" id="back"></button>
-    <button type="button" id="contents" aria-expanded="false"></button>
-    <button type="button" id="next"></button>
+<div class="page">
+  <main class="guide">
+    <nav class="pager">
+      <button type="button" id="back"></button>
+      <button type="button" id="next"></button>
+    </nav>
+    <article id="chapter"></article>
+  </main>
+  <nav class="side" aria-labelledby="contents">
+    <h2 id="contents"></h2>
+    <div id="list" class="list"></div>
   </nav>
-  <article id="chapter"></article>
-  <nav id="list" class="list" hidden></nav>
-</main>
+</div>
 <script>
   "use strict";
   // Every language's words and chapters, written when the package is built.
