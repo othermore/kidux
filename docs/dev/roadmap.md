@@ -153,6 +153,12 @@ can. Each phase assumes what it builds on is reasonably stable.
       by hand) answers *That did not work.* to *Remove*, since
       `apt-get purge` has nothing to purge: the page should say what the
       module is, and remove the directory or say how to.
+- [ ] A file that is not a web page, a plain text file for one, that a
+      program asks the desktop to open: `xdg-open` in a child's session
+      finds no default for it and falls back on `run-mailcap`, which
+      starts an editor with no window to show it in, such as vim. Nothing
+      a child's module does opens one today; the session should answer
+      it as it answers a link (D104), with words of its own.
 
 ## Phase 5 — AI learning module
 - [ ] `kidux-ai-gateway`: adult-held credentials, guardrails, logging visible to
