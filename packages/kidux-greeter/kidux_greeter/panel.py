@@ -649,8 +649,11 @@ class Panel(_NewChild):
                             offered=on_offer, installing=installing,
                             source=bool(offered), confirm_remove=confirm_remove,
                             failure=failure, update=update, toast=toast,
+                            # Polled while a job runs, and while one waits: the
+                            # job it waited behind may have ended between the
+                            # asking and this drawing, and only a poll starts it.
                             polling=update["job"] in ("checking", "installing", "removing",
-                                                      "away"),
+                                                      "away") or bool(self._queue),
                             poll="poll_modules")
 
     def _module_job(self, start, toast: str | None = None,

@@ -818,6 +818,24 @@ def test_installs_and_removals_asked_while_a_job_runs_wait_their_turn(panel, dae
     assert {r["id"]: r["job"] for r in screen.data["modules"]}["hello"] == "to-remove"
 
 
+def test_a_job_that_waited_starts_even_when_the_one_before_ended_meanwhile(panel, daemon,
+                                                                              installed):
+    daemon.offered = [GCOMPRIS]
+    panel.install_module("gcompris")
+    panel.remove_module("hello")
+    # The install ends between the removal being queued and the page being
+    # drawn again: the page still polls, since a job waits, and the poll
+    # starts it.
+    daemon.update = ("idle", 0.0, "", "installed", "", [])
+    screen = panel.modules()
+    assert {r["id"]: r["job"] for r in screen.data["modules"]}["hello"] == "to-remove"
+    assert (screen.data["polling"], screen.data["poll"]) == (True, "poll_modules")
+
+    screen = panel.poll_modules()
+    assert ("remove_module", "hello") in daemon.calls
+    assert screen.data["toast"] == words.MODULE_INSTALLED
+
+
 def test_a_removal_asked_about_while_a_job_runs_stays_asked(panel, daemon, installed):
     daemon.offered = [GCOMPRIS]
     panel.install_module("gcompris")
