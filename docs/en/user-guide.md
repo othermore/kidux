@@ -1026,6 +1026,18 @@ internet.
 
 ![Kalzium](../images/en/module-kalzium.png)
 
+### Step
+
+**Step** is a physics playground. The child puts bodies, springs,
+ropes and forces on the plane, presses play and watches what happens,
+with meters and graphs to read it; the examples in its File menu are
+experiments ready to run. It is for children from ten up, in the
+child's language, and it works without the internet; its menu to
+download more experiments is switched off. An experiment can be saved
+as a file in the child's folders.
+
+![Step](../images/en/module-step.png)
+
 ## 10. Updates and reinstalling
 
 Security updates install themselves in the background, from Debian and

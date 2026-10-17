@@ -1,0 +1,32 @@
+Source: kidux-module-step
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-step
+Architecture: all
+Depends: ${misc:Depends},
+         step,
+         qt6-wayland,
+XB-Kidux-Name-en: Step
+XB-Kidux-Description-en: A physics playground: put springs, weights and forces on the table, press play and see what happens.
+XB-Kidux-Name-es: Step
+XB-Kidux-Description-es: Un laboratorio de física: pon muelles, pesos y fuerzas sobre la mesa, dale a reproducir y mira qué pasa.
+XB-Kidux-Ages: 10-16
+XB-Kidux-Before: simulations
+Description: Kidux learning module: Step, a physics playground for ages ten and up
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is Step: a child puts bodies, springs, ropes and forces on a plane,
+ presses play and watches what happens, with meters and graphs to read it,
+ in the child's language and without the internet.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

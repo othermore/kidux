@@ -52,5 +52,6 @@ module-mail             module-mail.png
 module-gmail            module-gmail.png
 module-kig              module-kig.png
 module-kalzium          module-kalzium.png
+module-step             module-step.png
 launcher-modules        launcher-modules.png
 windows-modules         windows-modules.png

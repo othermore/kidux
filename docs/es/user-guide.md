@@ -1055,6 +1055,18 @@ adelante, en el idioma del niño, y funciona sin internet.
 
 ![Kalzium](../images/es/module-kalzium.png)
 
+### Step
+
+**Step** es un laboratorio de física. El niño pone cuerpos, muelles,
+cuerdas y fuerzas sobre el plano, le da a reproducir y mira qué pasa,
+con medidores y gráficas para leerlo; los ejemplos de su menú Archivo
+son experimentos listos para correr. Es para niños de diez años en
+adelante, en el idioma del niño, y funciona sin internet; su menú para
+descargar más experimentos está apagado. Un experimento se puede
+guardar como un archivo en las carpetas del niño.
+
+![Step](../images/es/module-step.png)
+
 ## 10. Actualizar y reinstalar
 
 Las actualizaciones de seguridad se instalan solas, en segundo plano, tanto

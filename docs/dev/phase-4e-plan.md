@@ -183,7 +183,12 @@ process's `XDG_CONFIG_HOME` is the module's.
 
 **Found on the machine first**: as 4.27's, and whether Step's world view
 draws on the test machine without a GPU (it has an OpenGL option, off by
-default; the default `QGraphicsView` is what the module keeps).
+default; the default `QGraphicsView` is what the module keeps). Its
+window is `org.kde.step`, it asks nothing at its first start, and its
+File menu has *Open Tutorial* and *Examples* and no *Download New
+Experiments*. At scale 1 the palette, the world and its four panels fit
+the room above the bar; at scale 2 the panels on the right are too
+short for their contents and overlap.
 
 ### 4.30 — Simulations
 

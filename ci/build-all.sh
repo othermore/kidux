@@ -35,6 +35,7 @@ kidux-module-gcompris
 kidux-module-tuxtype
 kidux-module-kig
 kidux-module-kalzium
+kidux-module-step
 kidux-module-scratch
 kidux-module-scratchjr
 kidux-module-turbowarp

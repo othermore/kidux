@@ -1,0 +1,28 @@
+#!/bin/sh
+# Step, as a child's learning module.
+#
+# KDE's programs read the actions an administrator restricts from
+# kdeglobals, in the configuration directory, which for a module is its
+# own XDG_CONFIG_HOME (modules.md, section 2). The first time, this writes
+# one that switches off what a child has no business in: Get Hot New Stuff,
+# which downloads from store.kde.org, and which is Step's File menu's
+# Download New Experiments; the shell, a terminal or a command;
+# and the bug report and donation pages, which open a web browser the
+# child has not. A kdeglobals already there is never touched. Nothing else
+# is set: the language is the session's, and Step's own settings are its
+# own, beside it.
+#
+# Step starts in a window, and the compositor gives it the room above the
+# bar (modules.md, section 2).
+
+set -eu
+
+CONF="${XDG_CONFIG_HOME:-$HOME/.config}/kdeglobals"
+
+if [ ! -e "$CONF" ]; then
+    mkdir -p "$(dirname "$CONF")"
+    printf '[KDE Action Restrictions][$i]\nghns=false\nshell_access=false\naction/help_report_bug=false\naction/help_donate=false\n' \
+        > "$CONF"
+fi
+
+exec /usr/bin/step "$@"

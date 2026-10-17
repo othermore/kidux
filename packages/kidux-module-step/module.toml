@@ -1,0 +1,16 @@
+# Step, a physics playground: a program already in Debian, so the package
+# holds this manifest, the tile, its words, and the small program that
+# starts Step with KDE's actions a child has no business in switched off
+# (modules.md, section 5; phase-4e-plan.md, 4.29).
+id = "step"
+version = "0.1.0"
+name = "Step"
+description = "A physics playground: put springs, weights and forces on the table, press play and see what happens."
+min_age = 10
+max_age = 16
+recommended_before = ["simulations"]
+launch = { exec = "/usr/libexec/kidux-module-step" }
+app_ids = ["org.kde.step"]                # what Step calls its window
+categories = ["science"]
+i18n_domain = "kidux-module-step"
+memory_max = "2G"
