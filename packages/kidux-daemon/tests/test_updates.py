@@ -214,8 +214,22 @@ case "$*" in
     *dist-upgrade*)
         for p in $PENDING; do echo "pmstatus:$p:50:Installing $p" >&3 2>/dev/null; done
         exit 0 ;;
+    *purge*)
+        echo "$*" >> "$APT_CALLS"
+        exit 0 ;;
 esac
 exit 0
+"""
+
+
+
+#: A stand-in for dpkg-query -W -f='${db:Status-Status}' <package>: the
+#: state in $DPKG_STATE for a package among $INSTALLED, unknown otherwise.
+FAKE_DPKG_QUERY = """#!/bin/sh
+for package in $INSTALLED; do
+    [ "$package" = "$3" ] && { printf '%s' "${DPKG_STATE:-installed}"; exit 0; }
+done
+exit 1
 """
 
 
@@ -223,18 +237,22 @@ exit 0
 def fake_apt(tmp_path):
     bin_dir = tmp_path / "bin"
     bin_dir.mkdir()
-    for name, text in (("apt-get", FAKE_APT), ("dpkg", "#!/bin/sh\nexit 0\n")):
+    for name, text in (("apt-get", FAKE_APT), ("dpkg", "#!/bin/sh\nexit 0\n"),
+                       ("dpkg-query", FAKE_DPKG_QUERY)):
         (bin_dir / name).write_text(text)
         (bin_dir / name).chmod(0o755)
 
-    def run(kind, pending="", **extra):
+    def run(kind, pending="", package="", **extra):
         status = tmp_path / "status"
         status.unlink(missing_ok=True)
         env = {"PATH": f"{bin_dir}:/usr/bin:/bin", "KIDUX_UPDATE_STATUS": str(status),
                "KIDUX_REBOOT_REQUIRED": str(tmp_path / "reboot-required"),
+               "KIDUX_MODULES_DIR": str(tmp_path / "modules"),
+               "KIDUX_CHROMIUM_POLICY": str(tmp_path / "no-policy"),
+               "APT_CALLS": str(tmp_path / "apt-calls"), "INSTALLED": "",
                "PENDING": pending, **extra}
-        result = subprocess.run(["sh", str(script()), kind], env=env, capture_output=True,
-                                text=True, timeout=30)
+        result = subprocess.run(["sh", str(script()), kind, *([package] if package else [])],
+                                env=env, capture_output=True, text=True, timeout=30)
         assert result.returncode == 0, result.stderr
         return read(status.read_text())
     return run
@@ -272,3 +290,40 @@ def test_the_script_says_when_the_computer_must_restart(fake_apt, tmp_path):
     (tmp_path / "reboot-required").touch()
 
     assert fake_apt("apply", pending="linux-image-amd64").verdict == ("restart-needed", "", [])
+
+
+def test_the_script_purges_a_module_a_package_installed(fake_apt, tmp_path):
+    (tmp_path / "modules" / "hello").mkdir(parents=True)
+
+    reading = fake_apt("remove", package="kidux-module-hello", INSTALLED="kidux-module-hello")
+
+    assert reading.verdict == ("removed", "", [])
+    assert "purge --auto-remove kidux-module-hello" in (tmp_path / "apt-calls").read_text()
+    assert (tmp_path / "modules" / "hello").is_dir()
+
+
+def test_a_package_only_unpacked_is_still_apts_to_purge(fake_apt, tmp_path):
+    # Its postinst failed, say: dpkg knows it all the same, so the folder
+    # is the package's, not one to remove by hand.
+    (tmp_path / "modules" / "hello").mkdir(parents=True)
+
+    reading = fake_apt("remove", package="kidux-module-hello",
+                       INSTALLED="kidux-module-hello", DPKG_STATE="unpacked")
+
+    assert reading.verdict == ("removed", "", [])
+    assert (tmp_path / "modules" / "hello").is_dir()
+    assert "purge" in (tmp_path / "apt-calls").read_text()
+
+
+def test_the_script_removes_a_module_that_is_only_a_folder(fake_apt, tmp_path):
+    # A stand-in copied by hand (D101): nothing for apt to purge.
+    (tmp_path / "modules" / "canary").mkdir(parents=True)
+    (tmp_path / "modules" / "canary" / "module.toml").write_text('id = "canary"\n')
+    (tmp_path / "modules" / "hello").mkdir()
+
+    reading = fake_apt("remove", package="kidux-module-canary")
+
+    assert reading.verdict == ("removed", "", [])
+    assert not (tmp_path / "modules" / "canary").exists()
+    assert (tmp_path / "modules" / "hello").is_dir()
+    assert not (tmp_path / "apt-calls").exists()

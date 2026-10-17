@@ -364,3 +364,15 @@ def test_a_module_has_a_guide_when_it_says_so_and_has_a_lesson(tmp_path, caplog)
     assert modules.read("plain", tmp_path).guide == ""
     assert "its guide has no lesson" in caplog.text
     assert "guide is not true or false" in caplog.text
+
+
+def test_a_module_says_whether_a_package_installed_it(tmp_path, monkeypatch):
+    info = tmp_path / "dpkg-info"
+    info.mkdir()
+    monkeypatch.setattr(modules.paths, "DPKG_INFO", info)
+    manifest(tmp_path / "modules", "hello", GOOD.format(id="hello"))
+    manifest(tmp_path / "modules", "canary", GOOD.format(id="canary"))
+    (info / "kidux-module-hello.list").write_text("/usr/share/kidux/modules/hello\n")
+
+    assert modules.read("hello", tmp_path / "modules").package == "kidux-module-hello"
+    assert modules.read("canary", tmp_path / "modules").package is None

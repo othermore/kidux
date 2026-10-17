@@ -28,14 +28,19 @@ fi
 DEV_GROUP="$(id -gn "$DEV_USER")"
 
 # Tools the build chroot installs for itself, but that are also wanted outside a
-# build: for running the tests and the linters while writing code, and for
-# looking at an avatar without booting anything.
+# build: for running the tests and the linters while writing code (the
+# daemon's need argon2, a guide's pages markdown), for looking at an avatar
+# without booting anything, and for making the photography guide's pictures
+# (packages/kidux-module-photography/pictures/prepare.py).
 echo "==> Development tools"
 apt-get install -y --no-install-recommends \
     gettext \
     librsvg2-bin \
     pyflakes3 \
+    python3-argon2 \
     python3-gi \
+    python3-markdown \
+    python3-pil \
     python3-pytest \
     python3-tomli-w
 

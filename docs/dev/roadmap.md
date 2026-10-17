@@ -131,6 +131,14 @@ can. Each phase assumes what it builds on is reasonably stable.
       lid and with a screen left alone, back as it was (4.24, D97); and a
       module's notices as a bubble in the child's screen (4.26, D98;
       phase-4d-plan.md).
+- [x] The Modules page stays where the adult had scrolled it when Remove
+      asks, with the question in view, and a module that is only a folder,
+      with no package behind it, says so and is removed as a folder
+      (phase-4e-plan.md 4.27, D101).
+- [x] Photography: a guide to taking photographs with a real camera, in
+      thirty chapters, the Olympus XZ-2 as its example, with free
+      photographs of each effect and drawings of the camera's screen
+      (phase-4e-plan.md 4.28 to 4.34, D102).
 - [x] Science and maths: Kig, Kalzium and Step from trixie, each its own
       module, and Simulations, PhET's historical simulations under
       CC BY 4.0, served on the computer in a page of Kidux's own, chosen

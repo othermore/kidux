@@ -36,6 +36,8 @@ instead, in English and Spanish.
 - [modules.md](modules.md): what a learning module is and how to make one.
 - [basic.md](basic.md): the BASIC module: wwwBASIC, the page around it, and
   how its guide is written.
+- [photography.md](photography.md): the Photography module: its page, how
+  its guide is written, and where its pictures come from.
 - [website.md](website.md): the website, what it says, how it is built and
   published, and where a donation goes.
 
@@ -69,9 +71,16 @@ instead, in English and Spanish.
 - [phase-4c-plan.md](phase-4c-plan.md): settings an adult gives a module
   for each child, CodeCombat signed in, Back and Forward on a website
   module, and the pointer's and the touchpad's speed, built.
-- [phase-4d-plan.md](phase-4d-plan.md): the current plan: a mailbox of
-  the child's own in Thunderbird, a door to Gmail, and the keyboard's
-  light with the lid.
+- [phase-4d-plan.md](phase-4d-plan.md): a mailbox of the child's own in
+  Thunderbird, a door to Gmail, the keyboard's light with the lid, and a
+  module's notices as bubbles, built.
+- [phase-4e-plan.md](phase-4e-plan.md): the Modules page put right, and
+  Photography, a guide to taking photographs with a real camera, built.
+- [phase-4f-plan.md](phase-4f-plan.md): Kig, Kalzium and Step as modules,
+  and Simulations, PhET's experiments served on the computer, built.
+- [phase-4g-plan.md](phase-4g-plan.md): the current plan: a guide beside
+  a module, in a pane of the launcher's, and the first guides, Kig's,
+  Step's and Kalzium's.
 - [test-battery-plan.md](test-battery-plan.md): making `ci/test-release.sh`
   faster without making it mean less.
 

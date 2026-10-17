@@ -56,5 +56,6 @@ module-step             module-step.png
 module-kig-guide        module-kig-guide.png
 module-simulations      module-simulations.png
 module-simulations-open module-simulations-open.png
+module-photography      module-photography.png
 launcher-modules        launcher-modules.png
 windows-modules         windows-modules.png

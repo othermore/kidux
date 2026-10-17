@@ -4,6 +4,10 @@ The tests' stand-in module is copied into place over SSH, switched on for
 Leo from the panel by keyboard, shown as a tile on Leo's launcher, switched
 off again from the panel over the lock screen while the launcher stays open,
 and removed at the end. Sound is checked in Leo's session while it is open.
+At the end the Modules page is made taller than the screen with more
+stand-ins: Remove on the last one asks in its row and in view, Cancel leaves
+the page where it was, and the canary, a folder no package put there, is
+removed from the panel (phase-4e-plan.md, step 4.27).
 """
 
 from sessionlib import (
@@ -14,19 +18,26 @@ from sessionlib import (
     Machine,
     active_terminal,
     child_session,
+    children_count,
     colour_share,
     copy,
     greeter_log,
+    journal_count,
     launcher_shown,
+    logged,
     lock_screen_adult,
     open_panel,
     to_the_modules_page,
     report,
     root,
+    shlex_quote,
     wait,
 )
 
 CANARY = "/usr/share/kidux/modules/canary"
+#: The stand-ins that make the Modules page taller than the screen, named to
+#: come before the canary.
+BIRD, BIRDS = "/usr/share/kidux/modules/bird", 7
 AUDIT = "/home/.kidux/state/audit.log"
 #: The canary's icon (tests/lib/seed/modules/canary/icon.svg).
 YELLOW = (0xF5, 0xC5, 0x18)
@@ -41,6 +52,22 @@ def listed() -> str:
     return root(f"runuser -u debian -- /usr/local/bin/kidux-as modules {CHILD}").stdout.strip()
 
 
+def bird(number: int) -> str:
+    return (f'id = "bird-{number}"\nname = "[Test] Bird {number}"\n'
+            'description = "A folder the tests put here."\nlaunch = { exec = "/bin/true" }\n')
+
+
+def room_kept() -> tuple[int, str]:
+    """Where the Modules page last settled, in pixels from its top, and
+    whether what has the focus is in view, as the panel logged it."""
+    line = root("journalctl -b -o cat -t kidux-greeter | grep 'modules room kept at' "
+                "| tail -1").stdout.strip()
+    if not line:
+        return (-1, "")
+    kept, _, focus = line.split("modules room kept at ", 1)[1].partition(", the focus ")
+    return (int(kept.split()[0]), focus)
+
+
 def tiles() -> str:
     """The launcher's last word on its tiles: the ids, or "none"."""
     lines = root("journalctl -b -o cat -t kidux-launcher | grep 'tiles: '").stdout.splitlines()
@@ -48,6 +75,10 @@ def tiles() -> str:
 
 
 def run(machine: Machine) -> None:
+    # The machine left up may still hold the stand-ins of an earlier run, or
+    # of a hand test: the page starts with the canary alone.
+    root(f"rm -rf {BIRD}-*")
+    since = root("date +%s").stdout.strip()
     for name in ("module.toml", "icon.svg"):
         copy(SEED_SOURCE / "modules" / "canary" / name, f"{CANARY}/{name}", mode="0644")
     report("the tests' stand-in module is in place, switched off for Leo",
@@ -136,9 +167,49 @@ def run(machine: Machine) -> None:
     machine.key("ret")
     wait(lambda: root(f"pgrep -u {CHILD} -x labwc").returncode != 0, 20)
     machine.shown("choose", choose_before, 30)
-    root(f"rm -rf {CANARY}")
 
-    too_tall = root("journalctl -b --no-pager -o cat -t kidux-greeter "
+    # Remove on a page that scrolls (phase-4e-plan.md, step 4.27): stand-ins
+    # enough for the list to go below the fold, with the canary last, by its
+    # name, among the test modules; it is a folder no package put there.
+    for number in range(1, BIRDS + 1):
+        root(f"mkdir -p {BIRD}-{number} && printf '%s' {shlex_quote(bird(number))} "
+             f"> {BIRD}-{number}/module.toml")
+    open_panel(machine)
+    machine.still()
+    to_the_modules_page(machine)
+    machine.still()
+    for _ in range((children_count() + 1) * (BIRDS + 1) - 1):
+        machine.key("tab")                       # the canary's Remove
+    machine.still()
+    before = journal_count("kidux-greeter", "modules room kept at")
+    machine.key("ret")
+    report("Remove on the last module, below the fold, asks in its row and in view",
+           logged("kidux-greeter", "modules room kept at", before)
+           and room_kept()[0] > 0 and room_kept()[1] == "in view",
+           greeter_log())
+    machine.screenshot("panel-modules-remove-asks")
+    before = journal_count("kidux-greeter", "modules room kept at")
+    asked_at = room_kept()[0]
+    machine.key("ret")                           # Cancel, which has the focus
+    report("Cancel leaves the page where it was, with the focus on that Remove",
+           logged("kidux-greeter", "modules room kept at", before)
+           and abs(room_kept()[0] - asked_at) < 80 and room_kept()[1] == "in view",
+           greeter_log())
+    machine.key("ret")                           # Remove, asked again
+    machine.still()
+    machine.key("tab")                           # from Cancel to Remove
+    machine.key("ret")
+    report("the panel removes the canary, a module that is only a folder (D101)",
+           wait(lambda: root(f"test -e {CANARY}").returncode != 0, 60)
+           and wait(lambda: '"module": "canary"' in root(
+               f"grep '\"action\": \"module removed\"' {AUDIT} | tail -1").stdout, 10),
+           root(f"tail -3 {AUDIT}").stdout + greeter_log())
+    machine.key("esc")
+    root(f"rm -rf {CANARY} {BIRD}-*")
+
+    # Since this run began: the machine left up logs that the choose screen
+    # does not fit each time its screen blanks, which is not this page's.
+    too_tall = root(f"journalctl -b --since=@{since} --no-pager -o cat -t kidux-greeter "
                     "| grep -e 'does not fit' -e 'could not draw' | sort -u").stdout.strip()
     report("the Modules page, with a module on it, fits the screen and was drawn",
            not too_tall, too_tall)

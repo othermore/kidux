@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Photography's tile: a camera seen from the front, its lens a ring of
+     snow, the shutter button in sun, drawn like the avatars
+     (branding/README.md). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="100" r="96" fill="#cfe3f3"/>
+  <!-- the shutter button and the top of the body -->
+  <rect x="122" y="50" width="30" height="16" rx="6" fill="#f0a202"/>
+  <rect x="44" y="56" width="44" height="18" rx="8" fill="#2f4157"/>
+  <!-- the body -->
+  <rect x="28" y="64" width="144" height="88" rx="18" fill="#24313f"/>
+  <!-- the flash window -->
+  <rect x="42" y="76" width="26" height="14" rx="5" fill="#fdf6f0"/>
+  <!-- the lens: a ring of snow, the glass night, a glint -->
+  <circle cx="104" cy="110" r="38" fill="#fdf6f0"/>
+  <circle cx="104" cy="110" r="28" fill="#2f4157"/>
+  <circle cx="104" cy="110" r="16" fill="#141c26"/>
+  <circle cx="94" cy="100" r="6" fill="#fdf6f0"/>
+</svg>

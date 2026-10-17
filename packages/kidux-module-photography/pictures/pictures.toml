@@ -1,0 +1,462 @@
+# Every photograph the guide shows, by its file's name: who made it, where
+# it comes from and under what licence, which the guide writes under it
+# (docs/dev/photography.md, section 5). A picture generated for the guide
+# says so: author "generated", the model, and its prompt in prompts/.
+
+["frisius-1545.jpg"]
+author = "Gemma Frisius"
+source = "https://commons.wikimedia.org/wiki/File:1545_gemma_frisius_-_camera_obscura_-_121704_1_1.png"
+licence = "public-domain"
+made = "1545, De radio astronomico et geometrico"
+
+["pinhole-box.jpg"]
+author = "Aliasradierer"
+source = "https://commons.wikimedia.org/wiki/File:Camera_Obscura_aus_Pappkarton.jpg"
+licence = "CC-BY-SA-4.0"
+
+["xz2-front.jpg"]
+author = "之乎"
+source = "https://commons.wikimedia.org/wiki/File:Olympus_XZ-2_with_Lenscap.jpg"
+licence = "CC-BY-SA-4.0"
+made = "cropped"
+
+["shaken-lights.jpg"]
+author = "Suwatch"
+source = "https://commons.wikimedia.org/wiki/File:Define_camera_shake.jpg"
+licence = "CC-BY-2.0"
+
+["shaken-toy.jpg"]
+author = "Stefan-Xp"
+source = "https://commons.wikimedia.org/wiki/File:Pistenbully_Modell_(verwackelt).jpg"
+licence = "CC-BY-SA-3.0"
+
+["exposure-0.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+
+["exposure-minus2.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+made = "given two stops less light, its pixels' light divided by four (prepare.py --stops -2)"
+
+["exposure-plus2.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+made = "given two stops more light, its pixels' light multiplied by four (prepare.py --stops 2)"
+
+["muybridge-horse.jpg"]
+author = "Eadweard Muybridge"
+source = "https://commons.wikimedia.org/wiki/File:The_Horse_in_Motion_high_res.jpg"
+licence = "public-domain"
+made = "1878, The Horse in Motion"
+
+["aperture-real.jpg"]
+author = "Mark Turnauckas"
+source = "https://commons.wikimedia.org/wiki/File:Canon_G12_Aperture_Blades_(2013-02-02_19.47.15_by_Mark_Turnauckas_@_Flickr_8438851605).jpg"
+licence = "CC-BY-2.0"
+
+["iso-200.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISO200.jpg"
+licence = "CC-BY-4.0"
+made = "a detail at full size"
+
+["iso-51200.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISOH3.jpg"
+licence = "CC-BY-4.0"
+made = "a detail at full size"
+
+["snow-white.jpg"]
+author = "Stephen Craven"
+source = "https://commons.wikimedia.org/wiki/File:Smiling_snowman_-_geograph.org.uk_-_2792532.jpg"
+licence = "CC-BY-SA-2.0"
+
+["snow-grey.jpg"]
+author = "Stephen Craven"
+source = "https://commons.wikimedia.org/wiki/File:Smiling_snowman_-_geograph.org.uk_-_2792532.jpg"
+licence = "CC-BY-SA-2.0"
+made = "given 1.7 stops less light, which makes its average middle grey, as an averaging meter would (prepare.py --stops -1.7)"
+
+["backlit-as-measured.jpg"]
+author = "MiZe"
+source = "https://commons.wikimedia.org/wiki/File:Fill_flash.jpg"
+licence = "CC-BY-SA-3.0"
+made = "the left half, without flash"
+
+["backlit-on-the-face.jpg"]
+author = "MiZe"
+source = "https://commons.wikimedia.org/wiki/File:Fill_flash.jpg"
+licence = "CC-BY-SA-3.0"
+made = "the left half, without flash, given 1.7 stops more light (prepare.py --stops 1.7)"
+
+["fill-flash-pair.jpg"]
+author = "MiZe"
+source = "https://commons.wikimedia.org/wiki/File:Fill_flash.jpg"
+licence = "CC-BY-SA-3.0"
+
+["daguerre-boulevard.jpg"]
+author = "Louis Daguerre"
+source = "https://commons.wikimedia.org/wiki/File:Boulevard_du_Temple_by_Daguerre.jpg"
+licence = "public-domain"
+made = "1838, Boulevard du Temple"
+
+["car-trails.jpg"]
+author = "Benedikt Beuttler"
+source = "https://commons.wikimedia.org/wiki/File:Long_Exposure_Street_(70708613).jpeg"
+licence = "CC-BY-SA-3.0"
+
+["silky-river.jpg"]
+author = "paul saad"
+source = "https://commons.wikimedia.org/wiki/File:Long_exposure_river.jpg"
+licence = "CC-BY-SA-4.0"
+
+["star-trails.jpg"]
+author = "Fausto.lubatti"
+source = "https://commons.wikimedia.org/wiki/File:Star_trails_over_Grigna_peak.jpg"
+licence = "CC-BY-SA-4.0"
+
+["light-painting-orb.jpg"]
+author = "JJ Harrison"
+source = "https://commons.wikimedia.org/wiki/File:Light_Painting_1_-_Booyeembara_Park.jpg"
+licence = "CC-BY-SA-3.0"
+
+["light-painting-circle.jpg"]
+author = "Subhrajyoti07"
+source = "https://commons.wikimedia.org/wiki/File:A_circular_shape_created_using_light_painting.jpg"
+licence = "CC-BY-SA-4.0"
+
+["flash-splash.jpg"]
+author = "Giuseppe Milo"
+source = "https://commons.wikimedia.org/wiki/File:Splash_(58544580).jpeg"
+licence = "CC-BY-3.0"
+
+["dof-small-aperture.jpg"]
+author = "Alex1ruff"
+source = "https://commons.wikimedia.org/wiki/File:Dof_blocks_f22.jpg"
+licence = "CC-BY-SA-4.0"
+
+["dof-wide-aperture.jpg"]
+author = "Alex1ruff"
+source = "https://commons.wikimedia.org/wiki/File:Dof_blocks_f1_4.jpg"
+licence = "CC-BY-SA-4.0"
+
+["bokeh.jpg"]
+author = "Nayuki"
+source = "https://commons.wikimedia.org/wiki/File:Christmas_tree_lights_in_bokeh_(4274605105).jpg"
+licence = "CC-BY-2.0"
+
+["shallow-focus.jpg"]
+author = "Ben Schumin"
+source = "https://commons.wikimedia.org/wiki/File:Shallow_focus_on_salt_and_pepper_shakers.jpg"
+licence = "CC-BY-SA-3.0"
+
+["macro-coin.jpg"]
+author = "Markus Filp"
+source = "https://commons.wikimedia.org/wiki/File:Macro_Shot_of_a_1-Euro_Coin_(16052110605).jpg"
+licence = "CC-BY-2.0"
+
+["macro-leaf.jpg"]
+author = "SebastianBlumeArt"
+source = "https://commons.wikimedia.org/wiki/File:Fittonia_gigantea_leaf_veins_macro.jpg"
+licence = "CC-BY-SA-4.0"
+
+["thirds-landscape.jpg"]
+author = "Dietmar Rabich"
+source = "https://commons.wikimedia.org/wiki/File:Dülmen,_Dernekamp,_Strohballen_--_2015_--_7838.jpg"
+licence = "CC-BY-SA-4.0"
+made = "cropped, with the bale where two lines of thirds cross"
+
+["post-centred.jpg"]
+author = "Dietmar Rabich"
+source = "https://commons.wikimedia.org/wiki/File:Norderney,_Dünenlandschaft,_Wegweiser_--_2025_--_9437.jpg"
+licence = "CC-BY-SA-4.0"
+made = "cropped with the post in the middle"
+
+["post-on-a-third.jpg"]
+author = "Dietmar Rabich"
+source = "https://commons.wikimedia.org/wiki/File:Norderney,_Dünenlandschaft,_Wegweiser_--_2025_--_9437.jpg"
+licence = "CC-BY-SA-4.0"
+made = "cropped with the post on a third"
+
+["thirds-portrait.jpg"]
+author = "Martín Vasco"
+source = "https://commons.wikimedia.org/wiki/File:Portrait_of_a_dog_on_red_tiles_in_Loja,_Ecuador.jpg"
+licence = "CC-BY-SA-4.0"
+made = "cropped"
+
+["leading-lines.jpg"]
+author = "Dietmar Rabich"
+source = "https://commons.wikimedia.org/wiki/File:Amboy_(California,_USA),_Hist._Route_66_--_2012_--_1.jpg"
+licence = "CC-BY-SA-4.0"
+
+["frame-in-frame.jpg"]
+author = "Dietmar Rabich"
+source = "https://commons.wikimedia.org/wiki/File:Heiligengrabe,_Kloster_Stift_zum_Heiligengrabe,_Abtei,_Fenster_im_Dormitorium_--_2017_--_9972.jpg"
+licence = "CC-BY-SA-4.0"
+
+["reflection.jpg"]
+author = "Jules Verne Times Two"
+source = "https://commons.wikimedia.org/wiki/File:Rain_puddle_reflection_at_Schönbrunn_Palace_gardens_(Vienna,_Austria)_julesvernex2.jpg"
+licence = "CC-BY-SA-4.0"
+
+["pattern-break.jpg"]
+author = "mrhayata"
+source = "https://commons.wikimedia.org/wiki/File:1_Red_Tulip_and_many_yellow_ones.jpg"
+licence = "CC-BY-SA-2.0"
+
+["negative-space.jpg"]
+author = "W.carter"
+source = "https://commons.wikimedia.org/wiki/File:Sun_in_fog_in_Lysekil.jpg"
+licence = "CC-BY-SA-4.0"
+
+["worm-view.jpg"]
+author = "Andrew Fogg"
+source = "https://www.flickr.com/photos/ndrwfgg/52161034"
+licence = "CC-BY-2.0"
+made = "cropped, the number plate left out"
+
+["silhouette.jpg"]
+author = "درفش کاویانی"
+source = "https://commons.wikimedia.org/wiki/File:Silhouette_Volleyball.JPG"
+licence = "CC-BY-SA-3.0"
+
+["complementary.jpg"]
+author = "Ian S"
+source = "https://commons.wikimedia.org/wiki/File:One_red_tulip_in_a_sea_of_green_-_geograph.org.uk_-_6140662.jpg"
+licence = "CC-BY-SA-2.0"
+
+["colour-houses.jpg"]
+author = "Felipe Valduga"
+source = "https://commons.wikimedia.org/wiki/File:Complementary_Colors.jpg"
+licence = "CC-BY-2.0"
+
+["monotone-houses.jpg"]
+author = "Felipe Valduga"
+source = "https://commons.wikimedia.org/wiki/File:Complementary_Colors.jpg"
+licence = "CC-BY-2.0"
+made = "made grey from all its colours (prepare.py --grey)"
+
+["red-filter-houses.jpg"]
+author = "Felipe Valduga"
+source = "https://commons.wikimedia.org/wiki/File:Complementary_Colors.jpg"
+licence = "CC-BY-2.0"
+made = "made grey from its red light alone, as a red filter does (prepare.py --red-filter)"
+
+["white-balance-right.jpg"]
+author = "Ronaldo Arthur Vidal"
+source = "https://commons.wikimedia.org/wiki/File:Flat_Lay_Black_Coffee_(Unsplash).jpg"
+licence = "CC0-1.0"
+made = "cropped"
+
+["white-balance-lamp.jpg"]
+author = "Ronaldo Arthur Vidal"
+source = "https://commons.wikimedia.org/wiki/File:Flat_Lay_Black_Coffee_(Unsplash).jpg"
+licence = "CC0-1.0"
+made = "cropped, its green light times 0.62 and its blue times 0.30, as a lamp's light with daylight white balance (prepare.py --light 1.0,0.62,0.30)"
+
+["burst-strip.jpg"]
+author = "Serge Melki"
+source = "https://commons.wikimedia.org/wiki/File:Show_jumping_sequence,_Delaware.jpg"
+licence = "CC-BY-2.0"
+
+["portrait-eyes.jpg"]
+author = "Tobias ToMar Maier"
+source = "https://commons.wikimedia.org/wiki/File:Knit_cap_and_neck_warmer_in_complementary_colors.jpg"
+licence = "CC-BY-SA-4.0"
+made = "cropped"
+
+["magnifier-window.jpg"]
+author = "Rhetos"
+source = "https://commons.wikimedia.org/wiki/File:Lupen-Kino.webm"
+licence = "CC-BY-SA-4.0"
+made = "a still of the video at 40 seconds, cropped to the paper and the lens"
+
+["focus-near.jpg"]
+author = "generated"
+source = "pictures/prompts/focus-near.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["focus-far.jpg"]
+author = "generated"
+source = "pictures/prompts/focus-far.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for focus-near.jpg, with only what its prompt names changed"
+
+["dog-c-af.jpg"]
+author = "generated"
+source = "pictures/prompts/dog-c-af.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["dog-s-af.jpg"]
+author = "generated"
+source = "pictures/prompts/dog-s-af.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for dog-c-af.jpg, with only what its prompt names changed"
+
+["coin-side-light.jpg"]
+author = "generated"
+source = "pictures/prompts/coin-side-light.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["coin-front-light.jpg"]
+author = "generated"
+source = "pictures/prompts/coin-front-light.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for coin-side-light.jpg, with only what its prompt names changed"
+
+["zoom-wide.jpg"]
+author = "generated"
+source = "pictures/prompts/zoom-wide.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["zoom-tele.jpg"]
+author = "generated"
+source = "pictures/prompts/zoom-tele.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for zoom-wide.jpg, with only what its prompt names changed"
+
+["pole-behind.jpg"]
+author = "generated"
+source = "pictures/prompts/pole-behind.txt"
+licence = "BUSL-1.1"
+model = "gemini, in its app, by the owner"
+
+["pole-aside.jpg"]
+author = "generated"
+source = "pictures/prompts/pole-aside.txt"
+licence = "BUSL-1.1"
+model = "gemini, in its app, by the owner"
+
+["heights-above.jpg"]
+author = "generated"
+source = "pictures/prompts/heights-above.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["heights-eye.jpg"]
+author = "generated"
+source = "pictures/prompts/heights-eye.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for heights-above.jpg, with only what its prompt names changed"
+
+["noon.jpg"]
+author = "generated"
+source = "pictures/prompts/noon.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["golden.jpg"]
+author = "generated"
+source = "pictures/prompts/golden.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for noon.jpg, with only what its prompt names changed"
+
+["window-front.jpg"]
+author = "generated"
+source = "pictures/prompts/window-front.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["window-side.jpg"]
+author = "generated"
+source = "pictures/prompts/window-side.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for window-front.jpg, with only what its prompt names changed"
+
+["window-back.jpg"]
+author = "generated"
+source = "pictures/prompts/window-back.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for window-front.jpg, with only what its prompt names changed"
+
+["pinhole-room.jpg"]
+author = "generated"
+source = "pictures/prompts/pinhole-room.txt"
+licence = "BUSL-1.1"
+model = "gemini, in its app, by the owner"
+
+["magnifier-lens.jpg"]
+author = "generated"
+source = "pictures/prompts/magnifier-lens.txt"
+licence = "BUSL-1.1"
+model = "gemini, in its app, by the owner"
+
+["stream-silky.jpg"]
+author = "generated"
+source = "pictures/prompts/stream-silky.txt"
+licence = "BUSL-1.1"
+model = "gemini, in its app, by the owner"
+
+["stream-frozen.jpg"]
+author = "generated"
+source = "pictures/prompts/stream-frozen.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for stream-silky.jpg, with only what its prompt names changed"
+
+["sync-second.jpg"]
+author = "generated"
+source = "pictures/prompts/sync-second.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["sync-first.jpg"]
+author = "generated"
+source = "pictures/prompts/sync-first.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for sync-second.jpg, with only what its prompt names changed"
+
+["figures-wide.jpg"]
+author = "Alexandru Panoiu"
+source = "https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(4.5-25mm)_(AP4M0672)_(7092077541).jpg"
+licence = "CC-BY-2.0"
+
+["figures-long.jpg"]
+author = "Alexandru Panoiu"
+source = "https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(13.6-76mm)_(AP4M0681)_(6946010542).jpg"
+licence = "CC-BY-2.0"
+
+["flash-light-painting.jpg"]
+author = "Tim Simpson"
+source = "https://www.flickr.com/photos/90982314@N00/4797214399"
+licence = "CC-BY-SA-2.0"
+
+["golden-hour.jpg"]
+author = "Basile Morin"
+source = "https://commons.wikimedia.org/wiki/File:Four_dogs_running_at_golden_hour_in_the_countryside_of_Don_Det_Laos.jpg"
+licence = "CC-BY-SA-4.0"
+
+["exposure-minus2-histogram.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+made = "given two stops less light (prepare.py --stops -2), with its own histogram drawn in its corner (--histogram)"
+
+["exposure-0-histogram.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+made = "with its own histogram drawn in its corner (prepare.py --histogram)"
+
+["exposure-plus2-histogram.jpg"]
+author = "Trougnouf (Benoit Brummer)"
+source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
+licence = "CC-BY-4.0"
+made = "given two stops more light (prepare.py --stops 2), with its own histogram drawn in its corner (--histogram)"

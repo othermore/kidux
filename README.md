@@ -143,6 +143,9 @@ These are the modules Kidux offers:
   University of Colorado Boulder, chosen for children from six to
   fourteen. They are kept on the computer itself, in the versions PhET
   published under the CC BY 4.0 licence. Kidux is not connected with PhET.
+- Photography: a guide to taking photographs with a real camera, for
+  children from eight who read well. It has thirty chapters, each with
+  something to try with the camera, and it works without the internet.
 
 ![GCompris](docs/images/en/module-gcompris.png)
 
@@ -198,3 +201,7 @@ of Debian's packages and of the learning modules' programs: Scratch
 (Apache-2.0), wwwBASIC (Apache-2.0), GCompris (GPL-3), Tux Typing (GPL-2)
 and PhET's simulations (CC BY 4.0). The source of each program Kidux
 builds is published beside the build, with the changes it is built with.
+
+The Photography guide shows photographs by other people, under Creative
+Commons licences or in the public domain, each credited where it is shown.
+Some of its pictures were made by a computer, and they say so.

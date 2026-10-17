@@ -398,6 +398,7 @@ what was built and tested.
 | Chemistry (10–16) | Kalzium 25.04, the periodic table, with the same restrictions as Kig | `kalzium`, `kalzium-data`, `qt6-wayland` (trixie), step 4.28 | Every element with its facts, picture and atom, the states of matter on a slider, a glossary; translated, offline. Frameworks 6 and Qt 6, which GCompris already brings. |
 | Physics (10–16) | Step 25.04, a physics simulator, with the same restrictions, which take away its *Download New Experiments* | `step`, `qt6-wayland` (trixie), step 4.29 | Bodies, springs and forces on a plane, run and measured, with tutorials and examples in its File menu; translated, offline. |
 | Simulations (6–14) | PhET Interactive Simulations, 51 of them, each in the newest version PhET built before 29 March 2026, under CC BY 4.0 (D105), in a page of Kidux's own, served by `kidux-webapps` | taken as PhET's built files at development time (D68), step 4.30 | Physics, chemistry, maths and the Earth, made for children to explore alone, each translated into Spanish by PhET; offline. Their current versions are CC BY-NC, which Kidux does not ship. |
+| Photography (8–12) | `kidux-module-photography`, a guide in thirty chapters for a child with a real camera, served by `kidux-webapps` (D102) | ours; its photographs are free ones by other people, credited in the page and in `debian/copyright`, and pictures made with Gemini's image model where no photograph showed the effect (D103), steps 4.28 to 4.34 | Photography taught as the BASIC guide teaches programming, a chapter at a time, tried on the camera the same day; the Olympus XZ-2 is the example, and every camera box says how to find the same on another camera. |
 | AI agents | `kidux-ai-gateway` (ours) | packaged by us | Local service that holds the adult's API key and applies guardrails; the child's projects talk to the gateway, never to the provider directly. Local models rejected for old hardware. |
 | Web (future) | Firefox ESR 140 in kiosk mode with policy-managed allow/deny lists | `firefox-esr` (trixie) | Enterprise policies give whitelist/blacklist without a proxy. |
 
@@ -1739,6 +1740,46 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   holds nothing an adult installed by hand for apt to mistake; the
   children's own files stay. Installing the module again brings it all
   back.
+- **D101 — A module that is only a folder is said so, and Remove takes the
+  folder away.** Decided 2026-10-16 by the owner, on phase-4e-plan.md's
+  4.27. A folder under `/usr/share/kidux/modules/` that no package put
+  there, as the tests' stand-ins are, answered *That did not work.* to
+  *Remove*, since apt had nothing to purge. Its row on the Modules page
+  says it is a folder, not from a package (`kidux.modules.Module.package`,
+  from dpkg's list of the package's files), and Remove asks to remove the
+  folder; `kidux-update remove` takes it away and writes Chromium's
+  policy again, as a package's removal does, in the same job, with the
+  same rules and the same audit line. The update runner does it and not
+  the daemon, whose system is read-only to it (`ProtectSystem=strict`).
+  This extends D100.
+- **D102 — The photography guide shows photographs a camera took, and a
+  generated picture only where none is found.** Decided 2026-10-16 by the
+  owner, on phase-4e-plan.md. A guide that teaches what a camera does
+  shows each effect in a photograph that came through a lens: a free one
+  from Wikimedia Commons, under CC0, CC BY, CC BY-SA or in the public
+  domain, credited under it and in `debian/copyright`, or, later, one of
+  the owner's. Where a chapter needs one scene with a single thing
+  changed, one photograph is changed as a camera would change it, in
+  linear light, and its credit says so. A picture generated with Gemini's
+  image model is allowed only for an effect no photograph shows, since a
+  generated depth of field did not come through a lens and may lie in its
+  details; it is credited as made by a computer, its prompt kept beside
+  it, and the key is a file outside the repository. Ideas and the
+  camera's screen are drawings of Kidux's own. No picture shows a child's
+  face.
+- **D103 — A generated picture also where a free photograph does not show
+  the effect clearly.** Decided 2026-10-17 by the owner, after the
+  course's first draft; this extends D102. A chapter that teaches one
+  thing at a time is best shown by one scene with only that thing
+  changed: the focus moved from a near toy to a far one, a tap at 1/1000
+  and at 1/8, a coin lit from the front and from the side. Free pairs of
+  that kind are rare, and the ones found showed their effect faintly or
+  across two different scenes. Gemini's image model, given its own first
+  picture and told what to change, makes such a pair; each is looked at
+  for its physics before it is kept, credited as made by a computer, and
+  named in the chapter's box for the adult. A free photograph that shows
+  its effect clearly stays, and a picture of the XZ-2 itself is never
+  generated.
 
 - **D104 — A program of KDE's runs as a module with KDE's action
   restrictions in the module's own configuration.** Decided 2026-10-16 by

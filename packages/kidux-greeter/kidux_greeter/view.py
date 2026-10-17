@@ -65,6 +65,12 @@ WELCOMES = frozenset({"wiz_language", "choose"})
 #: more: they scroll where they do not fit, like every screen, and are not
 #: meant to fit 1280x800 whole (D92).
 GROWS = frozenset({"panel_advanced", "panel_module_settings"})
+#: How far beyond the fold a control brought into view is shown, so that
+#: its focus ring and the shade at the edge do not hide it.
+FOCUS_MARGIN = 24
+#: How long a page drawn again may take to be laid out before the place
+#: kept is taken as it is (keep_place), in milliseconds.
+SETTLE_MS = 200
 AVATAR_SIZE_SMALL = 96
 
 CSS = """
@@ -236,25 +242,56 @@ def top_of(room) -> float:
     return bounds.get_y() if found else 0.0
 
 
-def keep_place(old, new) -> None:
+def keep_place(old, new, then=None) -> None:
     """Scroll `new` so that what `old` showed stays where it was on the
     screen, as soon as it has the room to: a page drawn again in place of
     itself stays put, even when a notice above the room has moved the room
-    down, or its going has moved it up."""
+    down, or its going has moved it up. `then` is called once it is in
+    place, or at once when there was no place to keep.
+
+    The adjustment says it has the room while the window is being laid
+    out, and a value set then moves the scrollbar but not what the room
+    shows, which GTK does not lay out again in the middle of laying it out:
+    so the value is set just after, when GLib is idle."""
+    adjustment = new.get_vadjustment()
+
+    def place(wanted: float | None) -> bool:
+        if wanted is not None:
+            adjustment.set_value(max(adjustment.get_lower(), wanted))
+        if then is not None:
+            then()
+        return False
+
     value = old.get_vadjustment().get_value()
     if value <= 0:
+        GLib.idle_add(place, None)
         return
     was = top_of(old)
-    adjustment = new.get_vadjustment()
     handler = 0
+    settled = False
+
+    def wanted() -> float:
+        return value + (top_of(new) - was)
+
+    def settle(at: float) -> bool:
+        nonlocal handler, settled
+        if not settled:
+            settled = True
+            if handler:
+                adjustment.disconnect(handler)
+                handler = 0
+            GLib.idle_add(place, at)
+        return False
 
     def changed(adjustment) -> None:
-        wanted = value + (top_of(new) - was)
-        if adjustment.get_upper() - adjustment.get_page_size() >= wanted:
-            adjustment.disconnect(handler)
-            adjustment.set_value(max(adjustment.get_lower(), wanted))
+        if adjustment.get_upper() - adjustment.get_page_size() >= wanted():
+            settle(wanted())
 
+    # A page drawn shorter than the place kept, a row gone from its end,
+    # never has the room: once laid out, it takes the place it has, since
+    # set_value clamps, instead of staying at the top.
     handler = adjustment.connect("changed", changed)
+    GLib.timeout_add(SETTLE_MS, lambda: settle(wanted()))
 
 
 def spinner_small() -> Gtk.Widget:
@@ -309,6 +346,11 @@ class View:
         #: The module switch last flipped, (username, module id), which keeps
         #: the focus when the page is drawn again.
         self._flipped: tuple[str, str] | None = None
+        #: The module whose Remove last asked, whose Remove has the focus
+        #: again when the question is cancelled.
+        self._asked_about: str | None = None
+        #: Whether that Remove has the focus again on the page being drawn.
+        self._focus_returned = False
         #: The corner (kidux.corner), top right over every screen, made
         #: again only when the language changes, and the language it has.
         self._corner: Corner | None = None
@@ -434,6 +476,7 @@ class View:
         log.info("showing %s", screen.name)
         if screen.name != "panel_modules":
             self._modules_room = None
+            self._asked_about = None
         self._screen = screen
         self._progress_followers = []
         self._translations = i18n.translations(screen.language)
@@ -1410,12 +1453,61 @@ class View:
         middle.set_valign(Gtk.Align.FILL)
         middle.append(room)
         # Drawn again while a job runs only when something but its progress
-        # changes, and then it stays where the adult had scrolled it.
+        # changes, and then it stays where the adult had scrolled it; while
+        # Remove asks, its question, in its own row, which may be below the
+        # fold, is brought into view with the focus on it, and so is that
+        # Remove once the question is cancelled.
+        show_focus = bool(data.get("confirm_remove")) or self._focus_returned
+        self._focus_returned = False
+        if not data.get("confirm_remove"):
+            self._asked_about = None
         if self._modules_room is not None:
-            keep_place(self._modules_room, room)
+            keep_place(self._modules_room, room,
+                       then=lambda: self._into_view(room, show_focus=show_focus))
         self._modules_room = room
         if data.get("toast"):
             self._pending_toast = data["toast"]
+
+    def _into_view(self, room, show_focus: bool) -> None:
+        """With `show_focus`, scroll `room` the least that shows what has the
+        focus in it, and no more: Gtk.Viewport.scroll_to centres it, which
+        moves a page the adult had placed. Then say where it is, for the
+        session tests."""
+        adjustment = room.get_vadjustment()
+        viewport = room.get_child()
+        content = viewport.get_child() if isinstance(viewport, Gtk.Viewport) else None
+        focus = self._focus
+
+        def where() -> tuple[float, float] | None:
+            """The focus's top and bottom in the content, which scrolling
+            does not move."""
+            if content is None or focus is None or not focus.is_ancestor(content):
+                return None
+            found, bounds = focus.compute_bounds(content)
+            return (bounds.get_y(), bounds.get_y() + bounds.get_height()) if found else None
+
+        span = where()
+        if show_focus and span is not None:
+            top, bottom = span
+            value, page = adjustment.get_value(), adjustment.get_page_size()
+            if top < value:
+                adjustment.set_value(max(adjustment.get_lower(), top - FOCUS_MARGIN))
+            elif bottom > value + page:
+                adjustment.set_value(bottom - page + FOCUS_MARGIN)
+        clock = room.get_frame_clock()
+        if clock is None:
+            return
+        handler = 0
+
+        def painted(_clock) -> None:
+            clock.disconnect(handler)
+            value, page = adjustment.get_value(), adjustment.get_page_size()
+            span = where()
+            seen = span is not None and span[0] >= value and span[1] <= value + page
+            log.info("modules room kept at %d of %d, the focus %s", value,
+                     adjustment.get_upper() - page, "in view" if seen else "out of view")
+
+        handler = clock.connect("after-paint", painted)
 
     def _draw_panel_module_settings(self, screen, page, middle, bottom):
         """A module's settings, as its manifest declares them (D90): each down
@@ -1608,6 +1700,9 @@ class View:
             if row.get("needs_windows"):
                 description = " · ".join(filter(None, [description,
                                                        self._(words.NEEDS_WINDOWS)]))
+            if not row.get("packaged", True):
+                description = " · ".join(filter(None, [description,
+                                                       self._(words.NOT_FROM_A_PACKAGE)]))
             about = self._about_module(row["name"], description, self._suits(row),
                                        self._first(row), row.get("version", ""))
             grid.attach(about, 0, number, 1, 1)
@@ -1647,7 +1742,11 @@ class View:
                 switch.connect("notify::active", flip, username, row["id"])
                 grid.attach(switch, column, number, 1, 1)
                 in_row.append(switch)
-                if self._focus is None or self._flipped == (username, row["id"]):
+                # The switch just flipped keeps the focus, unless Remove's
+                # question, or the Remove it goes back to, has it.
+                if self._focus is None or (self._flipped == (username, row["id"])
+                                           and confirm_remove is None
+                                           and self._asked_about is None):
                     self._focus = switch
             if row.get("settings"):
                 settings = self._button(words.MODULE_SETTINGS,
@@ -1658,6 +1757,9 @@ class View:
             remove = self._button(words.REMOVE, self._ask("ask_remove_module", row["id"]),
                                   destructive=True)
             remove.set_valign(Gtk.Align.CENTER)
+            if row["id"] == self._asked_about and confirm_remove is None:
+                self._focus = remove
+                self._focus_returned = True
             grid.attach(remove, last, number, 1, 1)
             in_row.append(remove)
         box.append(grid)
@@ -1668,14 +1770,18 @@ class View:
         lines, Cancel as a cross, which has the focus, and Remove."""
         asked = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6,
                         valign=Gtk.Align.CENTER, halign=Gtk.Align.CENTER)
-        asked.append(Gtk.Label(label=self._(words.REMOVE_MODULE_QUESTION).format(
-            name=row["name"]), wrap=True, width_chars=14, max_width_chars=18,
-            justify=Gtk.Justification.CENTER, css_classes=["kidux-field-label"]))
+        question = (words.REMOVE_MODULE_QUESTION if row.get("packaged", True)
+                    else words.REMOVE_FOLDER_QUESTION)
+        asked.append(Gtk.Label(label=self._(question).format(name=row["name"]), wrap=True,
+                               width_chars=14, max_width_chars=18,
+                               justify=Gtk.Justification.CENTER,
+                               css_classes=["kidux-field-label"]))
         cancel = Gtk.Button(icon_name="window-close-symbolic",
                             tooltip_text=self._(vocabulary.CANCEL), valign=Gtk.Align.CENTER)
         cancel.update_property([Gtk.AccessibleProperty.LABEL], [self._(vocabulary.CANCEL)])
         cancel.connect("clicked", lambda _b: self._ask("tab", "modules")())
         self._focus = cancel
+        self._asked_about = row["id"]
         asked.append(self._row(cancel, self._button(
             words.REMOVE, self._ask("remove_module", row["id"]), destructive=True)))
         return asked

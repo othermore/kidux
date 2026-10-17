@@ -1,0 +1,465 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: kidux-module-photography
+Source: https://github.com/othermore/kidux
+Comment: The guide, its drawings and its page are Kidux's own. The
+ photographs under pictures/ that are not Kidux's are listed below one by
+ one, with their authors and licences, which pictures/pictures.toml also
+ holds and the guide shows under each. A picture marked as made by a
+ computer was generated for the guide and is Kidux's own. The guide names
+ the Olympus XZ-2's controls and the pages of its manual; nothing of the
+ manual, its text or its pictures, is in this package.
+
+Files: *
+Copyright: 2026 Antonio Morales García <info@kidux.org>
+License: BUSL-1.1
+
+Files: pictures/frisius-1545.jpg
+Copyright: Gemma Frisius
+License: public-domain
+Comment: https://commons.wikimedia.org/wiki/File:1545_gemma_frisius_-_camera_obscura_-_121704_1_1.png
+ 1545, De radio astronomico et geometrico.
+
+Files: pictures/pinhole-box.jpg
+Copyright: Aliasradierer
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Camera_Obscura_aus_Pappkarton.jpg
+
+Files: pictures/xz2-front.jpg
+Copyright: 之乎
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Olympus_XZ-2_with_Lenscap.jpg
+ Cropped.
+
+Files: pictures/shaken-lights.jpg
+Copyright: Suwatch
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Define_camera_shake.jpg
+
+Files: pictures/shaken-toy.jpg
+Copyright: Stefan-Xp
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Pistenbully_Modell_(verwackelt).jpg
+
+Files: pictures/exposure-0.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+
+Files: pictures/exposure-minus2.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+ Given two stops less light, its pixels' light divided by four (prepare.py --stops -2).
+
+Files: pictures/exposure-plus2.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+ Given two stops more light, its pixels' light multiplied by four (prepare.py --stops 2).
+
+Files: pictures/muybridge-horse.jpg
+Copyright: Eadweard Muybridge
+License: public-domain
+Comment: https://commons.wikimedia.org/wiki/File:The_Horse_in_Motion_high_res.jpg
+ 1878, The Horse in Motion.
+
+Files: pictures/aperture-real.jpg
+Copyright: Mark Turnauckas
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Canon_G12_Aperture_Blades_(2013-02-02_19.47.15_by_Mark_Turnauckas_@_Flickr_8438851605).jpg
+
+Files: pictures/iso-200.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISO200.jpg
+ A detail at full size.
+
+Files: pictures/iso-51200.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_claycreatures_ISOH3.jpg
+ A detail at full size.
+
+Files: pictures/snow-white.jpg
+Copyright: Stephen Craven
+License: CC-BY-SA-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Smiling_snowman_-_geograph.org.uk_-_2792532.jpg
+
+Files: pictures/snow-grey.jpg
+Copyright: Stephen Craven
+License: CC-BY-SA-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Smiling_snowman_-_geograph.org.uk_-_2792532.jpg
+ Given 1.7 stops less light, which makes its average middle grey, as an averaging meter would (prepare.py --stops -1.7).
+
+Files: pictures/backlit-as-measured.jpg
+Copyright: MiZe
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Fill_flash.jpg
+ The left half, without flash.
+
+Files: pictures/backlit-on-the-face.jpg
+Copyright: MiZe
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Fill_flash.jpg
+ The left half, without flash, given 1.7 stops more light (prepare.py --stops 1.7).
+
+Files: pictures/fill-flash-pair.jpg
+Copyright: MiZe
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Fill_flash.jpg
+
+Files: pictures/daguerre-boulevard.jpg
+Copyright: Louis Daguerre
+License: public-domain
+Comment: https://commons.wikimedia.org/wiki/File:Boulevard_du_Temple_by_Daguerre.jpg
+ 1838, Boulevard du Temple.
+
+Files: pictures/car-trails.jpg
+Copyright: Benedikt Beuttler
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Long_Exposure_Street_(70708613).jpeg
+
+Files: pictures/silky-river.jpg
+Copyright: paul saad
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Long_exposure_river.jpg
+
+Files: pictures/star-trails.jpg
+Copyright: Fausto.lubatti
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Star_trails_over_Grigna_peak.jpg
+
+Files: pictures/light-painting-orb.jpg
+Copyright: JJ Harrison
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Light_Painting_1_-_Booyeembara_Park.jpg
+
+Files: pictures/light-painting-circle.jpg
+Copyright: Subhrajyoti07
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:A_circular_shape_created_using_light_painting.jpg
+
+Files: pictures/flash-splash.jpg
+Copyright: Giuseppe Milo
+License: CC-BY-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Splash_(58544580).jpeg
+
+Files: pictures/dof-small-aperture.jpg
+Copyright: Alex1ruff
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Dof_blocks_f22.jpg
+
+Files: pictures/dof-wide-aperture.jpg
+Copyright: Alex1ruff
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Dof_blocks_f1_4.jpg
+
+Files: pictures/bokeh.jpg
+Copyright: Nayuki
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Christmas_tree_lights_in_bokeh_(4274605105).jpg
+
+Files: pictures/shallow-focus.jpg
+Copyright: Ben Schumin
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Shallow_focus_on_salt_and_pepper_shakers.jpg
+
+Files: pictures/macro-coin.jpg
+Copyright: Markus Filp
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Macro_Shot_of_a_1-Euro_Coin_(16052110605).jpg
+
+Files: pictures/macro-leaf.jpg
+Copyright: SebastianBlumeArt
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Fittonia_gigantea_leaf_veins_macro.jpg
+
+Files: pictures/thirds-landscape.jpg
+Copyright: Dietmar Rabich
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Dülmen,_Dernekamp,_Strohballen_--_2015_--_7838.jpg
+ Cropped, with the bale where two lines of thirds cross.
+
+Files: pictures/post-centred.jpg
+Copyright: Dietmar Rabich
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Norderney,_Dünenlandschaft,_Wegweiser_--_2025_--_9437.jpg
+ Cropped with the post in the middle.
+
+Files: pictures/post-on-a-third.jpg
+Copyright: Dietmar Rabich
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Norderney,_Dünenlandschaft,_Wegweiser_--_2025_--_9437.jpg
+ Cropped with the post on a third.
+
+Files: pictures/thirds-portrait.jpg
+Copyright: Martín Vasco
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Portrait_of_a_dog_on_red_tiles_in_Loja,_Ecuador.jpg
+ Cropped.
+
+Files: pictures/leading-lines.jpg
+Copyright: Dietmar Rabich
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Amboy_(California,_USA),_Hist._Route_66_--_2012_--_1.jpg
+
+Files: pictures/frame-in-frame.jpg
+Copyright: Dietmar Rabich
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Heiligengrabe,_Kloster_Stift_zum_Heiligengrabe,_Abtei,_Fenster_im_Dormitorium_--_2017_--_9972.jpg
+
+Files: pictures/reflection.jpg
+Copyright: Jules Verne Times Two
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Rain_puddle_reflection_at_Schönbrunn_Palace_gardens_(Vienna,_Austria)_julesvernex2.jpg
+
+Files: pictures/pattern-break.jpg
+Copyright: mrhayata
+License: CC-BY-SA-2.0
+Comment: https://commons.wikimedia.org/wiki/File:1_Red_Tulip_and_many_yellow_ones.jpg
+
+Files: pictures/negative-space.jpg
+Copyright: W.carter
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Sun_in_fog_in_Lysekil.jpg
+
+Files: pictures/worm-view.jpg
+Copyright: Andrew Fogg
+License: CC-BY-2.0
+Comment: https://www.flickr.com/photos/ndrwfgg/52161034
+ Cropped, the number plate left out.
+
+Files: pictures/silhouette.jpg
+Copyright: درفش کاویانی
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Silhouette_Volleyball.JPG
+
+Files: pictures/complementary.jpg
+Copyright: Ian S
+License: CC-BY-SA-2.0
+Comment: https://commons.wikimedia.org/wiki/File:One_red_tulip_in_a_sea_of_green_-_geograph.org.uk_-_6140662.jpg
+
+Files: pictures/colour-houses.jpg
+Copyright: Felipe Valduga
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Complementary_Colors.jpg
+
+Files: pictures/monotone-houses.jpg
+Copyright: Felipe Valduga
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Complementary_Colors.jpg
+ Made grey from all its colours (prepare.py --grey).
+
+Files: pictures/red-filter-houses.jpg
+Copyright: Felipe Valduga
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Complementary_Colors.jpg
+ Made grey from its red light alone, as a red filter does (prepare.py --red-filter).
+
+Files: pictures/white-balance-right.jpg
+Copyright: Ronaldo Arthur Vidal
+License: CC0-1.0
+Comment: https://commons.wikimedia.org/wiki/File:Flat_Lay_Black_Coffee_(Unsplash).jpg
+ Cropped.
+
+Files: pictures/white-balance-lamp.jpg
+Copyright: Ronaldo Arthur Vidal
+License: CC0-1.0
+Comment: https://commons.wikimedia.org/wiki/File:Flat_Lay_Black_Coffee_(Unsplash).jpg
+ Cropped, its green light times 0.62 and its blue times 0.30, as a lamp's light with daylight white balance (prepare.py --light 1.0,0.62,0.30).
+
+Files: pictures/burst-strip.jpg
+Copyright: Serge Melki
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Show_jumping_sequence,_Delaware.jpg
+
+Files: pictures/portrait-eyes.jpg
+Copyright: Tobias ToMar Maier
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Knit_cap_and_neck_warmer_in_complementary_colors.jpg
+ Cropped.
+
+Files: pictures/magnifier-window.jpg
+Copyright: Rhetos
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Lupen-Kino.webm
+ A still of the video at 40 seconds, cropped to the paper and the lens.
+
+Files: pictures/figures-wide.jpg
+Copyright: Alexandru Panoiu
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(4.5-25mm)_(AP4M0672)_(7092077541).jpg
+
+Files: pictures/figures-long.jpg
+Copyright: Alexandru Panoiu
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(13.6-76mm)_(AP4M0681)_(6946010542).jpg
+
+Files: pictures/flash-light-painting.jpg
+Copyright: Tim Simpson
+License: CC-BY-SA-2.0
+Comment: https://www.flickr.com/photos/90982314@N00/4797214399
+
+Files: pictures/golden-hour.jpg
+Copyright: Basile Morin
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Four_dogs_running_at_golden_hour_in_the_countryside_of_Don_Det_Laos.jpg
+
+Files: pictures/exposure-minus2-histogram.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+ Given two stops less light (prepare.py --stops -2), with its own histogram drawn in its corner (--histogram).
+
+Files: pictures/exposure-0-histogram.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+ With its own histogram drawn in its corner (prepare.py --histogram).
+
+Files: pictures/exposure-plus2-histogram.jpg
+Copyright: Trougnouf (Benoit Brummer)
+License: CC-BY-4.0
+Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
+ Given two stops more light (prepare.py --stops 2), with its own histogram drawn in its corner (--histogram).
+
+License: CC-BY-2.0
+ Creative Commons Attribution 2.0 Generic:
+ https://creativecommons.org/licenses/by/2.0/legalcode
+
+License: CC-BY-3.0
+ Creative Commons Attribution 3.0 Unported:
+ https://creativecommons.org/licenses/by/3.0/legalcode
+
+License: CC-BY-4.0
+ Creative Commons Attribution 4.0 International:
+ https://creativecommons.org/licenses/by/4.0/legalcode
+
+License: CC-BY-SA-2.0
+ Creative Commons Attribution-ShareAlike 2.0 Generic:
+ https://creativecommons.org/licenses/by-sa/2.0/legalcode
+
+License: CC-BY-SA-3.0
+ Creative Commons Attribution-ShareAlike 3.0 Unported:
+ https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+License: CC-BY-SA-4.0
+ Creative Commons Attribution-ShareAlike 4.0 International:
+ https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+License: CC0-1.0
+ Creative Commons CC0 1.0 Universal, no rights reserved:
+ https://creativecommons.org/publicdomain/zero/1.0/legalcode
+
+License: public-domain
+ The work is in the public domain: its author died more than a hundred
+ years ago, and it was published before 1929.
+
+License: BUSL-1.1
+ License text copyright © 2017 MariaDB Corporation Ab, All Rights Reserved.
+ "Business Source License" is a trademark of MariaDB Corporation Ab.
+ .
+ Parameters
+ .
+ Licensor:             Antonio Morales García
+ .
+ Licensed Work:        Kidux, each version as published at
+                       https://github.com/othermore/kidux: the files of this
+                       repository and the packages built from them, except what
+                       the repository or a package carries of other people's
+                       work, which keeps its own licence, as the debian/copyright
+                       of each package says. The Licensed Work is
+                       (c) 2026 Antonio Morales García.
+ .
+ Additional Use Grant: You may make production use of the Licensed Work in a
+                       household: on computers that a natural person sets up and
+                       uses for themselves and for the children in their own
+                       care, and not on behalf of, or as part of the activity
+                       of, an organisation of any kind, such as a school, an
+                       academy, a club, a company or a public body.
+ .
+ Change Date:          Four years from the date the Licensed Work is published.
+ .
+ Change License:       GNU General Public License, version 3 or (at your option)
+                       any later version.
+ .
+ For information about alternative licensing arrangements for the Licensed Work,
+ such as a licence for a school, an academy or any other organisation, please
+ contact Antonio Morales García <info@kidux.org>.
+ .
+ Notice
+ .
+ The Business Source License (this document, or the "License") is not an Open
+ Source license. However, the Licensed Work will eventually be made available
+ under an Open Source License, as stated in this License.
+ .
+ -----------------------------------------------------------------------------
+ .
+ Business Source License 1.1
+ .
+ Terms
+ .
+ The Licensor hereby grants you the right to copy, modify, create derivative
+ works, redistribute, and make non-production use of the Licensed Work. The
+ Licensor may make an Additional Use Grant, above, permitting limited
+ production use.
+ .
+ Effective on the Change Date, or the fourth anniversary of the first publicly
+ available distribution of a specific version of the Licensed Work under this
+ License, whichever comes first, the Licensor hereby grants you rights under
+ the terms of the Change License, and the rights granted in the paragraph
+ above terminate.
+ .
+ If your use of the Licensed Work does not comply with the requirements
+ currently in effect as described in this License, you must purchase a
+ commercial license from the Licensor, its affiliated entities, or authorized
+ resellers, or you must refrain from using the Licensed Work.
+ .
+ All copies of the original and modified Licensed Work, and derivative works
+ of the Licensed Work, are subject to this License. This License applies
+ separately for each version of the Licensed Work and the Change Date may vary
+ for each version of the Licensed Work released by Licensor.
+ .
+ You must conspicuously display this License on each original or modified copy
+ of the Licensed Work. If you receive the Licensed Work in original or
+ modified form from a third party, the terms and conditions set forth in this
+ License apply to your use of that work.
+ .
+ Any use of the Licensed Work in violation of this License will automatically
+ terminate your rights under this License for the current and all other
+ versions of the Licensed Work.
+ .
+ This License does not grant you any right in any trademark or logo of
+ Licensor or its affiliates (provided that you may use a trademark or logo of
+ Licensor as expressly required by this License).
+ .
+ TO THE EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSED WORK IS PROVIDED ON
+ AN “AS IS” BASIS. LICENSOR HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
+ EXPRESS OR IMPLIED, INCLUDING (WITHOUT LIMITATION) WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND
+ TITLE.
+ .
+ MariaDB hereby grants you permission to use this License’s text to license
+ your works, and to refer to it using the trademark “Business Source License”,
+ as long as you comply with the Covenants of Licensor below.
+ .
+ Covenants of Licensor
+ .
+ In consideration of the right to use this License’s text and the “Business
+ Source License” name and trademark, Licensor covenants to MariaDB, and to all
+ other recipients of the licensed work to be provided by Licensor:
+ .
+ 1. To specify as the Change License the GPL Version 2.0 or any later version,
+    or a license that is compatible with GPL Version 2.0 or a later version,
+    where “compatible” means that software provided under the Change License can
+    be included in a program with software provided under GPL Version 2.0 or a
+    later version. Licensor may specify additional Change Licenses without
+    limitation.
+ .
+ 2. To either: (a) specify an additional grant of rights to use that does not
+    impose any additional restriction on the right granted in this License, as
+    the Additional Use Grant; or (b) insert the text “None”.
+ .
+ 3. To specify a Change Date.
+ .
+ 4. Not to modify this License in any other way.

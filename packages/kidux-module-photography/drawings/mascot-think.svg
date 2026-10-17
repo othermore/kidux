@@ -1,0 +1,31 @@
+<!-- Kidux's mascot, the penguin chick of branding/svg/mascot.svg, thinking. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- feet, under the body -->
+  <ellipse cx="80" cy="184" rx="21" ry="9" fill="#f0a202"/>
+  <ellipse cx="120" cy="184" rx="21" ry="9" fill="#f0a202"/>
+  <!-- flippers -->
+  <ellipse cx="27" cy="128" rx="13" ry="34" transform="rotate(24 27 128)" fill="#2f4157"/>
+  <ellipse cx="173" cy="128" rx="13" ry="34" transform="rotate(-24 173 128)" fill="#2f4157"/>
+  <!-- body -->
+  <path d="M100 26 C150 26 170 78 170 120 C170 158 140 184 100 184 C60 184 30 158 30 120 C30 78 50 26 100 26 Z" fill="#24313f"/>
+  <!-- the white front: face and belly in one -->
+  <path d="M100 54 C128 54 146 78 148 114 C150 150 132 176 100 176 C68 176 50 150 52 114 C54 78 72 54 100 54 Z" fill="#fdf6f0"/>
+  <!-- tuft -->
+  <path d="M90 30 C88 20 82 15 76 14" fill="none" stroke="#24313f" stroke-width="6" stroke-linecap="round"/>
+  <path d="M100 26 C100 17 100 12 100 8" fill="none" stroke="#24313f" stroke-width="6" stroke-linecap="round"/>
+  <path d="M110 30 C112 20 118 15 124 14" fill="none" stroke="#24313f" stroke-width="6" stroke-linecap="round"/>
+  <!-- cheeks -->
+  <circle cx="70" cy="104" r="7" fill="#f6d7c4"/>
+  <circle cx="130" cy="104" r="7" fill="#f6d7c4"/>
+  <!-- eyes -->
+  <circle cx="84" cy="86" r="9" fill="#2b2b2b"/>
+  <circle cx="116" cy="86" r="9" fill="#2b2b2b"/>
+  <circle cx="89" cy="81" r="3" fill="#fdf6f0"/>
+  <circle cx="121" cy="81" r="3" fill="#fdf6f0"/>
+  <!-- beak -->
+  <path d="M100 96 L86 104 L100 116 L114 104 Z" fill="#f0a202"/>
+  <!-- a thought, over its head -->
+  <circle cx="150" cy="40" r="5" fill="#cfe3f3"/>
+  <circle cx="162" cy="26" r="8" fill="#cfe3f3"/>
+  <circle cx="182" cy="12" r="12" fill="#cfe3f3"/>
+</svg>

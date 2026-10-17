@@ -588,7 +588,8 @@ class Panel(_NewChild):
                  "min_age": module.min_age, "max_age": module.max_age,
                  "before": list(module.recommended_before),
                  "version": shown_version(module.version),
-                 "settings": bool(module.settings)}
+                 "settings": bool(module.settings),
+                 "packaged": module.package is not None}
                 for module in kidux_modules.installed()]
         update = self._update_state()
         # Asked of apt, which takes a moment: once per page, not once a
@@ -635,7 +636,7 @@ class Panel(_NewChild):
                              "max_age": entry.get("max_age", 0),
                              "before": list(entry.get("before", [])),
                              "version": shown_version(entry.get("offered_version", "")),
-                             "settings": False,
+                             "settings": False, "packaged": True,
                              "job": "installing" if module == installing else "to-install"})
         rows = ordered([{**row, "first": first(row)} for row in rows])
         self._rows_shown = rows
@@ -648,8 +649,11 @@ class Panel(_NewChild):
                             offered=on_offer, installing=installing,
                             source=bool(offered), confirm_remove=confirm_remove,
                             failure=failure, update=update, toast=toast,
+                            # Polled while a job runs, and while one waits: the
+                            # job it waited behind may have ended between the
+                            # asking and this drawing, and only a poll starts it.
                             polling=update["job"] in ("checking", "installing", "removing",
-                                                      "away"),
+                                                      "away") or bool(self._queue),
                             poll="poll_modules")
 
     def _module_job(self, start, toast: str | None = None,

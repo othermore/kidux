@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 3: the Olympus XZ-2 from behind, after the manual's drawing of
+     its parts (p. 3), drawn afresh: the screen, and on the right the arrow
+     pad with the sub dial round it in sun and OK in the middle in snow,
+     the playback and Fn1 buttons above it, MENU and INFO below, the movie
+     button in red at the top, and the flash switch at the top left in
+     tangerine. Flat, no words. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" width="640" height="340">
+  <rect x="0" y="0" width="640" height="340" fill="#fff6e9"/>
+  <rect x="40" y="30" width="560" height="290" rx="34" fill="#24313f"/>
+  <!-- the flash switch -->
+  <rect x="72" y="46" width="40" height="16" rx="6" fill="#e2703a"/>
+  <!-- the screen, showing a picture -->
+  <rect x="70" y="76" width="352" height="224" rx="12" fill="#141c26"/>
+  <rect x="82" y="88" width="328" height="200" rx="6" fill="#cfe3f3"/>
+  <rect x="82" y="214" width="328" height="74" fill="#9cc77a"/>
+  <circle cx="300" cy="176" r="38" fill="#4f9a4a"/>
+  <rect x="292" y="196" width="16" height="40" fill="#8a5a3b"/>
+  <!-- the movie button -->
+  <circle cx="556" cy="70" r="15" fill="#fdf6f0"/>
+  <circle cx="556" cy="70" r="8" fill="#d8352a"/>
+  <!-- playback and Fn1 -->
+  <circle cx="470" cy="112" r="15" fill="#5b6f86"/>
+  <polygon points="465,104 465,120 478,112" fill="#fdf6f0"/>
+  <circle cx="530" cy="112" r="15" fill="#5b6f86"/>
+  <!-- the arrow pad, the sub dial round it, OK in the middle -->
+  <circle cx="500" cy="196" r="56" fill="#f0a202"/>
+  <circle cx="500" cy="196" r="44" fill="#f6c14b"/>
+  <polygon points="500,158 492,170 508,170" fill="#24313f"/>
+  <polygon points="500,234 492,222 508,222" fill="#24313f"/>
+  <polygon points="462,196 474,188 474,204" fill="#24313f"/>
+  <polygon points="538,196 526,188 526,204" fill="#24313f"/>
+  <circle cx="500" cy="196" r="18" fill="#fdf6f0"/>
+  <!-- MENU and INFO -->
+  <circle cx="462" cy="280" r="15" fill="#5b6f86"/>
+  <circle cx="538" cy="280" r="15" fill="#5b6f86"/>
+</svg>

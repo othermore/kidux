@@ -1,0 +1,36 @@
+Source: kidux-module-photography
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               python3,
+               python3-markdown,
+               pyflakes3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-photography
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-webapps (>= 0.1.11~),
+XB-Kidux-Name-en: Photography
+XB-Kidux-Description-en: A guide to taking photographs with a real camera: light, the shutter, the aperture, focus, composition, and drawing with light, with something to try in every chapter.
+XB-Kidux-Name-es: Fotografía
+XB-Kidux-Description-es: Una guía para hacer fotos con una cámara de verdad: la luz, el obturador, el diafragma, el enfoque, la composición y dibujar con luz, con algo que probar en cada capítulo.
+XB-Kidux-Ages: 8-12
+Description: Kidux learning module: Photography, a guide for a child with a real camera
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is a guide for a child who has a camera in their hands: how the
+ box with a hole that every camera is makes a picture, the shutter, the
+ aperture and ISO, focus and depth of field, composition, and working with
+ light, drawing with a torch in the dark included, one idea a chapter,
+ with something to try with the camera in each, photographs that show
+ each effect, and drawings of what the camera's screen shows. It names
+ the Olympus XZ-2 as its example and says how to find the same controls
+ on any other camera. Nothing of it comes from the internet.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

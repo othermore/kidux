@@ -818,7 +818,9 @@ account or a subscription, so that an adult knows before switching one
 on. They need the internet whenever they are used.
 
 The modules whose names begin with **[Test]** are there to check that
-Kidux works, not for a child to use.
+Kidux works, not for a child to use. One that says **A folder, not from a
+package** was copied onto the computer by hand rather than installed;
+**Remove** takes its folder away.
 
 ### GCompris
 
@@ -1103,6 +1105,35 @@ Attribution 4.0 licence. Kidux is not connected with PhET.
 ![Simulations](../images/en/module-simulations.png)
 
 ![A simulation open](../images/en/module-simulations-open.png)
+
+### Photography
+
+**Photography** is a guide to taking photographs with a real camera, for
+children from eight to twelve who read well, in the child's language. It
+needs nothing from the internet, but it needs a camera: any camera with a
+dial or a menu for its modes, whether a compact, a bridge or a reflex,
+and to start with even a phone. The guide's example is the Olympus XZ-2.
+Each chapter's box **On the Olympus XZ-2** says which button, dial or
+menu does what the chapter teaches, and that other cameras have the same
+under other names.
+
+The thirty chapters start with a dark box with a hole, which every camera
+still is. They go on to the lens, the shutter, the aperture and ISO; the
+camera's modes, and why manual is the most reliable in steady light; how
+the camera measures light and where it focuses; depth of field, close-ups
+and zoom. Then come composition, light, colour and people. The last
+chapters are about looking at the photographs and choosing them. Each
+chapter has photographs of its effect, drawings of what the camera's
+screen shows, a **Try it** to do with the camera that day, and ideas to
+keep trying. A box **For the adult** says what the chapter teaches and
+what to help with: a dark room, a torch, the flash, a street at dusk.
+
+**Back**, **Next** and the list of **Chapters** move through the guide.
+Most photographs are free ones by other people, each credited under it.
+Where none showed an effect clearly, a picture made by a computer shows
+it, and says so under it.
+
+![Photography](../images/en/module-photography.png)
 
 ## 10. Updates and reinstalling
 

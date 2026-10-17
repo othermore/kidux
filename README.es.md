@@ -146,6 +146,9 @@ Estos son los módulos que ofrece Kidux:
   Universidad de Colorado Boulder, elegidos para niños de seis a catorce
   años. Están guardados en el propio ordenador, en las versiones que PhET
   publicó bajo la licencia CC BY 4.0. Kidux no tiene relación con PhET.
+- Fotografía: una guía para hacer fotos con una cámara de verdad, para
+  niños a partir de ocho años que ya leen bien. Tiene treinta capítulos,
+  cada uno con algo que probar con la cámara, y funciona sin internet.
 
 ![GCompris](docs/images/es/module-gcompris.png)
 
@@ -204,3 +207,7 @@ Blockly Games (Apache-2.0), wwwBASIC (Apache-2.0), GCompris (GPL-3), Tux
 Typing (GPL-2) y las simulaciones de PhET (CC BY 4.0). El código fuente de
 cada programa que Kidux compila se publica junto a la compilación, con los
 cambios con que se compila.
+
+La guía de Fotografía enseña fotos de otras personas, con licencias
+Creative Commons o de dominio público, cada una con su autor donde se
+enseña. Algunas de sus imágenes están hechas por un ordenador, y lo dicen.

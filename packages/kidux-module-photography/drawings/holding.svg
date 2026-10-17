@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 4: holding a camera still. Both hands on it, the elbows tucked
+     against the body, the camera in front of the eyes; the same held
+     upright. Flat, in the brand's colours, no words. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" width="640" height="320">
+  <rect x="0" y="0" width="640" height="320" fill="#fff6e9"/>
+  <!-- a child, seen from the front, holding it level -->
+  <path d="M112 320 L118 176 Q170 154 222 176 L228 320 Z" fill="#3584e4"/>
+  <circle cx="170" cy="86" r="42" fill="#f6d7c4"/>
+  <path d="M128 80 Q170 28 212 80 Q200 52 170 50 Q140 52 128 80 Z" fill="#3b2f2a"/>
+  <!-- the arms, over the body: down from the shoulders, the elbows against
+       the sides, up to the camera -->
+  <polyline points="122,184 114,262 132,140" fill="none" stroke="#2a64b0" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="218,184 226,262 208,140" fill="none" stroke="#2a64b0" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="122" y="92" width="96" height="58" rx="10" fill="#24313f"/>
+  <circle cx="170" cy="121" r="20" fill="#fdf6f0"/>
+  <circle cx="170" cy="121" r="12" fill="#141c26"/>
+  <circle cx="128" cy="134" r="14" fill="#f6d7c4"/>
+  <circle cx="212" cy="134" r="14" fill="#f6d7c4"/>
+  <!-- the same, the camera upright -->
+  <path d="M412 320 L418 176 Q470 154 522 176 L528 320 Z" fill="#e2703a"/>
+  <circle cx="470" cy="86" r="42" fill="#f6d7c4"/>
+  <path d="M428 80 Q470 28 512 80 Q500 52 470 50 Q440 52 428 80 Z" fill="#3b2f2a"/>
+  <polyline points="422,184 414,262 444,110" fill="none" stroke="#b9541f" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="518,184 526,262 496,166" fill="none" stroke="#b9541f" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="440" y="78" width="60" height="96" rx="10" fill="#24313f"/>
+  <circle cx="470" cy="126" r="20" fill="#fdf6f0"/>
+  <circle cx="470" cy="126" r="12" fill="#141c26"/>
+  <circle cx="446" cy="104" r="14" fill="#f6d7c4"/>
+  <circle cx="494" cy="160" r="14" fill="#f6d7c4"/>
+</svg>

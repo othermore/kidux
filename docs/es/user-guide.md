@@ -849,7 +849,9 @@ como una cuenta o una suscripción, para que el adulto lo sepa antes de
 activarlo. Necesitan internet siempre que se usan.
 
 Los módulos cuyo nombre empieza por **[Prueba]** existen para comprobar
-que Kidux funciona, no para que los use un niño.
+que Kidux funciona, no para que los use un niño. Uno que dice **Una
+carpeta, no de un paquete** se copió en el ordenador a mano en vez de
+instalarse; **Eliminar** quita su carpeta.
 
 ### GCompris
 
@@ -1140,6 +1142,37 @@ PhET.
 ![Simulaciones](../images/es/module-simulations.png)
 
 ![Una simulación abierta](../images/es/module-simulations-open.png)
+
+### Fotografía
+
+**Fotografía** es una guía para hacer fotos con una cámara de verdad, para
+niños de ocho a doce años que ya leen bien, en el idioma del niño. No
+necesita nada de internet, pero necesita una cámara: cualquiera que tenga
+un dial o un menú para sus modos, sea una compacta, una bridge o una
+réflex, y para empezar incluso un móvil. El ejemplo de la guía es la
+Olympus XZ-2. El recuadro **En la Olympus XZ-2** de cada capítulo dice qué
+botón, dial o menú hace lo que enseña el capítulo, y que otras cámaras
+tienen lo mismo con otros nombres.
+
+Los treinta capítulos empiezan por una caja oscura con un agujero, que es
+lo que sigue siendo toda cámara. Siguen con el objetivo, el obturador, el
+diafragma y el ISO; los modos de la cámara, y por qué el manual es el más
+fiable con una luz que no cambia; cómo mide la luz la cámara y dónde
+enfoca; la profundidad de campo, las fotos de cerca y el zoom. Después
+vienen la composición, la luz, el color y las personas. Los últimos
+capítulos son sobre mirar las fotos y elegirlas. Cada capítulo tiene fotos
+de su efecto, dibujos de lo que enseña la pantalla de la cámara, un
+**Pruébalo** para hacer con la cámara ese día, e ideas para seguir
+probando. Un recuadro **Para el adulto** dice qué enseña el capítulo y en
+qué ayudar: una habitación a oscuras, una linterna, el flash, una calle al
+anochecer.
+
+**Atrás**, **Siguiente** y la lista de **Capítulos** recorren la guía.
+Casi todas las fotos son fotos libres de otras personas, cada una con su
+autor debajo. Donde ninguna enseñaba un efecto con claridad, lo enseña una
+imagen hecha por un ordenador, y lo dice debajo.
+
+![Fotografía](../images/es/module-photography.png)
 
 ## 10. Actualizar y reinstalar
 

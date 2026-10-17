@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 9: exposure as a seesaw kept level. On one side the light the
+     picture needs; on the other three weights that add light: the time (a
+     clock), the aperture (a ring) and ISO (a loudspeaker). Take one step off
+     one weight and put it on another, and the seesaw stays level. Flat, no
+     words. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="640" height="260">
+  <rect x="0" y="0" width="640" height="260" fill="#fff6e9"/>
+  <polygon points="320,190 290,240 350,240" fill="#7a6a60"/>
+  <rect x="70" y="176" width="500" height="14" rx="7" fill="#3b2f2a"/>
+  <!-- the picture's light: a sun -->
+  <circle cx="120" cy="132" r="34" fill="#f0a202"/>
+  <g stroke="#f0a202" stroke-width="6" stroke-linecap="round">
+    <line x1="120" y1="80" x2="120" y2="90"/><line x1="72" y1="132" x2="82" y2="132"/>
+    <line x1="158" y1="132" x2="168" y2="132"/><line x1="86" y1="98" x2="93" y2="105"/><line x1="154" y1="98" x2="147" y2="105"/>
+  </g>
+  <!-- the time: a clock -->
+  <circle cx="380" cy="142" r="30" fill="#fdf6f0" stroke="#24313f" stroke-width="6"/>
+  <line x1="380" y1="142" x2="380" y2="122" stroke="#24313f" stroke-width="5" stroke-linecap="round"/>
+  <line x1="380" y1="142" x2="394" y2="150" stroke="#24313f" stroke-width="5" stroke-linecap="round"/>
+  <!-- the aperture: a ring -->
+  <circle cx="452" cy="142" r="30" fill="#24313f"/>
+  <circle cx="452" cy="142" r="14" fill="#cfe3f3"/>
+  <!-- ISO: a loudspeaker -->
+  <rect x="502" y="128" width="16" height="28" fill="#e2703a"/>
+  <polygon points="518,128 538,112 538,172 518,156" fill="#e2703a"/>
+  <path d="M546 126 Q556 142 546 158" fill="none" stroke="#e2703a" stroke-width="5" stroke-linecap="round"/>
+</svg>

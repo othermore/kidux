@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 11: the XZ-2's mode dial, drawn afresh after the manual's picture (p. 8), seen from above, its letters as the camera has them, A, S and M in sun; the mark beside it shows which is chosen, here P. The only letters are the camera's own. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+<rect x="0" y="0" width="400" height="400" fill="#fff6e9"/>
+<circle cx="200" cy="200" r="170" fill="#24313f"/>
+<circle cx="200" cy="200" r="150" fill="#2f4157"/>
+<circle cx="200" cy="200" r="70" fill="#3b4c61"/>
+<polygon points="200,6 188,26 212,26" fill="#f0a202"/>
+<text x="128.0" y="121.4" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="20" fill="#fdf6f0" text-anchor="middle">iAUTO</text>
+<text x="200.0" y="98.8" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="30" fill="#fdf6f0" text-anchor="middle">P</text>
+<text x="272.0" y="125.0" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="30" fill="#f0a202" text-anchor="middle">A</text>
+<text x="310.3" y="191.4" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="30" fill="#f0a202" text-anchor="middle">S</text>
+<text x="297.0" y="266.8" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="30" fill="#f0a202" text-anchor="middle">M</text>
+<text x="238.3" y="316.0" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="30" fill="#fdf6f0" text-anchor="middle">C1</text>
+<text x="161.7" y="316.0" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="30" fill="#fdf6f0" text-anchor="middle">C2</text>
+<text x="103.0" y="263.2" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="20" fill="#fdf6f0" text-anchor="middle">SCN</text>
+<text x="89.7" y="187.8" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="20" fill="#fdf6f0" text-anchor="middle">ART</text>
+</svg>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 29: a story in five pictures, the life of a sandcastle: a
+     bucket and spade on the sand; the castle built, with a flag; a wave
+     coming; the castle half washed away; flat sand, and the flag lying on
+     it. Flat, no words. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 150" width="660" height="150">
+  <rect x="0" y="0" width="660" height="150" fill="#fff6e9"/>
+  <g>
+    <rect x="6" y="10" width="120" height="130" rx="6" fill="#cfe3f3"/><rect x="6" y="96" width="120" height="44" fill="#e8c98a"/>
+    <path d="M44 74 L76 74 L72 104 L48 104 Z" fill="#e2703a"/><rect x="84" y="62" width="6" height="40" fill="#7a6a60"/><rect x="80" y="98" width="14" height="10" fill="#7a6a60"/>
+  </g>
+  <g transform="translate(132,0)">
+    <rect x="6" y="10" width="120" height="130" rx="6" fill="#cfe3f3"/><rect x="6" y="96" width="120" height="44" fill="#e8c98a"/>
+    <rect x="30" y="66" width="72" height="34" fill="#d4ad6a"/><rect x="48" y="46" width="36" height="22" fill="#d4ad6a"/>
+    <rect x="65" y="24" width="3" height="22" fill="#24313f"/><polygon points="68,24 84,30 68,36" fill="#e2703a"/>
+  </g>
+  <g transform="translate(264,0)">
+    <rect x="6" y="10" width="120" height="130" rx="6" fill="#cfe3f3"/><rect x="6" y="96" width="120" height="44" fill="#e8c98a"/>
+    <rect x="50" y="66" width="72" height="34" fill="#d4ad6a"/><rect x="68" y="46" width="36" height="22" fill="#d4ad6a"/>
+    <rect x="85" y="24" width="3" height="22" fill="#24313f"/><polygon points="88,24 104,30 88,36" fill="#e2703a"/>
+    <path d="M6 100 Q20 60 46 74 Q34 82 40 100 Z" fill="#3584e4"/>
+  </g>
+  <g transform="translate(396,0)">
+    <rect x="6" y="10" width="120" height="130" rx="6" fill="#cfe3f3"/><rect x="6" y="96" width="120" height="44" fill="#e8c98a"/>
+    <path d="M50 100 Q60 80 80 82 Q100 74 112 100 Z" fill="#d4ad6a"/>
+    <rect x="85" y="52" width="3" height="26" fill="#24313f" transform="rotate(20 86 78)"/><polygon points="96,54 110,62 94,66" fill="#e2703a"/>
+    <path d="M6 112 Q40 98 70 112 L70 140 L6 140 Z" fill="#3584e4" opacity="0.6"/>
+  </g>
+  <g transform="translate(528,0)">
+    <rect x="6" y="10" width="120" height="130" rx="6" fill="#cfe3f3"/><rect x="6" y="96" width="120" height="44" fill="#e8c98a"/>
+    <rect x="40" y="108" width="40" height="3" fill="#24313f"/><polygon points="80,104 94,108 80,114" fill="#e2703a"/>
+  </g>
+</svg>

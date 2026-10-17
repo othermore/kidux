@@ -1,0 +1,15 @@
+# Photography: a guide for a child with a real camera, from the box with
+# a hole that every camera still is to composition and light, chapter by
+# chapter, with things to try, photographs of each effect and drawings of
+# what the camera's screen shows; served by kidux-webapps under
+# /photography/ (phase-4e-plan.md; docs/dev/photography.md).
+id = "photography"
+version = "0.1.0"
+name = "Photography"
+description = "A guide to taking photographs with a real camera: light, the shutter, the aperture, focus, composition, and drawing with light, with something to try in every chapter."
+min_age = 8
+max_age = 12
+launch = { webapp = "photography" }
+categories = ["arts"]
+i18n_domain = "kidux-module-photography"
+memory_max = "1G"

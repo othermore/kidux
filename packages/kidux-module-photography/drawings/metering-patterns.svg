@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 10: what each way of measuring the light looks at, drawn
+     afresh after the manual's pictures (p. 42): the whole picture, weighed
+     cleverly (ESP); the middle more than the edges (centre-weighted); one
+     small spot (spot). The darker, the more it counts. Flat, no words. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" width="640" height="220">
+  <defs>
+    <radialGradient id="centre" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#24313f"/><stop offset="0.55" stop-color="#5b6f86"/><stop offset="1" stop-color="#e8eef4"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="640" height="220" fill="#fff6e9"/>
+  <!-- ESP: the frame cut into pieces, each weighed -->
+  <rect x="20" y="30" width="180" height="135" rx="6" fill="#e8eef4" stroke="#24313f" stroke-width="4"/>
+  <g fill="#5b6f86">
+    <rect x="32" y="42" width="44" height="33"/><rect x="88" y="42" width="44" height="33" fill="#3b4c61"/><rect x="144" y="42" width="44" height="33"/>
+    <rect x="32" y="81" width="44" height="33" fill="#3b4c61"/><rect x="88" y="81" width="44" height="33" fill="#24313f"/><rect x="144" y="81" width="44" height="33" fill="#3b4c61"/>
+    <rect x="32" y="120" width="44" height="33"/><rect x="88" y="120" width="44" height="33" fill="#3b4c61"/><rect x="144" y="120" width="44" height="33"/>
+  </g>
+  <!-- centre-weighted: the middle more, fading to the edges -->
+  <rect x="230" y="30" width="180" height="135" rx="6" fill="url(#centre)" stroke="#24313f" stroke-width="4"/>
+  <!-- spot: a small dot -->
+  <rect x="440" y="30" width="180" height="135" rx="6" fill="#e8eef4" stroke="#24313f" stroke-width="4"/>
+  <circle cx="530" cy="97" r="9" fill="#24313f"/>
+</svg>

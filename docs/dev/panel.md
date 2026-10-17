@@ -156,9 +156,20 @@ and starts on the first switch. *Remove* asks once, in the module's own
 row, across the room its switches and buttons take and no wider, so
 that nothing on the page moves: *Remove <name>? The children's own files
 stay.*, with *Cancel*, a cross, which has the focus, and *Remove*, which
-calls `Modules1.Remove`. The tab order of a row is its switches, then
-*Settings*, for a module that declares settings (D90), then *Remove*. With
-nothing installed, the part says so.
+calls `Modules1.Remove`. The page is drawn again in place for the
+question, and for its answer: it stays where the adult had scrolled it,
+scrolled no more than shows the question when its row is below the fold;
+*Cancel* puts the focus back on that row's *Remove*, in view.
+(`view.keep_place` sets the room's place once GTK has laid the page out,
+since a place set while it is laid out moves the scrollbar and not the
+page; the view logs `modules room kept at <pixels> of <pixels>, the focus
+in view` once it is painted, for the tests.) A module that is only a
+folder, which no package installed, as the tests' stand-ins are, says
+*A folder, not from a package* after its description, and its *Remove*
+asks *Remove the folder of <name>? The children's own files stay.*: the
+update job removes the folder (D101). The tab order of a row is its
+switches, then *Settings*, for a module that declares settings (D90),
+then *Remove*. With nothing installed, the part says so.
 
 *Settings* opens a page of the module's own: its name, *Each child has
 their own. A change is saved as soon as it is made.*, then a grid with

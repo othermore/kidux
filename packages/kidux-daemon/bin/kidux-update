@@ -5,7 +5,8 @@
 #   kidux-update check               refresh the package lists, say what would change
 #   kidux-update apply               install every update there is
 #   kidux-update install <package>   install one module's package
-#   kidux-update remove <package>    purge one module's package
+#   kidux-update remove <package>    purge one module's package, or remove its
+#                                    folder when no package put it there
 #
 # The package of install and remove is kidux-module-<id>, made by the daemon
 # from an id it checked; it is checked again here, since this runs as root
@@ -20,6 +21,8 @@ set -u
 
 STATUS="${KIDUX_UPDATE_STATUS:-/run/kidux/update.status}"
 REBOOT_REQUIRED="${KIDUX_REBOOT_REQUIRED:-/run/reboot-required}"
+MODULES_DIR="${KIDUX_MODULES_DIR:-/usr/share/kidux/modules}"
+CHROMIUM_POLICY="${KIDUX_CHROMIUM_POLICY:-/usr/libexec/kidux-chromium-policy}"
 mkdir -p "$(dirname "$STATUS")"
 exec 3>>"$STATUS"
 
@@ -57,6 +60,16 @@ is_module() {
         *[!a-z0-9-]*) return 1 ;;
     esac
     [ "${#1}" -le 45 ]
+}
+
+# Whether a package put the module there, by the same sign the panel reads
+# (kidux.modules.package_of): dpkg knows the package in any state but
+# not-installed, from unpacking to purging, so that a package half
+# installed is still apt's to purge, and only a folder no package knows is
+# removed here.
+packaged() {
+    status="$(dpkg-query -W -f='${db:Status-Status}' "$1" 2>/dev/null)" \
+        && [ "$status" != not-installed ]
 }
 
 # Keep every configuration file an administrator edited.
@@ -102,6 +115,13 @@ case "$kind" in
                     install "$package" 2>&1)" \
                 || fail "$(last_error "$out")"
             say "done:installed"
+        elif ! packaged "$package" && [ -d "$MODULES_DIR/${package#kidux-module-}" ]; then
+            # A module no package put there, a folder copied in by hand:
+            # apt has nothing to purge, so the folder goes, and Chromium's
+            # policy is written again as a package's removal has it (D101).
+            rm -rf "${MODULES_DIR:?}/${package#kidux-module-}" || fail "the folder could not be removed"
+            [ ! -x "$CHROMIUM_POLICY" ] || "$CHROMIUM_POLICY" >/dev/null 2>&1
+            say "done:removed"
         else
             # The module, and what was installed for it alone: a program
             # nothing else needs has no business staying (D100).

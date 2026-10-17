@@ -49,3 +49,10 @@ def shipped_avatars(source_root) -> Path:
 @pytest.fixture(scope="session")
 def catalogues(source_root) -> Path:
     return source_root / "po"
+
+
+@pytest.fixture(autouse=True)
+def no_installed_packages(tmp_path, monkeypatch):
+    """dpkg as on a machine with no module installed: the tests never read
+    the machine they run on, which may have Kidux on it."""
+    monkeypatch.setattr("kidux.paths.DPKG_INFO", tmp_path / "dpkg-info")

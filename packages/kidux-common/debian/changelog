@@ -1,5 +1,7 @@
 kidux-common (0.1.59) trixie; urgency=medium
 
+  * A module says whether a package installed it, or it is a folder put
+    under the modules directory by hand.
   * A module may have a guide, lessons beside its manifest that the
     launcher shows beside the module, and kidux.lessons reads them, with
     an introduction above them when the guide has one, and a step that

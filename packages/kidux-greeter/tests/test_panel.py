@@ -579,9 +579,14 @@ def test_saving_the_empty_form_adds_a_child(panel, daemon):
 
 
 @pytest.fixture
-def installed(tmp_path, monkeypatch):
-    """Two modules on the machine, one of them translated into Spanish."""
+def installed(tmp_path, tmp_path_factory, monkeypatch):
+    """Two modules on the machine, one of them translated into Spanish; Hello
+    from its package, Paint a folder put there by hand."""
     from kidux import modules, paths
+
+    dpkg_info = tmp_path_factory.mktemp("dpkg-info")
+    (dpkg_info / "kidux-module-hello.list").write_text("")
+    monkeypatch.setattr(paths, "DPKG_INFO", dpkg_info)
 
     for module_id, name in (("hello", "Hello"), ("paint", "Paint")):
         (tmp_path / module_id).mkdir()
@@ -625,10 +630,12 @@ def test_the_modules_page_has_a_switch_per_module_and_child(panel, daemon, insta
     assert screen.data["modules"] == [
         {"id": "hello", "name": "Hello", "description": "About Hello.",
          "enabled": {"ana": False, "tom": False}, "needs_windows": False,
-         "min_age": 0, "max_age": 0, "before": [], "version": "", "settings": False, "job": None, "first": []},
+         "min_age": 0, "max_age": 0, "before": [], "version": "", "settings": False,
+         "packaged": True, "job": None, "first": []},
         {"id": "paint", "name": "Paint", "description": "About Paint.",
          "enabled": {"ana": False, "tom": True}, "needs_windows": False,
-         "min_age": 0, "max_age": 0, "before": [], "version": "", "settings": False, "job": None, "first": []},
+         "min_age": 0, "max_age": 0, "before": [], "version": "", "settings": False,
+         "packaged": False, "job": None, "first": []},
     ]
 
 
@@ -809,6 +816,24 @@ def test_installs_and_removals_asked_while_a_job_runs_wait_their_turn(panel, dae
     assert ("install_module", "scratchjr") in daemon.calls
     assert screen.data["polling"] and screen.data["installing"] == "scratchjr"
     assert {r["id"]: r["job"] for r in screen.data["modules"]}["hello"] == "to-remove"
+
+
+def test_a_job_that_waited_starts_even_when_the_one_before_ended_meanwhile(panel, daemon,
+                                                                              installed):
+    daemon.offered = [GCOMPRIS]
+    panel.install_module("gcompris")
+    panel.remove_module("hello")
+    # The install ends between the removal being queued and the page being
+    # drawn again: the page still polls, since a job waits, and the poll
+    # starts it.
+    daemon.update = ("idle", 0.0, "", "installed", "", [])
+    screen = panel.modules()
+    assert {r["id"]: r["job"] for r in screen.data["modules"]}["hello"] == "to-remove"
+    assert (screen.data["polling"], screen.data["poll"]) == (True, "poll_modules")
+
+    screen = panel.poll_modules()
+    assert ("remove_module", "hello") in daemon.calls
+    assert screen.data["toast"] == words.MODULE_INSTALLED
 
 
 def test_a_removal_asked_about_while_a_job_runs_stays_asked(panel, daemon, installed):

@@ -1,0 +1,45 @@
+#!/usr/bin/make -f
+
+DEST = debian/kidux-module-photography
+MODULE = $(DEST)/usr/share/kidux/modules/photography
+WEBAPP = $(DEST)/usr/share/kidux/webapps/photography
+
+%:
+	dh $@
+
+# The guide's page, every language's words and chapters written into it
+# (docs/dev/photography.md, section 2).
+override_dh_auto_build:
+	for po in po/*.po; do \
+	    lang=$$(basename $$po .po); \
+	    mkdir -p build/locale/$$lang/LC_MESSAGES; \
+	    msgfmt --check --output-file=build/locale/$$lang/LC_MESSAGES/kidux-module-photography.mo $$po; \
+	done
+	python3 -B webapp/page.py build/locale content drawings pictures webapp/index.html.in build/index.html
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 webapp/page.py pictures/prepare.py pictures/generate.py tests
+	python3 -m pytest -q -p no:cacheprovider tests
+endif
+
+# The page, its script and style, and its photographs: a site kidux-webapps
+# serves under /photography/. The drawings are inside the page.
+override_dh_auto_install:
+	install -D -m 0644 module.toml $(MODULE)/module.toml
+	install -D -m 0644 icon.svg $(MODULE)/icon.svg
+	install -D -m 0644 build/index.html $(WEBAPP)/index.html
+	for file in style.css guide.js; do \
+	    install -D -m 0644 webapp/$$file $(WEBAPP)/$$file; \
+	done
+	for picture in pictures/*.jpg; do \
+	    [ -e "$$picture" ] || continue; \
+	    install -D -m 0644 $$picture $(WEBAPP)/$$picture; \
+	done
+	for mo in build/locale/*/LC_MESSAGES/kidux-module-photography.mo; do \
+	    lang=$$(basename $$(dirname $$(dirname $$mo))); \
+	    install -D -m 0644 $$mo $(DEST)/usr/share/locale/$$lang/LC_MESSAGES/kidux-module-photography.mo; \
+	done
+
+override_dh_auto_clean:
+	rm -rf build tests/__pycache__ webapp/__pycache__ pictures/__pycache__

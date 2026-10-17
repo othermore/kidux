@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 25: the same ball lit three ways, the lamp drawn beside each,
+     the camera always in front. Left, light from the front, by the camera:
+     the ball is flat, a plain disc, with no shadow on it. Middle, light from
+     the side: one half bright, one dark, and the ball is round. Right, light
+     from behind, the lamp hidden by the ball and glowing round it: the
+     ball is dark, with a bright rim round its edge, a halo. Flat, no words. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" width="600" height="220">
+  <defs>
+    <radialGradient id="side" cx="0.2" cy="0.5" r="0.9">
+      <stop offset="0" stop-color="#f6c08a"/><stop offset="0.55" stop-color="#e2703a"/><stop offset="1" stop-color="#4a1f10"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="600" height="220" fill="#fff6e9"/>
+  <circle cx="100" cy="110" r="60" fill="#e8834d"/>
+  <circle cx="100" cy="196" r="12" fill="#f0a202"/>
+  <circle cx="300" cy="110" r="60" fill="url(#side)"/>
+  <circle cx="214" cy="110" r="12" fill="#f0a202"/>
+  <circle cx="500" cy="110" r="86" fill="#f0a202" opacity="0.25"/>
+  <circle cx="500" cy="110" r="68" fill="#fff1c8"/>
+  <circle cx="500" cy="110" r="58" fill="#3a1a0e"/>
+</svg>
