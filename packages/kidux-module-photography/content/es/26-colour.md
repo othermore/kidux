@@ -1,5 +1,5 @@
 ---
-source_sha256 = "b5044a983b40d233f00c71b2a1e874525ac15b8188416ce3ad3ace3ce2759722"
+source_sha256 = "6ff46e0a3b827ba7fe27a51f39d07745de77f37e17354d8371f2f1e3cbefa3f1"
 ---
 # El color, y el blanco y negro
 
@@ -59,7 +59,8 @@ las nubes blancas y los edificios destacan contra él.
 ::: camera
 El balance de blancos está en el control en vivo que abre OK: **AUTO**, o
 la luz en la que estás, sol, sombra, nubes, lámpara, fluorescente, cada
-una con su número en **kelvin** (manual, p. 38). El **balance de blancos
+una con su número en **kelvin**: 3000 K para una lámpara, 5300 K para el
+sol, 7500 K para la sombra (manual, p. 38). El **balance de blancos
 de un toque** mide una hoja de papel blanco (manual, p. 39). El modo de
 imagen **Monótono**, también en el control en vivo, hace blanco y negro, y
 su ajuste de **filtro B/N** puede ser amarillo, naranja, rojo o verde

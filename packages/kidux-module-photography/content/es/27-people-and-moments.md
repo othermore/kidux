@@ -1,5 +1,5 @@
 ---
-source_sha256 = "106e77b97dc82cbb1ed9333d388ad34d67e5496e599a9cc0b975b63231ae82ef"
+source_sha256 = "264dce8b4ee67372c205b498623a89be81f32619e300ad0e2450c469950aaccc"
 ---
 # Las personas y los momentos
 
@@ -45,7 +45,8 @@ momento no espera.
 ::: camera
 Pulsa la flecha de **abajo** para el temporizador y los disparos en serie:
 en serie hace unas **5** fotos por segundo, y en el ajuste rápido unas
-**15**, mientras mantienes el botón apretado (manual, p. 27). La
+**15**, mientras mantienes el botón apretado, en S-AF o MF, con el
+enfoque de la primera foto (manual, p. 27). La
 **prioridad a la cara** y la **prioridad al ojo** están en el control en
 vivo (manual, p. 44), y el modo de imagen **Retrato** está pensado para la
 piel (manual, p. 37).

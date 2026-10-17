@@ -44,8 +44,9 @@ Photographers grow by working on one thing for a long time. Pick one:
 
 ::: camera
 The XZ-2 can show the pictures one after another by themselves, as a
-**slideshow**, from the playback menu (manual, p. 32). An adult can mark
-pictures for printing on the card, and print them straight from the
+**slideshow**, from the menu OK opens while it plays them back (manual,
+p. 32). From the same menu an adult can mark pictures for printing on the
+card, and print them straight from the
 camera on a printer that takes it (manual, p. 70 and 72).
 :::
 

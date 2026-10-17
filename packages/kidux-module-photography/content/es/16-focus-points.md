@@ -1,5 +1,5 @@
 ---
-source_sha256 = "d694f28b8a52cd82c67eca6dff92f1674b0415bd7c10a575ec5644264ab33529"
+source_sha256 = "323678f0e30cc939f7c20702f0b7ced7ee7a5f6bef205ba07b5fb4f54af16a0a"
 ---
 # El enfoque: adónde mira la cámara
 
@@ -71,13 +71,15 @@ retrato necesita nítido.
 ::: camera
 Pulsa la flecha **izquierda**, el botón de los puntos de enfoque, para ver
 los puntos: las flechas mueven un punto, e **INFO** elige todos, uno o un
-grupo. Son 35, 7 a lo ancho y 5 a lo alto (manual, p. 26). El bloqueo del
+grupo. Son 35, 7 a lo ancho y 5 a lo alto, o 25 en una cuadrícula más pequeña
+(manual, p. 26). El bloqueo del
 enfoque, hasta la mitad y mantener, está en la p. 14. El punto se puede
 devolver al centro con un botón preparado en los menús (manual, p. 59 y
 65).
 
-En la pantalla táctil, un toque enfoca donde has tocado, o enfoca y hace
-la foto, según esté puesto su icono en la pantalla (manual, p. 33). La
+En la pantalla táctil, un toque pone el cuadradito de enfoque donde has
+tocado, o enfoca ahí y hace la foto; un icono a un lado de la pantalla
+cambia entre las dos cosas, y apagado (manual, p. 33). La
 **prioridad a la cara** y la **prioridad al ojo** se eligen en el control
 en vivo que abre OK (manual, p. 44). A oscuras, una lucecita en la parte
 de delante, la **luz de ayuda AF**, ilumina la escena para que la cámara
@@ -102,8 +104,9 @@ reencuadrar, el toque en la pantalla y la detección de caras y ojos.
 
 El autofoco funciona buscando contraste, y por eso falla con paredes
 lisas, el cielo, el cristal, barrotes delante de lo que se fotografía, el
-movimiento muy rápido y la oscuridad; la lista del propio manual está en
-la p. 80. El remedio es el mismo en todos los casos: enfocar otra cosa que
+movimiento muy rápido y la oscuridad; la lista del propio manual, en la
+p. 80, añade una luz muy fuerte en el centro y lo que no tiene líneas
+verticales. El remedio es el mismo en todos los casos: enfocar otra cosa que
 esté a la misma distancia, mantener el disparador hasta la mitad y
 reencuadrar, o enfocar a mano (capítulo 17).
 :::

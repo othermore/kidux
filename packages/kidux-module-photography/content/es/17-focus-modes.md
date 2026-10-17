@@ -1,5 +1,5 @@
 ---
-source_sha256 = "ecd57cfaf77a8bc0e94eff644ae27e2a73b254a67dec0e93dc31f8585eebfa4a"
+source_sha256 = "fe96479093dfd6220d959719d0dc379fa47fddcc1c45b91c9659fa94e8643c7d"
 ---
 # Los modos de enfoque: una vez, siguiendo, a mano
 
@@ -40,7 +40,7 @@ Enfocar a mano es más lento, pero nunca se equivoca por su cuenta:
 - para algo **muy pequeño** dentro de una foto grande, un pájaro en una
   rama, cuando la cámara se empeña en elegir la rama.
 
-Mientras enfocas a mano, la cámara puede **ampliar** el centro de la foto
+Mientras enfocas a mano, la cámara puede **ampliar** la foto
 en la pantalla, para que veas cuándo está nítida, y te enseña la distancia
 a la que está enfocando.
 
@@ -65,10 +65,11 @@ Pulsa **OK** para el control en vivo y baja hasta la fila del **modo AF**:
 (manual, p. 43).
 
 En MF, mantén **OK** apretado un momento, y después mueve el enfoque con
-el dial secundario o con las flechas de arriba y abajo (manual, p. 43);
-también se puede hacer que enfoquen la palanca del zoom o el anillo de
-control (manual, p. 43 y 59). La **ayuda MF** amplía la foto mientras
-enfocas (manual, p. 59), y la distancia se puede ver en metros o en pies
+el dial secundario o con las flechas de arriba y abajo (manual, p. 43).
+Con la **palanca** del lado del objetivo activada, enfoca en cambio el
+anillo de control (manual, p. 43 y 59). La **ayuda MF**, cuando un adulto
+la activa en los menús, amplía la foto mientras el anillo de control
+enfoca (manual, p. 59), y la distancia se puede ver en metros o en pies
 (manual, p. 64).
 :::
 
@@ -87,8 +88,9 @@ continuo y el seguimiento, para lo que se mueve, sobre todo hacia la
 cámara; y el enfoque manual, para la oscuridad, el cristal, el mismo
 encuadre repetido y las cosas pequeñas entre muchas otras.
 
-Para el deporte y los animales que corren, el C-AF funciona mejor junto a
-los disparos en serie, que hacen fotos mientras se mantiene apretado el
-botón; en la XZ-2 el modo AF está en el control en vivo (manual, p. 43) y
-los disparos en serie se eligen con el temporizador (manual, p. 27).
+Para el deporte y los animales que corren, el C-AF sigue a lo que se
+fotografía en cada foto. En la XZ-2, los disparos en serie, que hacen
+fotos mientras se mantiene apretado el botón, solo funcionan en S-AF y
+MF y conservan el enfoque de la primera foto (manual, p. 27): para alguien
+que corre hacia la cámara, mejor fotos sueltas en C-AF.
 :::

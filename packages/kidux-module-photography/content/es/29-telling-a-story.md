@@ -1,5 +1,5 @@
 ---
-source_sha256 = "a26d2e1669fbeafa28c11252300771205b01dfbd8f8bbf4c2082defb99c9a148"
+source_sha256 = "308c02c2d52049b9a97be76ca904f02865bbb0ac101e6c109c521f2a8f10400e"
 ---
 # Elegir, y contar una historia
 
@@ -48,8 +48,9 @@ Los fotógrafos crecen trabajando mucho tiempo en una cosa. Elige una:
 
 ::: camera
 La XZ-2 puede enseñar las fotos una detrás de otra ella sola, como una
-**presentación**, desde el menú de reproducción (manual, p. 32). Un adulto
-puede marcar fotos para imprimir en la tarjeta, e imprimirlas
+**presentación**, desde el menú que abre OK mientras las reproduce
+(manual, p. 32). Desde el mismo menú un adulto puede marcar fotos para
+imprimir en la tarjeta, e imprimirlas
 directamente desde la cámara en una impresora que lo admita (manual, p. 70
 y 72).
 :::

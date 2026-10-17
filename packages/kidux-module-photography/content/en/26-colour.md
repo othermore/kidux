@@ -53,7 +53,8 @@ blue sky dark, so that white clouds and buildings stand out against it.
 ::: camera
 White balance is in the live control that OK opens: **AUTO**, or the
 light you are in, sun, shade, cloud, lamp, fluorescent light, each with
-its number in **kelvins** (manual, p. 38). **One-touch white balance**
+its number in **kelvins**: 3000 K for a lamp, 5300 K for the sun, 7500 K
+for the shade (manual, p. 38). **One-touch white balance**
 measures a white sheet of paper (manual, p. 39). The picture mode
 **Monotone**, also in the live control, makes black and white, and its
 **B&W filter** setting can be yellow, orange, red or green (manual, p.

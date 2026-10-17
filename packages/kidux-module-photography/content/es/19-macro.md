@@ -1,5 +1,5 @@
 ---
-source_sha256 = "1e02fca9b45d3359a921a730d1c3422f32e90d20b24d0e36fa9b831ff50a24cc"
+source_sha256 = "34cade792fa3c974e4aa91c5a2fa9bbc92606c026c71981ab468b21780fb8a67"
 ---
 # Muy cerca: macro
 
@@ -42,8 +42,9 @@ Hacer fotos así de cerca se llama **macro**.
 ::: camera
 Pulsa **OK** para el control en vivo, baja hasta el modo AF y elige
 **súper macro**: entonces la XZ-2 enfoca desde solo **1 cm** delante del
-objetivo. En súper macro el zoom se queda en el extremo gran angular y no
-se puede usar el flash (manual, p. 43). Sin súper macro, la cámara enfoca
+objetivo, hasta 60 cm (manual, p. 92). En súper macro la cámara pone el
+zoom ella sola, y no se pueden usar ni el zoom ni el flash (manual, p.
+43). Sin súper macro, la cámara enfoca
 desde 5 cm en el extremo gran angular del zoom (manual, p. 92).
 :::
 

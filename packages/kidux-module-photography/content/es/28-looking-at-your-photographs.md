@@ -1,5 +1,5 @@
 ---
-source_sha256 = "5f85d2b23b8a8195e1efdc2edbebd54a8e6cb2f5c79ed23446c939fdaaa54a16"
+source_sha256 = "b87207db96d798de7e1e00bf5a17fb75361db4547ea2217f62bc8a00a299448c"
 ---
 # Mirar tus fotos
 
@@ -60,9 +60,9 @@ El botón de **reproducción**, un triángulo, enseña las fotos; el dial secund
 pasa de una a la siguiente, y la palanca del zoom enseña varias a la vez,
 hacia W, o amplía una, hacia T, hasta 14 veces (manual, p. 11 y 29).
 **INFO** cambia lo que se ve con la foto, hasta todos sus números y el
-histograma (manual, p. 28). El botón de **borrar** borra la foto que se
-ve, después de preguntar (manual, p. 12), y una foto se puede proteger
-para que no se pueda borrar (manual, p. 31). El cable USB conecta la
+histograma (manual, p. 28). La flecha de **abajo** borra la foto que
+se ve, después de preguntar (manual, p. 12), y **Fn1** la protege, para
+que no se pueda borrar (manual, p. 31). El cable USB conecta la
 cámara a un ordenador, que ve su tarjeta como un disco (manual, p. 76).
 :::
 

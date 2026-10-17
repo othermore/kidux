@@ -36,7 +36,7 @@ Focusing by hand is slower, but it never makes a mistake of its own:
 - for something **very small** in a big picture, a bird on a branch,
   where the camera keeps choosing the branch.
 
-While you focus by hand, the camera can **magnify** the middle of the
+While you focus by hand, the camera can **magnify** the
 picture on the screen, so that you can see when it is sharp, and it
 shows the distance it is focused on.
 
@@ -60,10 +60,11 @@ Press **OK** for the live control, and go down to the **AF mode** row:
 hand (manual, p. 43).
 
 In MF, hold **OK** down for a moment, then turn the focus with the sub
-dial or the up and down arrows (manual, p. 43); the zoom lever or the
-control ring can be made to focus too (manual, p. 43 and 59). **MF
-assist** magnifies the picture while you focus (manual, p. 59), and the
-distance can be shown in metres or in feet (manual, p. 64).
+dial or the up and down arrows (manual, p. 43). With the **lever**
+beside the lens switched on, the control ring focuses instead (manual,
+p. 43 and 59). **MF assist**, once an adult switches it on in the menus,
+magnifies the picture while the control ring focuses (manual, p. 59),
+and the distance can be shown in metres or in feet (manual, p. 64).
 :::
 
 ## Keep trying
@@ -80,8 +81,9 @@ with the half-press and suits still subjects; continuous AF and tracking,
 for subjects that move, especially towards the camera; and manual focus,
 for darkness, glass, repeated framing and small subjects in clutter.
 
-For sport and running animals, C-AF works best together with sequential
-shooting, which takes pictures for as long as the button is held; on the
-XZ-2 the AF mode is in the live control (manual, p. 43) and sequential
-shooting is chosen with the self-timer (manual, p. 27).
+For sport and running animals, C-AF keeps up with the subject for each
+picture. On the XZ-2, sequential shooting, which takes pictures for as
+long as the button is held, works only in S-AF and MF and keeps the
+focus of the first picture (manual, p. 27): for a runner coming closer,
+single pictures in C-AF are the better way.
 :::

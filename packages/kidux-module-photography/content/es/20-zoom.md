@@ -1,5 +1,5 @@
 ---
-source_sha256 = "db88b89d2bbcccdc34df2e89a3d160fa7dbc701cdaa120d2d325040af275afc5"
+source_sha256 = "f4f0859940ca46f0fd2db40ad113a4ebcae6e93d89fc8f877542f58ae4aa2d68"
 ---
 # El zoom: cerca y lejos, y lo que les hace a las caras
 
@@ -62,8 +62,8 @@ La **palanca del zoom**, alrededor del disparador, mueve el zoom: hacia
 **W** para gran angular, y hacia **T** para tele (manual, p. 10). El
 objetivo va de 28 a 112 mm, las longitudes que necesitaría una cámara
 grande para la misma vista (manual, p. 92). El **teleconvertidor
-digital** de los menús dobla el zoom recortando la foto, como dice el
-capítulo (manual, p. 65).
+digital**, un zoom digital que solo recorta la foto, como dice el
+capítulo, se le puede dar al botón **Fn1** (manual, p. 65).
 :::
 
 ## Sigue probando

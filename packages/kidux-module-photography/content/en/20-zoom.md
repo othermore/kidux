@@ -53,8 +53,9 @@ nothing sharper. Moving closer is always better, when you can.
 The **zoom lever** round the shutter button zooms: towards **W** for
 wide, and towards **T** for tele (manual, p. 10). The lens goes from 28
 to 112 mm, the lengths a large camera would need for the same view
-(manual, p. 92). The **digital tele-converter** in the menus doubles the
-zoom by cutting the picture, as the chapter says (manual, p. 65).
+(manual, p. 92). The **digital tele-converter**, a digital zoom that only
+cuts the picture, as the chapter says, can be given to the **Fn1** button
+(manual, p. 65).
 :::
 
 ## Keep trying

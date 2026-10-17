@@ -55,9 +55,9 @@ The **playback** button, a triangle, shows the pictures; the sub dial goes
 from one to the next, and the zoom lever shows several at once, towards
 W, or magnifies one, towards T, up to 14 times (manual, p. 11 and 29).
 **INFO** changes what is shown with the picture, as far as all its
-numbers and the histogram (manual, p. 28). The **erase** button deletes
-the picture shown, after asking (manual, p. 12), and a picture can be
-protected so that it cannot be erased (manual, p. 31). The USB cable
+numbers and the histogram (manual, p. 28). The **down** arrow erases the
+picture shown, after asking (manual, p. 12), and **Fn1** protects it, so
+that it cannot be erased (manual, p. 31). The USB cable
 connects the camera to a computer, which sees its card as a disk
 (manual, p. 76).
 :::

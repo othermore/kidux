@@ -42,7 +42,8 @@ moment does not wait.
 ::: camera
 Press the **down** arrow for the self-timer and sequential shooting:
 sequential takes about **5** pictures a second, and the fast setting about
-**15**, while you hold the button down (manual, p. 27). **Face priority**
+**15**, while you hold the button down, in S-AF or MF, with the focus of
+the first picture (manual, p. 27). **Face priority**
 and **eye priority** are in the live control (manual, p. 44), and the
 picture mode **Portrait** is made for skin (manual, p. 37).
 :::

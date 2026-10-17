@@ -39,8 +39,9 @@ pictures that close is called **macro**.
 ::: camera
 Press **OK** for the live control, go down to the AF mode, and choose
 **super macro**: the XZ-2 then focuses from just **1 cm** in front of the
-lens. In super macro the zoom stays at its widest and the flash cannot
-be used (manual, p. 43). Without super macro, the camera focuses from 5
+lens, up to 60 cm (manual, p. 92). In super macro the camera sets the
+zoom itself, and neither the zoom nor the flash can be used (manual, p.
+43). Without super macro, the camera focuses from 5
 cm away at the wide end of the zoom (manual, p. 92).
 :::
 
