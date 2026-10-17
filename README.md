@@ -180,4 +180,5 @@ ScratchJr (BSD-3), Blockly Games (Apache-2.0), wwwBASIC (Apache-2.0),
 GCompris (GPL-3) and Tux Typing (GPL-2). The source of each program Kidux builds, with the changes
 it is built with, is published beside the build. The Photography guide shows
 photographs by other people, under Creative Commons licences or in the
-public domain, each credited where it is shown.
+public domain, each credited where it is shown, and some pictures made by
+a computer, which say so.

@@ -28,7 +28,7 @@ light:
 ## How to work in manual
 
 1. **Measure once.** Point the camera at something middle: grass, a grey
-   jumper, a pavement, the palm of your hand held in the same light. Or
+   jumper, a pavement, in the same light as your picture. Or
    measure a spot on what matters most, as in chapter 10. Read the time
    and aperture the camera would choose, for instance in P.
 2. **Choose what matters.** Set the time for the movement and the aperture

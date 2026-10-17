@@ -36,7 +36,7 @@ nueva.
 3. Pon un juguete en el suelo, y la cámara también en el suelo, justo
    delante, para que la habitación de detrás parezca enorme.
 4. Fotografía la mesa del desayuno desde justo encima, de pie en una
-   silla, con un adulto sujetándola.
+   silla que sujete un adulto.
 :::
 
 ::: camera

@@ -1,5 +1,5 @@
 ---
-source_sha256 = "1adf90af14a8754e7323aa51e9b84af0c10a0b46d202fbbab8f20ea99c18bebc"
+source_sha256 = "81f6a9ecf646c300861858799a30de6a6d66bbc33768a8acccb664d3266c0bcb"
 ---
 # Una caja con un agujero
 
@@ -24,13 +24,13 @@ pared, y la pared enseña la calle: entera, en color y **boca abajo**.
 
 La gente se fijó en esto mucho antes de que nadie pudiera guardar la
 imagen. Un pensador chino llamado Mozi lo dejó escrito hace unos dos
-mil cuatrocientos años. Mil años después, Ibn al-Haytham, en El Cairo,
+mil cuatrocientos años. Mil cuatrocientos años después, Ibn al-Haytham, en El Cairo,
 usó una habitación oscura para estudiar la luz. Los pintores usaban
-habitaciones así para calcar lo que veían. Se le quedó el nombre en
+habitaciones así para calcar lo que veían. Se quedó con el nombre en
 latín: **cámara oscura**, "habitación oscura". De ahí viene la palabra
 *cámara*. Tu cámara es una habitación oscura muy pequeña.
 
-![El primer dibujo impreso de una cámara oscura: un eclipse de sol mirado en la pared de una habitación oscura, 1545](frisius-1545.jpg)
+![El primer dibujo impreso de una cámara oscura: un eclipse de sol visto en la pared de una habitación oscura, 1545](frisius-1545.jpg)
 
 ::: try
 1. Elige una habitación con una ventana y algo que ver: una calle, un
@@ -90,8 +90,8 @@ el experimento que merece la molestia; un niño que ha visto su propia
 calle boca abajo en una sábana entiende las cámaras de otra manera que
 uno que lo ha leído. Hace falta una habitación muy oscura (cinta en los
 bordes del cartón), un día luminoso y paciencia mientras los ojos se
-adaptan. La imagen es tenue porque el agujero es pequeño; ese cambio
-entre claridad y nitidez es justo de lo que tratan el capítulo 2 (la
+adaptan. La imagen es tenue porque el agujero es pequeño; ese tira y
+afloja entre claridad y nitidez es justo de lo que tratan el capítulo 2 (la
 lente) y el capítulo 7 (el diafragma).
 
 El curso nombra la Olympus XZ-2 en recuadros como el de arriba, porque

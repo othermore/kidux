@@ -1,5 +1,5 @@
 ---
-source_sha256 = "1d492de56035cccf2f0dcfd44ee41648783289805bab51170e70cb5f15fcecfb"
+source_sha256 = "da56376eba6fc81e8cc721e8dbc4c4b7b58c1fb822be5702c0091aae25012383"
 ---
 # La luz que se mueve: exposiciones largas
 
@@ -61,15 +61,18 @@ aparte, deja mantenerlo sin tocar la cámara (manual, p. 18).
 En un trípode, desactiva el **estabilizador de imagen** (manual, p. 36).
 Después de una exposición larga, la cámara tarda más o menos otro tanto en
 limpiar el ruido de la foto, y enseña que está ocupada: espérala (manual,
-p. 18 y 61). De día, el **filtro ND** quita tres pasos de luz, para que el
-agua se vuelva seda aunque haga sol (manual, p. 65 y 92). Para los fuegos
+p. 18 y 61). De día, el **filtro ND** quita tres pasos de luz, para que
+un día gris, o a la sombra, el agua se vuelva seda sin esperar a que
+oscurezca (manual, p. 65 y 92). Para los fuegos
 artificiales, SCN tiene una escena propia (manual, p. 20).
 :::
 
 ## Sigue probando
 
 - Una noche despejada, lejos de las luces del pueblo, pide a un adulto que
-  te ayude a apuntar la cámara al cielo unos minutos en BULB.
+  te ayude a apuntar la cámara al cielo en M a 60 segundos, con el
+  temporizador, varias veces seguidas; o, con el cable disparador, unos
+  minutos en BULB.
 - Haz una foto de un tiovivo de feria de noche a 2 segundos.
 - Pide a un amigo que se quede muy quieto en medio de un sitio con mucha
   gente mientras haces una foto de 4 segundos. ¿Quién sale en la foto?

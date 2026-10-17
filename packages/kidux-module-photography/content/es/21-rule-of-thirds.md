@@ -1,10 +1,10 @@
 ---
-source_sha256 = "915ceb23cf2566ff865672c779fa8aa9dca67911ce2a11195d486d67820ccccc"
+source_sha256 = "e97f9bce83143769496568f265ae6f2e44c550a93df8330e7c2a610b9cf3f87a"
 ---
 # Dónde poner las cosas: la regla de los tercios
 
-Este es un truco que los pintores conocían mucho antes de que hubiera
-cámaras. Corta la foto en tres, a lo ancho y a lo alto, con dos líneas en
+Dónde pones las cosas en una foto se llama **composición**, y este es un
+truco suyo que los pintores conocían mucho antes de que hubiera cámaras. Corta la foto en tres, a lo ancho y a lo alto, con dos líneas en
 cada sentido, como un tablero de tres en raya. Al ojo le gusta encontrar
 las cosas **sobre esas líneas**, y sobre todo **donde se cruzan**. Una cosa
 justo en el centro parece que la han dejado ahí sin más; la misma cosa en
@@ -44,12 +44,12 @@ un tercio parece que está en su sitio.
 4. Haz el mar, un campo o la calle con el horizonte en el centro, luego en
    la línea de abajo y luego en la de arriba.
 5. Pide a un amigo que mire hacia la izquierda. Ponlo en el tercio de la
-   derecha, para que mire a través de la foto. Luego en el tercio de la
+   derecha, para que mire hacia dentro de la foto. Luego en el tercio de la
    izquierda, mirando hacia fuera. ¿Cuál queda mejor?
 :::
 
 ::: camera
-La cuadrícula se llama **Cuadrícula mostrada**, en el menú personalizado,
+La cuadrícula se llama **Cuadrícula mostrada** (*Displayed Grid*), en el menú personalizado,
 entre los ajustes de la pantalla (manual, p. 60). También se puede
 cambiar la forma de la foto, **4:3**, **16:9**, **3:2** o **1:1**, un
 cuadrado, en el control en vivo que abre OK (manual, p. 39).
@@ -62,7 +62,7 @@ cuadrado, en el control en vivo que abre OK (manual, p. 39).
 - Haz una foto cuadrada, 1:1, de una flor en el centro. ¿Funciona mejor
   el centro en un cuadrado?
 - Rompe la regla a propósito: una cara justo en el centro, mirándote de
-  frente. ¿Cuándo queda con fuerza?
+  frente. ¿Cuándo tiene fuerza?
 
 ::: adult
 Este capítulo enseña la regla de los tercios: lo importante sobre las

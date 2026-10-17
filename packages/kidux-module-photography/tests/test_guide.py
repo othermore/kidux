@@ -96,7 +96,8 @@ def test_the_guide_s_seven_conventions():
     words = {key: text for key, text in page.WORDS.items()}
     pictures = {"cat.jpg": {"author": "Ana Example", "licence": "CC-BY-SA-4.0"},
                 "dog.jpg": {"author": "generated", "licence": "BUSL-1.1"},
-                "old.jpg": {"author": "Niépce", "licence": "public-domain"}}
+                "old.jpg": {"author": "Niépce", "licence": "public-domain"},
+                "cut.jpg": {"author": "Bo Example", "licence": "CC-BY-2.0", "made": "cropped"}}
     heading, html = page.chapter(
         "# A chapter\n\nWords.\n\n> [point] Look **here**.\n\n"
         "::: try\n1. Hold it.\n2. Press.\n:::\n\n"
@@ -104,7 +105,8 @@ def test_the_guide_s_seven_conventions():
         "::: adult\nFor *you*.\n:::\n\n"
         "![A penguin](mascot.svg)\n\n"
         "![A cat](cat.jpg \"thirds\")\n\n"
-        "::: compare\n![A dog](dog.jpg)\n\n![Old](old.jpg)\n\n![The chick](mascot.svg)\n:::\n",
+        "::: compare\n![A dog](dog.jpg)\n\n![Old](old.jpg)\n\n![The chick](mascot.svg)\n:::\n\n"
+        "![Cut](cut.jpg)\n",
         DRAWINGS, words, pictures)
 
     assert heading == "A chapter"
@@ -120,6 +122,7 @@ def test_the_guide_s_seven_conventions():
     assert '<div class="compare"><figure class="photo">' in html
     assert '<span class="credit">Picture made by a computer</span>' in html
     assert '<span class="credit">Photo: Niépce, public domain</span>' in html
+    assert '<span class="credit">Photo: Bo Example, CC BY 2.0, edited</span>' in html
     assert '<svg role="img" aria-label="The chick"' in html and "<figcaption>The chick</figcaption>" in html
     assert "<p><figure" not in html
 

@@ -16,7 +16,7 @@ mesa. Y en la foto, parece que la farola le sale de la cabeza.
 ## Tres formas de ordenar
 
 - **Muévete.** Tres pasos a la izquierda o a la derecha, y lo de detrás se
-  mueve también, fuera del camino. Casi siempre es la respuesta.
+  mueve también y se quita de en medio. Casi siempre es la respuesta.
 - **Cambia de altura.** Arrodíllate, y el fondo se vuelve cielo. Súbete a
   algo, y se vuelve hierba o suelo.
 - **Acércate.** Llena la foto entera con lo que importa, y no queda sitio
@@ -55,7 +55,7 @@ queda (capítulo 18).
 
 - Haz una foto de tu habitación tal como está. Ordena un rincón, y hazla
   otra vez. ¿Cuál enseñarías?
-- Fotografía un juguete sobre una hoja de papel blanco, doblada hacia
+- Fotografía un juguete sobre una hoja de papel blanco, curvada hacia
   arriba por detrás, para que el fondo desaparezca.
 - Repasa tus fotos: ¿en cuántas le sale una farola o un árbol de la
   cabeza a alguien?

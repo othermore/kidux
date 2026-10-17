@@ -1,5 +1,5 @@
 ---
-source_sha256 = "50811a8ccccc21e9021e98558ead4c87553ca55cc7e34cf5aca1209161688fc0"
+source_sha256 = "54e0d7cac971d23ebe5f4cff0061a0d4a021bf2438f8fb07f7280f50c8346b0a"
 ---
 # El zoom: cerca y lejos, y lo que les hace a las caras
 
@@ -8,7 +8,8 @@ del mundo. Con el zoom alejado, en **gran angular**, cabe una habitación
 grande. Con el zoom acercado, en **tele**, solo ve un trocito, tan grande
 como la foto entera, como si fuera un catalejo.
 
-La posición del zoom se da como una longitud en milímetros: un número
+La posición del zoom, su **distancia focal**, se da como una longitud en
+milímetros: un número
 pequeño es gran angular, y uno grande es largo, o tele.
 
 ## No solo acerca
@@ -16,11 +17,11 @@ pequeño es gran angular, y uno grande es largo, o tele.
 Esta es la sorpresa. Haz una foto de un juguete de cerca con el zoom en
 gran angular, y después échate atrás y acerca el zoom hasta que el
 juguete vuelva a tener el mismo tamaño. El juguete se ve igual; **el fondo
-no**. En gran angular, la casa de detrás sale pequeña y lejana. Con el zoom
-acercado, desde más atrás, la misma casa se echa encima, justo detrás del
+no**. En gran angular, el castillo de detrás sale pequeño y lejano. Con el zoom
+acercado, desde más atrás, el mismo castillo se echa encima, justo detrás del
 juguete.
 
-![Un juguete con una casa detrás. Arriba, de cerca y en gran angular: la casa es una parte pequeña de una vista ancha. Abajo, desde lejos y con el zoom acercado: ocupa la mitad de la vista estrecha](perspective.svg)
+![Un juguete con un castillo detrás. Arriba, de cerca y en gran angular: el castillo es una parte pequeña de una vista ancha. Abajo, desde lejos y con el zoom acercado: ocupa la mitad de la vista estrecha](perspective.svg)
 
 ::: compare
 ![De cerca, con el zoom alejado: el castillo de detrás del caballero, lejos y pequeño](zoom-wide.jpg)
@@ -30,13 +31,13 @@ juguete.
 
 Con las caras pasa lo mismo. Muy de cerca, en gran angular, la nariz está
 mucho más cerca de la cámara que las orejas, así que sale grande, y las
-orejas pequeñas: una cara graciosa. Desde unos metros más atrás, con el
-zoom acercado, la nariz y las orejas están casi a la misma distancia, y la
+orejas pequeñas: una cara graciosa. Desde más atrás, con el zoom
+acercado, la nariz y las orejas están casi a la misma distancia, y la
 cara se ve como es de verdad.
 
 > [think] Para un retrato, échate atrás y acerca el zoom. No le hagas
-> nunca la cara a un amigo con el brazo estirado en gran angular, salvo
-> que quieras que se ría.
+> nunca una foto de la cara a un amigo con el brazo estirado y en gran
+> angular, salvo que quieras que se ría.
 
 ## El zoom que solo recorta
 
@@ -50,8 +51,8 @@ nítido. Acercarse andando siempre es mejor, cuando se puede.
    ventana.
 2. Aleja el zoom del todo, y acércate hasta que su cara llene la foto.
    Hazla.
-3. Échate unos tres metros atrás, acerca el zoom hasta que su cara vuelva
-   a llenar la foto, y hazla.
+3. Acerca el zoom del todo, y échate atrás hasta que su cara vuelva a
+   llenar la foto, a algo más de un metro. Hazla.
 4. Compara las dos narices, y los dos fondos.
 5. Haz lo mismo con un juguete delante de una casa al otro lado de la
    calle.
@@ -62,8 +63,8 @@ La **palanca del zoom**, alrededor del disparador, mueve el zoom: hacia
 **W** para gran angular, y hacia **T** para tele (manual, p. 10). El
 objetivo va de 28 a 112 mm, las longitudes que necesitaría una cámara
 grande para la misma vista (manual, p. 92). El **teleconvertidor
-digital**, un zoom digital que solo recorta la foto, como dice el
-capítulo, se le puede dar al botón **Fn1** (manual, p. 65).
+digital** (*Digital Tele-converter*), un zoom digital que solo recorta la foto, como dice el
+capítulo, se puede poner en el botón **Fn1** (manual, p. 65).
 :::
 
 ## Sigue probando

@@ -66,7 +66,7 @@ manual lo dice con sus propias palabras: un número más pequeño deja el
 fondo más suave, y uno más grande deja más parte de la foto nítida. La
 pantalla enseña la foto con el diafragma más abierto mientras encuadras;
 para ver la profundidad de campo antes de la foto, dale al botón **Fn1**
-el trabajo de **Previsualización** en los menús, y púlsalo: el diafragma
+el trabajo de **Previsualización** (*Preview*) en los menús, y púlsalo: el diafragma
 se cierra hasta el que has elegido, y la pantalla enseña cuánto saldrá
 nítido (manual, p. 65).
 :::
@@ -75,7 +75,7 @@ nítido (manual, p. 65).
 
 - Fotografía la cara de un amigo, de cerca, a F1.8, con un fondo lleno de
   cosas muy por detrás. Y a F8.
-- Busca una valla que se aleja de ti, y enfoca un poste del medio a F1.8.
+- Busca una valla que se aleje de ti, y enfoca un poste del medio a F1.8.
   ¿Dónde empieza el borrón?
 - Haz los discos de las lucecitas tan grandes como puedas. ¿Tienes que
   estar más cerca del juguete, o más lejos?

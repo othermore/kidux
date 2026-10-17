@@ -135,16 +135,14 @@ source = "https://commons.wikimedia.org/wiki/File:Splash_(58544580).jpeg"
 licence = "CC-BY-3.0"
 
 ["dof-small-aperture.jpg"]
-author = "MikeRun"
-source = "https://commons.wikimedia.org/wiki/File:Depth-of-field-comparison-side-by-side-small.png"
+author = "Alex1ruff"
+source = "https://commons.wikimedia.org/wiki/File:Dof_blocks_f22.jpg"
 licence = "CC-BY-SA-4.0"
-made = "the left half of the comparison"
 
 ["dof-wide-aperture.jpg"]
-author = "MikeRun"
-source = "https://commons.wikimedia.org/wiki/File:Depth-of-field-comparison-side-by-side-small.png"
+author = "Alex1ruff"
+source = "https://commons.wikimedia.org/wiki/File:Dof_blocks_f1_4.jpg"
 licence = "CC-BY-SA-4.0"
-made = "the right half of the comparison"
 
 ["bokeh.jpg"]
 author = "Nayuki"

@@ -1,13 +1,14 @@
 ---
-source_sha256 = "5299e705381249926e565d5a1803a94f214427a4255c78a125152a4249a79804"
+source_sha256 = "546b65c317ecf07879e04bc71bbd24269711553f44b9279f2298f23aaeba18fd"
 ---
 # Las palabras de la fotografía
 
-Todas las palabras de la guía que usa un fotógrafo, por orden alfabético,
+Las palabras principales de la guía que usa un fotógrafo, por orden
+alfabético,
 con el capítulo en el que se enseñan.
 
 - **Autofoco**: la cámara enfocando sola, en lo que hay debajo de su
-  cuadradito. Capítulo 16.
+  cuadradito. Capítulos 16 y 17.
 - **Balance de blancos**: decirle a la cámara qué blanco es blanco, para
   que los colores salgan bien con cualquier luz. Capítulo 26.
 - **Bokeh**: los discos suaves en que se convierten los puntos de luz
@@ -31,7 +32,7 @@ con el capítulo en el que se enseñan.
   de día. Capítulo 15.
 - **Gran angular**: el zoom en lo más corto, que abarca una vista ancha.
   Capítulo 20.
-- **Histograma**: una colina que enseña cuántas partes oscuras y cuántas
+- **Histograma**: una montaña que enseña cuántas partes oscuras y cuántas
   claras tiene una foto. Capítulo 5.
 - **Hora dorada**: la hora después de salir el sol y antes de ponerse, con
   una luz baja, cálida y suave. Capítulo 25.

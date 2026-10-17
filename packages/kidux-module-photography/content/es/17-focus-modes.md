@@ -1,5 +1,5 @@
 ---
-source_sha256 = "c729969cd4bc509913b24af61dabd2eb980297cea8028a72d00b4d10715b3d0d"
+source_sha256 = "daeed561ca82cfdff55463abd6c7cb9835c3ac2db7c9d573a415eed855e8184b"
 ---
 # Los modos de enfoque: una vez, siguiendo, a mano
 
@@ -53,9 +53,10 @@ a la que está enfocando.
 ![Enfocando a mano: la foto ampliada, y abajo la distancia enfocada](screen-mf.svg)
 
 ::: try
-1. Pide a un amigo que camine despacio hacia la cámara desde lejos.
-2. En **S-AF**, aprieta hasta la mitad cuando esté lejos, mantenlo, y
-   aprieta hasta el fondo cuando esté cerca. ¿Sale nítido?
+1. Pon la cámara en **A** a **F1.8**, y acerca el zoom del todo.
+2. Pide a un amigo que camine despacio hacia la cámara desde diez pasos.
+   En **S-AF**, aprieta hasta la mitad cuando esté lejos, mantenlo, y
+   aprieta hasta el fondo cuando esté a dos pasos. ¿Sale nítido?
 3. En **C-AF**, haz lo mismo. ¿Sale nítido ahora?
 4. Ata un juguete a una cuerda y tira de él por el suelo en **C-AF+TR**.
    ¿Lo sigue el cuadradito?
@@ -73,7 +74,7 @@ Pulsa **OK** para el control en vivo y baja hasta la fila del **modo AF**:
 En MF, mantén **OK** apretado un momento, y después mueve el enfoque con
 el dial secundario o con las flechas de arriba y abajo (manual, p. 43).
 Con la **palanca** del lado del objetivo activada, enfoca en cambio el
-anillo de control (manual, p. 43 y 59). La **ayuda MF**, cuando un adulto
+anillo de control (manual, p. 43 y 59). La **ayuda MF** (*MF Assist*), cuando un adulto
 la activa en los menús, amplía la foto mientras el anillo de control
 enfoca (manual, p. 59), y la distancia se puede ver en metros o en pies
 (manual, p. 64).

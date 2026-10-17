@@ -13,7 +13,7 @@ Cada uno va por escalones, y cada escalón es un **paso**: el doble de luz,
 o la mitad. Un escalón más largo de tiempo, de 1/125 a 1/60, es un paso. Un
 escalón más abierto de diafragma, de F5.6 a F4, es un paso. Un escalón más
 de ISO, de 200 a 400, es un paso. Ese es el secreto que hace que todo
-encaje: un paso es un paso, venga de cuál de los tres venga.
+encaje: un paso es un paso, venga del que venga de los tres.
 
 ![La exposición como un balancín: a un lado, la luz que necesita la foto; al otro, el tiempo, el diafragma y el ISO](exposure-seesaw.svg)
 

@@ -8,7 +8,7 @@ del día**, y viene de un **lado**.
 
 ## La hora
 
-- **Una hora después de salir el sol y antes de ponerse**, el sol está
+- **La hora después de salir el sol y la hora antes de ponerse**, el sol está
   bajo, y su luz es cálida, dorada y suave, con sombras largas. Los
   fotógrafos la llaman la **hora dorada**, y muchos esperan todo el día a
   que llegue.
@@ -26,7 +26,7 @@ del día**, y viene de un **lado**.
 
 ## El lado
 
-De dónde viene la luz, comparado con la cámara, cambia la forma de todo.
+De qué lado viene la luz, respecto a la cámara, cambia la forma de todo.
 
 ![Una pelota iluminada de frente, plana; de lado, redonda; desde detrás, oscura con un borde brillante](light-sides.svg)
 
@@ -53,8 +53,9 @@ De dónde viene la luz, comparado con la cámara, cambia la forma de todo.
 > cámara.
 
 ::: try
-1. Sienta a un amigo junto a una ventana. Hazle la cara con la ventana
-   detrás de ti, luego a su lado, y luego detrás de él.
+1. Sienta a un amigo junto a una ventana. Hazle una foto de la cara con
+   la ventana detrás de ti, luego con la ventana a su lado, y luego detrás
+   de él.
 2. Haz el mismo rincón del jardín o de la calle a mediodía, y otra vez una
    hora antes de ponerse el sol.
 3. Pide a un amigo que se ponga contra la puesta de sol. Gira el +/− a

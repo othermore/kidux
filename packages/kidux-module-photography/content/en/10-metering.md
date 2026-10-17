@@ -89,8 +89,9 @@ turn the exposure compensation to + (manual, p. 81).
 
 ## Keep trying
 
-- Measure the moon at night with the spot. Then with the whole picture.
-  Which moon is a white disc, and which a white blob?
+- Zoom all the way in, measure the moon with the spot and turn the +/− to
+  **−2**. Then measure with the whole picture, at 0. Which moon shows its
+  grey seas, and which is a white blob?
 - Take a picture of a white cat or a white car with ESP, at 0 and at +1.
 - In a theatre or a school play, with the stage lit and the hall dark, try
   spot on the actor's face.

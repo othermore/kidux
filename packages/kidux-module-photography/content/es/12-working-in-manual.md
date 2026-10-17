@@ -1,5 +1,5 @@
 ---
-source_sha256 = "1c93cc692c5460b581602996d35276edecd6ec65379dc92e9a8a25124f42f889"
+source_sha256 = "c7117bd2dc0fb191bae6e7251df37de89e0ebdb98ef96604b762d32749f68d24"
 ---
 # Trabajar en manual
 
@@ -31,7 +31,7 @@ junto a una ventana. Con luz estable:
 ## Cómo se trabaja en manual
 
 1. **Mide una vez.** Apunta la cámara a algo intermedio: hierba, un jersey
-   gris, una acera, la palma de tu mano puesta en la misma luz. O mide un
+   gris, una acera, con la misma luz que tu foto. O mide un
    puntito sobre lo que más importa, como en el capítulo 10. Lee el tiempo
    y el diafragma que elegiría la cámara, por ejemplo en P.
 2. **Elige lo que importa.** Pon el tiempo para el movimiento y el

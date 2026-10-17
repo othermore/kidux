@@ -9,7 +9,7 @@ momento no espera.
 
 ## Espéralo, y luego haz muchas
 
-- **Está listo antes de que pase.** La cámara encendida, los ajustes
+- **Prepárate antes de que pase.** La cámara encendida, los ajustes
   hechos, enfocado, encuadrado, el disparador hasta la mitad. Y espera.
 - **Haz varias, una detrás de otra.** Una persona parpadea, se gira, se
   ríe. De cinco fotos seguidas, una es la buena. Las cámaras pueden hacer
@@ -31,7 +31,7 @@ momento no espera.
 ![Un retrato: los ojos nítidos, en el tercio de arriba](portrait-eyes.jpg "thirds")
 
 > [think] Pregunta antes de hacerle una foto a alguien, y para cuando te
-> lo pida. Ninguna foto vale que alguien se ponga triste.
+> lo pida. Ninguna foto vale tanto como para poner triste a alguien.
 
 ::: try
 1. Pide a un amigo que te cuente un chiste. Mantén el botón apretado y haz

@@ -49,7 +49,7 @@ manual with you.
 ::: try
 1. Ask an adult to help you charge the battery and put it and the memory
    card in the camera.
-2. Find the five things in the drawing on your own camera: the lens, the
+2. Find these five things on your own camera: the lens, the
    screen, the shutter button, the dial with letters and the card's door.
 3. Switch the camera on. Set the dial to AUTO, the fully automatic mode.
 4. Point the camera at something you like, press the shutter button all

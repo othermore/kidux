@@ -21,8 +21,9 @@ histogram (chapter 5) beside it.
 
 That is how you learn from a picture that went wrong:
 
-- **Blurred?** Look at the time. 1/8 or longer, held in the hand, is
-  camera shake (chapter 4); a fast thing at 1/60 is movement (chapter 6).
+- **Blurred?** Is everything blurred, even the wall? That is camera shake
+  (chapter 4): look at the time, 1/30 or longer in the hand. Is only the
+  moving thing blurred, and the rest sharp? That is movement (chapter 6).
 - **Grainy?** Look at the ISO (chapter 8).
 - **Too dark or too bright?** Look at the histogram, and at the +/−
   (chapter 5).

@@ -6,7 +6,7 @@ source_sha256 = "51272033b9fd86003409a7e0ee99ac32d57586eeb7d34e3d2fca46f42154707
 En una habitación a oscuras, con el obturador abierto diez segundos, la
 cámara no ve nada de nada, salvo luz. Enciende una linterna, apúntala a la
 cámara y muévela por el aire: la linterna **dibuja una raya** en la foto,
-por todas partes por donde pasó. Tú, que la sujetas a oscuras, no sales en
+por todos los sitios por donde ha pasado. Tú, que la sujetas a oscuras, no sales en
 la foto, porque nunca estuviste iluminado. Esto se llama **pintar con luz**.
 
 ![Un círculo dibujado en la oscuridad con una luz, con el obturador abierto todo el rato](light-painting-circle.jpg)
@@ -60,7 +60,7 @@ las flechas. El temporizador te da 12 segundos para ponerte en tu sitio
 
 - Usa linternas de dos colores, o pon un papel de caramelo delante de la
   linterna.
-- Dibuja un marco alrededor de un amigo que está quieto, e ilumínale la
+- Dibuja un marco alrededor de un amigo que esté quieto, e ilumínale la
   cara con la linterna un segundo.
 - Deja la habitación más oscura, y la foto más larga: 20 segundos, 30.
 

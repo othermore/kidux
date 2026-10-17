@@ -59,14 +59,16 @@ On a tripod, switch the **image stabilizer** off (manual, p. 36). After a
 long exposure the camera takes about as long again to clean the picture's
 noise, and shows that it is busy: wait for it (manual, p. 18 and 61). In
 daylight, the **ND filter** takes away three stops of light, so that
-water can turn to silk even in the sun (manual, p. 65 and 92). For
+on a grey day, or in the shade, water can turn to silk without waiting for
+the dark (manual, p. 65 and 92). For
 fireworks, SCN has a scene of its own (manual, p. 20).
 :::
 
 ## Keep trying
 
 - On a clear night far from town lights, ask an adult to help you point
-  the camera at the sky for a few minutes in BULB.
+  the camera at the sky in M at 60 seconds, with the self-timer, several
+  times in a row; or, with the remote cable, for a few minutes in BULB.
 - Take a picture of a fairground roundabout at night at 2 seconds.
 - Ask a friend to stand very still in the middle of a busy place while you
   take 4 seconds. Who is in the picture?

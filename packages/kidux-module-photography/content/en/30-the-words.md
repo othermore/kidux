@@ -1,12 +1,14 @@
 # The words of photography
 
-Every word of the guide that a photographer uses, in the order of the
-alphabet, with the chapter it is taught in.
+The main words of the guide that a photographer uses, in the order of
+the alphabet, with the chapter it is taught in.
 
 - **Aperture**: the hole in the lens that the blades make bigger or
   smaller, written as an f-number. Chapter 7.
 - **Autofocus**: the camera focusing by itself, on what is under its
-  square. Chapter 16.
+  square. Chapters 16 and 17.
+- **Back light**: light that comes from behind what you photograph.
+  Chapter 25.
 - **Bokeh**: the soft discs that points of light become, out of focus.
   Chapter 18.
 - **Bulb**: a time as long as you hold the button down. Chapter 13.
@@ -28,7 +30,7 @@ alphabet, with the chapter it is taught in.
 - **Focus**: choosing which distance is sharp. Chapters 2 and 16.
 - **Golden hour**: the hour after sunrise and before sunset, with low,
   warm, soft light. Chapter 25.
-- **Histogram**: a hill showing how many dark and how many bright parts a
+- **Histogram**: a mountain showing how many dark and how many bright parts a
   picture has. Chapter 5.
 - **ISO**: how much the camera turns up the light it caught. Chapter 8.
 - **Lens**: the glass that bends light to make a sharp picture.
@@ -50,7 +52,7 @@ alphabet, with the chapter it is taught in.
   Chapter 6.
 - **Silhouette**: a black shape against a bright background. Chapter 25.
 - **Stop**: twice as much light, or half as much. Chapter 5.
-- **Telephoto**: the zoom at its longest, seeing a small piece of the
+- **Telephoto**, or tele: the zoom at its longest, seeing a small piece of the
   world. Chapter 20.
 - **Tripod**: a stand with three legs that holds the camera still.
   Chapter 4.

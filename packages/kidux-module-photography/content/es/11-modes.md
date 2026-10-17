@@ -20,7 +20,7 @@ una respuesta distinta.
 - **P**, programa: la cámara elige la pareja de tiempo y diafragma, y tú
   puedes desplazarla (capítulo 9), y elegir el ISO, el flash y el +/−.
 - **A**, prioridad al diafragma: **tú eliges el diafragma**, cuánto sale
-  nítido, y la cámara elige el tiempo para que salga bastante clara. En
+  nítido, y la cámara elige el tiempo para que salga con la luz justa. En
   algunas cámaras se llama **Av**.
 - **S**, prioridad a la velocidad: **tú eliges el tiempo**, congelar o
   emborronar, y la cámara elige el diafragma. En algunas cámaras se llama

@@ -1,5 +1,5 @@
 ---
-source_sha256 = "1adaf1c1d57944fefb200c4fc1c37eb7a948a7d0fb904fa7846171af8ba9b4ff"
+source_sha256 = "4c8a9092282f90c87586e06010e37b93e6b871a4a9cba68605f69ab92458938e"
 ---
 # Para qué sirve una lente
 
@@ -39,8 +39,8 @@ vez tu dedo: ¿notas el pequeño cambio? Es tu ojo enfocando.
 ::: try
 1. Busca una lupa, una hoja de papel blanco y una habitación con una
    ventana luminosa. Apaga las luces de la habitación.
-2. Ponte de espaldas a la pared de un lado, con la ventana a un lado de ti
-   y el papel al otro. Sujeta el papel de forma que mire hacia la ventana.
+2. Ponte de espaldas a una pared, con la ventana a un lado y el papel al
+   otro. Sujeta el papel de forma que mire hacia la ventana.
 3. Sujeta la lupa entre la ventana y el papel, a un palmo y medio del
    papel.
 4. Acerca y aleja la lupa del papel despacio, hasta que la ventana aparezca
@@ -77,8 +77,9 @@ con un paño suave para lentes (manual, p. 82).
 
 ## Sigue probando
 
-- Usa la lupa un día de sol, dentro de casa: apúntala a la ventana y pon el
-  papel en la pared del fondo. ¿Qué tamaño tiene ahora la ventana nítida?
+- Un día de sol, dentro de casa, sujeta la lupa a palmo y medio del cristal
+  de la ventana, y pon el papel en la pared del fondo. Mueve un poco la lupa
+  hasta que el marco de la ventana salga nítido. ¿Qué tamaño tiene ahora?
 - Mira por la lupa un árbol lejano, con el brazo estirado. Allí también
   sale boca abajo. Acerca la lupa despacio a tu ojo: ¿cuándo se pone del
   derecho?

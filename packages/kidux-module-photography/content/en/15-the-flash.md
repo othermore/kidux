@@ -1,7 +1,7 @@
 # The flash: light that freezes
 
-A camera's flash is a burst of light so short, much less than a
-thousandth of a second, that whatever it lights is **frozen**, even when
+A camera's flash is a burst of light so short, a thousandth of a
+second or less, that whatever it lights is **frozen**, even when
 the shutter is open much longer. Water splashing into a glass, too fast
 for any eye, stops in the air, every drop sharp.
 
@@ -66,8 +66,9 @@ anyone's face (manual, p. 94).
   flash.
 - Take a picture with the flash of something shiny, a window or a mirror.
   What does the flash do?
-- Hold a white sheet of paper above the flash so that its light bounces
-  off the ceiling. Are the shadows softer?
+- Hold a white sheet of paper in front of the flash, leaning back like a
+  slide, so that its light is thrown up at the ceiling. In a room with a
+  white ceiling, are the shadows softer?
 
 ::: adult
 This chapter covers the flash's short duration, which freezes motion; its

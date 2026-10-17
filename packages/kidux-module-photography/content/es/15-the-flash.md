@@ -1,10 +1,10 @@
 ---
-source_sha256 = "36152c0e61012d816da465f55fdd689ddb119cbdc1150cd89ee0faf96db321a1"
+source_sha256 = "1cb3808f7fb2d74ca021efd8b486bddd1070d7c75289515319cb944a1da49ce9"
 ---
 # El flash: la luz que congela
 
-El flash de una cámara es un fogonazo de luz tan corto, mucho menos de una
-milésima de segundo, que lo que ilumina sale **congelado**, aunque el
+El flash de una cámara es un fogonazo de luz tan corto, una milésima de
+segundo o menos, que lo que ilumina sale **congelado**, aunque el
 obturador esté abierto mucho más rato. El agua que salpica en un vaso,
 demasiado deprisa para cualquier ojo, se para en el aire, con cada gota
 nítida.
@@ -49,7 +49,7 @@ detrás, nítida donde acabó, y parece que iba lanzada hacia delante.
 3. En la calle, con el sol detrás de un amigo, haz una foto sin flash y
    otra con flash de relleno.
 4. En una habitación con poca luz, pon un tiempo de **1 segundo** con el
-   flash, y pide a un amigo que cruce con una linterna en la mano. Prueba
+   flash, y pide a un amigo que pase por delante con una linterna en la mano. Prueba
    el flash al principio y al final.
 :::
 
@@ -59,7 +59,7 @@ la **derecha**, que tiene un rayo, para elegir cómo salta: **AUTO**, en la
 oscuridad o a contraluz; **reducción de ojos rojos**, que destella unas
 cuantas veces antes; **de relleno**, siempre; **apagado**; y
 **sincronización lenta**, que mantiene un tiempo largo para iluminar
-también el fondo (manual, p. 24). No todos los modos tienen todos: la
+también el fondo (manual, p. 24). No todos los modos tienen todas las opciones: la
 sincronización lenta está en P y en A (manual, p. 25).
 
 **# Sync**, en el segundo menú de disparo, hace saltar el flash al
@@ -75,8 +75,9 @@ un metro de la cara de cualquiera (manual, p. 94).
   flash y sin flash.
 - Haz una foto con flash de algo que brilla, una ventana o un espejo. ¿Qué
   hace el flash?
-- Sujeta una hoja de papel blanco encima del flash para que su luz rebote
-  en el techo. ¿Salen más suaves las sombras?
+- Sujeta una hoja de papel blanco delante del flash, inclinada hacia atrás
+  como un tobogán, para que su luz salga hacia el techo. En una habitación
+  con el techo blanco, ¿salen más suaves las sombras?
 
 ::: adult
 Este capítulo trata de la brevedad del flash, que congela el movimiento; de

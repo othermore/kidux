@@ -1,5 +1,5 @@
 ---
-source_sha256 = "b87207db96d798de7e1e00bf5a17fb75361db4547ea2217f62bc8a00a299448c"
+source_sha256 = "1ac26ddf7b5e85128e50b78d40514a7ad365d97ce9f5762b5f2ca5d28d0c9c7f"
 ---
 # Mirar tus fotos
 
@@ -24,8 +24,9 @@ el +/−. La cámara te los puede enseñar, con el histograma de la foto
 
 Así se aprende de una foto que salió mal:
 
-- **¿Movida?** Mira el tiempo. 1/8 o más, con la cámara en la mano, es que
-  tembló la cámara (capítulo 4); una cosa rápida a 1/60 es movimiento
+- **¿Movida?** ¿Está todo movido, hasta la pared? Es que tembló la cámara
+  (capítulo 4): mira el tiempo, 1/30 o más tiempo con la cámara en la mano.
+  ¿Solo está movida la cosa que se movía, y el resto nítido? Es movimiento
   (capítulo 6).
 - **¿Con grano?** Mira el ISO (capítulo 8).
 - **¿Demasiado oscura o demasiado clara?** Mira el histograma, y el +/−

@@ -62,8 +62,8 @@ la luz en la que estás, sol, sombra, nubes, lámpara, fluorescente, cada
 una con su número en **kelvin**: 3000 K para una lámpara, 5300 K para el
 sol, 7500 K para la sombra (manual, p. 38). El **balance de blancos
 de un toque** mide una hoja de papel blanco (manual, p. 39). El modo de
-imagen **Monótono**, también en el control en vivo, hace blanco y negro, y
-su ajuste de **filtro B/N** puede ser amarillo, naranja, rojo o verde
+imagen **Monótono** (*Monotone*), también en el control en vivo, hace blanco y negro, y
+su ajuste de **filtro B/N** (*B&W Filter*) puede ser amarillo, naranja, rojo o verde
 (manual, p. 37 y 50). La posición **ART** del dial de modos tiene los
 filtros artísticos (manual, p. 19).
 :::

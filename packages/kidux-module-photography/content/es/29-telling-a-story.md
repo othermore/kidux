@@ -48,9 +48,9 @@ Los fotógrafos crecen trabajando mucho tiempo en una cosa. Elige una:
 
 ::: camera
 La XZ-2 puede enseñar las fotos una detrás de otra ella sola, como una
-**presentación**, desde el menú que abre OK mientras las reproduce
-(manual, p. 32). Desde el mismo menú un adulto puede marcar fotos para
-imprimir en la tarjeta, e imprimirlas
+**presentación** (*Slideshow*), desde el menú que abre OK mientras las reproduce
+(manual, p. 32). Desde el mismo menú un adulto puede marcar en la tarjeta las
+fotos que se quieren imprimir, e imprimirlas
 directamente desde la cámara en una impresora que lo admita (manual, p. 70
 y 72).
 :::
@@ -67,6 +67,6 @@ Este capítulo trata de editar y ordenar: elegir una foto entre muchas,
 contar una historia en una serie corta, y los proyectos largos, que son
 como un niño sigue fotografiando cuando el curso se acaba.
 
-Imprimir una foto al mes, y ponerla donde la familia la vea, es el mejor
-ánimo que hay.
+Imprimir una foto al mes, y ponerla donde la familia la vea, es la mejor
+manera que hay de animarle.
 :::

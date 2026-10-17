@@ -5,7 +5,7 @@ source_sha256 = "216abde1b5e92ac46b308d34b03f30b22b61b08d9961c7d4b73c48ebe275d78
 
 Una foto es como un cubo que se llena de luz mientras el obturador está
 abierto. Poca luz, y la foto sale **oscura**: decimos que está
-**subexpuesta**. Demasiada, y sale **lavada**, con las partes claras
+**subexpuesta**. Demasiada, y sale **quemada**, con las partes claras
 convertidas en blanco liso: está **sobreexpuesta**. La justa, y está **bien
 expuesta**. Conseguir que entre en el cubo la cantidad justa de luz se
 llama **exposición**, y los capítulos siguientes tratan de ella.
@@ -15,12 +15,12 @@ llama **exposición**, y los capítulos siguientes tratan de ella.
 
 ![La justa](exposure-0.jpg)
 
-![Dos pasos de más: lavada](exposure-plus2.jpg)
+![Dos pasos de más: quemada](exposure-plus2.jpg)
 :::
 
 Casi siempre la cámara calcula la cantidad por ti. Mira lo luminosa que es
-la escena y elige. Pero se la puede engañar, y se la engaña de una manera
-que se puede adivinar, que es de lo que trata el capítulo 10: la nieve sale
+la escena y elige. Pero se la puede engañar, y siempre se equivoca de la
+misma manera, de lo que trata el capítulo 10: la nieve sale
 grisácea, un gato negro sale grisáceo, y un amigo con una ventana luminosa
 detrás sale oscuro.
 
@@ -49,7 +49,7 @@ forma de esos montones.
 
 ::: try
 1. Pon un juguete en una mesa junto a una ventana.
-2. Hazle una foto como la elija la cámara.
+2. Hazle una foto dejando que la cámara lo elija todo.
 3. Gira la compensación de la exposición a **+2** y haz otra. Luego a
    **−2**, y otra. Luego vuelve a **0**.
 4. Llena toda la foto con una hoja de papel blanco y haz una. Ahora llénala

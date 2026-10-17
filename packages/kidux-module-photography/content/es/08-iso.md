@@ -1,5 +1,5 @@
 ---
-source_sha256 = "60c8700a19940c516a16e1f0dae7a1110f427f137425dbeb577dd08f29da96fe"
+source_sha256 = "f369c305afab1b68e34af52d6a44b846535581845becea39f4bbe06e3d7c19eb"
 ---
 # ISO: cuánto se esfuerza la cámara en escuchar
 
@@ -18,7 +18,7 @@ una radio que suena bajito. Cuánto lo sube se llama **ISO**.
 - **ISO 6400**, **12800**: subido todo lo que da. La cámara ve en la
   oscuridad, pero la foto sale llena de grano.
 
-Ese grano se llama **ruido**, y es igual que el zumbido de una radio con el
+Ese grano se llama **ruido**, y es igual que el siseo de una radio con el
 volumen demasiado alto: motitas diminutas del brillo y del color
 equivocados, por todas partes, y peor en las zonas oscuras. Aquí están las
 mismas figuritas de arcilla, fotografiadas a ISO 200 y a ISO 6400, las
@@ -66,9 +66,9 @@ grano también se lleva un poco de detalle.
 
 ## Sigue probando
 
-- Haz la misma foto en la calle, al sol, a ISO 100 y a ISO 3200. ¿Ves la
-  diferencia? Hay mucha menos, porque había luz de sobra para cada
-  cuadradito.
+- Haz la misma foto en la calle, un día gris, a ISO 100 y a ISO 3200, y
+  amplía una sombra. El grano está también en la calle: la cámara dejó
+  entrar menos luz para compensar lo que subió. El ISO nunca sale gratis.
 - Busca el sitio más oscuro del que puedas hacer una foto sin flash. ¿Qué
   ISO necesitaste?
 - De noche, mira la calle por una ventana y hazle una foto a ISO 6400.

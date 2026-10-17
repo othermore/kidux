@@ -185,4 +185,4 @@ wwwBASIC (Apache-2.0), GCompris (GPL-3) y Tux Typing (GPL-2). El código fuente 
 que Kidux compila, con los cambios con que se compila, se publica junto a la
 compilación. La guía de Fotografía enseña fotos de otras personas, con
 licencias Creative Commons o de dominio público, cada una con su autor
-donde se enseña.
+donde se enseña, y algunas imágenes hechas por un ordenador, que lo dicen.

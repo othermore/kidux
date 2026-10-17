@@ -49,9 +49,10 @@ shows the distance it is focused on.
 ![Focusing by hand: the picture magnified, and the distance focused on at the bottom](screen-mf.svg)
 
 ::: try
-1. Ask a friend to walk slowly towards the camera from far away.
-2. In **S-AF**, press half-way when they are far, hold it, and press the
-   rest of the way when they are close. Are they sharp?
+1. Set the camera to **A** at **F1.8**, and zoom all the way in.
+2. Ask a friend to walk slowly towards the camera from ten steps away. In
+   **S-AF**, press half-way when they are far, hold it, and press the rest
+   of the way when they are two steps away. Are they sharp?
 3. In **C-AF**, do the same. Are they sharp now?
 4. Tie a toy to a string, and pull it across the floor in **C-AF+TR**.
    Does the square follow it?

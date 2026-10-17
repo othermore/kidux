@@ -79,10 +79,10 @@ devolver al centro con un botón preparado en los menús (manual, p. 59 y
 
 En la pantalla táctil, un toque pone el cuadradito de enfoque donde has
 tocado, o enfoca ahí y hace la foto; un icono a un lado de la pantalla
-cambia entre las dos cosas, y apagado (manual, p. 33). La
+cambia entre las dos cosas, o lo apaga (manual, p. 33). La
 **prioridad a la cara** y la **prioridad al ojo** se eligen en el control
 en vivo que abre OK (manual, p. 44). A oscuras, una lucecita en la parte
-de delante, la **luz de ayuda AF**, ilumina la escena para que la cámara
+de delante, la **luz de ayuda AF** (*AF Illuminat.*), ilumina la escena para que la cámara
 pueda enfocar (manual, p. 59).
 :::
 

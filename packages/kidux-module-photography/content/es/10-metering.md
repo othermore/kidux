@@ -1,5 +1,5 @@
 ---
-source_sha256 = "268aa669a35ea76d9e0b9a2dab1456d2d5d3ddce54c6f25200cf40896dac7ee3"
+source_sha256 = "b59f77dd817279dfa4173c8f2d01e81cc9afe3113a6a42e6d34ffbd2e3533e11"
 ---
 # Cómo mide la luz la cámara
 
@@ -12,8 +12,8 @@ ni oscuro ni claro.
 
 Para un jardín, una calle o una cara, eso va perfecto: la mayoría de las
 escenas, todo mezclado, salen más o menos gris medio. Pero apunta la cámara
-a la nieve, y la cámara deja la nieve gris medio: una nieve apagada, con
-pinta de sucia. Apúntala a un gato negro, y también deja el gato gris.
+a la nieve, y la cámara pone la nieve de un gris medio: una nieve apagada, con
+pinta de sucia. Apúntala a un gato negro, y también pone gris el gato.
 
 ::: compare
 ![La nieve como la midió la cámara: gris](snow-grey.jpg)
@@ -29,9 +29,9 @@ pinta de sucia. Apúntala a un gato negro, y también deja el gato gris.
 
 A la cámara se le puede decir *dónde* medir.
 
-![Toda la foto, pesada con astucia; el centro más que los bordes; un solo puntito](metering-patterns.svg)
+![Toda la foto, mirada con cabeza; el centro más que los bordes; un solo puntito](metering-patterns.svg)
 
-- **Toda la foto, pesada con astucia.** La cámara corta la foto en trozos,
+- **Toda la foto, mirada con cabeza.** La cámara corta la foto en trozos,
   mide cada uno y los compara con miles de fotos que conoce. Acierta casi
   siempre, y es la que conviene dejar puesta.
 - **El centro más que los bordes.** La forma antigua y sencilla: todo
@@ -74,8 +74,8 @@ tener que mantenerlo apretado.
 
 ::: camera
 Pulsa **OK** para el control en vivo y baja hasta la fila de la medición
-(manual, p. 35 y 42). Sus cinco opciones son: **ESP**, toda la foto pesada
-con astucia, la de casi todas las fotos; **ponderada al centro**;
+(manual, p. 35 y 42). Sus cinco opciones son: **ESP**, toda la foto mirada
+con cabeza, la de casi todas las fotos; **ponderada al centro**;
 **puntual**; **puntual HI**, un puntito que mantiene clara una cosa clara;
 y **puntual SH**, un puntito que mantiene oscura una cosa oscura (manual,
 p. 42).
@@ -93,8 +93,9 @@ que se suba la compensación de la exposición hacia + (manual, p. 81).
 
 ## Sigue probando
 
-- Mide la luna de noche con el puntito. Luego con toda la foto. ¿Cuál de
-  las lunas es un disco blanco, y cuál una mancha blanca?
+- Acerca el zoom del todo, mide la luna con el puntito y gira el +/− a
+  **−2**. Luego mide con toda la foto, en 0. ¿Cuál de las lunas enseña sus
+  manchas grises, y cuál es una mancha blanca?
 - Haz una foto de un gato blanco o de un coche blanco con ESP, en 0 y en
   +1.
 - En un teatro o en una función del cole, con el escenario iluminado y la

@@ -21,7 +21,7 @@ point on the wall, and the wall shows the street: whole, in colour, and
 
 People noticed this long before anyone could keep the picture. A
 Chinese thinker called Mozi wrote it down about two thousand four
-hundred years ago. A thousand years later, Ibn al-Haytham in Cairo used
+hundred years ago. Fourteen hundred years later, Ibn al-Haytham in Cairo used
 a dark room to study light. Painters used such rooms to trace what they
 saw. The Latin name stuck: **camera obscura**, "dark room". That is
 where the word *camera* comes from. Your camera is a very small dark

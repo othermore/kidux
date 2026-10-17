@@ -61,9 +61,10 @@ also wipes away a little detail.
 
 ## Keep trying
 
-- Take the same picture outdoors in the sun at ISO 100 and at ISO 3200.
-  Can you see the difference? There is much less, because there was light
-  enough for every square.
+- Take the same picture outdoors on a grey day at ISO 100 and at ISO
+  3200, and zoom into a shadow. The grain is there outdoors too: the
+  camera let in less light to make up for turning it up. ISO is never
+  free.
 - Find the darkest place you can take a picture of without a flash. Which
   ISO did you need?
 - At night, look out of a window at the street and take it at ISO 6400.

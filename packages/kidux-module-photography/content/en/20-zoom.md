@@ -5,18 +5,19 @@ Zoomed out, at **wide**, it takes in a big room. Zoomed in, at **tele**,
 it sees only a small piece of it, as big as the whole picture, as if it
 were a telescope.
 
-The zoom's position is given as a length in millimetres: a small number
+The zoom's position, its **focal length**, is given as a length in
+millimetres: a small number
 is wide, a big one is long, or tele.
 
 ## It is not only nearer
 
 Here is the surprise. Take a toy from close up with the zoom at wide, and
 then walk back and zoom in until the toy is the same size again. The toy
-looks the same; **the background does not**. At wide, the house behind
-is small and far away. Zoomed in, from further back, the same house looms
+looks the same; **the background does not**. At wide, the castle behind
+is small and far away. Zoomed in, from further back, the same castle looms
 up right behind the toy.
 
-![A toy with a house behind it. Above, close up and wide: the house is a small part of a wide view. Below, far back and zoomed in: it fills half the narrow view](perspective.svg)
+![A toy with a castle behind it. Above, close up and wide: the castle is a small part of a wide view. Below, far back and zoomed in: it fills half the narrow view](perspective.svg)
 
 ::: compare
 ![From close, zoomed out: the castle behind the knight far and small](zoom-wide.jpg)
@@ -26,7 +27,7 @@ up right behind the toy.
 
 It happens to faces too. From very close, at wide, the nose is much
 nearer the camera than the ears, so it comes out big, and the ears small:
-a funny face. From a few metres back, zoomed in, nose and ears are almost
+a funny face. From further back, zoomed in, nose and ears are almost
 the same distance away, and the face looks as it really is.
 
 > [think] For a portrait, step back and zoom in. Never take a friend's
@@ -43,8 +44,8 @@ nothing sharper. Moving closer is always better, when you can.
 1. Ask a friend to sit still, in front of a wall or a window.
 2. Zoom out all the way, and get close until their face fills the
    picture. Take it.
-3. Walk back about three metres, zoom in until their face fills the
-   picture again, and take it.
+3. Zoom all the way in, and walk back until their face fills the picture
+   again, a bit more than a metre away. Take it.
 4. Compare the two noses, and the two backgrounds.
 5. Do the same with a toy in front of a house across the street.
 :::

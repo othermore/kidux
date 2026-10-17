@@ -33,9 +33,10 @@ things a camera can do.
 
 ::: try
 1. Set the camera so that you choose the aperture.
-2. Look into the front of the lens while you turn the aperture from F1.8
-   to F8 and back. Can you see the blades moving? Ask an adult to hold a
-   torch beside you.
+2. Ask an adult to give the **Fn1** button the job of *Preview* (chapter
+   18 says how). Set **F8**, look into the front of the lens and press
+   Fn1: the blades close to a small hole. Let go, and they open again. A
+   torch held beside you helps.
 3. Take the same picture of a toy at **F1.8** and at **F8**.
 4. Look at the time the camera chose for each one. Which was longer? Why?
 :::

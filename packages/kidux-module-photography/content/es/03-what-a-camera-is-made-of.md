@@ -1,5 +1,5 @@
 ---
-source_sha256 = "2f2d4d7e2cfc392afd824afcc72ace90e871e176555024d26f5e9dd81d444002"
+source_sha256 = "c11b067b0486727fbe91be8101d001e7ac347dbeb35fc2cfbedab81d0134fbc6"
 ---
 # De qué está hecha una cámara
 
@@ -11,7 +11,7 @@ lente. Aquí están todas, en el orden en que la luz se las encuentra.
 1. **El objetivo**, en azul en el dibujo: el cristal que dobla la luz para
    que la imagen salga nítida.
 2. **El diafragma**, las láminas oscuras en medio del objetivo: un agujero
-   que se abre mucho y se cierra poco, como el centro negro de tu ojo, que
+   que se abre mucho o se cierra hasta quedar pequeñito, como el centro negro de tu ojo, que
    crece en la oscuridad y se encoge al sol. Decide cuánta luz entra de
    golpe. El capítulo 7 trata de él.
 3. **El obturador**, la puerta naranja cerca del fondo: está cerrada y se
@@ -52,7 +52,7 @@ cámara.
 ::: try
 1. Pide a un adulto que te ayude a cargar la batería y a meterla, con la
    tarjeta de memoria, en la cámara.
-2. Encuentra en tu cámara las cinco cosas del dibujo: el objetivo, la
+2. Encuentra en tu cámara estas cinco cosas: el objetivo, la
    pantalla, el disparador, el dial con letras y la tapa de la tarjeta.
 3. Enciende la cámara. Pon el dial en AUTO, el modo automático del todo.
 4. Apunta la cámara a algo que te guste, aprieta el disparador hasta el
@@ -66,7 +66,7 @@ cámara.
 En la XZ-2 las partes están donde las enseñan los dibujos de abajo
 (manual, p. 2 y 3). Arriba, de izquierda a derecha: la caja del flash, que
 se levanta con el **interruptor del flash** de detrás; la **zapata** para
-un flash de más; el botoncito **ON/OFF**; el **disparador** con la
+poner otro flash; el botoncito **ON/OFF**; el **disparador** con la
 **palanca del zoom** alrededor; y el **dial de modos**, con sus letras, en
 la punta derecha.
 

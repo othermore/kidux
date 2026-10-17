@@ -1,6 +1,7 @@
 # Where to put things: the rule of thirds
 
-Here is a trick painters knew long before cameras. Cut the picture into
+Where you put things in a picture is called **composition**, and here is
+a trick of it that painters knew long before cameras. Cut the picture into
 three, across and down, with two lines each way, like a noughts and
 crosses board. The eye likes to find things **on those lines**, and best
 of all **where they cross**. A thing in the very middle looks as if it

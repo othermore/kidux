@@ -72,8 +72,9 @@ then wipe the glass very gently with a soft lens cloth (manual, p. 82).
 
 ## Keep trying
 
-- Use the magnifying glass on a sunny day indoors: point it at the window
-  and put the paper on the far wall. How big is the sharp window now?
+- On a sunny day indoors, hold the magnifying glass a hand and a half from
+  the window pane itself, and put the paper on the far wall. Move the glass
+  a little until the window's frame is sharp. How big is it now?
 - Look through the magnifying glass at a far tree, with your arm
   stretched out. The tree is upside down there too. Bring the glass slowly
   closer to your eye: when does it turn the right way up?

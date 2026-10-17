@@ -11,7 +11,7 @@ pueden sujetar una foto, si las pones donde ayudan.
 Una carretera, una valla, una vía de tren, la orilla de un río: una línea
 que empieza cerca de la parte de abajo de la foto y se mete en ella **se
 lleva el ojo consigo**, hasta el fondo. Ponte donde empieza la línea,
-bajo, y deja que corra hacia lo que quieres que se mire.
+agachado, y deja que corra hacia lo que quieres que se mire.
 
 ![Una carretera que se aleja recta por el desierto: el ojo la recorre hasta el final](leading-lines.jpg)
 
@@ -56,7 +56,7 @@ verdad: **simetría**, lo mismo a los dos lados de una línea.
 
 ::: camera
 No hay nada que ajustar: las líneas, los marcos y los patrones están en el
-mundo, no en la cámara, y cualquier cámara puede hacerlos. La cuadrícula
+mundo, no en la cámara, y se pueden fotografiar con cualquier cámara. La cuadrícula
 del capítulo 21 ayuda a dejar recta una línea o nivelado un reflejo
 (manual, p. 60). La pantalla se inclina (manual, p. 3), así que la cámara
 puede bajar junto al charco mientras tú miras desde arriba.

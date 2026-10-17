@@ -65,6 +65,9 @@ WORDS = {
     "adult": N_("For the adult"),
     # Under a photograph: who took it, and under what licence.
     "credit": N_("Photo: {author}, {licence}"),
+    # The same, under a photograph the guide changed: cropped, given more
+    # or less light, made grey. Its licence asks for the change to be said.
+    "creditEdited": N_("Photo: {author}, {licence}, edited"),
     "kidux": N_("Photo: Kidux"),
     # Under a picture generated for the guide, which no camera took.
     "generated": N_("Picture made by a computer"),
@@ -118,7 +121,8 @@ def credit(entry: dict, words: dict) -> str:
         return words["kidux"]
     licence = entry.get("licence", "")
     shown = words["publicDomain"] if licence == "public-domain" else LICENCES.get(licence, licence)
-    return words["credit"].format(author=entry.get("author", ""), licence=shown)
+    form = words["creditEdited"] if entry.get("made") else words["credit"]
+    return form.format(author=entry.get("author", ""), licence=shown)
 
 
 def drawing(drawings: Path, name: str, alt: str) -> str:

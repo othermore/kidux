@@ -1,5 +1,5 @@
 ---
-source_sha256 = "26f4b966c564ebfcccdf8f268576148c76ba88da72bc74bf38011d7ddfb8df1b"
+source_sha256 = "5d5cf2dcbfaeaec951ccf3a8834dd6a956b72b8aef2bedd883a66188ade52864"
 ---
 # El diafragma: cómo de ancha es la ventana
 
@@ -32,15 +32,17 @@ paso del capítulo 5.
 El diafragma hace otra cosa, además de dejar entrar más o menos luz:
 cambia **cuánto de la foto sale nítido**, cerca y lejos. Un agujero muy
 abierto deja nítido solo lo que has enfocado, y funde el fondo en una
-mancha suave. Un agujero pequeño lo deja todo nítido, de cerca a lejos. Es
-el capítulo 18, y es una de las cosas más bonitas que sabe hacer una
+mancha suave. Un agujero pequeño lo deja todo nítido, de cerca a lejos. De
+eso trata el capítulo 18, y es una de las cosas más bonitas que sabe hacer una
 cámara.
 
 ::: try
 1. Pon la cámara de forma que elijas tú el diafragma.
-2. Mira por delante del objetivo mientras giras el diafragma de F1.8 a F8
-   y vuelta. ¿Ves moverse las láminas? Pide a un adulto que sujete una
-   linterna a tu lado.
+2. Pide a un adulto que le dé al botón **Fn1** el trabajo de
+   *Previsualización* (el capítulo 18 dice cómo). Pon **F8**, mira el
+   objetivo de frente y pulsa Fn1: las láminas se cierran hasta dejar un
+   agujero pequeño. Suelta, y se vuelven a abrir. Una linterna a tu lado
+   ayuda.
 3. Haz la misma foto de un juguete en **F1.8** y en **F8**.
 4. Mira el tiempo que eligió la cámara para cada una. ¿Cuál fue más largo?
    ¿Por qué?
@@ -51,11 +53,11 @@ Pon el dial de modos en **A**, prioridad al diafragma: tú eliges el
 diafragma y la cámara elige el tiempo (manual, p. 16). El **anillo de
 control** cambia el diafragma, de F1.8 a F8, y el dial secundario sigue
 cambiando la compensación de la exposición. Un número más pequeño, F2,
-suaviza el fondo; uno más grande, F8, deja más parte nítida (manual,
+suaviza el fondo; uno más grande, F8, deja nítida más parte de la foto (manual,
 p. 16).
 
 En el extremo gran angular del zoom el objetivo abre hasta F1.8; con el
-zoom del todo hacia delante, solo hasta F2.5 (manual, p. 92).
+zoom al máximo, del todo hacia la T, solo hasta F2.5 (manual, p. 92).
 
 Si hay tanta luz que incluso con F8 y el tiempo más corto entra demasiada,
 el tiempo **parpadea**; entonces activa el **filtro ND**, un cristal
