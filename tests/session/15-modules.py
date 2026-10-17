@@ -195,8 +195,10 @@ def run(machine: Machine) -> None:
            logged("kidux-greeter", "modules room kept at", before)
            and abs(room_kept()[0] - asked_at) < 80 and room_kept()[1] == "in view",
            greeter_log())
+    before = journal_count("kidux-greeter", "modules room kept at")
     machine.key("ret")                           # Remove, asked again
-    machine.still()
+    logged("kidux-greeter", "modules room kept at", before)
+    machine.still()                              # the question drawn, Cancel focused
     machine.key("tab")                           # from Cancel to Remove
     machine.key("ret")
     report("the panel removes the canary, a module that is only a folder (D101)",
