@@ -148,6 +148,12 @@ age = "Ages 10 and up"
 text = "The periodic table, element by element."
 anchor = "kalzium"
 
+[modules.step]
+name = "Step"
+age = "Ages 10 and up"
+text = "Build a physics experiment and press play."
+anchor = "step"
+
 [adults]
 title = "You decide. From one place."
 lead = "An adult panel, behind a password that is never typed where a child could catch it."
@@ -218,7 +224,7 @@ code_text = "Kidux on GitHub"
 rights = "© 2026"
 licence = "Kidux is published under the Business Source License 1.1."
 visits = "Visits are also counted with GoatCounter, which uses no cookies."
-others = "GCompris, ScratchJr, Blockly Games, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat, Wikipedia, Kig and Kalzium belong to their authors and keep their own licences. Kidux is built on Debian and is not affiliated with any of them."
+others = "GCompris, ScratchJr, Blockly Games, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat, Wikipedia, Kig, Kalzium and Step belong to their authors and keep their own licences. Kidux is built on Debian and is not affiliated with any of them."
 
 [cookies]
 title = "May we use cookies to count visits?"
