@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 3: a camera cut open, the light coming in from the left: the
+     lens's glass in blue, the aperture's blades in night, the shutter's
+     door in tangerine, the sensor in little squares, the screen at the
+     back, the memory card below. Flat, in the brand's colours, no words. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300">
+  <rect x="0" y="0" width="640" height="300" fill="#fff6e9"/>
+  <!-- the light from the world -->
+  <polygon points="0,96 0,204 150,176 150,124" fill="#f0a202" opacity="0.35"/>
+  <!-- the lens: a tube with three glasses -->
+  <rect x="80" y="90" width="190" height="120" rx="14" fill="#7a6a60"/>
+  <rect x="88" y="98" width="174" height="104" rx="8" fill="#5b4d45"/>
+  <ellipse cx="110" cy="150" rx="14" ry="48" fill="#cfe3f3" stroke="#3584e4" stroke-width="4"/>
+  <ellipse cx="236" cy="150" rx="12" ry="40" fill="#cfe3f3" stroke="#3584e4" stroke-width="4"/>
+  <!-- the aperture: blades leaving a hole in the middle -->
+  <polygon points="168,100 182,100 182,132 168,124" fill="#141c26"/>
+  <polygon points="168,200 182,200 182,168 168,176" fill="#141c26"/>
+  <!-- the light through the hole -->
+  <polygon points="124,112 124,188 182,168 182,132" fill="#f0a202" opacity="0.45"/>
+  <polygon points="182,132 182,168 440,154 440,146" fill="#f0a202" opacity="0.55"/>
+  <!-- the body -->
+  <rect x="262" y="40" width="300" height="220" rx="24" fill="#24313f"/>
+  <!-- the shutter: a door just before the sensor, open -->
+  <rect x="404" y="60" width="14" height="70" rx="4" fill="#e2703a"/>
+  <rect x="404" y="170" width="14" height="70" rx="4" fill="#e2703a"/>
+  <!-- the light reaching the sensor -->
+  <polygon points="262,140 262,160 440,154 440,146" fill="#f0a202" opacity="0.6"/>
+  <!-- the sensor: little squares -->
+  <rect x="436" y="102" width="24" height="96" rx="3" fill="#2f4157"/>
+  <g fill="#9cc77a">
+    <rect x="440" y="106" width="7" height="7"/><rect x="449" y="106" width="7" height="7"/>
+    <rect x="440" y="115" width="7" height="7"/><rect x="449" y="115" width="7" height="7"/>
+    <rect x="440" y="124" width="7" height="7"/><rect x="449" y="124" width="7" height="7"/>
+    <rect x="440" y="133" width="7" height="7"/><rect x="449" y="133" width="7" height="7"/>
+    <rect x="440" y="142" width="7" height="7" fill="#f0a202"/><rect x="449" y="142" width="7" height="7" fill="#f0a202"/>
+    <rect x="440" y="151" width="7" height="7" fill="#f0a202"/><rect x="449" y="151" width="7" height="7" fill="#f0a202"/>
+    <rect x="440" y="160" width="7" height="7"/><rect x="449" y="160" width="7" height="7"/>
+    <rect x="440" y="169" width="7" height="7"/><rect x="449" y="169" width="7" height="7"/>
+    <rect x="440" y="178" width="7" height="7"/><rect x="449" y="178" width="7" height="7"/>
+    <rect x="440" y="187" width="7" height="7"/><rect x="449" y="187" width="7" height="7"/>
+  </g>
+  <!-- the screen at the back, showing the picture -->
+  <rect x="520" y="70" width="34" height="160" rx="6" fill="#141c26"/>
+  <rect x="526" y="80" width="22" height="140" rx="3" fill="#cfe3f3"/>
+  <rect x="526" y="170" width="22" height="50" rx="3" fill="#9cc77a"/>
+  <circle cx="537" cy="140" r="9" fill="#4f9a4a"/>
+  <!-- the memory card, below -->
+  <path d="M470 228 L506 228 L506 276 L478 276 L470 268 Z" fill="#3584e4"/>
+  <rect x="476" y="262" width="4" height="10" fill="#f0a202"/>
+  <rect x="484" y="262" width="4" height="10" fill="#f0a202"/>
+  <rect x="492" y="262" width="4" height="10" fill="#f0a202"/>
+</svg>

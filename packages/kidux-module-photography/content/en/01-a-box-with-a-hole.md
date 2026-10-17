@@ -77,6 +77,8 @@ over for you.
 - Hold your camera upside down and take a photograph. Is the photograph
   upside down?
 
+![A camera obscura made of a cardboard box, a blanket over it: on its tracing paper, the trees and the sky outside, upside down](pinhole-box.jpg)
+
 ::: adult
 This chapter teaches one idea: light travels in straight lines, so a
 hole in a dark box projects an inverted image. Everything later in the

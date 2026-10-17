@@ -1,5 +1,5 @@
 ---
-source_sha256 = "c052798980e8bb341c4c283b03d678f09c01f92b7879af991d13724e85573e56"
+source_sha256 = "1adf90af14a8754e7323aa51e9b84af0c10a0b46d202fbbab8f20ea99c18bebc"
 ---
 # Una caja con un agujero
 
@@ -79,6 +79,8 @@ vuelta por ti.
   manchas de luz entre las sombras son redondas. Cada huequito entre
   las hojas es un agujero, y cada mancha es una imagen del sol.
 - Sujeta la cámara boca abajo y haz una foto. ¿Sale la foto boca abajo?
+
+![Una cámara oscura hecha con una caja de cartón, con una manta por encima: en su papel de calco, los árboles y el cielo de fuera, boca abajo](pinhole-box.jpg)
 
 ::: adult
 Este capítulo enseña una idea: la luz viaja en línea recta, así que un

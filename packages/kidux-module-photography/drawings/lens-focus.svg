@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 2. Above: a big hole lets in plenty of light, and each point of
+     the world lands as a blurred patch on the wall. Below: a lens in the
+     same hole bends the light back together, and the point lands as a
+     point, at one distance only. Flat, in the brand's colours, no words. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" width="640" height="320">
+  <rect x="0" y="0" width="640" height="320" fill="#fff6e9"/>
+  <!-- above: the lamp, the big hole, the patch -->
+  <circle cx="60" cy="80" r="16" fill="#f0a202"/>
+  <rect x="300" y="20" width="14" height="38" fill="#24313f"/>
+  <rect x="300" y="102" width="14" height="38" fill="#24313f"/>
+  <polygon points="60,80 307,58 307,102" fill="#f0a202" opacity="0.35"/>
+  <polygon points="307,58 307,102 580,128 580,32" fill="#f0a202" opacity="0.25"/>
+  <rect x="580" y="20" width="16" height="120" rx="4" fill="#fdf6f0" stroke="#7a6a60" stroke-width="4"/>
+  <rect x="582" y="34" width="12" height="92" rx="6" fill="#f0a202" opacity="0.7"/>
+  <!-- below: the lamp, the lens in the hole, the point -->
+  <circle cx="60" cy="240" r="16" fill="#f0a202"/>
+  <rect x="300" y="180" width="14" height="38" fill="#24313f"/>
+  <rect x="300" y="262" width="14" height="38" fill="#24313f"/>
+  <polygon points="60,240 307,218 307,262" fill="#f0a202" opacity="0.35"/>
+  <polygon points="307,218 307,262 580,240" fill="#f0a202" opacity="0.55"/>
+  <ellipse cx="307" cy="240" rx="12" ry="26" fill="#cfe3f3" stroke="#3584e4" stroke-width="4"/>
+  <rect x="580" y="180" width="16" height="120" rx="4" fill="#fdf6f0" stroke="#7a6a60" stroke-width="4"/>
+  <circle cx="588" cy="240" r="7" fill="#f0a202"/>
+</svg>

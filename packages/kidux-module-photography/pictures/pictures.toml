@@ -8,3 +8,30 @@ author = "Gemma Frisius"
 source = "https://commons.wikimedia.org/wiki/File:1545_gemma_frisius_-_camera_obscura_-_121704_1_1.png"
 licence = "public-domain"
 made = "1545, De radio astronomico et geometrico"
+
+["pinhole-box.jpg"]
+author = "Aliasradierer"
+source = "https://commons.wikimedia.org/wiki/File:Camera_Obscura_aus_Pappkarton.jpg"
+licence = "CC-BY-SA-4.0"
+
+["magnifier-window.jpg"]
+author = "Rhetos"
+source = "https://commons.wikimedia.org/wiki/File:Lupen-Kino.webm"
+licence = "CC-BY-SA-4.0"
+made = "a still of the video at 40 seconds, cropped to the paper and the lens"
+
+["xz2-front.jpg"]
+author = "之乎"
+source = "https://commons.wikimedia.org/wiki/File:Olympus_XZ-2_with_Lenscap.jpg"
+licence = "CC-BY-SA-4.0"
+made = "cropped"
+
+["shaken-lights.jpg"]
+author = "Suwatch"
+source = "https://commons.wikimedia.org/wiki/File:Define_camera_shake.jpg"
+licence = "CC-BY-2.0"
+
+["shaken-toy.jpg"]
+author = "Stefan-Xp"
+source = "https://commons.wikimedia.org/wiki/File:Pistenbully_Modell_(verwackelt).jpg"
+licence = "CC-BY-SA-3.0"

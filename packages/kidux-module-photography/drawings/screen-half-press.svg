@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 4: the camera's screen with the shutter button pressed half-way,
+     as the XZ-2 shows it (manual, p. 9): a toy on a table, the focus square
+     on it turned green, and at the bottom the time and the aperture the
+     camera chose, 125 and F5.6. Drawn afresh; the only letters are the
+     camera's own. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+  <rect x="0" y="0" width="480" height="360" rx="18" fill="#141c26"/>
+  <!-- what the camera sees: a wall, a table, a toy -->
+  <rect x="14" y="14" width="452" height="332" rx="8" fill="#e8d9c4"/>
+  <rect x="14" y="236" width="452" height="110" fill="#b98a5e"/>
+  <ellipse cx="240" cy="248" rx="70" ry="14" fill="#8a6440"/>
+  <circle cx="240" cy="196" r="52" fill="#a8743f"/>
+  <circle cx="198" cy="148" r="20" fill="#a8743f"/>
+  <circle cx="282" cy="148" r="20" fill="#a8743f"/>
+  <circle cx="240" cy="176" r="30" fill="#c99566"/>
+  <circle cx="226" cy="168" r="5" fill="#24313f"/>
+  <circle cx="254" cy="168" r="5" fill="#24313f"/>
+  <circle cx="240" cy="184" r="6" fill="#24313f"/>
+  <!-- the focus square, green once the camera has focused -->
+  <rect x="198" y="140" width="84" height="84" fill="none" stroke="#3fd35a" stroke-width="5"/>
+  <!-- what the camera chose -->
+  <rect x="14" y="306" width="452" height="40" fill="#141c26" opacity="0.55"/>
+  <text x="160" y="334" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="24" fill="#fdf6f0">125</text>
+  <text x="230" y="334" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="24" fill="#fdf6f0">F5.6</text>
+</svg>
