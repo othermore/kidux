@@ -17,9 +17,9 @@ seconds and bits of seconds.
   the camera must not move at all.
 
 ::: compare
-![A tap at 1/1000: every drop is frozen in the air](tap-fast.jpg)
+![A stream at 1/1000: every drop and bubble is frozen](stream-frozen.jpg)
 
-![The same tap at 1/8: the water has turned to silk](tap-slow.jpg)
+![The same stream at half a second: the water has turned to silk](stream-silky.jpg)
 :::
 
 On the screen the camera writes only the bottom of the fraction: **125**
@@ -81,6 +81,7 @@ slow speeds the camera itself must be still (chapter 4).
 Muybridge's sequence (1878) is in the public domain; his experiment with
 twelve cameras is a good story for a child who likes horses or science.
 
-The two pictures of the tap are made by a computer, the same scene with
-only the time changed; the child's own tap, in *Try it*, shows the same.
+The two pictures of the stream are made by a computer, the same scene
+with only the time changed; the child's own tap, in *Try it*, shows the
+same.
 :::

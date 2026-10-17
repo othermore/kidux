@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 1: the shoebox camera obscura, seen from the side and cut open.
+     A tree outside on the left; the box with a pinhole in the end that
+     faces the tree; the light from the tree's crown and from its foot
+     crossing at the hole; and on the far end, a sheet of tracing paper,
+     where the tree appears upside down, its crown at the bottom, which an
+     eye behind the paper sees through it. Flat, in the brand's colours,
+     no words (branding/README.md). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300">
+  <!-- outside: the sky and the ground -->
+  <rect x="0" y="0" width="640" height="240" fill="#cfe3f3"/>
+  <rect x="0" y="240" width="640" height="60" fill="#9cc77a"/>
+  <!-- the tree: trunk and crown -->
+  <rect x="50" y="160" width="20" height="82" rx="6" fill="#8a5a3b"/>
+  <circle cx="60" cy="110" r="50" fill="#4f9a4a"/>
+  <!-- the box, cut open: dark inside, its walls in card -->
+  <rect x="240" y="80" width="200" height="160" fill="#24313f"/>
+  <rect x="232" y="72" width="218" height="8" fill="#c99566"/>
+  <rect x="232" y="240" width="218" height="8" fill="#c99566"/>
+  <rect x="232" y="72" width="8" height="176" fill="#c99566"/>
+  <!-- the pinhole, a gap in the near wall -->
+  <rect x="232" y="152" width="8" height="12" fill="#24313f"/>
+  <!-- the tracing paper, the far end -->
+  <rect x="440" y="72" width="10" height="176" fill="#fdf6f0"/>
+  <!-- light from the crown goes down through the hole, light from the foot goes up:
+       both lines pass through the hole at (236, 158) -->
+  <line x1="60" y1="110" x2="445" y2="215" stroke="#f0a202" stroke-width="4" stroke-linecap="round"/>
+  <line x1="60" y1="236" x2="445" y2="86" stroke="#f0a202" stroke-width="4" stroke-linecap="round"/>
+  <!-- the tree on the paper, upside down and small -->
+  <rect x="441" y="88" width="8" height="90" rx="3" fill="#8a5a3b"/>
+  <circle cx="445" cy="205" r="22" fill="#4f9a4a"/>
+  <!-- an eye behind the paper, looking through it -->
+  <ellipse cx="500" cy="158" rx="22" ry="13" fill="#fdf6f0" stroke="#24313f" stroke-width="4"/>
+  <circle cx="500" cy="158" r="7" fill="#24313f"/>
+</svg>

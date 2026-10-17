@@ -25,6 +25,15 @@ up right behind the toy.
 ![From far, zoomed in: the knight the same size, the castle close and big](zoom-tele.jpg)
 :::
 
+The same with real toys: the figures stay the same size, and the books
+behind them come closer and grow.
+
+::: compare
+![From close, zoomed out: the figures small against a wide table](figures-wide.jpg)
+
+![From far, zoomed in: the figures the same size, the background closer and bigger](figures-long.jpg)
+:::
+
 It happens to faces too. From very close, at wide, the nose is much
 nearer the camera than the ears, so it comes out big, and the ears small:
 a funny face. From further back, zoomed in, nose and ears are almost

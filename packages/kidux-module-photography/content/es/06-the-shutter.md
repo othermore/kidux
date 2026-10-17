@@ -1,5 +1,5 @@
 ---
-source_sha256 = "9cbc0efd82c7049df3f64520f123b94680f84ae5cbcbec701076e88c687845e8"
+source_sha256 = "e77456012f51a383330682d904c6b8aff3f31d77a688ed824b3ff2c05a1e12cb"
 ---
 # El obturador: cuánto tiempo está abierta la puerta
 
@@ -20,9 +20,9 @@ segundos y en trocitos de segundo.
   nítidas, y la cámara no se puede mover nada.
 
 ::: compare
-![Un grifo a 1/1000: cada gota se congela en el aire](tap-fast.jpg)
+![Un arroyo a 1/1000: cada gota y cada burbuja se congelan](stream-frozen.jpg)
 
-![El mismo grifo a 1/8: el agua se ha vuelto seda](tap-slow.jpg)
+![El mismo arroyo a medio segundo: el agua se ha vuelto seda](stream-silky.jpg)
 :::
 
 En la pantalla la cámara escribe solo la parte de abajo de la fracción:
@@ -88,7 +88,7 @@ La secuencia de Muybridge (1878) es de dominio público; su experimento con
 doce cámaras es una buena historia para un niño al que le gusten los
 caballos o la ciencia.
 
-Las dos imágenes del grifo están hechas por un ordenador, la misma escena
+Las dos imágenes del arroyo están hechas por un ordenador, la misma escena
 con solo el tiempo cambiado; el grifo del propio niño, en *Pruébalo*,
 enseña lo mismo.
 :::

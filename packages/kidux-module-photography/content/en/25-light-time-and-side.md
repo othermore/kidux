@@ -20,6 +20,8 @@ a **time of day**, and it comes from a **side**.
 ![The same corner an hour before sunset: warm, low light and long shadows](golden.jpg)
 :::
 
+![Dogs running in a field an hour before sunset: warm, low light and long shadows](golden-hour.jpg)
+
 ## The side
 
 Where the light comes from, compared with the camera, changes the shape

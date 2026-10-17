@@ -1,5 +1,5 @@
 ---
-source_sha256 = "4c8a9092282f90c87586e06010e37b93e6b871a4a9cba68605f69ab92458938e"
+source_sha256 = "769131d7cfe58217079ae1e3679c033c34a2e577c3426f775dc917cbeb64c72b"
 ---
 # Para qué sirve una lente
 
@@ -47,7 +47,11 @@ vez tu dedo: ¿notas el pequeño cambio? Es tu ojo enfocando.
    en el papel, pequeña y nítida.
 :::
 
-![Una lupa entre la ventana y una hoja de papel: en el papel, la ventana y el árbol de fuera, boca abajo](magnifier-window.jpg)
+::: compare
+![Una lupa, a la derecha, dibuja la ventana luminosa en el papel, pequeña y boca abajo: sus cristales claros quedan abajo](magnifier-window.jpg)
+
+![Lo mismo, dibujado con claridad: la luz de la ventana pasa por la lente, se cruza y dibuja la ventana boca abajo en el papel](magnifier-lens.jpg)
+:::
 
 La ventana vuelve a salir boca abajo, igual que en la habitación oscura.
 Una lente sigue siendo un agujero, solo que mejor. Ahora mide a qué
@@ -99,7 +103,7 @@ La idea de que "las cosas cercanas se enfocan más atrás" prepara los
 capítulos 16 y 17 (el enfoque) y el 18 (la profundidad de campo), donde el
 niño ve que solo hay una distancia perfectamente nítida.
 
-La imagen de la lupa está hecha por un ordenador, para enseñar con
-claridad lo que se ve en el papel; en un papel de verdad la imagen es más
-tenue.
+La primera imagen de la lupa es un fotograma de un vídeo de verdad; la
+segunda está hecha por un ordenador, para enseñar con claridad lo que pasa,
+y en un papel de verdad la imagen es más tenue.
 :::

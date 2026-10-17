@@ -1,5 +1,5 @@
 ---
-source_sha256 = "1cb3808f7fb2d74ca021efd8b486bddd1070d7c75289515319cb944a1da49ce9"
+source_sha256 = "b708b125b2a1f9ad5d936b23be8f4a5b7463a80caa1d476c82e07f8eaa63543a"
 ---
 # El flash: la luz que congela
 
@@ -36,6 +36,14 @@ salta al final, justo antes de que se cierre el obturador, la estela queda
 detrás, nítida donde acabó, y parece que iba lanzada hacia delante.
 
 ![Una pelota rodando en una foto de un segundo con flash. Arriba, el flash al principio: la estela va por delante. Abajo, el flash al final: la estela queda detrás, como debe ser](flash-sync.svg)
+
+::: compare
+![El flash al principio: la persona sale nítida donde empezó, y la estela de la linterna va por delante de ella](sync-first.jpg)
+
+![El flash al final, el mismo paseo: la estela queda detrás, y la persona sale nítida donde acabó](sync-second.jpg)
+:::
+
+![Un hombre quieto a oscuras durante varios segundos mientras un amigo dibuja con luces detrás de él: el flash lo congeló una vez, nítido, y el tiempo largo dibujó las luces](flash-light-painting.jpg)
 
 > [oops] Nunca dispares un flash cerca de los ojos de nadie, y nunca a un
 > bebé. Ponte por lo menos a un metro.
@@ -89,5 +97,7 @@ Vigile el flash: nunca cerca de los ojos, nunca a bebés, por lo menos a un
 metro, como dicen las indicaciones de seguridad de la cámara. El
 experimento de la salpicadura moja, y es divertido; una toalla ayuda. La
 pareja del gato es una sola fotografía de un gato junto a una ventana, sin
-flash y con flash de relleno.
+flash y con flash de relleno. Las dos imágenes del paseo con la linterna
+están hechas por un ordenador, el mismo segundo con el flash al principio y
+al final.
 :::

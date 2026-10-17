@@ -31,6 +31,14 @@ finished, and it looks as if it rushed forward.
 
 ![A rolling ball at a one-second picture with the flash. Above, the flash at the start: the trail runs ahead. Below, the flash at the end: the trail is behind, as it should be](flash-sync.svg)
 
+::: compare
+![The flash at the start: the person is sharp where they began, and the torch's trail runs on ahead of them](sync-first.jpg)
+
+![The flash at the end, the same walk: the trail is behind, and the person is sharp where they finished](sync-second.jpg)
+:::
+
+![A man standing still in the dark for several seconds while a friend draws with lights behind him: the flash froze him once, sharp, and the long time drew the lights](flash-light-painting.jpg)
+
 > [oops] Never fire a flash close to someone's eyes, and never at a baby.
 > Stand at least a metre away.
 
@@ -78,5 +86,7 @@ synchronisations with a slow shutter (first and second curtain).
 Please supervise the flash: never close to eyes, never at infants, at
 least a metre away, as the camera's safety notes say. The water-splash
 experiment is messy and fun; a towel helps. The cat pair is one photograph
-of a cat by a window, without and with fill-in flash.
+of a cat by a window, without and with fill-in flash. The two pictures of
+the walk with the torch are made by a computer, the same second with the
+flash at its start and at its end.
 :::

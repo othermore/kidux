@@ -1,5 +1,5 @@
 ---
-source_sha256 = "e97f9bce83143769496568f265ae6f2e44c550a93df8330e7c2a610b9cf3f87a"
+source_sha256 = "990ff3d075e689ad90d6a3aafc9051f12291c1491e3acdc65a23ff09f4d67586"
 ---
 # Dónde poner las cosas: la regla de los tercios
 
@@ -13,7 +13,7 @@ un tercio parece que está en su sitio.
 ::: compare
 ![Un campo con una bala de paja](thirds-landscape.jpg)
 
-![El mismo campo con las líneas dibujadas: la bala grande está sobre la línea de la derecha, y la pequeña cerca de la izquierda](thirds-landscape.jpg "thirds")
+![El mismo campo con las líneas dibujadas: la bala está donde se cruzan dos líneas, y el borde del campo va por la línea de abajo](thirds-landscape.jpg "thirds")
 :::
 
 ## Tres cosas para empezar

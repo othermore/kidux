@@ -80,7 +80,9 @@ writes. Seven conventions, and no others:
 - **A photograph**, `![caption](name.jpg)`, from `pictures/`, a figure
   with its caption under it and, in smaller letters, its credit from
   `pictures/pictures.toml`, *Photo: <author>, <licence>*, with *edited*
-  after it when the guide changed the photograph, as its licence asks. With the title
+  after it when the guide changed the photograph, and under that the
+  address of its source, written out, since the licence asks for the
+  source and a link would lead nowhere in a module. With the title
   `"thirds"`, `![caption](name.jpg "thirds")`, the rule of thirds' grid
   is drawn over it in CSS, so that the same photograph is shown with and
   without it.

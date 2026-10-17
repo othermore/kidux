@@ -68,16 +68,22 @@ over for you.
 
 ## Keep trying
 
-- Instead of a room, use a shoebox: a pinhole in one end, tracing paper
-  over the other, a blanket over your head and the box. Point the
-  pinhole at a lamp.
+- Instead of a room, use a shoebox: a pinhole in one end, and tracing
+  paper over the other end, for its far wall. The picture shows through
+  the paper, upside down, as the drawing shows; a blanket over your head
+  and the box keeps the rest of the light out. Point the pinhole at the
+  window, or at a lamp.
 - Stand under a leafy tree on a sunny day and look at the ground. The
   spots of light between the shadows are round. Every tiny gap between
   the leaves is a hole, and each spot is a picture of the sun.
 - Hold your camera upside down and take a photograph. Is the photograph
   upside down?
 
+![The shoebox cut open: the light from the tree crosses at the pinhole, and on the tracing paper at the far end the tree appears upside down, which an eye behind the paper sees through it](pinhole-box.svg)
+
 ![A camera obscura made of a cardboard box, a blanket over it: on its tracing paper, the trees and the sky outside, upside down](pinhole-box.jpg)
+
+![A whole room made into a camera obscura: on the left, the street outside; on the right, the light through one small hole draws the same street upside down on the room's far wall](pinhole-room.jpg)
 
 ::: adult
 This chapter teaches one idea: light travels in straight lines, so a
@@ -94,4 +100,7 @@ The course names the Olympus XZ-2 in boxes like the one above, because
 it is the camera it was written with. Any camera with a mode dial and a
 way to change the shutter time and the aperture will do: chapter 3 says
 how to find the same controls on another one.
+
+The picture of the room is made by a computer; the shoebox is a real
+photograph.
 :::

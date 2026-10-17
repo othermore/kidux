@@ -168,6 +168,7 @@ licence = "CC-BY-SA-4.0"
 author = "Dietmar Rabich"
 source = "https://commons.wikimedia.org/wiki/File:Dülmen,_Dernekamp,_Strohballen_--_2015_--_7838.jpg"
 licence = "CC-BY-SA-4.0"
+made = "cropped, with the bale where two lines of thirds cross"
 
 ["post-centred.jpg"]
 author = "Dietmar Rabich"
@@ -213,9 +214,10 @@ source = "https://commons.wikimedia.org/wiki/File:Sun_in_fog_in_Lysekil.jpg"
 licence = "CC-BY-SA-4.0"
 
 ["worm-view.jpg"]
-author = "Harald Groven"
-source = "https://commons.wikimedia.org/wiki/File:Worm's_eye_view_dog.jpg"
-licence = "CC-BY-SA-2.0"
+author = "Andrew Fogg"
+source = "https://www.flickr.com/photos/ndrwfgg/52161034"
+licence = "CC-BY-2.0"
+made = "cropped, the number plate left out"
 
 ["silhouette.jpg"]
 author = "درفش کاویانی"
@@ -268,23 +270,10 @@ licence = "CC-BY-SA-4.0"
 made = "cropped"
 
 ["magnifier-window.jpg"]
-author = "generated"
-source = "pictures/prompts/magnifier-window.txt"
-licence = "BUSL-1.1"
-model = "gemini-3-pro-image"
-
-["tap-fast.jpg"]
-author = "generated"
-source = "pictures/prompts/tap-fast.txt"
-licence = "BUSL-1.1"
-model = "gemini-3-pro-image"
-
-["tap-slow.jpg"]
-author = "generated"
-source = "pictures/prompts/tap-slow.txt"
-licence = "BUSL-1.1"
-model = "gemini-3-pro-image"
-made = "from the picture made for tap-fast.jpg, with only what its prompt names changed"
+author = "Rhetos"
+source = "https://commons.wikimedia.org/wiki/File:Lupen-Kino.webm"
+licence = "CC-BY-SA-4.0"
+made = "a still of the video at 40 seconds, cropped to the paper and the lens"
 
 ["focus-near.jpg"]
 author = "generated"
@@ -342,14 +331,13 @@ made = "from the picture made for zoom-wide.jpg, with only what its prompt names
 author = "generated"
 source = "pictures/prompts/pole-behind.txt"
 licence = "BUSL-1.1"
-model = "gemini-3-pro-image"
+model = "gemini, in its app, by the owner"
 
 ["pole-aside.jpg"]
 author = "generated"
 source = "pictures/prompts/pole-aside.txt"
 licence = "BUSL-1.1"
-model = "gemini-3-pro-image"
-made = "from the picture made for pole-behind.jpg, with only what its prompt names changed"
+model = "gemini, in its app, by the owner"
 
 ["heights-above.jpg"]
 author = "generated"
@@ -396,3 +384,61 @@ source = "pictures/prompts/window-back.txt"
 licence = "BUSL-1.1"
 model = "gemini-3-pro-image"
 made = "from the picture made for window-front.jpg, with only what its prompt names changed"
+
+["pinhole-room.jpg"]
+author = "generated"
+source = "pictures/prompts/pinhole-room.txt"
+licence = "BUSL-1.1"
+model = "gemini, in its app, by the owner"
+
+["magnifier-lens.jpg"]
+author = "generated"
+source = "pictures/prompts/magnifier-lens.txt"
+licence = "BUSL-1.1"
+model = "gemini, in its app, by the owner"
+
+["stream-silky.jpg"]
+author = "generated"
+source = "pictures/prompts/stream-silky.txt"
+licence = "BUSL-1.1"
+model = "gemini, in its app, by the owner"
+
+["stream-frozen.jpg"]
+author = "generated"
+source = "pictures/prompts/stream-frozen.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for stream-silky.jpg, with only what its prompt names changed"
+
+["sync-second.jpg"]
+author = "generated"
+source = "pictures/prompts/sync-second.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["sync-first.jpg"]
+author = "generated"
+source = "pictures/prompts/sync-first.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for sync-second.jpg, with only what its prompt names changed"
+
+["figures-wide.jpg"]
+author = "Alexandru Panoiu"
+source = "https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(4.5-25mm)_(AP4M0672)_(7092077541).jpg"
+licence = "CC-BY-2.0"
+
+["figures-long.jpg"]
+author = "Alexandru Panoiu"
+source = "https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(13.6-76mm)_(AP4M0681)_(6946010542).jpg"
+licence = "CC-BY-2.0"
+
+["flash-light-painting.jpg"]
+author = "Tim Simpson"
+source = "https://www.flickr.com/photos/90982314@N00/4797214399"
+licence = "CC-BY-SA-2.0"
+
+["golden-hour.jpg"]
+author = "Basile Morin"
+source = "https://commons.wikimedia.org/wiki/File:Four_dogs_running_at_golden_hour_in_the_countryside_of_Don_Det_Laos.jpg"
+licence = "CC-BY-SA-4.0"

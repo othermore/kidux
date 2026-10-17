@@ -94,7 +94,8 @@ def test_the_page_holds_every_language_its_words_and_its_chapters(tmp_path):
 def test_the_guide_s_seven_conventions():
     page = builder()
     words = {key: text for key, text in page.WORDS.items()}
-    pictures = {"cat.jpg": {"author": "Ana Example", "licence": "CC-BY-SA-4.0"},
+    pictures = {"cat.jpg": {"author": "Ana Example", "licence": "CC-BY-SA-4.0",
+                            "source": "https://commons.wikimedia.org/wiki/File:A_cat_%28sleeping%29.jpg"},
                 "dog.jpg": {"author": "generated", "licence": "BUSL-1.1"},
                 "old.jpg": {"author": "Niépce", "licence": "public-domain"},
                 "cut.jpg": {"author": "Bo Example", "licence": "CC-BY-2.0", "made": "cropped"}}
@@ -118,7 +119,8 @@ def test_the_guide_s_seven_conventions():
     assert '<figure class="drawing"><svg role="img" aria-label="A penguin"' in html
     assert ('<figure class="photo thirds"><div class="frame"><img src="pictures/cat.jpg" '
             'alt="A cat" loading="lazy"></div><figcaption>A cat'
-            '<span class="credit">Photo: Ana Example, CC BY-SA 4.0</span>') in html
+            '<span class="credit">Photo: Ana Example, CC BY-SA 4.0</span>'
+            '<span class="source">https://commons.wikimedia.org/wiki/File:A_cat_(sleeping).jpg</span>') in html
     assert '<div class="compare"><figure class="photo">' in html
     assert '<span class="credit">Picture made by a computer</span>' in html
     assert '<span class="credit">Photo: Niépce, public domain</span>' in html
@@ -147,7 +149,8 @@ def test_every_photograph_is_credited_and_every_credit_is_of_a_photograph_shown(
             assert entry["licence"] == "BUSL-1.1" and entry.get("model"), name
             assert (PICTURES / "prompts" / f"{name[:-4]}.txt").is_file(), name
         elif entry["licence"] != "BUSL-1.1":
-            assert entry["source"].startswith("https://commons.wikimedia.org/wiki/File:"), name
+            assert entry["source"].startswith(("https://commons.wikimedia.org/wiki/File:",
+                                                "https://www.flickr.com/photos/")), name
 
 
 def test_every_photograph_is_small_and_has_no_metadata():

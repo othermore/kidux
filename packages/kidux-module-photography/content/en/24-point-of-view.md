@@ -21,7 +21,7 @@ picture.
 ![From the bear's own height: it looks at you, and the room behind is big](heights-eye.jpg)
 :::
 
-![From the ground, the worm's view: a dog walks past, huge, over the grass](worm-view.jpg)
+![From the ground, the worm's view: a car seen from the pavement, huge](worm-view.jpg)
 
 > [cheer] Knees and elbows get dirty in good photographs. That is how you
 > can tell.

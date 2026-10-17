@@ -1,5 +1,5 @@
 ---
-source_sha256 = "bba894d13411cf2d64adf206d9ac28d9f113729cdce661e2cbca516054d58725"
+source_sha256 = "e8829c9e93d1473cefb882165e64ad637fd2c2d7b604c367f85342d93a6e7103"
 ---
 # La luz tiene una hora y un lado
 
@@ -23,6 +23,8 @@ del día**, y viene de un **lado**.
 
 ![El mismo rincón una hora antes de ponerse el sol: luz cálida y baja, y sombras largas](golden.jpg)
 :::
+
+![Perros corriendo por un campo una hora antes de ponerse el sol: luz cálida y baja, y sombras largas](golden-hour.jpg)
 
 ## El lado
 

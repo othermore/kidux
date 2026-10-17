@@ -41,6 +41,7 @@ import re
 import struct
 import sys
 import tomllib
+import urllib.parse
 from pathlib import Path
 
 import markdown
@@ -125,6 +126,16 @@ def credit(entry: dict, words: dict) -> str:
     return form.format(author=entry.get("author", ""), licence=shown)
 
 
+def source(entry: dict) -> str:
+    """Where a photograph by someone else comes from, written out under its
+    credit, since its licence asks for the source to be named and a link
+    would lead nowhere in a module, which opens no other page."""
+    where = entry.get("source", "")
+    if not where.startswith("http"):
+        return ""
+    return f'<span class="source">{html.escape(urllib.parse.unquote(where))}</span>'
+
+
 def drawing(drawings: Path, name: str, alt: str) -> str:
     svg = (drawings / name).read_text(encoding="utf-8")
     svg = re.sub(r"<\?xml[^>]*\?>\s*", "", svg)
@@ -157,7 +168,8 @@ def photo(name: str, alt: str, title: str | None, entry: dict, words: dict,
     return (f'<figure class="{classes}"><div class="frame">'
             f'<img src="pictures/{name}" alt="{html.escape(caption)}"{sized} loading="lazy"></div>'
             f'<figcaption>{html.escape(caption)}'
-            f'<span class="credit">{html.escape(credit(entry, words))}</span></figcaption></figure>')
+            f'<span class="credit">{html.escape(credit(entry, words))}</span>'
+            f'{source(entry)}</figcaption></figure>')
 
 
 def chapter(text: str, drawings: Path, words: dict, pictures: dict | None = None,

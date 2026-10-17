@@ -10,7 +10,7 @@ was just put there; the same thing on a third looks as if it belongs.
 ::: compare
 ![A field with a bale of straw](thirds-landscape.jpg)
 
-![The same field with the lines drawn on: the big bale stands on the right-hand line, and the small one near the left](thirds-landscape.jpg "thirds")
+![The same field with the lines drawn on: the bale stands where two lines cross, and the edge of the field runs along the bottom line](thirds-landscape.jpg "thirds")
 :::
 
 ## Three things to try first

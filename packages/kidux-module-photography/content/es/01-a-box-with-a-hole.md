@@ -1,5 +1,5 @@
 ---
-source_sha256 = "81f6a9ecf646c300861858799a30de6a6d66bbc33768a8acccb664d3266c0bcb"
+source_sha256 = "91abbdca660d8d7999fc1afb93bbb2775aff8d9e4df5209802692465198e01e1"
 ---
 # Una caja con un agujero
 
@@ -73,14 +73,20 @@ vuelta por ti.
 ## Sigue probando
 
 - En vez de una habitación, usa una caja de zapatos: un agujerito de
-  alfiler en un extremo, papel de calco en el otro, y una manta sobre tu
-  cabeza y la caja. Apunta el agujerito a una lámpara.
+  alfiler en un extremo, y papel de calco tapando el otro, que hace de
+  pared del fondo. La imagen se ve a través del papel, boca abajo, como en
+  el dibujo; una manta sobre tu cabeza y la caja deja fuera el resto de la
+  luz. Apunta el agujerito a la ventana, o a una lámpara.
 - Ponte debajo de un árbol frondoso un día de sol y mira al suelo. Las
   manchas de luz entre las sombras son redondas. Cada huequito entre
   las hojas es un agujero, y cada mancha es una imagen del sol.
 - Sujeta la cámara boca abajo y haz una foto. ¿Sale la foto boca abajo?
 
+![La caja de zapatos abierta por un lado: la luz del árbol se cruza en el agujerito, y en el papel de calco del fondo el árbol aparece boca abajo, y un ojo lo ve a través del papel](pinhole-box.svg)
+
 ![Una cámara oscura hecha con una caja de cartón, con una manta por encima: en su papel de calco, los árboles y el cielo de fuera, boca abajo](pinhole-box.jpg)
+
+![Una habitación entera convertida en cámara oscura: a la izquierda, la calle de fuera; a la derecha, la luz que entra por un agujerito dibuja la misma calle boca abajo en la pared del fondo](pinhole-room.jpg)
 
 ::: adult
 Este capítulo enseña una idea: la luz viaja en línea recta, así que un
@@ -98,4 +104,7 @@ El curso nombra la Olympus XZ-2 en recuadros como el de arriba, porque
 es la cámara con la que se escribió. Sirve cualquier cámara con un dial
 de modos y una forma de cambiar el tiempo del obturador y el diafragma:
 el capítulo 3 explica cómo encontrar los mismos mandos en otra.
+
+La imagen de la habitación está hecha por un ordenador; la caja de zapatos
+es una fotografía de verdad.
 :::

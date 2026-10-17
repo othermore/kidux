@@ -117,6 +117,7 @@ figure.photo img {
 }
 figure.photo figcaption { margin-top: 8px; text-align: center; font-size: 18px; }
 figure.photo .credit { display: block; color: var(--soft); font-size: 14px; }
+figure.photo .source { display: block; color: var(--soft); font-size: 12px; word-break: break-all; }
 /* The rule of thirds over a photograph: two lines each way. */
 figure.photo.thirds .frame { display: table; margin: 0 auto; }
 figure.photo.thirds .frame::before, figure.photo.thirds .frame::after {

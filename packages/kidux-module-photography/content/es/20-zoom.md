@@ -1,5 +1,5 @@
 ---
-source_sha256 = "54e0d7cac971d23ebe5f4cff0061a0d4a021bf2438f8fb07f7280f50c8346b0a"
+source_sha256 = "aef4cc6a6a25b9018f50c48350e5309d34fb9a65c9cdaeb7c34c9b29116be4e4"
 ---
 # El zoom: cerca y lejos, y lo que les hace a las caras
 
@@ -27,6 +27,15 @@ juguete.
 ![De cerca, con el zoom alejado: el castillo de detrás del caballero, lejos y pequeño](zoom-wide.jpg)
 
 ![De lejos, con el zoom acercado: el caballero del mismo tamaño, el castillo cerca y grande](zoom-tele.jpg)
+:::
+
+Lo mismo con juguetes de verdad: los muñecos se quedan del mismo tamaño, y
+los libros de detrás se acercan y crecen.
+
+::: compare
+![De cerca, con el zoom alejado: los muñecos pequeños en una mesa ancha](figures-wide.jpg)
+
+![De lejos, con el zoom acercado: los muñecos del mismo tamaño, el fondo más cerca y más grande](figures-long.jpg)
 :::
 
 Con las caras pasa lo mismo. Muy de cerca, en gran angular, la nariz está

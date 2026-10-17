@@ -1,5 +1,5 @@
 ---
-source_sha256 = "c0b7188907482a2e94f8eeb37245157172ec46b209e6c0bc8cef309a9d6bb906"
+source_sha256 = "8167e49039a9d7bb19ea1d8f9db7e6b3c69cba1092fabb6cfdf4f3dd10b78ee8"
 ---
 # El punto de vista
 
@@ -24,7 +24,7 @@ nueva.
 ![Desde la altura del propio osito: te mira, y la habitación de detrás es grande](heights-eye.jpg)
 :::
 
-![Desde el suelo, la vista de gusano: un perro pasa, enorme, por encima de la hierba](worm-view.jpg)
+![Desde el suelo, la vista de gusano: un coche visto desde la acera, enorme](worm-view.jpg)
 
 > [cheer] En las buenas fotos se ensucian las rodillas y los codos. Así es
 > como se nota.
