@@ -33,6 +33,14 @@ check "both configurations bind the laptop's keys to kidux-keys" \
     sh -c 'for c in kiosk desk; do for k in XF86MonBrightnessUp XF86MonBrightnessDown XF86KbdBrightnessUp XF86KbdBrightnessDown XF86AudioRaiseVolume XF86AudioLowerVolume XF86AudioMute; do grep -q "key=\"$k\".*kidux-keys" /usr/share/kidux/labwc/$c/rc.xml || exit 1; done; done'
 check "kidux-keys is there, and does nothing on a machine without the things" \
     sh -c 'test -x /usr/libexec/kidux-keys && /usr/libexec/kidux-keys brightness up && /usr/libexec/kidux-keys keyboard down && /usr/libexec/kidux-keys volume mute'
+# A web page or a link a program asks the desktop to open goes to
+# kidux-closed, the session's default for them (D104).
+check "web pages and links are kidux-closed's in a child's session" \
+    sh -c 'test -x /usr/libexec/kidux-closed \
+           && grep -q "^text/html=kidux-closed.desktop" /usr/share/kidux/session/xdg/mimeapps.list \
+           && grep -q "^x-scheme-handler/https=kidux-closed.desktop" /usr/share/kidux/session/xdg/mimeapps.list \
+           && grep -q "^Exec=/usr/libexec/kidux-closed %u" /usr/share/kidux/session/share/applications/kidux-closed.desktop \
+           && grep -q "^XDG_CONFIG_DIRS=\"/usr/share/kidux/session/xdg:" /usr/libexec/kidux-session'
 check "an input switch may be read by anyone" \
     sh -c 'test -f /usr/lib/udev/rules.d/70-kidux-switches.rules && grep -q ID_INPUT_SWITCH /usr/lib/udev/rules.d/70-kidux-switches.rules'
 # The rule applied to the switches there are, right after the install and

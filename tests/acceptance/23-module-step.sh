@@ -17,6 +17,8 @@ check "its manifest, icon, starter, restrictions and Spanish words are in place"
            && test -x /usr/libexec/kidux-module-step \
            && grep -qx 'ghns=false' $STEP/kde/kdeglobals \
            && test -f /usr/share/locale/es/LC_MESSAGES/kidux-module-step.mo"
+check "its guide is beside the manifest, in both languages (D103)" \
+    sh -c "test -f $STEP/content/en/01-a-ball-falls.md && test -f $STEP/content/es/intro.md && test -f $STEP/content/es/missions/caida.step"
 check "removing it leaves nothing of the module behind, and takes Step with it" \
     sh -c "$ADMIN_AS remove step | grep -q '^removed ' && test ! -e $STEP \
            && test ! -e /usr/libexec/kidux-module-step \

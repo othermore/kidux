@@ -17,6 +17,8 @@ check "its manifest, icon, starter, restrictions and Spanish words are in place"
            && test -x /usr/libexec/kidux-module-kalzium \
            && grep -qx 'ghns=false' $KALZIUM/kde/kdeglobals \
            && test -f /usr/share/locale/es/LC_MESSAGES/kidux-module-kalzium.mo"
+check "its guide is beside the manifest, in both languages (D103)" \
+    sh -c "test -f $KALZIUM/content/en/01-find-an-element.md && test -f $KALZIUM/content/es/01-find-an-element.md"
 check "removing it leaves nothing of the module behind, and takes Kalzium with it" \
     sh -c "$ADMIN_AS remove kalzium | grep -q '^removed ' && test ! -e $KALZIUM \
            && test ! -e /usr/libexec/kidux-module-kalzium \
