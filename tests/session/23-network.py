@@ -127,17 +127,23 @@ def to_the_network_page(machine: Machine) -> bool:
 
 def looked_again(seconds: float = 60) -> bool:
     """Wait until the Network page has looked again: while the router is
-    asked and the Wi-Fi scanned the page is drawn once a second, its
-    buttons insensitive, and it is done when it has not been drawn for
-    three seconds. A fixed wait was too short under the battery's load."""
+    asked and the Wi-Fi scanned the daemon's network job is "checking" and
+    the page's buttons are insensitive; the page asks every second, and
+    keeps itself in place without a word in the log while nothing but the
+    job's progress changes, so the job is read from the daemon. Done when
+    it is idle and the page has then been drawn, and not drawn again for
+    two seconds. A fixed wait was too short under the battery's load."""
     end = time.monotonic() + seconds
-    last, quiet = screens_counted(("panel_network",))["panel_network"], 0
+    drawn = screens_counted(("panel_network",))["panel_network"]
+    while time.monotonic() < end and root(f"{AS} network-job").stdout.strip() != "idle":
+        time.sleep(1)
+    last, quiet = drawn, 0
     while time.monotonic() < end:
         time.sleep(1)
         now = screens_counted(("panel_network",))["panel_network"]
         quiet = quiet + 1 if now == last else 0
         last = now
-        if quiet >= 3:
+        if now > drawn and quiet >= 2:
             return True
     return False
 

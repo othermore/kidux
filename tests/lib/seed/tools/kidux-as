@@ -273,5 +273,11 @@ elif action == "network":
         "Network1", "GetNetwork", "(s)", (unlock(),), "(a{sv}aa{sv}aa{sv})")
     for entry in interfaces:
         print(entry["name"], entry["kind"], entry["address"] or "-", entry["network"] or "-")
+elif action == "network-job":
+    # What the Network page is doing: "idle", "checking", "connecting" or
+    # "forgetting", for a test to wait on.
+    summary, _interfaces, _networks = call(
+        "Network1", "GetNetwork", "(s)", (unlock(),), "(a{sv}aa{sv}aa{sv})")
+    print(summary.get("job", "idle"))
 else:
     sys.exit(f"unknown action {action}")
