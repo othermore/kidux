@@ -19,7 +19,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from . import paths
+from . import lessons, paths
 
 log = logging.getLogger("kidux.modules")
 
@@ -273,11 +273,11 @@ def _guide(module_id: str, value, directory: Path) -> str:
         return ""
     content = directory / "content"
     try:
-        lessons = [entry for entry in (content / "en").iterdir()
-                   if re.match(r"^\d{2}-[a-z0-9-]+\.md$", entry.name)]
+        found = [entry for entry in (content / lessons.SOURCE_LANGUAGE).iterdir()
+                 if lessons.LESSON.match(entry.name)]
     except OSError:
-        lessons = []
-    if not lessons:
+        found = []
+    if not found:
         log.warning("module %s: its guide has no lesson in content/en/", module_id)
         return ""
     return str(content)
