@@ -15,8 +15,7 @@ building and never the battery, every user-facing word through i18n in
 both languages, a package's new version at its first change and `~dev`
 builds of it until the owner tries the work and says yes.
 
-Section 4 records what the owner decided and what is left for the owner
-to confirm, which the steps follow. Section 5 is the content, ready to
+Section 4 records what the owner decided, which the steps follow. Section 5 is the content, ready to
 use: every word of the pane, every lesson in English and Spanish, and
 every mission file.
 
@@ -24,7 +23,7 @@ every mission file.
 
 | Step | What | Size |
 |---|---|---|
-| 4.32 | Found on the machine first: a pane on the left under labwc, the keyboard, the widths, a second file in a running program, links out of a module | S |
+| 4.32 | Found on the machine first: a pane on the right under labwc, the keyboard, the widths, a second file in a running program, links out of a module | S |
 | 4.33 | The guide in the manifest, the lessons' format, and their reader (`kidux.lessons`, kidux-common) | M |
 | 4.34 | The pane in the launcher, its button on the bar, the missions' button, what is remembered | L |
 | 4.35 | Kig's guide: six lessons and four missions | M |
@@ -45,14 +44,14 @@ On the machine left up (`tests/run vm up 04`), with a scratch script of
 `tests/lib/sessionlib.py`'s `Machine`, and nothing committed before
 these are known:
 
-1. **A pane on the left.** A throwaway GTK 4 window under
+1. **A pane on the right.** A throwaway GTK 4 window under
    `gtk4-layer-shell`, as the bar is made (`bar.py`): anchored to the
-   left, top and bottom edges, layer `TOP`, `set_exclusive_zone` of its
+   right, top and bottom edges, layer `TOP`, `set_exclusive_zone` of its
    width, 426 pixels, keyboard mode `ON_DEMAND`, run as Leo in his
    session with the launcher's own `LD_PRELOAD` of the library. Then Kig
    opened from its tile. Expected, since labwc keeps a maximised window
    inside the room the layer surfaces' exclusive zones leave, as it does
-   for the bar: Kig's window fills the room to the right of the pane and
+   for the bar: Kig's window fills the room to the left of the pane and
    above the bar, and the launcher's own window behind it too. Checked
    for a child without windows and, with `KIDUX_WINDOWS=1`, for one with
    them (a window maximised by its own button respects the pane too; a
@@ -60,7 +59,7 @@ these are known:
    the X11 canary (D58; `tests/lib/seed/modules/x11-canary`), which the
    launcher maximises itself; and at scale 2, where the pane's width is
    what section 4.34 says. If labwc does not keep a maximised window out
-   of a left exclusive zone, the step stops and the owner is told, with
+   of a right exclusive zone, the step stops and the owner is told, with
    labwc's window rules (`SnapToRegion` with `<regions>`, labwc-notes.md)
    as the alternative to design.
 2. **The keyboard.** With `ON_DEMAND`, a click in the pane takes the
@@ -139,19 +138,27 @@ files and format); architecture.md, D103 (section 4).
 ### 4.34 — The pane
 
 **What it is.** A third window of the launcher, `guide.py`, a layer-shell
-surface on the left edge, anchored top and bottom, layer `TOP`, with an
+surface on the right edge, anchored top and bottom, layer `TOP`, with an
 exclusive zone of its width, so that every maximised window and the
-launcher's own fill the room to its right: for a child without windows
+launcher's own fill the room to its left: for a child without windows
 the program is beside it; for a child with them, their windows have the
-rest of the desk and the pane stays (section 4, decision 2). Its width is
-a third of the output's logical width, never under 300 pixels: 426 at
-1280x800, 300 at 640x400 (scale 2, which leaves the program 340, cramped
-but usable; D49's scale 2 is for a screen that is small anyway). Its
+rest of the desk and the pane stays (section 4, decision 2). On the
+right, since the programs' palettes and toolbars are on the left and the
+guide pushes none of them; the bubbles (D98), which rise from the bar's
+right end on the overlay layer, rise over the pane's foot, and pass. Its
+width is a third of the output's logical width, never under 300 pixels:
+426 at 1280x800, 300 at 640x400 (scale 2, which leaves the program 340,
+cramped but usable; D49's scale 2 is for a screen that is small anyway).
+**Folded**, it is a rail of 28 pixels along the edge, with the book icon
+and the module's name written upwards, and its exclusive zone is the
+rail's, so that the program has the rest: the child folds it for room
+and unfolds it by a click on the rail or by the bar's *Guide*. Its
 colours and type are the launcher's (view.py's CSS, `kidux-roomy` and
 the rest), its text 20 pixels, and it scrolls as D63's rooms do
 (`kidux.scroll.scroller`).
 
-**What it shows.** At the top, the module's name and *Hide*; under it,
+**What it shows.** At the top, the module's name and *Fold*, a chevron
+pointing at the edge; under it,
 either the **list of lessons**, each a button with its number and title,
 or **one lesson**: its title, its blocks drawn one under another, a
 heading as a heading, a paragraph as a `Gtk.Label` with Pango markup for
@@ -165,27 +172,41 @@ the lessons. The keyboard reaches everything by Tab inside the pane
 (`ON_DEMAND`), the arrows scroll, and Escape goes from a lesson to the
 list.
 
-**When it shows.** The pane belongs to the module on screen: when the
-desk's `current` changes (`desk_changed`), the pane shows that module's
-guide, or hides when the module has none or home is on screen. A module
-with a guide opens with its pane shown, the list of lessons first, the
-first time; after that, what the child left: the pane hidden by *Hide*
-stays hidden for that module until the bar's button shows it again, and
-the lesson the child was in comes back. That is remembered in the
-launcher's state file in the child's home,
+**When it shows.** The pane follows the module on screen, which the
+desk tells the launcher at every change (`desk_changed`), by one rule
+for each of the child's modes (section 4, decision 2):
+
+- *Without windows*, one module fills the screen at a time: the pane
+  shows the guide of the module on screen, unfolded or folded as that
+  module's guide was left; when the module on screen has no guide, or
+  home is on screen, the pane goes away altogether. Two modules with a
+  guide open at once swap guides as the child swaps between them.
+- *With windows*, several windows are in view at once, so the pane
+  stays for as long as any open module has a guide: it shows the guide
+  of the module whose window is in use, and, when that module has none
+  or home is in use, keeps showing the guide it last showed, so that a
+  child reading Kig's lesson while they copy its numbers into Step does
+  not lose the page. It goes away only when the last open module with a
+  guide closes.
+
+In both modes a module with a guide opens with its pane unfolded, the
+list of lessons first, the first time; after that, what the child left:
+folded or unfolded, and the lesson the child was in. That is remembered
+for each module in the launcher's state file in the child's home,
 `~/.local/share/kidux/launcher.json`, through `kidux.state` (kind
-`launcher`), `{"guides": {"<id>": {"shown": true, "lesson": 3}}}`,
+`launcher`), `{"guides": {"<id>": {"folded": false, "lesson": 3}}}`,
 written when it changes and read at start; a file that does not read is
 logged and ignored.
 
 **The bar** gets *Guide*, a button with a book icon drawn like the bar's
-others, between the time and *Close*, shown only while the module on
-screen has a guide, lit while the pane is shown; it toggles the pane.
-Alt+Tab and the bar's buttons change the module on screen and the pane
-follows; *Close* closes the module and the pane goes with it; the lock
-screen covers it like everything else (it is on the `TOP` layer, under
-the lock screen's own). Under the bar's question *<name> has not
-closed…* nothing changes.
+others, between the time and *Close*, shown only while the pane is
+there, lit while it is unfolded; it folds and unfolds the pane. Alt+Tab
+and the bar's buttons change the module on screen and the pane follows
+by the rule above; *Close* closes the module and the pane goes with it
+or, with windows, passes to the next guide open; the lock screen covers
+it like everything else (it is on the `TOP` layer, under the lock
+screen's own). Under the bar's question *<name> has not closed…*
+nothing changes.
 
 **The missions.** A lesson's `@mission missions/<file>` is a file of the
 program's, read-only in the module's directory. The first time a
@@ -205,22 +226,26 @@ by the sentence *Open it from <name>: File, Open, Documents, Missions of
 and File, Open is a thing to learn. The sentence's words are the
 launcher's; the file's name is the mission's.
 
-**Tests.** Unit, GTK-free, in the launcher: the state read and written,
-what the pane shows for a module with a guide and without, the missions'
-copy that never overwrites, the command with an argument; and in
+**Tests.** Unit, GTK-free, in the launcher: the rule of what the pane
+shows, in each mode, for every change of the module on screen, from
+`desk.py`'s own test's shape; the state read and written; the missions'
+copy that never overwrites; the command with an argument; and in
 `launch.py`'s test, `arguments`. Session, `tests/session/41-guide.py`
 (`40-purge.py` becomes `42-purge.py`), with Kig installed through the
 daemon as `36-module-kig.py` does: Leo opens Kig, the pane is there on
-the left with Kig's lessons in Leo's language and Kig filling the rest
+the right with Kig's lessons in Leo's language and Kig filling the rest
 (the picture `module-kig-guide`, in the guide and on the website; the
-pane's cream in the left third, Kig's grid in the rest), the bar's
+pane's cream in the right third, Kig's grid in the rest), the bar's
 *Guide* lit; Enter on the first lesson shows it (the picture
 `module-guide-lesson`); its mission's button, with Kig open, is the
-sentence; *Hide* hides the pane and Kig fills the room; the bar's
-button brings it back to the same lesson; Leo logs out and in, opens Kig,
-and the pane comes back as left. For a child with windows,
-`21-windows.py` gains a check that the pane leaves the desk to its
-right. `13-every-screen-fits.py` gains the pane at scale 2.
+sentence; *Fold* leaves the rail and Kig fills the room up to it; the
+bar's button unfolds it to the same lesson; a second module without a
+guide (the canary) opened and shown takes the pane away, and Kig shown
+again brings it back; Leo logs out and in, opens Kig, and the pane comes
+back as left. For a child with windows, `21-windows.py` gains a check
+that with Kig and the canary open the pane stays, showing Kig's guide
+while the canary is in use, and goes when Kig closes.
+`13-every-screen-fits.py` gains the pane at scale 2.
 
 **Documents.** launcher.md, a section for the pane; the user guide's
 section 5, *A guide beside a module*, and section 9's modules that have
@@ -325,32 +350,39 @@ Decided 2026-10-16 by the owner.
    the modules a child cannot find their way in alone get one: Kig and
    Step first.
 2. **One pane, two modes.** For a child without windows the room above
-   the bar is split, the guide on the left and the program filling the
-   rest; for a child with windows the guide takes the left edge and the
-   windows have the rest of the desk.
-3. **Fable plans, Opus builds, Fable reviews**, then the owner's hand
+   the bar is split, the guide on the right, a third, and the program
+   filling the rest; the pane shows the guide of the module on screen,
+   swaps it for another module's, and goes away for a module without
+   one. For a child with windows the guide takes the right edge and the
+   windows have the rest of the desk; the pane stays while any open
+   module has a guide, shows the guide of the module in use, keeps the
+   last shown when that module has none, and goes away when the last
+   module with a guide closes.
+3. **The pane folds to a rail** along the edge, for room, and unfolds
+   again from the rail or from the bar, in both modes.
+4. **Fable plans, Opus builds, Fable reviews**, then the owner's hand
    tests, then the battery and the release.
 
-**To confirm by the owner** (proposed by Fable on 2026-10-17):
+Confirmed 2026-10-17 by the owner, on Fable's proposal:
 
-- **The pane is the launcher's own, a layer-shell surface with an
-  exclusive zone**, not a second window the compositor places: it works
-  the same in both modes, needs no window rules, opens and hides at once,
-  and follows the module on screen. For a child with windows this is "the
-  guide at the edge, the windows beside it" rather than two windows side
-  by side, which labwc can only do with rules that act once, when a
-  window appears, and never again.
-- **The lessons are drawn by the launcher from a small Markdown**, not
-  shown as web pages: a browser in the launcher would be a second engine
-  on the machine (D36), and a lesson needs headings, steps, pictures and
-  the mascot, nothing more.
-- **Missions are copied into the child's Documents**, in a folder named
-  in their language, and opened from the program's own File, Open when
-  the program is already running: a second start would be a second
-  window, and opening a file is itself a thing to learn.
-- **Kalzium gets a short guide; the Simulations none.**
-- **Links out of a module get a bubble and open nothing** (4.38), for
-  every program in a child's session.
+5. **The pane is the launcher's own, a layer-shell surface with an
+   exclusive zone**, not a second window the compositor places: it works
+   the same in both modes, needs no window rules, opens and folds at
+   once, and follows the module on screen. For a child with windows this
+   is "the guide at the edge, the windows beside it" rather than two
+   windows side by side, which labwc can only do with rules that act
+   once, when a window appears, and never again.
+6. **The lessons are drawn by the launcher from a small Markdown**, not
+   shown as web pages: a browser in the launcher would be a second
+   engine on the machine (D36), and a lesson needs headings, steps,
+   pictures and the mascot, nothing more.
+7. **Missions are copied into the child's Documents**, in a folder named
+   in their language, and opened from the program's own File, Open when
+   the program is already running: a second start would be a second
+   window, and opening a file is itself a thing to learn.
+8. **Kalzium gets a short guide; the Simulations none.**
+9. **Links out of a module get a bubble and open nothing** (4.38), for
+   every program in a child's session.
 
 ## 5. The content
 
@@ -359,7 +391,7 @@ Decided 2026-10-16 by the owner.
 | English | Spanish |
 |---|---|
 | Guide | Guía |
-| Hide | Ocultar |
+| Fold | Plegar |
 | Lessons | Lecciones |
 | Back | Atrás |
 | Next | Siguiente |
@@ -1473,10 +1505,12 @@ Luego mira si la calculadora está de acuerdo.
 >
 > Some modules come with a guide: lessons written for the child, with
 > steps to follow, what to look for, and ideas to go on with. The guide
-> opens on the left when the module opens, and the module takes the
-> rest of the screen. **Hide**, at the top of the guide, puts it away;
-> **Guide**, on the bar, brings it back, to the lesson the child was
-> in. A lesson may have a *mission*, a file of the module's half done,
+> opens on the right when the module opens, and the module takes the
+> rest of the screen. **Fold**, at the top of the guide, folds it to a
+> thin strip along the edge, for room; a click on the strip, or
+> **Guide** on the bar, opens it again, at the lesson the child was in.
+> For a child with windows the guide stays while a module with one is
+> open, and shows the guide of the module in use. A lesson may have a *mission*, a file of the module's half done,
 > with what to try written inside it: the first time the guide opens,
 > the missions are copied into the child's **Documents**, in a folder
 > named after the module, and the lesson's button opens one, or says
@@ -1487,10 +1521,13 @@ Luego mira si la calculadora está de acuerdo.
 >
 > Algunos módulos vienen con una guía: lecciones escritas para el niño,
 > con pasos que seguir, qué mirar e ideas para continuar. La guía se
-> abre a la izquierda cuando se abre el módulo, y el módulo ocupa el
-> resto de la pantalla. **Ocultar**, arriba de la guía, la quita;
-> **Guía**, en la barra, la devuelve, a la lección en la que estaba el
-> niño. Una lección puede tener una *misión*, un archivo del módulo a
+> abre a la derecha cuando se abre el módulo, y el módulo ocupa el
+> resto de la pantalla. **Plegar**, arriba de la guía, la pliega en una
+> tira estrecha pegada al borde, para tener sitio; un clic en la tira, o
+> **Guía** en la barra, la abre otra vez, en la lección en la que estaba
+> el niño. Para un niño con ventanas la guía se queda mientras haya
+> abierto un módulo que la tenga, y enseña la del módulo que está en
+> uso. Una lección puede tener una *misión*, un archivo del módulo a
 > medio hacer, con lo que probar escrito dentro: la primera vez que se
 > abre la guía, las misiones se copian en los **Documentos** del niño,
 > en una carpeta con el nombre del módulo, y el botón de la lección abre
@@ -1521,7 +1558,8 @@ misiones e ideas, en el idioma del niño.*
 / *, con guía*.
 
 **Architecture**: a row in section 8's table is not needed; two
-decisions, D103 (the pane: the launcher's own layer surface, the
-lessons' small Markdown drawn by the launcher, the missions in
-Documents) and D104 (links out of a module get a bubble and open
-nothing), written from section 4 once the owner confirms.
+decisions, D103 (the pane: the launcher's own layer surface on the
+right, folding to a rail, one rule for each mode, the lessons' small
+Markdown drawn by the launcher, the missions in Documents) and D104
+(links out of a module get a bubble and open nothing), written from
+section 4.
