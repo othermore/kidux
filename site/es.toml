@@ -61,6 +61,7 @@ single_picture = "Un módulo de aprendizaje ocupando la pantalla sobre la barra"
 windows_title = "Ventanas"
 windows_text = "Para un niño mayor: varios programas a la vista, que se mueven y cambian de tamaño, como en cualquier ordenador."
 windows_picture = "Dos módulos de aprendizaje abiertos en ventanas"
+guide = "Algunos módulos vienen con una guía al lado: lecciones, misiones e ideas, en el idioma del niño."
 
 [modules]
 title = "Muchas formas de aprender, de 2 a 16 años"
@@ -121,43 +122,43 @@ anchor = "wikipedia"
 [modules.codecombat]
 name = "CodeCombat"
 age = "De 9 a 16 años"
-text = "Python y JavaScript jugando, en la web de CodeCombat, con una cuenta que prepara un adulto."
+text = "Aprender Python y JavaScript jugando, en la web de CodeCombat. La cuenta la prepara un adulto."
 anchor = "codecombat"
 
 [modules.mail]
 name = "Correo"
 age = "Desde 8 años"
-text = "Un buzón de correo propio del niño, en Thunderbird, con la cuenta que da un adulto y nada que configurar."
+text = "Un buzón de correo propio del niño, en Thunderbird. La cuenta la da un adulto, y el niño no tiene nada que configurar."
 anchor = "correo"
 
 [modules.gmail]
 name = "Gmail"
 age = "Desde 8 años"
-text = "La web de Gmail, para una cuenta de Google, también la de un niño con Family Link, con el resto de internet cerrado."
+text = "La web de Gmail, para una cuenta de Google, también la de un niño con Family Link. El resto de internet sigue cerrado."
 anchor = "gmail"
 
 [modules.kig]
 name = "Kig"
 age = "De 10 a 14 años"
-text = "Geometría que se arrastra: figuras que conservan sus reglas."
+text = "Geometría que se mueve: puntos, rectas y figuras que conservan sus reglas al arrastrarlas. Con guía."
 anchor = "kig"
 
 [modules.kalzium]
 name = "Kalzium"
 age = "De 10 años en adelante"
-text = "La tabla periódica, elemento a elemento."
+text = "La tabla periódica: cómo es cada elemento, y cómo está hecho su átomo. Con guía."
 anchor = "kalzium"
 
 [modules.step]
 name = "Step"
 age = "De 10 años en adelante"
-text = "Monta un experimento de física y dale a reproducir."
+text = "Monta un experimento de física con muelles, pesos y fuerzas, y dale a reproducir. Con guía."
 anchor = "step"
 
 [modules.simulations]
 name = "Simulaciones"
 age = "De 6 a 14 años"
-text = "Los experimentos de ciencias y matemáticas de PhET, en el ordenador."
+text = "Los experimentos de ciencias y matemáticas de PhET, para jugar en la pantalla. Están guardados en el ordenador."
 anchor = "simulaciones"
 
 [adults]
