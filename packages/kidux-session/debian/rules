@@ -7,7 +7,9 @@ DEST = debian/kidux-session
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	pyflakes3 tests
+	pyflakes3 bin/kidux-closed bin/kidux-idle bin/kidux-lid-watch lib/greeter-session lib/labwc-rc tests
+	sh -n bin/kidux-session
+	sh -n lib/session-inner
 	python3 -B -m pytest -q -p no:cacheprovider tests
 endif
 
