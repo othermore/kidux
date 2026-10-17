@@ -206,9 +206,15 @@ def run(machine: Machine) -> None:
            and wait(lambda: '"module": "canary"' in root(
                f"grep '\"action\": \"module removed\"' {AUDIT} | tail -1").stdout, 10),
            root(f"tail -3 {AUDIT}").stdout + greeter_log())
-    closed = machine.mark()
-    machine.key("esc")
-    machine.shown("choose", closed, 30)          # the panel closed before the next test
+    # The panel takes no Escape while it is busy, and it is busy a moment
+    # after a module goes, listing the modules again: Escape again, as a
+    # person would, until the choose screen is back.
+    for _ in range(4):
+        closed = machine.mark()
+        machine.key("esc")
+        if machine.shown("choose", closed, 10):
+            break
+    report("and Escape closes the panel", machine.shown("choose", closed, 1), greeter_log())
     root(f"rm -rf {CANARY} {BIRD}-*")
 
     # Since this run began: the machine left up logs that the choose screen
