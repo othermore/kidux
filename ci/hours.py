@@ -106,17 +106,19 @@ def redate(base: str, head: str, when: datetime.datetime, cwd=None) -> str:
     """The commits after `base` up to `head`, each made again with the same
     tree, message, author and committer, dated inside the hours: the last
     at `when`, each earlier one a minute before, closer when the hours have
-    not been open for that long. The new head; `head` itself with nothing
-    to date. Only a line of commits: a merge is refused."""
-    commits = git("rev-list", "--reverse", f"{base}..{head}", cwd=cwd).split()
+    not been open for that long. A merge is made again with its parents,
+    each dated again when it is one of these commits and kept as it is
+    when it is already on the other side. The new head; `head` itself with
+    nothing to date."""
+    commits = git("rev-list", "--topo-order", "--reverse", f"{base}..{head}", cwd=cwd).split()
     if not commits:
         return git("rev-parse", head, cwd=cwd)
     since = max(1, int((when - began(when)).total_seconds()))
     step = min(60, max(1, since // len(commits)))
-    parent = git("rev-parse", base, cwd=cwd)
+    made: dict[str, str] = {}
     for place, commit in enumerate(commits):
-        if len(git("log", "-1", "--format=%P", commit, cwd=cwd).split()) != 1:
-            raise SystemExit(f"{commit[:7]} is a merge, which is not dated again")
+        parents = [made.get(old, old) for old in git("log", "-1", "--format=%P", commit,
+                                                      cwd=cwd).split()]
         tree, name, address = git("log", "-1", "--format=%T%n%an%n%ae", commit,
                                   cwd=cwd).splitlines()
         message = subprocess.run(["git", "log", "-1", "--format=%B", commit], cwd=cwd,
@@ -126,10 +128,11 @@ def redate(base: str, head: str, when: datetime.datetime, cwd=None) -> str:
         environment = {**os.environ, "GIT_AUTHOR_NAME": name, "GIT_AUTHOR_EMAIL": address,
                        "GIT_AUTHOR_DATE": stamp, "GIT_COMMITTER_NAME": name,
                        "GIT_COMMITTER_EMAIL": address, "GIT_COMMITTER_DATE": stamp}
-        parent = subprocess.run(["git", "commit-tree", tree, "-p", parent], cwd=cwd,
-                                input=message, env=environment, capture_output=True, text=True,
-                                check=True).stdout.strip()
-    return parent
+        with_parents = [item for parent in parents for item in ("-p", parent)]
+        made[commit] = subprocess.run(["git", "commit-tree", tree, *with_parents], cwd=cwd,
+                                      input=message, env=environment, capture_output=True,
+                                      text=True, check=True).stdout.strip()
+    return made[commits[-1]]
 
 
 def main(args: list[str]) -> int:

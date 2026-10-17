@@ -112,4 +112,30 @@ with tempfile.TemporaryDirectory() as scratch:
     check("and closer together when the hours have just opened",
           all(hours.allowed(when) for when in tight) and tight[0] > tight[1], str(tight))
 
+    # A merge of the other machine's work, already pushed, into this one's:
+    # the merge is dated again with its own line, and keeps the other side.
+    git("checkout", "-q", "-b", "other", base)
+    Path(scratch, "theirs").write_text("theirs\n")
+    git("add", ".")
+    subprocess.run(["git", "commit", "-q", "-m", "Their commit"], cwd=scratch, check=True,
+                   env={"GIT_AUTHOR_DATE": "2026-10-13T13:00:00+02:00",
+                        "GIT_COMMITTER_DATE": "2026-10-13T13:00:00+02:00",
+                        "HOME": scratch, "PATH": "/usr/bin:/bin"})
+    theirs = git("rev-parse", "HEAD")
+    git("checkout", "-q", "main")
+    subprocess.run(["git", "merge", "-q", "--no-ff", "-m", "Merge theirs", "other"], cwd=scratch,
+                   check=True, env={"GIT_AUTHOR_DATE": "2026-10-13T14:00:00+02:00",
+                                    "GIT_COMMITTER_DATE": "2026-10-13T14:00:00+02:00",
+                                    "HOME": scratch, "PATH": "/usr/bin:/bin"})
+    merged = hours.redate(theirs, "HEAD", pushed_at, cwd=scratch)
+    parents = git("log", "-1", "--format=%P", merged).split()
+    check("a merge is dated again, its own line dated with it and the other side kept",
+          git("log", "-1", "--format=%s", merged) == "Merge theirs" and theirs in parents
+          and parents[0] != git("rev-parse", "HEAD^") and len(parents) == 2
+          and git("rev-parse", f"{merged}^{{tree}}") == git("rev-parse", "HEAD^{tree}")
+          and parsed(git("log", "-1", "--format=%cD", merged)) == pushed_at
+          and git("log", "--format=%s", f"{theirs}..{merged}").split("\n")
+          == ["Merge theirs", "Commit 2", "Commit 1"],
+          git("log", "--format=%H %P %s", f"{theirs}..{merged}"))
+
 sys.exit(failed)
