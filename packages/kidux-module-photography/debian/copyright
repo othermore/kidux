@@ -212,6 +212,130 @@ Copyright: Alexandru Panoiu
 License: CC-BY-2.0
 Comment: https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(13.6-76mm)_(AP4M0681)_(6946010542).jpg
 
+Files: pictures/thirds-landscape.jpg
+Copyright: Dietmar Rabich
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Dülmen,_Dernekamp,_Strohballen_--_2015_--_7838.jpg
+
+Files: pictures/post-centred.jpg
+Copyright: Dietmar Rabich
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Norderney,_Dünenlandschaft,_Wegweiser_--_2025_--_9437.jpg
+ Cropped with the post in the middle.
+
+Files: pictures/post-on-a-third.jpg
+Copyright: Dietmar Rabich
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Norderney,_Dünenlandschaft,_Wegweiser_--_2025_--_9437.jpg
+ Cropped with the post on a third.
+
+Files: pictures/thirds-portrait.jpg
+Copyright: Martín Vasco
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Portrait_of_a_dog_on_red_tiles_in_Loja,_Ecuador.jpg
+ Cropped.
+
+Files: pictures/leading-lines.jpg
+Copyright: Dietmar Rabich
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Amboy_(California,_USA),_Hist._Route_66_--_2012_--_1.jpg
+
+Files: pictures/frame-in-frame.jpg
+Copyright: Dietmar Rabich
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Heiligengrabe,_Kloster_Stift_zum_Heiligengrabe,_Abtei,_Fenster_im_Dormitorium_--_2017_--_9972.jpg
+
+Files: pictures/reflection.jpg
+Copyright: Jules Verne Times Two
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Rain_puddle_reflection_at_Schönbrunn_Palace_gardens_(Vienna,_Austria)_julesvernex2.jpg
+
+Files: pictures/pattern-break.jpg
+Copyright: mrhayata
+License: CC-BY-SA-2.0
+Comment: https://commons.wikimedia.org/wiki/File:1_Red_Tulip_and_many_yellow_ones.jpg
+
+Files: pictures/negative-space.jpg
+Copyright: W.carter
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Sun_in_fog_in_Lysekil.jpg
+
+Files: pictures/worm-view.jpg
+Copyright: Harald Groven
+License: CC-BY-SA-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Worm's_eye_view_dog.jpg
+
+Files: pictures/from-above.jpg
+Copyright: Anthony Delanoix
+License: CC0-1.0
+Comment: https://commons.wikimedia.org/wiki/File:Breakfast_table_with_pancakes_(Unsplash).jpg
+
+Files: pictures/silhouette.jpg
+Copyright: درفش کاویانی
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Silhouette_Volleyball.JPG
+
+Files: pictures/side-light-face.jpg
+Copyright: Jacopo188
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Rembrandt_Lighting.JPG
+ Cropped.
+
+Files: pictures/side-light-cat.jpg
+Copyright: Viriditas
+License: CC-BY-SA-3.0
+Comment: https://commons.wikimedia.org/wiki/File:Cat_eyeing_prey.jpg
+
+Files: pictures/golden-hour.jpg
+Copyright: Basile Morin
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Four_dogs_running_at_golden_hour_in_the_countryside_of_Don_Det_Laos.jpg
+
+Files: pictures/complementary.jpg
+Copyright: Ian S
+License: CC-BY-SA-2.0
+Comment: https://commons.wikimedia.org/wiki/File:One_red_tulip_in_a_sea_of_green_-_geograph.org.uk_-_6140662.jpg
+
+Files: pictures/colour-houses.jpg
+Copyright: Felipe Valduga
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Complementary_Colors.jpg
+
+Files: pictures/monotone-houses.jpg
+Copyright: Felipe Valduga
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Complementary_Colors.jpg
+ Made grey from all its colours (prepare.py --grey).
+
+Files: pictures/red-filter-houses.jpg
+Copyright: Felipe Valduga
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Complementary_Colors.jpg
+ Made grey from its red light alone, as a red filter does (prepare.py --red-filter).
+
+Files: pictures/white-balance-right.jpg
+Copyright: Ronaldo Arthur Vidal
+License: CC0-1.0
+Comment: https://commons.wikimedia.org/wiki/File:Flat_Lay_Black_Coffee_(Unsplash).jpg
+ Cropped.
+
+Files: pictures/white-balance-lamp.jpg
+Copyright: Ronaldo Arthur Vidal
+License: CC0-1.0
+Comment: https://commons.wikimedia.org/wiki/File:Flat_Lay_Black_Coffee_(Unsplash).jpg
+ Cropped, its green light times 0.62 and its blue times 0.30, as a lamp's light with daylight white balance (prepare.py --light 1.0,0.62,0.30).
+
+Files: pictures/burst-strip.jpg
+Copyright: Serge Melki
+License: CC-BY-2.0
+Comment: https://commons.wikimedia.org/wiki/File:Show_jumping_sequence,_Delaware.jpg
+
+Files: pictures/portrait-eyes.jpg
+Copyright: Tobias ToMar Maier
+License: CC-BY-SA-4.0
+Comment: https://commons.wikimedia.org/wiki/File:Knit_cap_and_neck_warmer_in_complementary_colors.jpg
+ Cropped.
+
 License: CC-BY-2.0
  Creative Commons Attribution 2.0 Generic:
  https://creativecommons.org/licenses/by/2.0/legalcode
