@@ -429,8 +429,10 @@ window of the launcher, `guide.py`: a layer-shell surface on the right
 edge, from the top down to the bar, layer `TOP`, with an exclusive zone of
 its width, a third of the screen's logical width and never under 300
 pixels, so that every maximised window and the launcher's own fill the
-room to its left (labwc-notes.md). Its keyboard is on demand: a click in it
-gives it the keys, a click in the program gives them back. At its top, the
+room to its left (labwc-notes.md). It comes up without the keyboard, which
+stays with the module, since labwc gives the keys to a surface that asks
+for them as it comes up; a press in it asks, and gives it the keys, and a
+click in the program gives them back. At its top, the
 module's name and *Fold*; for a child with windows, the name is a list of
 the open modules with a guide when there are several, and a pin stands
 beside it. Under that, the list of lessons, each a button, or one lesson,
@@ -453,8 +455,8 @@ With windows it stays while any open module has a guide: the guide of the
 module in use, the last one shown while a module without one or home is in
 use, and none once the last module with a guide closes. A guide picked
 from the list is pinned; the pin keeps the guide shown whatever window is
-in use, until it is let go or its module closes, and is the session's
-alone. What the child left in each guide, folded or not and the lesson
+in use, until it is let go, when the pane follows the window in use
+again, or its module closes, and is the session's alone. What the child left in each guide, folded or not and the lesson
 they were in, is kept in `~/.local/share/kidux/launcher.json`, a file of
 the launcher's own written whole and renamed into place, and read at
 start; one that does not read is logged and set aside. The first time a

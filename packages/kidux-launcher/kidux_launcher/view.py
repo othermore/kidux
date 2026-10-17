@@ -296,8 +296,10 @@ class Launcher:
         self._draw_guide()
 
     def _guide_pin(self, on: bool) -> None:
+        """Pinned, the guide shown stays; let go, it follows the window in
+        use again, which the desk says."""
         self._guides.pin(on)
-        self._draw_guide()
+        self.desk_changed()
 
     def close_module(self) -> None:
         """Close, on the bar or its key (D45): the module on screen is asked,

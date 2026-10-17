@@ -12,10 +12,16 @@ Minimised as its frame's button does, the robin leaves the screen and stays
 on the bar, and its tile brings it back; maximised, it fills the room above
 the bar and gets the click made over it. A window that asks for fullscreen
 afterwards keeps it, and Super still brings the desk back; Alt+F4 closes the
-window in use's module. With windows off again, a module whose manifest
+window in use's module. Given a guide, the robin opens with its pane, which
+stays with the canary in use and goes with the robin (phase-4f-plan.md,
+step 4.34; D103); the canary given one too, the pane shows the guide of the
+window in use, keeps one picked from its drop-down, pinned, and follows the
+window in use again when the pin is let go. With windows off again, a module whose manifest
 needs windows has no tile for him, and the canary fills the room above the
 bar. Both are removed at the end.
 """
+
+import time
 
 from sessionlib import (
     CHILD,
@@ -33,6 +39,7 @@ from sessionlib import (
     colour_share,
     on_screen,
     open_panel,
+    pointer,
     report,
     root,
     wait,
@@ -47,6 +54,8 @@ CANARY, ROBIN = "org.kidux.tests.Canary", "org.kidux.tests.Robin"
 YELLOW, BLUE = (0xF5, 0xC5, 0x18), (0x3A, 0x86, 0xFF)
 INK, CREAM = (0x3B, 0x2F, 0x2A), (0xFF, 0xF6, 0xE9)
 ABOVE_THE_BAR = (0.0, 0.0, 1.0, 0.92)
+#: The guide pane's drop-down and its pin, with windows, on a 1280x800 screen.
+PICKER, PIN = "0.765,0.045", "0.887,0.045"
 
 
 def ask(verb: str, app_id: str) -> None:
@@ -67,6 +76,28 @@ def tile(machine: Machine, keys: tuple) -> None:
     for key in keys:
         machine.key(key)
     machine.key("ret")
+
+
+def give_guide(module: str) -> None:
+    """A guide of one lesson for a stand-in module, beside its manifest, as
+    a module's package brings one (modules.md, section 1)."""
+    directory = f"/usr/share/kidux/modules/{module}"
+    root(f"mkdir -p {directory}/content/en && printf '# The {module}\\n\\nA lesson.\\n' "
+         f"> {directory}/content/en/01-first.md && echo 'guide = true' >> {directory}/module.toml")
+
+
+def last_guide() -> str:
+    """The launcher's last word on its guide pane: the module and how it is
+    shown, or "none"."""
+    lines = [line for line in root("journalctl -b -o cat -t kidux-launcher | grep 'guide: '"
+                                   ).stdout.splitlines() if "missions" not in line]
+    return lines[-1].split("guide: ", 1)[1] if lines else ""
+
+
+def guide_stays(guide: str) -> bool:
+    """The pane still shows `guide` a few seconds on."""
+    time.sleep(3)
+    return last_guide() == guide
 
 
 def last_tiles() -> str:
@@ -221,6 +252,73 @@ def run(machine: Machine) -> None:
 
     report("logging out ends the session and every window with it", log_out(machine),
            root(f"ps -u {CHILD} -o pid,args").stdout)
+
+    # The robin given a guide, the canary none: the pane comes with the
+    # robin, stays while the canary is in use, and goes with the robin.
+    # Nothing is remembered of either guide from an earlier run.
+    give_guide("robin")
+    root(f"rm -f /home/{CHILD}/.local/share/kidux/launcher.json")
+    report("Leo signs in again, with windows", sign_in(machine, "canary robin"),
+           greeter_log() + launcher_log())
+    machine.key("shift-tab")
+    machine.key("home")
+    machine.key("right")
+    machine.key("ret")
+    report("the robin, which has a guide, opens with its pane",
+           wait(lambda: window_of(ROBIN) != {}, 30)
+           and wait(lambda: last_guide() == "robin lessons unfolded", 10), launcher_log())
+    machine.key("meta_l")
+    wait(lambda: on_screen() == "home", 10)
+    tile(machine, ("left",))
+    report("with the canary, which has none, in use, the pane keeps the robin's guide",
+           wait(lambda: on_screen() == "canary", 30) and guide_stays("robin lessons unfolded"),
+           launcher_log())
+    asked = journal_count("kidux-launcher", "module robin did not close")
+    ask("activate", ROBIN)
+    wait(lambda: on_screen() == "robin", 10)
+    machine.key("alt-f4")
+    wait(lambda: journal_count("kidux-launcher", "module robin did not close") > asked, 20)
+    machine.key("alt-f4")
+    report("and the robin closed takes the pane away",
+           wait(lambda: window_of(ROBIN) == {}, 15) and wait(lambda: last_guide() == "none", 10),
+           launcher_log())
+
+    # The canary given one too, and the robin opened again: the guide of
+    # the window in use; the robin's picked from the drop-down, below the
+    # canary's, which was opened first, stays with the canary in use,
+    # pinned; the pin let go, the canary's again.
+    give_guide("canary")
+    machine.key("meta_l")
+    wait(lambda: on_screen() == "home", 10)
+    tile(machine, ("right",))
+    report("the robin opened again shows its own guide",
+           wait(lambda: on_screen() == "robin", 30)
+           and wait(lambda: last_guide() == "robin lessons unfolded", 10), launcher_log())
+    ask("activate", CANARY)
+    report("the canary, given one, in use shows the canary's",
+           wait(lambda: on_screen() == "canary", 10)
+           and wait(lambda: last_guide() == "canary lessons unfolded", 10), launcher_log())
+    machine.still()
+    machine.screenshot("windows-guide")
+    pointer(PICKER, "click")
+    machine.still()
+    machine.key("down")
+    machine.key("ret")
+    report("the robin's picked from the pane's drop-down is shown, pinned",
+           wait(lambda: last_guide() == "robin lessons unfolded pinned", 10), launcher_log())
+    ask("activate", CANARY)
+    report("and stays with the canary in use",
+           wait(lambda: on_screen() == "canary", 10)
+           and guide_stays("robin lessons unfolded pinned"), launcher_log())
+    pointer(PIN, "click")
+    report("the pin let go, the pane follows the window in use again",
+           wait(lambda: last_guide() == "canary lessons unfolded", 10), launcher_log())
+    report("and logging out ends that session too", log_out(machine),
+           root(f"ps -u {CHILD} -o pid,args").stdout)
+    for module in MODULES:
+        copy(SEED_SOURCE / "modules" / module / "module.toml",
+             f"/usr/share/kidux/modules/{module}/module.toml", mode="0644")
+        root(f"rm -rf /usr/share/kidux/modules/{module}/content")
 
     # Windows off, and the robin needing them: no tile for it.
     root(f"{AS} set-profile {CHILD} windows off")

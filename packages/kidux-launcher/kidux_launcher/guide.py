@@ -36,6 +36,8 @@ log = logging.getLogger("kidux.launcher")
 NARROWEST = 300
 #: The rail a folded pane is, along the edge.
 RAIL = 28
+#: How many frames the pane draws before it asks for the keyboard.
+FRAMES_BEFORE_KEYS = 2
 #: The mascot beside what it says.
 MASCOT_SIZE = 64
 
@@ -132,7 +134,13 @@ class GuidePane:
         shell.set_layer(window, shell.Layer.TOP)
         for edge in (shell.Edge.RIGHT, shell.Edge.TOP, shell.Edge.BOTTOM):
             shell.set_anchor(window, edge, True)
-        shell.set_keyboard_mode(window, shell.KeyboardMode.ON_DEMAND)
+        # labwc gives the keyboard to a surface that asks for it on demand
+        # as it comes up, and not to one that asks later: the pane comes up
+        # without asking, so that the keys stay with the module opened, and
+        # asks once it is on the screen, so that a press in it gives it the
+        # keys and a click in the program takes them back.
+        shell.set_keyboard_mode(window, shell.KeyboardMode.NONE)
+        window.connect("map", self._mapped)
         keys = Gtk.EventControllerKey()
         keys.connect("key-pressed", self._key)
         window.add_controller(keys)
@@ -148,12 +156,14 @@ class GuidePane:
         pick from; `pinned`, whether the one shown is."""
         if lesson is not None and not any(item.number == lesson for item in lessons):
             lesson = None
-        changed = (module.id if self._module else None, self._lesson, self._folded,
+        changed = (self._module.id if self._module else None, self._lesson, self._folded,
                    [m.id for m in self._open], self._pinned) != (
                    module.id, lesson, folded, [m.id for m in open_], pinned)
         self._module, self._lessons, self._lesson = module, lessons, lesson
         self._folded, self._open, self._pinned = folded, open_, pinned
         self._missions_folder = missions_folder
+        if not self._window.get_visible():
+            self._keyboard(False)
         if changed or not self._window.get_visible():
             self._draw()
             log.info("guide: %s %s %s%s", module.id,
@@ -166,6 +176,25 @@ class GuidePane:
             self._window.set_visible(False)
             log.info("guide: none")
         self._module = None
+
+    def _mapped(self, window) -> None:
+        """Shown: the keyboard on demand from its second frame, by when the
+        compositor has it on the screen."""
+        frames = [0]
+
+        def tick(_widget, _clock) -> bool:
+            frames[0] += 1
+            if frames[0] < FRAMES_BEFORE_KEYS:
+                return GLib.SOURCE_CONTINUE
+            self._keyboard(True)
+            return GLib.SOURCE_REMOVE
+
+        window.add_tick_callback(tick)
+
+    def _keyboard(self, wanted: bool) -> None:
+        mode = self._shell.KeyboardMode.ON_DEMAND if wanted else self._shell.KeyboardMode.NONE
+        if self._shell.get_keyboard_mode(self._window) != mode:
+            self._shell.set_keyboard_mode(self._window, mode)
 
     @property
     def shown(self) -> bool:

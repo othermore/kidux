@@ -181,9 +181,11 @@ width, the mascot's bubble as the launcher draws its notices (the chick
 at 64 pixels beside a rounded box), *Try this* as a box in the module's
 tile colour, and the mission as a box, *Mission* (below);
 at the bottom, *Lessons* (back to the list), *Back* and *Next* between
-the lessons. The keyboard reaches everything by Tab inside the pane
-(`ON_DEMAND`), the arrows scroll, and Escape goes from a lesson to the
-list.
+the lessons. The pane comes up without the keyboard (`NONE`), since
+labwc gives the keys to a surface on demand as it comes up, and asks for
+it (`ON_DEMAND`) once the child presses in it; then Tab reaches
+everything inside the pane, the arrows scroll, and Escape goes from a
+lesson to the list (labwc-notes.md).
 
 **When it shows.** The pane follows the module on screen, which the
 desk tells the launcher at every change (`desk_changed`), by one rule

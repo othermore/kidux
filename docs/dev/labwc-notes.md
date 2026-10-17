@@ -65,6 +65,13 @@ softness is judged on the owner's MacBook (step 3.21).
   alike; and it stops above the bar, whose zone along the bottom was
   there first. Found on 2026-10-17 with a throwaway pane beside Kig and
   the X11 canary, in both configurations.
+- **A layer surface whose keyboard is on demand takes the keys as it
+  comes up.** labwc focuses a surface on the top layer that asks for the
+  keyboard on demand when it is mapped, so keys pressed next go to it and
+  not to the window in use. The guide's pane comes up without asking
+  (`NONE`) and asks once the child presses in it (launcher.md). Found on
+  2026-10-17, when the pane came up over home and the launcher's keys
+  folded it.
 - **A window that comes up fullscreen keeps a title bar.** labwc 0.8.3
   does not change a fullscreen window's decoration, and gives one taken
   out of fullscreen its frame back whatever a rule said;
