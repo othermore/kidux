@@ -8,73 +8,75 @@
 
 **Kidux es un Linux para el primer ordenador de un niño o una niña.** Se
 instala en cualquier ordenador de 64 bits, viejo o nuevo, y se le entrega
-al niño. El niño tiene entonces una máquina que es suya: su nombre y su
-dibujo en la pantalla de inicio, su contraseña, su idioma, y solo lo que un
-adulto ha decidido que puede usar, durante el tiempo que el adulto ha
-decidido.
+al niño. El niño tiene entonces una máquina que es suya. Tiene su nombre y
+su dibujo en la pantalla de inicio, su propia contraseña y su propio
+idioma. Y tiene solo lo que un adulto ha decidido que puede usar, durante
+el tiempo que el adulto ha decidido.
 
-Kidux es gratuito para las familias y su código está publicado; está
+Kidux es gratuito para las familias y su código está publicado. Está
 construido sobre Debian, en español y en inglés.
 
 ## Lo que ve un niño
 
-El ordenador arranca en una pantalla de inicio con el dibujo de cada niño.
-El niño toca su dibujo, escribe su contraseña, y ya está dentro. No hay
-escritorio, ni ajustes, ni forma de salir: la pantalla es del niño, y todo
-lo que hay en ella lo ha elegido un adulto.
+El ordenador arranca en una pantalla de inicio que muestra el dibujo de
+cada niño. El niño toca su dibujo, escribe su contraseña, y ya está
+dentro. No hay escritorio, ni ajustes, ni forma de salir. La pantalla es
+del niño, y todo lo que hay en ella lo ha elegido un adulto.
 
 ![La pantalla de inicio, con el dibujo de cada niño](docs/images/es/sign-in.png)
 
 Dentro, la pantalla del niño muestra los módulos de aprendizaje que un
 adulto le ha activado, una ficha cada uno. Un módulo puede funcionar de
-dos maneras. Un adulto elige cuál, para cada niño:
+dos maneras, y un adulto elige cuál para cada niño:
 
 - **A pantalla completa.** Así empiezan todos los niños. Cada módulo ocupa
-  la pantalla por encima de una barra en la parte de abajo. La barra
-  devuelve al niño a su pantalla, o le lleva a cualquier otro módulo que
-  tenga abierto, y cierra el módulo que está en pantalla. Puede haber
+  la pantalla, por encima de una barra que va por la parte de abajo. Desde
+  la barra el niño puede volver a su pantalla, ir a cualquier otro módulo
+  que tenga abierto, o cerrar el módulo que está en pantalla. Puede haber
   varios módulos abiertos a la vez, como en cualquier ordenador, y el niño
   pasa de uno a otro desde la barra o con el teclado.
 - **Con ventanas.** Para un niño mayor, un adulto puede activar las
-  ventanas. Entonces los módulos se abren en ventanas con su marco y sus
-  botones, varias a la vista a la vez, para moverlas, cambiarles el tamaño,
-  minimizarlas y maximizarlas, como en cualquier ordenador. La barra de
-  abajo pasa a ser la lista de las ventanas abiertas.
+  ventanas. Entonces los módulos se abren en ventanas con su marco y los
+  botones de siempre. Puede haber varias a la vista a la vez, y el niño
+  puede moverlas, cambiarles el tamaño, minimizarlas y maximizarlas, como
+  en cualquier ordenador. La barra de abajo pasa a ser la lista de las
+  ventanas abiertas.
 
 ![La pantalla de un niño, con un dibujo por cada módulo de aprendizaje](docs/images/es/launcher-modules.png)
 
-Cuando se le acaba el tiempo del día, la pantalla se bloquea. No se pierde
-nada: lo que el niño estaba haciendo espera debajo. Un adulto puede darle
-más tiempo, dejarle guardar su trabajo o cerrar la sesión. El niño puede
-bloquear la pantalla él mismo cuando se levanta, y una sesión que se deja
-sola unos minutos, o un portátil al que se le cierra la tapa, se bloquea
-sola. El niño siempre puede apagar el ordenador.
+Cuando se le acaba el tiempo del día, la pantalla se bloquea. No se
+pierde nada: lo que el niño estaba haciendo espera debajo. Un adulto
+puede darle más tiempo, dejarle guardar su trabajo o cerrar la sesión. El
+niño puede bloquear la pantalla él mismo cuando se levanta. Una sesión
+que se deja sola unos minutos se bloquea por sí sola, y lo mismo hace un
+portátil al que se le cierra la tapa. El niño siempre puede apagar el
+ordenador.
 
-Los hermanos se turnan. Uno sale, el siguiente entra, cada uno con su
+Los hermanos se turnan. Uno sale y el siguiente entra, cada uno con su
 contraseña, su idioma y sus ajustes.
 
 ## Lo que decide un adulto
 
-Todo, desde un solo sitio: un panel de adulto que se abre con la contraseña
-de adulto desde la pantalla de inicio o desde la pantalla de bloqueo, y
-desde ningún otro lugar.
+Todo se decide desde un solo sitio: el panel de adulto. Se abre con la
+contraseña de adulto desde la pantalla de inicio o desde la pantalla de
+bloqueo, y desde ningún otro lugar.
 
 Desde el panel, un adulto:
 
 - añade niños, y elige el dibujo, el idioma, el teclado y la contraseña de
   cada uno;
-- decide cómo puede usar cada niño el ordenador:
+- decide cómo puede usar cada niño el ordenador. Hay tres opciones:
   - **siempre que quiera**;
-  - **un tiempo fijo cada día**, que se cuenta mientras la sesión está
-    desbloqueada y se reinicia de madrugada; o
-  - **solo cuando un adulto lo permita**, dando tiempo cada vez;
-- para las dos primeras, elige qué días de la semana: solo el fin de
-  semana, por ejemplo;
-- da más tiempo, o fija lo que le queda del día en cualquier número de
-  minutos, cero incluido, en cualquier momento;
+  - **un tiempo fijo cada día**. El tiempo se cuenta mientras la sesión
+    está desbloqueada, y vuelve a empezar de madrugada;
+  - **solo cuando un adulto lo permita**. El adulto le da tiempo cada vez;
+- elige, para las dos primeras, qué días de la semana puede usar el niño
+  el ordenador. Solo el fin de semana, por ejemplo;
+- da más tiempo en cualquier momento, o fija lo que le queda del día en
+  cualquier número de minutos, cero incluido;
 - activa o desactiva las ventanas para cada niño;
-- elige tras cuántos minutos sin uso se bloquea una sesión y se apaga la
-  pantalla;
+- elige tras cuántos minutos sin uso se bloquea una sesión, y tras cuántos
+  se apaga la pantalla;
 - añade y quita módulos de aprendizaje, y activa cada uno para cada niño.
 
 ![Un niño, en el panel de adulto](docs/images/es/panel-children.png)
@@ -86,60 +88,64 @@ así que nada de lo que un niño haga en el ordenador puede capturarla.
 
 Todo lo que un niño hace en Kidux es un módulo de aprendizaje. Un adulto
 añade los módulos desde el panel de adulto y activa cada uno para cada
-niño. El panel dice, de cada módulo, para qué edades está pensado y qué
+niño. De cada módulo, el panel dice para qué edades está pensado y qué
 módulos conviene hacer antes.
 
-Los módulos que ofrece Kidux:
+Estos son los módulos que ofrece Kidux:
 
 - [GCompris](https://gcompris.net/): más de cien actividades para niños
   de dos a diez años, sobre leer, contar, los colores, el teclado y el
   ratón.
 - [Tux Typing](https://github.com/tux4kids/tuxtype): un curso de
-  mecanografía para niños de seis a doce años, atrapando letras y palabras
-  que caen al escribirlas.
+  mecanografía para niños de seis a doce años. Del cielo caen letras y
+  palabras, y el niño las atrapa escribiéndolas.
 - [ScratchJr](https://www.scratchjr.org/): Scratch para los más pequeños,
   de cinco a siete años, con bloques de dibujos y sin palabras que leer.
 - [Juegos de Blockly](https://blockly.games/?lang=es): rompecabezas que
-  enseñan a programar con bloques paso a paso, para niños que ya leen un
-  poco, sin internet.
+  enseñan a programar con bloques, cada uno un paso más difícil, para
+  niños que ya leen un poco. Funcionan sin internet.
 - [Scratch](https://scratch.mit.edu/): el editor que los niños usan en el
-  colegio para hacer juegos e historias con bloques, para niños a partir de
-  ocho años, en el propio ordenador, sin la comunidad de la web de Scratch.
+  colegio para hacer juegos e historias con bloques, para niños a partir
+  de ocho años. Funciona en el propio ordenador, sin la comunidad de la
+  web de Scratch.
 - [TurboWarp](https://turbowarp.org/): Scratch más rápido, con los mismos
   bloques y los mismos proyectos, para un ordenador más lento.
 - BASIC: el lenguaje de los primeros ordenadores de casa, con
-  [wwwBASIC](https://github.com/google/wwwbasic), y una guía al lado para
-  niños a partir de ocho años que ya leen bien, sin internet.
+  [wwwBASIC](https://github.com/google/wwwbasic), y una guía al lado. Es
+  para niños a partir de ocho años que ya leen bien, y funciona sin
+  internet.
 - CodeCombat: una puerta a la web de [CodeCombat](https://codecombat.com/),
-  donde se aprende Python y JavaScript jugando; necesita internet y una
-  cuenta, de pago para casi todo, y Kidux no tiene ninguna relación con
-  CodeCombat.
-- Wikipedia: una puerta a toda la [Wikipedia](https://www.wikipedia.org/),
+  donde los niños aprenden Python y JavaScript jugando. Necesita internet
+  y una cuenta, y casi toda la web es de pago. Kidux no tiene ninguna
+  relación con CodeCombat.
+- Wikipedia: una puerta a toda la [Wikipedia](https://www.wikipedia.org/)
   en el idioma del niño, y a sus proyectos hermanos, con el resto de
-  internet cerrado; está escrita para todo el mundo, no solo para niños.
+  internet cerrado. Wikipedia está escrita para todo el mundo, no solo
+  para niños.
 - Correo: un buzón de correo propio del niño, en
   [Thunderbird](https://www.thunderbird.net/), con la cuenta que da un
-  adulto: Gmail, Outlook, iCloud o cualquier proveedor, y nada que
-  configurar para el niño.
+  adulto. Sirve con Gmail, Outlook, iCloud o cualquier otro proveedor, y
+  el niño no tiene nada que configurar.
 - Gmail: una puerta a la web de [Gmail](https://mail.google.com/), para
-  una cuenta de Google, la única forma para un niño cuya cuenta se
-  gestiona con Family Link; necesita internet, y Kidux no tiene ninguna
+  una cuenta de Google. Es la única forma para un niño cuya cuenta se
+  gestiona con Family Link. Necesita internet, y Kidux no tiene ninguna
   relación con Google.
-- [Kig](https://apps.kde.org/kig/): geometría que el niño puede mover,
-  puntos, rectas, circunferencias y figuras que conservan sus reglas al
-  arrastrarlas, para niños de diez a catorce años, sin internet, con
-  guía.
-- [Kalzium](https://apps.kde.org/kalzium/): la tabla periódica, cada
-  elemento con cómo es y su átomo, para niños de diez años en adelante,
-  sin internet, con guía.
-- [Step](https://apps.kde.org/step/): un laboratorio de física, cuerpos,
-  muelles y fuerzas sobre un plano, en marcha y medidos, para niños de
-  diez años en adelante, sin internet, con guía.
+- [Kig](https://apps.kde.org/kig/): geometría que el niño puede mover.
+  Los puntos, las rectas, las circunferencias y las figuras conservan sus
+  reglas al arrastrarlas. Es para niños de diez a catorce años, funciona
+  sin internet y viene con guía.
+- [Kalzium](https://apps.kde.org/kalzium/): la tabla periódica, con cómo
+  es cada elemento y un dibujo de su átomo. Es para niños de diez años en
+  adelante, funciona sin internet y viene con guía.
+- [Step](https://apps.kde.org/step/): un laboratorio de física. Los
+  cuerpos, los muelles y las fuerzas se ponen sobre un plano, y el niño
+  pone en marcha el experimento y lo mide. Es para niños de diez años en
+  adelante, funciona sin internet y viene con guía.
 - Simulaciones: experimentos para jugar en la pantalla, de
-  [PhET Interactive Simulations](https://phet.colorado.edu/), Universidad
-  de Colorado Boulder, elegidos para niños de seis a catorce años y
-  servidos en el propio ordenador, en las versiones que PhET publicó bajo
-  CC BY 4.0; Kidux no tiene relación con PhET.
+  [PhET Interactive Simulations](https://phet.colorado.edu/), de la
+  Universidad de Colorado Boulder, elegidos para niños de seis a catorce
+  años. Están guardados en el propio ordenador, en las versiones que PhET
+  publicó bajo la licencia CC BY 4.0. Kidux no tiene relación con PhET.
 
 ![GCompris](docs/images/es/module-gcompris.png)
 
@@ -157,11 +163,11 @@ Hay dos formas de instalar Kidux:
 ## Documentación
 
 - [Manual de uso](docs/es/user-guide.md), también [en inglés](docs/en/user-guide.md):
-  la instalación, el primer arranque y cada pantalla con la que se
+  la instalación de Kidux, el primer arranque y cada pantalla con la que se
   encontrarán un adulto o un niño.
-- [Documentación para desarrolladores](docs/dev/README.md), en inglés: cómo
-  se construye Kidux, cómo funciona por dentro y cómo hacer un módulo de
-  aprendizaje.
+- [Documentación para desarrolladores](docs/dev/README.md), en inglés:
+  cómo se construye Kidux, cómo funciona por dentro y cómo hacer un módulo
+  de aprendizaje.
 
 ## Apoyar a Kidux
 
@@ -178,21 +184,23 @@ está en [branding/](branding/README.md).
 
 Kidux lo desarrolla [Antonio Morales García](https://antonio.mg). Su
 código, sus imágenes y sus documentos propios se publican bajo la
-**Business Source License 1.1**; el texto completo, con sus condiciones
+**Business Source License 1.1**. El texto completo, con sus condiciones
 para Kidux, está en [LICENSE](LICENSE), en inglés. Copyright (C) 2026
-Antonio Morales García. En resumen: cualquiera puede leer el código,
-cambiarlo y pasarlo a otros; una familia puede usar Kidux en casa, en los
-ordenadores de los niños a su cargo, gratis; una organización, como un
-colegio o una academia, necesita una licencia, que concede
-[info@kidux.org](mailto:info@kidux.org); y cuatro años después de
-publicarse cada versión, esa versión pasa a ser software libre bajo la
-Licencia Pública General de GNU, versión 3 o posterior. El nombre Kidux y
-el pingüino no forman parte de la licencia.
+Antonio Morales García.
 
-Kidux es una derivada de Debian e instala software escrito por otras
-personas bajo sus propias licencias, que cada componente conserva: los
-paquetes de Debian y los programas de los módulos de aprendizaje, Scratch
-(AGPL-3), TurboWarp (GPL-3), ScratchJr (BSD-3), Blockly Games (Apache-2.0),
-wwwBASIC (Apache-2.0), GCompris (GPL-3) y Tux Typing (GPL-2). El código fuente de cada programa
-que Kidux compila, con los cambios con que se compila, se publica junto a la
-compilación.
+En resumen: cualquiera puede leer el código, cambiarlo y pasarlo a otros.
+Una familia puede usar Kidux en casa, en los ordenadores de los niños a su
+cargo, gratis. Una organización, como un colegio o una academia, necesita
+una licencia, que concede [info@kidux.org](mailto:info@kidux.org). Cuatro
+años después de publicarse cada versión, esa versión pasa a ser software
+libre bajo la Licencia Pública General de GNU, versión 3 o posterior. El
+nombre Kidux y el pingüino no forman parte de la licencia.
+
+Kidux es una derivada de Debian, e instala software escrito por otras
+personas bajo sus propias licencias, que cada componente conserva. Así es
+con los paquetes de Debian y con los programas de los módulos de
+aprendizaje: Scratch (AGPL-3), TurboWarp (GPL-3), ScratchJr (BSD-3),
+Blockly Games (Apache-2.0), wwwBASIC (Apache-2.0), GCompris (GPL-3), Tux
+Typing (GPL-2) y las simulaciones de PhET (CC BY 4.0). El código fuente de
+cada programa que Kidux compila se publica junto a la compilación, con los
+cambios con que se compila.
