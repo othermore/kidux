@@ -6,13 +6,15 @@ that every maximised window and the launcher's own fill the room to its
 left. Folded, it is a rail along the edge, and its zone the rail's. Which
 guide it shows, and what is remembered, is `guides.py`'s; this draws it.
 
-Unfolded, it shows at the top the module's name, or, for a child with
-windows and more than one guide open, a list of them to pick from, with
-the pin beside it; then *Fold*. Under that, the list of lessons or one
-lesson, its blocks (kidux.lessons) drawn one under another; at the
-bottom, *Lessons*, *Back* and *Next*. Its keyboard is on demand: a click
-in it gives it the keys, a click elsewhere takes them back, so that a
-program beside it keeps them while the child works there.
+Unfolded, it shows at the top the module's name, the pin for a child
+with windows, and *Fold*, its word beside its arrow; with windows and
+more than one guide open, the name is a list of them to pick from, on a
+row of its own under those. Under that, the guide's introduction when it
+has one and the list of lessons, or one lesson, its blocks
+(kidux.lessons) drawn one under another; at the bottom, *Lessons*,
+*Back* and *Next*. It comes up without the keyboard, which stays with
+the module, and asks for it on demand once it is on the screen: a press
+in it gives it the keys, a click in the program takes them back.
 """
 
 import logging
