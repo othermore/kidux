@@ -136,14 +136,14 @@ can. Each phase assumes what it builds on is reasonably stable.
       CC BY 4.0, served on the computer in a page of Kidux's own, chosen
       for ages six to fourteen (4.27 to 4.30, phase-4e-plan.md; D101,
       D102).
-- [ ] A module with a guide beside it: a module declares a guide, a page
-      of Kidux's own with lessons, examples and ideas of things to do, and
-      the launcher shows it beside the program, the room above the bar
-      split in two for a child without windows and two windows side by
-      side for a child with them. Then the guides for the modules a child
-      cannot find their way in alone, Kig and Step first, with files for
-      them to open, an experiment or a construction half done with what
-      to try written in it. Planned by Fable first (phase-4f-plan.md).
+- [x] A module with a guide beside it: lessons of Kidux's own in a pane
+      of the launcher's on the right, which folds to a rail, follows the
+      module on screen, and, for a child with windows, stays while one
+      with a guide is open, with a drop-down and a pin (4.33, 4.34,
+      D103); Kig's, Step's and Kalzium's guides, with missions, files of
+      the program's half done, copied into the child's Documents (4.35
+      to 4.37); and a link out of a module answered with a bubble, opening
+      nothing (4.38, D104; phase-4f-plan.md).
 - [ ] With the next module, two things seen on the Modules page: *Remove*
       pressed on a module below the fold scrolls the page to the top, so
       the question is out of sight, and the scrollbar still shows the page
