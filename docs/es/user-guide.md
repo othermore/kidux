@@ -869,6 +869,8 @@ GCompris ocupa toda la pantalla por encima de la barra. El botón
 
 ![GCompris](../images/es/module-gcompris.png)
 
+Más en [su página](modules/gcompris.md).
+
 ### Tux Typing
 
 **Tux Typing** enseña a un niño a escribir a máquina. Del cielo caen
@@ -882,6 +884,8 @@ Tux Typing guarda sus puntuaciones y sus ajustes para sí, no en las
 carpetas del niño. Al quitar el módulo se conservan para cuando vuelva.
 
 ![Tux Typing](../images/es/module-tuxtype.png)
+
+Más en [su página](modules/tuxtype.md).
 
 ### ScratchJr
 
@@ -897,6 +901,8 @@ módulo los deja ahí.
 
 ![ScratchJr](../images/es/module-scratchjr.png)
 
+Más en [su página](modules/scratchjr.md).
+
 ### Juegos de Blockly
 
 Los **Juegos de Blockly** son rompecabezas que enseñan las ideas de
@@ -908,6 +914,8 @@ juegos recuerdan hasta dónde ha llegado el niño, y al quitar el módulo se
 conserva para cuando vuelva.
 
 ![Juegos de Blockly](../images/es/module-blockly-games.png)
+
+Más en [su página](modules/blockly-games.md).
 
 ### Scratch
 
@@ -933,6 +941,8 @@ desde Scratch se abre también en TurboWarp, y al revés.
 
 ![Scratch](../images/es/module-scratch.png)
 
+Más en [su página](modules/scratch.md).
+
 ### TurboWarp
 
 **TurboWarp** es Scratch más rápido: el mismo editor, los mismos bloques
@@ -946,6 +956,8 @@ un archivo. TurboWarp no puede traerlo de la web de Scratch por su
 número.
 
 ![TurboWarp](../images/es/module-turbowarp.png)
+
+Más en [su página](modules/turbowarp.md).
 
 ### BASIC
 
@@ -980,6 +992,8 @@ misma ventana para traerlo de vuelta.
 
 ![BASIC](../images/es/module-basic.png)
 
+Más en [su página](modules/basic.md).
+
 ### CodeCombat
 
 **CodeCombat** es una puerta a la web de CodeCombat, donde los niños a
@@ -1008,6 +1022,8 @@ primera vez; esa pregunta es de la propia web.
 
 ![CodeCombat](../images/es/module-codecombat.png)
 
+Más en [su página](modules/codecombat.md).
+
 ### Wikipedia
 
 **Wikipedia** es una puerta a la enciclopedia entera, en el idioma del
@@ -1022,6 +1038,8 @@ ir. **Alt+Izquierda**, y el botón de volver de un ratón que lo tenga,
 también vuelven. Wikipedia necesita internet siempre que se usa.
 
 ![Wikipedia](../images/es/module-wikipedia.png)
+
+Más en [su página](modules/wikipedia.md).
 
 ### Correo
 
@@ -1067,6 +1085,8 @@ barra, y en la línea de su parte de abajo.
 
 ![Correo](../images/es/module-mail.png)
 
+Más en [su página](modules/mail.md).
+
 ### Gmail
 
 **Gmail** es una puerta a la web de Gmail, para un niño con una cuenta de
@@ -1090,6 +1110,8 @@ preguntar por sus cookies la primera vez; esa pregunta es de Google.
 
 ![Gmail](../images/es/module-gmail.png)
 
+Más en [su página](modules/gmail.md).
+
 ### Kig
 
 **Kig** es geometría que el niño puede mover. Los puntos, las rectas, las
@@ -1102,6 +1124,8 @@ carpetas. Viene con una guía de seis lecciones.
 
 ![Kig](../images/es/module-kig.png)
 
+Más en [su página](modules/kig.md).
+
 ### Kalzium
 
 **Kalzium** es la tabla periódica. Cada elemento se abre con cómo es,
@@ -1112,6 +1136,8 @@ idioma del niño, y funciona sin internet. Viene con una guía de tres
 lecciones.
 
 ![Kalzium](../images/es/module-kalzium.png)
+
+Más en [su página](modules/kalzium.md).
 
 ### Step
 
@@ -1124,6 +1150,8 @@ más experimentos está apagado. Un experimento se puede guardar como un
 archivo en las carpetas del niño. Viene con una guía de seis lecciones.
 
 ![Step](../images/es/module-step.png)
+
+Más en [su página](modules/step.md).
 
 ### Simulaciones
 
@@ -1142,6 +1170,8 @@ PhET.
 ![Simulaciones](../images/es/module-simulations.png)
 
 ![Una simulación abierta](../images/es/module-simulations-open.png)
+
+Más en [su página](modules/simulations.md).
 
 ### Fotografía
 
@@ -1173,6 +1203,8 @@ autor debajo. Donde ninguna enseñaba un efecto con claridad, lo enseña una
 imagen hecha por un ordenador, y lo dice debajo.
 
 ![Fotografía](../images/es/module-photography.png)
+
+Más en [su página](modules/photography.md).
 
 ## 10. Actualizar y reinstalar
 

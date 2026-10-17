@@ -303,6 +303,14 @@ child's language is shown in English; a lesson without a title, a
 picture or a mission that is not there, or a path that leads out of the
 guide, is left out with a line in the log, and the rest stays.
 
+**A module's page.** Every module has a page of its own in the user
+documentation, `docs/en/modules/<id>.md` with `docs/es/modules/<id>.md`:
+what it is, who it is for, what it needs, what is inside, what an adult
+sets, where the child's files go, and its pictures, which
+`tests/lib/doc-screenshots.txt` names. The README lists the module with a
+link to the page, and the user guide's section 9 keeps a paragraph on it
+with the same link. A new module brings its page in both languages.
+
 ## 4. Packaging
 
 A module is a Debian source package under `packages/kidux-module-<id>/`,

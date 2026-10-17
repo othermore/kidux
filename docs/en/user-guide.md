@@ -839,6 +839,8 @@ the child back to their other things.
 
 ![GCompris](../images/en/module-gcompris.png)
 
+More about it: [GCompris's page](modules/gcompris.md).
+
 ### Tux Typing
 
 **Tux Typing** teaches a child to type. Letters and words fall from the
@@ -852,6 +854,8 @@ Tux Typing keeps its scores and its settings for itself, not in the
 child's folders. Removing the module keeps them for when it comes back.
 
 ![Tux Typing](../images/en/module-tuxtype.png)
+
+More about it: [Tux Typing's page](modules/tuxtype.md).
 
 ### ScratchJr
 
@@ -867,6 +871,8 @@ Removing the module leaves them there.
 
 ![ScratchJr](../images/en/module-scratchjr.png)
 
+More about it: [ScratchJr's page](modules/scratchjr.md).
+
 ### Blockly Games
 
 **Blockly Games** are puzzles that teach the ideas behind programming
@@ -878,6 +884,8 @@ games remember how far the child has got, and removing the module keeps
 that for when it comes back.
 
 ![Blockly Games](../images/en/module-blockly-games.png)
+
+More about it: [Blockly Games's page](modules/blockly-games.md).
 
 ### Scratch
 
@@ -901,6 +909,8 @@ and the other way round.
 
 ![Scratch](../images/en/module-scratch.png)
 
+More about it: [Scratch's page](modules/scratch.md).
+
 ### TurboWarp
 
 **TurboWarp** is Scratch made faster: the same editor, the same blocks
@@ -913,6 +923,8 @@ them. A project is opened from a file only. TurboWarp cannot fetch one
 from the Scratch website by its number.
 
 ![TurboWarp](../images/en/module-turbowarp.png)
+
+More about it: [TurboWarp's page](modules/turbowarp.md).
 
 ### BASIC
 
@@ -946,6 +958,8 @@ back.
 
 ![BASIC](../images/en/module-basic.png)
 
+More about it: [BASIC's page](modules/basic.md).
+
 ### CodeCombat
 
 **CodeCombat** is a door to the CodeCombat website, where children from
@@ -975,6 +989,8 @@ cookies the first time; that is the site's own question.
 
 ![CodeCombat](../images/en/module-codecombat.png)
 
+More about it: [CodeCombat's page](modules/codecombat.md).
+
 ### Wikipedia
 
 **Wikipedia** is a door to the whole encyclopedia, in the child's
@@ -989,6 +1005,8 @@ nowhere to go. **Alt+Left**, and the back button of a mouse that has one,
 go back too. Wikipedia needs the internet whenever it is used.
 
 ![Wikipedia](../images/en/module-wikipedia.png)
+
+More about it: [Wikipedia's page](modules/wikipedia.md).
 
 ### Mail
 
@@ -1033,6 +1051,8 @@ bottom.
 
 ![Mail](../images/en/module-mail.png)
 
+More about it: [Mail's page](modules/mail.md).
+
 ### Gmail
 
 **Gmail** is a door to Gmail's website, for a child with a Google
@@ -1055,6 +1075,8 @@ the first time; that is Google's own question.
 
 ![Gmail](../images/en/module-gmail.png)
 
+More about it: [Gmail's page](modules/gmail.md).
+
 ### Kig
 
 **Kig** is geometry a child can move. Points, lines, circles and shapes
@@ -1065,6 +1087,8 @@ language, and it works without the internet. What a child draws can be
 saved as a file in their folders. It comes with a guide of six lessons.
 
 ![Kig](../images/en/module-kig.png)
+
+More about it: [Kig's page](modules/kig.md).
 
 ### Kalzium
 
@@ -1077,6 +1101,8 @@ guide of three lessons.
 
 ![Kalzium](../images/en/module-kalzium.png)
 
+More about it: [Kalzium's page](modules/kalzium.md).
+
 ### Step
 
 **Step** is a physics playground. The child puts bodies, springs, ropes
@@ -1088,6 +1114,8 @@ more experiments is switched off. An experiment can be saved as a file in
 the child's folders. It comes with a guide of six lessons.
 
 ![Step](../images/en/module-step.png)
+
+More about it: [Step's page](modules/step.md).
 
 ### Simulations
 
@@ -1105,6 +1133,8 @@ Attribution 4.0 licence. Kidux is not connected with PhET.
 ![Simulations](../images/en/module-simulations.png)
 
 ![A simulation open](../images/en/module-simulations-open.png)
+
+More about it: [Simulations's page](modules/simulations.md).
 
 ### Photography
 
@@ -1134,6 +1164,8 @@ Where none showed an effect clearly, a picture made by a computer shows
 it, and says so under it.
 
 ![Photography](../images/en/module-photography.png)
+
+More about it: [Photography's page](modules/photography.md).
 
 ## 10. Updates and reinstalling
 

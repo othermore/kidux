@@ -93,60 +93,60 @@ módulos conviene hacer antes.
 
 Estos son los módulos que ofrece Kidux:
 
-- [GCompris](https://gcompris.net/): más de cien actividades para niños
+- [GCompris](docs/es/modules/gcompris.md): más de cien actividades para niños
   de dos a diez años, sobre leer, contar, los colores, el teclado y el
   ratón.
-- [Tux Typing](https://github.com/tux4kids/tuxtype): un curso de
+- [Tux Typing](docs/es/modules/tuxtype.md): un curso de
   mecanografía para niños de seis a doce años. Del cielo caen letras y
   palabras, y el niño las atrapa escribiéndolas.
-- [ScratchJr](https://www.scratchjr.org/): Scratch para los más pequeños,
+- [ScratchJr](docs/es/modules/scratchjr.md): Scratch para los más pequeños,
   de cinco a siete años, con bloques de dibujos y sin palabras que leer.
-- [Juegos de Blockly](https://blockly.games/?lang=es): rompecabezas que
+- [Juegos de Blockly](docs/es/modules/blockly-games.md): rompecabezas que
   enseñan a programar con bloques, cada uno un paso más difícil, para
   niños que ya leen un poco. Funcionan sin internet.
-- [Scratch](https://scratch.mit.edu/): el editor que los niños usan en el
+- [Scratch](docs/es/modules/scratch.md): el editor que los niños usan en el
   colegio para hacer juegos e historias con bloques, para niños a partir
   de ocho años. Funciona en el propio ordenador, sin la comunidad de la
   web de Scratch.
-- [TurboWarp](https://turbowarp.org/): Scratch más rápido, con los mismos
+- [TurboWarp](docs/es/modules/turbowarp.md): Scratch más rápido, con los mismos
   bloques y los mismos proyectos, para un ordenador más lento.
-- BASIC: el lenguaje de los primeros ordenadores de casa, con
+- [BASIC](docs/es/modules/basic.md): el lenguaje de los primeros ordenadores de casa, con
   [wwwBASIC](https://github.com/google/wwwbasic), y una guía al lado. Es
   para niños a partir de ocho años que ya leen bien, y funciona sin
   internet.
-- CodeCombat: una puerta a la web de [CodeCombat](https://codecombat.com/),
+- [CodeCombat](docs/es/modules/codecombat.md): una puerta a la web de [CodeCombat](https://codecombat.com/),
   donde los niños aprenden Python y JavaScript jugando. Necesita internet
   y una cuenta, y casi toda la web es de pago. Kidux no tiene ninguna
   relación con CodeCombat.
-- Wikipedia: una puerta a toda la [Wikipedia](https://www.wikipedia.org/)
+- [Wikipedia](docs/es/modules/wikipedia.md): una puerta a toda la [Wikipedia](https://www.wikipedia.org/)
   en el idioma del niño, y a sus proyectos hermanos, con el resto de
   internet cerrado. Wikipedia está escrita para todo el mundo, no solo
   para niños.
-- Correo: un buzón de correo propio del niño, en
+- [Correo](docs/es/modules/mail.md): un buzón de correo propio del niño, en
   [Thunderbird](https://www.thunderbird.net/), con la cuenta que da un
   adulto. Sirve con Gmail, Outlook, iCloud o cualquier otro proveedor, y
   el niño no tiene nada que configurar.
-- Gmail: una puerta a la web de [Gmail](https://mail.google.com/), para
+- [Gmail](docs/es/modules/gmail.md): una puerta a la web de [Gmail](https://mail.google.com/), para
   una cuenta de Google. Es la única forma para un niño cuya cuenta se
   gestiona con Family Link. Necesita internet, y Kidux no tiene ninguna
   relación con Google.
-- [Kig](https://apps.kde.org/kig/): geometría que el niño puede mover.
+- [Kig](docs/es/modules/kig.md): geometría que el niño puede mover.
   Los puntos, las rectas, las circunferencias y las figuras conservan sus
   reglas al arrastrarlas. Es para niños de diez a catorce años, funciona
   sin internet y viene con guía.
-- [Kalzium](https://apps.kde.org/kalzium/): la tabla periódica, con cómo
+- [Kalzium](docs/es/modules/kalzium.md): la tabla periódica, con cómo
   es cada elemento y un dibujo de su átomo. Es para niños de diez años en
   adelante, funciona sin internet y viene con guía.
-- [Step](https://apps.kde.org/step/): un laboratorio de física. Los
+- [Step](docs/es/modules/step.md): un laboratorio de física. Los
   cuerpos, los muelles y las fuerzas se ponen sobre un plano, y el niño
   pone en marcha el experimento y lo mide. Es para niños de diez años en
   adelante, funciona sin internet y viene con guía.
-- Simulaciones: experimentos para jugar en la pantalla, de
+- [Simulaciones](docs/es/modules/simulations.md): experimentos para jugar en la pantalla, de
   [PhET Interactive Simulations](https://phet.colorado.edu/), de la
   Universidad de Colorado Boulder, elegidos para niños de seis a catorce
   años. Están guardados en el propio ordenador, en las versiones que PhET
   publicó bajo la licencia CC BY 4.0. Kidux no tiene relación con PhET.
-- Fotografía: una guía para hacer fotos con una cámara de verdad, para
+- [Fotografía](docs/es/modules/photography.md): una guía para hacer fotos con una cámara de verdad, para
   niños a partir de ocho años que ya leen bien. Tiene treinta capítulos,
   cada uno con algo que probar con la cámara, y funciona sin internet.
 
