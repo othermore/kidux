@@ -1,5 +1,5 @@
 ---
-source_sha256 = "ec34da714933cfd0442dd4c9518f414998452954e5bf618b0fc93b8557f58c47"
+source_sha256 = "bba894d13411cf2d64adf206d9ac28d9f113729cdce661e2cbca516054d58725"
 ---
 # La luz tiene una hora y un lado
 
@@ -18,7 +18,11 @@ del día**, y viene de un **lado**.
 - **En un día nublado**, el cielo entero es una lámpara gigante y suave.
   Nada de sombras duras: precioso para caras y flores.
 
-![Perros corriendo por un campo una hora antes de ponerse el sol: luz cálida y baja, y sombras largas](golden-hour.jpg)
+::: compare
+![A mediodía en verano: luz blanca y dura, y sombras cortas y negras](noon.jpg)
+
+![El mismo rincón una hora antes de ponerse el sol: luz cálida y baja, y sombras largas](golden.jpg)
+:::
 
 ## El lado
 
@@ -35,9 +39,11 @@ De dónde viene la luz, comparado con la cámara, cambia la forma de todo.
   **silueta**.
 
 ::: compare
-![Una cara iluminada de lado: una mitad brillante y la otra en sombra](side-light-face.jpg)
+![Un osito iluminado de frente, por una ventana detrás de la cámara: plano](window-front.jpg)
 
-![Un gato iluminado de lado y desde detrás: le brillan los bigotes y el pelo](side-light-cat.jpg)
+![De lado: una mitad brillante y la otra en sombra, y sale redondo](window-side.jpg)
+
+![Desde detrás: un borde brillante alrededor](window-back.jpg)
 :::
 
 ![Jugadores de voleibol contra una puesta de sol: formas negras contra el cielo dorado](silhouette.jpg)
@@ -77,8 +83,10 @@ de seguridad de la cámara dicen que no se apunte al sol (manual, p. 94 y
 Este capítulo trata la calidad y la dirección de la luz: la hora dorada,
 la luz dura de mediodía, la luz suave del cielo cubierto; la luz de
 frente aplana, la de lado modela, la de detrás dibuja un borde o una
-silueta. La foto de la hora dorada no tiene pareja de mediodía del mismo
-sitio; el experimento de *Pruébalo* le da al niño la suya.
+silueta. La pareja del rincón del pueblo y las tres
+imágenes del osito están hechas por un ordenador, cada una la misma escena
+con solo la luz cambiada; los experimentos de *Pruébalo* le dan al niño
+las suyas.
 
 Por favor, asegúrese de que el niño no mira nunca el sol a través de la
 cámara ni deja el objetivo apuntado a él; las advertencias de seguridad de

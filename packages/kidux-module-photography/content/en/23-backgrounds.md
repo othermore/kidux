@@ -6,9 +6,9 @@ line, the mess on the table. And in the picture, the lamp post seems to
 grow out of their head.
 
 ::: compare
-![A lamp post right behind a friend, growing out of their head](background-pole.svg)
+![A lamp post right behind a friend, growing out of her head](pole-behind.jpg)
 
-![Three steps to the side: the post has moved to the edge](background-moved.svg)
+![Three steps to the side: the post has moved to the edge](pole-aside.jpg)
 :::
 
 ## Three ways to tidy
@@ -62,6 +62,7 @@ high, and **A** at the widest aperture blurs what is left (chapter 18).
 This chapter teaches the habit that improves children's photographs the
 most: checking the background and the edges before pressing, and moving
 to clean them up. Negative space, much empty area round a small subject,
-is the same idea used the other way. The two drawings show the same
-portrait before and after a step to the side.
+is the same idea used the other way. The two pictures of the
+portrait, before and after a step to the side, are made by a computer;
+the woman in them is nobody real.
 :::

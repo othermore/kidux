@@ -1029,7 +1029,9 @@ adult** that says what the chapter teaches and what to help with: a
 dark room, a torch, the flash, a street at dusk.
 
 **Back**, **Next** and the list of **Chapters** move through the guide.
-The photographs are free ones by other people, each credited under it.
+Most photographs are free ones by other people, each credited under it;
+where none showed an effect clearly, a picture made by a computer shows
+it, and says so under it.
 
 ![Photography](../images/en/module-photography.png)
 

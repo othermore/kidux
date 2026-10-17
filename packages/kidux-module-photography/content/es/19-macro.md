@@ -1,5 +1,5 @@
 ---
-source_sha256 = "34cade792fa3c974e4aa91c5a2fa9bbc92606c026c71981ab468b21780fb8a67"
+source_sha256 = "eb59b2db4c3ab781821bd04b7e63ac39a03dac6cb913fd3abd7785fca0db8c40"
 ---
 # Muy cerca: macro
 
@@ -23,6 +23,12 @@ Hacer fotos así de cerca se llama **macro**.
 - **La luz de lado enseña los relieves.** La luz que viene justo de
   delante deja una moneda plana. La luz de lado, baja, hace que cada
   arañazo y cada letra eche una sombrita, y se levante.
+
+::: compare
+![Una moneda con luz de frente: plana, su barco cuesta de ver](coin-front-light.jpg)
+
+![La misma moneda con luz de lado, baja: cada línea del barco se levanta](coin-side-light.jpg)
+:::
 
 > [point] De cerca, mueve el juguete, no la cámara: es más fácil deslizar
 > un poco una moneda que mantener una cámara quieta a un centímetro de
@@ -64,4 +70,8 @@ A los insectos se les fotografía donde están, nunca se les atrapa ni se
 les mueve para la foto. Un objetivo a un centímetro de una hoja necesita
 que la luz venga por un lado del niño, no desde detrás de la cámara; una
 ventana a un lado es lo ideal.
+
+La pareja de la moneda está hecha por un ordenador, y también su moneda,
+que no es dinero de verdad: la misma escena con solo la luz cambiada de
+sitio.
 :::

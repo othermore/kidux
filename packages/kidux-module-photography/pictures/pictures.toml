@@ -14,12 +14,6 @@ author = "Aliasradierer"
 source = "https://commons.wikimedia.org/wiki/File:Camera_Obscura_aus_Pappkarton.jpg"
 licence = "CC-BY-SA-4.0"
 
-["magnifier-window.jpg"]
-author = "Rhetos"
-source = "https://commons.wikimedia.org/wiki/File:Lupen-Kino.webm"
-licence = "CC-BY-SA-4.0"
-made = "a still of the video at 40 seconds, cropped to the paper and the lens"
-
 ["xz2-front.jpg"]
 author = "之乎"
 source = "https://commons.wikimedia.org/wiki/File:Olympus_XZ-2_with_Lenscap.jpg"
@@ -52,16 +46,6 @@ author = "Trougnouf (Benoit Brummer)"
 source = "https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg"
 licence = "CC-BY-4.0"
 made = "given two stops more light, its pixels' light multiplied by four (prepare.py --stops 2)"
-
-["fountain-frozen.jpg"]
-author = "Michael Pardo"
-source = "https://commons.wikimedia.org/wiki/File:Frozen_but_not_Cold_(19053613133).jpg"
-licence = "CC0-1.0"
-
-["fountain-silky.jpg"]
-author = "S E Sammut"
-source = "https://commons.wikimedia.org/wiki/File:Triton_Fountain_1.jpg"
-licence = "CC-BY-SA-4.0"
 
 ["muybridge-horse.jpg"]
 author = "Eadweard Muybridge"
@@ -150,16 +134,6 @@ author = "Giuseppe Milo"
 source = "https://commons.wikimedia.org/wiki/File:Splash_(58544580).jpeg"
 licence = "CC-BY-3.0"
 
-["focus-front.jpg"]
-author = "Deavmi"
-source = "https://commons.wikimedia.org/wiki/File:Toothbrush_(Foreground_focused).jpg"
-licence = "CC-BY-SA-3.0"
-
-["focus-back.jpg"]
-author = "Deavmi"
-source = "https://commons.wikimedia.org/wiki/File:Toothbrush_(Background_focused).jpg"
-licence = "CC-BY-SA-3.0"
-
 ["dof-small-aperture.jpg"]
 author = "MikeRun"
 source = "https://commons.wikimedia.org/wiki/File:Depth-of-field-comparison-side-by-side-small.png"
@@ -191,16 +165,6 @@ licence = "CC-BY-2.0"
 author = "SebastianBlumeArt"
 source = "https://commons.wikimedia.org/wiki/File:Fittonia_gigantea_leaf_veins_macro.jpg"
 licence = "CC-BY-SA-4.0"
-
-["zoom-wide.jpg"]
-author = "Alexandru Panoiu"
-source = "https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(4.5-25mm)_(AP4M0672)_(7092077541).jpg"
-licence = "CC-BY-2.0"
-
-["zoom-long.jpg"]
-author = "Alexandru Panoiu"
-source = "https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(13.6-76mm)_(AP4M0681)_(6946010542).jpg"
-licence = "CC-BY-2.0"
 
 ["thirds-landscape.jpg"]
 author = "Dietmar Rabich"
@@ -255,31 +219,10 @@ author = "Harald Groven"
 source = "https://commons.wikimedia.org/wiki/File:Worm's_eye_view_dog.jpg"
 licence = "CC-BY-SA-2.0"
 
-["from-above.jpg"]
-author = "Anthony Delanoix"
-source = "https://commons.wikimedia.org/wiki/File:Breakfast_table_with_pancakes_(Unsplash).jpg"
-licence = "CC0-1.0"
-
 ["silhouette.jpg"]
 author = "درفش کاویانی"
 source = "https://commons.wikimedia.org/wiki/File:Silhouette_Volleyball.JPG"
 licence = "CC-BY-SA-3.0"
-
-["side-light-face.jpg"]
-author = "Jacopo188"
-source = "https://commons.wikimedia.org/wiki/File:Rembrandt_Lighting.JPG"
-licence = "CC-BY-SA-3.0"
-made = "cropped"
-
-["side-light-cat.jpg"]
-author = "Viriditas"
-source = "https://commons.wikimedia.org/wiki/File:Cat_eyeing_prey.jpg"
-licence = "CC-BY-SA-3.0"
-
-["golden-hour.jpg"]
-author = "Basile Morin"
-source = "https://commons.wikimedia.org/wiki/File:Four_dogs_running_at_golden_hour_in_the_countryside_of_Don_Det_Laos.jpg"
-licence = "CC-BY-SA-4.0"
 
 ["complementary.jpg"]
 author = "Ian S"
@@ -325,3 +268,133 @@ author = "Tobias ToMar Maier"
 source = "https://commons.wikimedia.org/wiki/File:Knit_cap_and_neck_warmer_in_complementary_colors.jpg"
 licence = "CC-BY-SA-4.0"
 made = "cropped"
+
+["magnifier-window.jpg"]
+author = "generated"
+source = "pictures/prompts/magnifier-window.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["tap-fast.jpg"]
+author = "generated"
+source = "pictures/prompts/tap-fast.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["tap-slow.jpg"]
+author = "generated"
+source = "pictures/prompts/tap-slow.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for tap-fast.jpg, with only what its prompt names changed"
+
+["focus-near.jpg"]
+author = "generated"
+source = "pictures/prompts/focus-near.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["focus-far.jpg"]
+author = "generated"
+source = "pictures/prompts/focus-far.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for focus-near.jpg, with only what its prompt names changed"
+
+["dog-c-af.jpg"]
+author = "generated"
+source = "pictures/prompts/dog-c-af.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["dog-s-af.jpg"]
+author = "generated"
+source = "pictures/prompts/dog-s-af.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for dog-c-af.jpg, with only what its prompt names changed"
+
+["coin-side-light.jpg"]
+author = "generated"
+source = "pictures/prompts/coin-side-light.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["coin-front-light.jpg"]
+author = "generated"
+source = "pictures/prompts/coin-front-light.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for coin-side-light.jpg, with only what its prompt names changed"
+
+["zoom-wide.jpg"]
+author = "generated"
+source = "pictures/prompts/zoom-wide.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["zoom-tele.jpg"]
+author = "generated"
+source = "pictures/prompts/zoom-tele.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for zoom-wide.jpg, with only what its prompt names changed"
+
+["pole-behind.jpg"]
+author = "generated"
+source = "pictures/prompts/pole-behind.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["pole-aside.jpg"]
+author = "generated"
+source = "pictures/prompts/pole-aside.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for pole-behind.jpg, with only what its prompt names changed"
+
+["heights-above.jpg"]
+author = "generated"
+source = "pictures/prompts/heights-above.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["heights-eye.jpg"]
+author = "generated"
+source = "pictures/prompts/heights-eye.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for heights-above.jpg, with only what its prompt names changed"
+
+["noon.jpg"]
+author = "generated"
+source = "pictures/prompts/noon.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["golden.jpg"]
+author = "generated"
+source = "pictures/prompts/golden.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for noon.jpg, with only what its prompt names changed"
+
+["window-front.jpg"]
+author = "generated"
+source = "pictures/prompts/window-front.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+
+["window-side.jpg"]
+author = "generated"
+source = "pictures/prompts/window-side.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for window-front.jpg, with only what its prompt names changed"
+
+["window-back.jpg"]
+author = "generated"
+source = "pictures/prompts/window-back.txt"
+licence = "BUSL-1.1"
+model = "gemini-3-pro-image"
+made = "from the picture made for window-front.jpg, with only what its prompt names changed"

@@ -23,6 +23,12 @@ do next, while you hold it? That is what the **focus mode** decides.
 > were when you pressed, and by the time the picture is taken they are
 > closer, and soft. *Following* keeps up.
 
+::: compare
+![Following, C-AF: the dog running towards the camera is sharp](dog-c-af.jpg)
+
+![Once, S-AF, focused when the dog was further away: now it is soft](dog-s-af.jpg)
+:::
+
 ## When to focus by hand
 
 Focusing by hand is slower, but it never makes a mistake of its own:
@@ -86,4 +92,7 @@ picture. On the XZ-2, sequential shooting, which takes pictures for as
 long as the button is held, works only in S-AF and MF and keeps the
 focus of the first picture (manual, p. 27): for a runner coming closer,
 single pictures in C-AF are the better way.
+
+The two pictures of the dog are made by a computer, the same moment with
+only the focus changed.
 :::

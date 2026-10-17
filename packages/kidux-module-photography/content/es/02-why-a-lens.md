@@ -1,5 +1,5 @@
 ---
-source_sha256 = "41aea9e453d96f15dbb5f00fad021d8fbcd31663f7a713f0aedc512c23d3664a"
+source_sha256 = "1adaf1c1d57944fefb200c4fc1c37eb7a948a7d0fb904fa7846171af8ba9b4ff"
 ---
 # Para qué sirve una lente
 
@@ -47,7 +47,7 @@ vez tu dedo: ¿notas el pequeño cambio? Es tu ojo enfocando.
    en el papel, pequeña y nítida.
 :::
 
-![Una lupa, a la derecha, dibuja la ventana luminosa en el papel, pequeña y boca abajo: sus cristales claros quedan abajo](magnifier-window.jpg)
+![Una lupa entre la ventana y una hoja de papel: en el papel, la ventana y el árbol de fuera, boca abajo](magnifier-window.jpg)
 
 La ventana vuelve a salir boca abajo, igual que en la habitación oscura.
 Una lente sigue siendo un agujero, solo que mejor. Ahora mide a qué
@@ -97,4 +97,8 @@ una lupa enfocada al sol puede quemar la piel, el papel y los ojos.
 La idea de que "las cosas cercanas se enfocan más atrás" prepara los
 capítulos 16 y 17 (el enfoque) y el 18 (la profundidad de campo), donde el
 niño ve que solo hay una distancia perfectamente nítida.
+
+La imagen de la lupa está hecha por un ordenador, para enseñar con
+claridad lo que se ve en el papel; en un papel de verdad la imagen es más
+tenue.
 :::

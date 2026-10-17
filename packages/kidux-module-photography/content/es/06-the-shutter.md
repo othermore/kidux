@@ -1,5 +1,5 @@
 ---
-source_sha256 = "179a29fcd93772d45e5627dee61fe396c1933dc41a2a5e7e567facf34351d8b5"
+source_sha256 = "ad98ae95b1a8707cb19854b64c690f665a81a409983f37627590522f2dea7092"
 ---
 # El obturador: cuánto tiempo está abierta la puerta
 
@@ -20,9 +20,9 @@ segundos y en trocitos de segundo.
   nítidas, y la cámara no se puede mover nada.
 
 ::: compare
-![Una fuente con un tiempo muy corto: cada gota se congela en el aire](fountain-frozen.jpg)
+![Un grifo a 1/1000: cada gota se congela en el aire](tap-fast.jpg)
 
-![Una fuente con un tiempo largo: el agua se ha vuelto seda](fountain-silky.jpg)
+![El mismo grifo a 1/8: el agua se ha vuelto seda](tap-slow.jpg)
 :::
 
 En la pantalla la cámara escribe solo la parte de abajo de la fracción:
@@ -86,4 +86,8 @@ trocitos". Con tiempos largos la propia cámara tiene que estar quieta
 La secuencia de Muybridge (1878) es de dominio público; su experimento con
 doce cámaras es una buena historia para un niño al que le gusten los
 caballos o la ciencia.
+
+Las dos imágenes del grifo están hechas por un ordenador, la misma escena
+con solo el tiempo cambiado; el grifo del propio niño, en *Pruébalo*,
+enseña lo mismo.
 :::

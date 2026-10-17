@@ -1,5 +1,5 @@
 ---
-source_sha256 = "323678f0e30cc939f7c20702f0b7ced7ee7a5f6bef205ba07b5fb4f54af16a0a"
+source_sha256 = "504a8a564ddf8a3931c9fa612708b9daaff69c41c02546c55418c1de7ad8090a"
 ---
 # El enfoque: adónde mira la cámara
 
@@ -9,9 +9,9 @@ llama **enfocar**, y la cámara lo hace sola, pero no sabe en qué estás
 pensando tú. Enfoca **lo que hay debajo de su cuadradito**, y nada más.
 
 ::: compare
-![Enfocado delante, en los cepillos de dientes: la estantería de detrás sale borrosa](focus-front.jpg)
+![Enfocado en el robot de delante: el osito de detrás sale borroso](focus-near.jpg)
 
-![Enfocado detrás, en la estantería: ahora los borrosos son los cepillos](focus-back.jpg)
+![Enfocado en el osito de detrás: ahora el borroso es el robot](focus-far.jpg)
 :::
 
 ## Qué cuadradito
@@ -109,4 +109,7 @@ p. 80, añade una luz muy fuerte en el centro y lo que no tiene líneas
 verticales. El remedio es el mismo en todos los casos: enfocar otra cosa que
 esté a la misma distancia, mantener el disparador hasta la mitad y
 reencuadrar, o enfocar a mano (capítulo 17).
+
+El robot y el osito están hechos por un ordenador, la misma escena con
+solo el enfoque cambiado.
 :::

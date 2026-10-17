@@ -1,5 +1,5 @@
 ---
-source_sha256 = "c4c2f2dc7f4d38e9d3e5c35911feb30129e7c0d79aa52d73d85a26f4f841e8d2"
+source_sha256 = "3b2c70298cd5b987207768d7572d2be77d41d356acb330f00586cb7b0d178a9a"
 ---
 # Los fondos, y ordenar la foto
 
@@ -8,9 +8,9 @@ farola de detrás, el cubo de la basura, la ropa tendida, el desorden de la
 mesa. Y en la foto, parece que la farola le sale de la cabeza.
 
 ::: compare
-![Una farola justo detrás de un amigo, saliéndole de la cabeza](background-pole.svg)
+![Una farola justo detrás de una amiga, saliéndole de la cabeza](pole-behind.jpg)
 
-![Tres pasos hacia un lado: la farola se ha ido al borde](background-moved.svg)
+![Tres pasos hacia un lado: la farola se ha ido al borde](pole-aside.jpg)
 :::
 
 ## Tres formas de ordenar
@@ -64,6 +64,7 @@ queda (capítulo 18).
 Este capítulo enseña la costumbre que más mejora las fotos de los niños:
 mirar el fondo y los bordes antes de apretar, y moverse para limpiarlos.
 El espacio negativo, mucha zona vacía alrededor de algo pequeño, es la
-misma idea usada al revés. Los dos dibujos enseñan el mismo retrato antes
-y después de un paso hacia un lado.
+misma idea usada al revés. Las dos imágenes del retrato,
+antes y después de un paso hacia un lado, están hechas por un ordenador;
+la mujer que sale en ellas no es nadie de verdad.
 :::

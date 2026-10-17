@@ -1,5 +1,5 @@
 ---
-source_sha256 = "cb66278935133690f4cd3ba5ce71abfc6570127b17f3f8ac3487640cb2150295"
+source_sha256 = "c0b7188907482a2e94f8eeb37245157172ec46b209e6c0bc8cef309a9d6bb906"
 ---
 # El punto de vista
 
@@ -19,10 +19,12 @@ nueva.
   un juego, un dibujo del suelo: la **vista de pájaro**.
 
 ::: compare
-![Desde el suelo: un perro pasa, enorme, por encima de la hierba](worm-view.jpg)
+![Desde la altura de un adulto, mirando hacia abajo: el osito sale pequeño y rechoncho](heights-above.jpg)
 
-![Desde arriba: una mesa de desayuno, cada plato un círculo](from-above.jpg)
+![Desde la altura del propio osito: te mira, y la habitación de detrás es grande](heights-eye.jpg)
 :::
+
+![Desde el suelo, la vista de gusano: un perro pasa, enorme, por encima de la hierba](worm-view.jpg)
 
 > [cheer] En las buenas fotos se ensucian las rodillas y los codos. Así es
 > como se nota.
@@ -59,4 +61,7 @@ lo fotografiado se impone; desde arriba, se ven los dibujos y la
 disposición de las cosas; y fotografiar a niños y animales a la altura de
 sus ojos es respetarlos. Cuente con que el niño se tumbe en el suelo y se
 suba a las sillas; una mano en la silla es buena idea.
+
+Las dos imágenes del osito están hechas por un ordenador, el mismo osito
+y la misma habitación desde dos alturas.
 :::

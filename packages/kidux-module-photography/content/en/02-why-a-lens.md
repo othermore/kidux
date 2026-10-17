@@ -45,7 +45,7 @@ finger again: feel the little change? That is your eye focusing.
    window appears on the paper, small and sharp.
 :::
 
-![A magnifying glass, on the right, draws the bright window on the paper, small and upside down: its bright panes are at the bottom](magnifier-window.jpg)
+![A magnifying glass between the window and a sheet of paper: on the paper, the window and the tree outside, upside down](magnifier-window.jpg)
 
 The window is upside down again, just like in the dark room. A lens is
 still a hole, only a better one. Now measure how far the glass is from the
@@ -92,4 +92,7 @@ burn skin, paper and eyes.
 The idea that "near things focus further back" prepares chapter 16 and
 17 (focusing) and chapter 18 (depth of field), where the child sees that
 only one distance is ever perfectly sharp.
+
+The picture of the magnifying glass is made by a computer, to show
+clearly what the paper shows; on real paper the image is fainter.
 :::

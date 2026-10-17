@@ -24,12 +24,6 @@ Copyright: Aliasradierer
 License: CC-BY-SA-4.0
 Comment: https://commons.wikimedia.org/wiki/File:Camera_Obscura_aus_Pappkarton.jpg
 
-Files: pictures/magnifier-window.jpg
-Copyright: Rhetos
-License: CC-BY-SA-4.0
-Comment: https://commons.wikimedia.org/wiki/File:Lupen-Kino.webm
- A still of the video at 40 seconds, cropped to the paper and the lens.
-
 Files: pictures/xz2-front.jpg
 Copyright: 之乎
 License: CC-BY-SA-4.0
@@ -62,16 +56,6 @@ Copyright: Trougnouf (Benoit Brummer)
 License: CC-BY-4.0
 Comment: https://commons.wikimedia.org/wiki/File:NIND_Pen-pile_ISO100.jpg
  Given two stops more light, its pixels' light multiplied by four (prepare.py --stops 2).
-
-Files: pictures/fountain-frozen.jpg
-Copyright: Michael Pardo
-License: CC0-1.0
-Comment: https://commons.wikimedia.org/wiki/File:Frozen_but_not_Cold_(19053613133).jpg
-
-Files: pictures/fountain-silky.jpg
-Copyright: S E Sammut
-License: CC-BY-SA-4.0
-Comment: https://commons.wikimedia.org/wiki/File:Triton_Fountain_1.jpg
 
 Files: pictures/muybridge-horse.jpg
 Copyright: Eadweard Muybridge
@@ -160,16 +144,6 @@ Copyright: Giuseppe Milo
 License: CC-BY-3.0
 Comment: https://commons.wikimedia.org/wiki/File:Splash_(58544580).jpeg
 
-Files: pictures/focus-front.jpg
-Copyright: Deavmi
-License: CC-BY-SA-3.0
-Comment: https://commons.wikimedia.org/wiki/File:Toothbrush_(Foreground_focused).jpg
-
-Files: pictures/focus-back.jpg
-Copyright: Deavmi
-License: CC-BY-SA-3.0
-Comment: https://commons.wikimedia.org/wiki/File:Toothbrush_(Background_focused).jpg
-
 Files: pictures/dof-small-aperture.jpg
 Copyright: MikeRun
 License: CC-BY-SA-4.0
@@ -201,16 +175,6 @@ Files: pictures/macro-leaf.jpg
 Copyright: SebastianBlumeArt
 License: CC-BY-SA-4.0
 Comment: https://commons.wikimedia.org/wiki/File:Fittonia_gigantea_leaf_veins_macro.jpg
-
-Files: pictures/zoom-wide.jpg
-Copyright: Alexandru Panoiu
-License: CC-BY-2.0
-Comment: https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(4.5-25mm)_(AP4M0672)_(7092077541).jpg
-
-Files: pictures/zoom-long.jpg
-Copyright: Alexandru Panoiu
-License: CC-BY-2.0
-Comment: https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(13.6-76mm)_(AP4M0681)_(6946010542).jpg
 
 Files: pictures/thirds-landscape.jpg
 Copyright: Dietmar Rabich
@@ -265,31 +229,10 @@ Copyright: Harald Groven
 License: CC-BY-SA-2.0
 Comment: https://commons.wikimedia.org/wiki/File:Worm's_eye_view_dog.jpg
 
-Files: pictures/from-above.jpg
-Copyright: Anthony Delanoix
-License: CC0-1.0
-Comment: https://commons.wikimedia.org/wiki/File:Breakfast_table_with_pancakes_(Unsplash).jpg
-
 Files: pictures/silhouette.jpg
 Copyright: درفش کاویانی
 License: CC-BY-SA-3.0
 Comment: https://commons.wikimedia.org/wiki/File:Silhouette_Volleyball.JPG
-
-Files: pictures/side-light-face.jpg
-Copyright: Jacopo188
-License: CC-BY-SA-3.0
-Comment: https://commons.wikimedia.org/wiki/File:Rembrandt_Lighting.JPG
- Cropped.
-
-Files: pictures/side-light-cat.jpg
-Copyright: Viriditas
-License: CC-BY-SA-3.0
-Comment: https://commons.wikimedia.org/wiki/File:Cat_eyeing_prey.jpg
-
-Files: pictures/golden-hour.jpg
-Copyright: Basile Morin
-License: CC-BY-SA-4.0
-Comment: https://commons.wikimedia.org/wiki/File:Four_dogs_running_at_golden_hour_in_the_countryside_of_Don_Det_Laos.jpg
 
 Files: pictures/complementary.jpg
 Copyright: Ian S

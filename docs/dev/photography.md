@@ -115,7 +115,7 @@ its camera box against the manual's pages; draw or find its pictures
 
 ## 5. The pictures
 
-Three kinds, decided once (D102):
+Three kinds (D102, D103):
 
 - **Drawings**, SVG in `drawings/`, drawn for Kidux, flat, in the brand's
   colours, with no words in them, so that every language shares them.
@@ -124,23 +124,30 @@ Three kinds, decided once (D102):
   `ISO 200`, the same in every language, drawn afresh after the manual's
   pictures and never traced from them. Each drawing says in a comment at
   its top what it shows and which chapter uses it.
-- **Photographs**, JPEG in `pictures/`, each showing a chapter's effect.
-  Every one of the first release is a free one from Wikimedia Commons,
-  under CC0, CC BY, CC BY-SA or in the public domain, its licence, author
-  and that it shows what the chapter says checked on its page when it is
-  downloaded. None shows a child's face.
-- **Generated pictures**, only where neither a photograph of the owner's
-  nor a free one shows the effect, since a picture that did not come
-  through a lens may lie in its details. The first release has none.
+- **Photographs**, JPEG in `pictures/`, each showing a chapter's effect:
+  free ones from Wikimedia Commons, under CC0, CC BY, CC BY-SA or in the
+  public domain, their licence, author and that they show what the
+  chapter says checked on their page when they are downloaded.
+- **Generated pictures**, where no photograph of the owner's and no free
+  one shows the effect clearly (D103): the same scene with only the one
+  thing the chapter teaches changed, a focus, a shutter time, the side
+  the light comes from, which a free pair of photographs seldom is. A
+  picture of the XZ-2 itself is never generated, since a made-up camera
+  would show controls the real one does not have.
+
+No picture shows a child's face.
 
 `pictures/pictures.toml` has one table per photograph, by its file's
 name: `author`, `source` (the file's page on Commons), `licence`, and
 `made` when the photograph is not the file as it is: cropped, or one half
 of a comparison, or given more or less light. `debian/copyright` names
 every photograph with its author, licence and source, and holds the
-licences' texts. A generated picture would say `author = "generated"`,
-its model, and its prompt's file in `pictures/prompts/`, under the
-project's licence, credited *Picture made by a computer*.
+licences' texts. A generated picture says `author = "generated"`, its
+model, its prompt's file in `pictures/prompts/` as its `source`, and, for
+the second of a pair, in `made`, the picture it was made from; it is under
+the project's licence, and credited *Picture made by a computer*, so that
+a child is never told it is a photograph, and the chapter's box for the
+adult says which of its pictures are made so.
 
 Two development-time tools, run by hand and never installed, make the
 files; they need `python3-pil`, which only the development machine has.
@@ -156,8 +163,11 @@ files; they need `python3-pil`, which only the development machine has.
   its red light alone, as a red filter does to black and white. The
   credit's `made` says which.
 - `KIDUX_GEMINI_KEY_FILE=<file> pictures/generate.py <name>` asks
-  Gemini's image model for a picture from `pictures/prompts/<name>.txt`
-  and writes it through `prepare.py`. The key is read from the file the
+  Gemini's image model, `gemini-3-pro-image`, at 2K, for a picture from
+  `pictures/prompts/<name>.txt` and writes it through `prepare.py`. With
+  `--from <earlier name>` the model is given that earlier answer and the
+  prompt says what to change in it, which is how a pair keeps everything
+  else the same; `--aspect` is the picture's shape. The key is read from the file the
   variable names, kept outside the repository, and goes only into the
   request's header. The owner looks at every generated picture before it
   is committed and refuses one whose physics is wrong.

@@ -19,9 +19,9 @@ up right behind the toy.
 ![A toy with a house behind it. Above, close up and wide: the house is a small part of a wide view. Below, far back and zoomed in: it fills half the narrow view](perspective.svg)
 
 ::: compare
-![From close, zoomed out: the background far and small](zoom-wide.jpg)
+![From close, zoomed out: the castle behind the knight far and small](zoom-wide.jpg)
 
-![From far, zoomed in: the toys the same size, the background close and big](zoom-long.jpg)
+![From far, zoomed in: the knight the same size, the castle close and big](zoom-tele.jpg)
 :::
 
 It happens to faces too. From very close, at wide, the nose is much
@@ -77,4 +77,7 @@ face, and why a wide angle close up exaggerates a nose.
 "Zoom with your feet" is good advice for composition, and impossible
 for a bird or a stage. Digital zoom only crops; the XZ-2's tele-converter
 is the same thing done in the camera.
+
+The knight and the castle are made by a computer, as the same camera
+would see them close up at wide and from further back zoomed in.
 :::

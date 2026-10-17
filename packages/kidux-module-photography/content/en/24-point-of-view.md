@@ -16,10 +16,12 @@ picture.
   pattern on the floor: the **bird's view**.
 
 ::: compare
-![From the ground: a dog walks past, huge, over the grass](worm-view.jpg)
+![From a grown-up's height, looking down: the bear is small and squat](heights-above.jpg)
 
-![From above: a breakfast table, every plate a circle](from-above.jpg)
+![From the bear's own height: it looks at you, and the room behind is big](heights-eye.jpg)
 :::
+
+![From the ground, the worm's view: a dog walks past, huge, over the grass](worm-view.jpg)
 
 > [cheer] Knees and elbows get dirty in good photographs. That is how you
 > can tell.
@@ -54,4 +56,7 @@ make a subject imposing, high ones show patterns and layouts, and
 photographing children and animals at their eye level respects them.
 Expect the child to lie on the ground and climb on chairs; a hand on the
 chair is a good idea.
+
+The two pictures of the bear are made by a computer, the same bear and
+room from two heights.
 :::

@@ -14,7 +14,11 @@ a **time of day**, and it comes from a **side**.
 - **On a cloudy day** the whole sky is one giant soft lamp. No hard
   shadows at all: lovely for faces and flowers.
 
-![Dogs running in a field an hour before sunset: warm, low light and long shadows](golden-hour.jpg)
+::: compare
+![At noon in summer: white, hard light and short black shadows](noon.jpg)
+
+![The same corner an hour before sunset: warm, low light and long shadows](golden.jpg)
+:::
 
 ## The side
 
@@ -32,9 +36,11 @@ of everything.
   **silhouette**.
 
 ::: compare
-![A face lit from the side: one half bright, the other in shadow](side-light-face.jpg)
+![A bear lit from the front, by a window behind the camera: flat](window-front.jpg)
 
-![A cat lit from the side and behind: its whiskers and fur glow](side-light-cat.jpg)
+![From the side: one half bright, the other in shadow, and it is round](window-side.jpg)
+
+![From behind: a bright rim round its edge](window-back.jpg)
 :::
 
 ![Volleyball players against a sunset: black shapes against the golden sky](silhouette.jpg)
@@ -71,9 +77,10 @@ not to point it at the sun (manual, p. 94 and 95).
 ::: adult
 This chapter covers the quality and direction of light: golden hour,
 hard midday light, soft overcast light; front light flattens, side light
-models, back light rims or silhouettes. The golden-hour photograph has no
-noon partner of the same place; the experiment in *Try it* gives the
-child their own pair.
+models, back light rims or silhouettes. The pair of the village corner and
+the three pictures of the bear are made by a computer, each the same
+scene with only the light changed; the experiments in *Try it* give the
+child their own.
 
 Please make sure the child never looks at the sun through the camera or
 leaves the lens pointed at it; the camera's safety notes say the same

@@ -1058,8 +1058,10 @@ cámara ese día, ideas para seguir probando y un recuadro **Para el
 adulto** que dice qué enseña el capítulo y en qué ayudar: una habitación a
 oscuras, una linterna, el flash, una calle al anochecer.
 
-**Atrás**, **Siguiente** y la lista de **Capítulos** recorren la guía. Las
-fotos son fotos libres de otras personas, cada una con su autor debajo.
+**Atrás**, **Siguiente** y la lista de **Capítulos** recorren la guía. Casi todas
+las fotos son fotos libres de otras personas, cada una con su autor
+debajo; donde ninguna enseñaba un efecto con claridad, lo enseña una
+imagen hecha por un ordenador, y lo dice debajo.
 
 ![Fotografía](../images/es/module-photography.png)
 

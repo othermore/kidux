@@ -7,9 +7,9 @@ know what you are thinking of. It focuses on **what is under its little
 square**, and nothing else.
 
 ::: compare
-![Focused in front, on the toothbrushes: the shelf behind is soft](focus-front.jpg)
+![Focused on the robot in front: the teddy bear behind is soft](focus-near.jpg)
 
-![Focused behind, on the shelf: now the toothbrushes are the soft ones](focus-back.jpg)
+![Focused on the teddy bear behind: now the robot is the soft one](focus-far.jpg)
 :::
 
 ## Which square
@@ -102,4 +102,7 @@ manual's own list, on p. 80, adds a very bright light in the middle and
 a subject with no upright lines. The remedy is the same in each case: focus
 on something else at the same distance, hold the button half-way, and
 reframe, or focus by hand (chapter 17).
+
+The robot and the bear are made by a computer, the same scene with only
+the focus changed.
 :::

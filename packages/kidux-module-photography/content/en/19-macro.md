@@ -22,6 +22,12 @@ pictures that close is called **macro**.
   makes a coin flat. Light from the side, low, makes every scratch and
   letter throw a little shadow, and stand up.
 
+::: compare
+![A coin lit from the front: flat, its ship hard to see](coin-front-light.jpg)
+
+![The same coin lit from the side, low: every line of the ship stands up](coin-side-light.jpg)
+:::
+
 > [point] Close up, move the toy, not the camera: it is easier to slide a
 > coin a little than to hold a camera still a centimetre from it.
 
@@ -60,4 +66,7 @@ texture.
 Insects are photographed where they are, never caught or moved for the
 picture. A lens one centimetre from a leaf needs the light coming past
 the child, not from behind the camera; a window to the side is ideal.
+
+The coin pair is made by a computer, and so is its coin, which is no
+real money: the same scene with only the light moved.
 :::

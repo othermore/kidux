@@ -1,5 +1,5 @@
 ---
-source_sha256 = "f4f0859940ca46f0fd2db40ad113a4ebcae6e93d89fc8f877542f58ae4aa2d68"
+source_sha256 = "50811a8ccccc21e9021e98558ead4c87553ca55cc7e34cf5aca1209161688fc0"
 ---
 # El zoom: cerca y lejos, y lo que les hace a las caras
 
@@ -23,9 +23,9 @@ juguete.
 ![Un juguete con una casa detrás. Arriba, de cerca y en gran angular: la casa es una parte pequeña de una vista ancha. Abajo, desde lejos y con el zoom acercado: ocupa la mitad de la vista estrecha](perspective.svg)
 
 ::: compare
-![De cerca, con el zoom alejado: el fondo lejos y pequeño](zoom-wide.jpg)
+![De cerca, con el zoom alejado: el castillo de detrás del caballero, lejos y pequeño](zoom-wide.jpg)
 
-![De lejos, con el zoom acercado: los muñecos del mismo tamaño, el fondo cerca y grande](zoom-long.jpg)
+![De lejos, con el zoom acercado: el caballero del mismo tamaño, el castillo cerca y grande](zoom-tele.jpg)
 :::
 
 Con las caras pasa lo mismo. Muy de cerca, en gran angular, la nariz está
@@ -85,4 +85,8 @@ por eso un gran angular de cerca exagera la nariz.
 «Hacer zoom con los pies» es un buen consejo para componer, e imposible
 con un pájaro o un escenario. El zoom digital solo recorta; el
 teleconvertidor de la XZ-2 es lo mismo hecho dentro de la cámara.
+
+El caballero y el castillo están hechos por un ordenador, como los vería
+la misma cámara de cerca en gran angular y desde más atrás con el zoom
+acercado.
 :::

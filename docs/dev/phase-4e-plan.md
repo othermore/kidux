@@ -458,8 +458,8 @@ exactly this, so that the child knows what to look for.
 
 Titles in English and Spanish; the slug names the file. **Idea** is what
 the chapter teaches and how; **Try** the experiment; **Pictures** the
-drawings (D), the owner's photographs (O), the free ones (C) and the
-screen drawings (S), by the names `drawings/` and `pictures/` use;
+drawings (D), the owner's photographs (O), the free ones (C), the
+generated ones (G) and the screen drawings (S), by the names `drawings/` and `pictures/` use;
 **Camera** what the camera box says, with the manual's pages; **Adult**
 the gist of the adult's box.
 
@@ -485,7 +485,7 @@ the gist of the adult's box.
    and it happens at one distance only, which is why a camera focuses.
    The eye has a lens too. *Try:* a magnifying glass projects the window
    onto a sheet of paper; move it until the window is sharp; measure the
-   distance; try a nearer thing. *Pictures:* D `lens-focus.svg`; C
+   distance; try a nearer thing. *Pictures:* D `lens-focus.svg`; G
    `magnifier-window.jpg`. *Camera:* the lens is the glass tube at the
    front; the zoom lever makes it longer and shorter (p. 10); the cap
    and the cloth (p. 82). *Adult:* the magnifying glass and the sun:
@@ -548,13 +548,13 @@ the gist of the adult's box.
    1878: the first time anyone saw that all four hooves leave the
    ground. *Try:* S mode; a tap running, at 1/1000 and at 1/8; a friend
    waving a hand at 1/500 and 1/15; cars from the window at 1/4 with the
-   camera on the sill. *Pictures:* C `fountain-frozen.jpg`; C
-   `fountain-silky.jpg`; C `muybridge-horse.jpg`. *Camera:* mode dial to
-   S; the control ring sets the speed, the sub dial the compensation;
-   the scale 2"←1"←15←60→100→400→1000 (p. 17); the aperture blinks when
-   it cannot keep up (p. 17); 1/2000 to 60 s (p. 92). *Adult:* fractions
-   of a second for a child who has not met fractions: "one second cut
-   into a thousand pieces".
+   camera on the sill. *Pictures:* G `tap-fast.jpg`; G `tap-slow.jpg`; C
+   `muybridge-horse.jpg`. *Camera:* mode dial to S; the control ring
+   sets the speed, the sub dial the compensation; the scale
+   2"←1"←15←60→100→400→1000 (p. 17); the aperture blinks when it cannot
+   keep up (p. 17); 1/2000 to 60 s (p. 92). *Adult:* fractions of a
+   second for a child who has not met fractions: "one second cut into a
+   thousand pieces".
 7. **The aperture: how wide the window** / **El diafragma: cómo de ancha
    es la ventana** (`07-the-aperture`). *Idea:* inside the lens a ring
    of blades opens and closes a hole; its size is said as an f-number,
@@ -741,8 +741,8 @@ the gist of the adult's box.
     even the nearest eye. *Try:* two toys, one near and one far, with
     all targets: which did it choose? then a single target on the far
     one; focus and recompose a toy at the edge of the picture; tap the
-    screen on each. *Pictures:* C `focus-front.jpg`; C `focus-back.jpg`;
-    S `screen-af-all.svg`; S `screen-af-single.svg`; S
+    screen on each. *Pictures:* G `focus-near.jpg`; G `focus-far.jpg`; S
+    `screen-af-all.svg`; S `screen-af-single.svg`; S
     `screen-af-group.svg`; S `screen-face.svg`. *Camera:* the left arrow
     (AF target) shows the squares, the arrows move one, INFO chooses
     all, single or group, 7 × 5 or 5 × 5 (p. 26); focus lock (p. 14);
@@ -760,12 +760,13 @@ the gist of the adult's box.
     over at the same distance; the screen magnifies to help. *Try:* a
     friend walking towards the camera: S-AF (focused where they were)
     against C-AF; tracking on a toy pulled on a string; MF on a toy
-    behind a window pane, where AF focuses on the glass. *Pictures:* S
-    `screen-mf.svg`. *Camera:* the live control's AF mode: S-AF, super
-    macro, C-AF, C-AF+TR, MF (p. 43); MF with OK held, then the sub dial
-    or the arrows (p. 43); MF assist magnifies (p. 59); the lever and
-    the control ring for MF (p. 43, 59); metres or feet (p. 64).
-    *Adult:* sequential shooting with C-AF for sport (p. 27, 43).
+    behind a window pane, where AF focuses on the glass. *Pictures:* G
+    `dog-c-af.jpg`; G `dog-s-af.jpg`; S `screen-mf.svg`. *Camera:* the
+    live control's AF mode: S-AF, super macro, C-AF, C-AF+TR, MF (p.
+    43); MF with OK held, then the sub dial or the arrows (p. 43); MF
+    assist magnifies (p. 59); the lever and the control ring for MF (p.
+    43, 59); metres or feet (p. 64). *Adult:* sequential shooting with
+    C-AF for sport (p. 27, 43).
 18. **Depth of field: how much is sharp** / **La profundidad de campo:
     cuánto sale nítido** (`18-depth-of-field`). *Idea:* only one
     distance is perfectly sharp; in front and behind, things blur
@@ -789,11 +790,11 @@ the gist of the adult's box.
     side shows the texture. *Try:* super macro on a coin, a leaf, a
     fabric, a flower, the skin of an orange; the same coin with light
     from the front and from the side. *Pictures:* C `macro-coin.jpg`; C
-    `macro-leaf.jpg`. *Camera:* AF mode Super Macro, from 1 cm, zoom and
-    flash off in it (p. 43); normal focusing from 5 cm at wide (p. 92).
-    *Adult:* an insect is photographed, never caught; the lens an inch
-    from a leaf needs the sun behind the child's shoulder, not the
-    camera's.
+    `macro-leaf.jpg`; G `coin-front-light.jpg`; G `coin-side-light.jpg`.
+    *Camera:* AF mode Super Macro, from 1 cm, zoom and flash off in it
+    (p. 43); normal focusing from 5 cm at wide (p. 92). *Adult:* an
+    insect is photographed, never caught; the lens an inch from a leaf
+    needs the sun behind the child's shoulder, not the camera's.
 20. **Zoom: near and far, and what it does to faces** / **El zoom: cerca
     y lejos, y lo que les hace a las caras** (`20-zoom`). *Idea:* wide
     fits more in and makes near things huge (a nose), long fits less and
@@ -802,8 +803,8 @@ the gist of the adult's box.
     at wide; digital zoom is only cutting the picture smaller. *Try:* a
     friend's face from 60 cm at wide, then from 3 m zoomed in, both
     filling the frame: compare the noses; the same street at both.
-    *Pictures:* D `perspective.svg`; C `zoom-wide.jpg`; C
-    `zoom-long.jpg`. *Camera:* the zoom lever, W and T (p. 10); 28 to
+    *Pictures:* D `perspective.svg`; G `zoom-wide.jpg`; G
+    `zoom-tele.jpg`. *Camera:* the zoom lever, W and T (p. 10); 28 to
     112 mm (p. 92); the digital tele-converter is a crop (p. 65).
     *Adult:* "zoom with your feet" and when not to.
 
@@ -839,7 +840,7 @@ the gist of the adult's box.
     space on purpose (negative space) lets a small thing be the picture.
     *Try:* a portrait of a friend; find the ugliest thing behind them;
     move until it is gone; then come so close that only the face fits.
-    *Pictures:* D `background-pole.svg`; D `background-moved.svg`; C
+    *Pictures:* G `pole-behind.jpg`; G `pole-aside.jpg`; C
     `negative-space.jpg`. *Camera:* none. *Adult:* this is the habit
     that makes the most difference.
 24. **Point of view** / **El punto de vista** (`24-point-of-view`).
@@ -848,9 +849,10 @@ the gist of the adult's box.
     for the top of the table; children are photographed at their height,
     not from above. *Try:* the same shoe from five heights; a toy from
     its own eye level with the room behind, giant. *Pictures:* D
-    `heights.svg`; C `worm-view.jpg`; C `from-above.jpg`. *Camera:* the
-    screen tilts, so the camera goes on the floor while the child looks
-    from above (p. 3). *Adult:* knees and elbows get dirty; good.
+    `heights.svg`; G `heights-above.jpg`; G `heights-eye.jpg`; C
+    `worm-view.jpg`. *Camera:* the screen tilts, so the camera goes on
+    the floor while the child looks from above (p. 3). *Adult:* knees
+    and elbows get dirty; good.
 25. **Light has a time and a side** / **La luz tiene una hora y un
     lado** (`25-light-time-and-side`). *Idea:* an hour after sunrise and
     before sunset the light is low, warm and soft (golden hour); at noon
@@ -859,12 +861,13 @@ the gist of the adult's box.
     shape, from behind makes a halo or a silhouette; shadows can be the
     picture. *Try:* a face by a window turned three ways; the same
     corner at noon and at dusk; a friend against the sunset as a shape
-    only (−1 or −2 compensation). *Pictures:* C `golden-hour.jpg`; D
-    `light-sides.svg`; C `side-light-face.jpg`; C `side-light-cat.jpg`;
-    C `silhouette.jpg`. *Camera:* exposure compensation for a silhouette
-    (p. 23); spot metering for a face against the light (chapter 10);
-    fill-in flash (chapter 15). *Adult:* never look at the sun through
-    the camera or point the lens at it for long (p. 94, 95).
+    only (−1 or −2 compensation). *Pictures:* G `noon.jpg`; G
+    `golden.jpg`; D `light-sides.svg`; G `window-front.jpg`; G
+    `window-side.jpg`; G `window-back.jpg`; C `silhouette.jpg`.
+    *Camera:* exposure compensation for a silhouette (p. 23); spot
+    metering for a face against the light (chapter 10); fill-in flash
+    (chapter 15). *Adult:* never look at the sun through the camera or
+    point the lens at it for long (p. 94, 95).
 26. **Colour, and no colour** / **El color, y el blanco y negro**
     (`26-colour`). *Idea:* one strong colour against a calm one; red and
     green, blue and orange are friends across the wheel; why pictures
@@ -943,14 +946,14 @@ the gist of the adult's box.
 
 ### The photographs each chapter needs
 
-Every photograph of the first release is a free one from Wikimedia
-Commons (decision 12), and none is generated: where a chapter needs one
-scene with a single thing changed and no free pair was found, one
-photograph is changed as a camera would change it (`prepare.py --stops`,
-`--light`, `--red-filter`, or two crops of it), and its credit says so;
-where no photograph was found at all, a drawing stands in. A picture of
-the XZ-2 itself is a free one or a drawing, never a generated one, since
-a made-up camera would show controls the real one does not have.
+Each chapter's effect is shown by a free photograph from Wikimedia Commons
+where one shows it clearly, and otherwise by a picture generated with
+Gemini (D103): the same scene made twice or three times with only the one
+thing the chapter teaches changed, each looked at for its physics before
+it is kept. Where one free photograph had to stand for a pair, it is
+changed as a camera would change it (`prepare.py --stops`, `--light`,
+`--red-filter`, or two crops), and its credit says so. A picture of the
+XZ-2 itself is a free one or a drawing, never a generated one.
 
 The table is what the owner shoots to replace any of them, and what is
 shown until then: with the XZ-2 where the picture shows its effect
@@ -963,26 +966,26 @@ the XZ-2. **E** is essential, **N** nice to have.
 | 3 | `xz2-front.jpg`; drawings of the top and the back | The XZ-2 on a plain table in daylight, from the front with the cap off, from the top (mode dial, shutter button, zoom lever, ON/OFF, flash switch), from the back (screen on, showing `P 125 F5.6`) | E |
 | 3, 7 | drawings | Close-ups: the control ring with the lever and Fn2; the mode dial set to A | E |
 | 15 | none | The flash raised | N |
-| 1 | `pinhole-box.jpg` | The window's view on a wall in a darkened room (hard; try once) | N |
-| 2 | `magnifier-window.jpg`, a still of a video | A magnifying glass projecting the window on paper | E |
+| 1 | `pinhole-box.jpg`, dim | The window's view on a wall in a darkened room (hard; try once; Gemini draws a projector's frame round it) | N |
+| 2 | `magnifier-window.jpg`, generated | A magnifying glass projecting the window on paper | E |
 | 4 | `shaken-lights.jpg`, `shaken-toy.jpg` | A lamp at 1/4 s hand-held and the same from the table | E |
 | 5 | `exposure-minus2.jpg`, `exposure-0.jpg`, `exposure-plus2.jpg`, one photograph given −2 and +2 stops | A toy at −2, 0, +2 | E |
-| 6 | `fountain-frozen.jpg`, `fountain-silky.jpg`, two fountains | A running tap at 1/1000 and at 1/8 | E |
+| 6 | `tap-fast.jpg`, `tap-slow.jpg`, generated | A running tap at 1/1000 and at 1/8 | E |
 | 7 | `aperture-real.jpg`, another camera's blades | The lens's blades seen from the front at f/8 in A mode | N |
 | 8 | `iso-200.jpg`, `iso-6400.jpg` | A dim room, ISO 100 from the table and ISO 6400 hand-held | E |
 | 10 | `snow-grey.jpg`, `snow-white.jpg`; `backlit-as-measured.jpg`, `backlit-on-the-face.jpg`, each pair one photograph | Snow at 0 and at +1.7; a toy against a window with ESP and with spot | N |
 | 13 | `car-trails.jpg`, `silky-river.jpg` | A street at dusk, 4–8 s, from a wall or window sill; a fountain or stream at 1–2 s with the ND filter | E, N |
 | 14 | `light-painting-circle.jpg`, `light-painting-orb.jpg` | A torch drawing in a dark room, 10 s | E |
 | 15 | `flash-splash.jpg`, `fill-flash-pair.jpg`; slow sync a drawing | Water poured into a bowl, flash on, 1/60; a toy or an adult against the window, without and with fill-in flash; a torch swung for 1 s with the flash on Sync 2 | E, E, N |
-| 16 | `focus-front.jpg`, `focus-back.jpg` | Two toys, focused on the near one, then on the far one | E |
-| 17 | none; manual focus a drawing | A runner sharp in C-AF and soft in S-AF | N |
+| 16 | `focus-near.jpg`, `focus-far.jpg`, generated | Two toys, focused on the near one, then on the far one | E |
+| 17 | `dog-c-af.jpg`, `dog-s-af.jpg`, generated | A dog or a friend running towards the camera, in C-AF and in S-AF | N |
 | 18 | `dof-small-aperture.jpg`, `dof-wide-aperture.jpg`, `bokeh.jpg`, `shallow-focus.jpg` | A row of pencils, focus on the second, at f/1.8 and f/8; fairy lights out of focus | E, N |
-| 19 | `macro-coin.jpg`, `macro-leaf.jpg`; side light none | Super macro; the coin lit from the front and from the side | E |
-| 20 | `zoom-wide.jpg`, `zoom-long.jpg` | A toy's face from 30 cm at wide and from 2 m zoomed in, same size in the frame | E |
+| 19 | `macro-coin.jpg`, `macro-leaf.jpg`; `coin-front-light.jpg`, `coin-side-light.jpg`, generated | Super macro; the coin lit from the front and from the side | E |
+| 20 | `zoom-wide.jpg`, `zoom-tele.jpg`, generated | A toy from 40 cm at wide and from 4 m zoomed in, the same size in the frame, a building far behind | E |
 | 21 | `thirds-landscape.jpg`, `post-centred.jpg`, `post-on-a-third.jpg` (one photograph cropped twice), `thirds-portrait.jpg` | A landscape with the horizon on the lower third; a tree centred and on a third | E |
-| 23 | drawings of the post behind a head and after a step aside; `negative-space.jpg` | A toy with a pole or clutter behind, and the same three steps aside | E |
-| 24 | `worm-view.jpg`, `from-above.jpg`; the three heights a drawing | A shoe from above, at eye level, from the floor | E |
-| 25 | `golden-hour.jpg`, `side-light-face.jpg`, `side-light-cat.jpg`, `silhouette.jpg`; the three sides a drawing | The plush by a window front, side and back lit; a corner at noon and at dusk | E, N |
+| 23 | `pole-behind.jpg`, `pole-aside.jpg`, generated; `negative-space.jpg` | An adult with a pole behind their head, and the same three steps aside | E |
+| 24 | `heights-above.jpg`, `heights-eye.jpg`, generated; `worm-view.jpg`; the three heights a drawing | A toy from above and at its own eye level | E |
+| 25 | `noon.jpg`, `golden.jpg`, `window-front.jpg`, `window-side.jpg`, `window-back.jpg`, generated; `silhouette.jpg`; the three sides a drawing | A corner at noon and at dusk; the plush by a window front, side and back lit | E |
 | 26 | `white-balance-lamp.jpg`, `white-balance-right.jpg`, `colour-houses.jpg`, `monotone-houses.jpg`, `red-filter-houses.jpg`, each set one photograph | Under a lamp at AUTO and at the lamp's white balance; a sky in colour and in Monotone with the red filter | E |
 | 27 | `burst-strip.jpg`, four frames | Five frames of a sequence (hands, a toy falling, a dog) | N |
 | 29 | a drawing of five pictures | Five pictures that tell a small story | N |
@@ -1100,6 +1103,11 @@ Decided 2026-10-17 by the owner, during 4.35.
 13. **The website's card comes after the release**, as Mail's and
     Gmail's did: it shows the picture of the page, as every card does,
     which the release run takes (4.35, item 5).
+14. **Every picture should show its effect clearly** (D103): a generated
+    picture also where a free photograph shows its effect faintly or
+    across two different scenes, with Gemini's best image model; then
+    Fable reviews the pictures again, and the owner asks for any to be
+    made again.
 
 **Open, answered before the step that needs it.**
 

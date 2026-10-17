@@ -1763,3 +1763,16 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   it, and the key is a file outside the repository. Ideas and the
   camera's screen are drawings of Kidux's own. No picture shows a child's
   face.
+- **D103 — A generated picture also where a free photograph does not show
+  the effect clearly.** Decided 2026-10-17 by the owner, after the
+  course's first draft; this extends D102. A chapter that teaches one
+  thing at a time is best shown by one scene with only that thing
+  changed: the focus moved from a near toy to a far one, a tap at 1/1000
+  and at 1/8, a coin lit from the front and from the side. Free pairs of
+  that kind are rare, and the ones found showed their effect faintly or
+  across two different scenes. Gemini's image model, given its own first
+  picture and told what to change, makes such a pair; each is looked at
+  for its physics before it is kept, credited as made by a computer, and
+  named in the chapter's box for the adult. A free photograph that shows
+  its effect clearly stays, and a picture of the XZ-2 itself is never
+  generated.

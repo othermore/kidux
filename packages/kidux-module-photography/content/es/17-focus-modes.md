@@ -1,5 +1,5 @@
 ---
-source_sha256 = "fe96479093dfd6220d959719d0dc379fa47fddcc1c45b91c9659fa94e8643c7d"
+source_sha256 = "c729969cd4bc509913b24af61dabd2eb980297cea8028a72d00b4d10715b3d0d"
 ---
 # Los modos de enfoque: una vez, siguiendo, a mano
 
@@ -26,6 +26,12 @@ enfoque**.
 > [point] Con un amigo que corre hacia ti, *una vez* enfoca donde estaba
 > cuando apretaste, y cuando se hace la foto ya está más cerca, y sale
 > borroso. *Siguiendo* no se queda atrás.
+
+::: compare
+![Siguiendo, C-AF: el perro que corre hacia la cámara sale nítido](dog-c-af.jpg)
+
+![Una vez, S-AF, enfocado cuando el perro estaba más lejos: ahora sale borroso](dog-s-af.jpg)
+:::
 
 ## Cuándo enfocar a mano
 
@@ -93,4 +99,7 @@ fotografía en cada foto. En la XZ-2, los disparos en serie, que hacen
 fotos mientras se mantiene apretado el botón, solo funcionan en S-AF y
 MF y conservan el enfoque de la primera foto (manual, p. 27): para alguien
 que corre hacia la cámara, mejor fotos sueltas en C-AF.
+
+Las dos imágenes del perro están hechas por un ordenador, el mismo
+momento con solo el enfoque cambiado.
 :::
