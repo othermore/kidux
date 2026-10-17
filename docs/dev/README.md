@@ -36,6 +36,8 @@ instead, in English and Spanish.
 - [modules.md](modules.md): what a learning module is and how to make one.
 - [basic.md](basic.md): the BASIC module: wwwBASIC, the page around it, and
   how its guide is written.
+- [photography.md](photography.md): the Photography module: its page, how
+  its guide is written, and where its pictures come from.
 - [website.md](website.md): the website, what it says, how it is built and
   published, and where a donation goes.
 

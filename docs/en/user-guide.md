@@ -1006,6 +1006,33 @@ first time; that is Google's own question.
 
 ![Gmail](../images/en/module-gmail.png)
 
+### Photography
+
+**Photography** is a guide to taking photographs with a real camera, for
+children from eight to twelve who read well, in the child's language. It
+needs nothing from the internet, and it needs a camera: any camera with a
+dial or a menu for its modes, a compact, a bridge or a reflex, and to
+start with even a phone. The guide's example is the Olympus XZ-2: each
+chapter's box **On the Olympus XZ-2** says which button, dial or menu does
+what the chapter teaches, and that other cameras have the same under
+other names.
+
+Its thirty chapters go from a dark box with a hole, which every camera
+still is, to the lens, the shutter, the aperture and ISO, the camera's
+modes and why manual is the most reliable in steady light, how the camera
+measures light and where it focuses, depth of field, close-ups and zoom;
+then composition, light, colour and people; and last, looking at the
+photographs and choosing them. Each chapter has photographs of its
+effect, drawings of what the camera's screen shows, a **Try it** to do
+with the camera that day, ideas to keep trying, and a box **For the
+adult** that says what the chapter teaches and what to help with: a
+dark room, a torch, the flash, a street at dusk.
+
+**Back**, **Next** and the list of **Chapters** move through the guide.
+The photographs are free ones by other people, each credited under it.
+
+![Photography](../images/en/module-photography.png)
+
 ## 10. Updates and reinstalling
 
 Security updates install themselves in the background, from Debian and

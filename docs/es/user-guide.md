@@ -1035,6 +1035,34 @@ Google.
 
 ![Gmail](../images/es/module-gmail.png)
 
+### Fotografía
+
+**Fotografía** es una guía para hacer fotos con una cámara de verdad, para
+niños de ocho a doce años que ya leen bien, en el idioma del niño. No
+necesita nada de internet, y necesita una cámara: cualquiera que tenga un
+dial o un menú para sus modos, una compacta, una bridge o una réflex, y
+para empezar incluso un móvil. El ejemplo de la guía es la Olympus XZ-2:
+el recuadro **En la Olympus XZ-2** de cada capítulo dice qué botón, dial o
+menú hace lo que enseña el capítulo, y que otras cámaras tienen lo mismo
+con otros nombres.
+
+Sus treinta capítulos van de una caja oscura con un agujero, que es lo que
+sigue siendo toda cámara, al objetivo, el obturador, el diafragma y el
+ISO, los modos de la cámara y por qué el manual es el más fiable con una
+luz que no cambia, cómo mide la luz la cámara y dónde enfoca, la
+profundidad de campo, las fotos de cerca y el zoom; después la
+composición, la luz, el color y las personas; y por último, mirar las
+fotos y elegirlas. Cada capítulo tiene fotos de su efecto, dibujos de lo
+que enseña la pantalla de la cámara, un **Pruébalo** para hacer con la
+cámara ese día, ideas para seguir probando y un recuadro **Para el
+adulto** que dice qué enseña el capítulo y en qué ayudar: una habitación a
+oscuras, una linterna, el flash, una calle al anochecer.
+
+**Atrás**, **Siguiente** y la lista de **Capítulos** recorren la guía. Las
+fotos son fotos libres de otras personas, cada una con su autor debajo.
+
+![Fotografía](../images/es/module-photography.png)
+
 ## 10. Actualizar y reinstalar
 
 Las actualizaciones de seguridad se instalan solas, en segundo plano, tanto

@@ -135,6 +135,10 @@ can. Each phase assumes what it builds on is reasonably stable.
       asks, with the question in view, and a module that is only a folder,
       with no package behind it, says so and is removed as a folder
       (phase-4e-plan.md 4.27, D101).
+- [x] Photography: a guide to taking photographs with a real camera, in
+      thirty chapters, the Olympus XZ-2 as its example, with free
+      photographs of each effect and drawings of the camera's screen
+      (phase-4e-plan.md 4.28 to 4.34, D102).
 
 ## Phase 5 — AI learning module
 - [ ] `kidux-ai-gateway`: adult-held credentials, guardrails, logging visible to

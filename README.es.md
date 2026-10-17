@@ -125,6 +125,9 @@ Los módulos que ofrece Kidux:
   una cuenta de Google, la única forma para un niño cuya cuenta se
   gestiona con Family Link; necesita internet, y Kidux no tiene ninguna
   relación con Google.
+- Fotografía: una guía para hacer fotos con una cámara de verdad, para
+  niños a partir de ocho años que ya leen bien, en treinta capítulos con
+  algo que probar con la cámara en cada uno, sin internet.
 
 ![GCompris](docs/images/es/module-gcompris.png)
 
@@ -180,4 +183,6 @@ paquetes de Debian y los programas de los módulos de aprendizaje, Scratch
 (AGPL-3), TurboWarp (GPL-3), ScratchJr (BSD-3), Blockly Games (Apache-2.0),
 wwwBASIC (Apache-2.0), GCompris (GPL-3) y Tux Typing (GPL-2). El código fuente de cada programa
 que Kidux compila, con los cambios con que se compila, se publica junto a la
-compilación.
+compilación. La guía de Fotografía enseña fotos de otras personas, con
+licencias Creative Commons o de dominio público, cada una con su autor
+donde se enseña.

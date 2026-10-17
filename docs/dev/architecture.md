@@ -394,6 +394,7 @@ what was built and tested.
 | Wikipedia (8–) | `kidux-module-wikipedia`, a door to the encyclopedia in the child's language and the Wikimedia projects (D85, D87) | ours, nothing of Wikipedia's in it, step 4.14 | The whole encyclopedia, free and in every language Kidux ships, with the rest of the internet closed; written for everyone, so the adult decides. |
 | Mail (8–) | `kidux-module-mail`: Thunderbird 140 ESR with the account an adult gives, locked by its policies (D95) | `thunderbird`, `thunderbird-l10n-all` (trixie), step 4.22 | A real mail client that signs in to Google and Microsoft by itself and speaks IMAP to every other provider, with nothing for the child to set up; not for a Family Link account, which Google keeps out of it. |
 | Gmail (8–) | `kidux-module-gmail`, a door to Gmail's website with the child's address filled in (D85, D96) | ours, nothing of Google's in it, step 4.23 | The way for a Family Link account, which Google keeps out of Thunderbird, and for a family that prefers the website. |
+| Photography (8–12) | `kidux-module-photography`, a guide in thirty chapters for a child with a real camera, served by `kidux-webapps` (D102) | ours; its photographs are free ones by other people, credited in the page and in `debian/copyright`, steps 4.28 to 4.34 | Photography taught as the BASIC guide teaches programming, a chapter at a time, tried on the camera the same day; the Olympus XZ-2 is the example, and every camera box says how to find the same on another camera. |
 | AI agents | `kidux-ai-gateway` (ours) | packaged by us | Local service that holds the adult's API key and applies guardrails; the child's projects talk to the gateway, never to the provider directly. Local models rejected for old hardware. |
 | Web (future) | Firefox ESR 140 in kiosk mode with policy-managed allow/deny lists | `firefox-esr` (trixie) | Enterprise policies give whitelist/blacklist without a proxy. |
 
@@ -1747,3 +1748,18 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   same rules and the same audit line. The update runner does it and not
   the daemon, whose system is read-only to it (`ProtectSystem=strict`).
   This extends D100.
+- **D102 — The photography guide shows photographs a camera took, and a
+  generated picture only where none is found.** Decided 2026-10-16 by the
+  owner, on phase-4e-plan.md. A guide that teaches what a camera does
+  shows each effect in a photograph that came through a lens: a free one
+  from Wikimedia Commons, under CC0, CC BY, CC BY-SA or in the public
+  domain, credited under it and in `debian/copyright`, or, later, one of
+  the owner's. Where a chapter needs one scene with a single thing
+  changed, one photograph is changed as a camera would change it, in
+  linear light, and its credit says so. A picture generated with Gemini's
+  image model is allowed only for an effect no photograph shows, since a
+  generated depth of field did not come through a lens and may lie in its
+  details; it is credited as made by a computer, its prompt kept beside
+  it, and the key is a file outside the repository. Ideas and the
+  camera's screen are drawings of Kidux's own. No picture shows a child's
+  face.

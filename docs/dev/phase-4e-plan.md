@@ -277,32 +277,38 @@ under what licence, is decided once (D102, section 5).
 
 1. **Drawings**, SVG in `drawings/`, drawn by hand in the brand's style
    (flat shapes, the brand's colours, nothing thinner than four units),
-   each named by the chapters that use it (section 3). Three families:
-   ideas (`camera-obscura.svg`, `lens-focus.svg`, `camera-parts.svg`,
-   `aperture-blades.svg`, `exposure-seesaw.svg`, `sensor-pixels.svg`,
-   `depth-of-field.svg`, `perspective.svg`, `light-sides.svg`), the
-   camera's controls (`camera-top.svg`, `camera-back.svg`,
-   `camera-front.svg`: the XZ-2's outline from the owner's photographs,
-   with the control the chapter speaks of in Sun and the rest in Ink,
-   nothing written), and the camera's screen (`screen-auto.svg`,
-   `screen-half-press.svg` with the green AF target, `screen-p.svg`,
-   `screen-a.svg`, `screen-s.svg`, `screen-m.svg`, `screen-compensation.svg`,
-   `screen-flash-modes.svg`, `screen-af-target.svg`, `screen-grid.svg`,
-   `screen-histogram.svg`, `screen-playback-info.svg`, `screen-too-dark.svg`
-   with the blinking `60" F1.8`): a dark rectangle with the glyphs the
-   XZ-2 shows where it shows them (manual, p. 8, 9, 13–18, 23–26, 28),
-   drawn afresh, never traced from the manual's pictures, which are
-   Olympus's.
+   each saying in a comment which chapters use it. Three families: ideas
+   (`camera-obscura.svg`, `lens-focus.svg`, `camera-parts.svg`,
+   `holding.svg`, `aperture-blades.svg`, `sensor-pixels.svg`,
+   `exposure-seesaw.svg`, `metering-patterns.svg`, `mode-dial.svg`,
+   `flash-sync.svg`, `depth-of-field.svg`, `perspective.svg`,
+   `background-pole.svg`, `background-moved.svg`, `heights.svg`,
+   `light-sides.svg`, `story-strip.svg`), the camera's controls
+   (`camera-top.svg`, `camera-back.svg`: the XZ-2's outline, with the
+   controls the chapter speaks of in colour and the rest in Ink, nothing
+   written), and the camera's screen (`screen-half-press.svg` with the
+   green AF target, `screen-p.svg`, `screen-a.svg`, `screen-s.svg`,
+   `screen-m.svg`, `screen-compensation.svg`, `screen-histogram.svg`,
+   `screen-too-dark.svg` with the blinking `60" F1.8`,
+   `screen-metering.svg`, `screen-live-guide.svg`,
+   `screen-flash-modes.svg`, `screen-af-all.svg`, `screen-af-single.svg`,
+   `screen-af-group.svg`, `screen-face.svg`, `screen-mf.svg`,
+   `screen-playback-info.svg`): a dark rectangle with the glyphs the
+   XZ-2 shows where it shows them, drawn afresh, never traced from the
+   manual's pictures, which are Olympus's. The mascot's drawings are
+   BASIC's.
 2. **Photographs** in `pictures/`, JPEG, 1400 pixels on the long side,
    quality 82, metadata stripped (a photograph of the owner's carries the
    family's camera serial and GPS otherwise), each under 400 kB, by
    `pictures/prepare.py <source> <name>` (a development-time tool, run by
-   hand, which also writes a crop at 1:1 when asked, for the ISO noise
-   pair). `pictures/pictures.toml` has one table per picture: `name`,
-   `author`, `source` (an address for a free one, `owner` for the
-   owner's), `licence` (`CC0-1.0`, `CC-BY-4.0`, `CC-BY-SA-4.0`,
-   `public-domain`, or `BUSL-1.1` for Kidux's own), and `settings` when
-   known (`"f/1.8, 1/60 s, ISO 200, 28 mm"`), which a chapter may quote.
+   hand, which crops, and changes a photograph as a camera would, in
+   linear light: `--stops`, `--light`, `--grey`, `--red-filter`). `pictures/pictures.toml` has one table per picture, by its
+   file's name: `author`, `source` (the file's page for a free one,
+   `owner` for the owner's), `licence` (`CC0-1.0`, `CC-BY-2.0` to
+   `CC-BY-4.0`, `CC-BY-SA-2.0` to `CC-BY-SA-4.0`, `public-domain`, or
+   `BUSL-1.1` for Kidux's own), and `made` when the picture is not the
+   file as it is (cropped, one half of a comparison, given more or less
+   light, its colours changed).
    `debian/copyright` lists every picture that is not Kidux's by name,
    author and licence, with the licence texts; the README's licence
    paragraph says the module's guide shows photographs by other people
@@ -390,10 +396,7 @@ each language on its own, since the words' order differs.
    the Olympus XZ-2 shown as the example), what the chapters cover, and
    its picture, `module-photography.png`, which the release run takes.
    README.md and README.es.md: the module in the list, and the licence
-   paragraph as 4.29 says. The website: `site/page.html` gets the
-   module's card as the others have one, `site/en.toml` and `site/es.toml`
-   its words (`modules.photography`), `tests/project/site.py` holding
-   them to the guide's heading.
+   paragraph as 4.29 says.
 3. `docs/dev/roadmap.md`: the phase 4 lines for this work ticked, the
    two Modules faults' line ticked, micro:bit and the wwwBASIC pull
    request left as they are. `docs/dev/architecture.md`: D102 and D101
@@ -404,6 +407,13 @@ each language on its own, since the words' order differs.
    release, which happens on `kidux` (CLAUDE.md, "More than one
    development machine"): the battery once, `--release`, promotion,
    publication, each on the owner's word.
+5. **After the release**, once its run has taken
+   `docs/images/<language>/module-photography.png`: the website's card,
+   in `site/page.html` as the others have one, with that picture of the
+   page, and its words in `site/en.toml` and `site/es.toml`
+   (`modules.photography`), `tests/project/site.py` holding them to the
+   guide's heading; the site is built from that picture, so the card
+   cannot come before it (decision 13).
 
 ## 3. The course
 
@@ -455,22 +465,19 @@ the gist of the adult's box.
 
 **Part 1 — Light and the box**
 
-1. **A box with a hole** / **Una caja con un agujero** (`01-a-box-with-a-hole`,
-   written). *Idea:* light goes in straight lines; a hole in a dark box
-   draws the world upside down on the far wall, because the light from
-   the top can only reach the bottom; this has been known for two
-   thousand years (Mozi, Alhazen), and a camera is still that box. *Try:*
-   a darkened room with a small hole in cardboard over the window, a
-   white sheet opposite: the street upside down; or a shoebox with a
-   pinhole and tracing paper. *Pictures:* D `camera-obscura.svg` (the
-   room, the rays crossing at the hole, the tree upside down); C
-   `frisius-1545.jpg` (Gemma Frisius's woodcut of the eclipse seen in a
-   camera obscura, 1545, public domain); O `pinhole-room.jpg` (the
-   owner's room with the window's view on the wall, if it comes out).
+1. **A box with a hole** / **Una caja con un agujero**
+   (`01-a-box-with-a-hole`, written). *Idea:* light goes in straight
+   lines; a hole in a dark box draws the world upside down on the far
+   wall, because the light from the top can only reach the bottom; this
+   has been known for two thousand years (Mozi, Alhazen), and a camera
+   is still that box. *Try:* a darkened room with a small hole in
+   cardboard over the window, a white sheet opposite: the street upside
+   down; or a shoebox with a pinhole and tracing paper. *Pictures:* D
+   `camera-obscura.svg`; C `frisius-1545.jpg`; C `pinhole-box.jpg`.
    *Camera:* the XZ-2 is that box with a glass in the hole; the hole is
    behind the lens; the sensor is the wall (p. 2, 92). *Adult:* the
-   experiment needs a really dark room and ten minutes for the eyes;
-   why the image is dim and why it is upside down.
+   experiment needs a really dark room and ten minutes for the eyes; why
+   the image is dim and why it is upside down.
 2. **Why a lens** / **Para qué sirve una lente** (`02-why-a-lens`).
    *Idea:* a bigger hole makes a brighter picture but a blurred one,
    because each point of the world becomes a patch; a lens bends the
@@ -478,13 +485,12 @@ the gist of the adult's box.
    and it happens at one distance only, which is why a camera focuses.
    The eye has a lens too. *Try:* a magnifying glass projects the window
    onto a sheet of paper; move it until the window is sharp; measure the
-   distance; try a nearer thing. *Pictures:* D `lens-focus.svg` (rays
-   through a lens meeting at a point; the same with the paper too near,
-   a patch); O `magnifier-window.jpg`. *Camera:* the lens is the glass
-   tube at the front; the zoom lever makes it longer and shorter (p.
-   10); the cap and the cloth (p. 82). *Adult:* the magnifying glass and
-   the sun: never focus the sun on anything; the image on the paper is
-   the same the sensor gets.
+   distance; try a nearer thing. *Pictures:* D `lens-focus.svg`; C
+   `magnifier-window.jpg`. *Camera:* the lens is the glass tube at the
+   front; the zoom lever makes it longer and shorter (p. 10); the cap
+   and the cloth (p. 82). *Adult:* the magnifying glass and the sun:
+   never focus the sun on anything; the image on the paper is the same
+   the sensor gets.
 3. **What a camera is made of** / **De qué está hecha una cámara**
    (`03-what-a-camera-is-made-of`). *Idea:* lens, aperture (a hole that
    opens and closes, like the pupil), shutter (a door that opens for a
@@ -494,10 +500,8 @@ the gist of the adult's box.
    the numbers, a button with a lightning bolt, a button with a flower
    for close-ups. *Try:* a tour of the child's own camera with the
    drawing beside it; find the five things; switch it on, take one
-   photograph of anything, look at it. *Pictures:* D `camera-parts.svg`
-   (the cut-open camera); O `xz2-front.jpg`, `xz2-top.jpg`,
-   `xz2-back.jpg`; D `camera-top.svg`, `camera-back.svg`,
-   `camera-front.svg` (the controls, the one spoken of in Sun). *Camera:*
+   photograph of anything, look at it. *Pictures:* D `camera-parts.svg`;
+   C `xz2-front.jpg`; D `camera-top.svg`; D `camera-back.svg`. *Camera:*
    names of parts (p. 2, 3): mode dial, shutter button, zoom lever,
    control ring, lever and Fn2, flash switch, the arrow pad's four jobs,
    the sub dial, the tilting touch screen, the card and battery door (p.
@@ -509,29 +513,28 @@ the gist of the adult's box.
    has two steps: half-way focuses and shows a green square and beeps,
    all the way takes the picture; wait for the green; keep the horizon
    straight; the self-timer and a table are a tripod. *Try:* ten
-   photographs of the same thing: five pressing fast, five the right way;
-   look at them zoomed in on the screen. *Pictures:* D `holding.svg`
-   (two hands, horizontal and vertical grip); S `screen-half-press.svg`
-   (the green AF target with `125 F5.6`); O `shake-pair.jpg` as a
-   `compare` (a shaken and a still shot of the same lamp). *Camera:*
-   half-press (p. 9), the AF target turning green (p. 9, 14), the
-   stabilizer (p. 36), self-timer 2 s and 12 s (p. 27), the level gauge
-   (p. 69), zooming in on a picture to check it (p. 11, 29). *Adult:*
-   the grip for small hands; the beep's volume (p. 60).
+   photographs of the same thing: five pressing fast, five the right
+   way; look at them zoomed in on the screen. *Pictures:* C
+   `shaken-lights.jpg`; C `shaken-toy.jpg`; D `holding.svg`; S
+   `screen-half-press.svg`. *Camera:* half-press (p. 9), the AF target
+   turning green (p. 9, 14), the stabilizer (p. 36), self-timer 2 s and
+   12 s (p. 27), the level gauge (p. 69), zooming in on a picture to
+   check it (p. 11, 29). *Adult:* the grip for small hands; the beep's
+   volume (p. 60).
 
 **Part 2 — Exposure: the three knobs, the meter and the modes**
 
 5. **Too dark, too bright** / **Demasiado oscura, demasiado clara**
    (`05-too-dark-too-bright`). *Idea:* a photograph is a bucket of
    light: too little and it is dark, too much and it is white; the
-   camera guesses the right amount, and guesses wrong with snow, a
-   black cat or a window behind someone; the +/− knob tells it
-   "brighter" or "darker"; what the histogram is, gently (a pile of all
-   the dark pixels on the left and the bright ones on the right). *Try:*
-   P mode; the same toy at −2, 0 and +2; a white sheet of paper at 0 and
-   at +1; a dark jumper at 0 and −1. *Pictures:* O `exposure-trio.jpg`
-   as a `compare` of three; S `screen-p.svg`, `screen-compensation.svg`
-   (the scale from −3 to +3); S `screen-histogram.svg`. *Camera:* mode
+   camera guesses the right amount, and guesses wrong with snow, a black
+   cat or a window behind someone; the +/− knob tells it "brighter" or
+   "darker"; what the histogram is, gently (a pile of all the dark
+   pixels on the left and the bright ones on the right). *Try:* P mode;
+   the same toy at −2, 0 and +2; a white sheet of paper at 0 and at +1;
+   a dark jumper at 0 and −1. *Pictures:* C `exposure-minus2.jpg`; C
+   `exposure-0.jpg`; C `exposure-plus2.jpg`; S
+   `screen-compensation.svg`; S `screen-histogram.svg`. *Camera:* mode
    dial to P (p. 15); the sub dial changes the exposure compensation, ±3
    EV (p. 23); INFO shows the histogram (p. 14); not available in iAUTO
    or M (p. 23). *Adult:* compensation is kept until it is put back to
@@ -545,30 +548,28 @@ the gist of the adult's box.
    1878: the first time anyone saw that all four hooves leave the
    ground. *Try:* S mode; a tap running, at 1/1000 and at 1/8; a friend
    waving a hand at 1/500 and 1/15; cars from the window at 1/4 with the
-   camera on the sill. *Pictures:* O `tap-pair.jpg` (`compare`); C
-   `muybridge-horse.jpg` (public domain); S `screen-s.svg`. *Camera:*
-   mode dial to S; the control ring sets the speed, the sub dial the
-   compensation; the scale 2"←1"←15←60→100→400→1000 (p. 17); the
-   aperture blinks when it cannot keep up (p. 17); 1/2000 to 60 s (p.
-   92). *Adult:* fractions of a second for a child who has not met
-   fractions: "one second cut into a thousand pieces".
-7. **The aperture: how wide the window** / **El diafragma: cómo de
-   ancha es la ventana** (`07-the-aperture`). *Idea:* inside the lens a
-   ring of blades opens and closes a hole; its size is said as an
-   f-number, which is a fraction: f/2 is the lens's length divided by 2,
-   a big hole; f/8 is divided by 8, a small one; so the small number is
-   the big hole, which everyone gets backwards once; each step (1.8, 2.8,
-   4, 5.6, 8) halves the light. The pupil of a cat at noon and at night.
-   *Try:* A mode; look into the lens while turning the ring and watch the
-   blades; the same scene at f/1.8 and f/8 and see how the shutter time
-   changed to keep the brightness. *Pictures:* D `aperture-blades.svg`
-   (three states, f/1.8, f/4, f/8, with the f-number under each as the
-   camera writes it); O `iris.jpg` (the XZ-2's blades seen in the lens,
-   if it can be shot); S `screen-a.svg`. *Camera:* mode dial to A; the
-   control ring sets the aperture, the sub dial the compensation; F2 ←
-   F5.6 → F8 (p. 16); the ND filter when it is too bright even at f/8
-   (p. 15, 16, 65). *Adult:* why the number is a fraction, for the adult
-   to answer the "why backwards" question again later.
+   camera on the sill. *Pictures:* C `fountain-frozen.jpg`; C
+   `fountain-silky.jpg`; C `muybridge-horse.jpg`. *Camera:* mode dial to
+   S; the control ring sets the speed, the sub dial the compensation;
+   the scale 2"←1"←15←60→100→400→1000 (p. 17); the aperture blinks when
+   it cannot keep up (p. 17); 1/2000 to 60 s (p. 92). *Adult:* fractions
+   of a second for a child who has not met fractions: "one second cut
+   into a thousand pieces".
+7. **The aperture: how wide the window** / **El diafragma: cómo de ancha
+   es la ventana** (`07-the-aperture`). *Idea:* inside the lens a ring
+   of blades opens and closes a hole; its size is said as an f-number,
+   which is a fraction: f/2 is the lens's length divided by 2, a big
+   hole; f/8 is divided by 8, a small one; so the small number is the
+   big hole, which everyone gets backwards once; each step (1.8, 2.8, 4,
+   5.6, 8) halves the light. The pupil of a cat at noon and at night.
+   *Try:* A mode; look into the lens while turning the ring and watch
+   the blades; the same scene at f/1.8 and f/8 and see how the shutter
+   time changed to keep the brightness. *Pictures:* C
+   `aperture-real.jpg`; D `aperture-blades.svg`. *Camera:* mode dial to
+   A; the control ring sets the aperture, the sub dial the compensation;
+   F2 ← F5.6 → F8 (p. 16); the ND filter when it is too bright even at
+   f/8 (p. 15, 16, 65). *Adult:* why the number is a fraction, for the
+   adult to answer the "why backwards" question again later.
 8. **ISO: how hard the camera listens** / **ISO: cuánto se esfuerza la
    cámara en escuchar** (`08-iso`). *Idea:* when there is little light
    the camera can turn up the volume of what the sensor heard; ISO 100
@@ -576,30 +577,28 @@ the gist of the adult's box.
    up with the hiss; the grain is called noise; use the lowest ISO the
    light allows, and let AUTO choose when in doubt. *Try:* a dim room,
    the same toy at ISO 100 (long time, camera on the table) and at ISO
-   6400 (short time, in the hand); zoom into both on the screen; where is
-   the noise worst (the shadows). *Pictures:* O `iso-pair.jpg` and
-   `iso-crops.jpg` (`compare`, 1:1 crops from the same two); D
-   `sensor-pixels.svg` (the buckets, a few drops in each, and the same
-   multiplied). *Camera:* ISO in the live control, OK then up/down to
-   the ISO row, left/right to choose, AUTO or 100–12800 (p. 35, 44); the
-   AUTO limit 1600 (p. 61, 90). *Adult:* noise and the noise filter (p.
-   61); ISO as the third knob before the three meet.
-9. **The three together** / **Los tres juntos** (`09-the-three-together`).
-   *Idea:* shutter, aperture and ISO each let in or add light in steps
-   that double or halve (a *stop*), so the same brightness is reached
-   many ways, and what changes is the side effect: blur, depth, grain; a
-   table of equal exposures (1/500 f/2.8, 1/250 f/4, 1/125 f/5.6 …); the
-   camera's own guess at the brightness is the next chapter, and who
-   chooses which of the three is the one after it. *Try:* P mode; turn
-   the control ring and watch both numbers change together while the
-   picture stays as bright (program shift); take three of the same scene
-   at three of the pairs and compare the background and anything moving.
-   *Pictures:* D `exposure-seesaw.svg` (a seesaw with the three weights);
-   C or generated `equal-exposures.jpg` (`compare` of three: a fountain
-   at 1/1000 f/1.8, 1/60 f/8, 1/4 f/16, the same brightness). *Camera:*
-   program shift in P with the control ring, `Ps` on the screen (p. 15);
-   the blinking numbers mean "I cannot" (p. 15–17). *Adult:* the stops
-   table; this is the chapter to read twice.
+   6400 (short time, in the hand); zoom into both on the screen; where
+   is the noise worst (the shadows). *Pictures:* D `sensor-pixels.svg`;
+   C `iso-200.jpg`; C `iso-6400.jpg`. *Camera:* ISO in the live control,
+   OK then up/down to the ISO row, left/right to choose, AUTO or
+   100–12800 (p. 35, 44); the AUTO limit 1600 (p. 61, 90). *Adult:*
+   noise and the noise filter (p. 61); ISO as the third knob before the
+   three meet.
+9. **The three together** / **Los tres juntos**
+   (`09-the-three-together`). *Idea:* shutter, aperture and ISO each let
+   in or add light in steps that double or halve (a *stop*), so the same
+   brightness is reached many ways, and what changes is the side effect:
+   blur, depth, grain; a table of equal exposures (1/500 f/2.8, 1/250
+   f/4, 1/125 f/5.6 …); the camera's own guess at the brightness is the
+   next chapter, and who chooses which of the three is the one after it.
+   *Try:* P mode; turn the control ring and watch both numbers change
+   together while the picture stays as bright (program shift); take
+   three of the same scene at three of the pairs and compare the
+   background and anything moving. *Pictures:* D `exposure-seesaw.svg`;
+   S `screen-too-dark.svg`. *Camera:* program shift in P with the
+   control ring, `Ps` on the screen (p. 15); the blinking numbers mean
+   "I cannot" (p. 15–17). *Adult:* the stops table; this is the chapter
+   to read twice.
 10. **How the camera measures light** / **Cómo mide la luz la cámara**
     (`10-metering`). *Idea:* the camera does not know what it is looking
     at; it measures how bright the scene is and makes it come out as a
@@ -613,129 +612,121 @@ the gist of the adult's box.
     to measure one thing and frame another. *Try:* P mode; a white sheet
     of paper filling the screen and a dark jumper filling it: both come
     out grey; a friend against a window with ESP and then with spot on
-    the face; the histogram for each. *Pictures:* generated
-    `grey-snow-pair.jpg` (`compare`: snow as the camera measured it,
-    grey, and at +1.7); D `metering-patterns.svg` (the three ways as
-    shaded rectangles, as the manual draws them, drawn afresh: the
-    whole frame, a soft centre, a dot); C or generated `backlit-pair.jpg`
-    (`compare`: ESP and spot on the face); S `screen-metering.svg` (the
-    live control's metering row). *Camera:* live control (OK), the
-    metering row: ESP, centre-weighted, spot, spot HI for something
-    bright that must stay bright, spot SH for something dark that must
-    stay dark (p. 35, 42); metering at the AF target, `[···]+Metering`
-    (p. 61); half-press locks it (p. 42); AEL on Fn1 (p. 65); the
-    histogram, red where it is too bright and blue too dark (p. 14).
-    *Adult:* "the camera wants grey"; why snow needs +1 to +2 and a black
-    dog −1 (p. 81).
+    the face; the histogram for each. *Pictures:* C `snow-grey.jpg`; C
+    `snow-white.jpg`; D `metering-patterns.svg`; C
+    `backlit-as-measured.jpg`; C `backlit-on-the-face.jpg`; S
+    `screen-metering.svg`. *Camera:* live control (OK), the metering
+    row: ESP, centre-weighted, spot, spot HI for something bright that
+    must stay bright, spot SH for something dark that must stay dark (p.
+    35, 42); metering at the AF target, `[···]+Metering` (p. 61);
+    half-press locks it (p. 42); AEL on Fn1 (p. 65); the histogram, red
+    where it is too bright and blue too dark (p. 14). *Adult:* "the
+    camera wants grey"; why snow needs +1 to +2 and a black dog −1 (p.
+    81).
 11. **The camera's modes: who chooses** / **Los modos de la cámara:
     quién elige** (`11-modes`). *Idea:* the mode dial says who decides
-    the three knobs. iAUTO: the camera decides everything, and its
-    guide asks in words what you want (brighter, blur the background,
-    show the movement); SCN: you say what it is (a portrait, sport, a
-    sunset, fireworks) and it chooses for that; ART: the camera's
-    filters; P: the camera chooses the pair and you may shift it, and set
-    ISO, the flash and the +/−; A: you choose the aperture (how much is
-    sharp), the camera the time; S: you choose the time (freeze or blur),
-    the camera the aperture; M: you choose both, and the camera only
-    tells you what it measured. Which to use: A when depth matters, S
-    when movement matters, M when the light holds still (next chapter);
-    C1 and C2 keep your own settings. *Try:* the same moving thing (a
+    the three knobs. iAUTO: the camera decides everything, and its guide
+    asks in words what you want (brighter, blur the background, show the
+    movement); SCN: you say what it is (a portrait, sport, a sunset,
+    fireworks) and it chooses for that; ART: the camera's filters; P:
+    the camera chooses the pair and you may shift it, and set ISO, the
+    flash and the +/−; A: you choose the aperture (how much is sharp),
+    the camera the time; S: you choose the time (freeze or blur), the
+    camera the aperture; M: you choose both, and the camera only tells
+    you what it measured. Which to use: A when depth matters, S when
+    movement matters, M when the light holds still (next chapter); C1
+    and C2 keep your own settings. *Try:* the same moving thing (a
     swing, a tap) in iAUTO, A at f/1.8, S at 1/1000 and S at 1/8; look
-    at the numbers each one chose. *Pictures:* D `mode-dial.svg` (the
-    dial drawn as the XZ-2's, its letters as the camera shows them, A,
-    S and M in Sun); S `screen-p.svg`, `screen-a.svg`, `screen-s.svg`,
-    `screen-m.svg` side by side (`compare` of four drawings); S
-    `screen-live-guide.svg`.
-    *Camera:* the mode dial and what each letter is (p. 8); P (p. 15), A
-    (p. 16), S (p. 17), M (p. 18); the live guide in iAUTO (p. 22); SCN
-    (p. 20), ART (p. 19); C1, C2 (p. 48); which knob does what in each:
-    the control ring and the sub dial (p. 16–18, 89). *Adult:* a child
-    who understands A and S understands the whole of exposure.
-12. **Working in manual** / **Trabajar en manual** (`12-working-in-manual`).
-    *Idea:* in the other modes the camera measures again for every
-    picture and can change its mind: a white shirt walks in and the
-    whole picture goes darker, the sun comes in a window and the next
-    one is different; in M nothing changes until you change it, so a
-    series under the same light comes out the same, the snow stays
-    white, the black cat black, and a panorama's pieces match; that is
-    why M is the most reliable mode when the light is steady and can be
-    measured: a room lit by lamps, a cloudy afternoon, a stage, the
-    night. How: measure once on something middle (grass, a grey jumper,
-    the palm of a hand in the light; or spot on the subject), set the
-    time for the movement and the aperture for the depth, move one of
-    them until the meter's scale is at 0, take a test picture and read
-    its histogram, then leave it and take the pictures; measure again
-    only when the light changes (a cloud, a lamp switched on, moving from
-    sun to shade); and when not to: light that changes all the time,
-    walking from inside to outside. *Try:* a room lit by a lamp; M; meter
-    on a grey thing, set it, take ten pictures of a toy moving around the
-    room and see they all match; do the same in P with a white sheet
-    passing behind and see P change. *Pictures:* generated
-    `manual-series.jpg` (four frames under the same light, in M all the
-    same; a second strip in P, one darker where a white sheet came in);
-    S `screen-m.svg` with the exposure scale at 0; S `screen-histogram.svg`.
-    *Camera:* mode dial to M, the control ring sets the time, the sub
-    dial the aperture (p. 18; the dials can be swapped, p. 89); no +/−
-    in M (p. 18); ISO set by hand, not AUTO, so that it does not change
-    by itself (p. 44); *Live View Boost* off, so that the screen shows
-    how bright the picture will be (p. 60); the histogram after a test
-    shot (p. 14, 28); BULB for longer than 60 s (chapter 13). The camera
-    box checks against the manual what the screen shows as a meter in M
-    before it says it, and says the histogram where the manual says
-    nothing more. *Adult:* the habit of a test shot, and why a
-    professional at a wedding church works in M.
+    at the numbers each one chose. *Pictures:* D `mode-dial.svg`; S
+    `screen-p.svg`; S `screen-a.svg`; S `screen-s.svg`; S
+    `screen-m.svg`; S `screen-live-guide.svg`. *Camera:* the mode dial
+    and what each letter is (p. 8); P (p. 15), A (p. 16), S (p. 17), M
+    (p. 18); the live guide in iAUTO (p. 22); SCN (p. 20), ART (p. 19);
+    C1, C2 (p. 48); which knob does what in each: the control ring and
+    the sub dial (p. 16–18, 89). *Adult:* a child who understands A and
+    S understands the whole of exposure.
+12. **Working in manual** / **Trabajar en manual**
+    (`12-working-in-manual`). *Idea:* in the other modes the camera
+    measures again for every picture and can change its mind: a white
+    shirt walks in and the whole picture goes darker, the sun comes in a
+    window and the next one is different; in M nothing changes until you
+    change it, so a series under the same light comes out the same, the
+    snow stays white, the black cat black, and a panorama's pieces
+    match; that is why M is the most reliable mode when the light is
+    steady and can be measured: a room lit by lamps, a cloudy afternoon,
+    a stage, the night. How: measure once on something middle (grass, a
+    grey jumper, the palm of a hand in the light; or spot on the
+    subject), set the time for the movement and the aperture for the
+    depth, move one of them until the meter's scale is at 0, take a test
+    picture and read its histogram, then leave it and take the pictures;
+    measure again only when the light changes (a cloud, a lamp switched
+    on, moving from sun to shade); and when not to: light that changes
+    all the time, walking from inside to outside. *Try:* a room lit by a
+    lamp; M; meter on a grey thing, set it, take ten pictures of a toy
+    moving around the room and see they all match; do the same in P with
+    a white sheet passing behind and see P change. *Pictures:* S
+    `screen-m.svg`; S `screen-histogram.svg`. *Camera:* mode dial to M,
+    the control ring sets the time, the sub dial the aperture (p. 18;
+    the dials can be swapped, p. 89); no +/− in M (p. 18); ISO set by
+    hand, not AUTO, so that it does not change by itself (p. 44); *Live
+    View Boost* off, so that the screen shows how bright the picture
+    will be (p. 60); the histogram after a test shot (p. 14, 28); BULB
+    for longer than 60 s (chapter 13). The camera box checks against the
+    manual what the screen shows as a meter in M before it says it, and
+    says the histogram where the manual says nothing more. *Adult:* the
+    habit of a test shot, and why a professional at a wedding church
+    works in M.
 13. **Light that moves: long exposures** / **La luz que se mueve:
-    exposiciones largas** (`13-long-exposures`). *Idea:* with seconds
-    of time, moving lights draw lines and moving people vanish; the
-    first photograph of a person, Daguerre's boulevard in 1838, caught
-    only the man standing still to have his shoes shined, because the
-    others moved during the minutes; cars become ribbons, a fountain
-    silk, the stars arcs. *Try:* dusk, the camera on a wall or a small
-    tripod, S mode at 4 s then 8 s, the self-timer so that the finger
-    does not shake it; a torch waved by a friend; bulb for the sky with
-    an adult. *Pictures:* C `daguerre-boulevard.jpg` (public domain); O
-    `car-trails.jpg`; C `star-trails.jpg` (CC BY or CC0, Commons); O or
-    C `silky-water.jpg`. *Camera:* S down to 60"; M and BULB, the
-    shutter open while the button is held, up to 16 minutes (p. 18); the
-    bulb timer (p. 61); the stabilizer off on a tripod (p. 36); noise
-    reduction after a long exposure takes as long again (p. 18, 61); the
-    ND filter for silky water in daylight (p. 65). *Adult:* outside at
-    dusk together; a tripod or a bean bag; battery.
-14. **Painting with light** / **Pintar con luz** (`14-painting-with-light`).
-    *Idea:* in a dark room with the shutter open for ten seconds, a
-    torch moved in the air draws a line in the picture, and the person
-    holding it, who is dark, does not appear; write your name (backwards,
-    facing the camera, or read it in a mirror); a candle carried in a
-    circle; a sparkler, outside, with an adult; a torch on the ceiling
-    for a moment "paints" the room. *Try:* room dark, camera on the
-    table, M at 10 s, f/5.6, ISO 200, self-timer; draw a star with the
-    torch; then a friend's name; then light a toy from the side for two
-    seconds and see where the shadows fall. *Pictures:* O
-    `light-painting-star.jpg`, O `light-painting-name.jpg`; C
-    `light-painting.jpg` (Commons, CC). *Camera:* M, shutter to 10"
-    with the ring, aperture with the sub dial (p. 18); focus first with
-    the light on, then MF so that the camera does not hunt in the dark
-    (p. 43); the self-timer (p. 27). *Adult:* candles and sparklers only
-    with an adult, outside for the sparkler; dark room, cables on the
-    floor.
+    exposiciones largas** (`13-long-exposures`). *Idea:* with seconds of
+    time, moving lights draw lines and moving people vanish; the first
+    photograph of a person, Daguerre's boulevard in 1838, caught only
+    the man standing still to have his shoes shined, because the others
+    moved during the minutes; cars become ribbons, a fountain silk, the
+    stars arcs. *Try:* dusk, the camera on a wall or a small tripod, S
+    mode at 4 s then 8 s, the self-timer so that the finger does not
+    shake it; a torch waved by a friend; bulb for the sky with an adult.
+    *Pictures:* C `car-trails.jpg`; C `daguerre-boulevard.jpg`; C
+    `silky-river.jpg`; C `star-trails.jpg`. *Camera:* S down to 60"; M
+    and BULB, the shutter open while the button is held, up to 16
+    minutes (p. 18); the bulb timer (p. 61); the stabilizer off on a
+    tripod (p. 36); noise reduction after a long exposure takes as long
+    again (p. 18, 61); the ND filter for silky water in daylight (p.
+    65). *Adult:* outside at dusk together; a tripod or a bean bag;
+    battery.
+14. **Painting with light** / **Pintar con luz**
+    (`14-painting-with-light`). *Idea:* in a dark room with the shutter
+    open for ten seconds, a torch moved in the air draws a line in the
+    picture, and the person holding it, who is dark, does not appear;
+    write your name (backwards, facing the camera, or read it in a
+    mirror); a candle carried in a circle; a sparkler, outside, with an
+    adult; a torch on the ceiling for a moment "paints" the room. *Try:*
+    room dark, camera on the table, M at 10 s, f/5.6, ISO 200,
+    self-timer; draw a star with the torch; then a friend's name; then
+    light a toy from the side for two seconds and see where the shadows
+    fall. *Pictures:* C `light-painting-circle.jpg`; C
+    `light-painting-orb.jpg`. *Camera:* M, shutter to 10" with the ring,
+    aperture with the sub dial (p. 18); focus first with the light on,
+    then MF so that the camera does not hunt in the dark (p. 43); the
+    self-timer (p. 27). *Adult:* candles and sparklers only with an
+    adult, outside for the sparkler; dark room, cables on the floor.
 15. **The flash: light that freezes** / **El flash: la luz que congela**
     (`15-the-flash`). *Idea:* the flash is a burst shorter than a
     thousandth of a second, so whatever it lights is frozen even when
     the shutter is slow; it only reaches a few metres (never from the
     back of a stadium); it makes hard shadows and red eyes; in daylight
-    a little flash fills the shadows of a face against the sun (fill-in);
-    with a slow shutter it draws a trail and then freezes the person at
-    the end (slow sync, second curtain). *Try:* water poured into a bowl,
-    flash on, 1/60: every drop frozen; a face with the window behind,
-    with and without fill-in flash; slow sync at 1 s with a friend
-    swinging a torch, Sync 2. *Pictures:* O `flash-splash.jpg`; O
-    `fill-in-pair.jpg` (`compare`); O `slow-sync.jpg`; S
-    `screen-flash-modes.svg`. *Camera:* slide the flash switch to raise
-    it; the right arrow shows the modes: AUTO, red-eye, fill-in, off,
-    slow sync, manual (p. 24, 25); Sync 2 fires just before the shutter
-    closes (p. 52); the flash's slowest shutter (p. 61); too close is too
-    bright (p. 25). *Adult:* never a flash within a metre of a face, and
-    not at babies (p. 94); red-eye and why.
+    a little flash fills the shadows of a face against the sun
+    (fill-in); with a slow shutter it draws a trail and then freezes the
+    person at the end (slow sync, second curtain). *Try:* water poured
+    into a bowl, flash on, 1/60: every drop frozen; a face with the
+    window behind, with and without fill-in flash; slow sync at 1 s with
+    a friend swinging a torch, Sync 2. *Pictures:* C `flash-splash.jpg`;
+    C `fill-flash-pair.jpg`; D `flash-sync.svg`. *Camera:* slide the
+    flash switch to raise it; the right arrow shows the modes: AUTO,
+    red-eye, fill-in, off, slow sync, manual (p. 24, 25); Sync 2 fires
+    just before the shutter closes (p. 52); the flash's slowest shutter
+    (p. 61); too close is too bright (p. 25). *Adult:* never a flash
+    within a metre of a face, and not at babies (p. 94); red-eye and
+    why.
 
 **Part 3 — Focus and depth**
 
@@ -745,21 +736,20 @@ the gist of the adult's box.
     of them across the picture, and it can choose among all of them
     (often the nearest thing), among a group, or use the one you choose;
     half-press, green square, beep; focus and recompose: focus on the
-    subject, keep the button half-pressed, move the camera, press;
-    tap the screen where it should look; faces are found by themselves,
-    and even the nearest eye. *Try:* two toys, one near and one far, with
+    subject, keep the button half-pressed, move the camera, press; tap
+    the screen where it should look; faces are found by themselves, and
+    even the nearest eye. *Try:* two toys, one near and one far, with
     all targets: which did it choose? then a single target on the far
     one; focus and recompose a toy at the edge of the picture; tap the
-    screen on each. *Pictures:* C or generated `focus-near-far.jpg`
-    (`compare`); S `screen-af-target.svg` (the 7 × 5 squares, all, a
-    group, one); S `screen-face.svg` (the white frame on a face, the
-    green one on the eye). *Camera:* the left arrow (AF target) shows the
-    squares, the arrows move one, INFO chooses all, single or group,
-    7 × 5 or 5 × 5 (p. 26); focus lock (p. 14); the home position on Fn1
-    (p. 59, 65); touch to focus, or to focus and shoot (p. 33); face and
-    eye priority (p. 44); the AF illuminator in the dark (p. 59).
-    *Adult:* why autofocus fails on plain walls, glass, bars and in the
-    dark, and what to do (p. 80).
+    screen on each. *Pictures:* C `focus-front.jpg`; C `focus-back.jpg`;
+    S `screen-af-all.svg`; S `screen-af-single.svg`; S
+    `screen-af-group.svg`; S `screen-face.svg`. *Camera:* the left arrow
+    (AF target) shows the squares, the arrows move one, INFO chooses
+    all, single or group, 7 × 5 or 5 × 5 (p. 26); focus lock (p. 14);
+    the home position on Fn1 (p. 59, 65); touch to focus, or to focus
+    and shoot (p. 33); face and eye priority (p. 44); the AF illuminator
+    in the dark (p. 59). *Adult:* why autofocus fails on plain walls,
+    glass, bars and in the dark, and what to do (p. 80).
 17. **Focus modes: once, following, by hand** / **Los modos de enfoque:
     una vez, siguiendo, a mano** (`17-focus-modes`). *Idea:* single AF
     focuses once and keeps it while the button stays half-pressed, for
@@ -770,42 +760,40 @@ the gist of the adult's box.
     over at the same distance; the screen magnifies to help. *Try:* a
     friend walking towards the camera: S-AF (focused where they were)
     against C-AF; tracking on a toy pulled on a string; MF on a toy
-    behind a window pane, where AF focuses on the glass. *Pictures:*
-    generated `af-modes-pair.jpg` (`compare`: a runner sharp in C-AF,
-    soft in S-AF); S `screen-mf.svg` (the magnified view while focusing
-    by hand, the distance in metres). *Camera:* the live control's AF
-    mode: S-AF, super macro, C-AF, C-AF+TR, MF (p. 43); MF with OK held,
-    then the sub dial or the arrows (p. 43); MF assist magnifies (p. 59);
-    the lever and the control ring for MF (p. 43, 59); metres or feet (p.
-    64). *Adult:* sequential shooting with C-AF for sport (p. 27, 43).
+    behind a window pane, where AF focuses on the glass. *Pictures:* S
+    `screen-mf.svg`. *Camera:* the live control's AF mode: S-AF, super
+    macro, C-AF, C-AF+TR, MF (p. 43); MF with OK held, then the sub dial
+    or the arrows (p. 43); MF assist magnifies (p. 59); the lever and
+    the control ring for MF (p. 43, 59); metres or feet (p. 64).
+    *Adult:* sequential shooting with C-AF for sport (p. 27, 43).
 18. **Depth of field: how much is sharp** / **La profundidad de campo:
     cuánto sale nítido** (`18-depth-of-field`). *Idea:* only one
     distance is perfectly sharp; in front and behind, things blur
     slowly; with a wide aperture the sharp slice is thin and the
     background melts (bokeh, the blurry lights); with a small one the
-    slice is deep and everything is sharp; getting closer and zooming
-    in make it thinner too; portraits like it thin, landscapes deep.
-    *Try:* A mode; a row of pencils, focus on the second, f/1.8 then
-    f/8; a toy at 30 cm with the garden behind, at both; the fairy
-    lights at night, out of focus on purpose. *Pictures:* O `dof-pair.jpg`
-    (`compare`); D `depth-of-field.svg` (the thin and the deep slice);
-    O `bokeh.jpg`. *Camera:* A mode, the ring (p. 16); the manual's own
-    sentence, larger apertures decrease depth of field; Preview on Fn1
-    stops the lens down to show it before the shot (p. 65). *Adult:* the
-    circle of confusion in a sentence: a point out of focus is a little
-    disc, and a smaller hole makes smaller discs.
+    slice is deep and everything is sharp; getting closer and zooming in
+    make it thinner too; portraits like it thin, landscapes deep. *Try:*
+    A mode; a row of pencils, focus on the second, f/1.8 then f/8; a toy
+    at 30 cm with the garden behind, at both; the fairy lights at night,
+    out of focus on purpose. *Pictures:* D `depth-of-field.svg`; C
+    `dof-small-aperture.jpg`; C `dof-wide-aperture.jpg`; C `bokeh.jpg`;
+    C `shallow-focus.jpg`. *Camera:* A mode, the ring (p. 16); the
+    manual's own sentence, larger apertures decrease depth of field;
+    Preview on Fn1 stops the lens down to show it before the shot (p.
+    65). *Adult:* the circle of confusion in a sentence: a point out of
+    focus is a little disc, and a smaller hole makes smaller discs.
 19. **Very close: macro** / **Muy cerca: macro** (`19-macro`). *Idea:*
     the world at one centimetre: a coin is a landscape, a leaf has
     roads; the sharp slice is now paper-thin, so the camera must not
     move; the camera's own shadow falls on the subject; light from the
     side shows the texture. *Try:* super macro on a coin, a leaf, a
     fabric, a flower, the skin of an orange; the same coin with light
-    from the front and from the side. *Pictures:* O `macro-coin.jpg`, O
-    `macro-leaf.jpg`, O `macro-side-light-pair.jpg` (`compare`).
-    *Camera:* AF mode Super Macro, from 1 cm, zoom and flash off in it
-    (p. 43); normal focusing from 5 cm at wide (p. 92). *Adult:* an
-    insect is photographed, never caught; the lens an inch from a leaf
-    needs the sun behind the child's shoulder, not the camera's.
+    from the front and from the side. *Pictures:* C `macro-coin.jpg`; C
+    `macro-leaf.jpg`. *Camera:* AF mode Super Macro, from 1 cm, zoom and
+    flash off in it (p. 43); normal focusing from 5 cm at wide (p. 92).
+    *Adult:* an insect is photographed, never caught; the lens an inch
+    from a leaf needs the sun behind the child's shoulder, not the
+    camera's.
 20. **Zoom: near and far, and what it does to faces** / **El zoom: cerca
     y lejos, y lo que les hace a las caras** (`20-zoom`). *Idea:* wide
     fits more in and makes near things huge (a nose), long fits less and
@@ -814,38 +802,36 @@ the gist of the adult's box.
     at wide; digital zoom is only cutting the picture smaller. *Try:* a
     friend's face from 60 cm at wide, then from 3 m zoomed in, both
     filling the frame: compare the noses; the same street at both.
-    *Pictures:* O `perspective-pair.jpg` (`compare`, a toy's face from
-    near-wide and far-tele); D `perspective.svg` (the two triangles of
-    view). *Camera:* the zoom lever, W and T (p. 10); 28 to 112 mm (p.
-    92); the digital tele-converter is a crop (p. 65). *Adult:* "zoom
-    with your feet" and when not to.
+    *Pictures:* D `perspective.svg`; C `zoom-wide.jpg`; C
+    `zoom-long.jpg`. *Camera:* the zoom lever, W and T (p. 10); 28 to
+    112 mm (p. 92); the digital tele-converter is a crop (p. 65).
+    *Adult:* "zoom with your feet" and when not to.
 
 **Part 4 — Making a picture, not taking one**
 
 21. **Where to put things: the rule of thirds** / **Dónde poner las
-    cosas: la regla de los tercios** (`21-rule-of-thirds`). *Idea:*
-    cut the picture in three each way; the eye likes things on the
-    lines and where they cross; the horizon on a line, not in the
-    middle; eyes on the top line; a running dog with room in front; the
-    camera can draw the grid on its screen. *Try:* the grid on; a tree
-    centred and then on a third; a friend looking left placed on the
-    right third, then the left. *Pictures:* O `thirds-landscape.jpg`
-    with and without `"thirds"`; C or O `thirds-portrait.jpg` with
-    `"thirds"`; O `centred-vs-third.jpg` (`compare`). *Camera:*
-    Displayed Grid in the custom menu, Display (p. 60); the aspect
-    ratios 4:3, 16:9, 3:2 and 1:1 (p. 39). *Adult:* a rule to learn and
-    then to break on purpose.
+    cosas: la regla de los tercios** (`21-rule-of-thirds`). *Idea:* cut
+    the picture in three each way; the eye likes things on the lines and
+    where they cross; the horizon on a line, not in the middle; eyes on
+    the top line; a running dog with room in front; the camera can draw
+    the grid on its screen. *Try:* the grid on; a tree centred and then
+    on a third; a friend looking left placed on the right third, then
+    the left. *Pictures:* C `thirds-landscape.jpg`; C
+    `post-centred.jpg`; C `post-on-a-third.jpg`; C
+    `thirds-portrait.jpg`. *Camera:* Displayed Grid in the custom menu,
+    Display (p. 60); the aspect ratios 4:3, 16:9, 3:2 and 1:1 (p. 39).
+    *Adult:* a rule to learn and then to break on purpose.
 22. **Lines, frames and patterns** / **Líneas, marcos y patrones**
     (`22-lines-frames-patterns`). *Idea:* a road, a fence, a railing
-    lead the eye into the picture; a doorway, a branch, a window makes
-    a frame inside the frame; repetition (tiles, windows, a row of
-    boots) is calm, and one thing breaking it is the picture; symmetry
-    and reflections in puddles. *Try:* a street with the road leading
-    in; a friend seen through a door; a pattern and then the same with
-    one thing out of place. *Pictures:* C `leading-lines.jpg`, C
-    `frame-in-frame.jpg`, C `pattern-break.jpg`, C `reflection.jpg`
-    (Commons, CC) or the owner's. *Camera:* none; a note that every
-    camera does this. *Adult:* looking before lifting the camera.
+    lead the eye into the picture; a doorway, a branch, a window makes a
+    frame inside the frame; repetition (tiles, windows, a row of boots)
+    is calm, and one thing breaking it is the picture; symmetry and
+    reflections in puddles. *Try:* a street with the road leading in; a
+    friend seen through a door; a pattern and then the same with one
+    thing out of place. *Pictures:* C `leading-lines.jpg`; C
+    `frame-in-frame.jpg`; C `pattern-break.jpg`; C `reflection.jpg`.
+    *Camera:* none; a note that every camera does this. *Adult:* looking
+    before lifting the camera.
 23. **Backgrounds, and tidying up** / **Los fondos, y ordenar la foto**
     (`23-backgrounds`). *Idea:* the pole growing out of a head, the bin
     behind the dog, the mess on the table: the camera sees everything;
@@ -853,33 +839,32 @@ the gist of the adult's box.
     space on purpose (negative space) lets a small thing be the picture.
     *Try:* a portrait of a friend; find the ugliest thing behind them;
     move until it is gone; then come so close that only the face fits.
-    *Pictures:* O `background-pair.jpg` (`compare`, the pole and the
-    tidy one); C `negative-space.jpg`. *Camera:* none. *Adult:* this is
-    the habit that makes the most difference.
+    *Pictures:* D `background-pole.svg`; D `background-moved.svg`; C
+    `negative-space.jpg`. *Camera:* none. *Adult:* this is the habit
+    that makes the most difference.
 24. **Point of view** / **El punto de vista** (`24-point-of-view`).
-    *Idea:* a photograph from standing height is the one everyone
-    takes; kneel to a dog's eyes, lie down for the worm's view, climb a
-    chair for the top of the table; children are photographed at their
-    height, not from above. *Try:* the same shoe from five heights; a
-    toy from its own eye level with the room behind, giant. *Pictures:*
-    O `heights-trio.jpg` (`compare` of three); O `worm-view.jpg`.
-    *Camera:* the screen tilts, so the camera goes on the floor while
-    the child looks from above (p. 3). *Adult:* knees and elbows get
-    dirty; good.
-25. **Light has a time and a side** / **La luz tiene una hora y un lado**
-    (`25-light-time-and-side`). *Idea:* an hour after sunrise and before
-    sunset the light is low, warm and soft (golden hour); at noon it is
-    hard and shadows are black holes under eyes; clouds are a giant soft
-    lamp; light from the front flattens, from the side shows shape, from
-    behind makes a halo or a silhouette; shadows can be the picture.
-    *Try:* a face by a window turned three ways; the same corner at noon
-    and at dusk; a friend against the sunset as a shape only (−1 or −2
-    compensation). *Pictures:* O `window-light-trio.jpg` (`compare`); O
-    `noon-vs-golden.jpg` (`compare`); C or O `silhouette.jpg`; D
-    `light-sides.svg`. *Camera:* exposure compensation for a silhouette
-    (p. 23); spot metering for a face against the light (chapter 10); fill-in
-    flash (chapter 15). *Adult:* never look at the sun through the
-    camera or point the lens at it for long (p. 94, 95).
+    *Idea:* a photograph from standing height is the one everyone takes;
+    kneel to a dog's eyes, lie down for the worm's view, climb a chair
+    for the top of the table; children are photographed at their height,
+    not from above. *Try:* the same shoe from five heights; a toy from
+    its own eye level with the room behind, giant. *Pictures:* D
+    `heights.svg`; C `worm-view.jpg`; C `from-above.jpg`. *Camera:* the
+    screen tilts, so the camera goes on the floor while the child looks
+    from above (p. 3). *Adult:* knees and elbows get dirty; good.
+25. **Light has a time and a side** / **La luz tiene una hora y un
+    lado** (`25-light-time-and-side`). *Idea:* an hour after sunrise and
+    before sunset the light is low, warm and soft (golden hour); at noon
+    it is hard and shadows are black holes under eyes; clouds are a
+    giant soft lamp; light from the front flattens, from the side shows
+    shape, from behind makes a halo or a silhouette; shadows can be the
+    picture. *Try:* a face by a window turned three ways; the same
+    corner at noon and at dusk; a friend against the sunset as a shape
+    only (−1 or −2 compensation). *Pictures:* C `golden-hour.jpg`; D
+    `light-sides.svg`; C `side-light-face.jpg`; C `side-light-cat.jpg`;
+    C `silhouette.jpg`. *Camera:* exposure compensation for a silhouette
+    (p. 23); spot metering for a face against the light (chapter 10);
+    fill-in flash (chapter 15). *Adult:* never look at the sun through
+    the camera or point the lens at it for long (p. 94, 95).
 26. **Colour, and no colour** / **El color, y el blanco y negro**
     (`26-colour`). *Idea:* one strong colour against a calm one; red and
     green, blue and orange are friends across the wheel; why pictures
@@ -888,58 +873,56 @@ the gist of the adult's box.
     and white takes colour away and leaves shape and light, and the
     camera's monochrome mode with a red filter darkens the sky. *Try:*
     AUTO and then Tungsten white balance under a lamp; a sheet of paper
-    for one-touch white balance; Monotone on a face and on a cloudy
-    sky with the red filter; the Pin Hole art filter and back to chapter
-    1. *Pictures:* O `white-balance-pair.jpg` (`compare`); O
-    `monotone-pair.jpg` (`compare`); C `complementary.jpg`. *Camera:*
-    white balance in the live control, the presets with their kelvins
-    (p. 38), one-touch (p. 39); picture mode Monotone and its B&W
-    filters (p. 37, 50); the art filters (p. 19). *Adult:* kelvins in
-    a sentence; filters are fun and the course goes back to plain.
+    for one-touch white balance; Monotone on a face and on a cloudy sky
+    with the red filter; the Pin Hole art filter and back to chapter 1.
+    *Pictures:* C `complementary.jpg`; C `white-balance-lamp.jpg`; C
+    `white-balance-right.jpg`; C `colour-houses.jpg`; C
+    `monotone-houses.jpg`; C `red-filter-houses.jpg`. *Camera:* white
+    balance in the live control, the presets with their kelvins (p. 38),
+    one-touch (p. 39); picture mode Monotone and its B&W filters (p. 37,
+    50); the art filters (p. 19). *Adult:* kelvins in a sentence;
+    filters are fun and the course goes back to plain.
 27. **People and moments** / **Las personas y los momentos**
     (`27-people-and-moments`). *Idea:* the moment before and after the
     smile; wait, then take five in a row and choose; candid against
     posed; ask before photographing someone, and stop when they say so;
     eyes sharp above all; nobody looks good from below the chin. *Try:*
-    sequential shooting of a friend telling a joke, choose the one;
-    a portrait with the eyes on the top third, focused on the near eye.
-    *Pictures:* O `burst-strip.jpg` (five small frames in a row, the
-    chosen one marked by its caption); O or C `portrait-eyes.jpg`.
-    *Camera:* sequential shooting, 5 and 15 a second, from the down
-    arrow (p. 27); face and eye priority (p. 44); Portrait picture mode
-    (p. 37). *Adult:* asking permission, and photographs of other
-    people's children.
+    sequential shooting of a friend telling a joke, choose the one; a
+    portrait with the eyes on the top third, focused on the near eye.
+    *Pictures:* C `burst-strip.jpg`; C `portrait-eyes.jpg`. *Camera:*
+    sequential shooting, 5 and 15 a second, from the down arrow (p. 27);
+    face and eye priority (p. 44); Portrait picture mode (p. 37).
+    *Adult:* asking permission, and photographs of other people's
+    children.
 
 **Part 5 — After the click**
 
 28. **Looking at your photographs** / **Mirar tus fotos**
-    (`28-looking-at-your-photographs`). *Idea:* the playback button; zoom
-    in to check the eyes; the overall display shows the numbers the
+    (`28-looking-at-your-photographs`). *Idea:* the playback button;
+    zoom in to check the eyes; the overall display shows the numbers the
     camera used (shutter, f, ISO), which is how you learn from a picture
     that went wrong; the histogram once more; delete the clearly bad
     ones, keep the doubtful ones for the big screen; protect the best;
     the card fills, the battery empties. *Try:* look at today's pictures
     with INFO on; find the fastest and the slowest shutter among them;
-    delete three. *Pictures:* S `screen-playback-info.svg` (the overall
-    display with `F5.6`, `125`, `ISO 400`, the histogram). *Camera:*
+    delete three. *Pictures:* S `screen-playback-info.svg`. *Camera:*
     playback, index, close-up to 14× (p. 11, 29); INFO (p. 28); erase
     (p. 12), protect with Fn1 (p. 31); the card and the USB cable to a
     computer, as a disk (p. 76). *Adult:* copying the pictures off the
     card with the child, and where to keep them.
-29. **Choosing, and telling a story** / **Elegir, y contar una historia**
-    (`29-telling-a-story`). *Idea:* ten pictures, keep one: the one that
-    says the most with the least; five pictures in a row tell a story (a
-    day, a walk, a shoe's life); print one and put it on the wall; ten
-    projects to go on with: an alphabet of shapes, shadows for a week,
-    the same tree in four seasons, every door in the street, a portrait
-    of each person at home doing what they do, water in all its states,
-    a colour a day, the view from a window every hour, something tiny
-    and something huge, your town upside down (chapter 1). *Try:* pick
-    a project and do its first five. *Pictures:* O `story-strip.jpg` (a
-    five-picture strip of the owner's, a small story); the owner's
-    choice. *Camera:* slideshow (p. 32); print order and printing (p.
-    70, 72) for the adult. *Adult:* printing one picture is worth more
-    than a thousand on a screen.
+29. **Choosing, and telling a story** / **Elegir, y contar una
+    historia** (`29-telling-a-story`). *Idea:* ten pictures, keep one:
+    the one that says the most with the least; five pictures in a row
+    tell a story (a day, a walk, a shoe's life); print one and put it on
+    the wall; ten projects to go on with: an alphabet of shapes, shadows
+    for a week, the same tree in four seasons, every door in the street,
+    a portrait of each person at home doing what they do, water in all
+    its states, a colour a day, the view from a window every hour,
+    something tiny and something huge, your town upside down (chapter
+    1). *Try:* pick a project and do its first five. *Pictures:* D
+    `story-strip.svg`. *Camera:* slideshow (p. 32); print order and
+    printing (p. 70, 72) for the adult. *Adult:* printing one picture is
+    worth more than a thousand on a screen.
 30. **The words of photography** / **Las palabras de la fotografía**
     (`30-the-words`). The glossary: aperture, autofocus, bokeh, bulb,
     camera obscura, composition, depth of field, exposure, exposure
@@ -960,46 +943,49 @@ the gist of the adult's box.
 
 ### The photographs each chapter needs
 
-For the first release, each comes from Wikimedia Commons where a free
-photograph shows the effect, and is generated otherwise (4.29); a picture
-of the XZ-2 itself is a free one or a drawing, never a generated one,
-since a made-up camera would show controls the real one does not have.
-The same list is what the owner shoots to replace any of them: with the
-XZ-2 where the picture shows its effect (settings noted on a card in the
-shot, or read later from the overall display, p. 28), with another camera
-or a phone where the picture is of the XZ-2. **E** is essential, **N**
-is nice to have and a drawing stands in otherwise.
+Every photograph of the first release is a free one from Wikimedia
+Commons (decision 12), and none is generated: where a chapter needs one
+scene with a single thing changed and no free pair was found, one
+photograph is changed as a camera would change it (`prepare.py --stops`,
+`--light`, `--red-filter`, or two crops of it), and its credit says so;
+where no photograph was found at all, a drawing stands in. A picture of
+the XZ-2 itself is a free one or a drawing, never a generated one, since
+a made-up camera would show controls the real one does not have.
 
-| Chapter | File | What | |
+The table is what the owner shoots to replace any of them, and what is
+shown until then: with the XZ-2 where the picture shows its effect
+(settings noted on a card in the shot, or read later from the overall
+display, p. 28), with another camera or a phone where the picture is of
+the XZ-2. **E** is essential, **N** nice to have.
+
+| Chapter | Shown now | What to shoot | |
 |---|---|---|---|
-| 3 | `xz2-front.jpg`, `xz2-top.jpg`, `xz2-back.jpg` | The XZ-2 on a plain table in daylight, from the front with the cap off, from the top (mode dial, shutter button, zoom lever, ON/OFF, flash switch), from the back (screen on, showing `P 125 F5.6`) | E |
-| 3, 7 | `xz2-ring.jpg`, `xz2-dial.jpg` | Close-ups: the control ring with the lever and Fn2; the mode dial set to A | E |
-| 15 | `xz2-flash-up.jpg` | The flash raised | N |
-| 1 | `pinhole-room.jpg` | The window's view on a wall in a darkened room (hard; try once) | N |
-| 2 | `magnifier-window.jpg` | A magnifying glass projecting the window on paper | E |
-| 4 | `shake-pair.jpg` | A lamp at 1/4 s hand-held and the same from the table | E |
-| 5 | `exposure-trio.jpg` | A toy at −2, 0, +2 | E |
-| 6 | `tap-pair.jpg` | A running tap at 1/1000 and at 1/8 | E |
-| 7 | `iris.jpg` | The lens's blades seen from the front at f/8 in A mode | N |
-| 8 | `iso-pair.jpg` | A dim room, ISO 100 from the table and ISO 6400 hand-held | E |
-| 13 | `car-trails.jpg` | A street at dusk, 4–8 s, from a wall or window sill | E |
-| 13 | `silky-water.jpg` | A fountain or stream at 1–2 s with the ND filter | N |
-| 14 | `light-painting-star.jpg`, `light-painting-name.jpg` | A torch drawing in a dark room, 10 s | E |
-| 15 | `flash-splash.jpg` | Water poured into a bowl, flash on, 1/60 | E |
-| 15 | `fill-in-pair.jpg` | A toy or an adult against the window, without and with fill-in flash | E |
-| 15 | `slow-sync.jpg` | A torch swung for 1 s with the flash on Sync 2 | N |
-| 16 | `focus-near-far.jpg` | Two toys, focused on the near one, then on the far one | E |
-| 18 | `dof-pair.jpg` | A row of pencils, focus on the second, at f/1.8 and f/8 | E |
-| 18 | `bokeh.jpg` | Fairy lights out of focus | N |
-| 19 | `macro-coin.jpg`, `macro-leaf.jpg`, `macro-side-light-pair.jpg` | Super macro; the coin lit from the front and from the side | E |
-| 20 | `perspective-pair.jpg` | A toy's face from 30 cm at wide and from 2 m zoomed in, same size in the frame | E |
-| 21 | `thirds-landscape.jpg`, `centred-vs-third.jpg` | A landscape with the horizon on the lower third; a tree centred and on a third | E |
-| 23 | `background-pair.jpg` | A toy with a pole or clutter behind, and the same three steps aside | E |
-| 24 | `heights-trio.jpg`, `worm-view.jpg` | A shoe from above, at eye level, from the floor | E |
-| 25 | `window-light-trio.jpg`, `noon-vs-golden.jpg`, `silhouette.jpg` | The plush by a window front, side and back lit; a corner at noon and at dusk; a shape against the sunset | E, N, N |
-| 26 | `white-balance-pair.jpg`, `monotone-pair.jpg` | Under a lamp at AUTO and Tungsten; a sky in colour and in Monotone with the red filter | E |
-| 27 | `burst-strip.jpg` | Five frames of a sequence (hands, a toy falling, a dog) | N |
-| 29 | `story-strip.jpg` | Five pictures that tell a small story | N |
+| 3 | `xz2-front.jpg`; drawings of the top and the back | The XZ-2 on a plain table in daylight, from the front with the cap off, from the top (mode dial, shutter button, zoom lever, ON/OFF, flash switch), from the back (screen on, showing `P 125 F5.6`) | E |
+| 3, 7 | drawings | Close-ups: the control ring with the lever and Fn2; the mode dial set to A | E |
+| 15 | none | The flash raised | N |
+| 1 | `pinhole-box.jpg` | The window's view on a wall in a darkened room (hard; try once) | N |
+| 2 | `magnifier-window.jpg`, a still of a video | A magnifying glass projecting the window on paper | E |
+| 4 | `shaken-lights.jpg`, `shaken-toy.jpg` | A lamp at 1/4 s hand-held and the same from the table | E |
+| 5 | `exposure-minus2.jpg`, `exposure-0.jpg`, `exposure-plus2.jpg`, one photograph given −2 and +2 stops | A toy at −2, 0, +2 | E |
+| 6 | `fountain-frozen.jpg`, `fountain-silky.jpg`, two fountains | A running tap at 1/1000 and at 1/8 | E |
+| 7 | `aperture-real.jpg`, another camera's blades | The lens's blades seen from the front at f/8 in A mode | N |
+| 8 | `iso-200.jpg`, `iso-6400.jpg` | A dim room, ISO 100 from the table and ISO 6400 hand-held | E |
+| 10 | `snow-grey.jpg`, `snow-white.jpg`; `backlit-as-measured.jpg`, `backlit-on-the-face.jpg`, each pair one photograph | Snow at 0 and at +1.7; a toy against a window with ESP and with spot | N |
+| 13 | `car-trails.jpg`, `silky-river.jpg` | A street at dusk, 4–8 s, from a wall or window sill; a fountain or stream at 1–2 s with the ND filter | E, N |
+| 14 | `light-painting-circle.jpg`, `light-painting-orb.jpg` | A torch drawing in a dark room, 10 s | E |
+| 15 | `flash-splash.jpg`, `fill-flash-pair.jpg`; slow sync a drawing | Water poured into a bowl, flash on, 1/60; a toy or an adult against the window, without and with fill-in flash; a torch swung for 1 s with the flash on Sync 2 | E, E, N |
+| 16 | `focus-front.jpg`, `focus-back.jpg` | Two toys, focused on the near one, then on the far one | E |
+| 17 | none; manual focus a drawing | A runner sharp in C-AF and soft in S-AF | N |
+| 18 | `dof-small-aperture.jpg`, `dof-wide-aperture.jpg`, `bokeh.jpg`, `shallow-focus.jpg` | A row of pencils, focus on the second, at f/1.8 and f/8; fairy lights out of focus | E, N |
+| 19 | `macro-coin.jpg`, `macro-leaf.jpg`; side light none | Super macro; the coin lit from the front and from the side | E |
+| 20 | `zoom-wide.jpg`, `zoom-long.jpg` | A toy's face from 30 cm at wide and from 2 m zoomed in, same size in the frame | E |
+| 21 | `thirds-landscape.jpg`, `post-centred.jpg`, `post-on-a-third.jpg` (one photograph cropped twice), `thirds-portrait.jpg` | A landscape with the horizon on the lower third; a tree centred and on a third | E |
+| 23 | drawings of the post behind a head and after a step aside; `negative-space.jpg` | A toy with a pole or clutter behind, and the same three steps aside | E |
+| 24 | `worm-view.jpg`, `from-above.jpg`; the three heights a drawing | A shoe from above, at eye level, from the floor | E |
+| 25 | `golden-hour.jpg`, `side-light-face.jpg`, `side-light-cat.jpg`, `silhouette.jpg`; the three sides a drawing | The plush by a window front, side and back lit; a corner at noon and at dusk | E, N |
+| 26 | `white-balance-lamp.jpg`, `white-balance-right.jpg`, `colour-houses.jpg`, `monotone-houses.jpg`, `red-filter-houses.jpg`, each set one photograph | Under a lamp at AUTO and at the lamp's white balance; a sky in colour and in Monotone with the red filter | E |
+| 27 | `burst-strip.jpg`, four frames | Five frames of a sequence (hands, a toy falling, a dog) | N |
+| 29 | a drawing of five pictures | Five pictures that tell a small story | N |
 
 ### The free pictures to look for
 
@@ -1024,7 +1010,7 @@ packages/kidux-module-photography/
   content/en/NN-slug.md, content/es/NN-slug.md     the chapters
   drawings/*.svg                                   ideas, controls, screens, the mascot
   pictures/*.jpg, pictures/pictures.toml           photographs and their credits
-  pictures/prepare.py                              a development-time tool, not installed
+  pictures/prepare.py, pictures/generate.py        development-time tools, not installed
   po/kidux-module-photography.pot, po/es.po        the page's words
   webapp/page.py, index.html.in, guide.js, style.css
   tests/test_module.py, tests/test_guide.py
@@ -1035,7 +1021,7 @@ packages/kidux-module-photography/
 `debian/copyright`: `Files: *` BUSL-1.1, Kidux's own, the text and the
 drawings included; then one stanza per photograph that is not Kidux's,
 `Files: pictures/<name>.jpg`, its author and licence, and the licence
-texts at the end (CC0-1.0, CC-BY-4.0, CC-BY-SA-4.0; a public-domain
+texts at the end (CC0-1.0 and each CC BY and CC BY-SA version used; a public-domain
 picture says so with its date). The manual of the XZ-2 is Olympus's: the
 course names its pages and never copies a sentence or a picture of it,
 and the PDF lives outside the repository, under `build/`, where the
@@ -1109,12 +1095,19 @@ Decided 2026-10-16 by the owner, after 4.27.
     Gemini, and the owner may shoot some of their own once the course
     is done, to replace what they choose.
 
+Decided 2026-10-17 by the owner, during 4.35.
+
+13. **The website's card comes after the release**, as Mail's and
+    Gmail's did: it shows the picture of the page, as every card does,
+    which the release run takes (4.35, item 5).
+
 **Open, answered before the step that needs it.**
 
 1. The manual is at `build/XZ_2_INST_Eng.pdf` on the development
    machine (`build/` is ignored by git). The Gemini key is in a file the
    owner keeps there, outside the repository; `generate.py` is told where
    in `KIDUX_GEMINI_KEY_FILE` at the call, and has no default.
-2. *Before 4.35:* whether the website's module card shows a picture of
-   the page or of a photograph from the guide; the README's sentence on
-   the photographs' licences.
+2. The README's sentence on the photographs' licences, as 4.35 wrote
+   it: *The Photography guide shows photographs by other people, under
+   Creative Commons licences or in the public domain, each credited
+   where it is shown.* The owner reads it in the review.
