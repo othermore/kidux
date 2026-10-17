@@ -1,0 +1,10 @@
+# Every photograph the guide shows, by its file's name: who made it, where
+# it comes from and under what licence, which the guide writes under it
+# (docs/dev/photography.md, section 5). A picture generated for the guide
+# says so: author "generated", the model, and its prompt in prompts/.
+
+["frisius-1545.jpg"]
+author = "Gemma Frisius"
+source = "https://commons.wikimedia.org/wiki/File:1545_gemma_frisius_-_camera_obscura_-_121704_1_1.png"
+licence = "public-domain"
+made = "1545, De radio astronomico et geometrico"

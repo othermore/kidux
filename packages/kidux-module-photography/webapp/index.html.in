@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photography</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="guide">
+  <nav class="pager">
+    <button type="button" id="back"></button>
+    <button type="button" id="contents" aria-expanded="false"></button>
+    <button type="button" id="next"></button>
+  </nav>
+  <article id="chapter"></article>
+  <nav id="list" class="list" hidden></nav>
+</main>
+<script>
+  "use strict";
+  // Every language's words and chapters, written when the package is built.
+  const PAGES = @PAGES@;
+  (function () {
+    const asked = new URLSearchParams(window.location.search).get("lang") || "en";
+    const lang = PAGES[asked] ? asked : "en";
+    window.PHOTOGRAPHY = PAGES[lang];
+    document.documentElement.lang = lang;
+    const words = window.PHOTOGRAPHY.words;
+    document.title = words.title;
+    for (const id of ["back", "next", "contents"]) {
+      document.getElementById(id).textContent = words[id];
+    }
+  })();
+</script>
+<script src="guide.js"></script>
+</body>
+</html>

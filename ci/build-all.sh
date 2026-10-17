@@ -42,6 +42,7 @@ kidux-module-codecombat
 kidux-module-wikipedia
 kidux-module-mail
 kidux-module-gmail
+kidux-module-photography
 kidux-webapps
 kidux-module-hello-web
 kidux-session

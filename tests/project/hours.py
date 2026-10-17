@@ -68,6 +68,13 @@ check("and after the entry before it, a minute on, never after now",
       parsed(hours.changelog_date(at("2026-10-13 11:00"), previous)) == at("2026-10-13 02:00")
       and parsed(hours.changelog_date(at("2026-10-13 01:59:20"), previous))
       == at("2026-10-13 01:59:20"))
+with tempfile.TemporaryDirectory() as scratch:
+    hours.REPO = Path(scratch)
+    (Path(scratch) / "packages" / "kidux-module-new" / "debian").mkdir(parents=True)
+    (Path(scratch) / "packages" / "kidux-module-new" / "debian" / "changelog").write_text("")
+    check("a new package, its changelog still empty, has no entry before its first",
+          hours.previous_entry("kidux-module-new") is None)
+    hours.REPO = REPO
 
 # Commits dated again: the same trees, messages and author, inside the hours.
 with tempfile.TemporaryDirectory() as scratch:

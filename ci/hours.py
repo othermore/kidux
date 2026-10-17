@@ -84,10 +84,14 @@ def changelog_date(when: datetime.datetime, previous: datetime.datetime | None) 
 
 
 def previous_entry(package: str) -> datetime.datetime | None:
-    """The date of the package's newest changelog entry, or None."""
+    """The date of the package's newest changelog entry, or None: a new
+    package's changelog is created empty, and its first entry dated by
+    this."""
     changelog = REPO / "packages" / package / "debian" / "changelog"
     if not changelog.is_file():
         raise SystemExit(f"no such package: {package}")
+    if not changelog.read_text(encoding="utf-8").strip():
+        return None
     said = subprocess.run(["dpkg-parsechangelog", "-l", str(changelog), "-S", "Date"],
                           capture_output=True, text=True, check=True).stdout.strip()
     return email.utils.parsedate_to_datetime(said) if said else None

@@ -33,13 +33,13 @@ LANGUAGES = {
            "folders": ("Documentos", "Descargas"),
            "hello": "[Prueba] Hola", "done": "Hecho", "heading": "¡Hola!", "pak": "es",
            "saved": "hola.txt",
-           "blockly": "Juegos de Blockly",
+           "blockly": "Juegos de Blockly", "photography": "Fotografía",
            "seed_port": 8002, "ssh_port": 2222},
     "en": {"tabs": 0, "locale": "en_US.UTF-8", "keyboard": "us", "lang": "en",
            "folders": ("Documents", "Downloads"),
            "hello": "[Test] Hello", "done": "Done", "heading": "Hello!", "pak": "en-US",
            "saved": "hello.txt",
-           "blockly": "Blockly Games",
+           "blockly": "Blockly Games", "photography": "Photography",
            "seed_port": 8003, "ssh_port": 2223},
 }
 #: The language the machine is set up in, and so of every screen and picture

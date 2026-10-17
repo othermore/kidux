@@ -24,7 +24,7 @@ check "the shipped apt source follows the public archive's stable suite" \
 # trusts it too. A family's never does: the keyring package holds only the
 # key stable is signed with. The keyring is still the one file kidux.sources
 # names, so removing the package leaves apt trusting nothing
-# (21-no-key-no-archive.sh).
+# (22-no-key-no-archive.sh).
 if curl -fsS -o /var/tmp/extra-key.pgp "$ARCHIVE/extra-key.pgp" 2>/dev/null; then
     cat /var/tmp/extra-key.pgp >> /usr/share/keyrings/kidux-archive-keyring.pgp
 fi
