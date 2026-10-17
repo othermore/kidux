@@ -131,6 +131,10 @@ can. Each phase assumes what it builds on is reasonably stable.
       lid and with a screen left alone, back as it was (4.24, D97); and a
       module's notices as a bubble in the child's screen (4.26, D98;
       phase-4d-plan.md).
+- [ ] Science and maths: Kig, Kalzium and Step from trixie, each its own
+      module, and Simulations, PhET's historical simulations under
+      CC BY 4.0, served on the computer in a page of Kidux's own, chosen
+      for ages six to fourteen (4.27 to 4.30, phase-4e-plan.md).
 - [ ] With the next module, two things seen on the Modules page: *Remove*
       pressed on a module below the fold scrolls the page to the top, so
       the question is out of sight, and the scrollbar still shows the page
