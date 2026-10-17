@@ -2,8 +2,8 @@ kidux-launcher (0.3.22) trixie; urgency=medium
 
   * A module's guide shows in a pane on the right, a quarter of the
     screen, beside the module: its lessons, with steps, pictures, the
-    mascot and the missions, folded to a rail for room by its Fold and
-    opened again from the rail or the bar's Guide;
+    mascot, the missions and the buttons to press, folded to a rail for
+    room by its Fold and opened again from the rail or the bar's Guide;
     with windows, the child picks the guide shown and may pin it.
 
  -- Antonio Morales García <info@kidux.org>  Sat, 17 Oct 2026 09:53:35 +0200

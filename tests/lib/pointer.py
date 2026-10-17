@@ -6,8 +6,9 @@ QEMU's mouse moves by steps the compositor accelerates, so a test cannot
 point at a button by them. This is an absolute pointer, as a tablet is,
 which libinput maps onto the screen: a step `x,y` puts it at that place,
 each a fraction of the screen's width and height; `click` presses and lets
-go its left button where it is; a number waits that many seconds. Runs as
-root on the test machine.
+go its left button where it is, `rclick` its right one; `down` presses the
+left button and `up` lets it go, for a drag with a move between them; a
+number waits that many seconds. Runs as root on the test machine.
 """
 
 import fcntl
@@ -17,7 +18,7 @@ import sys
 import time
 
 EV_SYN, EV_KEY, EV_ABS = 0, 1, 3
-ABS_X, ABS_Y, BTN_LEFT = 0, 1, 0x110
+ABS_X, ABS_Y, BTN_LEFT, BTN_RIGHT = 0, 1, 0x110, 0x111
 UI_SET_EVBIT, UI_SET_KEYBIT, UI_SET_ABSBIT = 0x40045564, 0x40045565, 0x40045567
 UI_DEV_CREATE, UI_DEV_DESTROY = 0x5501, 0x5502
 #: The axes' range: a fraction of the screen is a fraction of this.
@@ -30,6 +31,7 @@ def main(steps: list[str]) -> None:
     device = os.open("/dev/uinput", os.O_WRONLY | os.O_NONBLOCK)
     fcntl.ioctl(device, UI_SET_EVBIT, EV_KEY)
     fcntl.ioctl(device, UI_SET_KEYBIT, BTN_LEFT)
+    fcntl.ioctl(device, UI_SET_KEYBIT, BTN_RIGHT)
     fcntl.ioctl(device, UI_SET_EVBIT, EV_ABS)
     fcntl.ioctl(device, UI_SET_ABSBIT, ABS_X)
     fcntl.ioctl(device, UI_SET_ABSBIT, ABS_Y)
@@ -46,11 +48,15 @@ def main(steps: list[str]) -> None:
 
     try:
         for step in steps:
-            if step == "click":
-                emit(EV_KEY, BTN_LEFT, 1)
+            if step in ("click", "rclick"):
+                button = BTN_LEFT if step == "click" else BTN_RIGHT
+                emit(EV_KEY, button, 1)
                 emit(EV_SYN, 0, 0)
-                time.sleep(0.08)
-                emit(EV_KEY, BTN_LEFT, 0)
+                time.sleep(0.15)
+                emit(EV_KEY, button, 0)
+                emit(EV_SYN, 0, 0)
+            elif step in ("down", "up"):
+                emit(EV_KEY, BTN_LEFT, 1 if step == "down" else 0)
                 emit(EV_SYN, 0, 0)
             elif "," in step:
                 x, y = (float(part) for part in step.split(","))

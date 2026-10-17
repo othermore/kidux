@@ -15,6 +15,9 @@ the launcher draws, and nothing else:
     a paragraph                   ("paragraph", runs)
     1. a step                     ("steps", [runs, …])
     - a choice                    ("bullets", [runs, …])
+    1. ![Point](images/t.svg) …   a step or a choice that starts with a
+                                  small picture, the button to press:
+                                  its first run is ("icon", path)
     ![what it shows](images/x)    ("image", path, alt)
     > [think] words               ("mascot", pose, runs)
     @mission missions/x           ("mission", path)
@@ -48,6 +51,7 @@ SOURCE_LANGUAGE = "en"
 _STEP = re.compile(r"^(\d+)\.\s+(.*)$")
 _BULLET = re.compile(r"^-\s+(.*)$")
 _IMAGE = re.compile(r"^!\[([^\]]*)\]\(([^)\s]+)\)$")
+_ICON = re.compile(r"^!\[[^\]]*\]\(([^)\s]+)\)\s*(.*)$", re.S)
 _MASCOT = re.compile(r"^\[(\w+)\]\s*(.*)$", re.S)
 _RUN = re.compile(r"(\*\*[^*]+\*\*|\*[^*]+\*)")
 
@@ -81,8 +85,20 @@ def runs(text: str) -> tuple:
     return tuple(found)
 
 
-def _items(lines: list[str], pattern: re.Pattern) -> list:
-    """The items of a list, each with the lines that continue it."""
+def _picture(reference: str, content: Path, name: str) -> str | None:
+    """A picture's path, under the guide's `content`, or None, logged,
+    for one that is not there or leads out of the guide."""
+    target = (content / reference).resolve()
+    if not target.is_file() or content.resolve() not in target.parents:
+        log.warning("%s: no picture %s", name, reference)
+        return None
+    return str(target)
+
+
+def _items(lines: list[str], pattern: re.Pattern, content: Path, name: str) -> list:
+    """The items of a list, each with the lines that continue it; one
+    that starts with a picture, the button to press, has it as its first
+    run, ("icon", path)."""
     items: list[list[str]] = []
     for line in lines:
         matched = pattern.match(line)
@@ -90,7 +106,17 @@ def _items(lines: list[str], pattern: re.Pattern) -> list:
             items.append([matched.group(matched.lastindex)])
         elif items:
             items[-1].append(line.strip())
-    return [runs(" ".join(item)) for item in items]
+    found = []
+    for item in items:
+        text = " ".join(item)
+        icon = _ICON.match(text)
+        if icon:
+            path = _picture(icon.group(1), content, name)
+            text = icon.group(2)
+            found.append(((("icon", path),) if path else ()) + runs(text))
+        else:
+            found.append(runs(text))
+    return found
 
 
 def _group(lines: list[str], content: Path, language: Path, name: str) -> list:
@@ -106,11 +132,8 @@ def _group(lines: list[str], content: Path, language: Path, name: str) -> list:
         return [("mission", str(target))]
     image = _IMAGE.match(first)
     if image and len(lines) == 1:
-        target = (content / image.group(2)).resolve()
-        if not target.is_file() or content.resolve() not in target.parents:
-            log.warning("%s: no picture %s", name, image.group(2))
-            return []
-        return [("image", str(target), image.group(1))]
+        path = _picture(image.group(2), content, name)
+        return [("image", path, image.group(1))] if path else []
     if first.startswith(">"):
         text = " ".join(line.lstrip(">").strip() for line in lines)
         mascot = _MASCOT.match(text)
@@ -118,9 +141,9 @@ def _group(lines: list[str], content: Path, language: Path, name: str) -> list:
             return [("mascot", mascot.group(1), runs(mascot.group(2)))]
         return [("mascot", "point", runs(text))]
     if _STEP.match(first):
-        return [("steps", _items(lines, _STEP))]
+        return [("steps", _items(lines, _STEP, content, name))]
     if _BULLET.match(first):
-        return [("bullets", _items(lines, _BULLET))]
+        return [("bullets", _items(lines, _BULLET, content, name))]
     return [("paragraph", runs(" ".join(lines)))]
 
 

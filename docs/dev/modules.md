@@ -285,6 +285,9 @@ launcher's pane:
 A paragraph, with **what the child presses** and *a word being taught*.
 1. a step                     numbered steps
 - a choice                    bullets
+1. ![Point](images/tools/point.svg) Press **Point**.
+                              a step or a choice that starts with a small
+                              picture, the program's own button to press
 ![what it shows](images/<file>.svg)
 > [think] the mascot speaks   [think], [point] or [cheer], its pose
 @mission missions/<file>      the lesson's mission, a box saying how to open it

@@ -42,6 +42,8 @@ RAIL = 28
 FRAMES_BEFORE_KEYS = 2
 #: The mascot beside what it says.
 MASCOT_SIZE = 64
+#: A button's picture at the start of a step, the one to press.
+ICON_SIZE = 34
 
 CSS = """
 window.kidux-guide { background-color: #fff6e9; color: #3b2f2a;
@@ -73,6 +75,8 @@ def markup(runs) -> str:
     """A run list (kidux.lessons) as Pango markup."""
     parts = []
     for style, text in runs:
+        if style == "icon":
+            continue
         escaped = GLib.markup_escape_text(text)
         parts.append({"bold": f"<b>{escaped}</b>", "italic": f"<i>{escaped}</i>"}
                      .get(style, escaped))
@@ -351,6 +355,11 @@ class GuidePane:
                 else:
                     mark = Gtk.Label(label="•", valign=Gtk.Align.START)
                 row.append(mark)
+                if item and item[0][0] == "icon":
+                    # The button to press, as the program draws it.
+                    icon = self._drawing(item[0][1], ICON_SIZE, ICON_SIZE)
+                    icon.set_valign(Gtk.Align.START)
+                    row.append(icon)
                 row.append(text(item))
                 column.append(row)
             return column

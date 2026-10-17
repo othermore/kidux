@@ -137,3 +137,22 @@ def test_an_introduction_above_the_lessons_in_the_child_s_language(tmp_path):
     # The introduction is no lesson.
     assert [lesson.number for lesson in lessons.read(content, "en")] == [1, 2, 10]
     assert lessons.intro(tmp_path / "nowhere", "en") == ()
+
+
+def test_a_step_may_start_with_the_button_to_press(tmp_path):
+    content = guide(tmp_path)
+    (content / "images" / "tools").mkdir()
+    (content / "images" / "tools" / "point.svg").write_text("<svg/>")
+    (content / "en" / "05-tools.md").write_text(
+        "# Tools\n\n1. ![Point](images/tools/point.svg) Press **Point**.\n"
+        "2. ![Gone](images/tools/gone.svg) Press nothing.\n"
+        "3. Plain.\n\n- ![Point](images/tools/point.svg) a choice\n")
+
+    tools = next(lesson for lesson in lessons.read(content, "en") if lesson.number == 5)
+
+    point = str((content / "images" / "tools" / "point.svg").resolve())
+    assert tools.blocks[0] == ("steps", [(("icon", point), ("", "Press "), ("bold", "Point"),
+                                          ("", ".")),
+                                         (("", "Press nothing."),),
+                                         (("", "Plain."),)])
+    assert tools.blocks[1] == ("bullets", [(("icon", point), ("", "a choice"))])

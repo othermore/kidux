@@ -440,7 +440,9 @@ under the two, so that the pane keeps its width. Under that, the guide's
 introduction, when it has one, above the list of lessons, each a button,
 or one lesson,
 its blocks as `kidux.lessons` reads them: headings, paragraphs with bold
-and italic, numbered steps, bullets, pictures drawn at the pane's width,
+and italic, numbered steps and bullets, each with the button it names
+drawn small before its words when the lesson gives its picture, pictures
+drawn at the pane's width,
 the mascot beside what it says, *Try this* in a box of its own, and the
 lesson's mission, a box saying where its copy is and how to open it from
 the module's own File, Open; at the bottom, *Lessons*, *Back* and *Next*.
