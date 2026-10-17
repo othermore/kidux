@@ -131,10 +131,20 @@ can. Each phase assumes what it builds on is reasonably stable.
       lid and with a screen left alone, back as it was (4.24, D97); and a
       module's notices as a bubble in the child's screen (4.26, D98;
       phase-4d-plan.md).
-- [ ] Science and maths: Kig, Kalzium and Step from trixie, each its own
+- [x] Science and maths: Kig, Kalzium and Step from trixie, each its own
       module, and Simulations, PhET's historical simulations under
       CC BY 4.0, served on the computer in a page of Kidux's own, chosen
-      for ages six to fourteen (4.27 to 4.30, phase-4e-plan.md).
+      for ages six to fourteen (4.27 to 4.30, phase-4e-plan.md; D101,
+      D102).
+- [ ] A module with a guide beside it: a module declares a guide, a page
+      of Kidux's own with lessons, examples and ideas of things to do, and
+      the launcher shows it beside the program, the room above the bar
+      split in two for a child without windows and two windows side by
+      side for a child with them. Then the guides for the modules a child
+      cannot find their way in alone, Kig and Step first, with files for
+      them to open, an experiment or a construction half done with what
+      to try written in it. Planned by Fable first, once phase 4e is
+      tried by the owner.
 - [ ] With the next module, two things seen on the Modules page: *Remove*
       pressed on a module below the fold scrolls the page to the top, so
       the question is out of sight, and the scrollbar still shows the page
