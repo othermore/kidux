@@ -130,10 +130,12 @@ and built so that any further language is a translation, not a development task.
   ISO can keep all children's data and the adults' configuration. User data lives on
   its own partition.
 - **Lightness:** runs on any 64-bit x86 computer from about 2008 with 2 GB of RAM
-  (4 GB recommended) and 32 GB of disk, with a screen of 1280x800 at least,
-  the room every screen of Kidux fits whole (greeter.md section 8), and
-  1920x1080 recommended, where a module with panels at its sides and a
-  guide beside it has room; on less than 1280x800, its screens scroll (D63)
+  (4 GB recommended) and 32 GB of disk, with a screen of 1280x800 at 100 %
+  at least, the room every screen of Kidux fits whole (greeter.md section
+  8), and about 1650x1030 of room or more recommended, where a module with
+  panels at its sides and a guide beside it is comfortable: 1920x1080 at
+  100 %, 2560x1600 at 150 %, or a MacBook's 2880x1800 at the 175 % Kidux
+  chooses for it (D49); on less than 1280x800, its screens scroll (D63)
   and a module may have parts hidden or not work well.
 - **Reproducibility:** everything on the installed system comes from Debian packages
   or from packages built from this repository; the image is produced by versioned
