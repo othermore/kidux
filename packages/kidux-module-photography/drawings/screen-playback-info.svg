@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 28: a picture played back with INFO pressed until the most is
+     shown: the picture small, its histogram beside it, and under them the
+     numbers it was taken with, the mode, the time, the aperture, the
+     exposure compensation, ISO and the white balance (manual, p. 28).
+     Drawn afresh after the manual's pictures of the screen; the only
+     letters are the camera's own. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+  <rect x="0" y="0" width="480" height="360" rx="18" fill="#141c26"/>
+  <rect x="14" y="14" width="452" height="332" rx="8" fill="#24313f"/>
+  <rect x="30" y="30" width="200" height="150" fill="#e8d9c4"/>
+  <rect x="30" y="130" width="200" height="50" fill="#b98a5e"/>
+  <circle cx="130" cy="118" r="26" fill="#a8743f"/>
+  <circle cx="109" cy="94" r="10" fill="#a8743f"/>
+  <circle cx="151" cy="94" r="10" fill="#a8743f"/>
+  <circle cx="130" cy="108" r="15" fill="#c99566"/>
+  <circle cx="123" cy="104" r="2.5" fill="#24313f"/>
+  <circle cx="137" cy="104" r="2.5" fill="#24313f"/>
+  <rect x="250" y="30" width="200" height="150" rx="4" fill="#141c26"/>
+  <polygon points="258,172 276,166 294,140 312,150 330,110 348,80 366,104 384,138 402,150 420,164 442,172" fill="#fdf6f0"/>
+  <text x="30" y="222" font-family="DejaVu Sans, sans-serif" font-weight="700" fill="#fdf6f0" font-size="22">P</text>
+  <text x="76" y="222" font-family="DejaVu Sans, sans-serif" font-weight="700" fill="#fdf6f0" font-size="22">125</text>
+  <text x="150" y="222" font-family="DejaVu Sans, sans-serif" font-weight="700" fill="#fdf6f0" font-size="22">F5.6</text>
+  <text x="236" y="222" font-family="DejaVu Sans, sans-serif" font-weight="700" fill="#fdf6f0" font-size="22">+0.0</text>
+  <text x="30" y="262" font-family="DejaVu Sans, sans-serif" font-weight="700" fill="#fdf6f0" font-size="22">ISO 400</text>
+  <text x="170" y="262" font-family="DejaVu Sans, sans-serif" font-weight="700" fill="#fdf6f0" font-size="22">WB AUTO</text>
+  <text x="30" y="302" font-family="DejaVu Sans, sans-serif" font-weight="700" fill="#fdf6f0" font-size="18" opacity="0.7">4:3</text>
+</svg>
