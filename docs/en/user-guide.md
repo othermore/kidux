@@ -1015,6 +1015,17 @@ draws can be saved as a file in their folders.
 
 ![Kig](../images/en/module-kig.png)
 
+### Kalzium
+
+**Kalzium** is the periodic table. Each element opens with what it is
+like, where it was found, a picture of it and a drawing of its atom; a
+slider shows which elements are solid, liquid or gas at any
+temperature; and there is a glossary of the words. It is for children
+from ten up, in the child's language, and it works without the
+internet.
+
+![Kalzium](../images/en/module-kalzium.png)
+
 ## 10. Updates and reinstalling
 
 Security updates install themselves in the background, from Debian and

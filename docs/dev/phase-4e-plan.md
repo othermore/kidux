@@ -156,7 +156,10 @@ Nothing of Kalzium's reaches the internet: its data is in
 `kalzium-data`.
 
 **Found on the machine first**: as 4.27's, and whether its sidebar and
-table fit 1280x800 at scale 1 and 2.
+table fit 1280x800 at scale 1 and 2. Its window is `org.kde.kalzium`
+and it asks nothing at its first start; at scale 1 the table, the
+element's card and the legend fill the room above the bar, and at
+scale 2, 640x400, they fit but crowded, the table small beside the card.
 
 ### 4.29 — Step
 

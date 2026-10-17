@@ -1,0 +1,33 @@
+Source: kidux-module-kalzium
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-kidux (>= 0.1.17) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-kalzium
+Architecture: all
+Depends: ${misc:Depends},
+         kalzium,
+         kalzium-data,
+         qt6-wayland,
+XB-Kidux-Name-en: Kalzium
+XB-Kidux-Description-en: The periodic table: every element, what it is like, its atom, and how matter changes with the temperature.
+XB-Kidux-Name-es: Kalzium
+XB-Kidux-Description-es: La tabla periódica: cada elemento, cómo es, su átomo, y cómo cambia la materia con la temperatura.
+XB-Kidux-Ages: 10-16
+Description: Kidux learning module: Kalzium, the periodic table for ages ten and up
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module is Kalzium: the periodic table, every element with what it is like,
+ a picture and a drawing of its atom, the states of matter at any
+ temperature on a slider, and a glossary, in the child's language and
+ without the internet.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

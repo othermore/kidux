@@ -30,6 +30,8 @@ from sessionlib import (
 
 MODULE = "kig"
 PROGRAM = "kig"
+#: The Wayland plugin of the program's Qt, which its own package does not bring.
+PLUGIN = "qtwayland5"
 HOME = f"/home/{CHILD}"
 CONFIG = f"{HOME}/.config/kidux/{MODULE}"
 #: The room above the launcher's bar, and the bar.
@@ -56,7 +58,7 @@ def run(machine: Machine) -> None:
     report(f"kidux-module-{MODULE} installs from the archive through the daemon, with "
            f"{PROGRAM} and its Wayland plugin",
            daemon("install") and root(f"dpkg-query -W -f '${{db:Status-Status}} ' {PROGRAM} "
-                                     "qtwayland5").stdout == "installed installed ",
+                                     f"{PLUGIN}").stdout == "installed installed ",
            root("tail -5 /var/log/apt/term.log").stdout)
     root(f"runuser -u debian -- /usr/local/bin/kidux-as enable {CHILD} {MODULE} on")
 

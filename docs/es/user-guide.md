@@ -1045,6 +1045,16 @@ archivo en sus carpetas.
 
 ![Kig](../images/es/module-kig.png)
 
+### Kalzium
+
+**Kalzium** es la tabla periódica. Cada elemento se abre con cómo es,
+dónde se encontró, una foto y un dibujo de su átomo; un deslizador
+enseña qué elementos son sólidos, líquidos o gases a cada temperatura;
+y hay un glosario de las palabras. Es para niños de diez años en
+adelante, en el idioma del niño, y funciona sin internet.
+
+![Kalzium](../images/es/module-kalzium.png)
+
 ## 10. Actualizar y reinstalar
 
 Las actualizaciones de seguridad se instalan solas, en segundo plano, tanto

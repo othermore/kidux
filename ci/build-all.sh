@@ -34,6 +34,7 @@ kidux-module-hello
 kidux-module-gcompris
 kidux-module-tuxtype
 kidux-module-kig
+kidux-module-kalzium
 kidux-module-scratch
 kidux-module-scratchjr
 kidux-module-turbowarp

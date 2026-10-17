@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- kidux-module-kalzium's tile: four tiles of a periodic table, one lifted
+     out of the row with an atom's ring on it, on the module's own colour.
+     Kidux's tile, not Kalzium's icon; flat shapes on a filled circle, like
+     the avatars, legible down to the 32 px of the launcher's bar. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
+     role="img" aria-label="Kalzium">
+  <circle cx="60" cy="60" r="60" fill="#ffd27a"/>
+  <rect x="16" y="66" width="24" height="24" rx="4" fill="#43aa8b"/>
+  <rect x="44" y="66" width="24" height="24" rx="4" fill="#3a86ff"/>
+  <rect x="72" y="66" width="24" height="24" rx="4" fill="#43aa8b"/>
+  <rect x="16" y="94" width="24" height="12" rx="4" fill="#3a86ff"/>
+  <rect x="44" y="94" width="24" height="12" rx="4" fill="#e4572e"/>
+  <rect x="72" y="94" width="24" height="12" rx="4" fill="#3a86ff"/>
+  <rect x="58" y="16" width="40" height="40" rx="6" fill="#e4572e"/>
+  <ellipse cx="78" cy="36" rx="14" ry="7" fill="none" stroke="#fff6e9" stroke-width="4"/>
+  <circle cx="78" cy="36" r="5" fill="#fff6e9"/>
+  <path d="M56 58 L66 66" stroke="#3b2f2a" stroke-width="4" stroke-linecap="round"/>
+</svg>
