@@ -68,6 +68,9 @@ GROWS = frozenset({"panel_advanced", "panel_module_settings"})
 #: How far beyond the fold a control brought into view is shown, so that
 #: its focus ring and the shade at the edge do not hide it.
 FOCUS_MARGIN = 24
+#: How long a page drawn again may take to be laid out before the place
+#: kept is taken as it is (keep_place), in milliseconds.
+SETTLE_MS = 200
 AVATAR_SIZE_SMALL = 96
 
 CSS = """
@@ -265,14 +268,30 @@ def keep_place(old, new, then=None) -> None:
         return
     was = top_of(old)
     handler = 0
+    settled = False
+
+    def wanted() -> float:
+        return value + (top_of(new) - was)
+
+    def settle(at: float) -> bool:
+        nonlocal handler, settled
+        if not settled:
+            settled = True
+            if handler:
+                adjustment.disconnect(handler)
+                handler = 0
+            GLib.idle_add(place, at)
+        return False
 
     def changed(adjustment) -> None:
-        wanted = value + (top_of(new) - was)
-        if adjustment.get_upper() - adjustment.get_page_size() >= wanted:
-            adjustment.disconnect(handler)
-            GLib.idle_add(place, wanted)
+        if adjustment.get_upper() - adjustment.get_page_size() >= wanted():
+            settle(wanted())
 
+    # A page drawn shorter than the place kept, a row gone from its end,
+    # never has the room: once laid out, it takes the place it has, since
+    # set_value clamps, instead of staying at the top.
     handler = adjustment.connect("changed", changed)
+    GLib.timeout_add(SETTLE_MS, lambda: settle(wanted()))
 
 
 def spinner_small() -> Gtk.Widget:
@@ -1723,7 +1742,11 @@ class View:
                 switch.connect("notify::active", flip, username, row["id"])
                 grid.attach(switch, column, number, 1, 1)
                 in_row.append(switch)
-                if self._focus is None or self._flipped == (username, row["id"]):
+                # The switch just flipped keeps the focus, unless Remove's
+                # question, or the Remove it goes back to, has it.
+                if self._focus is None or (self._flipped == (username, row["id"])
+                                           and confirm_remove is None
+                                           and self._asked_about is None):
                     self._focus = switch
             if row.get("settings"):
                 settings = self._button(words.MODULE_SETTINGS,

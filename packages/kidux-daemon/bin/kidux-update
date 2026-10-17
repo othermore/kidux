@@ -62,8 +62,14 @@ is_module() {
     [ "${#1}" -le 45 ]
 }
 
-installed() {
-    dpkg-query -W -f='${Status}' "$1" 2>/dev/null | grep -q ' installed$'
+# Whether a package put the module there, by the same sign the panel reads
+# (kidux.modules.package_of): dpkg knows the package in any state but
+# not-installed, from unpacking to purging, so that a package half
+# installed is still apt's to purge, and only a folder no package knows is
+# removed here.
+packaged() {
+    status="$(dpkg-query -W -f='${db:Status-Status}' "$1" 2>/dev/null)" \
+        && [ "$status" != not-installed ]
 }
 
 # Keep every configuration file an administrator edited.
@@ -109,7 +115,7 @@ case "$kind" in
                     install "$package" 2>&1)" \
                 || fail "$(last_error "$out")"
             say "done:installed"
-        elif ! installed "$package" && [ -d "$MODULES_DIR/${package#kidux-module-}" ]; then
+        elif ! packaged "$package" && [ -d "$MODULES_DIR/${package#kidux-module-}" ]; then
             # A module no package put there, a folder copied in by hand:
             # apt has nothing to purge, so the folder goes, and Chromium's
             # policy is written again as a package's removal has it (D101).

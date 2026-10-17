@@ -221,11 +221,13 @@ esac
 exit 0
 """
 
-#: A stand-in for dpkg-query -W -f='${Status}' <package>: installed when the
-#: package is among $INSTALLED.
+
+
+#: A stand-in for dpkg-query -W -f='${db:Status-Status}' <package>: the
+#: state in $DPKG_STATE for a package among $INSTALLED, unknown otherwise.
 FAKE_DPKG_QUERY = """#!/bin/sh
 for package in $INSTALLED; do
-    [ "$package" = "$3" ] && { printf 'install ok installed'; exit 0; }
+    [ "$package" = "$3" ] && { printf '%s' "${DPKG_STATE:-installed}"; exit 0; }
 done
 exit 1
 """
@@ -297,10 +299,24 @@ def test_the_script_purges_a_module_a_package_installed(fake_apt, tmp_path):
 
     assert reading.verdict == ("removed", "", [])
     assert "purge --auto-remove kidux-module-hello" in (tmp_path / "apt-calls").read_text()
+    assert (tmp_path / "modules" / "hello").is_dir()
+
+
+def test_a_package_only_unpacked_is_still_apts_to_purge(fake_apt, tmp_path):
+    # Its postinst failed, say: dpkg knows it all the same, so the folder
+    # is the package's, not one to remove by hand.
+    (tmp_path / "modules" / "hello").mkdir(parents=True)
+
+    reading = fake_apt("remove", package="kidux-module-hello",
+                       INSTALLED="kidux-module-hello", DPKG_STATE="unpacked")
+
+    assert reading.verdict == ("removed", "", [])
+    assert (tmp_path / "modules" / "hello").is_dir()
+    assert "purge" in (tmp_path / "apt-calls").read_text()
 
 
 def test_the_script_removes_a_module_that_is_only_a_folder(fake_apt, tmp_path):
-    # A stand-in copied by hand (D102): nothing for apt to purge.
+    # A stand-in copied by hand (D101): nothing for apt to purge.
     (tmp_path / "modules" / "canary").mkdir(parents=True)
     (tmp_path / "modules" / "canary" / "module.toml").write_text('id = "canary"\n')
     (tmp_path / "modules" / "hello").mkdir()

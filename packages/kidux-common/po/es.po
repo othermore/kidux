@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidux 0.1.0\n"
 "Report-Msgid-Bugs-To: info@kidux.org\n"
-"POT-Creation-Date: 2026-10-16 22:51+0200\n"
+"POT-Creation-Date: 2026-10-17 10:32+0200\n"
 "PO-Revision-Date: 2026-10-03 18:28+0200\n"
 "Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
 "Language-Team: Spanish\n"
@@ -175,7 +175,7 @@ msgid "The computer is being updated. Wait a moment and try again."
 msgstr ""
 "El ordenador se está actualizando. Espera un momento y vuelve a intentarlo."
 
-#: packages/kidux-greeter/kidux_greeter/view.py:1800
+#: packages/kidux-greeter/kidux_greeter/view.py:1823
 #, python-brace-format
 msgid "{count} update:"
 msgid_plural "{count} updates:"
@@ -1043,7 +1043,6 @@ msgstr "Vaciar"
 #~ "Para un módulo web que se ve mal en la pantalla de este ordenador. Una "
 #~ "opción por línea, cada una empezando por --. Vacío es lo que Kidux hace "
 #~ "por su cuenta."
-
 
 #~ msgid "Only if something does not work on this computer."
 #~ msgstr "Solo si algo no funciona en este ordenador."

@@ -795,8 +795,8 @@ daemon answers `Busy`.
   needs, Thunderbird and its language packs after Mail, say (D100); the
   children's own files under their homes stay theirs. A module that is
   only a folder, `/usr/share/kidux/modules/<id>/` with no package of
-  that name installed, as the tests' stand-ins are, has nothing for apt
-  to purge: `remove` takes the folder away and writes Chromium's policy
+  that name known to dpkg, as the tests' stand-ins are, has nothing for
+  apt to purge: `remove` takes the folder away and writes Chromium's policy
   again, as a package's removal triggers it, and says `done:removed`
   (D101). The daemon could not do it itself: its system is read-only to
   it (section 14). The

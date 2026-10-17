@@ -75,6 +75,10 @@ def tiles() -> str:
 
 
 def run(machine: Machine) -> None:
+    # The machine left up may still hold the stand-ins of an earlier run, or
+    # of a hand test: the page starts with the canary alone.
+    root(f"rm -rf {BIRD}-*")
+    since = root("date +%s").stdout.strip()
     for name in ("module.toml", "icon.svg"):
         copy(SEED_SOURCE / "modules" / "canary" / name, f"{CANARY}/{name}", mode="0644")
     report("the tests' stand-in module is in place, switched off for Leo",
@@ -203,7 +207,9 @@ def run(machine: Machine) -> None:
     machine.key("esc")
     root(f"rm -rf {CANARY} {BIRD}-*")
 
-    too_tall = root("journalctl -b --no-pager -o cat -t kidux-greeter "
+    # Since this run began: the machine left up logs that the choose screen
+    # does not fit each time its screen blanks, which is not this page's.
+    too_tall = root(f"journalctl -b --since=@{since} --no-pager -o cat -t kidux-greeter "
                     "| grep -e 'does not fit' -e 'could not draw' | sort -u").stdout.strip()
     report("the Modules page, with a module on it, fits the screen and was drawn",
            not too_tall, too_tall)
