@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kalzium's guide, lesson 3: a molecule of water, two hydrogens and an
+     oxygen. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" width="360" height="180">
+  <rect width="360" height="180" rx="16" fill="#ffffff"/>
+  <path d="M180 80 L110 130 M180 80 L250 130" stroke="#3b2f2a" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="180" cy="80" r="40" fill="#e4572e"/>
+  <circle cx="110" cy="130" r="26" fill="#cfe3f3" stroke="#3b2f2a" stroke-width="4"/>
+  <circle cx="250" cy="130" r="26" fill="#cfe3f3" stroke="#3b2f2a" stroke-width="4"/>
+</svg>

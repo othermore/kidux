@@ -24,6 +24,9 @@ override_dh_auto_install:
 	install -D -m 0644 module.toml $(MODULE)/module.toml
 	install -D -m 0644 icon.svg $(MODULE)/icon.svg
 	install -D -m 0644 kde/kdeglobals $(MODULE)/kde/kdeglobals
+	cp -r content $(MODULE)/content
+	find $(MODULE)/content -type d -exec chmod 0755 {} +
+	find $(MODULE)/content -type f -exec chmod 0644 {} +
 	install -D -m 0755 bin/kidux-module-kalzium $(DEST)/usr/libexec/kidux-module-kalzium
 	for mo in build/*/kidux-module-kalzium.mo; do \
 	    lang=$$(basename $$(dirname $$mo)); \

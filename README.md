@@ -128,7 +128,7 @@ The modules Kidux offers:
   children from ten to fourteen, without the internet, with a guide.
 - [Kalzium](https://apps.kde.org/kalzium/): the periodic table, every
   element with what it is like and its atom, for children from ten up,
-  without the internet.
+  without the internet, with a guide.
 - [Step](https://apps.kde.org/step/): a physics playground, bodies,
   springs and forces on a plane, run and measured, for children from ten
   up, without the internet, with a guide.

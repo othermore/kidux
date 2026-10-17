@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kalzium's guide, lesson 1: tiles of the periodic table, one lit. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" width="360" height="180">
+  <rect width="360" height="180" rx="16" fill="#ffffff"/>
+  <g fill="#e2d7f0"><rect x="30" y="30" width="44" height="44" rx="6"/><rect x="30" y="80" width="44" height="44" rx="6"/>
+    <rect x="80" y="80" width="44" height="44" rx="6"/></g>
+  <g fill="#d6ead8"><rect x="186" y="80" width="44" height="44" rx="6"/><rect x="286" y="80" width="44" height="44" rx="6"/>
+    <rect x="186" y="130" width="44" height="44" rx="6"/><rect x="286" y="30" width="44" height="44" rx="6"/></g>
+  <rect x="236" y="80" width="44" height="44" rx="6" fill="#e4572e"/>
+  <path d="M248 112 Q258 88 268 112" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+</svg>

@@ -6,7 +6,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from kidux import modules
+from kidux import lessons, modules
 
 PACKAGE = Path(__file__).resolve().parents[1]
 MODULE = "kalzium"
@@ -74,3 +74,18 @@ def test_the_catalogue_is_complete_and_holds_the_manifests_words():
             and line != 'msgid ""'] == []
     for words in ("Kalzium", "The periodic table: every element, what it is like"):
         assert words in text
+
+
+def test_the_guide_has_three_lessons_in_both_languages_with_their_pictures(tmp_path):
+    shutil.copytree(PACKAGE, tmp_path / "kalzium", ignore=shutil.ignore_patterns("debian", "tests"))
+    kalzium = modules.read("kalzium", root=tmp_path)
+
+    assert kalzium.guide == str(tmp_path / "kalzium" / "content")
+    english = lessons.read(kalzium.guide, "en_US.UTF-8")
+    spanish = lessons.read(kalzium.guide, "es_ES.UTF-8")
+    assert [lesson.number for lesson in english] == [1, 2, 3]
+    assert [lesson.title for lesson in spanish] == [
+        "Encuentra un elemento", "Caliente y frío", "¿Cuánto pesa el agua?"]
+    for found in (english, spanish):
+        assert all("image" in {block[0] for block in lesson.blocks} for lesson in found)
+    assert lessons.missions(spanish) == []

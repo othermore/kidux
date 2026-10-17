@@ -1081,7 +1081,8 @@ archivo en sus carpetas. Viene con una guía de seis lecciones.
 dónde se encontró, una foto y un dibujo de su átomo; un deslizador
 enseña qué elementos son sólidos, líquidos o gases a cada temperatura;
 y hay un glosario de las palabras. Es para niños de diez años en
-adelante, en el idioma del niño, y funciona sin internet.
+adelante, en el idioma del niño, y funciona sin internet. Viene con una
+guía de tres lecciones.
 
 ![Kalzium](../images/es/module-kalzium.png)
 

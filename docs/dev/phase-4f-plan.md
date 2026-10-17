@@ -1436,13 +1436,15 @@ Kalzium has a slider that changes the temperature of the whole table.
 
 ![Three tiles: a solid, a liquid, a gas](images/kalzium-states.svg)
 
-1. In the **Scheme** menu at the top, choose **State of matter**. The
-   tiles take three colours.
-2. A temperature slider appears. It starts at room temperature: most
-   tiles are solid, a few gases, and only two liquids.
+1. In the **Gradients** menu at the top, choose **State of matter**.
+   The tiles take three colours: solid, liquid and gas.
+2. Open the **View** tab of the panel on the left. It has a temperature
+   slider, in kelvin, K: 0 K is the coldest there can be, and a room is
+   about 293 K. Put it there: most tiles are solid, a few are gases, and
+   only two are liquids.
 3. Drag the slider down, towards 0. Watch the gases turn liquid, then
    solid, one by one.
-4. Drag it up, past 1000. The metals melt. Keep going: they boil.
+4. Drag it up, past 1000 K. The metals melt. Keep going: they boil.
 
 > [point] Mercury, **Hg**, is a liquid at room temperature: the silver
 > inside an old thermometer. Bromine, **Br**, is the other.
@@ -1462,14 +1464,15 @@ tabla.
 
 ![Tres casillas: un sólido, un líquido, un gas](images/kalzium-states.svg)
 
-1. En el menú **Esquema** de arriba, elige **Estado de la materia**. Las
-   casillas toman tres colores.
-2. Aparece un deslizador de temperatura. Empieza a temperatura ambiente:
-   casi todas las casillas son sólidos, unos pocos gases, y solo dos
-   líquidos.
+1. En el menú **Gradientes** de arriba, elige **Estado de la materia**.
+   Las casillas toman tres colores: sólido, líquido y gas.
+2. Abre la pestaña **Ver** del panel de la izquierda. Tiene un
+   deslizador de temperatura, en kelvin, K: 0 K es lo más frío que puede
+   haber, y una habitación está a unos 293 K. Ponlo ahí: casi todas las
+   casillas son sólidos, unas pocas gases, y solo dos líquidos.
 3. Arrastra el deslizador hacia abajo, hacia 0. Mira cómo los gases se
    vuelven líquidos, y luego sólidos, uno a uno.
-4. Arrástralo hacia arriba, más allá de 1000. Los metales se funden.
+4. Arrástralo hacia arriba, más allá de 1000 K. Los metales se funden.
    Sigue: hierven.
 
 > [point] El mercurio, **Hg**, es líquido a temperatura ambiente: la
@@ -1494,8 +1497,8 @@ written H2O. Kalzium can weigh a molecule for you.
 ![Two atoms joined](images/kalzium-molecule.svg)
 
 1. Press **Perform calculations** in the toolbar. A calculator opens.
-2. Choose the **Molecular mass** calculator and type *H2O*. It answers
-   about 18: two atoms of mass 1 and one of mass 16.
+2. Choose the **Molecular mass calculator** in the list and type *H2O*.
+   It answers about 18: two atoms of mass 1 and one of mass 16.
 3. Try *CO2*, the gas you breathe out. Then *NaCl*, table salt.
 
 > [think] The mass of a molecule is just its atoms' masses added up. You
@@ -1516,8 +1519,8 @@ oxígeno, y se escribe H2O. Kalzium puede pesar una molécula por ti.
 ![Dos átomos unidos](images/kalzium-molecule.svg)
 
 1. Pulsa **Realizar cálculos** en la barra. Se abre una calculadora.
-2. Elige la calculadora de **Masa molecular** y escribe *H2O*. Responde
-   unos 18: dos átomos de masa 1 y uno de masa 16.
+2. Elige **Calculadora de masas moleculares** en la lista y escribe
+   *H2O*. Responde unos 18: dos átomos de masa 1 y uno de masa 16.
 3. Prueba *CO2*, el gas que echas al respirar. Luego *NaCl*, la sal de
    mesa.
 

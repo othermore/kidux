@@ -131,7 +131,7 @@ Los módulos que ofrece Kidux:
   guía.
 - [Kalzium](https://apps.kde.org/kalzium/): la tabla periódica, cada
   elemento con cómo es y su átomo, para niños de diez años en adelante,
-  sin internet.
+  sin internet, con guía.
 - [Step](https://apps.kde.org/step/): un laboratorio de física, cuerpos,
   muelles y fuerzas sobre un plano, en marcha y medidos, para niños de
   diez años en adelante, sin internet, con guía.

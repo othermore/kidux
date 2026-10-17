@@ -1,3 +1,10 @@
+kidux-module-kalzium (0.2.0) trixie; urgency=medium
+
+  * A guide beside Kalzium: three lessons, finding an element, hot and
+    cold, and how heavy water is.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 17 Oct 2026 10:39:44 +0200
+
 kidux-module-kalzium (0.1.0) trixie; urgency=medium
 
   * Kalzium, the periodic table, as a learning module.

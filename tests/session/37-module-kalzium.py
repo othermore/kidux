@@ -1,4 +1,5 @@
-"""Kalzium, the periodic table (phase-4e-plan.md, step 4.28).
+"""Kalzium, the periodic table (phase-4e-plan.md, step 4.28), with its guide
+(phase-4f-plan.md, step 4.37) beside it.
 
 Installed through the daemon, as the panel installs it, with Kalzium and the
 Wayland plugin of its Qt, and switched on for Leo from the command line.
@@ -36,6 +37,8 @@ CONFIG = f"{HOME}/.config/kidux/{MODULE}"
 KDE = f"/usr/share/kidux/modules/{MODULE}/kde"
 #: The room above the launcher's bar, and the bar.
 ABOVE_THE_BAR = (0.0, 0.0, 1.0, 0.92)
+#: Kalzium's room, left of its guide's pane.
+KALZIUM_ROOM = (0.0, 0.0, 0.6, 0.92)
 BAR = (0xF2, 0xE2, 0xCC)
 BAR_BOX = (0.0, 0.94, 1.0, 1.0)
 
@@ -82,7 +85,7 @@ def run(machine: Machine) -> None:
     report("Leo opens it by keyboard, a window filling the room above the bar",
            opened and on_screen() == MODULE and window.get("maximized")
            and not window.get("fullscreen")
-           and colour_share(picture, CREAM, ABOVE_THE_BAR) < 0.2
+           and colour_share(picture, CREAM, KALZIUM_ROOM) < 0.2
            and colour_share(picture, BAR, BAR_BOX) > 0.4,
            f"{window}; {picture}\n" + launcher_log())
 

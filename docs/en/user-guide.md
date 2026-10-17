@@ -1052,7 +1052,7 @@ like, where it was found, a picture of it and a drawing of its atom; a
 slider shows which elements are solid, liquid or gas at any
 temperature; and there is a glossary of the words. It is for children
 from ten up, in the child's language, and it works without the
-internet.
+internet. It comes with a guide of three lessons.
 
 ![Kalzium](../images/en/module-kalzium.png)
 

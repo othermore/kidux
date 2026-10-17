@@ -3,7 +3,7 @@
 # starts Kalzium with KDE's actions a child has no business in switched off
 # (modules.md, section 5; phase-4e-plan.md, 4.28).
 id = "kalzium"
-version = "0.1.0"
+version = "0.2.0"
 name = "Kalzium"
 description = "The periodic table: every element, what it is like, its atom, and how matter changes with the temperature."
 min_age = 10
@@ -13,3 +13,5 @@ app_ids = ["org.kde.kalzium"]             # what Kalzium calls its window
 categories = ["science"]
 i18n_domain = "kidux-module-kalzium"
 memory_max = "1G"
+# Three lessons beside it (content/; D103).
+guide = true
