@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 20: a toy with a house behind it, seen from the side. Above,
+     the camera close, its wide angle a broad fan: the toy fills it, and the
+     house takes up only a little of the fan's width, so it looks small and
+     far. Below, the camera far back, zoomed in, a narrow fan: the toy fills
+     it just as much, and the house takes up half of it, as if just behind.
+     The toy and the house are in the same place in both. Flat, no words. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" width="640" height="280">
+  <rect x="0" y="0" width="640" height="280" fill="#fff6e9"/>
+  <line x1="0" y1="140" x2="640" y2="140" stroke="#e8d9c4" stroke-width="2"/>
+  <polygon points="286,70 640,-6 640,146" fill="#f0a202" opacity="0.22"/>
+  <rect x="256" y="56" width="30" height="28" rx="6" fill="#24313f"/>
+  <circle cx="440" cy="70" r="20" fill="#e2703a"/>
+  <polygon points="568,50 600,26 632,50" fill="#7a6a60"/><rect x="574" y="50" width="52" height="44" fill="#cfa77a"/>
+  <polygon points="58,210 640,160 640,260" fill="#f0a202" opacity="0.22"/>
+  <rect x="28" y="196" width="30" height="28" rx="6" fill="#24313f"/>
+  <circle cx="440" cy="210" r="20" fill="#e2703a"/>
+  <polygon points="568,190 600,166 632,190" fill="#7a6a60"/><rect x="574" y="190" width="52" height="44" fill="#cfa77a"/>
+</svg>

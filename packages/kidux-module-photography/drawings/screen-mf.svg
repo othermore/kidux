@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chapter 17: manual focus with MF assist: the picture magnified round the bear's eye, the small box at the top right saying where in the picture it is, and at the bottom the distance focused on, half a metre (manual, p. 43, 59 and 64). Drawn afresh after the manual's pictures of the screen; the
+     only letters are the camera's own. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+  <rect x="0" y="0" width="480" height="360" rx="18" fill="#141c26"/>
+  <rect x="14" y="14" width="452" height="332" rx="8" fill="#e8d9c4"/>
+  <rect x="14" y="236" width="452" height="110" fill="#b98a5e"/>
+  <rect x="14" y="14" width="452" height="332" rx="8" fill="#c99566"/>
+  <circle cx="200" cy="150" r="30" fill="#24313f"/>
+  <circle cx="190" cy="140" r="9" fill="#fdf6f0"/>
+  <circle cx="330" cy="250" r="40" fill="#24313f"/>
+  <rect x="14" y="306" width="452" height="40" fill="#141c26" opacity="0.6"/>
+  <text x="34" y="334" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="22" fill="#fdf6f0">MF</text>
+  <rect x="110" y="322" width="240" height="4" fill="#fdf6f0"/>
+  <polygon points="214,316 226,316 220,326" fill="#f0a202"/>
+  <text x="362" y="334" font-family="DejaVu Sans, sans-serif" font-weight="700" font-size="20" fill="#fdf6f0">0.5m</text>
+  <rect x="380" y="24" width="76" height="56" rx="4" fill="#141c26" opacity="0.7"/>
+  <rect x="388" y="32" width="60" height="40" fill="none" stroke="#fdf6f0" stroke-width="2"/>
+  <rect x="408" y="44" width="16" height="12" fill="#f0a202"/>
+</svg>

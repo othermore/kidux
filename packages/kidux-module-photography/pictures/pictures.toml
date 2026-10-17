@@ -149,3 +149,55 @@ licence = "CC-BY-SA-4.0"
 author = "Giuseppe Milo"
 source = "https://commons.wikimedia.org/wiki/File:Splash_(58544580).jpeg"
 licence = "CC-BY-3.0"
+
+["focus-front.jpg"]
+author = "Deavmi"
+source = "https://commons.wikimedia.org/wiki/File:Toothbrush_(Foreground_focused).jpg"
+licence = "CC-BY-SA-3.0"
+
+["focus-back.jpg"]
+author = "Deavmi"
+source = "https://commons.wikimedia.org/wiki/File:Toothbrush_(Background_focused).jpg"
+licence = "CC-BY-SA-3.0"
+
+["dof-small-aperture.jpg"]
+author = "MikeRun"
+source = "https://commons.wikimedia.org/wiki/File:Depth-of-field-comparison-side-by-side-small.png"
+licence = "CC-BY-SA-4.0"
+made = "the left half of the comparison"
+
+["dof-wide-aperture.jpg"]
+author = "MikeRun"
+source = "https://commons.wikimedia.org/wiki/File:Depth-of-field-comparison-side-by-side-small.png"
+licence = "CC-BY-SA-4.0"
+made = "the right half of the comparison"
+
+["bokeh.jpg"]
+author = "Nayuki"
+source = "https://commons.wikimedia.org/wiki/File:Christmas_tree_lights_in_bokeh_(4274605105).jpg"
+licence = "CC-BY-2.0"
+
+["shallow-focus.jpg"]
+author = "Ben Schumin"
+source = "https://commons.wikimedia.org/wiki/File:Shallow_focus_on_salt_and_pepper_shakers.jpg"
+licence = "CC-BY-SA-3.0"
+
+["macro-coin.jpg"]
+author = "Markus Filp"
+source = "https://commons.wikimedia.org/wiki/File:Macro_Shot_of_a_1-Euro_Coin_(16052110605).jpg"
+licence = "CC-BY-2.0"
+
+["macro-leaf.jpg"]
+author = "SebastianBlumeArt"
+source = "https://commons.wikimedia.org/wiki/File:Fittonia_gigantea_leaf_veins_macro.jpg"
+licence = "CC-BY-SA-4.0"
+
+["zoom-wide.jpg"]
+author = "Alexandru Panoiu"
+source = "https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(4.5-25mm)_(AP4M0672)_(7092077541).jpg"
+licence = "CC-BY-2.0"
+
+["zoom-long.jpg"]
+author = "Alexandru Panoiu"
+source = "https://commons.wikimedia.org/wiki/File:Focal_length_and_perspective_(13.6-76mm)_(AP4M0681)_(6946010542).jpg"
+licence = "CC-BY-2.0"
