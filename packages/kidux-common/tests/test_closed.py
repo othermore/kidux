@@ -1,4 +1,4 @@
-"""Kidux's answer to a link out of a module (kidux.closed, D104): a
+"""Kidux's answer to a link out of a module (kidux.closed, D107): a
 bubble, in the child's words, and nothing opened."""
 
 from kidux import closed

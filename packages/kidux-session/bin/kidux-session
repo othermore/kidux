@@ -32,7 +32,7 @@ export QT_QPA_PLATFORM=wayland
 export SDL_VIDEODRIVER=wayland
 # A web page or a link a program asks the desktop to open goes to
 # kidux-closed, which says in a bubble that the internet is closed here and
-# opens nothing (D104): its mimeapps.list and desktop file come first in
+# opens nothing (D107): its mimeapps.list and desktop file come first in
 # the directories every program reads them from.
 XDG_CONFIG_DIRS="/usr/share/kidux/session/xdg:${XDG_CONFIG_DIRS:-/etc/xdg}"
 XDG_DATA_DIRS="/usr/share/kidux/session/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"

@@ -6,7 +6,7 @@ Comment: The simulations under upstream/sims/ are PhET Interactive
  Simulations' own built files, unchanged, each in the version sims.toml
  names, published before 29 March 2026, fetched by ci/build-upstream.sh
  (docs/dev/packaging.md, "Programs built at development time";
- phase-4e-plan.md, 4.30). PhET's agreement for its historical collection
+ phase-4f-plan.md, 4.30). PhET's agreement for its historical collection
  of HTML simulations (https://phet.colorado.edu/en/licensing/html)
  publishes those versions under CC BY 4.0, with the attribution: Simulation
  by PhET Interactive Simulations, University of Colorado Boulder, licensed

@@ -4,7 +4,7 @@
 # KDE's programs read the actions an administrator restricts from a
 # kdeglobals in the configuration directories, XDG_CONFIG_DIRS, before the
 # child's own: this gives them the module's, kde/kdeglobals beside the
-# manifest, which switches off what a child has no business in (D101): Get
+# manifest, which switches off what a child has no business in (D104): Get
 # Hot New Stuff, which downloads from store.kde.org, and which is Step's
 # File menu's Download New Experiments; the shell, a terminal or a command; the handbook, the bug report and the donation
 # page of the Help menu, which open a web browser the child has not; the

@@ -1,4 +1,4 @@
-"""GTK 4: the pane a module's guide is shown in (launcher.md, section 5; D103).
+"""GTK 4: the pane a module's guide is shown in (launcher.md, section 5; D106).
 
 A third window of the launcher, drawn as a layer-shell surface on the right
 edge, from the top down to the bar, with an exclusive zone of its width, so

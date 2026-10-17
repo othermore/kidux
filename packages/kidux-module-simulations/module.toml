@@ -1,6 +1,6 @@
 # Simulations: PhET's interactive simulations, the versions published
 # under CC BY 4.0, served by kidux-webapps under /simulations/ in a page of
-# Kidux's own that lists them (phase-4e-plan.md, 4.30; modules.md,
+# Kidux's own that lists them (phase-4f-plan.md, 4.30; modules.md,
 # section 5).
 id = "simulations"
 version = "0+phet20260328"

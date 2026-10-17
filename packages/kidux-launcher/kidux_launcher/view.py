@@ -146,7 +146,7 @@ class Launcher:
         self._desk = desk
         self._bar = None
         self._bubbles = None
-        #: A module's guide beside it (guide.py, guides.py, D103).
+        #: A module's guide beside it (guide.py, guides.py, D106).
         self._guide = None
         #: The number of the bubble of the last time warning, for the next
         #: to take its place.
@@ -244,7 +244,7 @@ class Launcher:
                             lambda module_id: guided.get(module_id, False))
         self._draw_guide()
 
-    # --- a module's guide (D103) --------------------------------------------
+    # --- a module's guide (D106) --------------------------------------------
 
     def _draw_guide(self) -> None:
         if self._guide is None:

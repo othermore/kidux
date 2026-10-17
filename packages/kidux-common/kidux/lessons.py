@@ -1,4 +1,4 @@
-"""A module's guide: its lessons, read for the launcher's pane (D103).
+"""A module's guide: its lessons, read for the launcher's pane (D106).
 
 A module whose manifest says `guide = true` has its lessons beside the
 manifest, under `content/<lang>/`, one file each, `NN-<slug>.md`, in the

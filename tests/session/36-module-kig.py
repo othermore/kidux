@@ -1,5 +1,5 @@
-"""Kig, geometry to move (phase-4e-plan.md, step 4.27), with its guide
-(phase-4f-plan.md, step 4.35).
+"""Kig, geometry to move (phase-4f-plan.md, step 4.27), with its guide
+(phase-4g-plan.md, step 4.35).
 
 Installed through the daemon, as the panel installs it, with Kig and the
 Wayland plugin of its Qt, and switched on for Leo from the command line.

@@ -1,5 +1,5 @@
 """A module's guide beside it: which guide the pane shows, what it
-remembers, and the missions (launcher.md, section 5; D103).
+remembers, and the missions (launcher.md, section 5; D106).
 
 The policy, with no GTK in it, so that its test is the specification; the
 pane itself is `guide.py`. The pane follows the module on screen, which

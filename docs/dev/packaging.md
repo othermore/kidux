@@ -157,7 +157,7 @@ and writes the time its tarball is dated by into `$UPSTREAM_KEEP/time`,
 which dates its source tarball too, there being no commit's time. PhET's
 simulations are the one (`ci/upstream/simulations.sh`, reading
 `packages/kidux-module-simulations/sims.toml`, which
-`ci/upstream/simulations-versions.py` fills in by hand; phase-4e-plan.md,
+`ci/upstream/simulations-versions.py` fills in by hand; phase-4f-plan.md,
 4.30). The source tarball carries every `*.toml` of the package, the list
 with `upstream.toml`.
 

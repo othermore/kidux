@@ -1,4 +1,4 @@
-"""Simulations, PhET's simulations served on the computer (phase-4e-plan.md,
+"""Simulations, PhET's simulations served on the computer (phase-4f-plan.md,
 step 4.30).
 
 kidux-module-simulations is installed through the daemon, as the panel

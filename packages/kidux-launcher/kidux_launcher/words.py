@@ -20,7 +20,7 @@ NOTICES = N_("Notices")
 NO_NOTICES = N_("Nothing to show yet.")
 CLEAR_NOTICES = N_("Clear")
 
-#: A module's guide beside it (guide.py, D103): the bar's button and the
+#: A module's guide beside it (guide.py, D106): the bar's button and the
 #: folded pane, the pane's own buttons, and its boxes.
 GUIDE = N_("Guide")
 FOLD = N_("Fold")

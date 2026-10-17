@@ -1,4 +1,4 @@
-"""Kidux's answer to a link out of a module (D104, docs/dev/session.md
+"""Kidux's answer to a link out of a module (D107, docs/dev/session.md
 section 3).
 
 A program that asks the desktop to open a web page or an HTML file, as

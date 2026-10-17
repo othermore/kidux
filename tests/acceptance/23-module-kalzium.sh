@@ -1,5 +1,5 @@
 # Sourced by the acceptance VM's runner, which provides check() and $ARCHIVE.
-# phase-4e-plan.md, step 4.28: Kalzium installs from the archive with the Qt
+# phase-4f-plan.md, step 4.28: Kalzium installs from the archive with the Qt
 # platform plugin a Wayland session needs, and is removed without a trace
 # of the module's own, Kalzium with it (D100).
 
@@ -17,7 +17,7 @@ check "its manifest, icon, starter, restrictions and Spanish words are in place"
            && test -x /usr/libexec/kidux-module-kalzium \
            && grep -qx 'ghns=false' $KALZIUM/kde/kdeglobals \
            && test -f /usr/share/locale/es/LC_MESSAGES/kidux-module-kalzium.mo"
-check "its guide is beside the manifest, in both languages (D103)" \
+check "its guide is beside the manifest, in both languages (D106)" \
     sh -c "test -f $KALZIUM/content/en/01-find-an-element.md && test -f $KALZIUM/content/es/01-find-an-element.md"
 check "removing it leaves nothing of the module behind, and takes Kalzium with it" \
     sh -c "$ADMIN_AS remove kalzium | grep -q '^removed ' && test ! -e $KALZIUM \

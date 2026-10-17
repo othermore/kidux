@@ -1,7 +1,7 @@
 # Step, a physics playground: a program already in Debian, so the package
 # holds this manifest, the tile, its words, and the small program that
 # starts Step with KDE's actions a child has no business in switched off
-# (modules.md, section 5; phase-4e-plan.md, 4.29).
+# (modules.md, section 5; phase-4f-plan.md, 4.29).
 id = "step"
 version = "0.2.0"
 name = "Step"
@@ -14,5 +14,5 @@ app_ids = ["org.kde.step"]                # what Step calls its window
 categories = ["science"]
 i18n_domain = "kidux-module-step"
 memory_max = "2G"
-# Six lessons beside it, with their missions (content/; D103).
+# Six lessons beside it, with their missions (content/; D106).
 guide = true

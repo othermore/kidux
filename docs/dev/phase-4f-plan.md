@@ -1,1238 +1,807 @@
-# Phase 4f plan — a guide beside a module, and the first guides
+# Phase 4f plan — science and maths: Kig, Kalzium, Step and the simulations
 
-A child opens Kig and sees an empty canvas with forty tools; opens Step and
-sees a blank world. Neither says what to do. This phase gives a module a
-**guide**: lessons of Kidux's own, written for a child of ten to twelve
-who reads, shown by the launcher in a pane beside the program, with steps
-to follow, what the child should see, an idea to go on with, and
-**missions**, files of the program's own half done, with what to try
-written inside them. The pane is the launcher's, so it works the same for
-a child without windows, where the program fills what the pane leaves,
-and for a child with them. Then the guides: Kig's, Step's and a short
-one for Kalzium. This plan is how. It follows phase-4c-plan.md's rules
+Four modules that take Kidux into science and maths, where it has GCompris
+for the youngest and nothing after: **Kig**, geometry a child moves with
+the mouse; **Kalzium**, the periodic table with what each element is;
+**Step**, a physics playground where a child builds an experiment and
+presses play; and **Simulations**, a set of PhET's interactive
+simulations of physics, chemistry, maths and the Earth, served on the
+computer and chosen for ages six to fourteen. The first three are
+programs of KDE's education suite that trixie ships, so each module is a
+manifest, an icon, its words and a short starter, as Tux Typing's and
+GCompris's are; the fourth is a web application served by
+`kidux-webapps`, as Blockly Games is, from files fetched at development
+time (D68). This plan is how. It follows phase-4c-plan.md's rules
 (section 3 there) and D93: a commit per step, partial tests while
 building and never the battery, every user-facing word through i18n in
 both languages, a package's new version at its first change and `~dev`
 builds of it until the owner tries the work and says yes.
 
-Section 4 records what the owner decided, which the steps follow. Section 5 is the content, ready to
-use: every word of the pane, every lesson in English and Spanish, and
-every mission file.
+Section 4 records what the owner decided on 2026-10-16, which the steps
+follow. Section 5
+is the content, ready to use: every word of the four modules in English
+and Spanish, and the list of simulations.
 
 ## 1. Steps
 
 | Step | What | Size |
 |---|---|---|
-| 4.32 | Found on the machine first: a pane on the right under labwc, the keyboard, the widths, a second file in a running program, links out of a module | S |
-| 4.33 | The guide in the manifest, the lessons' format, and their reader (`kidux.lessons`, kidux-common) | M |
-| 4.34 | The pane in the launcher, its button on the bar, the missions' button, what is remembered | L |
-| 4.35 | Kig's guide: six lessons and four missions | M |
-| 4.36 | Step's guide: six lessons and five missions | M |
-| 4.37 | Kalzium's guide: three lessons | S |
-| 4.38 | Links out of a module get Kidux's answer, a bubble, and open nothing | S |
-| 4.39 | Closing: the documents, the report | S |
+| 4.27 | Kig: geometry to move, a KDE program as a module | S |
+| 4.28 | Kalzium: the periodic table | S |
+| 4.29 | Step: a physics playground | S |
+| 4.30 | Simulations: PhET's simulations, served on the computer, in a page of Kidux's own | L |
+| 4.31 | Closing: the documents, the report | S |
 
-4.32 decides the shape of 4.34 and is done first. 4.33 and 4.34 are the
-framework; 4.35 to 4.37 are content on it, each a package's new version;
-4.38 is a session change found in 4.32 and owed to Step.
+4.27, 4.28 and 4.29 are the same work three times and go first, in that
+order, so that what 4.27 settles (the starter, the restrictions, the
+tests) is copied twice. 4.30 is the long one and stands alone.
 
 ## 2. The steps
 
-### 4.32 — Found on the machine first
+### What the three KDE modules share
 
-On the machine left up (`tests/run vm up 04`), with a scratch script of
-`tests/lib/sessionlib.py`'s `Machine`, and nothing committed before
-these are known:
+Each is `packages/kidux-module-<id>/`, started from `kidux-module-tuxtype`
+(modules.md, section 5: a module that runs a program already in Debian
+has no content): the manifest, `icon.svg`, `bin/kidux-module-<id>`, `po/`,
+`tests/test_module.py` and `debian/`. Three things are the same in all
+three and decided once, in 4.27:
 
-1. **A pane on the right.** A throwaway GTK 4 window under
-   `gtk4-layer-shell`, as the bar is made (`bar.py`): anchored to the
-   right, top and bottom edges, layer `TOP`, `set_exclusive_zone` of its
-   width, 426 pixels, keyboard mode `ON_DEMAND`, run as Leo in his
-   session with the launcher's own `LD_PRELOAD` of the library. Then Kig
-   opened from its tile. Expected, since labwc keeps a maximised window
-   inside the room the layer surfaces' exclusive zones leave, as it does
-   for the bar: Kig's window fills the room to the left of the pane and
-   above the bar, and the launcher's own window behind it too. Checked
-   for a child without windows and, with `KIDUX_WINDOWS=1`, for one with
-   them (a window maximised by its own button respects the pane too; a
-   floating one may be put under it, which is the child's choice); for
-   the X11 canary (D58; `tests/lib/seed/modules/x11-canary`), which the
-   launcher maximises itself; and at scale 2, where the pane's width is
-   what section 4.34 says. If labwc does not keep a maximised window out
-   of a right exclusive zone, the step stops and the owner is told, with
-   labwc's window rules (`SnapToRegion` with `<regions>`, labwc-notes.md)
-   as the alternative to design.
-2. **The keyboard.** With `ON_DEMAND`, a click in the pane takes the
-   keyboard and a click in the program gives it back; Tab inside the pane
-   stays in it. Checked, and checked that Alt+F4 and Alt+Tab, labwc's
-   keys to the launcher, still work with the pane focused.
-3. **A second file in a running program.** `kig a.kig` while Kig is open:
-   a second Kig process and window, which the desk shows as a second
-   window of the module. `step a.step` the same. Known, so that 4.34's
-   mission button starts the program only when the module is not
-   running.
-4. **Links out of a module**, for 4.38. As Leo, `xdg-settings get
-   default-web-browser` and `xdg-mime query default text/html` (both
-   answer `chromium.desktop` on the test machine, found on 2026-10-17),
-   and what Step's *Open in browser*, in its context information pane,
-   does: it asks the desktop to open a local HTML file, and gets a plain
-   Chromium window, outside any module's wall, in the kiosk. What KIO
-   and `xdg-open` read to choose: `mimeapps.list` from
-   `XDG_CONFIG_DIRS`, and the desktop files of `XDG_DATA_DIRS`.
+- **The dependencies.** The program's package, and the Wayland plugin of
+  its Qt, which the program's own package does not pull in and without
+  which it opens nothing under labwc: `qtwayland5` for Kig, which is a
+  KDE Frameworks 5 program on Qt 5; `qt6-wayland` for Kalzium and Step,
+  Frameworks 6 on Qt 6, as `kidux-module-gcompris` already names it.
+  Removing the module takes the program and the libraries that came for
+  it alone (D100).
+- **The starter**, a POSIX shell script installed to
+  `/usr/libexec/kidux-module-<id>`, as Tux Typing's, and beside the
+  manifest a `kde/kdeglobals` of the package's own with KDE's action
+  restrictions, which every Frameworks program reads from the
+  configuration directories before the child's own:
 
-What is found goes into this plan's section 4 where it changes a
-decision, and into labwc-notes.md where it is about labwc.
+  ```
+  [KDE Action Restrictions][$i]
+  ghns=false
+  shell_access=false
+  action/help_contents=false
+  action/help_report_bug=false
+  action/help_donate=false
+  action/switch_application_language=false
+  action/fullscreen=false
+  ```
 
-**Found, 2026-10-17.** A pane on the right, 426 pixels, anchored right,
-top and bottom with an exclusive zone of its width: Kig's window and the
-X11 canary's, maximised by the kiosk's rule or, with windows, through
-foreign-toplevel, fill the room to its left; the pane stops above the
-bar, which keeps the whole width; the launcher's own window does the same
-(labwc-notes.md). The layout stands as planned. As Leo, the desktop's
-default for `text/html` and `x-scheme-handler/http` is
-`chromium.desktop`, and `xdg-open` is there, as 4.38 assumes.
+  `ghns` is *Get Hot New Stuff*, the dialog that downloads experiments
+  and the like from store.kde.org, which Step offers in its File menu and
+  a child has no business in; `shell_access` keeps the programs from
+  opening a terminal or running a command; the handbook, the bug report
+  and the donation page open a web browser the child has not, and would
+  only fail; the language switch would change the words the session set;
+  and the whole screen is what a module never asks for (modules.md,
+  section 2). The starter puts the file's directory first in
+  `XDG_CONFIG_DIRS` (`/usr/share/kidux/modules/<id>/kde`, then what the
+  session had, or `/etc/xdg`), exports it and `exec`s the program: the
+  restrictions are the package's, immutable (`[$i]`) and always current,
+  and nothing is written into the child's configuration for them. Nothing
+  else is set: the language is the session's, which the Frameworks read
+  from `LANGUAGE` and `LANG`, and the program's own settings are its own,
+  under the `XDG_CONFIG_HOME` the launcher gives it.
+- **The window.** Each starts in a window and the compositor gives it the
+  room above the bar; its dialogs float over it. `app_ids` names what
+  the Frameworks call the window on Wayland, the desktop file's name,
+  and the binary's name beside it for a program that sets none:
+  `["org.kde.kig", "kig"]`, `["org.kde.kalzium", "kalzium"]`,
+  `["org.kde.step", "step"]`. The launcher's log says which it was
+  (`toplevels:`), and the manifest keeps the one seen. `needs_windows`
+  is not set: one main window each, as GCompris.
+- **The tests.** Unit, as Tux Typing's: the manifest reads as the one
+  reader reads it, the words are complete, the starter gives the program
+  the restrictions' directory first in `XDG_CONFIG_DIRS` and `exec`s it
+  (a stand-in prints what it got), the restrictions switch off each of
+  the actions above, the manifest's version is the package's.
+  Acceptance, `tests/acceptance/22-module-kig.sh` and the next two
+  numbers, with 25 left for 4.30 (`26-no-key-no-archive.sh` stays
+  last): installs through the daemon with its program and its Wayland
+  plugin, the manifest, icon, starter, restrictions and Spanish words in
+  place, listed for a child switched off, removed without a trace and the
+  program gone with it (D100). Session, `tests/session/36-module-kig.py` and the next two,
+  with 40 left for 4.30 (`42-purge.py` stays last): as `25-module-tuxtype.py`, Leo opens
+  the tile, the window fills the room above the bar with the bar whole
+  under it, its process has the module's directories and the
+  restrictions first in its `XDG_CONFIG_DIRS`, the picture `module-<id>` taken once the
+  window is drawn, Alt+F4 closes it and the launcher comes back, Leo logs
+  out, the daemon removes it. Each picture is listed in
+  `tests/lib/doc-screenshots.txt` and shown in the guide.
+- **The documents.** The user guide, a section each after Gmail's in
+  section 9, in both languages, with the words of section 5, and a line
+  each in the READMEs' list of modules; the website,
+  a card each in `site/en.toml` and `site/es.toml` and its place in
+  `site/page.html`, and the licence line that names the modules' authors,
+  on a branch of its own, `site-phase-4e`, since the site is built only
+  with every picture it shows, and the modules' pictures come from the
+  release run; the branch is picked onto `main` after it;
+  architecture.md's table in section 8, a row each; the roadmap.
+- **The icons**, drawn like the avatars (branding/README.md): flat
+  shapes, no gradients, nothing thinner than four units, and nothing of
+  KDE's own icons, which are theirs. Kig: a compass drawing an arc over
+  a point and a line. Kalzium: four tiles of a periodic table, one
+  lifted. Step: a ball on a spring, with a small arrow of its motion.
+  Simulations: a flask beside a magnet with two field lines.
 
-### 4.33 — The guide in the manifest, and the lessons' reader
+### 4.27 — Kig
 
-**The manifest** (modules.md section 1) gets `guide = true`: the module
-has lessons beside its manifest, under `content/<lang>/`, the directory
-a module's content already lives in (section 3 there), installed by its
-package to `/usr/share/kidux/modules/<id>/content/<lang>/`. `kidux.modules`
-reads it into `Module.guide`, the guide's directory, `content/`, only
-when the manifest says so and `content/en/` beside it holds at least one
-lesson; otherwise "", with
-a line in the log, as every wrong field is treated. English is the
-reference tree and `tests/project/content.py` holds the Spanish lessons
-to it, as for every module's content; the missions, which are not text
-files to it, are held by each module's own unit test (4.35).
+**What it is.** Kig 25.04, `kig` in trixie: interactive geometry. A child
+puts points, lines, circles and polygons on a canvas, drags any of them,
+and sees what stays true: the perpendicular stays perpendicular, the
+circle through three points follows them. Translated into Spanish, with
+its menus and its construction help. 11 MB, plus Frameworks 5 and Qt 5,
+which no other module brings: the first KDE 5 program on the machine,
+so the install is long and the removal takes it all away again.
 
-**A guide** is `content/<lang>/NN-<slug>.md`, one file per lesson, in the
-order of their numbers, plus `content/<lang>/missions/<file>` for the
-program's files a lesson opens, and `content/images/<file>.svg` or
-`.png`, shared by the languages. A lesson is Markdown of a small, fixed
-subset, read by one reader for every guide:
+**The manifest.** `id = "kig"`, `name`, `description`, ages 10 to 14,
+`recommended_before = ["gcompris"]` (GCompris has the first shapes),
+`launch = { exec = "/usr/libexec/kidux-module-kig" }`, `app_ids` as
+above, `categories = ["maths"]`, `memory_max = "1G"`.
 
-- `# Title`, once, first: the lesson's name, in the list and at the top.
-- Paragraphs; `**bold**` for what the child presses or sees named in the
-  program (*Archivo*, *Punto*), `*italic*` for a word being taught,
-  `` `code` `` never (these guides are not about typing).
-- `## Heading` for a part of the lesson.
-- Numbered lists, `1.`, for steps; bullet lists, `-`, for choices. A
-  step or a choice may start with `![name](images/tools/<file>.svg)`,
-  the program's own picture of the button to press, which the pane
-  draws small before the words.
-- `![what it shows](images/<file>)`, a picture of Kidux's own, drawn like
-  the avatars, on a line of its own.
-- `> [think] …`, `> [point] …`, `> [cheer] …`: the mascot speaking, in
-  the pose its first word names, as the BASIC guide's (phase-4b-plan.md
-  4.10): the chick beside a speech bubble.
-- `@mission missions/<file>` on a line of its own: the lesson's mission,
-  a file of the program's, which the pane shows as a box saying how to
-  open it (4.34).
-- `::: try` to `:::`: a box, *Try this*, with ideas to go on with.
+**Found on the machine first**, with `tests/run vm up 04` and the
+package pushed: whether Kig opens on labwc with `qtwayland5` and what
+its window's `app_id` is; whether it asks anything at its first start
+(it should not: an empty canvas); that its *Help* entries fail quietly
+with the restrictions and that no menu reaches a terminal; and how the
+canvas looks at scale 2 (`20-scale.py`'s setting): the session sets only
+`QT_QPA_PLATFORM=wayland`, and Qt takes the scale from the compositor.
+What is found goes into the starter's comment and this plan's section
+4 if it changes a decision.
 
-Nothing else: no links, no HTML, no tables. `kidux.lessons`
-(kidux-common, GTK-free) reads a guide directory into a list of lessons,
-each a title and a list of blocks, `("heading", level, text)`,
-`("paragraph", runs)` with runs of plain, bold and italic text,
-`("steps", [runs…])`, `("bullets", [runs…])`, a run `("icon", path)`
-first where the item starts with a picture, `("image", path, alt)`,
-`("mascot", pose, runs)`, `("mission", path)` and `("try", [blocks])`,
-and refuses a file it cannot read with a line in the log and the lesson
-left out, never the whole guide. Its test is the specification: each
-block from its lines, a run with bold inside, a lesson without a title
-skipped, a missing picture or mission logged and skipped, the order by
-number.
+### 4.28 — Kalzium
 
-**Words** of the pane are the launcher's, in its catalogue (section
-5.1); the lessons' words are the module's content, in its two trees.
+**What it is.** Kalzium 25.04, `kalzium` with `kalzium-data`: the
+periodic table. Every element with its facts, pictures and a drawing of
+its atom, a timeline of their discovery, the states of matter at any
+temperature on a slider, a glossary, and calculators of molecular mass
+and the like for the older. Translated into Spanish. Frameworks 6 and
+Qt 6, which GCompris already brings, so it is small to install.
 
-**Documents.** modules.md section 1 (`guide`) and section 3 (the guide's
-files and format); architecture.md, D103 (section 4).
+**The manifest.** `id = "kalzium"`, ages 10 to 16, no
+`recommended_before`, `categories = ["science"]`, `memory_max = "1G"`.
+Nothing of Kalzium's reaches the internet: its data is in
+`kalzium-data`.
 
-### 4.34 — The pane
+**Found on the machine first**: as 4.27's, and whether its sidebar and
+table fit 1280x800 at scale 1 and 2. Its window is `org.kde.kalzium`
+and it asks nothing at its first start; at scale 1 the table, the
+element's card and the legend fill the room above the bar, and at
+scale 2, 640x400, they fit but crowded, the table small beside the card.
 
-**What it is.** A third window of the launcher, `guide.py`, a layer-shell
-surface on the right edge, anchored top and bottom, layer `TOP`, with an
-exclusive zone of its width, so that every maximised window and the
-launcher's own fill the room to its left: for a child without windows
-the program is beside it; for a child with them, their windows have the
-rest of the desk and the pane stays (section 4, decision 2). On the
-right, since the programs' palettes and toolbars are on the left and the
-guide pushes none of them; the bubbles (D98), which rise from the bar's
-right end on the overlay layer, rise over the pane's foot, and pass. Its
-width is a quarter of the output's logical width, never under 280
-pixels: 320 at 1280x800, 280 at 640x400 (scale 2, which leaves the
-program 360, cramped but usable; D49's scale 2 is for a screen that is
-small anyway). *Fold* says its word beside its arrow, so that a child
-sees the pane can make room. **Folded**, it is a rail of 28 pixels along
-the edge, with an arrow pointing out of the edge, the book icon and the
-module's name written upwards, and its exclusive zone is the
-rail's, so that the program has the rest: the child folds it for room
-and unfolds it by a click on the rail or by the bar's *Guide*. Its
-colours and type are the launcher's (view.py's CSS, `kidux-roomy` and
-the rest), its text 20 pixels, and it scrolls as D63's rooms do
-(`kidux.scroll.scroller`).
+### 4.29 — Step
 
-**What it shows.** At the top, the module's name, and beside it *Fold*,
-a chevron pointing at the edge; for a child with windows the name is a
-drop-down, with every open module that has a guide, to change the guide
-by hand, and beside it *Pin*, a pin icon that lights when pressed
-(below); under it,
-either the **list of lessons**, each a button with its number and title,
-or **one lesson**: its title, its blocks drawn one under another, a
-heading as a heading, a paragraph as a `Gtk.Label` with Pango markup for
-bold and italic, wrapping, steps as a column of rows numbered in a
-circle, bullets with a dot, a picture with `drawing()` at the pane's
-width, the mascot's bubble as the launcher draws its notices (the chick
-at 64 pixels beside a rounded box), *Try this* as a box in the module's
-tile colour, and the mission as a box, *Mission* (below);
-at the bottom, *Lessons* (back to the list), *Back* and *Next* between
-the lessons. The pane comes up without the keyboard (`NONE`), since
-labwc gives the keys to a surface on demand as it comes up, and asks for
-it (`ON_DEMAND`) once the child presses in it; then Tab reaches
-everything inside the pane, the arrows scroll, and Escape goes from a
-lesson to the list (labwc-notes.md).
+**What it is.** Step 25.04, `step`: a physics simulator. A child puts
+bodies, springs, ropes, gravity and forces on a plane, presses play and
+watches, with graphs and meters to read what happens; its example
+experiments and the explanations of each object are translated into
+Spanish (`step_example_files`, `step_objinfo_files`). Frameworks 6 and
+Qt 6.
 
-**When it shows.** The pane follows the module on screen, which the
-desk tells the launcher at every change (`desk_changed`), by one rule
-for each of the child's modes (section 4, decision 2):
+**The manifest.** `id = "step"`, ages 10 to 16,
+`recommended_before = ["simulations"]` (the simulations show the ideas;
+Step lets a child build them), `categories = ["science"]`,
+`memory_max = "2G"`.
 
-- *Without windows*, one module fills the screen at a time: the pane
-  shows the guide of the module on screen, unfolded or folded as that
-  module's guide was left; when the module on screen has no guide, or
-  home is on screen, the pane goes away altogether. Two modules with a
-  guide open at once swap guides as the child swaps between them.
-- *With windows*, several windows are in view at once, so the pane
-  stays for as long as any open module has a guide: it shows the guide
-  of the module whose window is in use, and, when that module has none
-  or home is in use, keeps showing the guide it last showed, so that a
-  child reading Kig's lesson while they copy its numbers into Step does
-  not lose the page. The child may also choose: the drop-down at the top
-  lists every open module with a guide and shows the one picked, and
-  *Pin* keeps the guide shown whatever window comes into use, until it
-  is pressed again or that module closes; a guide picked from the
-  drop-down is pinned, since choosing it is asking for it to stay. The
-  pane goes away only when the last open module with a guide closes.
+**The restrictions matter here**: Step's *File* menu has *Download New
+Experiments*, which `ghns=false` removes. The session test checks that
+the restrictions are first in the process's `XDG_CONFIG_DIRS`; that the
+menu has no such entry is seen on the machine.
 
-In both modes a module with a guide opens with its pane unfolded, the
-list of lessons first, the first time; after that, what the child left:
-folded or unfolded, and the lesson the child was in. That is remembered
-for each module in the launcher's state file in the child's home,
-`~/.local/share/kidux/launcher.json`, `{"guides": {"<id>": {"folded":
-false, "lesson": 3}}}`, a JSON file of the launcher's own written whole
-and renamed into place when it changes, and read at start (not
-`kidux.state`, whose files are the daemon's and given to the
-administrators, which a child's process cannot do); a file that does not
-read is logged and ignored. The pin is of the session, not remembered: a new
-session starts unpinned.
+**Found on the machine first**: as 4.27's, and whether Step's world view
+draws on the test machine without a GPU (it has an OpenGL option, off by
+default; the default `QGraphicsView` is what the module keeps). Its
+window is `org.kde.step`, it asks nothing at its first start, and its
+File menu has *Open Tutorial* and *Examples* and no *Download New
+Experiments*. At scale 1 the palette, the world and its four panels fit
+the room above the bar; at scale 2 the panels on the right are too
+short for their contents and overlap.
 
-**The bar** gets *Guide*, a button with a book icon drawn like the bar's
-others, between the time and *Close*, shown only while the pane is
-there, lit while it is unfolded; it folds and unfolds the pane. Alt+Tab
-and the bar's buttons change the module on screen and the pane follows
-by the rule above; *Close* closes the module and the pane goes with it
-or, with windows, passes to the next guide open; the lock screen covers
-it like everything else (it is on the `TOP` layer, under the lock
-screen's own). Under the bar's question *<name> has not closed…*
-nothing changes.
+### 4.30 — Simulations
 
-**The missions.** A lesson's `@mission missions/<file>` is a file of the
-program's, read-only in the module's directory. The first time a
-module's pane is shown, the launcher copies the guide's missions into
-the child's Documents, in a folder named in the child's language from
-the launcher's catalogue, *Missions of <name>* (section 5.1), one file
-each named as the lesson's language gives it (the file's name in
-`content/<lang>/missions/` is already the child's language's), without
-overwriting a file already there, so that a child's saved work stays.
-The pane shows a lesson's mission as a box, *Mission*, with the sentence
-*Open it from <name>: File, Open, Documents, Missions of <name>, <file>*:
-the pane is there only while the module is open, a second start of the
-program would be a second window, and File, Open is a thing to learn.
-The sentence's words are the launcher's; the file's name is the
-mission's.
+**What it is.** PhET Interactive Simulations, of the University of
+Colorado Boulder: HTML5 simulations of physics, chemistry, maths, the
+Earth and life, each one file that runs by itself in a browser, each
+translated into Spanish and some sixty other languages, each with its
+own *About* dialog that names its authors and licence. The module serves
+a chosen set of them on the computer, under `kidux-webapps`, in a page
+of Kidux's own that lists them by group and age in the child's language
+and opens each one, so that nothing needs the internet (section 4,
+decisions 2 and 4).
 
-**Tests.** Unit, GTK-free, in the launcher: the rule of what the pane
-shows, in each mode, for every change of the module on screen, from
-`desk.py`'s own test's shape; the state read and written; the missions'
-copy that never overwrites. Session, `tests/session/41-guide.py`
-(`40-purge.py` becomes `42-purge.py`), with Kig installed through the
-daemon as `36-module-kig.py` does: Leo opens Kig, the pane is there on
-the right with Kig's lessons in Leo's language and Kig filling the rest
-(the picture `module-kig-guide`, in the guide and on the website; the
-pane's cream in the right third, Kig's grid in the rest), the bar's
-*Guide* lit; the missions copied into Leo's Documents; a click on the
-first lesson shows it (the picture `module-guide-lesson`); *Fold* leaves the rail and Kig fills the room up to it; the
-bar's button unfolds it to the same lesson; a second module without a
-guide (the canary) opened and shown takes the pane away, and Kig shown
-again brings it back; Leo logs out and in, opens Kig, and the pane comes
-back as left. For a child with windows, `21-windows.py` gains a check
-that with Kig and the canary open the pane stays, showing Kig's guide
-while the canary is in use, and goes when Kig closes; and, with Kig and
-Step open, that Step's window in use shows Step's guide, that Kig's
-picked from the drop-down stays with Step in use, pinned, and that the
-pin let go follows the window in use again.
-`13-every-screen-fits.py` gains the pane at scale 2.
+**The licence, and the versions this takes.** PhET relicensed its
+simulations on 29 March 2026: the files it publishes since are
+*Creative Commons Attribution-NonCommercial 4.0*, which forbids
+commercial use without an agreement, and Kidux's own licence lets an
+organisation use Kidux only under a licence from the owner, which is
+commercial use of what Kidux ships. The versions published *before*
+that day are, by PhET's own agreement for its historical collection
+(https://phet.colorado.edu/en/licensing/html), *Creative Commons
+Attribution 4.0*: free to use and redistribute, commercially or not,
+with the attribution *Simulation by PhET Interactive Simulations,
+University of Colorado Boulder, licensed under CC BY 4.0
+(https://phet.colorado.edu)* close to where they are used, human
+readable, translatable and not otherwise changed; the PhET logo inside
+a simulation visible, unobstructed and unaltered; and the PhET name
+used for nothing promotional. PhET still serves every published
+version at `https://phet.colorado.edu/sims/html/<sim>/<version>/<sim>_all.html`
+(the `latest` directory holds the current one; a listing of the
+directory is refused), and each file says inside it when it was built
+(`buildTimestamp = '2026-01-30 13:30:03 UTC'`). A file built in 2026
+names its licence by a link to `creativecommons.org/licenses/by/4.0`,
+or to `by-nc/4.0`; an older one names none and links to PhET's
+licensing page, where the agreement for the historical collection is;
+and a few built in March 2026, before the day, already name `by-nc`.
+So the module takes, for each simulation, the newest version built
+before 29 March 2026 that does not name `by-nc`, and no other: the build
+refuses any file that does, or was built on that day or after, and the
+list records each version and its sum, so that the same list gives the
+same bytes. These versions are the ones PhET calls outdated and unmaintained:
+they are the simulations as they were in early 2026, which is what a
+child needs, and they never change under the module.
 
-**Documents.** launcher.md, a section for the pane; the user guide's
-section 5, *A guide beside a module*, and section 9's modules that have
-one (section 5.5); the website (section 5.5); architecture.md, D103.
+**The name.** The module is *Simulations* (*Simulaciones*), `id =
+"simulations"`, not *PhET*: PhET is a trademark the agreement keeps for
+its owner, so the name says what the module is and the description says
+whose the simulations are, which the attribution requires, and that
+Kidux is not connected with PhET (as D86 says of CodeCombat). The
+package is `kidux-module-simulations`.
 
-### 4.35 — Kig's guide
+**The files, fetched at development time.** `upstream.toml` and a
+build script, `ci/upstream/simulations.sh`, as Blockly Games has, with
+one difference that is a small change to the machinery (D68): there is
+no repository and no commit, since the simulations are built by PhET
+and taken as files. `upstream.toml` gets `repository = ""` and
+`commit = ""`, and `tests/project/upstream.sh` accepts the pair empty
+together, the build then being a fetch of files alone;
+`ci/build-upstream.sh` passes them through as they are, and the build
+script takes the tarball's time from the newest `buildTimestamp` among
+the files, since there is no commit's. The script reads the list,
+`packages/kidux-module-simulations/sims.toml` (section 5.4), fetches
+each file through `ci/upstream/fetch.sh url`, checks its sum against
+the list's, its `buildTimestamp` against the cut-off and that it names
+no `by-nc`, and packs them as `sims/<sim>_all.html` under one directory, with
+PhET's attribution in a `LICENSE` beside them. The source tarball holds
+the same files (D71), with `sims.toml` beside `upstream.toml`. Finding
+each version and its sum: from the current version's number, which
+PhET's metadata gives
+(`https://phet.colorado.edu/services/metadata/1.3/simulations?format=json&type=html&summary`),
+a development tool, `ci/upstream/simulations-versions.py`, run by hand
+when the list changes, asks PhET's site whether each version below it is
+there, newest first, through the same minor's patches, the minors
+below, and the major before; reads each one that is; and keeps the
+newest built before the cut-off that names no `by-nc`, writing its
+version and SHA-256 into `sims.toml`, which is committed. The build never
+guesses.
 
-`kidux-module-kig` gets `guide = true`, `content/en/` and `content/es/`
-with the six lessons of section 5.2 and their four missions, and
-`content/images/` with the lessons' pictures, drawn like the avatars:
-Opus draws each as the lesson describes it. The missions are Kig's own
-files, written by hand in Kig's native format, each tried by opening it
-in Kig on the machine left up and photographed; the format is section
-5.2's, and where Kig refuses a file, a construction saved from Kig
-itself in the VM is read and the file made to match. The package's
-version goes to 0.2.0 (D93).
+**The page.** One `index.html` written at build time by
+`webapp/page.py`, as hello-web's and BASIC's are, with every language's
+words in it: Kidux's colours and type, a heading, the groups of section
+5.4 in order, each with its name and its ages and a row of tiles, a
+tile the simulation's title in the child's language; a tile opens the
+simulation *in the same page*, in an `iframe` that fills the room under
+a slim bar of Kidux's own with *Simulations* (back to the list) and the
+simulation's title, so that a child always has the way back, which a
+simulation's page has not. Opening one is a step of the window's
+history, and the frame is loaded without a step of its own, so that the
+bar's button, Alt+Left and the window's Back all return to the list;
+the window's title is the simulation's while it is open. The simulation's address is `sims/<sim>_all.html?locale=<lang>`,
+the file choosing its language by that parameter. At the foot of the
+list, the attribution line, translated into the child's language as
+the agreement allows, with PhET's address as text. The page needs
+nothing of the internet, and `ci/upstream/check-site.py` holds the
+files to that; the module names no `hosts`.
 
-**Tests.** The module's unit test reads the guide with `kidux.lessons`
-and finds six lessons with titles in both languages, every picture
-present, and every mission a lesson names present in its language's
-tree, the same lessons naming one in both. Session, `36-module-kig.py`: the picture
-`module-kig` is taken with the pane (the tile's first open), and a new
-check opens the copy of lesson 2's mission in Kig, as the starter does
-with a file, and finds Kig's window titled with the file's name.
+**The manifest.** `id = "simulations"`, ages 6 to 14, no
+`recommended_before`, `launch = { webapp = "simulations" }`,
+`categories = ["science", "maths"]`, `memory_max = "2G"`. The package
+depends on `kidux-webapps` and installs the page and the files under
+`/usr/share/kidux/webapps/simulations/`; its `debian/copyright` has
+`Files: upstream/sims/*` under CC-BY-4.0 with the attribution, and
+names that each file carries, in its *About*, the libraries inside it
+under their own licences.
 
-### 4.36 — Step's guide
+**Size.** The set in section 5.4 is 51 simulations of about 3.3 MB
+each, all languages in each file: about 170 MB installed, between
+Blockly Games and ScratchJr. The owner may cut the list; the groups
+and the page take any number.
 
-As 4.35 for `kidux-module-step`: section 5.3's six lessons and five
-missions, Step's files in its own XML, each tried in Step; version
-0.2.0. The notes inside a mission are Step's *Note* objects, in the
-language of the mission's tree. Session, `38-module-step.py`: a check
-opens the copy of lesson 1's mission in Step, as the starter does with a
-file, and finds Step's window titled with the file's name.
+**Tests.** Unit: `sims.toml` reads, every simulation in it has a title in
+every language the module has words for, the page builds with them,
+`page.py`'s words are complete. Project: `tests/project/upstream.sh`'s
+new case. Acceptance: installs through the daemon with
+`kidux-webapps`, the server answers for the page and for one
+simulation's file, no file names `by-nc` and the `LICENSE` beside them
+names CC BY 4.0 and PhET's attribution, listed for a child switched off,
+removed without a trace of the module's own. Session,
+`tests/session/40-module-simulations.py`, and acceptance
+`tests/acceptance/25-module-simulations.sh`:
+Leo opens the tile, the list is drawn in Spanish (the picture
+`module-simulations`), a tile opened by keyboard shows a simulation in
+the frame with the bar's *Simulations* above it (the picture
+`module-simulations-open`), *Simulations* goes back to the list,
+Alt+F4 closes it. Both pictures in the guide.
 
-**Found, 2026-10-17.** Every mission opens in Step, titled with its name,
-its objects in the World list. With the pane beside it, Step's world
-view is about 90 pixels wide at 1280x800: its four panels on the right,
-World, Properties, Context information and Undo history, take the rest,
-so a mission's note and objects are hardly seen until the child folds
-the guide or closes a panel. Kig's and Kalzium's fit. The owner decided,
-on 2026-10-17, that the pane is narrower for every module, a quarter of
-the screen (section 2, 4.34), and that Step's guide says plainly that it
-folds and unfolds: an introduction above its lessons (section 5.3), and
-*Fold* with its word beside its arrow for every guide. With the pane at
-a quarter, Step's world view is about 190 pixels wide beside it, and
-folded, the whole of Step's own room.
+**Documents.** modules.md section 4 gets a sentence on a web application
+whose files are fetched, not built; packaging.md's "Programs built at
+development time" the same, and `upstream.toml`'s empty pair; the user
+guide's section, with the licence and the attribution said plainly;
+the website's card and its licence line; architecture.md section 8 and
+the two decisions of section 4 as D104 and D105.
 
-### 4.37 — Kalzium's guide
-
-As 4.35 for `kidux-module-kalzium`: section 5.4's three lessons, no
-missions; version 0.2.0. Simulations get no guide: each simulation is
-made to be explored alone, and its page already says what each is.
-
-### 4.38 — Links out of a module
-
-**Cause.** Step's *Open in browser*, and any program that asks the
-desktop to open a web page or an HTML file, gets a plain Chromium window
-in the child's session, with tabs and an address bar, outside every
-module's wall (4.32). The machine's policy still holds it to the
-installed modules' hosts, but it is not Kidux's kiosk.
-
-**Change.** The child's session gives every program Kidux's answer to a
-link out: `kidux-session` puts `/usr/share/kidux/session/xdg` first in
-`XDG_CONFIG_DIRS` and `/usr/share/kidux/session/share` first in
-`XDG_DATA_DIRS`; the first holds a `mimeapps.list` whose default for
-`text/html`, `application/xhtml+xml`, `x-scheme-handler/http` and
-`x-scheme-handler/https` is `kidux-closed.desktop`, the second that
-desktop file under `applications/`, hidden from menus, whose `Exec` is
-`/usr/libexec/kidux-closed %u`: a small program of `kidux-session`'s,
-its words in kidux-common's `kidux.closed`, where the catalogue reaches
-them, that sends the desktop's notification (D98) *That opens the internet,
-which is closed here.* as a notice from the module, through the bubble's
-own `module_of` (the caller's scope), and exits 0. KIO and `xdg-open`
-both read those files, so Step's button, a link in GCompris's help or
-any other goes to the bubble and opens nothing; `kidux-webapp`, which
-starts its Chromium itself, is untouched. The KDE modules' starters keep
-what the session set, since they only put their own directory first.
-
-**Tests.** Unit: the desktop file and the list parse, `kidux-closed`'s
-notice. Session: in `38-module-step.py`, `xdg-open` of an `.html` file
-as Leo in his session sends the bubble and starts no Chromium (no
-`chromium` process of Leo's).
-
-**Documents.** session.md section 3; modules.md section 2 (a module that
-opens a link gets the bubble); the user guide's section 5, one
-sentence; architecture.md, D104.
-
-### 4.39 — Closing
+### 4.31 — Closing
 
 The documents read once more against what was built; the roadmap's
-item ticked; the final message to the owner: what was built, how to try
-each part on the MacBook, and the prompt for the final review. No
-battery.
+phase 4 ticked; the final message to the owner: what was built, how to
+try each module on the MacBook, and the prompt for the review. No
+battery: the owner tries the work first (CLAUDE.md).
 
 ## 3. Rules for this plan
 
 As phase-4c-plan.md section 3, and:
 
-- **Partial tests only**, on the machine left up; the battery is the
-  owner's to ask for after their own tries and Fable's final review.
-- **The lessons are used as written** in section 5, in both languages;
-  a word changed is a word changed in both, and the Spanish hashes
-  recomputed (`tests/project/content.py --update`).
-- **Every mission file is opened in its program on the machine before it
-  is committed**, and photographed; a file the program refuses is fixed,
-  not dropped.
-- **Nothing of KDE's or PhET's is drawn**: the lessons' pictures are
-  Kidux's own, like the avatars.
+- **Partial tests only.** Each step is tried on the machine left up
+  (`tests/run vm up 04`, `vm push`, its session test with `vm test NN`)
+  and its unit and acceptance tests; the battery is the owner's to ask
+  for after their own tries.
+- **Nothing of KDE's or PhET's is drawn.** The icons are Kidux's own,
+  like the avatars. The PhET logo inside each simulation stays as it is.
+- **The simulations' files are never edited**, and the attribution is
+  never dropped: a file is taken whole or not at all.
+- **The cut-off is a rule of the build, not a note.** A simulation file
+  that names `by-nc` fails the build, whatever its date says.
 
 ## 4. What the owner decided
 
 Decided 2026-10-16 by the owner.
 
-1. **A module may have a guide beside it**, lessons of Kidux's own with
-   examples and ideas, shown beside the program and not inside it, and
-   the modules a child cannot find their way in alone get one: Kig and
-   Step first.
-2. **One pane, two modes.** For a child without windows the room above
-   the bar is split, the guide on the right, a quarter, and the program
-   filling the rest; the pane shows the guide of the module on screen,
-   swaps it for another module's, and goes away for a module without
-   one. For a child with windows the guide takes the right edge and the
-   windows have the rest of the desk; the pane stays while any open
-   module has a guide, shows the guide of the module in use, keeps the
-   last shown when that module has none, and goes away when the last
-   module with a guide closes.
-3. **The pane folds to a rail** along the edge, for room, and unfolds
-   again from the rail or from the bar, in both modes. With windows, the
-   child may pick a guide by hand from the pane's top, and pin it so
-   that it stays whatever window comes into use.
-4. **Fable plans, Opus builds, Fable reviews**, then the owner's hand
-   tests, then the battery and the release.
+1. **Four science and maths modules at once**: Kig, Kalzium and Step
+   from trixie, each its own module, and a set of PhET's simulations
+   served on the computer. Each is installed, enabled and removed on its
+   own, as every module is.
+2. **The simulations are shipped, not opened on PhET's site**, so that
+   they work without the internet, as Blockly Games does; the page that
+   lists them is Kidux's own, in both languages.
+3. **Opus builds, Fable reviews.** The steps are built by Opus from this
+   plan with partial tests only; Fable then reviews everything; the
+   owner tries the work; the battery and the release come after.
 
-Confirmed 2026-10-17 by the owner, on Fable's proposal:
-
-5. **The pane is the launcher's own, a layer-shell surface with an
-   exclusive zone**, not a second window the compositor places: it works
-   the same in both modes, needs no window rules, opens and folds at
-   once, and follows the module on screen. For a child with windows this
-   is "the guide at the edge, the windows beside it" rather than two
-   windows side by side, which labwc can only do with rules that act
-   once, when a window appears, and never again.
-6. **The lessons are drawn by the launcher from a small Markdown**, not
-   shown as web pages: a browser in the launcher would be a second
-   engine on the machine (D36), and a lesson needs headings, steps,
-   pictures and the mascot, nothing more.
-7. **Missions are copied into the child's Documents**, in a folder named
-   in their language, and opened from the program's own File, Open when
-   the program is already running: a second start would be a second
-   window, and opening a file is itself a thing to learn.
-8. **Kalzium gets a short guide; the Simulations none.**
-9. **Links out of a module get a bubble and open nothing** (4.38), for
-   every program in a child's session.
+4. **The simulations are PhET's historical versions**, published before
+   29 March 2026 under CC BY 4.0, and never a file under CC BY-NC 4.0,
+   which Kidux's own licence to organisations could not carry; and the
+   module is named *Simulations*, with PhET named in its description as
+   the simulations' author, not in its name (D105). The current versions
+   would be a door to phet.colorado.edu (D85), shipping nothing.
 
 ## 5. The content
 
-### 5.1 The pane's words (kidux-launcher's catalogue)
+Every word below is used as written: the manifests' `name` and
+`description`, the catalogues' Spanish, the panel's fields, the guide's
+sections and the website's cards. English first, Spanish beside it.
 
-| English | Spanish |
-|---|---|
-| Guide | Guía |
-| Fold | Plegar |
-| Pin (the guide stays while other windows are in use) | Fijar (la guía se queda aunque uses otras ventanas) |
-| Lessons | Lecciones |
-| Back | Volver |
-| Next | Siguiente |
-| Try this | Prueba esto |
-| Mission | Misión |
-| Open it from {name}: File, Open, Documents, {folder}, {file}. | Ábrela desde {name}: Archivo, Abrir, Documentos, {folder}, {file}. |
-| Missions of {name} | Misiones de {name} |
-| That opens the internet, which is closed here. (4.38, kidux-session) | Eso abre internet, que aquí está cerrado. |
+### 5.1 The manifests and the catalogues
 
-### 5.2 Kig's guide
+| Module | `name` | `description` (English) | Spanish `name` | Spanish `description` |
+|---|---|---|---|---|
+| kig | Kig | Geometry you can move: points, lines, circles and shapes that keep their rules when you drag them. | Kig | Geometría que se mueve: puntos, rectas, circunferencias y figuras que conservan sus reglas cuando las arrastras. |
+| kalzium | Kalzium | The periodic table: every element, what it is like, its atom, and how matter changes with the temperature. | Kalzium | La tabla periódica: cada elemento, cómo es, su átomo, y cómo cambia la materia con la temperatura. |
+| step | Step | A physics playground: put springs, weights and forces on the table, press play and see what happens. | Step | Un laboratorio de física: pon muelles, pesos y fuerzas sobre la mesa, dale a reproducir y mira qué pasa. |
+| simulations | Simulations | Experiments to play with on the screen: numbers, forces, light, electricity, matter, planets and life. Simulations by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY 4.0; Kidux is not connected with PhET. | Simulaciones | Experimentos para jugar en la pantalla: números, fuerzas, luz, electricidad, materia, planetas y vida. Simulaciones de PhET Interactive Simulations, Universidad de Colorado Boulder, bajo licencia CC BY 4.0; Kidux no tiene relación con PhET. |
 
-**Pictures** (`content/images/`): `kig-point-line.svg`, two points and a
-line through them; `kig-middle.svg`, a segment with its midpoint marked;
-`kig-circles.svg`, two circles crossing at two points; `kig-parallels.svg`,
-a line, a point and the perpendicular and the parallel through it;
-`kig-triangle.svg`, Euclid's two circles with the equilateral triangle;
-`kig-angles.svg`, a triangle with its three angles marked. Each flat, in
-Kidux's colours, 360 wide.
+Ages and what comes before, for `XB-Kidux-Ages` and `XB-Kidux-Before`:
+Kig 10–14, before it GCompris; Kalzium 10–16; Step 10–16, before it
+Simulations; Simulations 6–14.
 
-**Mission files** (`content/<lang>/missions/`), Kig's native XML. The
-shape, to be checked against a file Kig saves itself (4.35):
+The `debian/control` short descriptions: *Kidux learning module: Kig,
+geometry to move for ages ten to fourteen*; *Kidux learning module:
+Kalzium, the periodic table for ages ten and up*; *Kidux learning
+module: Step, a physics playground for ages ten and up*; *Kidux learning
+module: Simulations, PhET's science and maths experiments*. The long descriptions follow Tux Typing's shape: what
+the program is, in the child's language, and the sentence about the
+Modules page.
 
-```xml
-<!DOCTYPE KigDocument>
-<KigDocument axes="1" grid="1" Version="1.0" CompatibilityVersion="0.7.0">
- <CoordinateSystem>Euclidean</CoordinateSystem>
- <Objects>
-  <Data type="double" id="1">-3</Data>
-  <Data type="double" id="2">1</Data>
-  <Object type="FixedPoint" id="3"><Parent id="1"/><Parent id="2"/></Object>
-  <Draw object="3" color="#e4572e" shown="true" width="-1" point-style="Round"
-        style="SolidLine"><Name>A</Name></Draw>
-  …
- </Objects>
-</KigDocument>
+### 5.2 The user guide, section 9, after Gmail
+
+**Kig**
+
+> **Kig** is geometry a child can move. Points, lines, circles and
+> shapes go on the canvas, and each keeps its rule when the child drags
+> what it was built from: the middle stays in the middle, the parallel
+> stays parallel. It is for children from ten to fourteen, in the
+> child's language, and it works without the internet. What a child
+> draws can be saved as a file in their folders.
+
+> **Kig** es geometría que el niño puede mover. Los puntos, las rectas,
+> las circunferencias y las figuras se ponen sobre el lienzo, y cada una
+> conserva su regla cuando el niño arrastra aquello de lo que se
+> construyó: el punto medio sigue en medio, la paralela sigue paralela.
+> Es para niños de diez a catorce años, en el idioma del niño, y
+> funciona sin internet. Lo que el niño dibuja se puede guardar como un
+> archivo en sus carpetas.
+
+**Kalzium**
+
+> **Kalzium** is the periodic table. Each element opens with what it is
+> like, where it was found, a picture of it and a drawing of its atom; a
+> slider shows which elements are solid, liquid or gas at any
+> temperature; and there is a glossary of the words. It is for children
+> from ten up, in the child's language, and it works without the
+> internet.
+
+> **Kalzium** es la tabla periódica. Cada elemento se abre con cómo es,
+> dónde se encontró, una foto y un dibujo de su átomo; un deslizador
+> enseña qué elementos son sólidos, líquidos o gases a cada temperatura;
+> y hay un glosario de las palabras. Es para niños de diez años en
+> adelante, en el idioma del niño, y funciona sin internet.
+
+**Step**
+
+> **Step** is a physics playground. The child puts bodies, springs,
+> ropes and forces on the plane, presses play and watches what happens,
+> with meters and graphs to read it; the examples in its File menu are
+> experiments ready to run. It is for children from ten up, in the
+> child's language, and it works without the internet; its menu to
+> download more experiments is switched off. An experiment can be saved
+> as a file in the child's folders.
+
+> **Step** es un laboratorio de física. El niño pone cuerpos, muelles,
+> cuerdas y fuerzas sobre el plano, le da a reproducir y mira qué pasa,
+> con medidores y gráficas para leerlo; los ejemplos de su menú Archivo
+> son experimentos listos para correr. Es para niños de diez años en
+> adelante, en el idioma del niño, y funciona sin internet; su menú para
+> descargar más experimentos está apagado. Un experimento se puede
+> guardar como un archivo en las carpetas del niño.
+
+**Simulations**
+
+> **Simulations** are experiments to play with on the screen: build a
+> number, balance a seesaw, bend a ray of light, rub a balloon on a
+> sweater, build an atom, put planets in orbit. They are PhET's
+> interactive simulations, made by the University of Colorado Boulder
+> and used in schools everywhere, chosen here for children from six to
+> fourteen and sorted by group and age, in the child's language. They
+> are on the computer and work without the internet. Each one opens in
+> its own frame, with **Simulations** at the top to come back to the
+> list. The simulations are the versions PhET published under the
+> Creative Commons Attribution 4.0 licence; Kidux is not connected with
+> PhET.
+
+> **Simulaciones** son experimentos para jugar en la pantalla: formar un
+> número, equilibrar un balancín, doblar un rayo de luz, frotar un globo
+> en un jersey, construir un átomo, poner planetas en órbita. Son las
+> simulaciones interactivas de PhET, hechas por la Universidad de
+> Colorado Boulder y usadas en escuelas de todo el mundo, elegidas aquí
+> para niños de seis a catorce años y ordenadas por grupo y edad, en el
+> idioma del niño. Están en el ordenador y funcionan sin internet. Cada
+> una se abre en su propio marco, con **Simulaciones** arriba para
+> volver a la lista. Las simulaciones son las versiones que PhET publicó
+> bajo la licencia Creative Commons Atribución 4.0; Kidux no tiene
+> relación con PhET.
+
+Each section ends with its picture, `module-<id>.png`, and Simulations
+with `module-simulations-open.png` after the paragraph too.
+
+### 5.3 The website's cards
+
+| Card | `name` | `age` | `text` |
+|---|---|---|---|
+| kig (en) | Kig | Ages 10 to 14 | Geometry you can drag: shapes that keep their rules. |
+| kig (es) | Kig | De 10 a 14 años | Geometría que se arrastra: figuras que conservan sus reglas. |
+| kalzium (en) | Kalzium | Ages 10 and up | The periodic table, element by element. |
+| kalzium (es) | Kalzium | De 10 años en adelante | La tabla periódica, elemento a elemento. |
+| step (en) | Step | Ages 10 and up | Build a physics experiment and press play. |
+| step (es) | Step | De 10 años en adelante | Monta un experimento de física y dale a reproducir. |
+| simulations (en) | Simulations | Ages 6 to 14 | PhET's science and maths experiments, on the computer. |
+| simulations (es) | Simulaciones | De 6 a 14 años | Los experimentos de ciencias y matemáticas de PhET, en el ordenador. |
+
+The licence line of the website (`others`) adds *Kig, Kalzium, Step and
+PhET's simulations* to the programs that belong to their authors; the
+anchors are the guide's section names in each language.
+
+### 5.4 The simulations
+
+`packages/kidux-module-simulations/sims.toml`, as the build and the page
+read it. The groups are the page's rows, in this order, each with its
+title in both languages through the module's catalogue; a simulation
+has its PhET name (its directory on the site), its title as PhET gives
+it in each language (the Spanish ones are PhET's own translations), its
+its version (the newest built before 29 March 2026 that names no
+`by-nc`) and its sum, both written by the versions tool. The ages are
+the groups'. The titles are data of the simulations, not words of Kidux's,
+which is why they are here and not in the catalogue.
+
+```toml
+# The simulations the module serves (phase-4f-plan.md, 4.30): PhET's
+# historical versions, under CC BY 4.0, each the newest built before
+# 29 March 2026. Versions and sums are filled in by the tools, never by
+# hand; the build refuses a file that is not what is written here.
+cutoff = "2026-03-29"
+attribution = "Simulation by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY 4.0 (https://phet.colorado.edu)"
+
+[[groups]]
+id = "numbers"          # Numbers and shapes / Números y formas
+ages = "6-10"
+sims = ["make-a-ten", "number-play", "number-compare", "number-pairs", "arithmetic",
+        "area-builder", "quadrilateral", "fractions-intro", "build-a-fraction",
+        "fraction-matcher"]
+
+[[groups]]
+id = "more-numbers"     # More numbers / Más números
+ages = "9-14"
+sims = ["number-line-integers", "ratio-and-proportion", "proportion-playground",
+        "area-model-introduction", "equality-explorer-basics", "function-builder-basics",
+        "unit-rates", "plinko-probability", "graphing-lines"]
+
+[[groups]]
+id = "forces"           # Forces and energy / Fuerzas y energía
+ages = "8-14"
+sims = ["forces-and-motion-basics", "balancing-act", "friction", "energy-skate-park-basics",
+        "energy-forms-and-changes", "masses-and-springs-basics", "pendulum-lab",
+        "projectile-motion", "gravity-force-lab-basics"]
+
+[[groups]]
+id = "light"            # Light, sound and waves / Luz, sonido y ondas
+ages = "8-14"
+sims = ["color-vision", "bending-light", "geometric-optics-basics", "waves-intro",
+        "wave-on-a-string"]
+
+[[groups]]
+id = "electricity"      # Electricity and magnets / Electricidad e imanes
+ages = "8-14"
+sims = ["balloons-and-static-electricity", "john-travoltage", "magnet-and-compass",
+        "magnets-and-electromagnets", "circuit-construction-kit-dc"]
+
+[[groups]]
+id = "matter"           # Matter and atoms / La materia y los átomos
+ages = "9-14"
+sims = ["states-of-matter-basics", "gases-intro", "density", "buoyancy-basics",
+        "build-an-atom", "build-a-molecule", "concentration", "ph-scale-basics"]
+
+[[groups]]
+id = "earth"            # Earth, space and life / La Tierra, el espacio y la vida
+ages = "8-14"
+sims = ["gravity-and-orbits", "my-solar-system", "greenhouse-effect", "under-pressure",
+        "natural-selection"]
+
+[sims.make-a-ten]
+title = { en = "Make a Ten", es = "Haz un Diez" }
+version = ""
+sha256 = ""
+[sims.number-play]
+title = { en = "Number Play", es = "Juego de Números" }
+version = ""
+sha256 = ""
+[sims.number-compare]
+title = { en = "Number Compare", es = "Comparar Números" }
+version = ""
+sha256 = ""
+[sims.number-pairs]
+title = { en = "Number Pairs", es = "Pares de Números" }
+version = ""
+sha256 = ""
+[sims.arithmetic]
+title = { en = "Arithmetic", es = "Aritmética" }
+version = ""
+sha256 = ""
+[sims.area-builder]
+title = { en = "Area Builder", es = "Constructor de Áreas" }
+version = ""
+sha256 = ""
+[sims.quadrilateral]
+title = { en = "Quadrilateral", es = "Cuadrilátero" }
+version = ""
+sha256 = ""
+[sims.fractions-intro]
+title = { en = "Fractions: Intro", es = "Fracciones: Intro" }
+version = ""
+sha256 = ""
+[sims.build-a-fraction]
+title = { en = "Build a Fraction", es = "Construye una fracción" }
+version = ""
+sha256 = ""
+[sims.fraction-matcher]
+title = { en = "Fraction Matcher", es = "Parejas de Fracciones" }
+version = ""
+sha256 = ""
+[sims.number-line-integers]
+title = { en = "Number Line: Integers", es = "Recta Numérica: Enteros" }
+version = ""
+sha256 = ""
+[sims.ratio-and-proportion]
+title = { en = "Ratio and Proportion", es = "Razón y Proporción" }
+version = ""
+sha256 = ""
+[sims.proportion-playground]
+title = { en = "Proportion Playground", es = "Pista de juego de proporciones" }
+version = ""
+sha256 = ""
+[sims.area-model-introduction]
+title = { en = "Area Model Introduction", es = "Modelo de Áreas: Introducción" }
+version = ""
+sha256 = ""
+[sims.equality-explorer-basics]
+title = { en = "Equality Explorer: Basics", es = "Explorador de Igualdades: Intro" }
+version = ""
+sha256 = ""
+[sims.function-builder-basics]
+title = { en = "Function Builder: Basics", es = "Generador de funciones: Intro" }
+version = ""
+sha256 = ""
+[sims.unit-rates]
+title = { en = "Unit Rates", es = "Razón unitaria" }
+version = ""
+sha256 = ""
+[sims.plinko-probability]
+title = { en = "Plinko Probability", es = "Probabilidad Plinko" }
+version = ""
+sha256 = ""
+[sims.graphing-lines]
+title = { en = "Graphing Lines", es = "Graficando Rectas" }
+version = ""
+sha256 = ""
+[sims.forces-and-motion-basics]
+title = { en = "Forces and Motion: Basics", es = "Fuerzas y Movimiento: Intro" }
+version = ""
+sha256 = ""
+[sims.balancing-act]
+title = { en = "Balancing Act", es = "Ley de equilibrio" }
+version = ""
+sha256 = ""
+[sims.friction]
+title = { en = "Friction", es = "Fricción" }
+version = ""
+sha256 = ""
+[sims.energy-skate-park-basics]
+title = { en = "Energy Skate Park: Basics", es = "Energía en la pista de patinaje: Intro" }
+version = ""
+sha256 = ""
+[sims.energy-forms-and-changes]
+title = { en = "Energy Forms and Changes", es = "Formas y Cambios de Energía" }
+version = ""
+sha256 = ""
+[sims.masses-and-springs-basics]
+title = { en = "Masses and Springs: Basics", es = "Masas y Resortes: Intro" }
+version = ""
+sha256 = ""
+[sims.pendulum-lab]
+title = { en = "Pendulum Lab", es = "Lab de Péndulo" }
+version = ""
+sha256 = ""
+[sims.projectile-motion]
+title = { en = "Projectile Motion", es = "Movimiento de un Proyectil" }
+version = ""
+sha256 = ""
+[sims.gravity-force-lab-basics]
+title = { en = "Gravity Force Lab: Basics", es = "Lab de Fuerza de Gravedad: Intro" }
+version = ""
+sha256 = ""
+[sims.color-vision]
+title = { en = "Color Vision", es = "Visión del color" }
+version = ""
+sha256 = ""
+[sims.bending-light]
+title = { en = "Bending Light", es = "Reflexión y Refracción de la Luz" }
+version = ""
+sha256 = ""
+[sims.geometric-optics-basics]
+title = { en = "Geometric Optics: Basics", es = "Óptica Geométrica: Intro" }
+version = ""
+sha256 = ""
+[sims.waves-intro]
+title = { en = "Waves Intro", es = "Ondas: Intro" }
+version = ""
+sha256 = ""
+[sims.wave-on-a-string]
+title = { en = "Wave on a String", es = "Onda en una cuerda" }
+version = ""
+sha256 = ""
+[sims.balloons-and-static-electricity]
+title = { en = "Balloons and Static Electricity", es = "Globos y electricidad estática" }
+version = ""
+sha256 = ""
+[sims.john-travoltage]
+title = { en = "John Travoltage", es = "Travoltaje" }
+version = ""
+sha256 = ""
+[sims.magnet-and-compass]
+title = { en = "Magnet and Compass", es = "Imán y brújula" }
+version = ""
+sha256 = ""
+[sims.magnets-and-electromagnets]
+title = { en = "Magnets and Electromagnets", es = "Imanes y Electroimanes" }
+version = ""
+sha256 = ""
+[sims.circuit-construction-kit-dc]
+title = { en = "Circuit Construction Kit: DC", es = "Kit de Construcción de Circuitos: CD" }
+version = ""
+sha256 = ""
+[sims.states-of-matter-basics]
+title = { en = "States of Matter: Basics", es = "Estados de la Materia: Intro" }
+version = ""
+sha256 = ""
+[sims.gases-intro]
+title = { en = "Gases Intro", es = "Gases: Intro" }
+version = ""
+sha256 = ""
+[sims.density]
+title = { en = "Density", es = "Densidad" }
+version = ""
+sha256 = ""
+[sims.buoyancy-basics]
+title = { en = "Buoyancy: Basics", es = "Flotabilidad: Intro" }
+version = ""
+sha256 = ""
+[sims.build-an-atom]
+title = { en = "Build an Atom", es = "Construye un Átomo" }
+version = ""
+sha256 = ""
+[sims.build-a-molecule]
+title = { en = "Build a Molecule", es = "Construye una Molécula" }
+version = ""
+sha256 = ""
+[sims.concentration]
+title = { en = "Concentration", es = "Concentración" }
+version = ""
+sha256 = ""
+[sims.ph-scale-basics]
+title = { en = "pH Scale: Basics", es = "Escala pH: Intro" }
+version = ""
+sha256 = ""
+[sims.gravity-and-orbits]
+title = { en = "Gravity and Orbits", es = "Gravedad y Órbitas" }
+version = ""
+sha256 = ""
+[sims.my-solar-system]
+title = { en = "My Solar System", es = "Mi Sistema Solar" }
+version = ""
+sha256 = ""
+[sims.greenhouse-effect]
+title = { en = "Greenhouse Effect", es = "Efecto Invernadero" }
+version = ""
+sha256 = ""
+[sims.under-pressure]
+title = { en = "Under Pressure", es = "Bajo presión" }
+version = ""
+sha256 = ""
+[sims.natural-selection]
+title = { en = "Natural Selection", es = "Selección Natural" }
+version = ""
+sha256 = ""
 ```
 
-Each point is two `Data` doubles and a `FixedPoint` with them as parents;
-a segment is `SegmentAB` with two point parents, a circle by centre and
-point `CircleBCP`, a midpoint the property `mid-point` of a segment, a
-label `TextLabel`; `Draw` makes each object visible with its colour and
-its name. The four missions:
-
-- `middle.kig` / `medio.kig` (lesson 2): points A (-4, 1) and B (3, 1)
-  in orange, the segment AB in ink, its midpoint M in blue, and a label
-  at (-4, 3): *Drag A. Where does M go?* / *Arrastra A. ¿Adónde va M?*
-- `two-circles.kig` / `dos-circunferencias.kig` (lesson 3): points A
-  (-2, 1) and B (2, 1), off the axis whose numbers would cover their
-  names, the circle centred A through B, and a label in two lines:
-  *Draw the circle centred B through A. Where do they cross?* / *Dibuja
-  la circunferencia con centro B que pasa por A. ¿Dónde se cruzan?*
-- `parallels.kig` / `paralelas.kig` (lesson 4): the line through (-5, -2)
-  and (5, 1), a point P at (0, 3) in orange, and a label: *Draw the
-  parallel and the perpendicular to the line through P, then drag P.* /
-  *Dibuja la paralela y la perpendicular a la recta por P, y luego
-  arrastra P.*
-- `triangle.kig` / `triangulo.kig` (lesson 5): points A (-2, 1) and B
-  (2, 1), the circle centred A through B, and a label: *One circle is
-  drawn. Draw the other, find C, and join the three.* / *Una
-  circunferencia ya está. Dibuja la otra, encuentra C y une los tres.*
-
-**Lessons** (`packages/kidux-module-kig/content/<lang>/`), six, each
-naming Kig's tools as Kig names them, with Kig's own picture of the
-button before the step (`content/images/tools/`, GPL-2.0-or-later, from
-the kig package), and tried in Kig on the test machine: a tool is let go
-after each construction, so *Point* is pressed once per point; a click
-on an empty place during a construction makes a point there; a point
-gets a name through *Set name* in its context menu, since Kig names
-none; dragging needs no tool; *Which object?* is asked when several
-things are under the mouse; a label from *Add text label* appears at
-once beside its object.
-
-1. *Points and lines*: a point, a line through two points, dragging;
-   names; a triangle of three segments.
-2. *The middle of a segment*: the mission `middle.kig`; *Mid point* by
-   the segment's two ends; a free point beside it.
-3. *Circles*: the mission `two-circles.kig`; a second circle, *Intersect*;
-   a point that lives on a circle.
-4. *Perpendicular and parallel*: the mission `parallels.kig`; a square
-   that stays square, with names; hiding what was used.
-5. *A triangle with three equal sides*: the mission `triangle.kig`; the
-   two-circle construction.
-6. *Measure it*: *Angle by three points*; *Add text label* with *Angle
-   in degrees* and *Length*; Pythagoras to try.
-
-### 5.3 Step's guide
-
-**Introduction**, `intro.md`, above the list of lessons:
-
-```markdown
-> [point] Step needs room for its world. Press **Fold**, at the top of this
-> guide, and the guide folds into a strip on the right; press the strip, or
-> **Guide** on the bar, and it opens again where you left it.
-```
-
-```markdown
-> [point] Step necesita sitio para su mundo. Pulsa **Plegar**, arriba en esta
-> guía, y la guía se queda en una tira a la derecha; pulsa la tira, o **Guía**
-> en la barra, y se abre otra vez donde la dejaste.
-```
-
-**Pictures**: `step-fall.svg`, a ball with a downward arrow;
-`step-spring.svg`, two balls joined by a spring; `step-pendulum.svg`, a
-ball on a rod from a fixed point; `step-throw.svg`, a ball and the arc
-it flies; `step-graph.svg`, a small graph with a curve; `step-bounce.svg`,
-a ball bouncing off a box.
-
-**Mission files**, Step's XML (`StepCoreXML`, as Step's own examples in
-`/usr/share/doc/step/examples/`): a `<world>` with `<item class="…">`
-elements, each with `<name>`, `<color>`, and its properties; a *Note*
-is `<item class="Note">` with `<position>`, `<size>` and `<text>` holding
-the note's words (Step writes them as rich text; plain text inside works
-too). Distances are metres, masses kilograms, time seconds. The five
-missions:
-
-- `fall.step` / `caida.step` (lesson 1): a `Particle` of mass 1 at
-  (0, 3), velocity (0, 0); a `WeightForce` with `weightConst` 9.80665;
-  a `Note` at (-4, 4), size (200, 60): *Press Simulate. Then give the
-  ball a sideways push: set its velocity to (2, 0).* / *Pulsa Simular.
-  Luego dale a la bola un empujón de lado: pon su velocidad en (2, 0).*
-- `spring.step` / `muelle.step` (lesson 2): two `Particle`s of mass 1 at
-  (-1, 0) and (1, 0), a `Spring` between them with `restLength` 1,
-  `stiffness` 5 and `damping` 0, no gravity; a note: *The spring is
-  stretched. Press Simulate and watch. Then make it stiffer: stiffness
-  50.* / *El muelle está estirado. Pulsa Simular y mira. Luego hazlo más
-  duro: rigidez 50.*
-- `pendulum.step` / `pendulo.step` (lesson 3): a `Particle` of mass 1 at
-  (1.5, 0), a `Stick` of `restLength` 1.5 from the world (`body1` 0,
-  `localPosition1` (0, 0)) to the particle, a `WeightForce`; a note:
-  *Press Simulate. Then stop, move the ball lower, and press again: does
-  it swing slower?* / *Pulsa Simular. Luego para, pon la bola más abajo y
-  pulsa otra vez: ¿se balancea más despacio?*
-- `throw.step` / `lanzamiento.step` (lesson 4): a `Particle` of mass 1 at
-  (-4, 0), velocity (4, 6); a `WeightForce`; a `Tracer` on the particle
-  (`body` the particle, `localPosition` (0, 0)); a note: *Press Simulate
-  and watch the path. Then try velocity (6, 4). Which goes further?* /
-  *Pulsa Simular y mira el camino. Luego prueba la velocidad (6, 4).
-  ¿Cuál llega más lejos?*
-- `bounce.step` / `rebote.step` (lesson 6): a `Box` at (0, -2), size
-  (8, 0.5), held where it is by an `Anchor`, and a `Disk` of mass 1 and
-  radius 0.3 at (0, 2), velocity (1, 0); a `WeightForce`; a
-  `GJKCollisionSolver`; a note: *Press Simulate. The disk bounces on
-  the box. Add a second disk and let them crash.* / *Pulsa Simular. El
-  disco rebota en la caja. Añade un segundo disco y haz que choquen.*
-
-Each file is written by hand after reading Step's own examples for the
-exact properties each class needs (Step 25.04 names them in its
-`objinfo` pages too), opened in Step on the machine, and photographed.
-
-**Lessons.**
-
-`01-a-ball-falls.md`
-
-```
-# A ball falls
-
-Step is a world where things obey the laws of physics. You put things in
-it, press **Simulate**, and watch what the laws do to them.
-
-![A ball with the arrow of its fall](images/step-fall.svg)
-
-@mission missions/fall.step
-
-1. Open the mission. A ball floats in the air, and a note tells you what
-   to try.
-2. Press **Simulate** at the top. The ball falls. Press it again to stop.
-3. Nothing pulls the ball but **gravity**, the weight force, which you
-   can see in the **World** list on the right.
-4. Click the ball. In **Properties** you see its *position*, its
-   *velocity* and its *mass*. Change the velocity to (2, 0) and simulate
-   again.
-
-> [think] The ball now moves sideways while it falls. The sideways push
-> does not change how fast it falls: gravity only pulls down.
-
-## Do it yourself
-
-1. Press **New** in the toolbar for an empty world.
-2. In the palette on the left, press **Particle** and click on the
-   canvas. That is a ball.
-3. Press **WeightForce** in the palette and click on the canvas: that
-   switches gravity on.
-4. Simulate.
-
-::: try
-Put two balls, one with mass 1 and one with mass 100, at the same height.
-Which lands first? Galileo tried this from a tower.
-:::
-```
-
-```
-# Una bola cae
-
-Step es un mundo donde las cosas obedecen las leyes de la física. Pones
-cosas en él, pulsas **Simular** y miras qué les hacen las leyes.
-
-![Una bola con la flecha de su caída](images/step-fall.svg)
-
-@mission missions/caida.step
-
-1. Abre la misión. Una bola flota en el aire, y una nota te dice qué
-   probar.
-2. Pulsa **Simular** arriba. La bola cae. Pulsa otra vez para parar.
-3. A la bola solo tira la **gravedad**, la fuerza del peso, que puedes
-   ver en la lista **Mundo** de la derecha.
-4. Haz clic en la bola. En **Propiedades** ves su *posición*, su
-   *velocidad* y su *masa*. Cambia la velocidad a (2, 0) y simula otra
-   vez.
-
-> [think] Ahora la bola se mueve de lado mientras cae. El empujón de
-> lado no cambia lo rápido que cae: la gravedad solo tira hacia abajo.
-
-## Hazlo tú
-
-1. Pulsa **Nuevo** en la barra para un mundo vacío.
-2. En la paleta de la izquierda, pulsa **Partícula** y haz clic en el
-   lienzo. Eso es una bola.
-3. Pulsa **FuerzaPeso** en la paleta y haz clic en el lienzo: eso
-   enciende la gravedad.
-4. Simula.
-
-::: try
-Pon dos bolas, una de masa 1 y otra de masa 100, a la misma altura.
-¿Cuál llega antes al suelo? Galileo lo probó desde una torre.
-:::
-```
-
-`02-a-spring.md`
-
-```
-# A spring
-
-A spring pulls when you stretch it and pushes when you squash it. The
-harder you stretch it, the harder it pulls.
-
-![Two balls joined by a spring](images/step-spring.svg)
-
-@mission missions/spring.step
-
-1. Open the mission. Two balls, a spring between them, already
-   stretched. No gravity here.
-2. Press **Simulate**. The balls bounce towards each other and back,
-   again and again.
-3. Stop. Click the spring. In **Properties**, *stiffness* says how hard
-   it is. Change it to 50 and simulate.
-
-> [point] A stiffer spring bounces faster. The balls move the same way
-> whether the spring is soft or hard, only quicker.
-
-## Do it yourself
-
-1. New world. Two **Particles**.
-2. Press **Spring** in the palette, then drag from one ball to the
-   other.
-3. Drag one ball away to stretch the spring, and simulate.
-
-::: try
-Add **WeightForce** and hang the spring from an **Anchor**: a ball that
-bobs up and down. Change the ball's mass. Heavier, slower?
-:::
-```
-
-```
-# Un muelle
-
-Un muelle tira cuando lo estiras y empuja cuando lo aplastas. Cuanto
-más lo estiras, más fuerte tira.
-
-![Dos bolas unidas por un muelle](images/step-spring.svg)
-
-@mission missions/muelle.step
-
-1. Abre la misión. Dos bolas, un muelle entre ellas, ya estirado. Aquí
-   no hay gravedad.
-2. Pulsa **Simular**. Las bolas van la una hacia la otra y vuelven, una
-   y otra vez.
-3. Para. Haz clic en el muelle. En **Propiedades**, *rigidez* dice lo
-   duro que es. Cámbiala a 50 y simula.
-
-> [point] Un muelle más duro rebota más deprisa. Las bolas se mueven
-> igual con el muelle blando o duro, solo que más rápido.
-
-## Hazlo tú
-
-1. Mundo nuevo. Dos **Partículas**.
-2. Pulsa **Muelle** en la paleta y arrastra de una bola a la otra.
-3. Arrastra una bola para estirar el muelle, y simula.
-
-::: try
-Añade **FuerzaPeso** y cuelga el muelle de un **Ancla**: una bola que
-sube y baja. Cambia la masa de la bola. ¿Más pesada, más lenta?
-:::
-```
-
-`03-a-pendulum.md`
-
-```
-# A pendulum
-
-A weight on a rod that hangs from a point: that is a pendulum, the heart
-of an old clock.
-
-![A ball on a rod from a fixed point](images/step-pendulum.svg)
-
-@mission missions/pendulum.step
-
-1. Open the mission. A ball hangs from a rod, held at the top.
-2. Press **Simulate**. It swings left and right, and keeps swinging.
-3. Stop. Drag the ball a little lower, so that the rod is shorter, and
-   simulate again. Count the swings in ten seconds, before and after.
-
-> [think] A shorter pendulum swings faster. The weight of the ball does
-> not matter: try mass 10. Only the length does. Galileo noticed this
-> watching a lamp swing in a church.
-
-## Do it yourself
-
-1. New world, **WeightForce** on.
-2. A **Particle**. Then **Stick** in the palette: click on empty space
-   first, then on the ball. A stick from a fixed point to the ball.
-3. Drag the ball to one side and simulate.
-
-::: try
-Hang a second ball from the first with another stick: a double pendulum.
-Simulate. Can you guess where it will go? Nobody can.
-:::
-```
-
-```
-# Un péndulo
-
-Un peso en una varilla que cuelga de un punto: eso es un péndulo, el
-corazón de un reloj antiguo.
-
-![Una bola en una varilla desde un punto fijo](images/step-pendulum.svg)
-
-@mission missions/pendulo.step
-
-1. Abre la misión. Una bola cuelga de una varilla, sujeta por arriba.
-2. Pulsa **Simular**. Se balancea a izquierda y derecha, y sigue.
-3. Para. Arrastra la bola un poco más abajo, para que la varilla sea
-   más corta, y simula otra vez. Cuenta los vaivenes en diez segundos,
-   antes y después.
-
-> [think] Un péndulo más corto se balancea más deprisa. El peso de la
-> bola no importa: prueba con masa 10. Solo importa la longitud.
-> Galileo se dio cuenta mirando una lámpara que se balanceaba en una
-> iglesia.
-
-## Hazlo tú
-
-1. Mundo nuevo, **FuerzaPeso** encendida.
-2. Una **Partícula**. Luego **Varilla** en la paleta: haz clic primero
-   en un sitio vacío y luego en la bola. Una varilla desde un punto fijo
-   hasta la bola.
-3. Arrastra la bola a un lado y simula.
-
-::: try
-Cuelga una segunda bola de la primera con otra varilla: un péndulo
-doble. Simula. ¿Adivinas adónde irá? Nadie puede.
-:::
-```
-
-`04-throw-it.md`
-
-```
-# Throw it
-
-Throw a ball and it flies in a curve: up, over and down. Step can draw
-that curve for you.
-
-![A ball and the arc it flies](images/step-throw.svg)
-
-@mission missions/throw.step
-
-1. Open the mission. A ball on the left, with a velocity already set,
-   and a **Tracer** on it that draws where it goes.
-2. Press **Simulate**. The ball flies in an arc and the tracer leaves
-   its path behind.
-3. Stop and press **Undo** until the ball is back. Click it and set the
-   velocity to (6, 4). Simulate. Then (4, 6). Which throw goes further?
-   Which goes higher?
-
-> [think] The first number is the sideways speed, the second the upward
-> speed. Up decides how high; sideways, with the time it is in the air,
-> decides how far.
-
-## Do it yourself
-
-1. New world, **WeightForce** on, a **Particle**.
-2. In **Properties**, set its velocity to (5, 5).
-3. **Tracer** in the palette, then click the ball.
-4. Simulate.
-
-::: try
-Find the velocity that lands the ball exactly at x = 10. Then try to do
-it with a smaller total speed.
-:::
-```
-
-```
-# Lánzala
-
-Lanza una bola y vuela en una curva: sube, pasa y baja. Step puede
-dibujarte esa curva.
-
-![Una bola y el arco que recorre](images/step-throw.svg)
-
-@mission missions/lanzamiento.step
-
-1. Abre la misión. Una bola a la izquierda, con una velocidad ya puesta,
-   y un **Trazador** en ella que dibuja por dónde va.
-2. Pulsa **Simular**. La bola vuela en un arco y el trazador deja su
-   camino detrás.
-3. Para y pulsa **Deshacer** hasta que la bola vuelva. Haz clic en ella y
-   pon la velocidad en (6, 4). Simula. Luego (4, 6). ¿Qué lanzamiento
-   llega más lejos? ¿Cuál sube más?
-
-> [think] El primer número es la velocidad de lado, el segundo la de
-> subida. La de subida decide la altura; la de lado, con el tiempo que
-> está en el aire, decide la distancia.
-
-## Hazlo tú
-
-1. Mundo nuevo, **FuerzaPeso** encendida, una **Partícula**.
-2. En **Propiedades**, pon su velocidad en (5, 5).
-3. **Trazador** en la paleta, y luego clic en la bola.
-4. Simula.
-
-::: try
-Busca la velocidad que haga caer la bola justo en x = 10. Luego intenta
-hacerlo con una velocidad total más pequeña.
-:::
-```
-
-`05-measure.md`
-
-```
-# Measure it
-
-Scientists do not only watch: they measure. Step has meters and graphs
-that read numbers off your world while it runs.
-
-![A small graph with a curve](images/step-graph.svg)
-
-1. Make a ball with gravity, as in the first lesson, high up.
-2. Press **Meter** in the palette and click on the canvas. In its
-   **Properties**, choose the ball as *object* and *velocity* as
-   *property*. The meter shows a number.
-3. Simulate. The number grows as the ball falls faster and faster.
-4. Stop, undo. Now press **Graph** and click on the canvas. In its
-   properties, X is *time* of the world, Y is the ball's *position*.
-5. Simulate. A curve is drawn: the ball's height against time.
-
-> [think] The curve bends more and more: the ball covers more distance
-> each second. That is what *accelerating* looks like on a graph.
-
-::: try
-Graph the ball's velocity against time. It is a straight line. Why is
-one a curve and the other a line?
-:::
-```
-
-```
-# Mídelo
-
-Los científicos no solo miran: miden. Step tiene medidores y gráficas
-que leen números de tu mundo mientras funciona.
-
-![Una gráfica pequeña con una curva](images/step-graph.svg)
-
-1. Haz una bola con gravedad, como en la primera lección, bien alta.
-2. Pulsa **Medidor** en la paleta y haz clic en el lienzo. En sus
-   **Propiedades**, elige la bola como *objeto* y *velocidad* como
-   *propiedad*. El medidor enseña un número.
-3. Simula. El número crece mientras la bola cae cada vez más rápido.
-4. Para, deshaz. Ahora pulsa **Gráfica** y haz clic en el lienzo. En sus
-   propiedades, X es el *tiempo* del mundo, Y es la *posición* de la
-   bola.
-5. Simula. Se dibuja una curva: la altura de la bola frente al tiempo.
-
-> [think] La curva se dobla cada vez más: la bola recorre más distancia
-> cada segundo. Así se ve *acelerar* en una gráfica.
-
-::: try
-Dibuja la gráfica de la velocidad de la bola frente al tiempo. Es una
-línea recta. ¿Por qué una es curva y la otra recta?
-:::
-```
-
-`06-bounce.md`
-
-```
-# Bounce and crash
-
-Balls bounce off walls and crash into each other. Step knows how.
-
-![A ball bouncing off a box](images/step-bounce.svg)
-
-@mission missions/bounce.step
-
-1. Open the mission. A disk above a box held still by an anchor,
-   gravity on, and a collision solver in the world list, which is what
-   makes things bounce instead of passing through.
-2. Press **Simulate**. The disk falls, hits the box and bounces.
-3. Add a second **Disk** from the palette, give it a velocity towards
-   the first, and simulate. They crash and fly apart.
-
-> [cheer] Every bounce obeys one rule: what one ball loses in speed, the
-> other gains. Nothing is lost, only passed on.
-
-## Do it yourself
-
-1. New world. **Box** from the palette, drawn wide and flat.
-2. **Anchor** from the palette, then click the box: it stays where it
-   is, whatever pulls it.
-3. A **Disk** above it. **WeightForce**, and click on the canvas.
-4. Simulate. A new world already has its collision solver.
-
-::: try
-Make a slope: a box turned by setting its *angle* to 0.3. Let a disk roll
-down it. Then try **Gas** from the palette: a hundred particles bouncing
-in a box, which is what air is.
-:::
-```
-
-```
-# Rebota y choca
-
-Las bolas rebotan en las paredes y chocan unas con otras. Step sabe
-cómo.
-
-![Una bola que rebota en una caja](images/step-bounce.svg)
-
-@mission missions/rebote.step
-
-1. Abre la misión. Un disco sobre una caja sujeta por un ancla,
-   gravedad encendida, y en la lista del mundo un resolutor de
-   colisiones, que es lo que hace que las cosas reboten en vez de
-   atravesarse.
-2. Pulsa **Simular**. El disco cae, golpea la caja y rebota.
-3. Añade un segundo **Disco** de la paleta, dale una velocidad hacia el
-   primero y simula. Chocan y salen despedidos.
-
-> [cheer] Cada rebote obedece una regla: lo que una bola pierde de
-> velocidad, la otra lo gana. Nada se pierde, solo se pasa.
-
-## Hazlo tú
-
-1. Mundo nuevo. **Caja** de la paleta, dibujada ancha y plana.
-2. **Ancla** de la paleta, y luego clic en la caja: se queda donde está,
-   tire lo que tire de ella.
-3. Un **Disco** encima. **FuerzaPeso**, y clic en el lienzo.
-4. Simula. Un mundo nuevo ya trae su resolutor de colisiones.
-
-::: try
-Haz una rampa: una caja girada poniendo su *ángulo* en 0,3. Deja que un
-disco ruede por ella. Luego prueba **Gas** de la paleta: cien partículas
-rebotando en una caja, que es lo que es el aire.
-:::
-```
-
-### 5.4 Kalzium's guide
-
-**Pictures**: `kalzium-table.svg`, a few tiles of the table with one
-lit; `kalzium-states.svg`, three tiles, a solid, a liquid and a gas;
-`kalzium-molecule.svg`, two atoms joined.
-
-`01-find-an-element.md`
-
-```
-# Find an element
-
-Everything around you is made of about ninety different kinds of atoms,
-the *elements*. The periodic table shows them all on one sheet.
-
-![Tiles of the table, one lit](images/kalzium-table.svg)
-
-1. Find the tile with **O** on it, near the top right. Click it. The
-   panel on the left shows oxygen: its number, 8, its mass, and a
-   drawing of its atom.
-2. Now find **Fe**, iron, in the middle. Click it. Read where it was
-   discovered and what it is used for.
-3. Type *gold* in the search box at the top. The table lights the tile
-   of gold, **Au**.
-
-> [think] The number on each tile counts the atom's protons. Hydrogen
-> has 1, oxygen 8, gold 79. The table is in that order, left to right
-> and down.
-
-::: try
-Find the element you are made of most. Hint: it is in you, in the air
-and in the sea, and its tile is **O**'s neighbour, with number 6.
-:::
-```
-
-```
-# Encuentra un elemento
-
-Todo lo que te rodea está hecho de unos noventa tipos de átomos, los
-*elementos*. La tabla periódica los enseña todos en una sola hoja.
-
-![Casillas de la tabla, una iluminada](images/kalzium-table.svg)
-
-1. Busca la casilla con una **O**, cerca de arriba a la derecha. Haz
-   clic. El panel de la izquierda enseña el oxígeno: su número, 8, su
-   masa y un dibujo de su átomo.
-2. Ahora busca **Fe**, el hierro, en el medio. Haz clic. Lee dónde se
-   descubrió y para qué se usa.
-3. Escribe *oro* en la caja de búsqueda de arriba. La tabla ilumina la
-   casilla del oro, **Au**.
-
-> [think] El número de cada casilla cuenta los protones del átomo. El
-> hidrógeno tiene 1, el oxígeno 8, el oro 79. La tabla va en ese orden,
-> de izquierda a derecha y hacia abajo.
-
-::: try
-Encuentra el elemento del que estás hecho sobre todo. Pista: está en ti,
-en el aire y en el mar, y su casilla es vecina de la **O**, con el
-número 6.
-:::
-```
-
-`02-hot-and-cold.md`
-
-```
-# Hot and cold
-
-Every element is a solid, a liquid or a gas, depending on how hot it is.
-Kalzium has a slider that changes the temperature of the whole table.
-
-![Three tiles: a solid, a liquid, a gas](images/kalzium-states.svg)
-
-1. In the **Gradients** menu at the top, choose **State of matter**.
-   The tiles take three colours: solid, liquid and gas.
-2. Open the **View** tab of the panel on the left. It has a temperature
-   slider, in kelvin, K: 0 K is the coldest there can be, and a room is
-   about 293 K. Put it there: most tiles are solid, a few are gases, and
-   only two are liquids.
-3. Drag the slider down, towards 0. Watch the gases turn liquid, then
-   solid, one by one.
-4. Drag it up, past 1000 K. The metals melt. Keep going: they boil.
-
-> [point] Mercury, **Hg**, is a liquid at room temperature: the silver
-> inside an old thermometer. Bromine, **Br**, is the other.
-
-::: try
-Find the temperature where iron melts. Then the one where it boils.
-Which element stays solid longest as you heat the table?
-:::
-```
-
-```
-# Caliente y frío
-
-Cada elemento es un sólido, un líquido o un gas, según lo caliente que
-esté. Kalzium tiene un deslizador que cambia la temperatura de toda la
-tabla.
-
-![Tres casillas: un sólido, un líquido, un gas](images/kalzium-states.svg)
-
-1. En el menú **Gradientes** de arriba, elige **Estado de la materia**.
-   Las casillas toman tres colores: sólido, líquido y gas.
-2. Abre la pestaña **Ver** del panel de la izquierda. Tiene un
-   deslizador de temperatura, en kelvin, K: 0 K es lo más frío que puede
-   haber, y una habitación está a unos 293 K. Ponlo ahí: casi todas las
-   casillas son sólidos, unas pocas gases, y solo dos líquidos.
-3. Arrastra el deslizador hacia abajo, hacia 0. Mira cómo los gases se
-   vuelven líquidos, y luego sólidos, uno a uno.
-4. Arrástralo hacia arriba, más allá de 1000 K. Los metales se funden.
-   Sigue: hierven.
-
-> [point] El mercurio, **Hg**, es líquido a temperatura ambiente: la
-> plata de dentro de un termómetro antiguo. El bromo, **Br**, es el
-> otro.
-
-::: try
-Busca la temperatura a la que se funde el hierro. Luego la que lo hace
-hervir. ¿Qué elemento aguanta sólido más tiempo mientras calientas la
-tabla?
-:::
-```
-
-`03-build-a-molecule.md`
-
-```
-# How heavy is water?
-
-Atoms join into *molecules*. Water is two hydrogens and one oxygen,
-written H2O. Kalzium can weigh a molecule for you.
-
-![Two atoms joined](images/kalzium-molecule.svg)
-
-1. Press **Perform calculations** in the toolbar. A calculator opens.
-2. Choose the **Molecular mass calculator** in the list and type *H2O*.
-   It answers about 18: two atoms of mass 1 and one of mass 16.
-3. Try *CO2*, the gas you breathe out. Then *NaCl*, table salt.
-
-> [think] The mass of a molecule is just its atoms' masses added up. You
-> can check: find H and O in the table and add 1 + 1 + 16.
-
-::: try
-Sugar is C6H12O6. Guess its mass before you type it, from the table.
-Then see if the calculator agrees.
-:::
-```
-
-```
-# ¿Cuánto pesa el agua?
-
-Los átomos se unen en *moléculas*. El agua son dos hidrógenos y un
-oxígeno, y se escribe H2O. Kalzium puede pesar una molécula por ti.
-
-![Dos átomos unidos](images/kalzium-molecule.svg)
-
-1. Pulsa **Realizar cálculos** en la barra. Se abre una calculadora.
-2. Elige **Calculadora de masas moleculares** en la lista y escribe
-   *H2O*. Responde unos 18: dos átomos de masa 1 y uno de masa 16.
-3. Prueba *CO2*, el gas que echas al respirar. Luego *NaCl*, la sal de
-   mesa.
-
-> [think] La masa de una molécula es solo la suma de las masas de sus
-> átomos. Puedes comprobarlo: busca H y O en la tabla y suma 1 + 1 + 16.
-
-::: try
-El azúcar es C6H12O6. Adivina su masa antes de escribirla, con la tabla.
-Luego mira si la calculadora está de acuerdo.
-:::
-```
-
-### 5.5 The user guide, the website and the READMEs
-
-**The user guide, section 5, a new part after *Opening a module*:**
-
-> ### A guide beside a module
->
-> Some modules come with a guide: lessons written for the child, with
-> steps to follow, what to look for, and ideas to go on with. The guide
-> opens on the right when the module opens, and the module takes the
-> rest of the screen. **Fold**, at the top of the guide, folds it to a
-> thin strip along the edge, for room; a click on the strip, or
-> **Guide** on the bar, opens it again, at the lesson the child was in.
-> For a child with windows the guide stays while a module with one is
-> open, and shows the guide of the module in use; the name at its top
-> is a list to pick another, and **Pin** keeps the one chosen whatever
-> window is in use. A lesson may have a *mission*, a file of the module's half done,
-> with what to try written inside it: the first time the guide opens,
-> the missions are copied into the child's **Documents**, in a folder
-> named after the module, and the lesson says how to open its mission
-> from the module's own **File**, **Open**. Kig, Step and
-> Kalzium have a guide.
-
-> ### Una guía al lado de un módulo
->
-> Algunos módulos vienen con una guía: lecciones escritas para el niño,
-> con pasos que seguir, qué mirar e ideas para continuar. La guía se
-> abre a la derecha cuando se abre el módulo, y el módulo ocupa el
-> resto de la pantalla. **Plegar**, arriba de la guía, la pliega en una
-> tira estrecha pegada al borde, para tener sitio; un clic en la tira, o
-> **Guía** en la barra, la abre otra vez, en la lección en la que estaba
-> el niño. Para un niño con ventanas la guía se queda mientras haya
-> abierto un módulo que la tenga, y enseña la del módulo que está en
-> uso; el nombre de arriba es una lista para elegir otra, y **Fijar**
-> mantiene la elegida uses la ventana que uses. Una lección puede tener una *misión*, un archivo del módulo a
-> medio hacer, con lo que probar escrito dentro: la primera vez que se
-> abre la guía, las misiones se copian en los **Documentos** del niño,
-> en una carpeta con el nombre del módulo, y la lección dice cómo abrir
-> su misión desde el propio módulo, con **Archivo**, **Abrir**. Kig,
-> Step y Kalzium tienen guía.
-
-And one sentence in section 5 under *The child's screen*, after the
-paragraph on bubbles: *A link in a module that leads to the internet, a
-program's help page for instance, opens nothing: a bubble says That
-opens the internet, which is closed here.* / *Un enlace de un módulo que
-lleva a internet, la página de ayuda de un programa por ejemplo, no abre
-nada: una burbuja dice Eso abre internet, que aquí está cerrado.*
-
-Section 9: Kig's, Step's and Kalzium's sections each gain a sentence,
-*It comes with a guide of six lessons* (Kalzium: three) / *Viene con
-una guía de seis lecciones* (*tres*), and Kig's picture is taken with
-the guide beside it.
-
-**The website**: the cards of Kig, Step and Kalzium add *, with a guide*
-/ *, con guía* at the end of their text, and the *grow* part of the page
-(the paragraph on windows) gets one sentence, in both toml files, under
-a new key `guide`: *A module that is hard to start comes with a guide
-beside it: lessons, missions and ideas, in the child's language.* /
-*Un módulo difícil de empezar viene con una guía al lado: lecciones,
-misiones e ideas, en el idioma del niño.*
-
-**The READMEs**: Kig's, Step's and Kalzium's lines end *, with a guide*
-/ *, con guía*.
-
-**Architecture**: a row in section 8's table is not needed; two
-decisions, D103 (the pane: the launcher's own layer surface on the
-right, folding to a rail, one rule for each mode with the drop-down and
-the pin for a child with windows, the lessons' small
-Markdown drawn by the launcher, the missions in Documents) and D104
-(links out of a module get a bubble and open nothing), written from
-section 4.
+The page's own words, in the module's catalogue: the heading
+*Simulations* / *Simulaciones*; the groups, *Numbers and shapes* /
+*Números y formas*, *More numbers* / *Más números*, *Forces and energy* /
+*Fuerzas y energía*, *Light, sound and waves* / *Luz, sonido y ondas*,
+*Electricity and magnets* / *Electricidad e imanes*, *Matter and atoms*
+/ *La materia y los átomos*, *Earth, space and life* / *La Tierra, el
+espacio y la vida*; the ages as the panel says them, *Ages 6 to 10* /
+*De 6 a 10 años*; the bar's *Simulations* / *Simulaciones*, which goes
+back; and the attribution, word for word as the agreement gives it and
+only translated, *Simulation by PhET Interactive Simulations, University
+of Colorado Boulder, licensed under CC BY 4.0 (https://phet.colorado.edu)*
+/ *Simulación de PhET Interactive Simulations, Universidad de Colorado
+Boulder, bajo licencia CC BY 4.0 (https://phet.colorado.edu)*.
+
+### 5.5 Found so far, for the steps
+
+- trixie: `kig` 4:25.04.0-1 (11 MB, Frameworks 5, Qt 5, with
+  `/usr/share/locale/es/LC_MESSAGES/kig.mo`); `kalzium` and
+  `kalzium-data` 4:25.04.0-1 (3 MB, Frameworks 6, Spanish in
+  `kalzium-data`); `step` 4:25.04.0-1 (13 MB, Frameworks 6, Spanish for
+  the program, its examples and its object descriptions). Desktop files
+  `org.kde.kig`, `org.kde.kalzium`, `org.kde.step`.
+- The session exports `QT_QPA_PLATFORM=wayland` (kidux-session);
+  GCompris's module depends on `qt6-wayland`; Qt 5 needs `qtwayland5`.
+- PhET: `build-an-atom` is at 1.9.3 (built 2026-08-06, CC BY-NC) and
+  its 1.8.3 (built 2026-01-30, CC BY 4.0) is served at
+  `/sims/html/build-an-atom/1.8.3/build-an-atom_all.html`, 3.2 MB, as
+  are 1.8.0 to 1.8.2; 1.7.0 is not. A directory listing answers 403.
+  The file names its licence by a link to creativecommons.org and its
+  build by `buildTimestamp`. PhET's metadata
+  (`https://phet.colorado.edu/services/metadata/1.3/simulations?format=json&type=html&locale=es&summary`)
+  lists every HTML simulation with its Spanish title and its levels,
+  which is where section 5.4's titles come from.

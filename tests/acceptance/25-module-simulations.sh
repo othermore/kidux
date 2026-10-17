@@ -1,5 +1,5 @@
 # Sourced by the acceptance VM's runner, which provides check() and $ARCHIVE.
-# phase-4e-plan.md, step 4.30: Simulations, PhET's simulations fetched at
+# phase-4f-plan.md, step 4.30: Simulations, PhET's simulations fetched at
 # development time (D68), installs from the archive with kidux-webapps, is
 # served under /simulations/ with its page and every simulation, each in a
 # version PhET published under CC BY 4.0, and is removed without a trace of

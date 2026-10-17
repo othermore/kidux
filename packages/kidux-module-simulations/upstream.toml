@@ -1,7 +1,7 @@
 [upstream]
 name = "PhET Interactive Simulations"
 # No repository and no commit: the simulations are PhET's built files, each
-# fetched at the version sims.toml names (phase-4e-plan.md, 4.30).
+# fetched at the version sims.toml names (phase-4f-plan.md, 4.30).
 repository = ""
 commit = ""
 version = "0+phet20260328"

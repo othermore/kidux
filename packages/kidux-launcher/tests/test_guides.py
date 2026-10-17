@@ -1,5 +1,5 @@
 """Which guide the pane shows, in each of the child's modes, what it
-remembers, and the missions (guides.py, D103)."""
+remembers, and the missions (guides.py, D106)."""
 
 import json
 

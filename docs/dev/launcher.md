@@ -423,7 +423,7 @@ not started twice (`launch.running`, the active `kidux-module-*.scope`
 units). Logging out, from the launcher or from the lock screen, ends the
 session, `labwc`, XWayland, and every module with it.
 
-**A module's guide** (D103). A module whose manifest says `guide = true`
+**A module's guide** (D106). A module whose manifest says `guide = true`
 (modules.md, sections 1 and 3) has its lessons shown beside it, in a third
 window of the launcher, `guide.py`: a layer-shell surface on the right
 edge, from the top down to the bar, layer `TOP`, with an exclusive zone of

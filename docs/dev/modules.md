@@ -129,7 +129,7 @@ icon theme is needed and the tile is the same on every machine.
   it on its site's pages, not on its own *Connecting…* page.
 - `guide = true` says the module has a guide: lessons of Kidux's own
   beside the manifest, under `content/<lang>/`, which the launcher shows
-  in a pane beside the module (section 3; launcher.md, D103). The reader
+  in a pane beside the module (section 3; launcher.md, D106). The reader
   keeps the guide's directory, `content/`, when `content/en/` holds a
   lesson, and logs and drops the field otherwise.
 - `needs_windows = true` says the module is only for a child whose modules
@@ -210,7 +210,7 @@ tile shows Kidux's mascot.
   an account or a subscription, before the adult switches it on. What the
   child does there is the site's, under the site's rules; Kidux only keeps
   the door to that site and no other.
-- **A link out of a module opens nothing** (D104). A program that asks
+- **A link out of a module opens nothing** (D107). A program that asks
   the desktop to open a web page or a link, a button such as Step's *Open
   in browser* or a link in its help, gets a bubble from the module, *That
   opens the internet, which is closed here.*, and no browser: the child's
@@ -447,7 +447,7 @@ To make `kidux-module-<id>` from it, copy the directory and then:
   beside the manifest put first in `XDG_CONFIG_DIRS`, which every program
   of KDE's reads: no downloads from store.kde.org, no shell, no handbook,
   bug report, donation page or language switch in its Help menu, and no
-  whole screen (D101); its package depends on the program and on the
+  whole screen (D104); its package depends on the program and on the
   Wayland plugin of its Qt, which the program's own package does not
   bring. `kidux-module-mail` configures more: its starter, in Python,
   writes Thunderbird's `user.js` afresh at every start from the settings

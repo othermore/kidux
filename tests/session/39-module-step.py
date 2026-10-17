@@ -1,5 +1,5 @@
-"""Step, a physics playground (phase-4e-plan.md, step 4.29), with its guide
-(phase-4f-plan.md, step 4.36), whose first mission opens in Step.
+"""Step, a physics playground (phase-4f-plan.md, step 4.29), with its guide
+(phase-4g-plan.md, step 4.36), whose first mission opens in Step.
 
 Installed through the daemon, as the panel installs it, with Step and the
 Wayland plugin of its Qt, and switched on for Leo from the command line.
@@ -7,7 +7,7 @@ Leo opens it by keyboard: it comes up in a window filling the room above
 the bar, in Leo's language, with its settings in the module's own
 directory and the module's restrictions on KDE's actions read first. A
 web page it asks the desktop to open is Kidux's bubble, and no browser
-starts (phase-4f-plan.md, step 4.38). Alt+F4 closes it, the launcher
+starts (phase-4g-plan.md, step 4.38). Alt+F4 closes it, the launcher
 comes back, and the daemon removes it, Step with it (D100).
 """
 
@@ -107,7 +107,7 @@ def run(machine: Machine) -> None:
 
     # Links out of it: with Step's own environment, the desktop asked to
     # open a web page, as Step's Open in browser asks, or a site, answers
-    # each with Kidux's bubble and opens nothing (D104).
+    # each with Kidux's bubble and opens nothing (D107).
     page = f"{HOME}/page.html"
     root(f"printf '%s\\n' '<!DOCTYPE html>' '<html><head><title>Step</title></head>' "
          f"'<body><p>Step</p></body></html>' > {page} && chown {CHILD} {page}")

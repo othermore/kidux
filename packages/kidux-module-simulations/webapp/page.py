@@ -5,7 +5,7 @@
 
 The page lists PhET's simulations by group, in the order sims.toml gives
 them, each group with its ages, and opens one in a frame under a bar with
-the way back to the list (phase-4e-plan.md, 4.30). It is shown in the
+the way back to the list (phase-4f-plan.md, 4.30). It is shown in the
 language its address names, `?lang=es`, or in English: every language's
 words and every simulation's titles are written into it here, so that it
 needs nothing but itself and the simulations' files beside it. Its words

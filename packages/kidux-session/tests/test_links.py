@@ -1,4 +1,4 @@
-"""A child's session sends web pages and links to kidux-closed (D104): the
+"""A child's session sends web pages and links to kidux-closed (D107): the
 list of defaults and the desktop file agree, and the session puts both
 first where every program reads them."""
 

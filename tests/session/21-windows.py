@@ -13,8 +13,8 @@ on the bar, and its tile brings it back; maximised, it fills the room above
 the bar and gets the click made over it. A window that asks for fullscreen
 afterwards keeps it, and Super still brings the desk back; Alt+F4 closes the
 window in use's module. Given a guide, the robin opens with its pane, which
-stays with the canary in use and goes with the robin (phase-4f-plan.md,
-step 4.34; D103); the canary given one too, the pane shows the guide of the
+stays with the canary in use and goes with the robin (phase-4g-plan.md,
+step 4.34; D106); the canary given one too, the pane shows the guide of the
 window in use, keeps one picked from its drop-down, pinned, and follows the
 window in use again when the pin is let go. With windows off again, a module whose manifest
 needs windows has no tile for him, and the canary fills the room above the

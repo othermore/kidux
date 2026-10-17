@@ -147,7 +147,7 @@ class Bar:
         end.append(question)
         self._time = TimeLeft(can_focus=False)
         end.append(self._time.widget)
-        # A module's guide (guide.py, D103): there while the pane is, lit
+        # A module's guide (guide.py, D106): there while the pane is, lit
         # while it is unfolded; it folds and unfolds it.
         self._guide = self._button(self._(words.GUIDE), on_guide or (lambda: None),
                                    icon="accessories-dictionary-symbolic")

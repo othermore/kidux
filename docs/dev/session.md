@@ -271,7 +271,7 @@ class `user`; nothing in the session script starts it, and there is no
 system-wide sound server. A module plays sound through the socket in the
 child's `$XDG_RUNTIME_DIR`, like any desktop program.
 
-**Links out of a module** (D104). A program that asks the desktop to open
+**Links out of a module** (D107). A program that asks the desktop to open
 a web page or a link, as Step's *Open in browser* does with a local HTML
 file or a program's help with its web site, gets Kidux's answer, not a
 browser: `kidux-session` installs a `mimeapps.list` in

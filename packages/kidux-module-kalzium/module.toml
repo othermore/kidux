@@ -1,7 +1,7 @@
 # Kalzium, the periodic table: a program already in Debian, so the package
 # holds this manifest, the tile, its words, and the small program that
 # starts Kalzium with KDE's actions a child has no business in switched off
-# (modules.md, section 5; phase-4e-plan.md, 4.28).
+# (modules.md, section 5; phase-4f-plan.md, 4.28).
 id = "kalzium"
 version = "0.2.0"
 name = "Kalzium"
@@ -13,5 +13,5 @@ app_ids = ["org.kde.kalzium"]             # what Kalzium calls its window
 categories = ["science"]
 i18n_domain = "kidux-module-kalzium"
 memory_max = "1G"
-# Three lessons beside it (content/; D103).
+# Three lessons beside it (content/; D106).
 guide = true

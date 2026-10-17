@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Find the version of each of PhET's simulations the Simulations module
-serves, and write it into sims.toml with its SHA-256 (phase-4e-plan.md,
+serves, and write it into sims.toml with its SHA-256 (phase-4f-plan.md,
 4.30).
 
     ci/upstream/simulations-versions.py            fill in what sims.toml leaves empty

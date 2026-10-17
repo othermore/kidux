@@ -1,5 +1,5 @@
 # Sourced by the acceptance VM's runner, which provides check() and $ARCHIVE.
-# phase-4e-plan.md, step 4.27: Kig installs from the archive with the Qt
+# phase-4f-plan.md, step 4.27: Kig installs from the archive with the Qt
 # platform plugin a Wayland session needs, and is removed without a trace
 # of the module's own, Kig with it (D100).
 
@@ -17,7 +17,7 @@ check "its manifest, icon, starter, restrictions and Spanish words are in place"
            && test -x /usr/libexec/kidux-module-kig \
            && grep -qx 'ghns=false' $KIG/kde/kdeglobals \
            && test -f /usr/share/locale/es/LC_MESSAGES/kidux-module-kig.mo"
-check "its guide is beside the manifest, in both languages (D103)" \
+check "its guide is beside the manifest, in both languages (D106)" \
     sh -c "test -f $KIG/content/en/01-points-and-lines.md && test -f $KIG/content/es/missions/medio.kig && test -f $KIG/content/images/kig-middle.svg"
 check "removing it leaves nothing of the module behind, and takes Kig with it" \
     sh -c "$ADMIN_AS remove kig | grep -q '^removed ' && test ! -e $KIG \

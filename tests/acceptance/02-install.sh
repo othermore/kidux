@@ -34,7 +34,7 @@ check "both configurations bind the laptop's keys to kidux-keys" \
 check "kidux-keys is there, and does nothing on a machine without the things" \
     sh -c 'test -x /usr/libexec/kidux-keys && /usr/libexec/kidux-keys brightness up && /usr/libexec/kidux-keys keyboard down && /usr/libexec/kidux-keys volume mute'
 # A web page or a link a program asks the desktop to open goes to
-# kidux-closed, the session's default for them (D104).
+# kidux-closed, the session's default for them (D107).
 check "web pages and links are kidux-closed's in a child's session" \
     sh -c 'test -x /usr/libexec/kidux-closed \
            && grep -q "^text/html=kidux-closed.desktop" /usr/share/kidux/session/xdg/mimeapps.list \

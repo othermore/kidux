@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Kidux's answer to a link out of a module: a bubble, and nothing opened
-(kidux.closed, D104; docs/dev/session.md, section 3).
+(kidux.closed, D107; docs/dev/session.md, section 3).
 
     kidux-closed [<link>...]
 

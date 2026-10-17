@@ -1,5 +1,5 @@
-"""Kalzium, the periodic table (phase-4e-plan.md, step 4.28), with its guide
-(phase-4f-plan.md, step 4.37) beside it.
+"""Kalzium, the periodic table (phase-4f-plan.md, step 4.28), with its guide
+(phase-4g-plan.md, step 4.37) beside it.
 
 Installed through the daemon, as the panel installs it, with Kalzium and the
 Wayland plugin of its Qt, and switched on for Leo from the command line.

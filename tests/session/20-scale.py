@@ -10,7 +10,7 @@ small overflow and scroll; test 13 has already checked they fit at 1. A
 screen that scrolls shows it (D63): the sign-in screen and the child's,
 both too tall at 640x400, say so in their logs and draw their scrollbar.
 A module's guide there is 280 of the 640 pixels, and the module keeps the
-rest (phase-4f-plan.md, step 4.34; D103).
+rest (phase-4g-plan.md, step 4.34; D106).
 """
 
 from sessionlib import (

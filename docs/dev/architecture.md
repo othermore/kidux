@@ -397,7 +397,7 @@ what was built and tested.
 | Geometry (10–14) | Kig 25.04, interactive geometry, with KDE's actions for a child switched off (`ghns`, `shell_access`) | `kig`, `qtwayland5` (trixie), step 4.27 | Points, lines and circles that keep their rules when dragged; translated, offline. The first KDE Frameworks 5 program on the machine, so it brings Qt 5. |
 | Chemistry (10–16) | Kalzium 25.04, the periodic table, with the same restrictions as Kig | `kalzium`, `kalzium-data`, `qt6-wayland` (trixie), step 4.28 | Every element with its facts, picture and atom, the states of matter on a slider, a glossary; translated, offline. Frameworks 6 and Qt 6, which GCompris already brings. |
 | Physics (10–16) | Step 25.04, a physics simulator, with the same restrictions, which take away its *Download New Experiments* | `step`, `qt6-wayland` (trixie), step 4.29 | Bodies, springs and forces on a plane, run and measured, with tutorials and examples in its File menu; translated, offline. |
-| Simulations (6–14) | PhET Interactive Simulations, 51 of them, each in the newest version PhET built before 29 March 2026, under CC BY 4.0 (D102), in a page of Kidux's own, served by `kidux-webapps` | taken as PhET's built files at development time (D68), step 4.30 | Physics, chemistry, maths and the Earth, made for children to explore alone, each translated into Spanish by PhET; offline. Their current versions are CC BY-NC, which Kidux does not ship. |
+| Simulations (6–14) | PhET Interactive Simulations, 51 of them, each in the newest version PhET built before 29 March 2026, under CC BY 4.0 (D105), in a page of Kidux's own, served by `kidux-webapps` | taken as PhET's built files at development time (D68), step 4.30 | Physics, chemistry, maths and the Earth, made for children to explore alone, each translated into Spanish by PhET; offline. Their current versions are CC BY-NC, which Kidux does not ship. |
 | AI agents | `kidux-ai-gateway` (ours) | packaged by us | Local service that holds the adult's API key and applies guardrails; the child's projects talk to the gateway, never to the provider directly. Local models rejected for old hardware. |
 | Web (future) | Firefox ESR 140 in kiosk mode with policy-managed allow/deny lists | `firefox-esr` (trixie) | Enterprise policies give whitelist/blacklist without a proxy. |
 
@@ -1740,9 +1740,9 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   children's own files stay. Installing the module again brings it all
   back.
 
-- **D101 — A program of KDE's runs as a module with KDE's action
+- **D104 — A program of KDE's runs as a module with KDE's action
   restrictions in the module's own configuration.** Decided 2026-10-16 by
-  the owner, on phase-4e-plan.md. Kig, Kalzium and Step come from trixie
+  the owner, on phase-4f-plan.md. Kig, Kalzium and Step come from trixie
   as they are; each module ships a `kdeglobals` of KDE's action
   restrictions beside its manifest, which its starter puts first in
   `XDG_CONFIG_DIRS`, where every program of KDE's reads it: no Get Hot
@@ -1755,9 +1755,9 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   Each module depends on its program and on the Wayland plugin of its Qt,
   which the program's own package does not bring.
 
-- **D102 — PhET's simulations are shipped in the versions published under
+- **D105 — PhET's simulations are shipped in the versions published under
   CC BY 4.0, in a module named Simulations.** Decided 2026-10-16 by the
-  owner, on phase-4e-plan.md. PhET publishes its simulations since 29
+  owner, on phase-4f-plan.md. PhET publishes its simulations since 29
   March 2026 under CC BY-NC 4.0, which Kidux's licence to organisations
   cannot carry; the versions published before, by PhET's agreement for
   its historical collection, are CC BY 4.0. The module serves, for each
@@ -1769,9 +1769,9 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   Kidux is not connected with PhET. The current versions, if ever wanted,
   would be a door to PhET's site (D85), shipping nothing.
 
-- **D103 — A module may have a guide, shown by the launcher in a pane of
+- **D106 — A module may have a guide, shown by the launcher in a pane of
   its own on the right.** Decided 2026-10-17 by the owner, on
-  phase-4f-plan.md. A child opening Kig or Step meets an empty canvas and
+  phase-4g-plan.md. A child opening Kig or Step meets an empty canvas and
   forty tools; lessons of Kidux's own, with steps, pictures, the mascot and
   missions, files of the program's half done, show beside the program.
   The pane is the launcher's own layer surface on the right edge with an
@@ -1787,8 +1787,8 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   program's own File, Open, which is itself a thing to learn, and which a
   second start of a program already open could not do but in a second
   window.
-- **D104 — A link out of a module opens nothing, and a bubble says so.**
-  Decided 2026-10-17 by the owner, on phase-4f-plan.md. Step's *Open in
+- **D107 — A link out of a module opens nothing, and a bubble says so.**
+  Decided 2026-10-17 by the owner, on phase-4g-plan.md. Step's *Open in
   browser*, a link in a program's help, or anything else that asks the
   desktop to open a web page started a plain Chromium window in the
   child's session, with tabs and an address bar, outside every module's

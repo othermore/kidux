@@ -1,4 +1,4 @@
-"""A module's guide beside it (phase-4f-plan.md, step 4.34; D103).
+"""A module's guide beside it (phase-4g-plan.md, step 4.34; D106).
 
 Kig, which has a guide, is installed through the daemon with hello, which
 has none, and both switched on for Leo. Leo opens Kig: the pane is on the

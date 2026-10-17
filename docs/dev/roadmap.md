@@ -134,31 +134,22 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [x] Science and maths: Kig, Kalzium and Step from trixie, each its own
       module, and Simulations, PhET's historical simulations under
       CC BY 4.0, served on the computer in a page of Kidux's own, chosen
-      for ages six to fourteen (4.27 to 4.30, phase-4e-plan.md; D101,
-      D102).
+      for ages six to fourteen (4.27 to 4.30, phase-4f-plan.md; D104,
+      D105).
 - [x] A module with a guide beside it: lessons of Kidux's own in a pane
       of the launcher's on the right, which folds to a rail, follows the
       module on screen, and, for a child with windows, stays while one
       with a guide is open, with a drop-down and a pin (4.33, 4.34,
-      D103); Kig's, Step's and Kalzium's guides, with missions, files of
+      D106); Kig's, Step's and Kalzium's guides, with missions, files of
       the program's half done, copied into the child's Documents (4.35
       to 4.37); and a link out of a module answered with a bubble, opening
-      nothing (4.38, D104; phase-4f-plan.md).
-- [ ] With the next module, two things seen on the Modules page: *Remove*
-      pressed on a module below the fold scrolls the page to the top, so
-      the question is out of sight, and the scrollbar still shows the page
-      at its end until it is scrolled up and down again; and a module that
-      is a directory under `/usr/share/kidux/modules/` with no package
-      behind it (a test's stand-in, such as the X11 canary, copied there
-      by hand) answers *That did not work.* to *Remove*, since
-      `apt-get purge` has nothing to purge: the page should say what the
-      module is, and remove the directory or say how to.
+      nothing (4.38, D107; phase-4g-plan.md).
 - [ ] A file that is not a web page, a plain text file for one, that a
       program asks the desktop to open: `xdg-open` in a child's session
       finds no default for it and falls back on `run-mailcap`, which
       starts an editor with no window to show it in, such as vim. Nothing
       a child's module does opens one today; the session should answer
-      it as it answers a link (D104), with words of its own.
+      it as it answers a link (D107), with words of its own.
 
 ## Phase 5 — AI learning module
 - [ ] `kidux-ai-gateway`: adult-held credentials, guardrails, logging visible to

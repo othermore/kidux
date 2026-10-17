@@ -1,6 +1,6 @@
 #!/bin/sh
 # PhET's simulations, as the Simulations module serves them
-# (phase-4e-plan.md, 4.30; D68).
+# (phase-4f-plan.md, 4.30; D68).
 #
 # Run by ci/build-upstream.sh kidux-module-simulations, in an empty
 # directory. There is no repository to build: the simulations are PhET's

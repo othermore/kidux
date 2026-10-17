@@ -1,5 +1,5 @@
 # Sourced by the acceptance VM's runner, which provides check() and $ARCHIVE.
-# phase-4e-plan.md, step 4.29: Step installs from the archive with the Qt
+# phase-4f-plan.md, step 4.29: Step installs from the archive with the Qt
 # platform plugin a Wayland session needs, and is removed without a trace
 # of the module's own, Step with it (D100).
 
@@ -17,7 +17,7 @@ check "its manifest, icon, starter, restrictions and Spanish words are in place"
            && test -x /usr/libexec/kidux-module-step \
            && grep -qx 'ghns=false' $STEP/kde/kdeglobals \
            && test -f /usr/share/locale/es/LC_MESSAGES/kidux-module-step.mo"
-check "its guide is beside the manifest, in both languages (D103)" \
+check "its guide is beside the manifest, in both languages (D106)" \
     sh -c "test -f $STEP/content/en/01-a-ball-falls.md && test -f $STEP/content/es/intro.md && test -f $STEP/content/es/missions/caida.step"
 check "removing it leaves nothing of the module behind, and takes Step with it" \
     sh -c "$ADMIN_AS remove step | grep -q '^removed ' && test ! -e $STEP \

@@ -1,4 +1,4 @@
-"""A module's guide as the launcher's pane reads it (kidux.lessons, D103):
+"""A module's guide as the launcher's pane reads it (kidux.lessons, D106):
 each block from its lines, the lessons in order, the child's language with
 English where it has none, and what cannot be used left out."""
 
