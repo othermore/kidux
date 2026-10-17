@@ -210,6 +210,15 @@ tile shows Kidux's mascot.
   an account or a subscription, before the adult switches it on. What the
   child does there is the site's, under the site's rules; Kidux only keeps
   the door to that site and no other.
+- **A link out of a module opens nothing** (D104). A program that asks
+  the desktop to open a web page or a link, a button such as Step's *Open
+  in browser* or a link in its help, gets a bubble from the module, *That
+  opens the internet, which is closed here.*, and no browser: the child's
+  session makes Kidux's `kidux-closed` the default for them (session.md
+  section 3). A starter that sets `XDG_CONFIG_DIRS` or `XDG_DATA_DIRS`
+  puts its own directory first and keeps what the session set after it,
+  as the KDE modules' do; a page a module has to show is one of its own
+  web modules, or text in its guide.
 - Its own settings, data and cache go under `~/.config/kidux/<id>/`,
   `~/.local/share/kidux/<id>/` and `~/.cache/kidux/<id>/`, which the
   launcher creates and hands it as `XDG_CONFIG_HOME`, `XDG_DATA_HOME` and

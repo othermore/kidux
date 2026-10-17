@@ -2,6 +2,8 @@ kidux-common (0.1.59) trixie; urgency=medium
 
   * A module may have a guide, lessons beside its manifest that the
     launcher shows beside the module, and kidux.lessons reads them.
+  * kidux.closed says, in a bubble, that a link out of a module opens
+    nothing, the internet being closed.
 
  -- Antonio Morales García <info@kidux.org>  Sat, 17 Oct 2026 09:48:07 +0200
 

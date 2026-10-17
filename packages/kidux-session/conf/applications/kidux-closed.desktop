@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Kidux
+Exec=/usr/libexec/kidux-closed %u
+MimeType=text/html;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+NoDisplay=true
+Terminal=false

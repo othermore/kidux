@@ -311,7 +311,10 @@ hasta que el niño la cierra con su **×**. La campana del extremo derecho
 de la barra guarda las últimas, con la hora a la que llegó cada una, para
 poder volver a leer una que ya se fue; un número junto a la campana dice
 cuántas han llegado desde la última vez que se abrió, y **Vaciar** la
-deja vacía. Una burbuja nunca suena, y nunca viene de una web.
+deja vacía. Una burbuja nunca suena, y nunca viene de una web. Un enlace
+de un módulo que lleva a internet, la página de ayuda de un programa por
+ejemplo, no abre nada: una burbuja dice *Eso abre internet, que aquí está
+cerrado.*
 
 ![La pantalla de un niño](../images/es/launcher.png)
 

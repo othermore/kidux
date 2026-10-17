@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidux 0.1.0\n"
 "Report-Msgid-Bugs-To: info@kidux.org\n"
-"POT-Creation-Date: 2026-10-17 09:53+0200\n"
+"POT-Creation-Date: 2026-10-17 10:46+0200\n"
 "PO-Revision-Date: 2026-10-03 18:28+0200\n"
 "Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
 "Language-Team: Spanish\n"
@@ -15,6 +15,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: packages/kidux-common/kidux/closed.py:19
+msgid "That opens the internet, which is closed here."
+msgstr "Eso abre internet, que aquí está cerrado."
 
 #: packages/kidux-common/kidux/vocabulary.py:23
 msgid "Adult"

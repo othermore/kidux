@@ -1787,3 +1787,16 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   program's own File, Open, which is itself a thing to learn, and which a
   second start of a program already open could not do but in a second
   window.
+- **D104 — A link out of a module opens nothing, and a bubble says so.**
+  Decided 2026-10-17 by the owner, on phase-4f-plan.md. Step's *Open in
+  browser*, a link in a program's help, or anything else that asks the
+  desktop to open a web page started a plain Chromium window in the
+  child's session, with tabs and an address bar, outside every module's
+  wall. The child's session makes `kidux-closed` the default for web
+  pages and links, through a `mimeapps.list` and a desktop file in
+  directories it puts first in `XDG_CONFIG_DIRS` and `XDG_DATA_DIRS`,
+  which `xdg-open`, GLib and KDE's KIO all read; it sends the bubble
+  *That opens the internet, which is closed here.* from the module that
+  asked, and opens nothing. A program's own setting for a browser was the
+  alternative, one per program and not every program has one; a module
+  that is a web page starts its browser itself and is not touched.

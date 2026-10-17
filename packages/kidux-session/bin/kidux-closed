@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+"""Kidux's answer to a link out of a module: a bubble, and nothing opened
+(kidux.closed, D104; docs/dev/session.md, section 3).
+
+    kidux-closed [<link>...]
+
+The default for web pages and links in a child's session, through the
+mimeapps.list and kidux-closed.desktop kidux-session puts first in the
+desktop's directories.
+"""
+
+import sys
+
+from kidux import closed
+
+if __name__ == "__main__":
+    sys.exit(closed.main(sys.argv[1:]))

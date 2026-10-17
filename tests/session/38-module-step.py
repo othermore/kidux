@@ -5,8 +5,10 @@ Installed through the daemon, as the panel installs it, with Step and the
 Wayland plugin of its Qt, and switched on for Leo from the command line.
 Leo opens it by keyboard: it comes up in a window filling the room above
 the bar, in Leo's language, with its settings in the module's own
-directory and the module's restrictions on KDE's actions read first. Alt+F4 closes it, the launcher comes back, and the daemon removes
-it, Step with it (D100).
+directory and the module's restrictions on KDE's actions read first. A
+web page it asks the desktop to open is Kidux's bubble, and no browser
+starts (phase-4f-plan.md, step 4.38). Alt+F4 closes it, the launcher
+comes back, and the daemon removes it, Step with it (D100).
 """
 
 from sessionlib import (
@@ -102,6 +104,25 @@ def run(machine: Machine) -> None:
            and root(f"grep -qx 'action/fullscreen=false' {KDE}/kdeglobals").returncode == 0
            and root(f"test ! -e {CONFIG}/kdeglobals").returncode == 0,
            environment + root(f"ls -la {CONFIG} {KDE}").stdout)
+
+    # Links out of it: with Step's own environment, the desktop asked to
+    # open a web page, as Step's Open in browser asks, or a site, answers
+    # each with Kidux's bubble and opens nothing (D104).
+    page = f"{HOME}/page.html"
+    root(f"printf '%s\\n' '<!DOCTYPE html>' '<html><head><title>Step</title></head>' "
+         f"'<body><p>Step</p></body></html>' > {page} && chown {CHILD} {page}")
+    told = journal_count("kidux-launcher", "from Kidux")
+    asked = [root(f"runuser -u {CHILD} -- xargs -0 -a /proc/{pid}/environ "
+                  f"sh -c 'exec env -i \"$@\" timeout 30 xdg-open {link}' sh")
+             for link in (page, "https://phet.colorado.edu/")]
+    report("a web page or a site it asks the desktop to open is Kidux's bubble, "
+           "and no browser starts",
+           f"XDG_CONFIG_DIRS={KDE}:/usr/share/kidux/session/xdg:" in environment
+           and all(answer.returncode == 0 for answer in asked)
+           and wait(lambda: journal_count("kidux-launcher", "from Kidux") >= told + 2, 10)
+           and root(f"pgrep -u {CHILD} chromium").returncode == 1,
+           "".join(answer.stdout + answer.stderr for answer in asked) + launcher_log())
+    root(f"rm -f {page}")
 
     # Alt+F4 asks it to close; one that asks something first is ended by
     # Alt+F4 again, as the bar's question says (D45).

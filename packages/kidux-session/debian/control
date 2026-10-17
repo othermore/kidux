@@ -2,7 +2,10 @@ Source: kidux-session
 Section: admin
 Priority: optional
 Maintainer: Antonio Morales García <info@kidux.org>
-Build-Depends: debhelper-compat (= 13)
+Build-Depends: debhelper-compat (= 13),
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-pytest <!nocheck>,
 Standards-Version: 4.7.2
 Rules-Requires-Root: no
 
@@ -23,7 +26,7 @@ Depends: ${misc:Depends},
          procps,
          python3:any,
          python3-gi,
-         python3-kidux (>= 0.1.58~),
+         python3-kidux (>= 0.1.59~),
          labwc (>= 0.8),
          swaybg,
          swayidle,

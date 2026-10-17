@@ -1,0 +1,8 @@
+# A child's session opens no web page and no link outside a module: they go
+# to kidux-closed, which says so in a bubble (D104, docs/dev/session.md,
+# section 3). kidux-session puts this directory first in XDG_CONFIG_DIRS.
+[Default Applications]
+text/html=kidux-closed.desktop
+application/xhtml+xml=kidux-closed.desktop
+x-scheme-handler/http=kidux-closed.desktop
+x-scheme-handler/https=kidux-closed.desktop

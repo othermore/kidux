@@ -5,6 +5,12 @@ DEST = debian/kidux-session
 %:
 	dh $@
 
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 tests
+	python3 -B -m pytest -q -p no:cacheprovider tests
+endif
+
 override_dh_auto_install:
 	install -D -m 0644 conf/greetd.toml $(DEST)/usr/share/kidux/greetd.toml
 	for configuration in kiosk desk; do \
@@ -27,6 +33,10 @@ override_dh_auto_install:
 	install -D -m 0644 grub/90-kidux.cfg $(DEST)/etc/default/grub.d/90-kidux.cfg
 	install -D -m 0755 grub/09_kidux $(DEST)/etc/grub.d/09_kidux
 	install -D -m 0755 bin/kidux-session $(DEST)/usr/libexec/kidux-session
+	install -D -m 0755 bin/kidux-closed $(DEST)/usr/libexec/kidux-closed
+	install -D -m 0644 conf/xdg/mimeapps.list $(DEST)/usr/share/kidux/session/xdg/mimeapps.list
+	install -D -m 0644 conf/applications/kidux-closed.desktop \
+	    $(DEST)/usr/share/kidux/session/share/applications/kidux-closed.desktop
 	install -D -m 0755 lib/session-inner $(DEST)/usr/lib/kidux/session-inner
 	install -D -m 0755 lib/greeter-session $(DEST)/usr/lib/kidux/greeter-session
 	install -D -m 0755 lib/labwc-rc $(DEST)/usr/lib/kidux/labwc-rc

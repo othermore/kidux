@@ -158,6 +158,9 @@ need to.
    stack, whose `pam_env` sets `LANG` from `/etc/default/locale` after the
    greeter's variables are in: a `LANG` from the greeter would come out as the
    machine's. Without `KIDUX_LANGUAGE`, the session keeps the machine's `LANG`.
+   `/usr/share/kidux/session/xdg` goes first in `XDG_CONFIG_DIRS` and
+   `/usr/share/kidux/session/share` first in `XDG_DATA_DIRS`, for links out
+   of a module (below).
 2. `exec labwc -C /usr/share/kidux/labwc/kiosk -c <rc.xml> -s
    "/usr/lib/kidux/session-inner --keep-running /usr/libexec/kidux-launcher"`:
    `labwc` (D58), with Kidux's configuration and no other: `-C` is the only
@@ -267,6 +270,24 @@ start with the child's user manager, which logind starts for every session of
 class `user`; nothing in the session script starts it, and there is no
 system-wide sound server. A module plays sound through the socket in the
 child's `$XDG_RUNTIME_DIR`, like any desktop program.
+
+**Links out of a module** (D104). A program that asks the desktop to open
+a web page or a link, as Step's *Open in browser* does with a local HTML
+file or a program's help with its web site, gets Kidux's answer, not a
+browser: `kidux-session` installs a `mimeapps.list` in
+`/usr/share/kidux/session/xdg` whose default for `text/html`,
+`application/xhtml+xml`, `x-scheme-handler/http` and
+`x-scheme-handler/https` is `kidux-closed.desktop`, which is in
+`/usr/share/kidux/session/share/applications`, kept out of every menu.
+Its program, `/usr/libexec/kidux-closed` (`kidux.closed`), sends the
+desktop's notification *That opens the internet, which is closed here.*,
+which the launcher shows as a bubble from the module whose scope sent it
+(launcher.md section 2, D98), and exits 0, having opened nothing.
+`xdg-open`, GLib and KDE's KIO all choose by those files, read from the
+directories the session puts first; a KDE module's starter puts its own
+restrictions' directory before them and keeps the rest (modules.md
+section 2). A module that is a web page starts its browser itself,
+`kidux-webapp`, and is not touched.
 
 ## 4. The lock screen's own screen
 

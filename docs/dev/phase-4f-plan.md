@@ -324,11 +324,12 @@ installed modules' hosts, but it is not Kidux's kiosk.
 link out: `kidux-session` puts `/usr/share/kidux/session/xdg` first in
 `XDG_CONFIG_DIRS` and `/usr/share/kidux/session/share` first in
 `XDG_DATA_DIRS`; the first holds a `mimeapps.list` whose default for
-`text/html`, `x-scheme-handler/http` and `x-scheme-handler/https` is
-`kidux-closed.desktop`, the second that desktop file under
-`applications/`, hidden from menus, whose `Exec` is
-`/usr/libexec/kidux-closed %u`: a small program of `kidux-session`'s
-that sends the desktop's notification (D98) *That opens the internet,
+`text/html`, `application/xhtml+xml`, `x-scheme-handler/http` and
+`x-scheme-handler/https` is `kidux-closed.desktop`, the second that
+desktop file under `applications/`, hidden from menus, whose `Exec` is
+`/usr/libexec/kidux-closed %u`: a small program of `kidux-session`'s,
+its words in kidux-common's `kidux.closed`, where the catalogue reaches
+them, that sends the desktop's notification (D98) *That opens the internet,
 which is closed here.* as a notice from the module, through the bubble's
 own `module_of` (the caller's scope), and exits 0. KIO and `xdg-open`
 both read those files, so Step's button, a link in GCompris's help or
@@ -1574,11 +1575,11 @@ Luego mira si la calculadora está de acuerdo.
 > Step y Kalzium tienen guía.
 
 And one sentence in section 5 under *The child's screen*, after the
-sentence about links in web modules: *A program that tries to open a
-web page or the internet gets a bubble saying it is closed here, and
-nothing opens.* / *Un programa que intenta abrir una página web o
-internet recibe una burbuja que dice que aquí está cerrado, y no se
-abre nada.*
+paragraph on bubbles: *A link in a module that leads to the internet, a
+program's help page for instance, opens nothing: a bubble says That
+opens the internet, which is closed here.* / *Un enlace de un módulo que
+lleva a internet, la página de ayuda de un programa por ejemplo, no abre
+nada: una burbuja dice Eso abre internet, que aquí está cerrado.*
 
 Section 9: Kig's, Step's and Kalzium's sections each gain a sentence,
 *It comes with a guide of six lessons* (Kalzium: three) / *Viene con

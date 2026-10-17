@@ -30,6 +30,13 @@ export MOZ_ENABLE_WAYLAND=1
 export GDK_BACKEND=wayland
 export QT_QPA_PLATFORM=wayland
 export SDL_VIDEODRIVER=wayland
+# A web page or a link a program asks the desktop to open goes to
+# kidux-closed, which says in a bubble that the internet is closed here and
+# opens nothing (D104): its mimeapps.list and desktop file come first in
+# the directories every program reads them from.
+XDG_CONFIG_DIRS="/usr/share/kidux/session/xdg:${XDG_CONFIG_DIRS:-/etc/xdg}"
+XDG_DATA_DIRS="/usr/share/kidux/session/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+export XDG_CONFIG_DIRS XDG_DATA_DIRS
 
 # labwc, with Kidux's configuration and no other (D58): the kiosk, or the
 # desk for a child whose modules open in windows (D46). It starts the

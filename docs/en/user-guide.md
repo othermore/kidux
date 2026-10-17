@@ -304,7 +304,9 @@ the child closes it with its **×**. The bell at the right end of the bar
 keeps the last ones, with the time each came, so that one that went by
 can be read again; a number beside the bell says how many came since it
 was last opened, and **Clear** empties it. A bubble never makes a sound,
-and never comes from a website.
+and never comes from a website. A link in a module that leads to the
+internet, a program's help page for instance, opens nothing: a bubble says
+*That opens the internet, which is closed here.*
 
 ![A child's screen](../images/en/launcher.png)
 
