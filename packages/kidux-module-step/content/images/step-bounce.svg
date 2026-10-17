@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Step's guide, lesson 6: a ball bouncing off a box. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 200" width="360" height="200">
+  <rect width="360" height="200" rx="16" fill="#ffffff"/>
+  <rect x="40" y="150" width="280" height="26" rx="4" fill="#dce7e6" stroke="#3b2f2a"
+        stroke-width="4"/>
+  <path d="M70 40 Q120 150 170 140 Q230 30 290 100" fill="none" stroke="#3a86ff"
+        stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round"/>
+  <circle cx="290" cy="100" r="18" fill="#e4572e"/>
+</svg>

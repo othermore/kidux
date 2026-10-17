@@ -1,4 +1,5 @@
-"""Step, a physics playground (phase-4e-plan.md, step 4.29).
+"""Step, a physics playground (phase-4e-plan.md, step 4.29), with its guide
+(phase-4f-plan.md, step 4.36), whose first mission opens in Step.
 
 Installed through the daemon, as the panel installs it, with Step and the
 Wayland plugin of its Qt, and switched on for Leo from the command line.
@@ -9,6 +10,7 @@ it, Step with it (D100).
 """
 
 from sessionlib import (
+    SPEAKS,
     CHILD,
     CHILD_PASSWORD,
     CREAM,
@@ -36,6 +38,10 @@ CONFIG = f"{HOME}/.config/kidux/{MODULE}"
 KDE = f"/usr/share/kidux/modules/{MODULE}/kde"
 #: The room above the launcher's bar, and the bar.
 ABOVE_THE_BAR = (0.0, 0.0, 1.0, 0.92)
+#: Step's room, left of its guide's pane.
+STEP_ROOM = (0.0, 0.0, 0.6, 0.92)
+#: Lesson 1's mission, as the guide copies it into Leo's Documents.
+MISSION = {"es": "Misiones de Step/caida.step", "en": "Missions of Step/fall.step"}
 BAR = (0xF2, 0xE2, 0xCC)
 BAR_BOX = (0.0, 0.94, 1.0, 1.0)
 
@@ -82,7 +88,7 @@ def run(machine: Machine) -> None:
     report("Leo opens it by keyboard, a window filling the room above the bar",
            opened and on_screen() == MODULE and window.get("maximized")
            and not window.get("fullscreen")
-           and colour_share(picture, CREAM, ABOVE_THE_BAR) < 0.2
+           and colour_share(picture, CREAM, STEP_ROOM) < 0.2
            and colour_share(picture, BAR, BAR_BOX) > 0.4,
            f"{window}; {picture}\n" + launcher_log())
 
@@ -107,6 +113,22 @@ def run(machine: Machine) -> None:
            wait(lambda: journal_count("kidux-launcher", f"module {MODULE} ended") > ended, 20)
            and wait(lambda: on_screen() == "home", 10),
            launcher_log())
+
+    # Lesson 1's mission, copied when the guide first showed, given to the
+    # starter as a file, opens in Step, titled with its name.
+    mission = f"{HOME}/{SPEAKS['folders'][0]}/{MISSION[SPEAKS['lang']]}"
+    uid = root(f"id -u {CHILD}").stdout.strip()
+    root(f"runuser -u {CHILD} -- env XDG_RUNTIME_DIR=/run/user/{uid} systemd-run --user "
+         f"--quiet --unit=step-mission -p Environment=XDG_CONFIG_HOME={CONFIG} "
+         f"/usr/libexec/kidux-module-{MODULE} '{mission}'", timeout=60)
+    name = mission.rsplit("/", 1)[-1]
+    titled = wait(lambda: name in (module_window().get("title") or ""), 60, 2)
+    report("lesson 1's mission is in Leo's Documents and opens in Step by its name",
+           root(f"test -f '{mission}'").returncode == 0 and titled,
+           f"{module_window()}\n" + root(f"ls -la '{HOME}/{SPEAKS['folders'][0]}'").stdout)
+    root(f"runuser -u {CHILD} -- env XDG_RUNTIME_DIR=/run/user/{uid} "
+         "systemctl --user stop step-mission")
+    wait(lambda: module_window() == {}, 20)
 
     # Log out from the lock screen, past Continue and Adult.
     locked = machine.mark()

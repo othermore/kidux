@@ -298,6 +298,14 @@ language of the mission's tree. Session, `38-module-step.py`: a check
 opens the copy of lesson 1's mission in Step, as the starter does with a
 file, and finds Step's window titled with the file's name.
 
+**Found, 2026-10-17.** Every mission opens in Step, titled with its name,
+its objects in the World list. With the pane beside it, Step's world
+view is about 90 pixels wide at 1280x800: its four panels on the right,
+World, Properties, Context information and Undo history, take the rest,
+so a mission's note and objects are hardly seen until the child folds
+the guide or closes a panel. Kig's and Kalzium's fit. What to do is the
+owner's to decide.
+
 ### 4.37 — Kalzium's guide
 
 As 4.35 for `kidux-module-kalzium`: section 5.4's three lessons, no
@@ -460,7 +468,8 @@ its name. The four missions:
   in orange, the segment AB in ink, its midpoint M in blue, and a label
   at (-4, 3): *Drag A. Where does M go?* / *Arrastra A. ¿Adónde va M?*
 - `two-circles.kig` / `dos-circunferencias.kig` (lesson 3): points A
-  (-2, 0) and B (2, 0), the circle centred A through B, and a label:
+  (-2, 1) and B (2, 1), off the axis whose numbers would cover their
+  names, the circle centred A through B, and a label in two lines:
   *Draw the circle centred B through A. Where do they cross?* / *Dibuja
   la circunferencia con centro B que pasa por A. ¿Dónde se cruzan?*
 - `parallels.kig` / `paralelas.kig` (lesson 4): the line through (-5, -2)
@@ -468,8 +477,8 @@ its name. The four missions:
   parallel and the perpendicular to the line through P, then drag P.* /
   *Dibuja la paralela y la perpendicular a la recta por P, y luego
   arrastra P.*
-- `triangle.kig` / `triangulo.kig` (lesson 5): points A (-2, 0) and B
-  (2, 0), the circle centred A through B, and a label: *One circle is
+- `triangle.kig` / `triangulo.kig` (lesson 5): points A (-2, 1) and B
+  (2, 1), the circle centred A through B, and a label: *One circle is
   drawn. Draw the other, find C, and join the three.* / *Una
   circunferencia ya está. Dibuja la otra, encuentra C y une los tres.*
 
@@ -932,8 +941,8 @@ missions:
   and watch the path. Then try velocity (6, 4). Which goes further?* /
   *Pulsa Simular y mira el camino. Luego prueba la velocidad (6, 4).
   ¿Cuál llega más lejos?*
-- `bounce.step` / *rebote.step* (lesson 6): a `Box` of mass 1000 at
-  (0, -2), size (8, 0.5), velocity (0, 0), and a `Disk` of mass 1 and
+- `bounce.step` / `rebote.step` (lesson 6): a `Box` at (0, -2), size
+  (8, 0.5), held where it is by an `Anchor`, and a `Disk` of mass 1 and
   radius 0.3 at (0, 2), velocity (1, 0); a `WeightForce`; a
   `GJKCollisionSolver`; a note: *Press Simulate. The disk bounces on
   the box. Add a second disk and let them crash.* / *Pulsa Simular. El
@@ -974,7 +983,8 @@ it, press **Simulate**, and watch what the laws do to them.
 1. Press **New** in the toolbar for an empty world.
 2. In the palette on the left, press **Particle** and click on the
    canvas. That is a ball.
-3. Press **WeightForce** in the palette: that switches gravity on.
+3. Press **WeightForce** in the palette and click on the canvas: that
+   switches gravity on.
 4. Simulate.
 
 ::: try
@@ -1010,7 +1020,8 @@ cosas en él, pulsas **Simular** y miras qué les hacen las leyes.
 1. Pulsa **Nuevo** en la barra para un mundo vacío.
 2. En la paleta de la izquierda, pulsa **Partícula** y haz clic en el
    lienzo. Eso es una bola.
-3. Pulsa **FuerzaPeso** en la paleta: eso enciende la gravedad.
+3. Pulsa **FuerzaPeso** en la paleta y haz clic en el lienzo: eso
+   enciende la gravedad.
 4. Simula.
 
 ::: try
@@ -1293,9 +1304,9 @@ Balls bounce off walls and crash into each other. Step knows how.
 
 @mission missions/bounce.step
 
-1. Open the mission. A disk above a heavy box, gravity on, and a
-   collision solver in the world list, which is what makes things
-   bounce instead of passing through.
+1. Open the mission. A disk above a box held still by an anchor,
+   gravity on, and a collision solver in the world list, which is what
+   makes things bounce instead of passing through.
 2. Press **Simulate**. The disk falls, hits the box and bounces.
 3. Add a second **Disk** from the palette, give it a velocity towards
    the first, and simulate. They crash and fly apart.
@@ -1305,11 +1316,11 @@ Balls bounce off walls and crash into each other. Step knows how.
 
 ## Do it yourself
 
-1. New world. **Box** from the palette, drawn wide and flat; set its
-   mass very big, 1000, so that it does not move.
-2. A **Disk** above it. **WeightForce**.
-3. From the **Simulation** menu, add a **collision solver** (GJK).
-4. Simulate.
+1. New world. **Box** from the palette, drawn wide and flat.
+2. **Anchor** from the palette, then click the box: it stays where it
+   is, whatever pulls it.
+3. A **Disk** above it. **WeightForce**, and click on the canvas.
+4. Simulate. A new world already has its collision solver.
 
 ::: try
 Make a slope: a box turned by setting its *angle* to 0.3. Let a disk roll
@@ -1328,9 +1339,10 @@ cómo.
 
 @mission missions/rebote.step
 
-1. Abre la misión. Un disco sobre una caja pesada, gravedad encendida,
-   y en la lista del mundo un resolutor de colisiones, que es lo que
-   hace que las cosas reboten en vez de atravesarse.
+1. Abre la misión. Un disco sobre una caja sujeta por un ancla,
+   gravedad encendida, y en la lista del mundo un resolutor de
+   colisiones, que es lo que hace que las cosas reboten en vez de
+   atravesarse.
 2. Pulsa **Simular**. El disco cae, golpea la caja y rebota.
 3. Añade un segundo **Disco** de la paleta, dale una velocidad hacia el
    primero y simula. Chocan y salen despedidos.
@@ -1340,11 +1352,11 @@ cómo.
 
 ## Hazlo tú
 
-1. Mundo nuevo. **Caja** de la paleta, dibujada ancha y plana; ponle
-   una masa muy grande, 1000, para que no se mueva.
-2. Un **Disco** encima. **FuerzaPeso**.
-3. En el menú **Simulación**, añade un **resolutor de colisiones** (GJK).
-4. Simula.
+1. Mundo nuevo. **Caja** de la paleta, dibujada ancha y plana.
+2. **Ancla** de la paleta, y luego clic en la caja: se queda donde está,
+   tire lo que tire de ella.
+3. Un **Disco** encima. **FuerzaPeso**, y clic en el lienzo.
+4. Simula. Un mundo nuevo ya trae su resolutor de colisiones.
 
 ::: try
 Haz una rampa: una caja girada poniendo su *ángulo* en 0,3. Deja que un

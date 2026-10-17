@@ -134,7 +134,7 @@ Los módulos que ofrece Kidux:
   sin internet.
 - [Step](https://apps.kde.org/step/): un laboratorio de física, cuerpos,
   muelles y fuerzas sobre un plano, en marcha y medidos, para niños de
-  diez años en adelante, sin internet.
+  diez años en adelante, sin internet, con guía.
 - Simulaciones: experimentos para jugar en la pantalla, de
   [PhET Interactive Simulations](https://phet.colorado.edu/), Universidad
   de Colorado Boulder, elegidos para niños de seis a catorce años y

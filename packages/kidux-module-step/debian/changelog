@@ -1,3 +1,10 @@
+kidux-module-step (0.2.0) trixie; urgency=medium
+
+  * A guide beside Step: six lessons, from a falling ball to bouncing and
+    crashing, with five missions to open in Step.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 17 Oct 2026 10:23:40 +0200
+
 kidux-module-step (0.1.0) trixie; urgency=medium
 
   * Step, a physics playground, as a learning module.

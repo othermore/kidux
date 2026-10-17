@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Step's guide, lesson 2: two balls joined by a spring. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 140" width="360" height="140">
+  <rect width="360" height="140" rx="16" fill="#ffffff"/>
+  <path d="M82 70 L110 70 L122 46 L146 94 L170 46 L194 94 L218 46 L242 94 L254 70 L278 70"
+        fill="none" stroke="#3a86ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="64" cy="70" r="22" fill="#e4572e"/>
+  <circle cx="296" cy="70" r="22" fill="#e4572e"/>
+</svg>

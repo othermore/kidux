@@ -131,7 +131,7 @@ The modules Kidux offers:
   without the internet.
 - [Step](https://apps.kde.org/step/): a physics playground, bodies,
   springs and forces on a plane, run and measured, for children from ten
-  up, without the internet.
+  up, without the internet, with a guide.
 - Simulations: experiments to play with on the screen, from
   [PhET Interactive Simulations](https://phet.colorado.edu/), University
   of Colorado Boulder, chosen for children from six to fourteen and

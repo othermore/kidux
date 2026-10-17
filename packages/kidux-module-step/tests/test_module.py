@@ -6,7 +6,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from kidux import modules
+from kidux import lessons, modules
 
 PACKAGE = Path(__file__).resolve().parents[1]
 MODULE = "step"
@@ -74,3 +74,23 @@ def test_the_catalogue_is_complete_and_holds_the_manifests_words():
             and line != 'msgid ""'] == []
     for words in ("Step", "A physics playground: put springs, weights and forces"):
         assert words in text
+
+
+def test_the_guide_has_six_lessons_in_both_languages_with_their_missions_and_pictures(tmp_path):
+    shutil.copytree(PACKAGE, tmp_path / "step", ignore=shutil.ignore_patterns("debian", "tests"))
+    step = modules.read("step", root=tmp_path)
+
+    assert step.guide == str(tmp_path / "step" / "content")
+    english = lessons.read(step.guide, "en_US.UTF-8")
+    spanish = lessons.read(step.guide, "es_ES.UTF-8")
+    assert [lesson.number for lesson in english] == [1, 2, 3, 4, 5, 6]
+    assert [lesson.title for lesson in spanish][:2] == ["Una bola cae", "Un muelle"]
+    for found in (english, spanish):
+        kinds = [{block[0] for block in lesson.blocks} for lesson in found]
+        assert all("image" in k for k in kinds), kinds
+        assert ["mission" in k for k in kinds] == [True, True, True, True, False, True]
+    assert [Path(m).name for m in lessons.missions(spanish)] == [
+        "caida.step", "muelle.step", "pendulo.step", "lanzamiento.step", "rebote.step"]
+    for mission in lessons.missions(english) + lessons.missions(spanish):
+        text = Path(mission).read_text()
+        assert "StepCoreXML" in text and 'class="Note"' in text

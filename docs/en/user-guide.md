@@ -1064,7 +1064,8 @@ with meters and graphs to read it; the examples in its File menu are
 experiments ready to run. It is for children from ten up, in the
 child's language, and it works without the internet; its menu to
 download more experiments is switched off. An experiment can be saved
-as a file in the child's folders.
+as a file in the child's folders. It comes with a guide of six
+lessons.
 
 ![Step](../images/en/module-step.png)
 

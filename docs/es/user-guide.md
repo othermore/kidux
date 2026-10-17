@@ -1093,7 +1093,8 @@ con medidores y gráficas para leerlo; los ejemplos de su menú Archivo
 son experimentos listos para correr. Es para niños de diez años en
 adelante, en el idioma del niño, y funciona sin internet; su menú para
 descargar más experimentos está apagado. Un experimento se puede
-guardar como un archivo en las carpetas del niño.
+guardar como un archivo en las carpetas del niño. Viene con una guía de
+seis lecciones.
 
 ![Step](../images/es/module-step.png)
 

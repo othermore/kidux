@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Step's guide, lesson 4: a ball and the arc it flies. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 200" width="360" height="200">
+  <rect width="360" height="200" rx="16" fill="#ffffff"/>
+  <path d="M20 180 L340 180" stroke="#3b2f2a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M40 170 Q180 -40 320 170" fill="none" stroke="#3a86ff" stroke-width="5"
+        stroke-dasharray="12 8" stroke-linecap="round"/>
+  <circle cx="40" cy="160" r="16" fill="#e4572e"/>
+  <path d="M58 140 L84 108 M66 108 L84 108 L84 126" fill="none" stroke="#43aa8b"
+        stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

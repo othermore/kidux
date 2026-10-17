@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Step's guide, lesson 1: a ball and the arrow of its fall. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 200" width="360" height="200">
+  <rect width="360" height="200" rx="16" fill="#ffffff"/>
+  <path d="M30 180 L330 180" stroke="#3b2f2a" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="180" cy="50" r="22" fill="#e4572e"/>
+  <path d="M180 86 L180 150 M164 134 L180 150 L196 134" fill="none" stroke="#3a86ff"
+        stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

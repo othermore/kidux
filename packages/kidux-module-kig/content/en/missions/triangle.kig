@@ -4,7 +4,7 @@
  <CoordinateSystem>Euclidean</CoordinateSystem>
  <Hierarchy>
   <Data type="double" id="1" >-2</Data>
-  <Data type="double" id="2" >0</Data>
+  <Data type="double" id="2" >1</Data>
   <Object type="FixedPoint" id="3" >
    <Parent id="1" />
    <Parent id="2" />
@@ -24,7 +24,7 @@
    <Parent id="4" />
   </Object>
   <Data type="double" id="10" >2</Data>
-  <Data type="double" id="11" >0</Data>
+  <Data type="double" id="11" >1</Data>
   <Object type="FixedPoint" id="12" >
    <Parent id="10" />
    <Parent id="11" />
@@ -48,17 +48,30 @@
    <Parent id="12" />
   </Object>
   <Data type="int" id="20" >0</Data>
-  <Data type="double" id="21" >-6</Data>
-  <Data type="double" id="22" >5</Data>
+  <Data type="double" id="21" >-7</Data>
+  <Data type="double" id="22" >8</Data>
   <Object type="FixedPoint" id="23" >
    <Parent id="21" />
    <Parent id="22" />
   </Object>
-  <Data type="string" id="24" >One circle is drawn. Draw the other, find C, and join the three.</Data>
+  <Data type="string" id="24" >One circle is drawn. Draw the other,</Data>
   <Object type="Label" id="25" >
    <Parent id="20" />
    <Parent id="23" />
    <Parent id="24" />
+  </Object>
+  <Data type="int" id="26" >0</Data>
+  <Data type="double" id="27" >-7</Data>
+  <Data type="double" id="28" >7</Data>
+  <Object type="FixedPoint" id="29" >
+   <Parent id="27" />
+   <Parent id="28" />
+  </Object>
+  <Data type="string" id="30" >find C, and join the three.</Data>
+  <Object type="Label" id="31" >
+   <Parent id="26" />
+   <Parent id="29" />
+   <Parent id="30" />
   </Object>
  </Hierarchy>
  <View>
@@ -68,5 +81,6 @@
   <Draw width="-1" point-style="Round" namecalcer="13" style="SolidLine" shown="true" color="#e4572e" object="12" />
   <Draw width="-1" point-style="Round" namecalcer="none" style="SolidLine" shown="true" color="#3b2f2a" object="19" />
   <Draw width="-1" point-style="Round" namecalcer="none" style="SolidLine" shown="true" color="#3b2f2a" object="25" />
+  <Draw width="-1" point-style="Round" namecalcer="none" style="SolidLine" shown="true" color="#3b2f2a" object="31" />
  </View>
 </KigDocument>

@@ -41,16 +41,29 @@
   </Object>
   <Data type="int" id="17" >0</Data>
   <Data type="double" id="18" >-8</Data>
-  <Data type="double" id="19" >6</Data>
+  <Data type="double" id="19" >7</Data>
   <Object type="FixedPoint" id="20" >
    <Parent id="18" />
    <Parent id="19" />
   </Object>
-  <Data type="string" id="21" >Dibuja la paralela y la perpendicular a la recta por P, y luego arrastra P.</Data>
+  <Data type="string" id="21" >Dibuja la paralela y la perpendicular</Data>
   <Object type="Label" id="22" >
    <Parent id="17" />
    <Parent id="20" />
    <Parent id="21" />
+  </Object>
+  <Data type="int" id="23" >0</Data>
+  <Data type="double" id="24" >-8</Data>
+  <Data type="double" id="25" >6</Data>
+  <Object type="FixedPoint" id="26" >
+   <Parent id="24" />
+   <Parent id="25" />
+  </Object>
+  <Data type="string" id="27" >a la recta por P, y luego arrastra P.</Data>
+  <Object type="Label" id="28" >
+   <Parent id="23" />
+   <Parent id="26" />
+   <Parent id="27" />
   </Object>
  </Hierarchy>
  <View>
@@ -60,5 +73,6 @@
   <Draw width="-1" point-style="Round" namecalcer="none" style="SolidLine" shown="true" color="#e4572e" object="16" />
   <Draw width="-1" point-style="Round" namecalcer="11" style="SolidLine" shown="true" color="#e4572e" object="10" />
   <Draw width="-1" point-style="Round" namecalcer="none" style="SolidLine" shown="true" color="#3b2f2a" object="22" />
+  <Draw width="-1" point-style="Round" namecalcer="none" style="SolidLine" shown="true" color="#3b2f2a" object="28" />
  </View>
 </KigDocument>

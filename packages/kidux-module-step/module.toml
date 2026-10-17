@@ -3,7 +3,7 @@
 # starts Step with KDE's actions a child has no business in switched off
 # (modules.md, section 5; phase-4e-plan.md, 4.29).
 id = "step"
-version = "0.1.0"
+version = "0.2.0"
 name = "Step"
 description = "A physics playground: put springs, weights and forces on the table, press play and see what happens."
 min_age = 10
@@ -14,3 +14,5 @@ app_ids = ["org.kde.step"]                # what Step calls its window
 categories = ["science"]
 i18n_domain = "kidux-module-step"
 memory_max = "2G"
+# Six lessons beside it, with their missions (content/; D103).
+guide = true
