@@ -85,12 +85,20 @@ for changes in $changes_files; do
     reprepro_run --ignore=wrongdistribution include "$SUITE" "$changes"
 done
 
-# Materialise every configured suite, not just the one we wrote to. To apt, an
-# empty suite with no Release file is not empty, it is broken: a machine
-# following stable would report that the repository has no Release file until
-# the first package was ever promoted there.
-echo "==> Exporting all suites"
-reprepro_run export
+# The suite written to, and every other configured suite that has never been
+# exported. To apt, an empty suite with no Release file is not empty, it is
+# broken: a machine following stable would report that the repository has no
+# Release file until the first package was ever promoted there. A suite
+# already exported is left as it is, signed: a development machine without
+# the production key publishes to testing all the same (CLAUDE.md, "More
+# than one development machine").
+echo "==> Exporting $SUITE, and any suite never exported"
+reprepro_run export "$SUITE"
+for other in $(sed -n 's/^Codename: *//p' "$CONF_DIR/distributions"); do
+    if [ "$other" != "$SUITE" ] && [ ! -e "$ARCHIVE_ROOT/dists/$other/Release" ]; then
+        reprepro_run export "$other"
+    fi
+done
 "$REPO_ROOT/ci/archive/refresh-bootstrap.sh"
 # The key the testing suite is signed with, beside the archive, where a
 # machine that follows testing looks for it: the development key, or in CI

@@ -94,6 +94,10 @@ AVATAR_DIR = DATA_ROOT / "avatars"
 #: icon.svg (modules.md, section 1).
 MODULES_DIR = DATA_ROOT / "modules"
 
+#: Where dpkg lists each installed package's files, `<package>.list`: how a
+#: module is told from a folder copied there by hand.
+DPKG_INFO = Path(os.environ.get("KIDUX_DPKG_INFO", "/var/lib/dpkg/info"))
+
 #: Kidux's logo and mascot, from the repository's branding/, for every screen
 #: that shows them.
 LOGO = DATA_ROOT / "branding" / "logo.svg"

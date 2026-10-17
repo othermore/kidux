@@ -588,7 +588,8 @@ class Panel(_NewChild):
                  "min_age": module.min_age, "max_age": module.max_age,
                  "before": list(module.recommended_before),
                  "version": shown_version(module.version),
-                 "settings": bool(module.settings)}
+                 "settings": bool(module.settings),
+                 "packaged": module.package is not None}
                 for module in kidux_modules.installed()]
         update = self._update_state()
         # Asked of apt, which takes a moment: once per page, not once a
@@ -635,7 +636,7 @@ class Panel(_NewChild):
                              "max_age": entry.get("max_age", 0),
                              "before": list(entry.get("before", [])),
                              "version": shown_version(entry.get("offered_version", "")),
-                             "settings": False,
+                             "settings": False, "packaged": True,
                              "job": "installing" if module == installing else "to-install"})
         rows = ordered([{**row, "first": first(row)} for row in rows])
         self._rows_shown = rows

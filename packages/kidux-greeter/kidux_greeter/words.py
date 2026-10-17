@@ -90,6 +90,9 @@ WINDOWS_EXPLAINED = N_(
     "Modules in windows they move, resize and put full screen, several at once; "
     "from their next sign-in.")
 NEEDS_WINDOWS = N_("Needs windows")
+#: After the description of a module no package installed, a folder copied
+#: under the modules directory by hand, as the tests' stand-ins are (D101).
+NOT_FROM_A_PACKAGE = N_("A folder, not from a package")
 #: Who a module is for (D55), under its description on the Modules page:
 #: its ages, with one bound or both, and the modules best done before it.
 AGES_FROM_TO = N_("Ages {least} to {most}")
@@ -150,6 +153,7 @@ LOOKING_FOR_MODULES = N_("Looking for modules…")
 ALL_MODULES_INSTALLED = N_("Every module the archive offers is installed.")
 NO_MODULE_SOURCE = N_("This computer has no source of modules.")
 REMOVE_MODULE_QUESTION = N_("Remove {name}? The children's own files stay.")
+REMOVE_FOLDER_QUESTION = N_("Remove the folder of {name}? The children's own files stay.")
 MODULES_WAIT = N_("Children are signed in. Modules can be installed and removed once they "
                   "have logged out.")
 INSTALLING_MODULE = N_("Installing…")

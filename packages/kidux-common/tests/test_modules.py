@@ -346,3 +346,15 @@ def test_a_website_module_names_a_script_for_its_pages(tmp_path, caplog):
     assert caplog.text.count("is not a file beside the manifest") == 2
     manifest(tmp_path, "plain", GOOD.format(id="plain"))
     assert modules.read("plain", tmp_path).page_script == ""
+
+
+def test_a_module_says_whether_a_package_installed_it(tmp_path, monkeypatch):
+    info = tmp_path / "dpkg-info"
+    info.mkdir()
+    monkeypatch.setattr(modules.paths, "DPKG_INFO", info)
+    manifest(tmp_path / "modules", "hello", GOOD.format(id="hello"))
+    manifest(tmp_path / "modules", "canary", GOOD.format(id="canary"))
+    (info / "kidux-module-hello.list").write_text("/usr/share/kidux/modules/hello\n")
+
+    assert modules.read("hello", tmp_path / "modules").package == "kidux-module-hello"
+    assert modules.read("canary", tmp_path / "modules").package is None

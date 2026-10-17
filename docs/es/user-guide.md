@@ -796,7 +796,9 @@ cuenta o una suscripción, para que el adulto lo sepa antes de activarlo.
 Necesitan internet siempre que se usan.
 
 Los módulos cuyo nombre empieza por **[Prueba]** existen para comprobar
-que Kidux funciona, no para que los use un niño.
+que Kidux funciona, no para que los use un niño. Uno que dice **Una
+carpeta, no de un paquete** se copió en el ordenador a mano en vez de
+instalarse; **Eliminar** quita su carpeta.
 
 ### GCompris
 

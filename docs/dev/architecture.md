@@ -1735,3 +1735,15 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   holds nothing an adult installed by hand for apt to mistake; the
   children's own files stay. Installing the module again brings it all
   back.
+- **D101 — A module that is only a folder is said so, and Remove takes the
+  folder away.** Decided 2026-10-16 by the owner, on phase-4e-plan.md's
+  4.27. A folder under `/usr/share/kidux/modules/` that no package put
+  there, as the tests' stand-ins are, answered *That did not work.* to
+  *Remove*, since apt had nothing to purge. Its row on the Modules page
+  says it is a folder, not from a package (`kidux.modules.Module.package`,
+  from dpkg's list of the package's files), and Remove asks to remove the
+  folder; `kidux-update remove` takes it away and writes Chromium's
+  policy again, as a package's removal does, in the same job, with the
+  same rules and the same audit line. The update runner does it and not
+  the daemon, whose system is read-only to it (`ProtectSystem=strict`).
+  This extends D100.

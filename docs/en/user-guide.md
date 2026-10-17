@@ -772,7 +772,9 @@ account or a subscription, so that an adult knows before switching one
 on. They need the internet whenever they are used.
 
 The modules whose names begin with **[Test]** are there to check that
-Kidux works, not for a child to use.
+Kidux works, not for a child to use. One that says **A folder, not from a
+package** was copied onto the computer by hand rather than installed;
+**Remove** takes its folder away.
 
 ### GCompris
 

@@ -150,7 +150,10 @@ dropped with a line in the log; `sign_in` none, and a table that is wrong
 is dropped with a line in the log; `page_script` none, and a name that is
 not a file beside the manifest is dropped with a line in the log;
 `needs_windows` false, as is any value but `true`. Without `icon.svg` the
-tile shows Kidux's mascot.
+tile shows Kidux's mascot. The reader also says whether a package
+installed the module, `package`, `kidux-module-<id>` when dpkg lists that
+package's files, None for a folder copied there by hand, which the
+Modules page shows as such and removes as a folder (D101).
 
 ## 2. What a module may and may not do
 

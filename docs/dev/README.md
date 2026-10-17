@@ -69,9 +69,12 @@ instead, in English and Spanish.
 - [phase-4c-plan.md](phase-4c-plan.md): settings an adult gives a module
   for each child, CodeCombat signed in, Back and Forward on a website
   module, and the pointer's and the touchpad's speed, built.
-- [phase-4d-plan.md](phase-4d-plan.md): the current plan: a mailbox of
-  the child's own in Thunderbird, a door to Gmail, and the keyboard's
-  light with the lid.
+- [phase-4d-plan.md](phase-4d-plan.md): a mailbox of the child's own in
+  Thunderbird, a door to Gmail, the keyboard's light with the lid, and a
+  module's notices as bubbles, built.
+- [phase-4e-plan.md](phase-4e-plan.md): the current plan: the Modules
+  page put right, and Photography, a guide to taking photographs with a
+  real camera.
 - [test-battery-plan.md](test-battery-plan.md): making `ci/test-release.sh`
   faster without making it mean less.
 

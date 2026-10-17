@@ -229,6 +229,10 @@ class Module:
     sign_in: "SignIn | None" = None
     #: A script of its own that runs in every page its window shows, or "".
     page_script: str = ""
+    #: The package that installed it, `kidux-module-<id>`, or None for a
+    #: folder put under the modules directory by hand, as the tests' stand-ins
+    #: are, which only its folder's removal takes away.
+    package: str | None = None
 
 
 #: What Chromium calls the window of `kidux-webapp <id>` (launch.py): the
@@ -342,7 +346,17 @@ def read(module_id: str, root: Path | None = None) -> Module | None:
         sign_in=_sign_in(module_id, manifest.get("sign_in"),
                          sorted(set(hosts)), directory),
         page_script=_page_script(module_id, manifest.get("page_script"), directory),
+        package=package_of(module_id),
     )
+
+
+def package_of(module_id: str) -> str | None:
+    """`kidux-module-<id>` when dpkg has that package installed, else None.
+
+    A file's presence and not a question to dpkg, since the panel reads every
+    manifest each time it draws its Modules page."""
+    package = f"kidux-module-{module_id}"
+    return package if (paths.DPKG_INFO / f"{package}.list").is_file() else None
 
 
 def installed(root: Path | None = None) -> list[Module]:
