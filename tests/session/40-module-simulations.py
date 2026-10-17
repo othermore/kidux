@@ -90,7 +90,7 @@ def run(machine: Machine) -> None:
     opened = wait(lambda: title() == page, 60, 2)
     wait(lambda: on_screen() == MODULE, 10)
     machine.still(5)
-    picture = machine.screenshot(f"module-{MODULE}")
+    picture = machine.screenshot("module-simulations")
     window = module_window()
     report("Leo opens it by keyboard: the list, in Chromium, above the bar, in Leo's language",
            opened and on_screen() == MODULE and window.get("maximized")
@@ -103,7 +103,7 @@ def run(machine: Machine) -> None:
     shown = wait(lambda: title() == first, 30, 1)
     time.sleep(8)                                # PhET's own start, to its screens
     machine.still(5)
-    picture = machine.screenshot(f"module-{MODULE}-open")
+    picture = machine.screenshot("module-simulations-open")
     report("Enter opens the first simulation in the frame, under the bar that goes back",
            shown and colour_share(picture, BAR, PAGE_BAR) > 0.5
            and colour_share(picture, CREAM, ABOVE_THE_BAR) < 0.5,

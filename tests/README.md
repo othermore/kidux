@@ -109,7 +109,9 @@ section 5).
   numbered where it belongs.
 - **Something only a machine running Kidux shows, a screen above all:** a
   file in `session/`, numbered where it belongs. Take a picture of every new
-  screen with `machine.screenshot("<name>")`, and list the picture in
+  screen with `machine.screenshot("<name>")`, the name written out, not
+  put together from a variable, since the English run finds the tests to
+  run by that name in their source; and list the picture in
   `tests/lib/doc-screenshots.txt` if the user guide should show it.
   The battery runs every session test on a machine set up in Spanish, and
   on one set up in English (`tests/run session-en`, or `KIDUX_VM_LANGUAGE=en`

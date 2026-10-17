@@ -80,7 +80,7 @@ def run(machine: Machine) -> None:
     opened = wait(lambda: module_window() != {}, 90, 2)
     wait(lambda: on_screen() == MODULE, 10)
     machine.still(5)
-    picture = machine.screenshot(f"module-{MODULE}")
+    picture = machine.screenshot("module-kalzium")
     window = module_window()
     report("Leo opens it by keyboard, a window filling the room above the bar",
            opened and on_screen() == MODULE and window.get("maximized")
