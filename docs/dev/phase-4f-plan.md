@@ -157,8 +157,11 @@ colours and type are the launcher's (view.py's CSS, `kidux-roomy` and
 the rest), its text 20 pixels, and it scrolls as D63's rooms do
 (`kidux.scroll.scroller`).
 
-**What it shows.** At the top, the module's name and *Fold*, a chevron
-pointing at the edge; under it,
+**What it shows.** At the top, the module's name, and beside it *Fold*,
+a chevron pointing at the edge; for a child with windows the name is a
+drop-down, with every open module that has a guide, to change the guide
+by hand, and beside it *Pin*, a pin icon that lights when pressed
+(below); under it,
 either the **list of lessons**, each a button with its number and title,
 or **one lesson**: its title, its blocks drawn one under another, a
 heading as a heading, a paragraph as a `Gtk.Label` with Pango markup for
@@ -186,8 +189,12 @@ for each of the child's modes (section 4, decision 2):
   of the module whose window is in use, and, when that module has none
   or home is in use, keeps showing the guide it last showed, so that a
   child reading Kig's lesson while they copy its numbers into Step does
-  not lose the page. It goes away only when the last open module with a
-  guide closes.
+  not lose the page. The child may also choose: the drop-down at the top
+  lists every open module with a guide and shows the one picked, and
+  *Pin* keeps the guide shown whatever window comes into use, until it
+  is pressed again or that module closes; a guide picked from the
+  drop-down is pinned, since choosing it is asking for it to stay. The
+  pane goes away only when the last open module with a guide closes.
 
 In both modes a module with a guide opens with its pane unfolded, the
 list of lessons first, the first time; after that, what the child left:
@@ -196,7 +203,8 @@ for each module in the launcher's state file in the child's home,
 `~/.local/share/kidux/launcher.json`, through `kidux.state` (kind
 `launcher`), `{"guides": {"<id>": {"folded": false, "lesson": 3}}}`,
 written when it changes and read at start; a file that does not read is
-logged and ignored.
+logged and ignored. The pin is of the session, not remembered: a new
+session starts unpinned.
 
 **The bar** gets *Guide*, a button with a book icon drawn like the bar's
 others, between the time and *Close*, shown only while the pane is
@@ -244,7 +252,10 @@ guide (the canary) opened and shown takes the pane away, and Kig shown
 again brings it back; Leo logs out and in, opens Kig, and the pane comes
 back as left. For a child with windows, `21-windows.py` gains a check
 that with Kig and the canary open the pane stays, showing Kig's guide
-while the canary is in use, and goes when Kig closes.
+while the canary is in use, and goes when Kig closes; and, with Kig and
+Step open, that Step's window in use shows Step's guide, that Kig's
+picked from the drop-down stays with Step in use, pinned, and that the
+pin let go follows the window in use again.
 `13-every-screen-fits.py` gains the pane at scale 2.
 
 **Documents.** launcher.md, a section for the pane; the user guide's
@@ -359,7 +370,9 @@ Decided 2026-10-16 by the owner.
    last shown when that module has none, and goes away when the last
    module with a guide closes.
 3. **The pane folds to a rail** along the edge, for room, and unfolds
-   again from the rail or from the bar, in both modes.
+   again from the rail or from the bar, in both modes. With windows, the
+   child may pick a guide by hand from the pane's top, and pin it so
+   that it stays whatever window comes into use.
 4. **Fable plans, Opus builds, Fable reviews**, then the owner's hand
    tests, then the battery and the release.
 
@@ -392,6 +405,7 @@ Confirmed 2026-10-17 by the owner, on Fable's proposal:
 |---|---|
 | Guide | Guía |
 | Fold | Plegar |
+| Pin (the guide stays while other windows are in use) | Fijar (la guía se queda aunque uses otras ventanas) |
 | Lessons | Lecciones |
 | Back | Atrás |
 | Next | Siguiente |
@@ -1510,7 +1524,9 @@ Luego mira si la calculadora está de acuerdo.
 > thin strip along the edge, for room; a click on the strip, or
 > **Guide** on the bar, opens it again, at the lesson the child was in.
 > For a child with windows the guide stays while a module with one is
-> open, and shows the guide of the module in use. A lesson may have a *mission*, a file of the module's half done,
+> open, and shows the guide of the module in use; the name at its top
+> is a list to pick another, and **Pin** keeps the one chosen whatever
+> window is in use. A lesson may have a *mission*, a file of the module's half done,
 > with what to try written inside it: the first time the guide opens,
 > the missions are copied into the child's **Documents**, in a folder
 > named after the module, and the lesson's button opens one, or says
@@ -1527,7 +1543,8 @@ Luego mira si la calculadora está de acuerdo.
 > **Guía** en la barra, la abre otra vez, en la lección en la que estaba
 > el niño. Para un niño con ventanas la guía se queda mientras haya
 > abierto un módulo que la tenga, y enseña la del módulo que está en
-> uso. Una lección puede tener una *misión*, un archivo del módulo a
+> uso; el nombre de arriba es una lista para elegir otra, y **Fijar**
+> mantiene la elegida uses la ventana que uses. Una lección puede tener una *misión*, un archivo del módulo a
 > medio hacer, con lo que probar escrito dentro: la primera vez que se
 > abre la guía, las misiones se copian en los **Documentos** del niño,
 > en una carpeta con el nombre del módulo, y el botón de la lección abre
@@ -1559,7 +1576,8 @@ misiones e ideas, en el idioma del niño.*
 
 **Architecture**: a row in section 8's table is not needed; two
 decisions, D103 (the pane: the launcher's own layer surface on the
-right, folding to a rail, one rule for each mode, the lessons' small
+right, folding to a rail, one rule for each mode with the drop-down and
+the pin for a child with windows, the lessons' small
 Markdown drawn by the launcher, the missions in Documents) and D104
 (links out of a module get a bubble and open nothing), written from
 section 4.
