@@ -376,6 +376,14 @@ def keyboard(*steps: str, background: bool = False) -> None:
     command = f"{program} {' '.join(steps)}"
     root(f"systemd-run --quiet --collect {command}" if background else command)
 
+def pointer(*steps: str) -> None:
+    """A pointer that goes exactly where it is told (pointer.py, which says
+    what a step is): `x,y` as fractions of the screen, then `click`."""
+    program = "/usr/local/lib/kidux-tests/pointer.py"
+    if root(f"test -x {program}").returncode != 0:
+        copy(REPO / "tests" / "lib" / "pointer.py", program)
+    root(f"{program} {' '.join(steps)}")
+
 def boot_id() -> str:
     return ssh("cat /proc/sys/kernel/random/boot_id").stdout.strip()
 

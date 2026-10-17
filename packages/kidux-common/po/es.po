@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidux 0.1.0\n"
 "Report-Msgid-Bugs-To: info@kidux.org\n"
-"POT-Creation-Date: 2026-10-16 16:21+0200\n"
+"POT-Creation-Date: 2026-10-17 09:53+0200\n"
 "PO-Revision-Date: 2026-10-03 18:28+0200\n"
 "Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
 "Language-Team: Spanish\n"
@@ -81,6 +81,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: packages/kidux-common/kidux/vocabulary.py:50
+#: packages/kidux-launcher/kidux_launcher/words.py:30
 msgid "Back"
 msgstr "Volver"
 
@@ -1022,6 +1023,48 @@ msgstr "Todavía no hay nada que ver."
 #: packages/kidux-launcher/kidux_launcher/words.py:21
 msgid "Clear"
 msgstr "Vaciar"
+
+#: packages/kidux-launcher/kidux_launcher/words.py:25
+msgid "Guide"
+msgstr "Guía"
+
+#: packages/kidux-launcher/kidux_launcher/words.py:26
+msgid "Fold"
+msgstr "Plegar"
+
+#: packages/kidux-launcher/kidux_launcher/words.py:27
+msgid "Pin"
+msgstr "Fijar"
+
+#: packages/kidux-launcher/kidux_launcher/words.py:28
+msgid "The guide stays while other windows are in use"
+msgstr "La guía se queda aunque uses otras ventanas"
+
+#: packages/kidux-launcher/kidux_launcher/words.py:29
+msgid "Lessons"
+msgstr "Lecciones"
+
+#: packages/kidux-launcher/kidux_launcher/words.py:31
+msgid "Next"
+msgstr "Siguiente"
+
+#: packages/kidux-launcher/kidux_launcher/words.py:32
+msgid "Try this"
+msgstr "Prueba esto"
+
+#: packages/kidux-launcher/kidux_launcher/words.py:33
+msgid "Mission"
+msgstr "Misión"
+
+#: packages/kidux-launcher/kidux_launcher/words.py:36
+#, python-brace-format
+msgid "Open it from {name}: File, Open, Documents, {folder}, {file}."
+msgstr "Ábrela desde {name}: Archivo, Abrir, Documentos, {folder}, {file}."
+
+#: packages/kidux-launcher/kidux_launcher/words.py:38
+#, python-brace-format
+msgid "Missions of {name}"
+msgstr "Misiones de {name}"
 
 #, python-brace-format
 #~ msgid "First: {modules}"

@@ -179,7 +179,7 @@ bold and italic, wrapping, steps as a column of rows numbered in a
 circle, bullets with a dot, a picture with `drawing()` at the pane's
 width, the mascot's bubble as the launcher draws its notices (the chick
 at 64 pixels beside a rounded box), *Try this* as a box in the module's
-tile colour, and the mission as a button, *Open the mission* (below);
+tile colour, and the mission as a box, *Mission* (below);
 at the bottom, *Lessons* (back to the list), *Back* and *Next* between
 the lessons. The keyboard reaches everything by Tab inside the pane
 (`ON_DEMAND`), the arrows scroll, and Escape goes from a lesson to the
@@ -210,10 +210,12 @@ In both modes a module with a guide opens with its pane unfolded, the
 list of lessons first, the first time; after that, what the child left:
 folded or unfolded, and the lesson the child was in. That is remembered
 for each module in the launcher's state file in the child's home,
-`~/.local/share/kidux/launcher.json`, through `kidux.state` (kind
-`launcher`), `{"guides": {"<id>": {"folded": false, "lesson": 3}}}`,
-written when it changes and read at start; a file that does not read is
-logged and ignored. The pin is of the session, not remembered: a new
+`~/.local/share/kidux/launcher.json`, `{"guides": {"<id>": {"folded":
+false, "lesson": 3}}}`, a JSON file of the launcher's own written whole
+and renamed into place when it changes, and read at start (not
+`kidux.state`, whose files are the daemon's and given to the
+administrators, which a child's process cannot do); a file that does not
+read is logged and ignored. The pin is of the session, not remembered: a new
 session starts unpinned.
 
 **The bar** gets *Guide*, a button with a book icon drawn like the bar's
@@ -234,29 +236,24 @@ the launcher's catalogue, *Missions of <name>* (section 5.1), one file
 each named as the lesson's language gives it (the file's name in
 `content/<lang>/missions/` is already the child's language's), without
 overwriting a file already there, so that a child's saved work stays.
-The button *Open the mission*: when the module is not running
-(`launch.running()`), it starts the module as a tile does, with the
-copy's path as the program's one argument (`launch.command(module, home,
-settings, arguments=[path])`, which the starters pass on with `"$@"`),
-and the pane stays; when the module is running, the button is replaced
-by the sentence *Open it from <name>: File, Open, Documents, Missions of
-<name>, <file>*, since a second start of the program is a second window,
-and File, Open is a thing to learn. The sentence's words are the
-launcher's; the file's name is the mission's.
+The pane shows a lesson's mission as a box, *Mission*, with the sentence
+*Open it from <name>: File, Open, Documents, Missions of <name>, <file>*:
+the pane is there only while the module is open, a second start of the
+program would be a second window, and File, Open is a thing to learn.
+The sentence's words are the launcher's; the file's name is the
+mission's.
 
 **Tests.** Unit, GTK-free, in the launcher: the rule of what the pane
 shows, in each mode, for every change of the module on screen, from
 `desk.py`'s own test's shape; the state read and written; the missions'
-copy that never overwrites; the command with an argument; and in
-`launch.py`'s test, `arguments`. Session, `tests/session/41-guide.py`
+copy that never overwrites. Session, `tests/session/41-guide.py`
 (`40-purge.py` becomes `42-purge.py`), with Kig installed through the
 daemon as `36-module-kig.py` does: Leo opens Kig, the pane is there on
 the right with Kig's lessons in Leo's language and Kig filling the rest
 (the picture `module-kig-guide`, in the guide and on the website; the
 pane's cream in the right third, Kig's grid in the rest), the bar's
-*Guide* lit; Enter on the first lesson shows it (the picture
-`module-guide-lesson`); its mission's button, with Kig open, is the
-sentence; *Fold* leaves the rail and Kig fills the room up to it; the
+*Guide* lit; the missions copied into Leo's Documents; a click on the
+first lesson shows it (the picture `module-guide-lesson`); *Fold* leaves the rail and Kig fills the room up to it; the
 bar's button unfolds it to the same lesson; a second module without a
 guide (the canary) opened and shown takes the pane away, and Kig shown
 again brings it back; Leo logs out and in, opens Kig, and the pane comes
@@ -289,8 +286,8 @@ and finds six lessons with titles in both languages, every picture
 present, and every mission a lesson names present in its language's
 tree, the same lessons naming one in both. Session, `36-module-kig.py`: the picture
 `module-kig` is taken with the pane (the tile's first open), and a new
-check opens the mission of lesson 2 from its button before Kig is open,
-and finds Kig's window titled with the file's name.
+check opens the copy of lesson 2's mission in Kig, as the starter does
+with a file, and finds Kig's window titled with the file's name.
 
 ### 4.36 — Step's guide
 
@@ -298,8 +295,8 @@ As 4.35 for `kidux-module-step`: section 5.3's six lessons and five
 missions, Step's files in its own XML, each tried in Step; version
 0.2.0. The notes inside a mission are Step's *Note* objects, in the
 language of the mission's tree. Session, `38-module-step.py`: a check
-opens lesson 1's mission before Step is open and finds Step's window
-titled with the file's name.
+opens the copy of lesson 1's mission in Step, as the starter does with a
+file, and finds Step's window titled with the file's name.
 
 ### 4.37 — Kalzium's guide
 
@@ -417,11 +414,11 @@ Confirmed 2026-10-17 by the owner, on Fable's proposal:
 | Fold | Plegar |
 | Pin (the guide stays while other windows are in use) | Fijar (la guía se queda aunque uses otras ventanas) |
 | Lessons | Lecciones |
-| Back | Atrás |
+| Back | Volver |
 | Next | Siguiente |
 | Try this | Prueba esto |
-| Open the mission | Abrir la misión |
-| Open it from {name}: File, Open, Documents, Missions of {name}, {file}. | Ábrela desde {name}: Archivo, Abrir, Documentos, Misiones de {name}, {file}. |
+| Mission | Misión |
+| Open it from {name}: File, Open, Documents, {folder}, {file}. | Ábrela desde {name}: Archivo, Abrir, Documentos, {folder}, {file}. |
 | Missions of {name} | Misiones de {name} |
 | That opens the internet, which is closed here. (4.38, kidux-session) | Eso abre internet, que aquí está cerrado. |
 
@@ -1539,8 +1536,8 @@ Luego mira si la calculadora está de acuerdo.
 > window is in use. A lesson may have a *mission*, a file of the module's half done,
 > with what to try written inside it: the first time the guide opens,
 > the missions are copied into the child's **Documents**, in a folder
-> named after the module, and the lesson's button opens one, or says
-> where to find it when the module is already open. Kig, Step and
+> named after the module, and the lesson says how to open its mission
+> from the module's own **File**, **Open**. Kig, Step and
 > Kalzium have a guide.
 
 > ### Una guía al lado de un módulo
@@ -1557,8 +1554,8 @@ Luego mira si la calculadora está de acuerdo.
 > mantiene la elegida uses la ventana que uses. Una lección puede tener una *misión*, un archivo del módulo a
 > medio hacer, con lo que probar escrito dentro: la primera vez que se
 > abre la guía, las misiones se copian en los **Documentos** del niño,
-> en una carpeta con el nombre del módulo, y el botón de la lección abre
-> una, o dice dónde encontrarla cuando el módulo ya está abierto. Kig,
+> en una carpeta con el nombre del módulo, y la lección dice cómo abrir
+> su misión desde el propio módulo, con **Archivo**, **Abrir**. Kig,
 > Step y Kalzium tienen guía.
 
 And one sentence in section 5 under *The child's screen*, after the

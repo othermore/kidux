@@ -330,6 +330,26 @@ vez.
 
 ![Dos módulos abiertos, y la barra](../images/es/module-two-open.png)
 
+### Una guía al lado de un módulo
+
+Algunos módulos vienen con una guía: lecciones escritas para el niño,
+con pasos que seguir, qué mirar e ideas para continuar. La guía se
+abre a la derecha cuando se abre el módulo, y el módulo ocupa el
+resto de la pantalla. **Plegar**, arriba de la guía, la pliega en una
+tira estrecha pegada al borde, para tener sitio; un clic en la tira, o
+**Guía** en la barra, la abre otra vez, en la lección en la que estaba
+el niño. Para un niño con ventanas la guía se queda mientras haya
+abierto un módulo que la tenga, y enseña la del módulo que está en
+uso; el nombre de arriba es una lista para elegir otra, y **Fijar**
+mantiene la elegida uses la ventana que uses. Una lección puede tener
+una *misión*, un archivo del módulo a medio hacer, con lo que probar
+escrito dentro: la primera vez que se abre la guía, las misiones se
+copian en los **Documentos** del niño, en una carpeta con el nombre
+del módulo, y la lección dice cómo abrir su misión desde el propio
+módulo, con **Archivo**, **Abrir**. Kig, Step y Kalzium tienen guía.
+
+![Una guía al lado de Kig](../images/es/module-kig-guide.png)
+
 ### La barra
 
 La barra de abajo tiene siempre:

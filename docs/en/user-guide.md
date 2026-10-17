@@ -323,6 +323,26 @@ it, rather than opening it twice.
 
 ![Two modules open, and the bar](../images/en/module-two-open.png)
 
+### A guide beside a module
+
+Some modules come with a guide: lessons written for the child, with
+steps to follow, what to look for, and ideas to go on with. The guide
+opens on the right when the module opens, and the module takes the
+rest of the screen. **Fold**, at the top of the guide, folds it to a
+thin strip along the edge, for room; a click on the strip, or
+**Guide** on the bar, opens it again, at the lesson the child was in.
+For a child with windows the guide stays while a module with one is
+open, and shows the guide of the module in use; the name at its top
+is a list to pick another, and **Pin** keeps the one chosen whatever
+window is in use. A lesson may have a *mission*, a file of the
+module's half done, with what to try written inside it: the first
+time the guide opens, the missions are copied into the child's
+**Documents**, in a folder named after the module, and the lesson
+says how to open its mission from the module's own **File**, **Open**.
+Kig, Step and Kalzium have a guide.
+
+![A guide beside Kig](../images/en/module-kig-guide.png)
+
 ### The bar
 
 The bar along the bottom always has:

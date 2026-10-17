@@ -1768,3 +1768,22 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   and its description names PhET as the simulations' author and says that
   Kidux is not connected with PhET. The current versions, if ever wanted,
   would be a door to PhET's site (D85), shipping nothing.
+
+- **D103 — A module may have a guide, shown by the launcher in a pane of
+  its own on the right.** Decided 2026-10-17 by the owner, on
+  phase-4f-plan.md. A child opening Kig or Step meets an empty canvas and
+  forty tools; lessons of Kidux's own, with steps, pictures, the mascot and
+  missions, files of the program's half done, show beside the program.
+  The pane is the launcher's own layer surface on the right edge with an
+  exclusive zone, not a second window the compositor places: it works the
+  same with windows and without, needs no window rules, and follows the
+  module on screen; it folds to a rail for room. Without windows it shows
+  the guide of the module on screen and goes for one without; with
+  windows it stays while a module with a guide is open, shows the one in
+  use, keeps the last one shown, and lets the child pick one and pin it.
+  The lessons are a small Markdown the launcher draws, since a browser in
+  the launcher would be a second engine on the machine (D36); the
+  missions are copied into the child's Documents and opened from the
+  program's own File, Open, which is itself a thing to learn, and which a
+  second start of a program already open could not do but in a second
+  window.

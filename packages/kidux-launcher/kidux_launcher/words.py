@@ -19,3 +19,20 @@ CLOSE_ANYWAY = N_("Close it anyway")
 NOTICES = N_("Notices")
 NO_NOTICES = N_("Nothing to show yet.")
 CLEAR_NOTICES = N_("Clear")
+
+#: A module's guide beside it (guide.py, D103): the bar's button and the
+#: folded pane, the pane's own buttons, and its boxes.
+GUIDE = N_("Guide")
+FOLD = N_("Fold")
+PIN = N_("Pin")
+PIN_HINT = N_("The guide stays while other windows are in use")
+LESSONS = N_("Lessons")
+BACK = N_("Back")
+NEXT = N_("Next")
+TRY_THIS = N_("Try this")
+MISSION = N_("Mission")
+#: How to open a lesson's mission from the module: {name} the module's,
+#: {folder} the folder its missions are in, {file} the mission's file.
+OPEN_MISSION_FROM = N_("Open it from {name}: File, Open, Documents, {folder}, {file}.")
+#: The folder in the child's Documents a module's missions are copied to.
+MISSIONS_OF = N_("Missions of {name}")

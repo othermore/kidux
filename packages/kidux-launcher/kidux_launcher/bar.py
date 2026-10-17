@@ -66,7 +66,8 @@ def layer_shell():
 class Bar:
     def __init__(self, application: Gtk.Application, shell, *, translate, drawing, mascot: str,
                  on_home, on_module, on_lock, on_close, on_keep, on_end,
-                 on_window=None, keys: dict | None = None, bell=None) -> None:
+                 on_window=None, keys: dict | None = None, bell=None,
+                 on_guide=None) -> None:
         self._ = translate
         self._drawing = drawing
         #: How the keys are written on this machine, for the tooltips of
@@ -146,6 +147,13 @@ class Bar:
         end.append(question)
         self._time = TimeLeft(can_focus=False)
         end.append(self._time.widget)
+        # A module's guide (guide.py, D103): there while the pane is, lit
+        # while it is unfolded; it folds and unfolds it.
+        self._guide = self._button(self._(words.GUIDE), on_guide or (lambda: None),
+                                   icon="accessories-dictionary-symbolic")
+        self._guide.set_visible(False)
+        self._guide_there = False
+        end.append(self._guide)
         self._close = self._button(self._(words.CLOSE), on_close, icon="window-close-symbolic",
                                    hint=self._keys.get("close"))
         end.append(self._close)
@@ -381,6 +389,16 @@ class Bar:
         self._end.set_visible(on_a_module)
         self._time.show(clock, sentence, room=not self._question.get_visible())
 
+    def show_guide(self, there: bool, unfolded: bool) -> None:
+        """The guide's button: shown while the pane is `there`, lit while it
+        is `unfolded`."""
+        self._guide_there = there
+        self._guide.set_visible(there and not self._question.get_visible())
+        if unfolded:
+            self._guide.add_css_class("kidux-current")
+        else:
+            self._guide.remove_css_class("kidux-current")
+
     def show_closing(self, name: str | None, question: str | None) -> None:
         """Close names the module on screen, `name`, for a screen reader;
         `question`, when there is one, is asked in place of the time."""
@@ -396,6 +414,7 @@ class Bar:
         # which step aside with their arrows until it is answered, the
         # question naming the module it is about.
         self._time.widget.set_visible(question is None and self._time.shown)
+        self._guide.set_visible(question is None and self._guide_there)
         self._close.set_visible(question is None)
         if self._strip.get_visible() != (question is None):
             self._strip.set_visible(question is None)

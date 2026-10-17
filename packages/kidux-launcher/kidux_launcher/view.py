@@ -12,6 +12,7 @@ import logging
 import os
 import pwd
 import time
+from pathlib import Path
 
 import gi
 
@@ -22,10 +23,12 @@ from gi.repository import Gdk, Gio, GLib, Gtk, Pango  # noqa: E402
 
 from kidux import avatars, i18n, paths, scroll, vocabulary  # noqa: E402
 from kidux import hardware  # noqa: E402
+from kidux import lessons as kidux_lessons  # noqa: E402
 from kidux import modules as kidux_modules  # noqa: E402
 
-from . import launch, words  # noqa: E402
+from . import guides, launch, words  # noqa: E402
 from .bar import Bar  # noqa: E402
+from .guide import CSS as GUIDE_CSS, GuidePane, width_for  # noqa: E402
 from .bubbles import CSS as BUBBLES_CSS, Bubbles  # noqa: E402
 from .desk import CLOSE_SECONDS, HOME  # noqa: E402
 from .daemon import DaemonError, DaemonUnavailableError  # noqa: E402
@@ -99,7 +102,7 @@ def child_name() -> str:
 
 def install_style(display: Gdk.Display) -> None:
     provider = Gtk.CssProvider()
-    provider.load_from_string(CSS + CORNER_CSS + scroll.CSS + BUBBLES_CSS)
+    provider.load_from_string(CSS + CORNER_CSS + scroll.CSS + BUBBLES_CSS + GUIDE_CSS)
     Gtk.StyleContext.add_provider_for_display(display, provider,
                                               Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
@@ -143,6 +146,8 @@ class Launcher:
         self._desk = desk
         self._bar = None
         self._bubbles = None
+        #: A module's guide beside it (guide.py, guides.py, D103).
+        self._guide = None
         #: The number of the bubble of the last time warning, for the next
         #: to take its place.
         self._warning_notice = 0
@@ -153,6 +158,10 @@ class Launcher:
         #: Whether this child's modules open in windows (D46), as the
         #: sign-in screen started the session.
         self._windows = os.environ.get("KIDUX_WINDOWS") == "1"
+        self._guides = guides.Guides(windows=self._windows,
+                                     path=guides.state_file(os.path.expanduser("~")))
+        #: Each guide's lessons as read, by module id.
+        self._lessons: dict[str, list] = {}
         self._t = i18n.translations(self._language)
         self._modules: list = []
         #: A sentence over the tiles, after a module that did not open.
@@ -182,8 +191,14 @@ class Launcher:
                             on_lock=self._lock,
                             on_close=self.close_module, on_keep=self._desk.keep,
                             on_end=self._desk.end_anyway, on_window=self._desk.raise_window,
-                            keys=KEYS, bell=self._bubbles.bell)
+                            keys=KEYS, bell=self._bubbles.bell, on_guide=self._guide_toggle)
             self._bar.present()
+            width, _height = kidux_screen.logical_size(self._window.get_display())
+            self._guide = GuidePane(application, shell, translate=self._, drawing=drawing,
+                                    mascot=MASCOT, windows=self._windows,
+                                    width=width_for(width), on_fold=self._guide_fold,
+                                    on_lesson=self._guide_lesson, on_pick=self._guide_pick,
+                                    on_pin=self._guide_pin, language=self._language)
             # The lid, under labwc, which powers the panel off and on, and
             # locks the session when it closes (lid.py, D67).
             devices = hardware.lid_devices()
@@ -223,6 +238,66 @@ class Launcher:
             question = self._(words.NOT_CLOSED).format(name=name)
         self._bar.show_closing(name, question)
         self._draw_time()
+        # The guide follows the module on screen, by its mode's rule.
+        guided = {module.id: bool(module.guide) for module in opened}
+        self._guides.follow([module.id for module in opened], current,
+                            lambda module_id: guided.get(module_id, False))
+        self._draw_guide()
+
+    # --- a module's guide (D103) --------------------------------------------
+
+    def _draw_guide(self) -> None:
+        if self._guide is None:
+            return
+        shown = self._guides.shown
+        module = kidux_modules.read(shown) if shown else None
+        if module is None or not module.guide:
+            self._guide.hide()
+            self._bar.show_guide(False, False)
+            return
+        if shown not in self._lessons:
+            self._lessons[shown] = kidux_lessons.read(module.guide, self._language)
+        lessons = self._lessons[shown]
+        name = kidux_modules.name_in(module, self._language)
+        folder_name = self._(words.MISSIONS_OF).format(name=name)
+        if not self._guides.seen(shown):
+            # The first time a guide is shown, its missions go into the
+            # child's Documents, where they are the child's to keep.
+            documents = (GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOCUMENTS)
+                         or os.path.expanduser("~/Documents"))
+            copies = guides.copy_missions(kidux_lessons.missions(lessons),
+                                          Path(documents) / folder_name)
+            log.info("guide: %s missions copied: %d", shown, len(copies))
+            self._guides.remember(shown)
+        opened = [m for m in (kidux_modules.read(i) for i in self._guides.open) if m is not None]
+        folded = self._guides.folded(shown)
+        self._guide.show(module, lessons, lesson=self._guides.lesson(shown), folded=folded,
+                         open_=opened, pinned=self._guides.pinned == shown,
+                         missions_folder=folder_name)
+        self._bar.show_guide(True, not folded)
+
+    def _guide_fold(self, folded: bool) -> None:
+        if self._guides.shown:
+            self._guides.remember(self._guides.shown, folded=folded)
+            self._draw_guide()
+
+    def _guide_toggle(self) -> None:
+        """The bar's Guide: the pane folded or unfolded."""
+        if self._guides.shown:
+            self._guide_fold(not self._guides.folded(self._guides.shown))
+
+    def _guide_lesson(self, number: int | None) -> None:
+        if self._guides.shown:
+            self._guides.remember(self._guides.shown, lesson=number)
+            self._draw_guide()
+
+    def _guide_pick(self, module_id: str) -> None:
+        self._guides.pick(module_id)
+        self._draw_guide()
+
+    def _guide_pin(self, on: bool) -> None:
+        self._guides.pin(on)
+        self._draw_guide()
 
     def close_module(self) -> None:
         """Close, on the bar or its key (D45): the module on screen is asked,

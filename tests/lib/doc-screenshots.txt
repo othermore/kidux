@@ -53,6 +53,7 @@ module-gmail            module-gmail.png
 module-kig              module-kig.png
 module-kalzium          module-kalzium.png
 module-step             module-step.png
+module-kig-guide        module-kig-guide.png
 module-simulations      module-simulations.png
 module-simulations-open module-simulations-open.png
 launcher-modules        launcher-modules.png

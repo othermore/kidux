@@ -423,6 +423,47 @@ not started twice (`launch.running`, the active `kidux-module-*.scope`
 units). Logging out, from the launcher or from the lock screen, ends the
 session, `labwc`, XWayland, and every module with it.
 
+**A module's guide** (D103). A module whose manifest says `guide = true`
+(modules.md, sections 1 and 3) has its lessons shown beside it, in a third
+window of the launcher, `guide.py`: a layer-shell surface on the right
+edge, from the top down to the bar, layer `TOP`, with an exclusive zone of
+its width, a third of the screen's logical width and never under 300
+pixels, so that every maximised window and the launcher's own fill the
+room to its left (labwc-notes.md). Its keyboard is on demand: a click in it
+gives it the keys, a click in the program gives them back. At its top, the
+module's name and *Fold*; for a child with windows, the name is a list of
+the open modules with a guide when there are several, and a pin stands
+beside it. Under that, the list of lessons, each a button, or one lesson,
+its blocks as `kidux.lessons` reads them: headings, paragraphs with bold
+and italic, numbered steps, bullets, pictures drawn at the pane's width,
+the mascot beside what it says, *Try this* in a box of its own, and the
+lesson's mission, a box saying where its copy is and how to open it from
+the module's own File, Open; at the bottom, *Lessons*, *Back* and *Next*.
+Escape goes from a lesson to the list. *Fold* leaves a rail of 28 pixels
+along the edge, the book and the module's name written upwards, its
+exclusive zone the rail's; a click on the rail, or the bar's *Guide*, a
+button between the time and *Close* there while the pane is and lit while
+it is unfolded, opens it again. While the bar asks whether to close a
+module, *Guide* steps aside with the time and *Close*.
+
+Which guide is shown is `guides.py`'s, with no GTK in it, at every change
+the desk reports (`desk_changed`). Without windows the pane shows the guide
+of the module on screen, and goes away for a module without one or home.
+With windows it stays while any open module has a guide: the guide of the
+module in use, the last one shown while a module without one or home is in
+use, and none once the last module with a guide closes. A guide picked
+from the list is pinned; the pin keeps the guide shown whatever window is
+in use, until it is let go or its module closes, and is the session's
+alone. What the child left in each guide, folded or not and the lesson
+they were in, is kept in `~/.local/share/kidux/launcher.json`, a file of
+the launcher's own written whole and renamed into place, and read at
+start; one that does not read is logged and set aside. The first time a
+guide is shown, its missions are copied into the child's Documents, in a
+folder named in their language, *Missions of <name>*, never over a file
+already there, since it may be the child's work. The launcher logs
+`guide: <id> lessons|lesson <n> folded|unfolded [pinned]` and `guide:
+none` as the pane changes, and `guide: <id> missions copied: <n>`.
+
 ## 6. Accessibility and style
 
 - The sizes of greeter.md section 8 (D30): every screen fits 1280x800 whole,
