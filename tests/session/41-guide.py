@@ -37,10 +37,10 @@ from sessionlib import (
 AS = "runuser -u debian -- /usr/local/bin/kidux-as"
 #: The pane's empty foot under its list of lessons, on a 1280x800 screen,
 #: and the room the program has.
-PANE = (0.70, 0.68, 0.98, 0.90)
+PANE = (0.78, 0.68, 0.98, 0.90)
 PROGRAM = (0.10, 0.10, 0.60, 0.90)
-#: Where Kig's grid reaches when the pane is folded: its third, less the rail.
-FOLDED_ROOM = (0.70, 0.10, 0.96, 0.90)
+#: Where Kig's grid reaches when the pane is folded: its quarter, less the rail.
+FOLDED_ROOM = (0.78, 0.10, 0.96, 0.90)
 #: The first lesson in the list, the pane's Fold, and the bar's Guide.
 FIRST_LESSON = "0.88,0.13"
 FOLD = "0.96,0.045"

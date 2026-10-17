@@ -427,23 +427,26 @@ session, `labwc`, XWayland, and every module with it.
 (modules.md, sections 1 and 3) has its lessons shown beside it, in a third
 window of the launcher, `guide.py`: a layer-shell surface on the right
 edge, from the top down to the bar, layer `TOP`, with an exclusive zone of
-its width, a third of the screen's logical width and never under 300
+its width, a quarter of the screen's logical width and never under 280
 pixels, so that every maximised window and the launcher's own fill the
 room to its left (labwc-notes.md). It comes up without the keyboard, which
 stays with the module, since labwc gives the keys to a surface that asks
 for them as it comes up; a press in it asks, and gives it the keys, and a
 click in the program gives them back. At its top, the
-module's name and *Fold*; for a child with windows, the name is a list of
-the open modules with a guide when there are several, and a pin stands
-beside it. Under that, the list of lessons, each a button, or one lesson,
+module's name and *Fold*, which says its word beside its arrow; for a
+child with windows, a pin stands before *Fold*, and, when several open
+modules have a guide, the name is a list of them on a row of its own
+under the two, so that the pane keeps its width. Under that, the guide's
+introduction, when it has one, above the list of lessons, each a button,
+or one lesson,
 its blocks as `kidux.lessons` reads them: headings, paragraphs with bold
 and italic, numbered steps, bullets, pictures drawn at the pane's width,
 the mascot beside what it says, *Try this* in a box of its own, and the
 lesson's mission, a box saying where its copy is and how to open it from
 the module's own File, Open; at the bottom, *Lessons*, *Back* and *Next*.
 Escape goes from a lesson to the list. *Fold* leaves a rail of 28 pixels
-along the edge, the book and the module's name written upwards, its
-exclusive zone the rail's; a click on the rail, or the bar's *Guide*, a
+along the edge, an arrow pointing out of it, the book and the module's
+name written upwards, its exclusive zone the rail's; a click on the rail, or the bar's *Guide*, a
 button between the time and *Close* there while the pane is and lit while
 it is unfolded, opens it again. While the bar asks whether to close a
 module, *Guide* steps aside with the time and *Close*.

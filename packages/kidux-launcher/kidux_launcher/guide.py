@@ -32,8 +32,8 @@ from . import words  # noqa: E402
 
 log = logging.getLogger("kidux.launcher")
 
-#: The pane's width: a third of the screen, never less than this.
-NARROWEST = 300
+#: The pane's width: a quarter of the screen, never less than this.
+NARROWEST = 280
 #: The rail a folded pane is, along the edge.
 RAIL = 28
 #: How many frames the pane draws before it asks for the keyboard.
@@ -64,7 +64,7 @@ window.kidux-guide button.kidux-lesson { padding: 8px 14px; }
 
 def width_for(logical_width: int) -> int:
     """The pane's width on a screen `logical_width` pixels wide."""
-    return max(NARROWEST, logical_width // 3)
+    return max(NARROWEST, logical_width // 4)
 
 
 def markup(runs) -> str:
@@ -120,6 +120,7 @@ class GuidePane:
         #: are, for the sentence that says how to open one.
         self._module = None
         self._lessons: list = []
+        self._intro: tuple = ()
         self._lesson: int | None = None
         self._folded = False
         self._open: list = []
@@ -148,8 +149,8 @@ class GuidePane:
 
     # --- what the launcher asks ------------------------------------------
 
-    def show(self, module, lessons: list, *, lesson: int | None, folded: bool, open_: list,
-             pinned: bool, missions_folder: str) -> None:
+    def show(self, module, lessons: list, *, intro: tuple = (), lesson: int | None,
+             folded: bool, open_: list, pinned: bool, missions_folder: str) -> None:
         """The guide of `module` (kidux.modules.Module), its `lessons`, at
         `lesson` (a lesson's number, None for the list), folded or not;
         `open_`, the modules with a guide open, for a child with windows to
@@ -160,6 +161,7 @@ class GuidePane:
                    [m.id for m in self._open], self._pinned) != (
                    module.id, lesson, folded, [m.id for m in open_], pinned)
         self._module, self._lessons, self._lesson = module, lessons, lesson
+        self._intro = intro
         self._folded, self._open, self._pinned = folded, open_, pinned
         self._missions_folder = missions_folder
         if not self._window.get_visible():
@@ -231,7 +233,13 @@ class GuidePane:
         return kidux_modules.name_in(module, self._language)
 
     def _header(self) -> Gtk.Widget:
+        """The module's name, the pin with windows, and Fold; with windows
+        and several guides open, the name is a list to pick from, on a row
+        of its own under them, so that the pane keeps its width."""
+        header = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         row = Gtk.Box(spacing=8)
+        header.append(row)
+        picker = None
         if self._windows and len(self._open) > 1:
             names = Gtk.StringList.new([self._name(m) for m in self._open])
             picker = Gtk.DropDown(model=names, hexpand=True)
@@ -239,7 +247,7 @@ class GuidePane:
                                       if m.id == self._module.id), 0))
             picker.add_css_class("kidux-guide-name")
             picker.connect("notify::selected", self._picked)
-            row.append(picker)
+            row.append(Gtk.Box(hexpand=True))
         else:
             name = Gtk.Label(label=self._name(self._module), xalign=0.0, hexpand=True,
                              ellipsize=Pango.EllipsizeMode.END)
@@ -251,11 +259,19 @@ class GuidePane:
             pin.update_property([Gtk.AccessibleProperty.LABEL], [self._(words.PIN)])
             pin.connect("toggled", lambda button: self._on_pin(button.get_active()))
             row.append(pin)
-        fold = Gtk.Button(icon_name="pan-end-symbolic", tooltip_text=self._(words.FOLD))
+        # Fold says its word beside its arrow, so that a child sees the
+        # pane can make room.
+        fold = Gtk.Button(tooltip_text=self._(words.FOLD))
+        inside = Gtk.Box(spacing=4)
+        inside.append(Gtk.Label(label=self._(words.FOLD)))
+        inside.append(Gtk.Image.new_from_icon_name("pan-end-symbolic"))
+        fold.set_child(inside)
         fold.update_property([Gtk.AccessibleProperty.LABEL], [self._(words.FOLD)])
         fold.connect("clicked", lambda _b: self._on_fold(True))
         row.append(fold)
-        return row
+        if picker is not None:
+            header.append(picker)
+        return header
 
     def _picked(self, picker, _spec) -> None:
         index = picker.get_selected()
@@ -263,12 +279,14 @@ class GuidePane:
             self._on_pick(self._open[index].id)
 
     def _rail(self) -> Gtk.Widget:
-        """The folded pane: the book and the module's name written upwards,
-        all of it a button that unfolds it."""
+        """The folded pane: an arrow that points out of the edge, the book
+        and the module's name written upwards, all of it a button that
+        unfolds it."""
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        book = Gtk.Image.new_from_icon_name("accessories-dictionary-symbolic")
-        book.set_pixel_size(20)
-        box.append(book)
+        for icon in ("pan-start-symbolic", "accessories-dictionary-symbolic"):
+            image = Gtk.Image.new_from_icon_name(icon)
+            image.set_pixel_size(20)
+            box.append(image)
         name = self._name(self._module)
         area = Gtk.DrawingArea(content_width=RAIL - 6, vexpand=True)
 
@@ -292,6 +310,8 @@ class GuidePane:
         return button
 
     def _list(self, body: Gtk.Box) -> None:
+        for block in self._intro:
+            body.append(self._block(block))
         for item in self._lessons:
             row = Gtk.Box(spacing=12)
             number = Gtk.Label(label=str(item.number), valign=Gtk.Align.CENTER)

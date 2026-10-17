@@ -156,11 +156,13 @@ rest of the desk and the pane stays (section 4, decision 2). On the
 right, since the programs' palettes and toolbars are on the left and the
 guide pushes none of them; the bubbles (D98), which rise from the bar's
 right end on the overlay layer, rise over the pane's foot, and pass. Its
-width is a third of the output's logical width, never under 300 pixels:
-426 at 1280x800, 300 at 640x400 (scale 2, which leaves the program 340,
-cramped but usable; D49's scale 2 is for a screen that is small anyway).
-**Folded**, it is a rail of 28 pixels along the edge, with the book icon
-and the module's name written upwards, and its exclusive zone is the
+width is a quarter of the output's logical width, never under 280
+pixels: 320 at 1280x800, 280 at 640x400 (scale 2, which leaves the
+program 360, cramped but usable; D49's scale 2 is for a screen that is
+small anyway). *Fold* says its word beside its arrow, so that a child
+sees the pane can make room. **Folded**, it is a rail of 28 pixels along
+the edge, with an arrow pointing out of the edge, the book icon and the
+module's name written upwards, and its exclusive zone is the
 rail's, so that the program has the rest: the child folds it for room
 and unfolds it by a click on the rail or by the bar's *Guide*. Its
 colours and type are the launcher's (view.py's CSS, `kidux-roomy` and
@@ -305,8 +307,13 @@ its objects in the World list. With the pane beside it, Step's world
 view is about 90 pixels wide at 1280x800: its four panels on the right,
 World, Properties, Context information and Undo history, take the rest,
 so a mission's note and objects are hardly seen until the child folds
-the guide or closes a panel. Kig's and Kalzium's fit. What to do is the
-owner's to decide.
+the guide or closes a panel. Kig's and Kalzium's fit. The owner decided,
+on 2026-10-17, that the pane is narrower for every module, a quarter of
+the screen (section 2, 4.34), and that Step's guide says plainly that it
+folds and unfolds: an introduction above its lessons (section 5.3), and
+*Fold* with its word beside its arrow for every guide. With the pane at
+a quarter, Step's world view is about 190 pixels wide beside it, and
+folded, the whole of Step's own room.
 
 ### 4.37 — Kalzium's guide
 
@@ -379,7 +386,7 @@ Decided 2026-10-16 by the owner.
    the modules a child cannot find their way in alone get one: Kig and
    Step first.
 2. **One pane, two modes.** For a child without windows the room above
-   the bar is split, the guide on the right, a third, and the program
+   the bar is split, the guide on the right, a quarter, and the program
    filling the rest; the pane shows the guide of the module on screen,
    swaps it for another module's, and goes away for a module without
    one. For a child with windows the guide takes the right edge and the
@@ -906,6 +913,20 @@ sumados dan el largo. Eso es Pitágoras, y Kig te deja comprobarlo.
 ```
 
 ### 5.3 Step's guide
+
+**Introduction**, `intro.md`, above the list of lessons:
+
+```markdown
+> [point] Step needs room for its world. Press **Fold**, at the top of this
+> guide, and the guide folds into a strip on the right; press the strip, or
+> **Guide** on the bar, and it opens again where you left it.
+```
+
+```markdown
+> [point] Step necesita sitio para su mundo. Pulsa **Plegar**, arriba en esta
+> guía, y la guía se queda en una tira a la derecha; pulsa la tira, o **Guía**
+> en la barra, y se abre otra vez donde la dejaste.
+```
 
 **Pictures**: `step-fall.svg`, a ball with a downward arrow;
 `step-spring.svg`, two balls joined by a spring; `step-pendulum.svg`, a

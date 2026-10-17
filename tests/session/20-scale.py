@@ -9,7 +9,7 @@ largest quarter at which 1280x800 still fits. The screens scale 2 leaves too
 small overflow and scroll; test 13 has already checked they fit at 1. A
 screen that scrolls shows it (D63): the sign-in screen and the child's,
 both too tall at 640x400, say so in their logs and draw their scrollbar.
-A module's guide there is 300 of the 640 pixels, and the module keeps the
+A module's guide there is 280 of the 640 pixels, and the module keeps the
 rest (phase-4f-plan.md, step 4.34; D103).
 """
 
@@ -37,7 +37,7 @@ AS = "runuser -u debian -- /usr/local/bin/kidux-as"
 SLIDER = (0x9c, 0x87, 0x78)
 RIGHT_EDGE = (0.88, 0.05, 0.99, 0.85)
 #: The robin's blue, Kidux's cream; at a scale of 2 the robin's room, left
-#: of the guide's pane, 340 of the 640 pixels, and the pane.
+#: of the guide's pane, 360 of the 640 pixels, and the pane.
 BLUE, CREAM = (0x3A, 0x86, 0xFF), (0xFF, 0xF6, 0xE9)
 ROBIN_ROOM = (0.02, 0.1, 0.5, 0.85)
 PANE = (0.6, 0.3, 0.98, 0.85)
@@ -103,8 +103,8 @@ def run(machine: Machine) -> None:
     log_out(machine)
 
     # The robin, the tests' stand-in module, given a guide of one lesson:
-    # opened at this size, the pane beside it is 300 pixels, and the robin
-    # fills the 340 left of it.
+    # opened at this size, the pane beside it is 280 pixels, and the robin
+    # fills the 360 left of it.
     robin = "/usr/share/kidux/modules/robin"
     for name, mode in (("module.toml", "0644"), ("icon.svg", "0644"), ("run", "0755")):
         copy(SEED_SOURCE / "modules" / "robin" / name, f"{robin}/{name}", mode=mode)

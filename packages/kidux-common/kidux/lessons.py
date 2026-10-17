@@ -24,6 +24,9 @@ A run is (style, text), style "" for plain, "bold" or "italic", from
 **bold** and *italic*. A lesson without a title is left out, a picture or
 a mission that is not there is left out, each with a line in the log; the
 rest of the guide stays.
+
+A guide may have an introduction, `content/<lang>/intro.md`, blocks of the
+same shape without a title, which the pane shows above the list of lessons.
 """
 
 import logging
@@ -35,6 +38,8 @@ log = logging.getLogger("kidux.lessons")
 
 #: A lesson's file: two digits, a hyphen, its name.
 LESSON = re.compile(r"^(\d{2})-([a-z0-9-]+)\.md$")
+#: A guide's introduction, above its list of lessons.
+INTRO = "intro.md"
 #: The mascot's poses, as the BASIC guide's.
 POSES = ("think", "point", "cheer")
 #: The language every other is translated from.
@@ -119,21 +124,27 @@ def _group(lines: list[str], content: Path, language: Path, name: str) -> list:
     return [("paragraph", runs(" ".join(lines)))]
 
 
-def parse(text: str, content: Path, language: Path, name: str = "") -> tuple[str, tuple] | None:
-    """A lesson's title and blocks, or None when it has no title.
-    `content` is the guide's directory, where `images/` is; `language` is
-    the lesson's language's, where `missions/` is."""
+def _text_lines(text: str) -> list[str]:
+    """A file's lines from its first that says something, past a
+    translation's front matter, the hash of the English it was made from
+    (tests/project/content.py), which is no part of what it says."""
     lines = text.splitlines()
     while lines and not lines[0].strip():
         lines.pop(0)
-    # A translation's front matter, the hash of the English it was made
-    # from (tests/project/content.py), is no part of the lesson.
     if lines and lines[0].strip() == "---":
         closing = next((i for i, line in enumerate(lines[1:], 1) if line.strip() == "---"), None)
         if closing is not None:
             lines = lines[closing + 1:]
             while lines and not lines[0].strip():
                 lines.pop(0)
+    return lines
+
+
+def parse(text: str, content: Path, language: Path, name: str = "") -> tuple[str, tuple] | None:
+    """A lesson's title and blocks, or None when it has no title.
+    `content` is the guide's directory, where `images/` is; `language` is
+    the lesson's language's, where `missions/` is."""
+    lines = _text_lines(text)
     if not lines or not lines[0].startswith("# "):
         log.warning("%s: a lesson starts with its title, # Title", name)
         return None
@@ -194,6 +205,22 @@ def read(content: Path | str, locale: str = "") -> list[Lesson]:
         number, slug = LESSON.match(file_name).groups()
         found.append(Lesson(number=int(number), slug=slug, title=parsed[0], blocks=parsed[1]))
     return found
+
+
+def intro(content: Path | str, locale: str = "") -> tuple:
+    """The guide's introduction, its blocks, in the language of `locale`
+    or in English; () when it has none."""
+    content = Path(content)
+    for directory in (content / language_of(locale), content / SOURCE_LANGUAGE):
+        try:
+            text = (directory / INTRO).read_text(encoding="utf-8")
+        except FileNotFoundError:
+            continue
+        except (OSError, UnicodeDecodeError) as error:
+            log.warning("%s: %s", INTRO, error)
+            continue
+        return tuple(_blocks(_text_lines(text), content, directory, INTRO))
+    return ()
 
 
 def missions(lessons: list[Lesson]) -> list[str]:

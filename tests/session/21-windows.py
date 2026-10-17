@@ -55,7 +55,7 @@ YELLOW, BLUE = (0xF5, 0xC5, 0x18), (0x3A, 0x86, 0xFF)
 INK, CREAM = (0x3B, 0x2F, 0x2A), (0xFF, 0xF6, 0xE9)
 ABOVE_THE_BAR = (0.0, 0.0, 1.0, 0.92)
 #: The guide pane's drop-down and its pin, with windows, on a 1280x800 screen.
-PICKER, PIN = "0.765,0.045", "0.887,0.045"
+PICKER, PIN = "0.878,0.11", "0.873,0.045"
 
 
 def ask(verb: str, app_id: str) -> None:

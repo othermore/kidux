@@ -1,7 +1,8 @@
 kidux-common (0.1.59) trixie; urgency=medium
 
   * A module may have a guide, lessons beside its manifest that the
-    launcher shows beside the module, and kidux.lessons reads them.
+    launcher shows beside the module, and kidux.lessons reads them, with
+    an introduction above them when the guide has one.
   * kidux.closed says, in a bubble, that a link out of a module opens
     nothing, the internet being closed.
 

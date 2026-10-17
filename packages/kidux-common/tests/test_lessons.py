@@ -122,3 +122,18 @@ def test_a_mission_or_a_picture_cannot_lead_out_of_the_guide(tmp_path):
 def test_a_language_from_a_locale():
     assert [lessons.language_of(locale) for locale in ("es_ES.UTF-8", "en", "", "pt_BR")] == [
         "es", "en", "en", "pt"]
+
+
+def test_an_introduction_above_the_lessons_in_the_child_s_language(tmp_path):
+    content = guide(tmp_path)
+    (content / "en" / "intro.md").write_text("> [point] Fold me with **Fold**.\n")
+    (content / "es" / "intro.md").write_text(
+        '---\nsource_sha256 = "abc"\n---\n> [point] Pliégame con **Plegar**.\n')
+
+    assert lessons.intro(content, "es_ES.UTF-8") == (
+        ("mascot", "point", (("", "Pliégame con "), ("bold", "Plegar"), ("", "."))),)
+    assert lessons.intro(content, "pt_BR") == (
+        ("mascot", "point", (("", "Fold me with "), ("bold", "Fold"), ("", "."))),)
+    # The introduction is no lesson.
+    assert [lesson.number for lesson in lessons.read(content, "en")] == [1, 2, 10]
+    assert lessons.intro(tmp_path / "nowhere", "en") == ()

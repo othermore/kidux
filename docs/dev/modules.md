@@ -271,8 +271,11 @@ chosen as a module if it already speaks both languages.
 **A guide** (`guide = true`) is such content: one lesson a file,
 `content/<lang>/NN-<slug>.md`, in the order of their numbers; the files
 a lesson opens, the program's own, under `content/<lang>/missions/`,
-named in that language; and the lessons' pictures, shared by the
-languages, under `content/images/`. A lesson is Markdown of a small,
+named in that language; the lessons' pictures, shared by the
+languages, under `content/images/`; and, if the guide wants one, an
+introduction, `content/<lang>/intro.md`, blocks without a title that
+the pane shows above the list of lessons, as Step's says how to fold the
+guide for room. A lesson is Markdown of a small,
 fixed shape, which `kidux.lessons` (kidux-common) reads for the
 launcher's pane:
 
@@ -284,7 +287,7 @@ A paragraph, with **what the child presses** and *a word being taught*.
 - a choice                    bullets
 ![what it shows](images/<file>.svg)
 > [think] the mascot speaks   [think], [point] or [cheer], its pose
-@mission missions/<file>      the lesson's mission, a button in the pane
+@mission missions/<file>      the lesson's mission, a box saying how to open it
 ::: try                       a box, Try this, with ideas to go on with
 :::
 ```

@@ -161,7 +161,7 @@ class Launcher:
         self._guides = guides.Guides(windows=self._windows,
                                      path=guides.state_file(os.path.expanduser("~")))
         #: Each guide's lessons as read, by module id.
-        self._lessons: dict[str, list] = {}
+        self._lessons: dict[str, tuple] = {}
         self._t = i18n.translations(self._language)
         self._modules: list = []
         #: A sentence over the tiles, after a module that did not open.
@@ -256,8 +256,9 @@ class Launcher:
             self._bar.show_guide(False, False)
             return
         if shown not in self._lessons:
-            self._lessons[shown] = kidux_lessons.read(module.guide, self._language)
-        lessons = self._lessons[shown]
+            self._lessons[shown] = (kidux_lessons.read(module.guide, self._language),
+                                    kidux_lessons.intro(module.guide, self._language))
+        lessons, intro = self._lessons[shown]
         name = kidux_modules.name_in(module, self._language)
         folder_name = self._(words.MISSIONS_OF).format(name=name)
         if not self._guides.seen(shown):
@@ -271,7 +272,8 @@ class Launcher:
             self._guides.remember(shown)
         opened = [m for m in (kidux_modules.read(i) for i in self._guides.open) if m is not None]
         folded = self._guides.folded(shown)
-        self._guide.show(module, lessons, lesson=self._guides.lesson(shown), folded=folded,
+        self._guide.show(module, lessons, intro=intro, lesson=self._guides.lesson(shown),
+                         folded=folded,
                          open_=opened, pinned=self._guides.pinned == shown,
                          missions_folder=folder_name)
         self._bar.show_guide(True, not folded)
