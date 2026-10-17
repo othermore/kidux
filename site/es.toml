@@ -161,6 +161,12 @@ age = "De 6 a 14 años"
 text = "Los experimentos de ciencias y matemáticas de PhET, para jugar en la pantalla. Están guardados en el ordenador."
 anchor = "simulaciones"
 
+[modules.photography]
+name = "Fotografía"
+age = "De 8 a 12 años"
+text = "Una guía para hacer fotos con una cámara de verdad, en treinta capítulos, con algo que probar en cada uno."
+anchor = "fotografía"
+
 [adults]
 title = "Tú decides. Desde un solo sitio."
 lead = "Un panel para adultos, tras una contraseña que nunca se escribe donde un niño pueda verla."
