@@ -154,6 +154,12 @@ age = "De 10 años en adelante"
 text = "Monta un experimento de física y dale a reproducir."
 anchor = "step"
 
+[modules.simulations]
+name = "Simulaciones"
+age = "De 6 a 14 años"
+text = "Los experimentos de ciencias y matemáticas de PhET, en el ordenador."
+anchor = "simulaciones"
+
 [adults]
 title = "Tú decides. Desde un solo sitio."
 lead = "Un panel para adultos, tras una contraseña que nunca se escribe donde un niño pueda verla."
@@ -224,7 +230,7 @@ code_text = "Kidux en GitHub"
 rights = "© 2026"
 licence = "Kidux se publica bajo la Business Source License 1.1."
 visits = "Las visitas también se cuentan con GoatCounter, que no usa cookies."
-others = "GCompris, ScratchJr, Juegos de Blockly, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat, Wikipedia, Kig, Kalzium y Step pertenecen a sus autores y conservan sus propias licencias. Kidux está construido sobre Debian y no está afiliado a ninguno de ellos."
+others = "GCompris, ScratchJr, Juegos de Blockly, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat, Wikipedia, Kig, Kalzium, Step y las simulaciones de PhET pertenecen a sus autores y conservan sus propias licencias. Kidux está construido sobre Debian y no está afiliado a ninguno de ellos."
 
 [cookies]
 title = "¿Podemos usar cookies para contar las visitas?"
