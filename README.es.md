@@ -125,6 +125,20 @@ Los módulos que ofrece Kidux:
   una cuenta de Google, la única forma para un niño cuya cuenta se
   gestiona con Family Link; necesita internet, y Kidux no tiene ninguna
   relación con Google.
+- [Kig](https://apps.kde.org/kig/): geometría que el niño puede mover,
+  puntos, rectas, circunferencias y figuras que conservan sus reglas al
+  arrastrarlas, para niños de diez a catorce años, sin internet.
+- [Kalzium](https://apps.kde.org/kalzium/): la tabla periódica, cada
+  elemento con cómo es y su átomo, para niños de diez años en adelante,
+  sin internet.
+- [Step](https://apps.kde.org/step/): un laboratorio de física, cuerpos,
+  muelles y fuerzas sobre un plano, en marcha y medidos, para niños de
+  diez años en adelante, sin internet.
+- Simulaciones: experimentos para jugar en la pantalla, de
+  [PhET Interactive Simulations](https://phet.colorado.edu/), Universidad
+  de Colorado Boulder, elegidos para niños de seis a catorce años y
+  servidos en el propio ordenador, en las versiones que PhET publicó bajo
+  CC BY 4.0; Kidux no tiene relación con PhET.
 
 ![GCompris](docs/images/es/module-gcompris.png)
 

@@ -26,8 +26,8 @@ msgstr "Experimentos para jugar en la pantalla: números, fuerzas, luz, electric
 msgid "Ages {low} to {high}"
 msgstr "De {low} a {high} años"
 
-msgid "Simulations by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY 4.0 (https://phet.colorado.edu)"
-msgstr "Simulaciones de PhET Interactive Simulations, Universidad de Colorado Boulder, bajo licencia CC BY 4.0 (https://phet.colorado.edu)"
+msgid "Simulation by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY 4.0 (https://phet.colorado.edu)"
+msgstr "Simulación de PhET Interactive Simulations, Universidad de Colorado Boulder, bajo licencia CC BY 4.0 (https://phet.colorado.edu)"
 
 msgid "Numbers and shapes"
 msgstr "Números y formas"

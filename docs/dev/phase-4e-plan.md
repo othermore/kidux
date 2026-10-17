@@ -54,28 +54,37 @@ three and decided once, in 4.27:
   Removing the module takes the program and the libraries that came for
   it alone (D100).
 - **The starter**, a POSIX shell script installed to
-  `/usr/libexec/kidux-module-<id>`, as Tux Typing's. It writes, the first
-  time, a `kdeglobals` into the module's own `XDG_CONFIG_HOME` (which the
-  launcher gives it, modules.md section 2), with KDE's action
-  restrictions, which every Frameworks program reads from there:
+  `/usr/libexec/kidux-module-<id>`, as Tux Typing's, and beside the
+  manifest a `kde/kdeglobals` of the package's own with KDE's action
+  restrictions, which every Frameworks program reads from the
+  configuration directories before the child's own:
 
   ```
   [KDE Action Restrictions][$i]
   ghns=false
   shell_access=false
+  action/help_contents=false
   action/help_report_bug=false
   action/help_donate=false
+  action/switch_application_language=false
+  action/fullscreen=false
   ```
 
   `ghns` is *Get Hot New Stuff*, the dialog that downloads experiments
   and the like from store.kde.org, which Step offers in its File menu and
   a child has no business in; `shell_access` keeps the programs from
-  opening a terminal or running a command; the two help actions open a
-  web browser the child has not, and would only fail. A `kdeglobals`
-  already there is never touched, as GCompris's configuration is not.
-  Then it `exec`s the program. Nothing else is set: the language is the
-  session's, which the Frameworks read from `LANGUAGE` and `LANG`, and
-  the program's own settings are its own, under the same directory.
+  opening a terminal or running a command; the handbook, the bug report
+  and the donation page open a web browser the child has not, and would
+  only fail; the language switch would change the words the session set;
+  and the whole screen is what a module never asks for (modules.md,
+  section 2). The starter puts the file's directory first in
+  `XDG_CONFIG_DIRS` (`/usr/share/kidux/modules/<id>/kde`, then what the
+  session had, or `/etc/xdg`), exports it and `exec`s the program: the
+  restrictions are the package's, immutable (`[$i]`) and always current,
+  and nothing is written into the child's configuration for them. Nothing
+  else is set: the language is the session's, which the Frameworks read
+  from `LANGUAGE` and `LANG`, and the program's own settings are its own,
+  under the `XDG_CONFIG_HOME` the launcher gives it.
 - **The window.** Each starts in a window and the compositor gives it the
   room above the bar; its dialogs float over it. `app_ids` names what
   the Frameworks call the window on Wayland, the desktop file's name,
@@ -85,24 +94,26 @@ three and decided once, in 4.27:
   (`toplevels:`), and the manifest keeps the one seen. `needs_windows`
   is not set: one main window each, as GCompris.
 - **The tests.** Unit, as Tux Typing's: the manifest reads as the one
-  reader reads it, the words are complete, the starter writes the
-  restrictions once and `exec`s the program (a stand-in `kig` on the
-  `PATH` prints what it got), the manifest's version is the package's.
+  reader reads it, the words are complete, the starter gives the program
+  the restrictions' directory first in `XDG_CONFIG_DIRS` and `exec`s it
+  (a stand-in prints what it got), the restrictions switch off each of
+  the actions above, the manifest's version is the package's.
   Acceptance, `tests/acceptance/21-module-kig.sh` and the next two
   numbers, with 24 left for 4.30 (`21-no-key-no-archive.sh` becomes
   `25-no-key-no-archive.sh` in 4.27, since it stays last): installs through the daemon with its program and its Wayland
-  plugin, the manifest, icon and Spanish words in place, listed for a
-  child switched off, removed without a trace and the program gone with
-  it (D100). Session, `tests/session/36-module-kig.py` and the next two,
+  plugin, the manifest, icon, starter, restrictions and Spanish words in
+  place, listed for a child switched off, removed without a trace and the
+  program gone with it (D100). Session, `tests/session/36-module-kig.py` and the next two,
   with 39 left for 4.30 (`36-purge.py` becomes `40-purge.py` in 4.27): as `25-module-tuxtype.py`, Leo opens
   the tile, the window fills the room above the bar with the bar whole
   under it, its process has the module's directories and the
-  restrictions file is there, the picture `module-<id>` taken once the
+  restrictions first in its `XDG_CONFIG_DIRS`, the picture `module-<id>` taken once the
   window is drawn, Alt+F4 closes it and the launcher comes back, Leo logs
   out, the daemon removes it. Each picture is listed in
   `tests/lib/doc-screenshots.txt` and shown in the guide.
 - **The documents.** The user guide, a section each after Gmail's in
-  section 9, in both languages, with the words of section 5; the website,
+  section 9, in both languages, with the words of section 5, and a line
+  each in the READMEs' list of modules; the website,
   a card each in `site/en.toml` and `site/es.toml` and its place in
   `site/page.html`, and the licence line that names the modules' authors,
   on a branch of its own, `site-phase-4e`, since the site is built only
@@ -177,9 +188,8 @@ Step lets a child build them), `categories = ["science"]`,
 
 **The restrictions matter here**: Step's *File* menu has *Download New
 Experiments*, which `ghns=false` removes. The session test checks that
-the menu has no such entry, by Step's own log or the `kdeglobals` being
-read: the simplest sure check is that the file is there and that the
-process's `XDG_CONFIG_HOME` is the module's.
+the restrictions are first in the process's `XDG_CONFIG_DIRS`; that the
+menu has no such entry is seen on the machine.
 
 **Found on the machine first**: as 4.27's, and whether Step's world view
 draws on the test machine without a GPU (it has an OpenGL option, off by
@@ -304,9 +314,9 @@ every language the module has words for, the page builds with them,
 `page.py`'s words are complete. Project: `tests/project/upstream.sh`'s
 new case. Acceptance: installs through the daemon with
 `kidux-webapps`, the server answers for the page and for one
-simulation's file in Spanish, the file carries the CC BY 4.0 link and
-not `by-nc`, listed for a child switched off, removed with the server
-and the policy when it was the last web module (D100). Session,
+simulation's file, no file names `by-nc` and the `LICENSE` beside them
+names CC BY 4.0 and PhET's attribution, listed for a child switched off,
+removed without a trace of the module's own. Session,
 `tests/session/39-module-simulations.py`, and acceptance
 `tests/acceptance/24-module-simulations.sh`:
 Leo opens the tile, the list is drawn in Spanish (the picture
@@ -770,11 +780,11 @@ The page's own words, in the module's catalogue: the heading
 / *La materia y los átomos*, *Earth, space and life* / *La Tierra, el
 espacio y la vida*; the ages as the panel says them, *Ages 6 to 10* /
 *De 6 a 10 años*; the bar's *Simulations* / *Simulaciones*, which goes
-back; and the attribution, *Simulations by PhET Interactive
-Simulations, University of Colorado Boulder, licensed under CC BY 4.0
-(https://phet.colorado.edu)* / *Simulaciones de PhET Interactive
-Simulations, Universidad de Colorado Boulder, bajo licencia CC BY 4.0
-(https://phet.colorado.edu)*.
+back; and the attribution, word for word as the agreement gives it and
+only translated, *Simulation by PhET Interactive Simulations, University
+of Colorado Boulder, licensed under CC BY 4.0 (https://phet.colorado.edu)*
+/ *Simulación de PhET Interactive Simulations, Universidad de Colorado
+Boulder, bajo licencia CC BY 4.0 (https://phet.colorado.edu)*.
 
 ### 5.5 Found so far, for the steps
 

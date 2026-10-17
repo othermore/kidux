@@ -12,9 +12,10 @@ check "it brings Kig and qtwayland5, without which it opens no window" \
     sh -c "dpkg -s kig qtwayland5 >/dev/null"
 check "it is listed for a child, switched off" \
     sh -c "$ADMIN_AS modules marta | grep -qx 'kig off'"
-check "its manifest, icon, starter and Spanish words are in place" \
+check "its manifest, icon, starter, restrictions and Spanish words are in place" \
     sh -c "test -f $KIG/module.toml && test -f $KIG/icon.svg \
            && test -x /usr/libexec/kidux-module-kig \
+           && grep -qx 'ghns=false' $KIG/kde/kdeglobals \
            && test -f /usr/share/locale/es/LC_MESSAGES/kidux-module-kig.mo"
 check "removing it leaves nothing of the module behind, and takes Kig with it" \
     sh -c "$ADMIN_AS remove kig | grep -q '^removed ' && test ! -e $KIG \

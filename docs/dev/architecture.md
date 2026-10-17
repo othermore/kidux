@@ -1743,14 +1743,17 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
 - **D101 — A program of KDE's runs as a module with KDE's action
   restrictions in the module's own configuration.** Decided 2026-10-16 by
   the owner, on phase-4e-plan.md. Kig, Kalzium and Step come from trixie
-  as they are; each module's starter writes, the first time, a
-  `kdeglobals` into the module's `XDG_CONFIG_HOME` that switches off Get
-  Hot New Stuff (downloads from store.kde.org, Step's *Download New
-  Experiments*), the shell, and the help actions that open a web browser.
-  KDE's programs read it from there, it is the module's alone, and one
-  already there is never touched. Each module depends on its program and
-  on the Wayland plugin of its Qt, which the program's own package does
-  not bring.
+  as they are; each module ships a `kdeglobals` of KDE's action
+  restrictions beside its manifest, which its starter puts first in
+  `XDG_CONFIG_DIRS`, where every program of KDE's reads it: no Get Hot
+  New Stuff (downloads from store.kde.org, Step's *Download New
+  Experiments*), no shell, no handbook, bug report, donation page or
+  language switch in the Help menu, which open a web browser the child
+  has not or change the session's words, and no whole screen, which a
+  module never asks for. The file is the package's, immutable and always
+  current, and nothing is written into the child's configuration for it.
+  Each module depends on its program and on the Wayland plugin of its Qt,
+  which the program's own package does not bring.
 
 - **D102 — PhET's simulations are shipped in the versions published under
   CC BY 4.0, in a module named Simulations.** Decided 2026-10-16 by the

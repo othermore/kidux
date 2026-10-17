@@ -32,7 +32,9 @@ WORDS = {
     "back": N_("Simulations"),
     # A group's ages; {low} and {high} are numbers.
     "ages": N_("Ages {low} to {high}"),
-    "attribution": N_("Simulations by PhET Interactive Simulations, University of Colorado "
+    # PhET's attribution, word for word as its agreement gives it; only
+    # translated.
+    "attribution": N_("Simulation by PhET Interactive Simulations, University of Colorado "
                       "Boulder, licensed under CC BY 4.0 (https://phet.colorado.edu)"),
 }
 #: The groups' names, by the id sims.toml gives each.

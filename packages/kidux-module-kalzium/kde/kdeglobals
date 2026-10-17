@@ -1,0 +1,12 @@
+# Kidux's restrictions on KDE's actions for a child's module (D101), read
+# through XDG_CONFIG_DIRS by every program of KDE's, and immutable: no
+# downloads from store.kde.org, no shell, no handbook, bug report, donation
+# page or language switch in the Help menu, and no whole screen.
+[KDE Action Restrictions][$i]
+ghns=false
+shell_access=false
+action/help_contents=false
+action/help_report_bug=false
+action/help_donate=false
+action/switch_application_language=false
+action/fullscreen=false

@@ -12,9 +12,10 @@ check "it brings Step and qt6-wayland, without which it opens no window" \
     sh -c "dpkg -s step qt6-wayland >/dev/null"
 check "it is listed for a child, switched off" \
     sh -c "$ADMIN_AS modules marta | grep -qx 'step off'"
-check "its manifest, icon, starter and Spanish words are in place" \
+check "its manifest, icon, starter, restrictions and Spanish words are in place" \
     sh -c "test -f $STEP/module.toml && test -f $STEP/icon.svg \
            && test -x /usr/libexec/kidux-module-step \
+           && grep -qx 'ghns=false' $STEP/kde/kdeglobals \
            && test -f /usr/share/locale/es/LC_MESSAGES/kidux-module-step.mo"
 check "removing it leaves nothing of the module behind, and takes Step with it" \
     sh -c "$ADMIN_AS remove step | grep -q '^removed ' && test ! -e $STEP \

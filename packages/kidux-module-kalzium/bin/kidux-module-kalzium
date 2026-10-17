@@ -1,27 +1,26 @@
 #!/bin/sh
 # Kalzium, as a child's learning module.
 #
-# KDE's programs read the actions an administrator restricts from
-# kdeglobals, in the configuration directory, which for a module is its
-# own XDG_CONFIG_HOME (modules.md, section 2). The first time, this writes
-# one that switches off what a child has no business in: Get Hot New Stuff,
-# which downloads from store.kde.org; the shell, a terminal or a command;
-# and the bug report and donation pages, which open a web browser the
-# child has not. A kdeglobals already there is never touched. Nothing else
-# is set: the language is the session's, and Kalzium's own settings are its
-# own, beside it.
+# KDE's programs read the actions an administrator restricts from a
+# kdeglobals in the configuration directories, XDG_CONFIG_DIRS, before the
+# child's own: this gives them the module's, kde/kdeglobals beside the
+# manifest, which switches off what a child has no business in (D101): Get
+# Hot New Stuff, which downloads from store.kde.org; the shell, a
+# terminal or a command; the handbook, the bug report and the donation
+# page of the Help menu, which open a web browser the child has not; the
+# Help menu's switch of language, which the session has set; and the whole
+# screen, which a module never asks for (modules.md, section 2). The file
+# is the package's, read-only and always the package's own, and nothing is
+# written into the child's configuration for it. Nothing else is set: the
+# language is the session's, and Kalzium's own settings are its own, under
+# the XDG_CONFIG_HOME the launcher gives it.
 #
 # Kalzium starts in a window, and the compositor gives it the room above the
 # bar (modules.md, section 2).
 
 set -eu
 
-CONF="${XDG_CONFIG_HOME:-$HOME/.config}/kdeglobals"
-
-if [ ! -e "$CONF" ]; then
-    mkdir -p "$(dirname "$CONF")"
-    printf '[KDE Action Restrictions][$i]\nghns=false\nshell_access=false\naction/help_report_bug=false\naction/help_donate=false\n' \
-        > "$CONF"
-fi
+XDG_CONFIG_DIRS="/usr/share/kidux/modules/kalzium/kde:${XDG_CONFIG_DIRS:-/etc/xdg}"
+export XDG_CONFIG_DIRS
 
 exec /usr/bin/kalzium "$@"

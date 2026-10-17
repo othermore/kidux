@@ -143,8 +143,7 @@ can. Each phase assumes what it builds on is reasonably stable.
       side for a child with them. Then the guides for the modules a child
       cannot find their way in alone, Kig and Step first, with files for
       them to open, an experiment or a construction half done with what
-      to try written in it. Planned by Fable first, once phase 4e is
-      tried by the owner.
+      to try written in it. Planned by Fable first (phase-4f-plan.md).
 - [ ] With the next module, two things seen on the Modules page: *Remove*
       pressed on a module below the fold scrolls the page to the top, so
       the question is out of sight, and the scrollbar still shows the page

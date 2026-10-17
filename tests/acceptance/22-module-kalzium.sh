@@ -12,9 +12,10 @@ check "it brings Kalzium, its data and qt6-wayland, without which it opens no wi
     sh -c "dpkg -s kalzium kalzium-data qt6-wayland >/dev/null"
 check "it is listed for a child, switched off" \
     sh -c "$ADMIN_AS modules marta | grep -qx 'kalzium off'"
-check "its manifest, icon, starter and Spanish words are in place" \
+check "its manifest, icon, starter, restrictions and Spanish words are in place" \
     sh -c "test -f $KALZIUM/module.toml && test -f $KALZIUM/icon.svg \
            && test -x /usr/libexec/kidux-module-kalzium \
+           && grep -qx 'ghns=false' $KALZIUM/kde/kdeglobals \
            && test -f /usr/share/locale/es/LC_MESSAGES/kidux-module-kalzium.mo"
 check "removing it leaves nothing of the module behind, and takes Kalzium with it" \
     sh -c "$ADMIN_AS remove kalzium | grep -q '^removed ' && test ! -e $KALZIUM \

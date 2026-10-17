@@ -4,8 +4,7 @@ Installed through the daemon, as the panel installs it, with Kalzium and the
 Wayland plugin of its Qt, and switched on for Leo from the command line.
 Leo opens it by keyboard: it comes up in a window filling the room above
 the bar, in Leo's language, with its settings in the module's own
-directory and KDE's actions a child has no business in switched off
-there. Alt+F4 closes it, the launcher comes back, and the daemon removes
+directory and the module's restrictions on KDE's actions read first. Alt+F4 closes it, the launcher comes back, and the daemon removes
 it, Kalzium with it (D100).
 """
 
@@ -34,6 +33,7 @@ PROGRAM = "kalzium"
 PLUGIN = "qt6-wayland"
 HOME = f"/home/{CHILD}"
 CONFIG = f"{HOME}/.config/kidux/{MODULE}"
+KDE = f"/usr/share/kidux/modules/{MODULE}/kde"
 #: The room above the launcher's bar, and the bar.
 ABOVE_THE_BAR = (0.0, 0.0, 1.0, 0.92)
 BAR = (0xF2, 0xE2, 0xCC)
@@ -88,11 +88,14 @@ def run(machine: Machine) -> None:
 
     pid = program_pid()
     environment = root(f"tr '\\0' '\\n' < /proc/{pid}/environ").stdout
-    report("its settings are the module's own, with KDE's actions for a child switched off",
+    report("its settings are the module's own, and it reads the module's restrictions on KDE's "
+           "actions first",
            f"XDG_CONFIG_HOME={CONFIG}" in environment
-           and root(f"grep -qx 'ghns=false' {CONFIG}/kdeglobals").returncode == 0
-           and root(f"grep -qx 'shell_access=false' {CONFIG}/kdeglobals").returncode == 0,
-           environment + root(f"ls -la {CONFIG}").stdout)
+           and f"XDG_CONFIG_DIRS={KDE}:" in environment
+           and root(f"grep -qx 'ghns=false' {KDE}/kdeglobals").returncode == 0
+           and root(f"grep -qx 'action/fullscreen=false' {KDE}/kdeglobals").returncode == 0
+           and root(f"test ! -e {CONFIG}/kdeglobals").returncode == 0,
+           environment + root(f"ls -la {CONFIG} {KDE}").stdout)
 
     # Alt+F4 asks it to close; one that asks something first is ended by
     # Alt+F4 again, as the bar's question says (D45).

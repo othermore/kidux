@@ -23,6 +23,7 @@ endif
 override_dh_auto_install:
 	install -D -m 0644 module.toml $(MODULE)/module.toml
 	install -D -m 0644 icon.svg $(MODULE)/icon.svg
+	install -D -m 0644 kde/kdeglobals $(MODULE)/kde/kdeglobals
 	install -D -m 0755 bin/kidux-module-kig $(DEST)/usr/libexec/kidux-module-kig
 	for mo in build/*/kidux-module-kig.mo; do \
 	    lang=$$(basename $$(dirname $$mo)); \

@@ -395,7 +395,14 @@ To make `kidux-module-<id>` from it, copy the directory and then:
   own in `bin/`, installed to `/usr/libexec/kidux-module-<id>`, that sets
   it and `exec`s the program. `kidux-module-gcompris` is one: its starter
   answers GCompris's first-start questions, which a child who cannot read
-  could not. `kidux-module-mail` configures more: its starter, in Python,
+  could not. A program of KDE's, Kig, Kalzium or Step, gets from its
+  starter the module's restrictions on KDE's actions, a `kde/kdeglobals`
+  beside the manifest put first in `XDG_CONFIG_DIRS`, which every program
+  of KDE's reads: no downloads from store.kde.org, no shell, no handbook,
+  bug report, donation page or language switch in its Help menu, and no
+  whole screen (D101); its package depends on the program and on the
+  Wayland plugin of its Qt, which the program's own package does not
+  bring. `kidux-module-mail` configures more: its starter, in Python,
   writes Thunderbird's `user.js` afresh at every start from the settings
   an adult gave (the account, Local Folders beside it, the child's
   Downloads), on a profile of the module's own under its

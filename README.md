@@ -123,6 +123,20 @@ The modules Kidux offers:
   Google account, the one way for a child whose account is managed with
   Family Link; it needs the internet, and Kidux has no connection with
   Google.
+- [Kig](https://apps.kde.org/kig/): geometry a child can move, points,
+  lines, circles and shapes that keep their rules when dragged, for
+  children from ten to fourteen, without the internet.
+- [Kalzium](https://apps.kde.org/kalzium/): the periodic table, every
+  element with what it is like and its atom, for children from ten up,
+  without the internet.
+- [Step](https://apps.kde.org/step/): a physics playground, bodies,
+  springs and forces on a plane, run and measured, for children from ten
+  up, without the internet.
+- Simulations: experiments to play with on the screen, from
+  [PhET Interactive Simulations](https://phet.colorado.edu/), University
+  of Colorado Boulder, chosen for children from six to fourteen and
+  served on the computer itself, in the versions PhET published under
+  CC BY 4.0; Kidux is not connected with PhET.
 
 ![GCompris](docs/images/en/module-gcompris.png)
 
