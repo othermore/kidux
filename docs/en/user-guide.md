@@ -14,6 +14,10 @@ not need a guide: every screen they can reach explains itself.
   of the disk and the children's work on another. That way the system can
   be updated, or even reinstalled, without touching anything the children
   have made.
+- A screen of at least **1280 by 800** pixels, the size every screen of
+  Kidux is made to fit whole. Kidux works on a smaller one, such as 1366
+  by 768 or 1024 by 768, but some of its screens then scroll, and some
+  learning modules may not show properly.
 
 ## 2. Installing Kidux
 
@@ -663,6 +667,11 @@ The **System** page holds, from top to bottom:
   The sizes marked with \* are not whole multiples of 100 %. A learning
   module made for X11, the older display system of Linux, can look blurred
   at one of them. If one does, choose a size without \*.
+
+  A larger size leaves less room: at 200 % a screen of 1280 by 800 has
+  the room of one of 640 by 400. Kidux is made for the room of 1280 by
+  800; with less, some of its screens scroll, and some learning modules
+  may not show properly.
 - **Left alone**: after how many minutes without a touch a child's
   session locks itself (five, to start with), which is also how long this
   panel stays open, and after how many any screen of the computer turns

@@ -130,7 +130,9 @@ and built so that any further language is a translation, not a development task.
   ISO can keep all children's data and the adults' configuration. User data lives on
   its own partition.
 - **Lightness:** runs on any 64-bit x86 computer from about 2008 with 2 GB of RAM
-  (4 GB recommended) and 32 GB of disk.
+  (4 GB recommended) and 32 GB of disk, with a screen of 1280x800 or more,
+  the room every screen of Kidux fits whole (greeter.md section 8); on less,
+  its screens scroll (D63) and a module may not show properly.
 - **Reproducibility:** everything on the installed system comes from Debian packages
   or from packages built from this repository; the image is produced by versioned
   `live-build` scripts, never by cloning a disk.

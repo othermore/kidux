@@ -154,6 +154,7 @@ needs = "What you need"
 need1 = "A 64-bit computer: almost any made since 2008."
 need2 = "2 GB of memory. 4 GB is better."
 need3 = "32 GB of disk."
+need4 = "A screen of 1280 by 800 or more. On a smaller one, some activities may not show properly."
 
 [get.image]
 title = "The Kidux image"

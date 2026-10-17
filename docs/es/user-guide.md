@@ -15,6 +15,11 @@ sola.
   parte del disco y el trabajo de los niños en otra. Así el sistema se
   puede actualizar, o incluso reinstalar, sin tocar nada de lo que los
   niños han hecho.
+- Una pantalla de al menos **1280 por 800** píxeles, el tamaño para el que
+  está hecha cada pantalla de Kidux. Kidux funciona en una más pequeña,
+  como 1366 por 768 o 1024 por 768, pero algunas de sus pantallas tienen
+  entonces que desplazarse, y algunos módulos de aprendizaje pueden no
+  verse bien.
 
 ## 2. Instalar Kidux
 
@@ -683,6 +688,11 @@ La página **Sistema** contiene, de arriba abajo:
   módulo de aprendizaje hecho para X11, el sistema antiguo de pantalla de
   Linux, puede verse borroso con uno de ellos. Si pasa, elige un tamaño
   sin \*.
+
+  Un tamaño mayor deja menos sitio: a 200 % una pantalla de 1280 por 800
+  tiene el sitio de una de 640 por 400. Kidux está hecho para el sitio de
+  1280 por 800; con menos, algunas de sus pantallas tienen que
+  desplazarse, y algunos módulos de aprendizaje pueden no verse bien.
 - **Si se deja solo**: tras cuántos minutos sin tocarlo se bloquea sola la
   sesión de un niño (cinco, para empezar), que es también el tiempo que
   este panel sigue abierto, y tras cuántos se apaga cualquier pantalla del
