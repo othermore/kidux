@@ -1,5 +1,5 @@
 ---
-source_sha256 = "ee315217af51ad49ada7624934acc8fdde45fbee337494a246ef3aa5f36e8c7a"
+source_sha256 = "b62bc545d2c621236bf9fab6616e7db3085e8fb83767cb08003bf772cc6e9dc5"
 ---
 # Mídelo
 
@@ -8,12 +8,13 @@ números cambian mientras arrastras.
 
 ![Un triángulo con sus tres ángulos marcados](images/kig-angles.svg)
 
-1. Dibuja un triángulo con tres segmentos.
-2. Pulsa **Ángulo** en la barra y haz clic en tres esquinas seguidas: el
-   clic del medio es la esquina donde está el ángulo. Un arco pequeño lo
-   marca.
+1. ![Segmento](images/tools/segment.svg) Dibuja un triángulo con tres
+   segmentos, como en la primera lección.
+2. ![Ángulo por tres puntos](images/tools/angle.svg) Pulsa **Ángulo por
+   tres puntos** y haz clic en tres esquinas seguidas: el clic del medio
+   es la esquina donde está el ángulo. Un arco pequeño lo marca.
 3. Haz clic derecho en el arco, elige **Añadir etiqueta de texto** y
-   escoge el tamaño del ángulo. Aparece un número en grados.
+   luego **Ángulo en grados**. El número aparece junto al arco.
 4. Haz lo mismo en las otras dos esquinas.
 5. Arrastra una esquina y mira los tres números.
 
@@ -22,12 +23,13 @@ números cambian mientras arrastras.
 
 ## Longitudes
 
-1. Clic derecho en un segmento, **Añadir etiqueta de texto**, y escoge
-   su longitud.
+1. Haz clic derecho en un segmento, **Añadir etiqueta de texto** y
+   luego **Longitud**.
 2. Arrastra un extremo y mira el número.
 
 ::: try
-Dibuja un ángulo recto con una perpendicular, y un triángulo sobre él.
-Mide los tres lados. Multiplica cada uno por sí mismo: los dos cortos
-sumados dan el largo. Eso es Pitágoras, y Kig te deja comprobarlo.
+Pulsa **Perpendicular** para hacer un ángulo recto, y dibuja un
+triángulo sobre él. Mide los tres lados. Multiplica cada uno por sí
+mismo: los dos cortos sumados dan el largo. Eso es Pitágoras, y Kig te
+deja comprobarlo.
 :::

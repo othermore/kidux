@@ -8,11 +8,12 @@ you draw one with its centre and one point it passes through.
 @mission missions/two-circles.kig
 
 1. Open the mission. There is a circle with centre A through B.
-2. Press **Circle by centre and point**, click B, then click A. A second
-   circle, centred B, through A.
-3. The circles cross at two places. Press **Intersection** in the
-   toolbar and click one circle, then the other. Kig marks both
-   crossing points.
+2. ![Circle by centre and point](images/tools/circlebcp.svg) Press
+   **Circle by centre and point**, click B, then click A. A second
+   circle, with centre B, through A.
+3. ![Intersect](images/tools/curvelineintersection.svg) The circles
+   cross at two places. Press **Intersect** and click one circle, then
+   the other. Kig marks both crossing points.
 4. Drag B away from A. The circles grow together and the crossing
    points move with them.
 
@@ -21,11 +22,15 @@ you draw one with its centre and one point it passes through.
 
 ## A point that lives on a circle
 
-1. Draw a circle. Press **Point** and click exactly on the circle's
-   line.
-2. Drag that point. It slides along the circle and never leaves it.
+1. ![Circle by centre and point](images/tools/circlebcp.svg) Press
+   **Circle by centre and point** and click on two empty places: a
+   circle, with its centre and a point on it.
+2. ![Point](images/tools/point.svg) Press **Point** and click exactly on
+   the circle's line.
+3. Drag that point. It slides along the circle and never leaves it.
 
 ::: try
-Draw a circle, then a segment from its centre to a point on it. Drag the
-point round. The segment is always a *radius*: its length never changes.
+Press **Segment**, click the circle's centre, then the point that lives
+on the circle. Drag the point round. The segment is always a *radius*:
+its length never changes.
 :::

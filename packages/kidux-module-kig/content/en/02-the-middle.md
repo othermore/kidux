@@ -15,13 +15,16 @@ it finds stays in the middle when you move the ends.
 
 ## Do it yourself
 
-1. Press **Segment** and click twice on the canvas.
-2. Press **Midpoint** in the toolbar and click the segment. The midpoint
-   appears.
-3. Now press **Point** and click near the segment, but not on it. That
-   point is free: drag the segment's ends and it stays where it is.
+1. ![Segment](images/tools/segment.svg) Press **Segment** and click on
+   two empty places.
+2. ![Mid point](images/tools/bisection.svg) Press **Mid point** and
+   click one end of the segment, then the other. The midpoint appears.
+3. ![Point](images/tools/point.svg) Press **Point** and click near the
+   segment, but not on it. That point is free: drag the segment's ends
+   and it stays where it is.
 
 ::: try
 Find the midpoint of each side of a triangle, and join the three
-midpoints. What shape is inside? Drag a corner of the big triangle.
+midpoints with segments. What shape is inside? Drag a corner of the big
+triangle.
 :::

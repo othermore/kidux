@@ -117,21 +117,26 @@ subset, read by one reader for every guide:
   program (*Archivo*, *Punto*), `*italic*` for a word being taught,
   `` `code` `` never (these guides are not about typing).
 - `## Heading` for a part of the lesson.
-- Numbered lists, `1.`, for steps; bullet lists, `-`, for choices.
+- Numbered lists, `1.`, for steps; bullet lists, `-`, for choices. A
+  step or a choice may start with `![name](images/tools/<file>.svg)`,
+  the program's own picture of the button to press, which the pane
+  draws small before the words.
 - `![what it shows](images/<file>)`, a picture of Kidux's own, drawn like
   the avatars, on a line of its own.
 - `> [think] …`, `> [point] …`, `> [cheer] …`: the mascot speaking, in
   the pose its first word names, as the BASIC guide's (phase-4b-plan.md
   4.10): the chick beside a speech bubble.
 - `@mission missions/<file>` on a line of its own: the lesson's mission,
-  a file of the program's, which the pane shows as a button (4.34).
+  a file of the program's, which the pane shows as a box saying how to
+  open it (4.34).
 - `::: try` to `:::`: a box, *Try this*, with ideas to go on with.
 
 Nothing else: no links, no HTML, no tables. `kidux.lessons`
 (kidux-common, GTK-free) reads a guide directory into a list of lessons,
 each a title and a list of blocks, `("heading", level, text)`,
 `("paragraph", runs)` with runs of plain, bold and italic text,
-`("steps", [runs…])`, `("bullets", [runs…])`, `("image", path, alt)`,
+`("steps", [runs…])`, `("bullets", [runs…])`, a run `("icon", path)`
+first where the item starts with a picture, `("image", path, alt)`,
 `("mascot", pose, runs)`, `("mission", path)` and `("try", [blocks])`,
 and refuses a file it cannot read with a line in the log and the lesson
 left out, never the whole guide. Its test is the specification: each
@@ -492,425 +497,29 @@ its name. The four missions:
   drawn. Draw the other, find C, and join the three.* / *Una
   circunferencia ya está. Dibuja la otra, encuentra C y une los tres.*
 
-**Lessons.** English, then Spanish, for each file.
-
-`01-points-and-lines.md`
-
-```
-# Points and lines
-
-Kig is a sheet of paper where everything can move. You put points on it,
-join them with lines, and then drag the points: the lines follow.
-
-![Two points and the line through them](images/kig-point-line.svg)
-
-1. Press **Point** on the left, then click twice on the canvas. Two
-   points appear, A and B.
-2. Press **Line by two points** (the straight line in the toolbar) and
-   click A, then B. A line runs through both.
-3. Press the arrow at the top of the left toolbar, the pointer. Now
-   drag A somewhere else.
-
-> [point] The line turns to follow A. It always goes through both
-> points: that is its rule.
-
-## A triangle
-
-1. Put three points.
-2. Press **Segment** (the short line) and click two of them. A segment
-   joins them.
-3. Join the other two pairs. You have a triangle.
-4. Drag a corner. The triangle changes shape but stays a triangle.
-
-::: try
-Make a square with four segments. Then drag one corner. Is it still a
-square? In the lesson about parallels you will learn how to make one
-that stays square.
-:::
-```
-
-```
-# Puntos y rectas
-
-Kig es una hoja de papel en la que todo se puede mover. Pones puntos,
-los unes con rectas, y luego arrastras los puntos: las rectas los
-siguen.
-
-![Dos puntos y la recta que pasa por ellos](images/kig-point-line.svg)
-
-1. Pulsa **Punto** a la izquierda y haz clic dos veces en el lienzo.
-   Aparecen dos puntos, A y B.
-2. Pulsa **Recta por dos puntos** (la línea recta de la barra) y haz
-   clic en A y luego en B. Una recta pasa por los dos.
-3. Pulsa la flecha de arriba de la barra de la izquierda, el puntero.
-   Ahora arrastra A a otro sitio.
-
-> [point] La recta gira para seguir a A. Siempre pasa por los dos
-> puntos: esa es su regla.
-
-## Un triángulo
-
-1. Pon tres puntos.
-2. Pulsa **Segmento** (la línea corta) y haz clic en dos de ellos. Un
-   segmento los une.
-3. Une las otras dos parejas. Tienes un triángulo.
-4. Arrastra una esquina. El triángulo cambia de forma, pero sigue
-   siendo un triángulo.
-
-::: try
-Haz un cuadrado con cuatro segmentos. Luego arrastra una esquina. ¿Sigue
-siendo un cuadrado? En la lección de las paralelas aprenderás a hacer
-uno que se quede cuadrado.
-:::
-```
-
-`02-the-middle.md`
-
-```
-# The middle of a segment
-
-A segment has a middle, and Kig can find it for you. Better: the middle
-it finds stays in the middle when you move the ends.
-
-![A segment with its midpoint](images/kig-middle.svg)
-
-@mission missions/middle.kig
-
-1. Open the mission. You see a segment from A to B and its midpoint M.
-2. Drag A up. Drag B far to the right. Watch M.
-
-> [think] M is always exactly halfway, however you move A and B. Kig
-> remembers that M is *the middle of AB*, not a point you put there.
-
-## Do it yourself
-
-1. Press **Segment** and click twice on the canvas.
-2. Press **Midpoint** in the toolbar and click the segment. The midpoint
-   appears.
-3. Now press **Point** and click near the segment, but not on it. That
-   point is free: drag the segment's ends and it stays where it is.
-
-::: try
-Find the midpoint of each side of a triangle, and join the three
-midpoints. What shape is inside? Drag a corner of the big triangle.
-:::
-```
-
-```
-# El medio de un segmento
-
-Un segmento tiene un medio, y Kig lo encuentra por ti. Y mejor aún: el
-medio que encuentra sigue en el medio cuando mueves los extremos.
-
-![Un segmento con su punto medio](images/kig-middle.svg)
-
-@mission missions/medio.kig
-
-1. Abre la misión. Ves un segmento de A a B y su punto medio M.
-2. Arrastra A hacia arriba. Arrastra B lejos, a la derecha. Mira M.
-
-> [think] M está siempre justo a mitad de camino, muevas como muevas A y
-> B. Kig recuerda que M es *el medio de AB*, no un punto que pusiste
-> ahí.
-
-## Hazlo tú
-
-1. Pulsa **Segmento** y haz clic dos veces en el lienzo.
-2. Pulsa **Punto medio** en la barra y haz clic en el segmento. Aparece
-   el punto medio.
-3. Ahora pulsa **Punto** y haz clic cerca del segmento, pero no encima.
-   Ese punto es libre: arrastra los extremos del segmento y se queda
-   donde está.
-
-::: try
-Encuentra el punto medio de cada lado de un triángulo y une los tres
-puntos medios. ¿Qué figura hay dentro? Arrastra una esquina del
-triángulo grande.
-:::
-```
-
-`03-circles.md`
-
-```
-# Circles
-
-A circle is all the points at the same distance from its centre. In Kig
-you draw one with its centre and one point it passes through.
-
-![Two circles crossing](images/kig-circles.svg)
-
-@mission missions/two-circles.kig
-
-1. Open the mission. There is a circle with centre A through B.
-2. Press **Circle by centre and point**, click B, then click A. A second
-   circle, centred B, through A.
-3. The circles cross at two places. Press **Intersection** in the
-   toolbar and click one circle, then the other. Kig marks both
-   crossing points.
-4. Drag B away from A. The circles grow together and the crossing
-   points move with them.
-
-> [cheer] Both circles are the same size, always: each one's radius is
-> the distance from A to B. Dragging changes that distance for both.
-
-## A point that lives on a circle
-
-1. Draw a circle. Press **Point** and click exactly on the circle's
-   line.
-2. Drag that point. It slides along the circle and never leaves it.
-
-::: try
-Draw a circle, then a segment from its centre to a point on it. Drag the
-point round. The segment is always a *radius*: its length never changes.
-:::
-```
-
-```
-# Circunferencias
-
-Una circunferencia es todos los puntos que están a la misma distancia
-de su centro. En Kig dibujas una con su centro y un punto por el que
-pasa.
-
-![Dos circunferencias que se cruzan](images/kig-circles.svg)
-
-@mission missions/dos-circunferencias.kig
-
-1. Abre la misión. Hay una circunferencia con centro A que pasa por B.
-2. Pulsa **Circunferencia por centro y punto**, haz clic en B y luego
-   en A. Una segunda circunferencia, con centro B, que pasa por A.
-3. Las circunferencias se cruzan en dos sitios. Pulsa **Intersección**
-   en la barra y haz clic en una circunferencia y luego en la otra. Kig
-   marca los dos puntos de cruce.
-4. Arrastra B lejos de A. Las dos circunferencias crecen a la vez, y
-   los puntos de cruce se mueven con ellas.
-
-> [cheer] Las dos circunferencias son siempre del mismo tamaño: el
-> radio de cada una es la distancia de A a B. Al arrastrar cambias esa
-> distancia para las dos.
-
-## Un punto que vive en una circunferencia
-
-1. Dibuja una circunferencia. Pulsa **Punto** y haz clic justo encima
-   de su línea.
-2. Arrastra ese punto. Se desliza por la circunferencia y nunca se sale.
-
-::: try
-Dibuja una circunferencia y luego un segmento desde su centro hasta un
-punto de ella. Arrastra el punto alrededor. El segmento es siempre un
-*radio*: su longitud no cambia nunca.
-:::
-```
-
-`04-parallels.md`
-
-```
-# Perpendicular and parallel
-
-Two lines are *perpendicular* when they cross like a plus sign. Two
-lines are *parallel* when they never cross, like the rails of a train.
-Kig draws both for you, and they keep their rule when you move things.
-
-![A line, a point, and the perpendicular and parallel through it](images/kig-parallels.svg)
-
-@mission missions/parallels.kig
-
-1. Open the mission. There is a line and a point P off it.
-2. Press **Perpendicular** in the toolbar, click the line, then click
-   P. A line through P crosses the first at a right angle.
-3. Press **Parallel**, click the line, then click P. A line through P
-   that never meets the first.
-4. Drag P. Both new lines move with it and keep their rule.
-5. Now drag one of the two points the first line goes through. The
-   first line turns, and the other two turn with it.
-
-> [think] The parallel and the perpendicular are *made from* the first
-> line. Change the first, and they change. That is what Kig is for.
-
-## A square that stays square
-
-1. Draw a segment AB.
-2. Perpendicular to AB through A; perpendicular to AB through B.
-3. Circle centred A through B. Where it crosses the perpendicular at A,
-   mark the intersection: call it D.
-4. Parallel to AB through D. Where it crosses the perpendicular at B is
-   C.
-5. Join A, B, C, D with segments. Drag A or B: it stays a square.
-
-::: try
-Hide the lines and circles you used (right-click, Hide) and keep only the
-square. It still works.
-:::
-```
-
-```
-# Perpendicular y paralela
-
-Dos rectas son *perpendiculares* cuando se cruzan como un signo más.
-Dos rectas son *paralelas* cuando nunca se cruzan, como los raíles de un
-tren. Kig dibuja las dos por ti, y conservan su regla cuando mueves las
-cosas.
-
-![Una recta, un punto, y la perpendicular y la paralela que pasan por él](images/kig-parallels.svg)
-
-@mission missions/paralelas.kig
-
-1. Abre la misión. Hay una recta y un punto P fuera de ella.
-2. Pulsa **Perpendicular** en la barra, haz clic en la recta y luego en
-   P. Una recta por P cruza la primera en ángulo recto.
-3. Pulsa **Paralela**, haz clic en la recta y luego en P. Una recta por
-   P que nunca toca la primera.
-4. Arrastra P. Las dos rectas nuevas se mueven con él y conservan su
-   regla.
-5. Ahora arrastra uno de los dos puntos por los que pasa la primera
-   recta. La primera gira, y las otras dos giran con ella.
-
-> [think] La paralela y la perpendicular están *hechas a partir de* la
-> primera recta. Cambia la primera y cambian ellas. Para eso sirve Kig.
-
-## Un cuadrado que se queda cuadrado
-
-1. Dibuja un segmento AB.
-2. Perpendicular a AB por A; perpendicular a AB por B.
-3. Circunferencia con centro A que pasa por B. Donde cruza la
-   perpendicular de A, marca la intersección: llámala D.
-4. Paralela a AB por D. Donde cruza la perpendicular de B está C.
-5. Une A, B, C y D con segmentos. Arrastra A o B: sigue siendo un
-   cuadrado.
-
-::: try
-Oculta las rectas y circunferencias que usaste (clic derecho, Ocultar) y
-deja solo el cuadrado. Sigue funcionando.
-:::
-```
-
-`05-the-triangle.md`
-
-```
-# A triangle with three equal sides
-
-This is the oldest construction in geometry, two thousand years old.
-With two circles you make a triangle whose three sides are exactly the
-same length, and it stays that way when you drag it.
-
-![Two circles and the equilateral triangle](images/kig-triangle.svg)
-
-@mission missions/triangle.kig
-
-1. Open the mission. Points A and B, and the circle centred A through B.
-2. Draw the circle centred B through A.
-3. Mark where the circles cross, with **Intersection**. Pick the upper
-   point and call it C.
-4. Join A to B, B to C and C to A with segments.
-5. Drag A or B. The triangle grows and shrinks, but its three sides
-   stay equal.
-
-> [think] Why? AC is a radius of the first circle, so it is as long as
-> AB. BC is a radius of the second, so it is as long as AB too. Three
-> equal sides.
-
-::: try
-Hide the two circles. Then find the midpoint of each side and join the
-midpoints: four small triangles, all equal. Drag A.
-:::
-```
-
-```
-# Un triángulo con tres lados iguales
-
-Esta es la construcción más antigua de la geometría, de hace dos mil
-años. Con dos circunferencias haces un triángulo cuyos tres lados miden
-exactamente lo mismo, y sigue así cuando lo arrastras.
-
-![Dos circunferencias y el triángulo equilátero](images/kig-triangle.svg)
-
-@mission missions/triangulo.kig
-
-1. Abre la misión. Los puntos A y B, y la circunferencia con centro A
-   que pasa por B.
-2. Dibuja la circunferencia con centro B que pasa por A.
-3. Marca dónde se cruzan, con **Intersección**. Quédate con el punto de
-   arriba y llámalo C.
-4. Une A con B, B con C y C con A con segmentos.
-5. Arrastra A o B. El triángulo crece y encoge, pero sus tres lados
-   siguen siendo iguales.
-
-> [think] ¿Por qué? AC es un radio de la primera circunferencia, así
-> que mide lo mismo que AB. BC es un radio de la segunda, así que mide
-> lo mismo que AB también. Tres lados iguales.
-
-::: try
-Oculta las dos circunferencias. Luego busca el punto medio de cada lado
-y une los puntos medios: cuatro triángulos pequeños, todos iguales.
-Arrastra A.
-:::
-```
-
-`06-measure.md`
-
-```
-# Measure it
-
-Kig can tell you how long a segment is and how big an angle is, and the
-numbers change as you drag.
-
-![A triangle with its three angles marked](images/kig-angles.svg)
-
-1. Draw a triangle with three segments.
-2. Press **Angle** in the toolbar and click three corners in turn: the
-   middle click is the corner the angle is at. A small arc marks it.
-3. Right-click the arc, choose **Add text label**, and pick the angle's
-   size. A number in degrees appears.
-4. Do the same at the other two corners.
-5. Drag a corner and watch the three numbers.
-
-> [cheer] Add the three numbers. However you drag, they always make 180.
-> Every triangle in the world does this.
-
-## Lengths
-
-1. Right-click a segment, **Add text label**, and pick its length.
-2. Drag an end and watch the number.
-
-::: try
-Draw a right angle with a perpendicular, and a triangle on it. Measure
-the three sides. Multiply each by itself: the two short ones added give
-the long one. That is Pythagoras, and Kig lets you check it.
-:::
-```
-
-```
-# Mídelo
-
-Kig te dice cuánto mide un segmento y cuánto abre un ángulo, y los
-números cambian mientras arrastras.
-
-![Un triángulo con sus tres ángulos marcados](images/kig-angles.svg)
-
-1. Dibuja un triángulo con tres segmentos.
-2. Pulsa **Ángulo** en la barra y haz clic en tres esquinas seguidas: el
-   clic del medio es la esquina donde está el ángulo. Un arco pequeño lo
-   marca.
-3. Haz clic derecho en el arco, elige **Añadir etiqueta de texto** y
-   escoge el tamaño del ángulo. Aparece un número en grados.
-4. Haz lo mismo en las otras dos esquinas.
-5. Arrastra una esquina y mira los tres números.
-
-> [cheer] Suma los tres números. Arrastres como arrastres, siempre dan
-> 180. Todos los triángulos del mundo hacen esto.
-
-## Longitudes
-
-1. Clic derecho en un segmento, **Añadir etiqueta de texto**, y escoge
-   su longitud.
-2. Arrastra un extremo y mira el número.
-
-::: try
-Dibuja un ángulo recto con una perpendicular, y un triángulo sobre él.
-Mide los tres lados. Multiplica cada uno por sí mismo: los dos cortos
-sumados dan el largo. Eso es Pitágoras, y Kig te deja comprobarlo.
-:::
-```
+**Lessons** (`packages/kidux-module-kig/content/<lang>/`), six, each
+naming Kig's tools as Kig names them, with Kig's own picture of the
+button before the step (`content/images/tools/`, GPL-2.0-or-later, from
+the kig package), and tried in Kig on the test machine: a tool is let go
+after each construction, so *Point* is pressed once per point; a click
+on an empty place during a construction makes a point there; a point
+gets a name through *Set name* in its context menu, since Kig names
+none; dragging needs no tool; *Which object?* is asked when several
+things are under the mouse; a label from *Add text label* appears at
+once beside its object.
+
+1. *Points and lines*: a point, a line through two points, dragging;
+   names; a triangle of three segments.
+2. *The middle of a segment*: the mission `middle.kig`; *Mid point* by
+   the segment's two ends; a free point beside it.
+3. *Circles*: the mission `two-circles.kig`; a second circle, *Intersect*;
+   a point that lives on a circle.
+4. *Perpendicular and parallel*: the mission `parallels.kig`; a square
+   that stays square, with names; hiding what was used.
+5. *A triangle with three equal sides*: the mission `triangle.kig`; the
+   two-circle construction.
+6. *Measure it*: *Angle by three points*; *Add text label* with *Angle
+   in degrees* and *Length*; Pythagoras to try.
 
 ### 5.3 Step's guide
 
