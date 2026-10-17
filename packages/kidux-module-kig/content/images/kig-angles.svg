@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kig's guide, lesson 6: a triangle with its three angles marked. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" width="360" height="220">
+  <rect width="360" height="220" rx="16" fill="#ffffff"/>
+  <path d="M50 180 L310 180 L120 40 Z" fill="none" stroke="#3b2f2a" stroke-width="6"
+        stroke-linejoin="round"/>
+  <path d="M90 180 A40 40 0 0 0 76 152" fill="none" stroke="#e4572e" stroke-width="6"/>
+  <path d="M265 180 A45 45 0 0 1 274 154" fill="none" stroke="#3a86ff" stroke-width="6"/>
+  <path d="M104 70 A34 34 0 0 0 144 58" fill="none" stroke="#43aa8b" stroke-width="6"/>
+</svg>

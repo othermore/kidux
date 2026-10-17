@@ -125,7 +125,7 @@ The modules Kidux offers:
   Google.
 - [Kig](https://apps.kde.org/kig/): geometry a child can move, points,
   lines, circles and shapes that keep their rules when dragged, for
-  children from ten to fourteen, without the internet.
+  children from ten to fourteen, without the internet, with a guide.
 - [Kalzium](https://apps.kde.org/kalzium/): the periodic table, every
   element with what it is like and its atom, for children from ten up,
   without the internet.

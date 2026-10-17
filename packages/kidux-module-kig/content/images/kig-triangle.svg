@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kig's guide, lesson 5: Euclid's two circles and the equilateral
+     triangle they make. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" width="360" height="240">
+  <rect width="360" height="240" rx="16" fill="#ffffff"/>
+  <circle cx="140" cy="150" r="80" fill="none" stroke="#c9b8e8" stroke-width="4"/>
+  <circle cx="220" cy="150" r="80" fill="none" stroke="#c9b8e8" stroke-width="4"/>
+  <path d="M140 150 L220 150 L180 81 Z" fill="#ffd27a" stroke="#3b2f2a" stroke-width="5"
+        stroke-linejoin="round"/>
+  <circle cx="140" cy="150" r="10" fill="#e4572e"/>
+  <circle cx="220" cy="150" r="10" fill="#e4572e"/>
+  <circle cx="180" cy="81" r="10" fill="#3a86ff"/>
+</svg>

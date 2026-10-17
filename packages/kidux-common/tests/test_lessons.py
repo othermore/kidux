@@ -45,8 +45,9 @@ def guide(tmp_path: Path) -> Path:
     (content / "en" / "01-points.md").write_text(LESSON)
     (content / "en" / "02-circles.md").write_text("# Circles\n\nRound.\n")
     (content / "en" / "10-last.md").write_text("# Last\n")
-    (content / "es" / "01-points.md").write_text(LESSON.replace("# Points and lines",
-                                                                 "# Puntos y rectas"))
+    (content / "es" / "01-points.md").write_text(
+        '---\nsource_sha256 = "abc"\n---\n' + LESSON.replace("# Points and lines",
+                                                              "# Puntos y rectas"))
     (content / "en" / "notes.txt").write_text("not a lesson")
     return content
 

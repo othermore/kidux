@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kig's guide, lesson 4: a line, a point off it, and the perpendicular
+     and the parallel through the point. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" width="360" height="220">
+  <rect width="360" height="220" rx="16" fill="#ffffff"/>
+  <path d="M20 180 L340 120" stroke="#3b2f2a" stroke-width="6" stroke-linecap="round"/>
+  <path d="M20 90 L340 30" stroke="#3a86ff" stroke-width="5" stroke-linecap="round"/>
+  <path d="M154 10 L196 214" stroke="#43aa8b" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="170" cy="62" r="12" fill="#e4572e"/>
+</svg>

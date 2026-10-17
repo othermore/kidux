@@ -126,6 +126,14 @@ def parse(text: str, content: Path, language: Path, name: str = "") -> tuple[str
     lines = text.splitlines()
     while lines and not lines[0].strip():
         lines.pop(0)
+    # A translation's front matter, the hash of the English it was made
+    # from (tests/project/content.py), is no part of the lesson.
+    if lines and lines[0].strip() == "---":
+        closing = next((i for i, line in enumerate(lines[1:], 1) if line.strip() == "---"), None)
+        if closing is not None:
+            lines = lines[closing + 1:]
+            while lines and not lines[0].strip():
+                lines.pop(0)
     if not lines or not lines[0].startswith("# "):
         log.warning("%s: a lesson starts with its title, # Title", name)
         return None

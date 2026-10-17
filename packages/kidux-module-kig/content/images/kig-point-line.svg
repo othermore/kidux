@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kig's guide, lesson 1: two points and the line through them. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" width="360" height="180">
+  <rect width="360" height="180" rx="16" fill="#ffffff"/>
+  <path d="M24 150 L336 30" stroke="#3b2f2a" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="100" cy="121" r="13" fill="#e4572e"/>
+  <circle cx="260" cy="59" r="13" fill="#e4572e"/>
+</svg>

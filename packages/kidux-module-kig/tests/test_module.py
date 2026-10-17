@@ -6,7 +6,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from kidux import modules
+from kidux import lessons, modules
 
 PACKAGE = Path(__file__).resolve().parents[1]
 MODULE = "kig"
@@ -74,3 +74,23 @@ def test_the_catalogue_is_complete_and_holds_the_manifests_words():
             and line != 'msgid ""'] == []
     for words in ("Kig", "Geometry you can move: points, lines, circles and shapes"):
         assert words in text
+
+
+def test_the_guide_has_six_lessons_in_both_languages_with_their_missions_and_pictures(tmp_path):
+    shutil.copytree(PACKAGE, tmp_path / "kig", ignore=shutil.ignore_patterns("debian", "tests"))
+    kig = modules.read("kig", root=tmp_path)
+
+    assert kig.guide == str(tmp_path / "kig" / "content")
+    english = lessons.read(kig.guide, "en_US.UTF-8")
+    spanish = lessons.read(kig.guide, "es_ES.UTF-8")
+    assert [lesson.number for lesson in english] == [1, 2, 3, 4, 5, 6]
+    assert [lesson.title for lesson in spanish][:2] == ["Puntos y rectas", "El medio de un segmento"]
+    assert all(english[i].title != spanish[i].title for i in range(6))
+    for found in (english, spanish):
+        kinds = [{block[0] for block in lesson.blocks} for lesson in found]
+        assert all("image" in k for k in kinds[:6]), kinds
+        assert ["mission" in k for k in kinds] == [False, True, True, True, True, False]
+    assert [Path(m).name for m in lessons.missions(spanish)] == [
+        "medio.kig", "dos-circunferencias.kig", "paralelas.kig", "triangulo.kig"]
+    for mission in lessons.missions(english) + lessons.missions(spanish):
+        assert "<KigDocument" in Path(mission).read_text()

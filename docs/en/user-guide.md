@@ -1031,7 +1031,8 @@ shapes go on the canvas, and each keeps its rule when the child drags
 what it was built from: the middle stays in the middle, the parallel
 stays parallel. It is for children from ten to fourteen, in the
 child's language, and it works without the internet. What a child
-draws can be saved as a file in their folders.
+draws can be saved as a file in their folders. It comes with a guide of
+six lessons.
 
 ![Kig](../images/en/module-kig.png)
 

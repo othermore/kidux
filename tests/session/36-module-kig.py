@@ -1,14 +1,18 @@
-"""Kig, geometry to move (phase-4e-plan.md, step 4.27).
+"""Kig, geometry to move (phase-4e-plan.md, step 4.27), with its guide
+(phase-4f-plan.md, step 4.35).
 
 Installed through the daemon, as the panel installs it, with Kig and the
 Wayland plugin of its Qt, and switched on for Leo from the command line.
 Leo opens it by keyboard: it comes up in a window filling the room above
-the bar, in Leo's language, with its settings in the module's own
-directory and the module's restrictions on KDE's actions read first. Alt+F4 closes it, the launcher comes back, and the daemon removes
-it, Kig with it (D100).
+the bar left of its guide, in Leo's language, with its settings in the
+module's own directory and the module's restrictions on KDE's actions
+read first. Alt+F4 closes it and the launcher comes back; lesson 2's
+mission, copied into Leo's Documents, opens in Kig as a file given to its
+starter does. The daemon removes it, Kig with it (D100).
 """
 
 from sessionlib import (
+    SPEAKS,
     CHILD,
     CHILD_PASSWORD,
     CREAM,
@@ -36,6 +40,10 @@ CONFIG = f"{HOME}/.config/kidux/{MODULE}"
 KDE = f"/usr/share/kidux/modules/{MODULE}/kde"
 #: The room above the launcher's bar, and the bar.
 ABOVE_THE_BAR = (0.0, 0.0, 1.0, 0.92)
+#: Kig's room, left of its guide's pane.
+KIG_ROOM = (0.0, 0.0, 0.6, 0.92)
+#: Lesson 2's mission, as the guide copies it into Leo's Documents.
+MISSION = {"es": "Misiones de Kig/medio.kig", "en": "Missions of Kig/middle.kig"}
 BAR = (0xF2, 0xE2, 0xCC)
 BAR_BOX = (0.0, 0.94, 1.0, 1.0)
 
@@ -82,7 +90,7 @@ def run(machine: Machine) -> None:
     report("Leo opens it by keyboard, a window filling the room above the bar",
            opened and on_screen() == MODULE and window.get("maximized")
            and not window.get("fullscreen")
-           and colour_share(picture, CREAM, ABOVE_THE_BAR) < 0.2
+           and colour_share(picture, CREAM, KIG_ROOM) < 0.2
            and colour_share(picture, BAR, BAR_BOX) > 0.4,
            f"{window}; {picture}\n" + launcher_log())
 
@@ -107,6 +115,22 @@ def run(machine: Machine) -> None:
            wait(lambda: journal_count("kidux-launcher", f"module {MODULE} ended") > ended, 20)
            and wait(lambda: on_screen() == "home", 10),
            launcher_log())
+
+    # Lesson 2's mission, copied when the guide first showed, given to the
+    # starter as a file, opens in Kig, titled with its name.
+    mission = f"{HOME}/{SPEAKS['folders'][0]}/{MISSION[SPEAKS['lang']]}"
+    uid = root(f"id -u {CHILD}").stdout.strip()
+    root(f"runuser -u {CHILD} -- env XDG_RUNTIME_DIR=/run/user/{uid} systemd-run --user "
+         f"--quiet --unit=kig-mission -p Environment=XDG_CONFIG_HOME={CONFIG} "
+         f"/usr/libexec/kidux-module-{MODULE} '{mission}'", timeout=60)
+    name = mission.rsplit("/", 1)[-1]
+    titled = wait(lambda: name in (module_window().get("title") or ""), 60, 2)
+    report("lesson 2's mission is in Leo's Documents and opens in Kig by its name",
+           root(f"test -f '{mission}'").returncode == 0 and titled,
+           f"{module_window()}\n" + root(f"ls -la '{HOME}/{SPEAKS['folders'][0]}'").stdout)
+    root(f"runuser -u {CHILD} -- env XDG_RUNTIME_DIR=/run/user/{uid} "
+         "systemctl --user stop kig-mission")
+    wait(lambda: module_window() == {}, 20)
 
     # Log out from the lock screen, past Continue and Adult.
     locked = machine.mark()

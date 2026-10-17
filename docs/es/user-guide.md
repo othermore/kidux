@@ -1061,7 +1061,7 @@ conserva su regla cuando el niño arrastra aquello de lo que se
 construyó: el punto medio sigue en medio, la paralela sigue paralela.
 Es para niños de diez a catorce años, en el idioma del niño, y
 funciona sin internet. Lo que el niño dibuja se puede guardar como un
-archivo en sus carpetas.
+archivo en sus carpetas. Viene con una guía de seis lecciones.
 
 ![Kig](../images/es/module-kig.png)
 

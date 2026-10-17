@@ -22,6 +22,7 @@ from sessionlib import (
     child_session,
     colour_share,
     greeter_log,
+    keyboard,
     journal_count,
     launcher_log,
     launcher_shown,
@@ -34,8 +35,9 @@ from sessionlib import (
 )
 
 AS = "runuser -u debian -- /usr/local/bin/kidux-as"
-#: Where the pane is on a 1280x800 screen, and the room the program has.
-PANE = (0.70, 0.10, 0.98, 0.90)
+#: The pane's empty foot under its list of lessons, on a 1280x800 screen,
+#: and the room the program has.
+PANE = (0.70, 0.68, 0.98, 0.90)
 PROGRAM = (0.10, 0.10, 0.60, 0.90)
 #: Where Kig's grid reaches when the pane is folded: its third, less the rail.
 FOLDED_ROOM = (0.70, 0.10, 0.96, 0.90)
@@ -107,7 +109,8 @@ def run(machine: Machine) -> None:
            f"{picture}\n" + launcher_log())
     documents = f"/home/{CHILD}/{SPEAKS['folders'][0]}/{MISSIONS[SPEAKS['lang']]}"
     report("and Kig's missions are in Leo's Documents, in a folder of their own",
-           root(f"ls {documents}/*.kig").returncode == 0, root(f"ls -la {documents}").stdout)
+           root(f"ls '{documents}'/*.kig").returncode == 0,
+           root(f"ls -la '{documents}'").stdout)
 
     lesson = guide_logged("kig lesson 1 unfolded")
     pointer(FIRST_LESSON, "click")
@@ -130,22 +133,18 @@ def run(machine: Machine) -> None:
     report("the bar's Guide opens it again at the same lesson",
            wait(lambda: guide_logged("kig lesson 1 unfolded") > again, 10), launcher_log())
 
-    # Home, then hello's tile, before Kig's: a module without a guide on
-    # screen takes the pane away.
+    # Home, where Kig's tile kept the focus, then hello's, before it: a
+    # module without a guide on screen takes the pane away.
     gone = guide_logged("none")
     machine.key("meta_l")
     wait(lambda: on_screen() == "home", 10)
-    machine.key("shift-tab")
     machine.key("left")
     machine.key("ret")
     report("hello on screen takes the pane away",
            wait(lambda: on_screen() == "hello", 30) and wait(lambda: guide_logged("none") > gone, 10),
            launcher_log())
     back = guide_logged("kig lesson 1 unfolded")
-    machine.key("meta_l")
-    wait(lambda: on_screen() == "home", 10)
-    machine.key("shift-tab")
-    machine.key("ret")
+    keyboard("+alt", "tab", "-alt")
     report("and Kig shown again brings it back as it was",
            wait(lambda: on_screen() == "kig", 10)
            and wait(lambda: guide_logged("kig lesson 1 unfolded") > back, 10), launcher_log())

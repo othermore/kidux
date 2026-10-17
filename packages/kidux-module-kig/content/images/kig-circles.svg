@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kig's guide, lesson 3: two circles crossing at two points. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" width="360" height="220">
+  <rect width="360" height="220" rx="16" fill="#ffffff"/>
+  <circle cx="140" cy="110" r="80" fill="none" stroke="#3b2f2a" stroke-width="5"/>
+  <circle cx="220" cy="110" r="80" fill="none" stroke="#3a86ff" stroke-width="5"/>
+  <circle cx="140" cy="110" r="9" fill="#e4572e"/>
+  <circle cx="220" cy="110" r="9" fill="#e4572e"/>
+  <circle cx="180" cy="41" r="10" fill="#43aa8b"/>
+  <circle cx="180" cy="179" r="10" fill="#43aa8b"/>
+</svg>

@@ -127,7 +127,8 @@ Los módulos que ofrece Kidux:
   relación con Google.
 - [Kig](https://apps.kde.org/kig/): geometría que el niño puede mover,
   puntos, rectas, circunferencias y figuras que conservan sus reglas al
-  arrastrarlas, para niños de diez a catorce años, sin internet.
+  arrastrarlas, para niños de diez a catorce años, sin internet, con
+  guía.
 - [Kalzium](https://apps.kde.org/kalzium/): la tabla periódica, cada
   elemento con cómo es y su átomo, para niños de diez años en adelante,
   sin internet.

@@ -43,6 +43,10 @@ SOURCE_LANGUAGE = "en"
 #: sound — is shared between languages and has nothing to keep in step.
 TEXT_SUFFIXES = {".md", ".toml", ".txt"}
 
+#: A content directory that is no language: a guide's pictures, shared by
+#: all of them (modules.md, section 3).
+SHARED = {"images"}
+
 FRONT_MATTER_FENCE = "---"
 
 
@@ -107,7 +111,7 @@ def check_module(module_dir: Path, *, update: bool) -> list[str]:
     languages = sorted(
         entry.name
         for entry in module_dir.iterdir()
-        if entry.is_dir() and entry.name != SOURCE_LANGUAGE
+        if entry.is_dir() and entry.name != SOURCE_LANGUAGE and entry.name not in SHARED
     )
 
     if not languages:

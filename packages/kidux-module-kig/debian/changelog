@@ -1,3 +1,10 @@
+kidux-module-kig (0.2.0) trixie; urgency=medium
+
+  * A guide beside Kig: six lessons, from points and lines to measuring
+    angles, with four missions to open in Kig.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 17 Oct 2026 10:05:25 +0200
+
 kidux-module-kig (0.1.0) trixie; urgency=medium
 
   * Kig, geometry to move, as a learning module.
