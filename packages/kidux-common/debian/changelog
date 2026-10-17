@@ -1,3 +1,10 @@
+kidux-common (0.1.59) trixie; urgency=medium
+
+  * A module may have a guide, lessons beside its manifest that the
+    launcher shows beside the module, and kidux.lessons reads them.
+
+ -- Antonio Morales García <info@kidux.org>  Sat, 17 Oct 2026 09:48:07 +0200
+
 kidux-common (0.1.58) trixie; urgency=medium
 
   * The keyboard's light is turned off with the screen and given back as

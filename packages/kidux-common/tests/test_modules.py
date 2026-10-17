@@ -346,3 +346,21 @@ def test_a_website_module_names_a_script_for_its_pages(tmp_path, caplog):
     assert caplog.text.count("is not a file beside the manifest") == 2
     manifest(tmp_path, "plain", GOOD.format(id="plain"))
     assert modules.read("plain", tmp_path).page_script == ""
+
+
+def test_a_module_has_a_guide_when_it_says_so_and_has_a_lesson(tmp_path, caplog):
+    for module_id, guide in (("taught", "true"), ("bare", "true"), ("odd", '"yes"'),
+                             ("plain", "false")):
+        manifest(tmp_path, module_id, f'id = "{module_id}"\nname = "X"\n'
+                 f'launch = {{ exec = "/bin/x" }}\nguide = {guide}\n')
+    (tmp_path / "taught" / "content" / "en").mkdir(parents=True)
+    (tmp_path / "taught" / "content" / "en" / "01-first.md").write_text("# First\n")
+    (tmp_path / "bare" / "content" / "en").mkdir(parents=True)
+    (tmp_path / "bare" / "content" / "en" / "notes.md").write_text("# Not a lesson\n")
+
+    assert modules.read("taught", tmp_path).guide == str(tmp_path / "taught" / "content")
+    assert modules.read("bare", tmp_path).guide == ""
+    assert modules.read("odd", tmp_path).guide == ""
+    assert modules.read("plain", tmp_path).guide == ""
+    assert "its guide has no lesson" in caplog.text
+    assert "guide is not true or false" in caplog.text

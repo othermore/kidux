@@ -229,6 +229,9 @@ class Module:
     sign_in: "SignIn | None" = None
     #: A script of its own that runs in every page its window shows, or "".
     page_script: str = ""
+    #: Its guide's directory, content/ beside the manifest, with its
+    #: lessons in content/<lang>/ (kidux.lessons), or "" when it has none.
+    guide: str = ""
 
 
 #: What Chromium calls the window of `kidux-webapp <id>` (launch.py): the
@@ -258,6 +261,26 @@ def claims(module: "Module", app_id: str) -> bool:
 
 def _root(root: Path | None) -> Path:
     return paths.MODULES_DIR if root is None else Path(root)
+
+
+def _guide(module_id: str, value, directory: Path) -> str:
+    """The guide's directory, when the manifest says `guide = true` and
+    content/en/ beside it holds a lesson; "" otherwise."""
+    if value is None or value is False:
+        return ""
+    if value is not True:
+        log.warning("module %s: guide is not true or false", module_id)
+        return ""
+    content = directory / "content"
+    try:
+        lessons = [entry for entry in (content / "en").iterdir()
+                   if re.match(r"^\d{2}-[a-z0-9-]+\.md$", entry.name)]
+    except OSError:
+        lessons = []
+    if not lessons:
+        log.warning("module %s: its guide has no lesson in content/en/", module_id)
+        return ""
+    return str(content)
 
 
 def read(module_id: str, root: Path | None = None) -> Module | None:
@@ -342,6 +365,7 @@ def read(module_id: str, root: Path | None = None) -> Module | None:
         sign_in=_sign_in(module_id, manifest.get("sign_in"),
                          sorted(set(hosts)), directory),
         page_script=_page_script(module_id, manifest.get("page_script"), directory),
+        guide=_guide(module_id, manifest.get("guide"), directory),
     )
 
 

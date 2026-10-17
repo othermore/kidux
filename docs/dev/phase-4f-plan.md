@@ -98,8 +98,9 @@ default for `text/html` and `x-scheme-handler/http` is
 has lessons beside its manifest, under `content/<lang>/`, the directory
 a module's content already lives in (section 3 there), installed by its
 package to `/usr/share/kidux/modules/<id>/content/<lang>/`. `kidux.modules`
-reads it into `Module.guide`, true only when the manifest says so and
-`content/en/` beside it holds at least one lesson; otherwise false, with
+reads it into `Module.guide`, the guide's directory, `content/`, only
+when the manifest says so and `content/en/` beside it holds at least one
+lesson; otherwise "", with
 a line in the log, as every wrong field is treated. English is the
 reference tree and `tests/project/content.py` holds the Spanish lessons
 to it, as for every module's content; the missions, which are not text

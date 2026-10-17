@@ -29,6 +29,7 @@ categories = ["programming"]
 i18n_domain = "kidux-module-scratch"   # the gettext domain of name and description
 memory_max = "2G"                      # the scope's MemoryMax; optional
 needs_windows = true                   # only for a child with windows; optional
+guide = true                           # lessons in content/<lang>/; optional
 
 [[settings]]                           # what an adult sets for each child; optional
 key = "type_in"
@@ -126,6 +127,11 @@ icon theme is needed and the tile is the same on every machine.
   `window.KIDUX.lang` the child's language; its words are the module's,
   written into it when its package is built. A module that signs in gets
   it on its site's pages, not on its own *Connecting…* page.
+- `guide = true` says the module has a guide: lessons of Kidux's own
+  beside the manifest, under `content/<lang>/`, which the launcher shows
+  in a pane beside the module (section 3; launcher.md, D103). The reader
+  keeps the guide's directory, `content/`, when `content/en/` holds a
+  lesson, and logs and drops the field otherwise.
 - `needs_windows = true` says the module is only for a child whose modules
   open in windows (D46): a real web browser, an editor with several files
   open. The launcher shows no tile for it to a child without windows, and
@@ -252,6 +258,32 @@ package holds only its own directory; English is the reference tree, and
 `tests/project/content.py` fails when the Spanish tree is missing a file or
 was translated from an older English one. A third-party program is only
 chosen as a module if it already speaks both languages.
+
+**A guide** (`guide = true`) is such content: one lesson a file,
+`content/<lang>/NN-<slug>.md`, in the order of their numbers; the files
+a lesson opens, the program's own, under `content/<lang>/missions/`,
+named in that language; and the lessons' pictures, shared by the
+languages, under `content/images/`. A lesson is Markdown of a small,
+fixed shape, which `kidux.lessons` (kidux-common) reads for the
+launcher's pane:
+
+```
+# Title                       once, first
+## Heading                    a part of the lesson
+A paragraph, with **what the child presses** and *a word being taught*.
+1. a step                     numbered steps
+- a choice                    bullets
+![what it shows](images/<file>.svg)
+> [think] the mascot speaks   [think], [point] or [cheer], its pose
+@mission missions/<file>      the lesson's mission, a button in the pane
+::: try                       a box, Try this, with ideas to go on with
+:::
+```
+
+and nothing else: no links, no HTML, no tables. A lesson missing in the
+child's language is shown in English; a lesson without a title, a
+picture or a mission that is not there, or a path that leads out of the
+guide, is left out with a line in the log, and the rest stays.
 
 ## 4. Packaging
 
