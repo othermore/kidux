@@ -61,8 +61,12 @@ A machine installed before `kidux-apt-source` 0.1.5 names
 `https://kidux.org/apt` until its next upgrade, which unattended-upgrades
 does within a day of a release. So both addresses serve the same stable
 suite: the script publishes to the hosting and, as before, to the `archive`
-release the site's workflow unpacks. When the hosting's logs show no fetch
-at the old address, or after a time the owner sets:
+release the site's workflow unpacks. GitHub Pages keeps no log, so nothing
+says when the last machine has left the old address; the new one's logs
+say which machines have arrived. The old address goes when the owner's
+known machines all fetch from `apt.kidux.org` and a month has passed since
+the release that moved them, long enough for any machine that is switched
+on now and then:
 
 - `ci/publish-public.sh` loses the tarball and the GitHub release;
 - `.github/workflows/site.yml` loses the job that downloads the archive and

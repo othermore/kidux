@@ -380,9 +380,11 @@ tarball, sends it to the repository's `archive` release, and asks for the
 site's workflow (website.md), which unpacks it under `apt/` beside the
 pages after checking its signature against the keyring. Those machines move
 to the new address at their next upgrade, which unattended-upgrades does
-within a day of a release; when the hosting's logs show none left at the
-old address, the tarball, the release, the workflow's job and
-`ci/build-site.py --archive` go.
+within a day of a release. GitHub Pages logs nothing, so the old address
+goes on a rule rather than on a count: when the owner's known machines all
+fetch from `apt.kidux.org` and a month has passed since that release, the
+tarball, the release, the workflow's job and `ci/build-site.py --archive`
+go (apt-archive-plan.md, A.5).
 
 Nothing is signed on the hosting or on GitHub. The suite is signed on the
 release machine when `ci/promote.sh` exports it, and what is published is
