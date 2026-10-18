@@ -53,14 +53,12 @@ not negotiable.
 
 ## Licence
 
-- Kidux's own code, images and documents are under the **Business Source License
-  1.1** (`LICENSE`, D78): anyone may read, change and pass on the code, a household
-  may use it in production for free, any organisation needs a licence from the
-  owner, and each version becomes GPL-3.0-or-later four years after it is
-  published. Every `debian/copyright` says `BUSL-1.1` for `Files: *`, and the
-  program a module packages keeps its own licence, named there too. Never call
-  Kidux free software or open source: it is free for families, with its code
-  published. The name and the penguin are outside the licence.
+- Kidux's own code, images and documents are free software under the **GNU
+  General Public License, version 3 or later** (`LICENSE`, D110): anyone may
+  use, read, change and pass on the code, a family and an organisation alike,
+  with no licence to ask for. Every `debian/copyright` says `GPL-3.0-or-later`
+  for `Files: *`, and the program a module packages keeps its own licence,
+  named there too. The name and the penguin are outside the licence.
 
 ## What the project is
 

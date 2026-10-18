@@ -1,22 +1,18 @@
 # Contributing to Kidux
 
-Kidux's own work is published under the Business Source License 1.1
-(`LICENSE`), and its owner also grants licences on other terms, to schools
-and other organisations. For that to stay possible, the owner has to hold
-the rights to everything in Kidux.
+Kidux's own work is free software under the GNU General Public License,
+version 3 or later (`LICENSE`). A change you send, a pull request or a
+patch, is published under the same licence, as the GPL asks, and you keep
+the copyright of it.
 
-So by sending a change to Kidux, a pull request or a patch, you agree
-that:
+So by sending a change to Kidux, you agree that:
 
 1. The change is your own work, or you have the right to give it, and it
-   carries no code under a licence that would bind Kidux, such as the
-   GPL, unless it goes into a part that already has that licence, as the
-   changes to Scratch or TurboWarp do.
-2. You grant Antonio Morales García a perpetual, worldwide, irrevocable,
-   royalty-free licence to use, copy, modify, publish, distribute and
-   sublicense your change, and to license it under any terms, including
-   the Business Source License, the GNU General Public License and
-   commercial licences.
+   carries no code under a licence the GPL cannot take in; a change to a
+   program Kidux packages, Scratch or TurboWarp, stays under that
+   program's licence.
+2. You license your change under the GNU General Public License, version
+   3 or later, as the rest of Kidux is.
 3. You keep the copyright of your change, and may use it elsewhere as you
    like.
 

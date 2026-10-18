@@ -118,7 +118,7 @@ def credit(entry: dict, words: dict) -> str:
     """What is written under a photograph, after its caption."""
     if entry.get("author") == "generated":
         return words["generated"]
-    if entry.get("licence") == "BUSL-1.1":
+    if entry.get("licence") == "GPL-3.0-or-later":
         return words["kidux"]
     licence = entry.get("licence", "")
     shown = words["publicDomain"] if licence == "public-domain" else LICENCES.get(licence, licence)

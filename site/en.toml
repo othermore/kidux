@@ -200,22 +200,22 @@ button = "Read installation steps"
 anchor = "2-installing-kidux"
 
 [licence]
-title = "Free for families"
-lead = "Clear, honest, and transparent terms for everyone."
+title = "Free software, for everyone"
+lead = "Kidux is published under the GNU General Public License, version 3 or later: clear, honest, and the same terms for everyone."
 
 [licence.home]
 title = "At home: completely free"
-text = "Unlimited free use for you and the children in your care at home. No mandatory accounts, no telemetry, and no hidden fine print."
+text = "Unlimited free use for you and the children in your care at home. No mandatory accounts, no licence to ask for, and no hidden fine print."
 
 [licence.schools]
 title = "Schools and organisations"
-text = "Licences are also free for educational institutions and community projects. We simply ask that you contact us so we can register your use and learn where Kidux helps children."
-button = "Request a licence"
-subject = "Kidux licence request for organisation"
+text = "Free as well for schools, academies and community projects, with nothing to ask for. We would simply love to hear from you, to learn where Kidux helps children."
+button = "Tell us about your school"
+subject = "Kidux at our school"
 
 [licence.code]
-title = "Open and published code"
-text = "Every line of source code is openly published on GitHub. Additionally, each released version transitions into free software under the GNU GPLv3 four years after release."
+title = "Free and published code"
+text = "Every line of source code is published on GitHub under the GNU GPLv3, and anyone may use it, study it, change it and share it."
 button = "View the code"
 
 [support]
@@ -235,7 +235,7 @@ code_text = "Kidux on GitHub"
 
 [footer]
 rights = "© 2026"
-licence = "Kidux is published under the Business Source License 1.1."
+licence = "Kidux is free software, published under the GNU General Public License, version 3 or later."
 visits = "Visits are also counted using GoatCounter, which does not use tracking cookies."
 others = "GCompris, ScratchJr, Blockly Games, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat, Wikipedia, Kig, Kalzium, Step, and PhET simulations belong to their respective authors and retain their original licences. Kidux is built on Debian and is not affiliated with any of them."
 

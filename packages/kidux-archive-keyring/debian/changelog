@@ -4,6 +4,7 @@ kidux-archive-keyring (0.1.5) trixie; urgency=medium
     of the project's own.
   * Every fetch of the archive says it comes from a Kidux machine, so that
     the server's logs can count the machines that follow it.
+  * Kidux is free software: GPL-3.0-or-later, in LICENSE and debian/copyright.
 
  -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 16:32:21 +0200
 

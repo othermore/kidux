@@ -20,7 +20,7 @@ CONTENT = PACKAGE / "content"
 DRAWINGS = PACKAGE / "drawings"
 PICTURES = PACKAGE / "pictures"
 LICENCES = {"CC0-1.0", "CC-BY-2.0", "CC-BY-3.0", "CC-BY-4.0", "CC-BY-SA-2.0",
-            "CC-BY-SA-3.0", "CC-BY-SA-4.0", "public-domain", "BUSL-1.1"}
+            "CC-BY-SA-3.0", "CC-BY-SA-4.0", "public-domain", "GPL-3.0-or-later"}
 NAMED = re.compile(r"!\[[^\]]*\]\(([a-z0-9-]+\.(?:svg|jpg))(?: \"[^\"]*\")?\)")
 
 
@@ -96,7 +96,7 @@ def test_the_guide_s_seven_conventions():
     words = {key: text for key, text in page.WORDS.items()}
     pictures = {"cat.jpg": {"author": "Ana Example", "licence": "CC-BY-SA-4.0",
                             "source": "https://commons.wikimedia.org/wiki/File:A_cat_%28sleeping%29.jpg"},
-                "dog.jpg": {"author": "generated", "licence": "BUSL-1.1"},
+                "dog.jpg": {"author": "generated", "licence": "GPL-3.0-or-later"},
                 "old.jpg": {"author": "Niépce", "licence": "public-domain"},
                 "cut.jpg": {"author": "Bo Example", "licence": "CC-BY-2.0", "made": "cropped"}}
     heading, html = page.chapter(
@@ -146,9 +146,9 @@ def test_every_photograph_is_credited_and_every_credit_is_of_a_photograph_shown(
         assert entry.get("licence") in LICENCES, name
         assert entry.get("author") and entry.get("source"), name
         if entry["author"] == "generated":
-            assert entry["licence"] == "BUSL-1.1" and entry.get("model"), name
+            assert entry["licence"] == "GPL-3.0-or-later" and entry.get("model"), name
             assert (PICTURES / "prompts" / f"{name[:-4]}.txt").is_file(), name
-        elif entry["licence"] != "BUSL-1.1":
+        elif entry["licence"] != "GPL-3.0-or-later":
             assert entry["source"].startswith(("https://commons.wikimedia.org/wiki/File:",
                                                 "https://www.flickr.com/photos/")), name
 
@@ -165,7 +165,7 @@ def test_every_photograph_is_small_and_has_no_metadata():
 def test_every_photograph_not_kiduxs_is_in_debian_copyright():
     copyright_ = (PACKAGE / "debian" / "copyright").read_text()
     for name, entry in listed().items():
-        if entry["licence"] != "BUSL-1.1":
+        if entry["licence"] != "GPL-3.0-or-later":
             assert f"Files: pictures/{name}\n" in copyright_, name
 
 

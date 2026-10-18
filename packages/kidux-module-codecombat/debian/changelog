@@ -1,6 +1,7 @@
 kidux-module-codecombat (0.1.5) trixie; urgency=medium
 
   * The description an adult reads on the Modules page, written at more length.
+  * Kidux is free software: GPL-3.0-or-later, in LICENSE and debian/copyright.
 
  -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 16:27:27 +0200
 

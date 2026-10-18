@@ -4,7 +4,7 @@
 
 ```
 README.md, README.es.md      the product, presented, in both languages
-LICENSE                      Business Source License 1.1, with its terms for Kidux (D78)
+LICENSE                      GNU General Public License, version 3 (D78, D110)
 CONTRIBUTING.md              what a contributor agrees to, so the licence stays possible
 site/                        the website: its page, its words in each language, its style (website.md)
 CLAUDE.md                    the project's conventions

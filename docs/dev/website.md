@@ -66,11 +66,11 @@ font.save("site/fonts/Andika-Regular.woff2")
 
 ## 2. What it says
 
-The page follows D78 to the letter. Kidux is free for families; a school
-or any other organisation gets its licence free too, by writing for it,
-which is how the owner learns where Kidux is used; and the code is
-published, each version free software four years on. It never calls Kidux
-open source or free software, which the licence is not.
+The page follows D110 to the letter. Kidux is free software under the
+GNU GPL, version 3 or later: free for a family, free for a school or any
+other organisation, with nothing to ask for; the page still invites a
+school to write, which is how the owner learns where Kidux is used. It
+says the licence and no more.
 
 It says only what is true of Kidux today, and of the two ways to install
 it (D81) it says which is which. Kidux's own image is *coming soon*, with

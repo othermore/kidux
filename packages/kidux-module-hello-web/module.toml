@@ -2,7 +2,7 @@
 # page again, as a web page kidux-webapps serves and Chromium shows, and
 # the one to copy for a module made of web pages.
 id = "hello-web"
-version = "0.1.7"
+version = "0.1.8"
 name = "[Test] Hello on the web"
 description = "The first page again, as a web page, with a link that stays closed."
 min_age = 4

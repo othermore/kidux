@@ -315,7 +315,7 @@ the `commit` (the newest on the default branch when the step starts),
 `ci/upstream/fetch.sh` and packs `wwwbasic.js`, `LICENSE`, `README.md`
 and `test/` into the tarball `ci/build-upstream.sh` publishes (D71);
 `tests/project/upstream.sh` checks it as it checks the others.
-`debian/copyright`: `BUSL-1.1` for `Files: *`, `Apache-2.0` for
+`debian/copyright`: `GPL-3.0-or-later` for `Files: *`, `Apache-2.0` for
 `Files: upstream/*`, copyright Google LLC; lintian overrides as Blockly
 Games' for the minified-looking file if lintian says so. Nothing in
 `wwwbasic.js` is edited: a need is met in Kidux's glue through its
@@ -804,7 +804,7 @@ pass, Scratch's library opens in the quick loop, and `kidux-webapp
   needed and a subscription for most of it, bought on another computer,
   that signing in is with email and password, and that Kidux and its
   author have no connection with CodeCombat Inc.; `debian/copyright`:
-  `BUSL-1.1`, nothing else, since nothing of CodeCombat's is in it.
+  `GPL-3.0-or-later`, nothing else, since nothing of CodeCombat's is in it.
 - Icon: a sword and a shield, drawn like the avatars.
 - `ci/build-all.sh`: after `kidux-module-basic`.
 

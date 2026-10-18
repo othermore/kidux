@@ -1,3 +1,9 @@
+kidux-launcher (0.3.23) trixie; urgency=medium
+
+  * Kidux is free software: GPL-3.0-or-later, in LICENSE and debian/copyright.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 16:44:18 +0200
+
 kidux-launcher (0.3.22) trixie; urgency=medium
 
   * A module's guide shows in a pane on the right, a quarter of the

@@ -306,7 +306,7 @@ under what licence, is decided once (D102, section 5).
    file's name: `author`, `source` (the file's page for a free one,
    `owner` for the owner's), `licence` (`CC0-1.0`, `CC-BY-2.0` to
    `CC-BY-4.0`, `CC-BY-SA-2.0` to `CC-BY-SA-4.0`, `public-domain`, or
-   `BUSL-1.1` for Kidux's own), and `made` when the picture is not the
+   `GPL-3.0-or-later` for Kidux's own), and `made` when the picture is not the
    file as it is (cropped, one half of a comparison, given more or less
    light, its colours changed).
    `debian/copyright` lists every picture that is not Kidux's by name,
@@ -342,7 +342,7 @@ under what licence, is decided once (D102, section 5).
    one whose physics is wrong (a sharp background at f/1.8, a frozen
    tap at 1/8). `pictures.toml` records `author = "generated"`, the
    model, and the prompt file, which is kept beside it in
-   `pictures/prompts/`; its licence is the project's, `BUSL-1.1`, and
+   `pictures/prompts/`; its licence is the project's, `GPL-3.0-or-later`, and
    its credit reads *Picture made by a computer*, so that a child is
    never told a generated picture is a photograph.
 
@@ -1021,7 +1021,7 @@ packages/kidux-module-photography/
                                                    source/format, lintian-overrides
 ```
 
-`debian/copyright`: `Files: *` BUSL-1.1, Kidux's own, the text and the
+`debian/copyright`: `Files: *` GPL-3.0-or-later, Kidux's own, the text and the
 drawings included; then one stanza per photograph that is not Kidux's,
 `Files: pictures/<name>.jpg`, its author and licence, and the licence
 texts at the end (CC0-1.0 and each CC BY and CC BY-SA version used; a public-domain

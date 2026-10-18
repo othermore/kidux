@@ -1929,3 +1929,21 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   while the machines installed before `kidux-apt-source` 0.1.5 follow it,
   since Pages cannot redirect in a way apt follows; then the tarball and
   the site's job go.
+- **D110 — Kidux is free software, under the GNU General Public License,
+  version 3 or later.** Decided 2026-10-18 by the owner, superseding D78.
+  D78 kept Kidux under the Business Source License so that the owner could
+  ask an organisation for a licence, free against registration, which was
+  the one way to learn where Kidux is used. The archive's own server
+  (D109) gives that sight without asking anyone for anything: its logs say
+  how many machines follow Kidux and which modules they install. So the
+  reason for a licence that is not free is gone, and the GPL says what
+  the owner wants said: anyone may use, study, change and share Kidux, a
+  family and a school alike, and what is built on it stays free.
+  `LICENSE` is the GPL's text; every `debian/copyright` says
+  `GPL-3.0-or-later` for Kidux's files and the upstream licence for the
+  program a module packages; the pictures Kidux made for Photography carry
+  the same licence; the website, the READMEs and `CONTRIBUTING.md` say
+  Kidux is free software, and a contributor's change is published under
+  the same licence rather than licensed to the owner. The name and the
+  penguin stay outside the licence, for a trademark. Each package gets its
+  next version with the change, since `debian/copyright` is part of it.

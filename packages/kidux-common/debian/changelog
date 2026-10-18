@@ -1,3 +1,9 @@
+kidux-common (0.1.60) trixie; urgency=medium
+
+  * Kidux is free software: GPL-3.0-or-later, in LICENSE and debian/copyright.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 16:44:18 +0200
+
 kidux-common (0.1.59) trixie; urgency=medium
 
   * A module says whether a package installed it, or it is a folder put

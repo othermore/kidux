@@ -101,9 +101,9 @@ Kidux is an independent community project developed during weekends and personal
 
 The name *Kidux* combines *kid* and *Tux*, the beloved Linux penguin mascot. Visual branding guidelines are documented in [branding/](branding/README.md).
 
-Kidux is developed and maintained by [Antonio Morales García](https://antonio.mg). Its original codebase, images, and documentation are published under the **Business Source License 1.1** (BUSL-1.1). Complete legal terms are provided in the [LICENSE](LICENSE) file. Copyright (C) 2026 Antonio Morales García.
+Kidux is developed and maintained by [Antonio Morales García](https://antonio.mg). Its original codebase, images, and documentation are free software, published under the **GNU General Public License, version 3 or later** (GPL-3.0-or-later). The complete terms are in the [LICENSE](LICENSE) file. Copyright (C) 2026 Antonio Morales García.
 
-In brief: anyone may inspect, modify, and redistribute the code. Families may use Kidux for free at home, on the computers of the children in their care. Organizations, such as schools or educational academies, require a licence, which can be requested from [info@kidux.org](mailto:info@kidux.org). Four years after publication, each release transitions into free software under the GNU General Public License version 3 or later (GPL-3.0-or-later). The Kidux trademark and penguin mascot remain outside this licence.
+In brief: anyone may use, inspect, modify, and redistribute the code, at home or in an organisation such as a school or an educational academy, with no licence to request. Schools that use Kidux are warmly invited to say so at [info@kidux.org](mailto:info@kidux.org), so that the project learns where it helps children. The Kidux name and penguin mascot remain outside this licence.
 
 Kidux is a Debian-derived distribution integrating third-party software under respective free software licences: Scratch (AGPL-3), TurboWarp (GPL-3), ScratchJr (BSD-3), Blockly Games (Apache-2.0), wwwBASIC (Apache-2.0), GCompris (GPL-3), Tux Typing (GPL-2), and PhET simulations (CC BY 4.0). Upstream source code modified or compiled for Kidux is published alongside the binary packages.
 

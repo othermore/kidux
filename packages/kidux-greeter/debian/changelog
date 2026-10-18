@@ -1,3 +1,9 @@
+kidux-greeter (0.2.59) trixie; urgency=medium
+
+  * Kidux is free software: GPL-3.0-or-later, in LICENSE and debian/copyright.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 16:44:18 +0200
+
 kidux-greeter (0.2.58) trixie; urgency=medium
 
   * Remove on the Modules page leaves the page where it was, with its

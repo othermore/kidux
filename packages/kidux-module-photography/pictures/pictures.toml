@@ -278,148 +278,148 @@ made = "a still of the video at 40 seconds, cropped to the paper and the lens"
 ["focus-near.jpg"]
 author = "generated"
 source = "pictures/prompts/focus-near.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 
 ["focus-far.jpg"]
 author = "generated"
 source = "pictures/prompts/focus-far.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 made = "from the picture made for focus-near.jpg, with only what its prompt names changed"
 
 ["dog-c-af.jpg"]
 author = "generated"
 source = "pictures/prompts/dog-c-af.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 
 ["dog-s-af.jpg"]
 author = "generated"
 source = "pictures/prompts/dog-s-af.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 made = "from the picture made for dog-c-af.jpg, with only what its prompt names changed"
 
 ["coin-side-light.jpg"]
 author = "generated"
 source = "pictures/prompts/coin-side-light.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 
 ["coin-front-light.jpg"]
 author = "generated"
 source = "pictures/prompts/coin-front-light.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 made = "from the picture made for coin-side-light.jpg, with only what its prompt names changed"
 
 ["zoom-wide.jpg"]
 author = "generated"
 source = "pictures/prompts/zoom-wide.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 
 ["zoom-tele.jpg"]
 author = "generated"
 source = "pictures/prompts/zoom-tele.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 made = "from the picture made for zoom-wide.jpg, with only what its prompt names changed"
 
 ["pole-behind.jpg"]
 author = "generated"
 source = "pictures/prompts/pole-behind.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini, in its app, by the owner"
 
 ["pole-aside.jpg"]
 author = "generated"
 source = "pictures/prompts/pole-aside.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini, in its app, by the owner"
 
 ["heights-above.jpg"]
 author = "generated"
 source = "pictures/prompts/heights-above.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 
 ["heights-eye.jpg"]
 author = "generated"
 source = "pictures/prompts/heights-eye.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 made = "from the picture made for heights-above.jpg, with only what its prompt names changed"
 
 ["noon.jpg"]
 author = "generated"
 source = "pictures/prompts/noon.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 
 ["golden.jpg"]
 author = "generated"
 source = "pictures/prompts/golden.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 made = "from the picture made for noon.jpg, with only what its prompt names changed"
 
 ["window-front.jpg"]
 author = "generated"
 source = "pictures/prompts/window-front.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 
 ["window-side.jpg"]
 author = "generated"
 source = "pictures/prompts/window-side.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 made = "from the picture made for window-front.jpg, with only what its prompt names changed"
 
 ["window-back.jpg"]
 author = "generated"
 source = "pictures/prompts/window-back.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 made = "from the picture made for window-front.jpg, with only what its prompt names changed"
 
 ["pinhole-room.jpg"]
 author = "generated"
 source = "pictures/prompts/pinhole-room.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini, in its app, by the owner"
 
 ["magnifier-lens.jpg"]
 author = "generated"
 source = "pictures/prompts/magnifier-lens.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini, in its app, by the owner"
 
 ["stream-silky.jpg"]
 author = "generated"
 source = "pictures/prompts/stream-silky.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini, in its app, by the owner"
 
 ["stream-frozen.jpg"]
 author = "generated"
 source = "pictures/prompts/stream-frozen.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 made = "from the picture made for stream-silky.jpg, with only what its prompt names changed"
 
 ["sync-second.jpg"]
 author = "generated"
 source = "pictures/prompts/sync-second.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 
 ["sync-first.jpg"]
 author = "generated"
 source = "pictures/prompts/sync-first.txt"
-licence = "BUSL-1.1"
+licence = "GPL-3.0-or-later"
 model = "gemini-3-pro-image"
 made = "from the picture made for sync-second.jpg, with only what its prompt names changed"
 

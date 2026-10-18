@@ -1,3 +1,9 @@
+kidux-session (0.5.19) trixie; urgency=medium
+
+  * Kidux is free software: GPL-3.0-or-later, in LICENSE and debian/copyright.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 16:44:18 +0200
+
 kidux-session (0.5.18) trixie; urgency=medium
 
   * A web page or a link a program asks the desktop to open goes to
