@@ -16,9 +16,9 @@ Architecture: all
 Depends: ${misc:Depends},
          kidux-webapps (>= 0.1.11~),
 XB-Kidux-Name-en: Wikipedia
-XB-Kidux-Description-en: Wikipedia, the whole encyclopedia, in the child's language, with the rest of the internet closed. It is written for everyone, not only for children.
+XB-Kidux-Description-en: The free encyclopedia Wikipedia, whole, in the child's language, with every other website closed. It is written for everyone, not only for children.
 XB-Kidux-Name-es: Wikipedia
-XB-Kidux-Description-es: Wikipedia, la enciclopedia entera, en el idioma del niño, con el resto de internet cerrado. Está escrita para todo el mundo, no solo para niños.
+XB-Kidux-Description-es: La enciclopedia libre Wikipedia, entera, en el idioma del niño, con el resto de sitios web cerrados. Está escrita para todo el mundo, no solo para niños.
 XB-Kidux-Ages: 8-
 Description: Kidux learning module: Wikipedia, a door to the encyclopedia
  Kidux is a Debian derivative for a child's first computer. This learning

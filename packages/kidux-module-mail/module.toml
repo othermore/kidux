@@ -3,9 +3,9 @@
 # manifest, the tile, its words, the program that starts Thunderbird with the
 # account in place, and Thunderbird's policies (modules.md, section 5).
 id = "mail"
-version = "0.1.0"
+version = "0.1.1"
 name = "Mail"
-description = "A mailbox of the child's own, in Thunderbird, with the account an adult gives: Gmail, Outlook, iCloud or any provider. A Google account managed with Family Link cannot sign in to it; the Gmail module is for one."
+description = "A mailbox of the child's own in Thunderbird, with the account an adult gives: Gmail, Outlook, iCloud or any IMAP provider. A Google account managed with Family Link cannot sign in; the Gmail module is for those."
 min_age = 8
 launch = { exec = "/usr/libexec/kidux-module-mail" }
 app_ids = ["thunderbird"]                # what Thunderbird calls its window

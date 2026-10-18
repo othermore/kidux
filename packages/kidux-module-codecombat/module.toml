@@ -1,9 +1,9 @@
 # CodeCombat: a door to the CodeCombat website (D85, D86). Nothing of
 # CodeCombat is shipped: its levels are its own and live only on its site.
 id = "codecombat"
-version = "0.1.4"
+version = "0.1.5"
 name = "CodeCombat"
-description = "The CodeCombat website, where you learn Python and JavaScript by playing. It needs the internet and a CodeCombat account, paid for most of it; Kidux is not connected with CodeCombat."
+description = "An adventure role-playing game where children learn real Python and JavaScript syntax. Requires internet and a CodeCombat account, and most of the site is paid for. Kidux is not connected with CodeCombat."
 min_age = 9
 max_age = 16
 recommended_before = ["scratch"]

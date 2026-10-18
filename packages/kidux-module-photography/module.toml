@@ -4,9 +4,9 @@
 # what the camera's screen shows; served by kidux-webapps under
 # /photography/ (phase-4e-plan.md; docs/dev/photography.md).
 id = "photography"
-version = "0.1.0"
+version = "0.1.1"
 name = "Photography"
-description = "A guide to taking photographs with a real camera: light, the shutter, the aperture, focus, composition, and drawing with light, with something to try in every chapter."
+description = "A guide to photography with a real camera: light, shutter speed, aperture, focus, and composition, with hands-on practice in every chapter."
 min_age = 8
 max_age = 12
 launch = { webapp = "photography" }

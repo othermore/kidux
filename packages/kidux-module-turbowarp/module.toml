@@ -2,9 +2,9 @@
 # development time from its repository (upstream.toml, D68) and served by
 # kidux-webapps under /turbowarp/ (modules.md, section 5).
 id = "turbowarp"
-version = "0+git20260915.3"
+version = "0+git20260915.4"
 name = "TurboWarp"
-description = "Scratch, made faster: the same blocks and the same projects, for a slower computer or when Scratch does not run well."
+description = "A high-performance alternative to Scratch, with the same blocks and the same projects, compiled for smoother animations and games on a slower computer."
 min_age = 8
 max_age = 16
 recommended_before = ["scratchjr"]

@@ -2,9 +2,9 @@
 # development time from its repository (upstream.toml, D68) and served by
 # kidux-webapps under /scratch/ (modules.md, section 5).
 id = "scratch"
-version = "15.2.0+build2.3"
+version = "15.2.0+build2.4"
 name = "Scratch"
-description = "Make games and stories with blocks, as at school. Its characters, backdrops and sounds come from the internet."
+description = "Create interactive games, animations, and stories with visual coding blocks, as at school. Its characters, backdrops and sounds download from Scratch on demand."
 min_age = 8
 max_age = 16
 recommended_before = ["scratchjr"]

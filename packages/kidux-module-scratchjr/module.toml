@@ -3,9 +3,9 @@
 # D68, D69), and started by a small program of the module's own
 # (modules.md, section 5).
 id = "scratchjr"
-version = "1.3.2+git20201121.4"
+version = "1.3.2+git20201121.5"
 name = "ScratchJr"
-description = "Stories and games with blocks, without a word to read, for the youngest."
+description = "Introductory visual programming for young children, ages 5 to 7, to create interactive stories and games with graphical blocks and not a word to read."
 min_age = 5
 max_age = 7
 launch = { exec = "/usr/libexec/kidux-module-scratchjr" }

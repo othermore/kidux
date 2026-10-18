@@ -3,9 +3,9 @@
 # starts Step with KDE's actions a child has no business in switched off
 # (modules.md, section 5; phase-4f-plan.md, 4.29).
 id = "step"
-version = "0.2.0"
+version = "0.2.1"
 name = "Step"
-description = "A physics playground: put springs, weights and forces on the table, press play and see what happens."
+description = "An interactive two-dimensional physics laboratory: experiment with bodies, springs, gravity, forces, and collisions, with guided lessons beside it."
 min_age = 10
 max_age = 16
 recommended_before = ["simulations"]

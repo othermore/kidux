@@ -17,9 +17,9 @@ Depends: ${misc:Depends},
          tuxtype,
          tuxtype-data,
 XB-Kidux-Name-en: Tux Typing
-XB-Kidux-Description-en: Learn to type: catch the falling letters and words with the keyboard, in the child's language.
+XB-Kidux-Description-en: An arcade typing tutor starring Tux the penguin: practise keyboard speed and accuracy by typing falling letters and words, in the child's language.
 XB-Kidux-Name-es: Tux Typing
-XB-Kidux-Description-es: Aprender a escribir a máquina: atrapar con el teclado las letras y las palabras que caen, en el idioma del niño.
+XB-Kidux-Description-es: Juego arcade de mecanografía con el pingüino Tux: practica la velocidad y la precisión en el teclado escribiendo las letras y palabras que caen, en el idioma del niño.
 XB-Kidux-Ages: 6-12
 XB-Kidux-Before: gcompris
 Description: Kidux learning module: Tux Typing, a typing course for ages six to twelve

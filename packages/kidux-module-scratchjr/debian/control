@@ -39,9 +39,9 @@ Architecture: amd64
 Depends: ${misc:Depends},
          ${shlibs:Depends},
 XB-Kidux-Name-en: ScratchJr
-XB-Kidux-Description-en: Stories and games with blocks, without a word to read, for the youngest.
+XB-Kidux-Description-en: Introductory visual programming for young children, ages 5 to 7, to create interactive stories and games with graphical blocks and not a word to read.
 XB-Kidux-Name-es: ScratchJr
-XB-Kidux-Description-es: Historias y juegos con bloques, sin una palabra que leer, para los más pequeños.
+XB-Kidux-Description-es: Iniciación a la programación para niños pequeños, de 5 a 7 años, para crear historias y juegos interactivos con bloques gráficos, sin una palabra que leer.
 XB-Kidux-Ages: 5-7
 Description: Kidux learning module: ScratchJr, stories and games with blocks for the youngest
  Kidux is a Debian derivative for a child's first computer. This learning

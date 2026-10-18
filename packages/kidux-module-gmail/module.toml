@@ -3,9 +3,9 @@
 # is the module for a child whose Google account is managed with Family
 # Link, which Google does not let sign in to Thunderbird (Mail, D95).
 id = "gmail"
-version = "0.1.0"
+version = "0.1.1"
 name = "Gmail"
-description = "Gmail's website, for a Google account, and the module for one managed with Family Link. It needs the internet; an adult signs in with the child the first time, and the session stays. Kidux is not connected with Google."
+description = "The Gmail website for a Google account, including one managed with Family Link. Requires internet; an adult signs in with the child the first time, and the session stays. Kidux is not connected with Google."
 min_age = 8
 # Google's sign-in for Gmail, with the child's address filled in, which goes
 # on to the inbox once the child is signed in.

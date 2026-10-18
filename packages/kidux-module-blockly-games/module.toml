@@ -2,9 +2,9 @@
 # at development time from its repository (upstream.toml, D68) and served by
 # kidux-webapps under /blockly-games/ (modules.md, section 5).
 id = "blockly-games"
-version = "0+git20240513.2"
+version = "0+git20240513.3"
 name = "Blockly Games"
-description = "Puzzles with blocks: a maze, a bird, a turtle, a movie and music, one step harder each time."
+description = "Educational programming puzzles, from a maze to drawing, animation and music, to learn coding logic step by step."
 min_age = 6
 max_age = 12
 recommended_before = ["scratchjr"]

@@ -1,3 +1,9 @@
+kidux-module-blockly-games (0+git20240513.3) trixie; urgency=medium
+
+  * The description an adult reads on the Modules page, written at more length.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 16:27:27 +0200
+
 kidux-module-blockly-games (0+git20240513.2) trixie; urgency=medium
 
   * The maintainer's address is info@kidux.org.

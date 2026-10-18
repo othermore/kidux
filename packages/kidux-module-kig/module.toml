@@ -3,9 +3,9 @@
 # starts Kig with KDE's actions a child has no business in switched off
 # (modules.md, section 5; phase-4f-plan.md, 4.27).
 id = "kig"
-version = "0.2.0"
+version = "0.2.1"
 name = "Kig"
-description = "Geometry you can move: points, lines, circles and shapes that keep their rules when you drag them."
+description = "Interactive dynamic geometry: construct points, lines, circles, and polygons that keep their mathematical properties when dragged."
 min_age = 10
 max_age = 14
 recommended_before = ["gcompris"]

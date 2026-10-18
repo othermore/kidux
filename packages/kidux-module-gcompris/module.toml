@@ -3,9 +3,9 @@
 # that starts GCompris with its first questions answered (modules.md,
 # section 5).
 id = "gcompris"
-version = "0.1.9"
+version = "0.1.10"
 name = "GCompris"
-description = "Over a hundred activities: reading, counting, colours, the keyboard and the mouse. It needs the internet at first, to fetch its voices."
+description = "Over a hundred fun educational activities covering reading, maths, science, colours, and mouse and keyboard skills. It downloads its voices the first time."
 min_age = 2
 max_age = 10
 launch = { exec = "/usr/libexec/kidux-module-gcompris" }

@@ -17,9 +17,9 @@ Architecture: all
 Depends: ${misc:Depends},
          kidux-webapps (>= 0.1.11~),
 XB-Kidux-Name-en: Photography
-XB-Kidux-Description-en: A guide to taking photographs with a real camera: light, the shutter, the aperture, focus, composition, and drawing with light, with something to try in every chapter.
+XB-Kidux-Description-en: A guide to photography with a real camera: light, shutter speed, aperture, focus, and composition, with hands-on practice in every chapter.
 XB-Kidux-Name-es: Fotografía
-XB-Kidux-Description-es: Una guía para hacer fotos con una cámara de verdad: la luz, el obturador, el diafragma, el enfoque, la composición y dibujar con luz, con algo que probar en cada capítulo.
+XB-Kidux-Description-es: Una guía de fotografía con una cámara de verdad: la luz, el obturador, el diafragma, el enfoque y la composición, con prácticas en cada capítulo.
 XB-Kidux-Ages: 8-12
 Description: Kidux learning module: Photography, a guide for a child with a real camera
  Kidux is a Debian derivative for a child's first computer. This learning

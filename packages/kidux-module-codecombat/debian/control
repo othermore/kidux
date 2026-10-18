@@ -16,9 +16,9 @@ Architecture: all
 Depends: ${misc:Depends},
          kidux-webapps (>= 0.1.14~),
 XB-Kidux-Name-en: CodeCombat
-XB-Kidux-Description-en: The CodeCombat website, where you learn Python and JavaScript by playing. It needs the internet and a CodeCombat account, paid for most of it; Kidux is not connected with CodeCombat.
+XB-Kidux-Description-en: An adventure role-playing game where children learn real Python and JavaScript syntax. Requires internet and a CodeCombat account, and most of the site is paid for. Kidux is not connected with CodeCombat.
 XB-Kidux-Name-es: CodeCombat
-XB-Kidux-Description-es: La web de CodeCombat, donde se aprende Python y JavaScript jugando. Necesita internet y una cuenta de CodeCombat, de pago para casi todo; Kidux no tiene ninguna relación con CodeCombat.
+XB-Kidux-Description-es: Juego de rol y aventuras donde los niños aprenden a programar en Python y JavaScript. Requiere conexión a internet y una cuenta de CodeCombat, de pago para casi todo. Kidux no tiene ninguna relación con CodeCombat.
 XB-Kidux-Ages: 9-16
 XB-Kidux-Before: scratch
 Description: Kidux learning module: CodeCombat, a door to the CodeCombat website

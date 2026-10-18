@@ -16,9 +16,9 @@ Architecture: all
 Depends: ${misc:Depends},
          kidux-webapps (>= 0.1.5),
 XB-Kidux-Name-en: Blockly Games
-XB-Kidux-Description-en: Puzzles with blocks: a maze, a bird, a turtle, a movie and music, one step harder each time.
+XB-Kidux-Description-en: Educational programming puzzles, from a maze to drawing, animation and music, to learn coding logic step by step.
 XB-Kidux-Name-es: Juegos de Blockly
-XB-Kidux-Description-es: Rompecabezas con bloques: un laberinto, un pájaro, una tortuga, una película y música, cada vez un paso más difícil.
+XB-Kidux-Description-es: Puzles educativos con bloques visuales, del laberinto al dibujo, la animación y la música, para aprender lógica de programación paso a paso.
 XB-Kidux-Ages: 6-12
 XB-Kidux-Before: scratchjr
 Description: Kidux learning module: Blockly Games, puzzles with blocks

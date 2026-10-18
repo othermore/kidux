@@ -1,3 +1,9 @@
+kidux-module-basic (0+git20260223.5) trixie; urgency=medium
+
+  * The description an adult reads on the Modules page, written at more length.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 16:27:27 +0200
+
 kidux-module-basic (0+git20260223.4) trixie; urgency=medium
 
   * TIMER is wwwBASIC's own, the seconds since 1970; the guide keeps a

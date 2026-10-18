@@ -17,9 +17,9 @@ Depends: ${misc:Depends},
          step,
          qt6-wayland,
 XB-Kidux-Name-en: Step
-XB-Kidux-Description-en: A physics playground: put springs, weights and forces on the table, press play and see what happens.
+XB-Kidux-Description-en: An interactive two-dimensional physics laboratory: experiment with bodies, springs, gravity, forces, and collisions, with guided lessons beside it.
 XB-Kidux-Name-es: Step
-XB-Kidux-Description-es: Un laboratorio de física: pon muelles, pesos y fuerzas sobre la mesa, dale a reproducir y mira qué pasa.
+XB-Kidux-Description-es: Laboratorio interactivo de física en dos dimensiones: experimenta con cuerpos, muelles, gravedad, fuerzas y colisiones, con lecciones guiadas al lado.
 XB-Kidux-Ages: 10-16
 XB-Kidux-Before: simulations
 Description: Kidux learning module: Step, a physics playground for ages ten and up
