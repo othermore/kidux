@@ -16,7 +16,7 @@ check "keyring and apt source install by hand" \
 
 # What a family's machine gets: the public archive's stable suite.
 check "the shipped apt source follows the public archive's stable suite" \
-    sh -c "grep -qx 'URIs: https://kidux.org/apt' /etc/apt/sources.list.d/kidux.sources \
+    sh -c "grep -qx 'URIs: https://apt.kidux.org' /etc/apt/sources.list.d/kidux.sources \
            && grep -qx 'Suites: stable' /etc/apt/sources.list.d/kidux.sources"
 
 # The testing suite is signed with a key of its own, the development one or

@@ -40,9 +40,10 @@ Three package sources, in order of preference:
 1. **Debian trixie archive** (`main`, `contrib`, `non-free-firmware`, `non-free`).
 2. **Our apt repository** (`kidux`): everything we write, plus anything we repackage.
    Signed and built with `reprepro` on the development machine. Suites: `stable`,
-   which a family's machine follows, published at `https://kidux.org/apt` beside
-   the website, and `testing`, served from the development machine over the LAN
-   for the machines that test; each signed with its own key (D2, D82).
+   which a family's machine follows, published at `https://apt.kidux.org` on a
+   web hosting of the project's own, whose logs count the machines that follow
+   it, and `testing`, served from the development machine over the LAN for the
+   machines that test; each signed with its own key (D2, D82, D109).
 3. **Flatpak (Flathub)** is *not* used. It stays documented as plan B (TurboWarp
    Desktop) only if self-hosting the official Scratch editor proves unworkable.
 
@@ -287,6 +288,52 @@ Escape hatches closed, all shipped as packaged drop-ins in `kidux-session`:
   with the frame and the keys already.
 - **SSH is never touched for administrators.** It is the recovery path on every machine
   and the maintenance path on the development machine.
+
+### What Kidux defends against, and what it leaves alone
+
+Kidux is a child's first computer, not a hardened appliance. The level it
+aims at is a well-kept Debian's: the child is an unprivileged Unix user with
+no shell, no browser outside a module's wall, no `sudo` and no way to another
+session, and everything above that is the kernel's, PAM's, polkit's and the
+daemon's. A child able to defeat that has outgrown Kidux (D108). So a reader
+auditing the system finds these as they are on purpose, each with its
+decision:
+
+- **Chromium's `DeveloperToolsAvailability` is 1, not 2** (D91). `kidux-webapp`
+  signs a child in to a website through `--remote-debugging-pipe`, which 2
+  refuses as well. The tools' own pages are addresses the policy's
+  `URLBlocklist` of `*` blocks, so F12 and Ctrl+Shift+I open nothing, which
+  session test 32 checks.
+- **polkit says yes to `_greetd` for every `org.kidux.daemon.*` action** (D27).
+  `_greetd` is the sign-in screen, the lock screen and the adult panel, the
+  trusted screens; polkit never sees a call's arguments, so which child a call
+  may touch is the daemon's decision, with the adult's token where one is due.
+  Narrowing the rule would move nothing: whoever runs as `_greetd` is the
+  trusted screens already.
+- **A web module's proxy bypass list names the server at `127.0.0.1:8123`
+  and the module's hosts**, and the proxy at `127.0.0.1:1` answers nothing
+  (D36, D85). It is a wall, not a filter: there is no filtering proxy to
+  reach.
+- **The GRUB recovery password is kept in clear beside its PBKDF2 hash**, in
+  `adults.toml`, `root:kidux-admin 0640` (D25). It is what an adult reads off
+  the panel when the machine will not boot; a hash cannot be read off a
+  panel, and the people who may read the file are exactly those who may know
+  the password.
+- **labwc's keys signal the launcher with `pkill -f`** (D45, D57, D64). labwc
+  has no socket of its own; the launcher is where Close, Home and Alt+Tab are
+  decided, so labwc's native `Close` or `NextWindow` would go round that
+  policy. The pattern is anchored to the launcher's command line, a child's
+  `pkill` reaches the child's processes alone, and a fork per key press costs
+  nothing a child notices.
+- **A native module, KDE's Kig, Kalzium or Step, runs as the child with no
+  sandbox** (D42). The child's home is the module's, and the child's Unix
+  user is the boundary; bubblewrap or AppArmor around each program would be
+  a profile to keep per program and per upgrade, for a boundary the kernel
+  already holds. The internet those programs could reach is closed by their
+  own configuration and by `kidux-closed` (D107).
+- **A module is a Debian package** (D31, D42), never a bundle of its own
+  format: trixie's packages, one archive, one upgrade path, one place to
+  look.
 
 ## 6. Module framework
 
@@ -1841,3 +1888,44 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   asked, and opens nothing. A program's own setting for a browser was the
   alternative, one per program and not every program has one; a module
   that is a web page starts its browser itself and is not touched.
+- **D108 — Kidux's security is a well-kept Debian's, and an audit's
+  suggestions beyond it are declined on purpose.** Decided 2026-10-18 by
+  the owner, on an audit of the whole tree by Gemini. The owner's rule: a
+  child who can defeat an unprivileged Unix user with no shell, no browser
+  and no `sudo` has outgrown Kidux, so the system is not hardened against
+  that child; what it must be is robust, scalable and maintainable for
+  years. The audit's eight points, and what came of each, so that the next
+  audit starts here (section 5, "What Kidux defends against, and what it
+  leaves alone"):
+  `DeveloperToolsAvailability` 1, kept (D91, and the pages blocked);
+  polkit's unconditional yes to `_greetd`, kept (D27); the proxy bypass
+  list, narrowed to the server's port, `127.0.0.1:8123`, a one-line
+  tightening with no change in what a page can reach, since the policy
+  allowed that port alone already; bubblewrap or AppArmor around KDE's
+  programs, declined (D42); the GRUB recovery password in clear, kept
+  (D25, with its hash beside it); labwc's `pkill -f`, kept (D45, D57,
+  D64); first boot's administrators, now found by each user's groups and
+  not the group's member list, which missed a user whose primary group is
+  `sudo`; window rules pinning a guide's geometry, declined, since the
+  launcher owns the pane and labwc maximises every main window already
+  (D106); and modules as Flatpak-like bundles, declined (D31, D42, and the
+  working agreement that Flatpak is plan B only).
+- **D109 — The stable suite is public at `apt.kidux.org`, on a web hosting
+  of the project's own, for the count its logs give.** Decided 2026-10-18
+  by the owner, refining D82's address and keeping D82's key. GitHub Pages
+  served the suite well and logged nothing, so the project could not say
+  how many machines follow it nor which modules they install. The suite
+  now goes over SFTP to the folder `apt` of the owner's OVHcloud web
+  hosting, served as `https://apt.kidux.org` with a Let's Encrypt
+  certificate, in an order a machine can fetch from at any moment, and
+  `ci/publish-public.sh` checks afterwards what the address serves
+  (packaging.md, "The public archive"). The hosting's git integration was
+  the alternative, declined: it deploys a GitHub repository, which caps a
+  file at 100 MB when ScratchJr's package is 119 MB, grows by a suite per
+  release for ever, and puts GitHub back in the way. Every fetch says it
+  is a Kidux machine's, through a `User-Agent` `kidux-apt-source` sets, and
+  nothing more; an identifier of the machine's own goes with it too, which an
+  adult may turn off from the panel. The old address keeps serving the same suite
+  while the machines installed before `kidux-apt-source` 0.1.5 follow it,
+  since Pages cannot redirect in a way apt follows; then the tarball and
+  the site's job go.

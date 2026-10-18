@@ -337,30 +337,71 @@ safe for reproducibility (D23). A dated note in a document has no hour.
 ## The public archive
 
 ```
-ci/publish-public.sh           the stable suite, to https://kidux.org/apt
-ci/publish-public.sh --pack    packed only, into build/kidux-apt.tar
+ci/publish-public.sh           the stable suite, to https://apt.kidux.org
+ci/publish-public.sh --pack    packed only, into build/public-archive and build/kidux-apt.tar
 ```
 
-A family's machine follows `https://kidux.org/apt`, suite `stable`: that is
+A family's machine follows `https://apt.kidux.org`, suite `stable`: that is
 what `kidux-apt-source` writes into `/etc/apt/sources.list.d/kidux.sources`,
 and where the user guide's installation on Debian fetches the two bootstrap
-packages from (D81, D82). The testing suite is never public; it stays on the
-development machine, for the machines that test.
+packages from (D81, D82, D109). The testing suite is never public; it stays
+on the development machine, for the machines that test.
+
+The address is a web hosting of the project's own, OVHcloud's, serving the
+folder `apt` of the hosting as the subdomain `apt.kidux.org`, over HTTPS
+with a Let's Encrypt certificate the hosting renews. Its access logs are
+why it exists: they say how many machines follow the archive and which
+packages they fetch, which GitHub Pages never told. Its credentials live in
+one file outside the repository on the release machine,
+`~/.config/kidux/apt-hosting.netrc`, a netrc line (`machine <host> login
+<user> password <password>`), mode 0600, read by the scripts and never
+written anywhere else; `KIDUX_APT_HOSTING` names another file.
 
 The public archive is the stable suite of the local one, copied whole:
 `dists/stable/` with its signature, the packages its index names, and
-`bootstrap/stable/`. `ci/publish-public.sh` packs them into one tarball,
-checks each package against the index, and sends the tarball to the
-repository's `archive` release, replacing the one before. Then it asks for
-the site's workflow (website.md), which unpacks the tarball under `apt/`
-beside the pages and publishes both: the archive has no server of its own.
-The workflow checks the suite's signature against the keyring in the
-repository first, and a site is never published without the archive.
+`bootstrap/stable/`. `ci/publish-public.sh` packs them into
+`build/public-archive`, checks each package against the index, and sends
+them to the hosting over SFTP with `curl`, in an order a machine can fetch
+from at any moment: the packages and the bootstrap packages first, then the
+indexes, each uploaded under another name and renamed into place, and
+`InRelease` last; the hosting's SFTP refuses to rename over a file, so the
+old index is removed the instant before, and a machine that fetches in that
+instant finds it missing and tries again later, never half written. Then
+the packages no index names any more are removed from `pool/`. Afterwards
+the script checks what the world sees: it fetches `InRelease` from
+`https://apt.kidux.org`, verifies it with `gpgv` against the keyring the
+packages ship, compares it byte for byte with the one just sent, and
+fetches one package and compares its SHA256 with the index's. A difference
+fails the script and says what differed.
 
-Nothing is signed on GitHub. The suite is signed on the development
-machine when `ci/promote.sh` exports it, and what is published is those
-bytes. The script refuses a stable suite that is not signed with the key
-`kidux-archive-keyring` ships, or that holds a development build.
+While machines installed before `kidux-apt-source` 0.1.5 still follow
+`https://kidux.org/apt`, the script then packs the same suite into one
+tarball, sends it to the repository's `archive` release, and asks for the
+site's workflow (website.md), which unpacks it under `apt/` beside the
+pages after checking its signature against the keyring. Those machines move
+to the new address at their next upgrade, which unattended-upgrades does
+within a day of a release; when the hosting's logs show none left at the
+old address, the tarball, the release, the workflow's job and
+`ci/build-site.py --archive` go.
+
+Nothing is signed on the hosting or on GitHub. The suite is signed on the
+release machine when `ci/promote.sh` exports it, and what is published is
+those bytes. The script refuses a stable suite that is not signed with the
+key `kidux-archive-keyring` ships, or that holds a development build.
+
+**What the logs count.** Every fetch from a Kidux machine carries
+`User-Agent: Debian APT-HTTP/1.3 Kidux`, from
+`/etc/apt/apt.conf.d/60kidux-user-agent` in `kidux-apt-source`: nothing of
+the machine, so that one looks like another. A machine fetches `InRelease`
+once a day, so the distinct addresses that fetched it on a day are the
+machines following the archive that day, near enough; a `.deb` fetched is
+an install or an upgrade of that package. *Share usage statistics*, on the panel's System page and asked by the
+first-run wizard, on unless an adult turns it off, adds an identifier the
+daemon makes for that alone, random and of this machine's, in
+`61kidux-statistics`; with it, machines are counted one by one rather than
+by address. `ci/usage.py` reads the hosting's logs and prints the numbers;
+nothing of a child's is in any of it, since the archive is fetched by the
+machine, as root, at times a timer chooses.
 
 The source of what the archive holds is the repository itself, and for the
 programs built at development time the source tarballs of their releases

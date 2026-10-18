@@ -7,7 +7,7 @@
 # "stable" holds the packages that have been tested on a real machine. It is
 # what a family's computer follows, and where its updates come from.
 Types: deb
-URIs: https://kidux.org/apt
+URIs: https://apt.kidux.org
 Suites: stable
 Components: main
 Signed-By: /usr/share/keyrings/kidux-archive-keyring.pgp

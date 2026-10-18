@@ -105,8 +105,8 @@ keep somewhere else first.
    they are signed with. The last two install Kidux.
 
    ```
-   wget https://kidux.org/apt/bootstrap/stable/kidux-archive-keyring.deb
-   wget https://kidux.org/apt/bootstrap/stable/kidux-apt-source.deb
+   wget https://apt.kidux.org/bootstrap/stable/kidux-archive-keyring.deb
+   wget https://apt.kidux.org/bootstrap/stable/kidux-apt-source.deb
    sudo apt install ./kidux-archive-keyring.deb ./kidux-apt-source.deb
    sudo apt update
    sudo apt install kidux-base
@@ -1177,6 +1177,15 @@ More about it: [Photography's page](modules/photography.md).
 Security updates install themselves in the background, from Debian and
 from Kidux. Nothing needs doing, and a child's session is never
 interrupted by one.
+
+Kidux's updates come from `apt.kidux.org`, a server of the project's. Like
+any web server, it records each request with the address it came from,
+and those records tell the project how many computers run Kidux and which
+modules they install. The request says it comes from a Kidux computer and
+nothing more: no name, no version, nothing of a child's. **Share usage
+statistics**, on the System page, adds an identifier made for this
+computer alone, so that it is counted as one computer rather than as an
+address; it is on unless you turn it off.
 
 Everything else is installed from the adult panel's **System** page:
 

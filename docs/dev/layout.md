@@ -122,6 +122,7 @@ starts it through systemd, and its status file is
 /etc/default/grub.d/90-kidux.cfg                    the Kidux entry boots by default
 /etc/grub.d/09_kidux                                that entry, and the password
 /etc/apt/sources.list.d/kidux.sources               the archive
+/etc/apt/apt.conf.d/60kidux-user-agent              every fetch says it is a Kidux machine's
 /usr/share/keyrings/kidux-archive-keyring.pgp       its key
 ```
 

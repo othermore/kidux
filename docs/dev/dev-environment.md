@@ -93,7 +93,7 @@ ships it.
 
 - ed25519, fingerprint `27E3FC17DBA9E4578268F8EEB3768AF190169C5E`, expires 2031-10-01.
 - UID: `Kidux archive signing key <info@kidux.org>`.
-- It signs the stable suite, the one published at `https://kidux.org/apt`, and its
+- It signs the stable suite, the one published at `https://apt.kidux.org`, and its
   public part is the keyring every Kidux machine has: a package signed with it is
   installed by every family's computer without a word.
 - No passphrase, so that `ci/promote.sh` signs without anyone typing. It can be given

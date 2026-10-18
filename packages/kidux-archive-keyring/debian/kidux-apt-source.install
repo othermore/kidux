@@ -1,1 +1,2 @@
 sources/kidux.sources etc/apt/sources.list.d
+apt/60kidux-user-agent etc/apt/apt.conf.d

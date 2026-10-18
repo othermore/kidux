@@ -1,0 +1,7 @@
+// The archive's server counts the machines that follow it from its logs.
+// Every fetch says it comes from a Kidux machine, and nothing else: no
+// version, no name, no identifier (docs/dev/packaging.md, "The public
+// archive"). With *Share usage statistics* on, the daemon writes an
+// identifier of the machine's own in 61kidux-statistics; without it every
+// machine looks the same.
+Acquire::http::User-Agent "Debian APT-HTTP/1.3 Kidux";

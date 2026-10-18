@@ -109,12 +109,14 @@ Pages whenever `site/`, `docs/images/`, `branding/` or the builder changes
 on `main`, and when run by hand. It does nothing while the repository has
 no Pages site.
 
-The package archive is published with it, under `apt/`: the workflow takes
-the stable suite's tarball from the repository's `archive` release, where
-`ci/publish-public.sh` sends it, and `ci/build-site.py --archive` unpacks
-it beside the pages (packaging.md, "The public archive"). So
-`https://kidux.org/apt` is the same site, and a site is never published
-without it.
+The package archive's old address is served with it, under `apt/`, for
+the machines installed before `kidux-apt-source` 0.1.5, which follow
+`https://kidux.org/apt` until their next upgrade moves them to
+`https://apt.kidux.org` (packaging.md, "The public archive"; D109): the
+workflow takes the stable suite's tarball from the repository's `archive`
+release, where `ci/publish-public.sh` sends it, and `ci/build-site.py
+--archive` unpacks it beside the pages. A site is never published without
+it while that address is followed.
 
 Turning Pages on, once, by the owner: the repository's *Settings*, *Pages*,
 *Source: GitHub Actions*. GitHub publishes Pages from a private repository

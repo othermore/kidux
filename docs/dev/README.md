@@ -85,7 +85,8 @@ instead, in English and Spanish.
   faster without making it mean less.
 - [apt-archive-plan.md](apt-archive-plan.md): the stable suite on a
   hosting of the project's own, `apt.kidux.org`, whose logs say how many
-  machines follow it; and what a change of licence would touch.
+  machines follow it, built; what is left is the old address's end and
+  `ci/usage.py`.
 
 A plan describes what is to be built and is rewritten as things are built;
 a design document describes what exists. Neither keeps history: that belongs

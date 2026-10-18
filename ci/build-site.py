@@ -21,7 +21,9 @@ there, stops the build.
 With `--archive`, the package archive's stable suite, as
 ci/publish-public.sh packed it, is unpacked under `apt/`: the site and the
 archive are published together, the one at https://kidux.org/ and the
-other at https://kidux.org/apt (D82).
+other at https://kidux.org/apt, the address machines installed before
+kidux-apt-source 0.1.5 follow until they have moved to
+https://apt.kidux.org (D82, D109).
 """
 
 import argparse

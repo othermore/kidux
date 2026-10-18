@@ -110,8 +110,8 @@ sitio lo que quieras conservar.
    últimas instalan Kidux.
 
    ```
-   wget https://kidux.org/apt/bootstrap/stable/kidux-archive-keyring.deb
-   wget https://kidux.org/apt/bootstrap/stable/kidux-apt-source.deb
+   wget https://apt.kidux.org/bootstrap/stable/kidux-archive-keyring.deb
+   wget https://apt.kidux.org/bootstrap/stable/kidux-apt-source.deb
    sudo apt install ./kidux-archive-keyring.deb ./kidux-apt-source.deb
    sudo apt update
    sudo apt install kidux-base
@@ -1216,6 +1216,16 @@ Más en [su página](modules/photography.md).
 Las actualizaciones de seguridad se instalan solas, en segundo plano,
 tanto las de Debian como las de Kidux. No hay que hacer nada, y nunca
 interrumpen la sesión de un niño.
+
+Las actualizaciones de Kidux vienen de `apt.kidux.org`, un servidor del
+proyecto. Como cualquier servidor web, anota cada petición con la
+dirección de la que llega, y esas anotaciones dicen al proyecto cuántos
+ordenadores usan Kidux y qué módulos instalan. La petición dice que viene
+de un ordenador con Kidux y nada más: ni nombre, ni versión, ni nada de
+ningún niño. **Compartir estadísticas de uso**, en la página Sistema,
+añade un identificador hecho solo para este ordenador, para que se cuente
+como un ordenador y no como una dirección; está encendido salvo que lo
+apagues tú.
 
 Todo lo demás se instala desde la página **Sistema** del panel de adulto:
 
