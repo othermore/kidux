@@ -66,7 +66,7 @@ def check_flags(value) -> list[str]:
     return flags
 
 
-def _write(path: Path, text: str) -> None:
+def write_file(path: Path, text: str) -> None:
     """`text` in `path` whole, readable by everyone and written by root only."""
     path.parent.mkdir(mode=0o755, parents=True, exist_ok=True)
     handle = tempfile.NamedTemporaryFile("w", dir=path.parent, prefix=f".{path.name}.",
@@ -88,12 +88,12 @@ def write_flags(flags: list[str], path: Path | None = None) -> None:
     if not flags:
         path.unlink(missing_ok=True)
         return
-    _write(path, "".join(f"{flag}\n" for flag in flags))
+    write_file(path, "".join(f"{flag}\n" for flag in flags))
 
 
 def write_input(pointer_step: int, scroll_step: int, path: Path | None = None) -> None:
     """The pointer's speed and the touchpad's scroll where a child's session
     reads them, as the `<libinput>` part of labwc's configuration."""
-    _write(path or paths.INPUT_XML,
+    write_file(path or paths.INPUT_XML,
            "<!-- The panel's Advanced settings, written by kidux-daemon. -->\n"
            + pointer.libinput(pointer_step, scroll_step))

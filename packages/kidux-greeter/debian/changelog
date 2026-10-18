@@ -1,6 +1,8 @@
 kidux-greeter (0.2.59) trixie; urgency=medium
 
   * Kidux is free software: GPL-3.0-or-later, in LICENSE and debian/copyright.
+  * The first-run wizard asks whether to share usage statistics, and the
+    Advanced page has the switch.
 
  -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 16:44:18 +0200
 

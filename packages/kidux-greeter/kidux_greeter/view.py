@@ -1304,6 +1304,18 @@ class View:
         middle.append(self._text(words.LONGER_IS_SAFER))
         self._power_row(bottom, adult=False)
 
+    def _draw_wiz_statistics(self, screen, page, middle, bottom):
+        middle.append(self._heading(words.SHARE_STATISTICS_HEADING))
+        middle.append(self._text(words.SHARE_STATISTICS_EXPLAINED))
+        shared = Gtk.Switch(active=bool(screen.data.get("shared", True)),
+                            valign=Gtk.Align.CENTER)
+        middle.append(self._row(Gtk.Label(label=self._(words.SHARE_STATISTICS)), shared))
+        go = self._button(vocabulary.CONTINUE,
+                          lambda: self.run("set_statistics", shared.get_active()), suggested=True)
+        self._focus = go
+        middle.append(self._row(go))
+        self._power_row(bottom, adult=False)
+
     def _draw_wiz_unlock(self, screen, page, middle, bottom):
         middle.append(self._heading(words.UNLOCK_TO_FINISH))
         entry = self._password(vocabulary.ADULT_PASSWORD, lambda text: self.run("submit_unlock", text))
@@ -2148,6 +2160,12 @@ class View:
             self._field(grid, message, chosen,
                         hint=words.POINTER_EXPLAINED if key == "scroll_speed" else None)
             first = first or chosen
+        # Whether the archive's logs count this machine as one machine (D109).
+        shared = Gtk.Switch(active=bool(screen.data.get("statistics", True)),
+                            halign=Gtk.Align.START, valign=Gtk.Align.CENTER)
+        shared.connect("notify::active",
+                       lambda widget, _spec: self.run("set_statistics", widget.get_active()))
+        self._field(grid, words.SHARE_STATISTICS, shared, hint=words.SHARE_STATISTICS_HINT)
         text = Gtk.TextView(monospace=True, wrap_mode=Gtk.WrapMode.NONE, accepts_tab=False,
                             top_margin=8, bottom_margin=8, left_margin=8, right_margin=8)
         text.get_buffer().set_text(screen.data.get("chromium_flags") or "")

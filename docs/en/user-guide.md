@@ -189,7 +189,7 @@ screen is ready.
 
 The first time the computer starts, it sets itself up with you. This
 takes a few minutes. You need no keyboard shortcut and no terminal: there
-are five screens, one after the other.
+are six screens, one after the other.
 
 1. **Language.** Choose the language of the computer. Each language is
    written in its own words, so you can find yours whatever language the
@@ -211,7 +211,16 @@ are five screens, one after the other.
 
    ![Choosing the adult password](../images/en/first-start-adult-password.png)
 
-4. **The first child.** Everything about the child is on one screen:
+4. **Usage statistics.** When the computer looks for updates, it tells
+   Kidux's server that it is a Kidux computer. With this switch on, it
+   adds an identifier made for this computer alone, so that the project
+   counts it as one computer. Nothing else is sent: no name, no version,
+   nothing of a child's. It is on; turn it off if you prefer, now or later
+   on the System page, under Advanced. Press **Continue**.
+
+   ![Sharing usage statistics](../images/en/first-start-statistics.png)
+
+5. **The first child.** Everything about the child is on one screen:
 
    - their name;
    - a picture they will recognise themselves by;
@@ -225,7 +234,7 @@ are five screens, one after the other.
 
    ![The first child](../images/en/first-start-child.png)
 
-5. **Ready.** The sign-in screen appears, with the child's picture on it.
+6. **Ready.** The sign-in screen appears, with the child's picture on it.
    Everything can be changed later from the adult panel, and more children
    can be added there.
 
@@ -1183,8 +1192,8 @@ any web server, it records each request with the address it came from,
 and those records tell the project how many computers run Kidux and which
 modules they install. The request says it comes from a Kidux computer and
 nothing more: no name, no version, nothing of a child's. **Share usage
-statistics**, on the System page, adds an identifier made for this
-computer alone, so that it is counted as one computer rather than as an
+statistics**, on the System page under Advanced, adds an identifier made
+for this computer alone, so that it is counted as one computer rather than as an
 address; it is on unless you turn it off.
 
 Everything else is installed from the adult panel's **System** page:

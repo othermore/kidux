@@ -11,6 +11,7 @@ import pytest
 
 from kidux import paths, state
 from kidux import pointer as kidux_pointer
+from kiduxd.config import Config
 from kiduxd import gate as gate_module
 from kiduxd.accounts import FakeAccounts
 from kiduxd.adults import AdultPassword
@@ -1040,3 +1041,25 @@ def test_the_request_runs_in_a_unit_of_its_own_with_the_password_on_its_input():
     with pytest.raises(SignInUnreachable):
         signin.request_in_unit("https://example.org/auth", {}, ("sess",), run=run)
 
+
+
+def test_the_panel_turns_usage_statistics_off_and_on_and_the_snippet_follows(machine):
+    token = machine.unlock(GREETER)
+    assert machine.call(GREETER, "Daemon1", "GetConfig")["apt_statistics"] is True
+
+    machine.call(GREETER, "Daemon1", "SetConfig", token, {"apt_statistics": False})
+    assert machine.call(GREETER, "Daemon1", "GetConfig")["apt_statistics"] is False
+    assert not paths.APT_STATISTICS.exists()
+
+    machine.call(GREETER, "Daemon1", "SetConfig", token, {"apt_statistics": True})
+    snippet = paths.APT_STATISTICS.read_text()
+    identifier = Config.load().apt_statistics_id
+    assert len(identifier) == 32
+    assert f'User-Agent "Debian APT-HTTP/1.3 Kidux/{identifier}";' in snippet
+
+    # Off and on again: the same machine, by the same identifier.
+    machine.call(GREETER, "Daemon1", "SetConfig", token, {"apt_statistics": False})
+    machine.call(GREETER, "Daemon1", "SetConfig", token, {"apt_statistics": True})
+    assert Config.load().apt_statistics_id == identifier
+    with pytest.raises(Exception):
+        machine.call(GREETER, "Daemon1", "SetConfig", token, {"apt_statistics": "yes"})

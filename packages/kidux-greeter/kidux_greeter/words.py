@@ -26,6 +26,20 @@ ADULT_PASSWORD_EXPLAINED = N_(
     "Choose one the children will not guess, and do not let them see you type it."
 )
 LONGER_IS_SAFER = N_("A longer password is harder to guess.")
+SHARE_STATISTICS_HEADING = N_("Help count Kidux's computers?")
+SHARE_STATISTICS_EXPLAINED = N_(
+    "When this computer looks for updates, it tells Kidux's server that it is a Kidux "
+    "computer. With this on, it adds an identifier made for this computer alone, so that "
+    "it is counted as one computer and not as an address. Nothing else is sent: no name, "
+    "no version, nothing of a child's. It can be changed later on the System page, under "
+    "Advanced."
+)
+SHARE_STATISTICS = N_("Share usage statistics")
+SHARE_STATISTICS_HINT = N_(
+    "An identifier made for this computer alone goes with each look for updates, so that "
+    "Kidux's server counts it as one computer. Nothing else: no name, no version, nothing "
+    "of a child's."
+)
 TYPE_IT_AGAIN = N_("Type it again")
 PASSWORDS_DIFFER = N_("The two passwords are not the same. Try again.")
 PASSWORD_NEEDED = N_("The password cannot be empty.")

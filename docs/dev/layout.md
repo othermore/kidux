@@ -123,6 +123,7 @@ starts it through systemd, and its status file is
 /etc/grub.d/09_kidux                                that entry, and the password
 /etc/apt/sources.list.d/kidux.sources               the archive
 /etc/apt/apt.conf.d/60kidux-user-agent              every fetch says it is a Kidux machine's
+/etc/apt/apt.conf.d/61kidux-statistics              and which one, while an adult shares statistics
 /usr/share/keyrings/kidux-archive-keyring.pgp       its key
 ```
 

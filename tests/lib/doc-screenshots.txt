@@ -10,6 +10,7 @@
 wizard-language         first-start-language.png
 wizard-keyboard         first-start-keyboard.png
 wizard-adult-password   first-start-adult-password.png
+wizard-statistics       first-start-statistics.png
 wizard-child            first-start-child.png
 wizard-done             first-start-done.png
 sign-in                 sign-in.png

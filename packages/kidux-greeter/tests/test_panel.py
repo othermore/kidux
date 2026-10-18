@@ -279,7 +279,22 @@ def wizard_at_the_child(fresh):
     signin = SignIn(fresh, FakeGreetd())
     signin.start()
     screen = signin.wizard.submit_adult_password(ADULT, ADULT)
+    assert screen.name == "wiz_statistics"
+    screen = signin.wizard.set_statistics(True)
     return signin, screen
+
+
+def test_the_wizard_asks_whether_to_share_usage_statistics_on_by_default(fresh):
+    fresh.settings["language_chosen"] = True
+    signin = SignIn(fresh, FakeGreetd())
+    signin.start()
+
+    screen = signin.wizard.submit_adult_password(ADULT, ADULT)
+    assert (screen.name, screen.data["shared"]) == ("wiz_statistics", True)
+
+    screen = signin.wizard.set_statistics(False)
+    assert screen.name == "wiz_child"
+    assert ("set_config", {"apt_statistics": False}) in fresh.calls
 
 
 def test_a_machine_never_set_up_starts_the_wizard_at_the_languages(fresh):
@@ -319,7 +334,7 @@ def test_after_the_restart_it_resumes_at_the_adult_password(fresh):
     assert (screen.name, screen.language) == ("wiz_password", "es_ES.UTF-8")
 
 
-def test_the_adult_password_is_typed_twice_then_the_first_childs_form(fresh):
+def test_the_adult_password_is_typed_twice_then_the_statistics_then_the_first_childs_form(fresh):
     fresh.settings["language_chosen"] = True
     signin = SignIn(fresh, FakeGreetd())
     signin.start()
@@ -327,8 +342,10 @@ def test_the_adult_password_is_typed_twice_then_the_first_childs_form(fresh):
     assert signin.wizard.submit_adult_password("", "").notice == words.PASSWORD_NEEDED
     assert signin.wizard.submit_adult_password("one", "two").notice == words.PASSWORDS_DIFFER
     screen = signin.wizard.submit_adult_password(ADULT, ADULT)
-    assert (screen.name, screen.owner) == ("wiz_child", "wizard")
+    assert (screen.name, screen.owner) == ("wiz_statistics", "wizard")
     assert ("set_adult_password",) in fresh.calls
+    screen = signin.wizard.set_statistics(True)
+    assert (screen.name, screen.owner) == ("wiz_child", "wizard")
     # The form starts at an hour a day, in the machine's language.
     assert screen.data["defaults"]["access"] == ("daily", 60, "1111111")
     assert screen.data["defaults"]["language"] == "en_US.UTF-8"
@@ -1074,12 +1091,13 @@ def test_every_wizard_screen_has_a_way_forward(fresh):
     screens += [signin.start()]
     w = signin.wizard
     screens += [w.submit_adult_password("", ""), w.submit_adult_password(ADULT, ADULT),
+                w.set_statistics(True),
                 w.add_child({"display_name": ""}),
                 w.add_child({"display_name": "Ana", "password": "x", "again": "x"})]
     for screen in screens:
         check(screen, WIZARD_ACTIONS)
-    assert {"wiz_language", "wiz_keyboard", "restarting", "wiz_password", "wiz_child",
-            "wiz_done"} <= set(names(screens))
+    assert {"wiz_language", "wiz_keyboard", "restarting", "wiz_password", "wiz_statistics",
+            "wiz_child", "wiz_done"} <= set(names(screens))
 
 
 def test_every_panel_screen_has_a_way_forward(panel, daemon, with_settings):
@@ -1120,6 +1138,16 @@ def test_every_action_a_screen_offers_exists():
         for screen, methods in actions.items():
             for method in methods:
                 assert hasattr(cls, method), f"{cls.__name__}.{method} for {screen}"
+
+
+def test_the_advanced_page_has_the_usage_statistics_switch(panel, daemon):
+    screen = panel.advanced()
+    assert screen.data["statistics"] is True
+
+    screen = panel.set_statistics(False)
+    assert (screen.name, screen.notice) == ("panel_advanced", words.SAVED)
+    assert ("set_config", {"apt_statistics": False}) in daemon.calls
+    assert screen.data["statistics"] is False
 
 
 def test_the_system_page_leads_to_the_advanced_settings(panel):

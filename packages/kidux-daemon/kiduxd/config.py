@@ -29,6 +29,12 @@ DEFAULTS = {
     # each (kidux.pointer).
     "pointer_speed": 0,
     "scroll_speed": 0,
+    # Whether every fetch of the package archive carries an identifier of
+    # this machine's, so that the archive's logs count it as one machine
+    # (statistics.py, D109), and the identifier, made the first time it is
+    # needed and kept for good.
+    "apt_statistics": True,
+    "apt_statistics_id": "",
 }
 
 
@@ -46,6 +52,8 @@ class Config:
     chromium_flags: list
     pointer_speed: int
     scroll_speed: int
+    apt_statistics: bool
+    apt_statistics_id: str
 
     @classmethod
     def load(cls) -> "Config":

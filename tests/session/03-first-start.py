@@ -49,6 +49,10 @@ def run(machine: Machine) -> None:
     machine.screenshot("wizard-adult-password")
     machine.type(ADULT_PASSWORD + "\n")
     machine.type(ADULT_PASSWORD + "\n")
+    report("then the question on usage statistics, on unless the adult says no",
+           showing("wiz_statistics"), greeter_log())
+    machine.screenshot("wizard-statistics")
+    machine.key("ret")                       # Continue has the focus, the switch left on
     report("then the first child's form, the same as the panel's", showing("wiz_child"),
            greeter_log())
     machine.screenshot("wizard-child")
@@ -66,6 +70,10 @@ def run(machine: Machine) -> None:
 
     config = root("cat /home/.kidux/config.toml").stdout
     report("the machine is set up", "setup_complete = true" in config, config)
+    snippet = root("cat /etc/apt/apt.conf.d/61kidux-statistics").stdout
+    report("every fetch of the archive carries an identifier of this machine's own",
+           "apt_statistics = true" in config and 'apt_statistics_id = "' in config
+           and "Kidux/" in snippet, snippet)
     profile = root(f"cat /home/.kidux/children/{WIZARD_CHILD}/profile.toml").stdout
     report("the first child exists, in the machine's language",
            f'language = "{SPEAKS["locale"]}"' in profile, profile)

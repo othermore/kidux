@@ -725,7 +725,9 @@ administrator account did not exist at package build time (D18).
    `XKBLAYOUT` in `/etc/default/keyboard`, else `us`; `display_scale = 0`,
    automatic (D53);
    `reset_hour = 4`; `idle_lock_minutes = 5`; `screen_off_minutes = 10`;
-   `save_minutes = 5`; `setup_complete = false`.
+   `save_minutes = 5`; `setup_complete = false`; `apt_statistics = true`, with
+   `apt_statistics_id`, a random identifier of this machine's, and the apt
+   snippet it goes into written (`kiduxd/statistics.py`, D109).
 3. The GRUB recovery password: 16 characters from `secrets.choice` over
    lower-case letters and digits, hashed with `grub-mkpasswd-pbkdf2`, both
    written to `adults.toml`. Then `update-grub`, so that `session.md`'s
@@ -891,7 +893,7 @@ names `kidux-daemon.service` as `SystemdService`.
 - `Daemon1.GetConfig() → a{sv}`: `default_language`, `default_keyboard`,
   `display_scale`, `reset_hour`, `setup_complete`, `language_chosen`,
   `chromium_flags`, `pointer_speed`, `scroll_speed`, `idle_lock_minutes`,
-  `screen_off_minutes`, `save_minutes`. The
+  `screen_off_minutes`, `save_minutes`, `apt_statistics`. The
   trusted screens run as `_greetd`, which cannot read `config.toml`, and they
   need the scale and the language before they draw anything. `screens` class.
 - `Daemon1.SetConfig(token, changes a{sv})`, `manage` class: any of
@@ -901,8 +903,12 @@ names `kidux-daemon.service` as `SystemdService`.
   `scroll_speed` (below), `idle_lock_minutes`
   (a whole number, 1 to 120) and `screen_off_minutes` (1 to 240), the
   minutes a session may be left alone before it locks and before the screen
-  turns off (D67), and `save_minutes` (1 to 15), how long *Unlock to save*
-  gives, which no page offers and the session tests set. Anything else, the
+  turns off (D67), `save_minutes` (1 to 15), how long *Unlock to save*
+  gives, which no page offers and the session tests set, and
+  `apt_statistics` (a boolean), whether every fetch of the archive carries
+  an identifier of this machine's, `apt_statistics_id`, made once and kept:
+  `/etc/apt/apt.conf.d/61kidux-statistics` written or removed at once
+  (`kiduxd/statistics.py`, D109). Anything else, the
   reset hour included, is
   `InvalidArgument`: nothing offers to change it. Setting a language
   also sets `language_chosen`, which is how the first-run wizard, restarted

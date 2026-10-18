@@ -395,7 +395,7 @@ key `kidux-archive-keyring` ships, or that holds a development build.
 the machine, so that one looks like another. A machine fetches `InRelease`
 once a day, so the distinct addresses that fetched it on a day are the
 machines following the archive that day, near enough; a `.deb` fetched is
-an install or an upgrade of that package. *Share usage statistics*, on the panel's System page and asked by the
+an install or an upgrade of that package. *Share usage statistics*, on the panel's Advanced page and asked by the
 first-run wizard, on unless an adult turns it off, adds an identifier the
 daemon makes for that alone, random and of this machine's, in
 `61kidux-statistics`; with it, machines are counted one by one rather than

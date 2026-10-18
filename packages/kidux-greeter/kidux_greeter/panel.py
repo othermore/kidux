@@ -310,6 +310,16 @@ class Wizard(_NewChild):
             self._token = self._daemon.unlock_panel(password) or ""
         except (DaemonUnavailableError, DaemonError):
             return self._screen("wiz_password", notice=words.SOMETHING_WENT_WRONG)
+        return self._screen("wiz_statistics", shared=True)
+
+    def set_statistics(self, enabled: bool) -> Screen:
+        """Whether every fetch of the archive carries an identifier of this
+        machine's (D109): on unless the adult turns it off here."""
+        try:
+            self._daemon.set_config(self._token, {"apt_statistics": bool(enabled)})
+        except (DaemonUnavailableError, DaemonError):
+            return self._screen("wiz_statistics", notice=words.SOMETHING_WENT_WRONG,
+                                shared=bool(enabled))
         return self._child_form()
 
     def submit_unlock(self, password: str) -> Screen:
@@ -951,14 +961,26 @@ class Panel(_NewChild):
             config = self._daemon.config()
             self._config.update(chromium_flags=list(config.get("chromium_flags") or []),
                                 pointer_speed=int(config.get("pointer_speed") or 0),
-                                scroll_speed=int(config.get("scroll_speed") or 0))
+                                scroll_speed=int(config.get("scroll_speed") or 0),
+                                apt_statistics=bool(config.get("apt_statistics", True)))
         except (DaemonUnavailableError, DaemonError):
             pass
         flags = "\n".join(self._config.get("chromium_flags") or [])
         return self._screen("panel_advanced", notice,
                             chromium_flags=flags if draft is None else draft,
                             pointer_speed=int(self._config.get("pointer_speed") or 0),
-                            scroll_speed=int(self._config.get("scroll_speed") or 0))
+                            scroll_speed=int(self._config.get("scroll_speed") or 0),
+                            statistics=bool(self._config.get("apt_statistics", True)))
+
+    def set_statistics(self, enabled: bool) -> Screen:
+        """Whether every fetch of the archive carries an identifier of this
+        machine's (D109), applied by the daemon at once."""
+        result = self._guard(lambda: self._daemon.set_config(
+            self._token, {"apt_statistics": bool(enabled)}))
+        if isinstance(result, Screen):
+            return result
+        self._config["apt_statistics"] = bool(enabled)
+        return self.advanced(words.SAVED)
 
     def set_pointer(self, key: str, step: int) -> Screen:
         """The pointer's speed or the touchpad's scroll, `key`, a step from
@@ -1098,6 +1120,7 @@ WIZARD_ACTIONS = {
     "wiz_language": ("choose_language",),
     "wiz_keyboard": ("choose_keyboard", "back"),
     "wiz_password": ("submit_adult_password",),
+    "wiz_statistics": ("set_statistics",),
     "wiz_unlock": ("submit_unlock",),
     "wiz_child": ("add_child",),
     "wiz_done": ("finish",),
@@ -1115,7 +1138,7 @@ PANEL_ACTIONS = {
                      "set_scale", "set_idle", "look_for_updates", "install_updates",
                      "poll_updates",
                      "restart_now", "advanced", "tab", "close"),
-    "panel_advanced": ("save_chromium_flags", "set_pointer", "tab", "close"),
+    "panel_advanced": ("save_chromium_flags", "set_pointer", "set_statistics", "tab", "close"),
     "panel_network": ("refresh_network", "poll_network", "ask_wifi_password", "connect_wifi",
                       "ask_forget_wifi", "forget_wifi", "tab", "close"),
     "turning_off": (),

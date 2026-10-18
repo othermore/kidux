@@ -25,6 +25,7 @@ from kidux import log, paths
 from .adults import AdultPassword
 from .children import shipped_languages
 from .config import DEFAULTS, Config
+from . import statistics
 
 RECOVERY_ALPHABET = string.ascii_lowercase + string.digits
 RECOVERY_LENGTH = 16
@@ -139,6 +140,8 @@ def run(
         }
     )
     config.save()
+    # The sharing of usage statistics starts on, with an identifier made now.
+    statistics.apply(config)
     log.audit("first boot", "ok")
     return True
 

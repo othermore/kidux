@@ -15,7 +15,7 @@ the battery has passed, and the release is one battery and one `--release`.
 | A.1 | The hosting: the subdomain, its certificate, the `apt/` folder and the credentials in a file outside the repository | built |
 | A.2 | `ci/publish-public.sh` mirrors the stable suite to the hosting, in an order a machine can fetch from at any moment, and checks what it published | built |
 | A.3 | `kidux-apt-source` names the new address, and tells the server it is Kidux | built |
-| A.4 | *Share usage statistics*: a switch on the panel's System page and a question of the first-run wizard, on by default, which adds an identifier of the machine's own to every fetch | built |
+| A.4 | *Share usage statistics*: a switch on the panel's Advanced page and a question of the first-run wizard, on by default, which adds an identifier of the machine's own to every fetch | built |
 | A.5 | Both addresses serve stable until every machine has moved; then GitHub Pages stops serving `apt/` and the site's workflow is decoupled from the archive | the old address still serves |
 | A.6 | `ci/usage.py`: what the logs say, in a few numbers | to do, once the first logs exist |
 
@@ -51,7 +51,7 @@ machine's for this alone, never the system's `machine-id`. With it on, the daemo
 writes `/etc/apt/apt.conf.d/61kidux-statistics`, a `User-Agent` with the
 identifier appended; turning it off removes the file, and the identifier
 stays, so that turning it on again counts the same machine. The panel's
-System page has the switch with a sentence on what is shared and what is
+Advanced page has the switch with a sentence on what is shared and what is
 not; the first-run wizard asks the same question, so that an adult decides
 at the start, and may turn it off there. The user guide's section 10 says what the server records.
 

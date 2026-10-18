@@ -196,7 +196,7 @@ primera pantalla está lista.
 
 La primera vez que arranca, el ordenador se configura contigo. Lleva unos
 minutos. No hace falta ningún atajo de teclado ni ninguna terminal: son
-cinco pantallas, una detrás de otra.
+seis pantallas, una detrás de otra.
 
 1. **Idioma.** Elige el idioma del ordenador. Cada idioma aparece escrito
    en sus propias palabras, para que encuentres el tuyo esté la pantalla
@@ -218,7 +218,17 @@ cinco pantallas, una detrás de otra.
 
    ![Elegir la contraseña de adulto](../images/es/first-start-adult-password.png)
 
-4. **El primer niño.** Todo lo del niño está en una sola pantalla:
+4. **Estadísticas de uso.** Cuando el ordenador busca actualizaciones, le
+   dice al servidor de Kidux que es un ordenador con Kidux. Con este
+   interruptor encendido, añade un identificador hecho solo para este
+   ordenador, para que el proyecto lo cuente como un ordenador. No se
+   envía nada más: ni nombre, ni versión, ni nada de ningún niño. Está
+   encendido; apágalo si lo prefieres, ahora o más tarde en la página
+   Sistema, en Avanzado. Pulsa **Continuar**.
+
+   ![Compartir estadísticas de uso](../images/es/first-start-statistics.png)
+
+5. **El primer niño.** Todo lo del niño está en una sola pantalla:
 
    - su nombre;
    - un dibujo con el que se reconozca;
@@ -232,7 +242,7 @@ cinco pantallas, una detrás de otra.
 
    ![El primer niño](../images/es/first-start-child.png)
 
-5. **Listo.** Aparece la pantalla de inicio, con el dibujo del niño. Todo
+6. **Listo.** Aparece la pantalla de inicio, con el dibujo del niño. Todo
    se puede cambiar más adelante desde el panel de adulto, y allí se
    pueden añadir más niños.
 
@@ -1222,8 +1232,8 @@ proyecto. Como cualquier servidor web, anota cada petición con la
 dirección de la que llega, y esas anotaciones dicen al proyecto cuántos
 ordenadores usan Kidux y qué módulos instalan. La petición dice que viene
 de un ordenador con Kidux y nada más: ni nombre, ni versión, ni nada de
-ningún niño. **Compartir estadísticas de uso**, en la página Sistema,
-añade un identificador hecho solo para este ordenador, para que se cuente
+ningún niño. **Compartir estadísticas de uso**, en la página Sistema, en
+Avanzado, añade un identificador hecho solo para este ordenador, para que se cuente
 como un ordenador y no como una dirección; está encendido salvo que lo
 apagues tú.
 

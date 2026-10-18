@@ -44,7 +44,8 @@ it was set up some other way, and is usable. From there:
 
 ```
 language ──▶ keyboard ──▶ (the screen restarts in them) ──▶ adult password
-   ──▶ the first child's form ──▶ done: the sign-in screen, with the child on it
+   ──▶ usage statistics ──▶ the first child's form
+   ──▶ done: the sign-in screen, with the child on it
 ```
 
 1. **Language.** Kidux's logo, and one button per locale in
@@ -67,14 +68,19 @@ language ──▶ keyboard ──▶ (the screen restarts in them) ──▶ ad
    sentence saying longer ones are harder to guess, and nothing more.
    `Parental1.SetPassword("", password)`, then `Parental1.Unlock(password)`
    for the token the next steps need.
-5. **The first child,** on the child's form of section 3, the same one the
+5. **Usage statistics.** One switch, on, and what it does in a few sentences:
+   every fetch of the archive carries an identifier made for this machine
+   alone, so that the archive's logs count it as one machine (D109).
+   *Continue* is `Daemon1.SetConfig(token, {apt_statistics})` with the
+   switch's state; the Advanced page has the same switch later.
+6. **The first child,** on the child's form of section 3, the same one the
    panel uses for every later child: name, picture, language, password
    twice, and how they may use the computer, which starts at an hour a day.
    The child's Unix name is made from their name, without accents, and
    never shown. *Add* is `Children1.Create`, then `Access1.SetPolicy`; a
    field that is missing or refused is marked on the form, and what was
    typed stays, except the passwords.
-6. **Done.** `Daemon1.SetConfig(token, {setup_complete: true})`,
+7. **Done.** `Daemon1.SetConfig(token, {setup_complete: true})`,
    `Parental1.Lock(token)`, and the sign-in screen, where the new child's
    picture is waiting.
 
@@ -286,8 +292,9 @@ have logged out.*
   own (the System page has no room left at 1280x800), `panel_advanced`,
   under the same tabs, for the settings that depend on the machine's
   hardware (D52): a line saying they are *How this computer's pointer
-  moves, and what to try if something does not work on it*; *Pointer
-  speed* and *Scrolling with two fingers*, a list of five steps each,
+  moves, and what to try if something does not work on it*; *Share usage
+  statistics*, the wizard's switch again, sent as `apt_statistics` (D109);
+  *Pointer speed* and *Scrolling with two fingers*, a list of five steps each,
   *Much slower* to *Much faster*, the middle *Normal*, each sent to
   `Daemon1.SetConfig` as `pointer_speed` or `scroll_speed`, -2 to 2, as
   soon as it is chosen, which says *Saved. It applies the next time a

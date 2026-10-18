@@ -117,6 +117,12 @@ CHROMIUM_FLAGS = Path(os.environ.get("KIDUX_CHROMIUM_FLAGS", "/etc/kidux/chromiu
 #: child's session puts it into labwc's configuration when it starts.
 INPUT_XML = Path(os.environ.get("KIDUX_INPUT_XML", "/etc/kidux/input.xml"))
 
+#: The identifier this machine adds to every fetch of the package archive
+#: while an adult shares usage statistics (kiduxd.statistics, D109): the
+#: daemon writes it, root's and 0644, as an apt configuration snippet.
+APT_STATISTICS = Path(os.environ.get("KIDUX_APT_STATISTICS",
+                                     "/etc/apt/apt.conf.d/61kidux-statistics"))
+
 # --- identities --------------------------------------------------------------
 
 #: Adults. Members may call every method on the daemon. Deliberately not a

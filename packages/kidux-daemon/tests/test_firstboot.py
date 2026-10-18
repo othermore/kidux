@@ -136,3 +136,14 @@ def test_without_a_sudo_group_nobody_is_an_administrator(monkeypatch):
     monkeypatch.setattr(firstboot.grp, "getgrnam", missing)
 
     assert firstboot.sudo_members() == []
+
+
+def test_first_boot_shares_usage_statistics_with_an_identifier_of_the_machines(tmp_path, monkeypatch):
+    run(tmp_path, Recorder(), monkeypatch)
+
+    config = Config.load()
+    assert config.apt_statistics is True
+    assert len(config.apt_statistics_id) == 32
+    snippet = paths.APT_STATISTICS.read_text()
+    assert f'Acquire::http::User-Agent "Debian APT-HTTP/1.3 Kidux/{config.apt_statistics_id}";' in snippet
+    assert paths.APT_STATISTICS.stat().st_mode & 0o777 == 0o644

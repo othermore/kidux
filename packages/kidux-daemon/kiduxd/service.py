@@ -27,6 +27,7 @@ from .access import (
 )
 from .adults import AdultPassword
 from .advanced import check_flags, write_flags, write_input
+from . import statistics
 from .children import Children
 from .config import Config
 from .errors import (
@@ -56,7 +57,7 @@ MAX_GRACE_MINUTES = 15
 #: nothing may set it.
 SETTABLE = ("default_language", "default_keyboard", "display_scale", "setup_complete",
             "chromium_flags", "idle_lock_minutes", "screen_off_minutes", "save_minutes",
-            "pointer_speed", "scroll_speed")
+            "pointer_speed", "scroll_speed", "apt_statistics")
 #: The minutes a session may be left alone before it locks, and before the
 #: screen turns off, as the panel offers them (D67).
 IDLE_LOCK_MINUTES = (1, 120)
@@ -203,6 +204,7 @@ class Service:
             "idle_lock_minutes": int(config.idle_lock_minutes),
             "screen_off_minutes": int(config.screen_off_minutes),
             "save_minutes": int(config.save_minutes),
+            "apt_statistics": bool(config.apt_statistics),
         }
 
     def Daemon1_SetConfig(self, caller: Caller, token: str, changes: dict) -> None:
@@ -228,10 +230,11 @@ class Service:
                 raise InvalidArgument(f"the display scale is 0, automatic, or from {MIN_SCALE} "
                                       f"to {MAX_SCALE}")
             config.display_scale = float(scale)
-        if "setup_complete" in changes:
-            if not isinstance(changes["setup_complete"], bool):
-                raise InvalidArgument("setup_complete is true or false")
-            config.setup_complete = changes["setup_complete"]
+        for key in ("setup_complete", "apt_statistics"):
+            if key in changes:
+                if not isinstance(changes[key], bool):
+                    raise InvalidArgument(f"{key} is true or false")
+                setattr(config, key, changes[key])
         if "chromium_flags" in changes:
             try:
                 config.chromium_flags = check_flags(changes["chromium_flags"])
@@ -259,6 +262,8 @@ class Service:
             write_flags(config.chromium_flags)
         if {"pointer_speed", "scroll_speed"} & set(changes):
             write_input(config.pointer_speed, config.scroll_speed)
+        if "apt_statistics" in changes:
+            statistics.apply(config)
         self._audit("config set", "ok", caller=self._who(caller), fields=sorted(changes))
 
     # --- Parental1 -----------------------------------------------------------
