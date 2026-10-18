@@ -20,7 +20,7 @@ check "while it is installed, the policy allows its site" \
 check "its Chromium opens on its own page, walled in to the site, without WebGL in software" \
     sh -c "command=\$(runuser -u marta -- /usr/libexec/kidux-webapp --print codecombat) \
            && echo \"\$command\" | grep -qF -- \" '--app=http://127.0.0.1:8123/codecombat/?lang=\" \
-           && echo \"\$command\" | grep -qF -- \"--proxy-server=127.0.0.1:1 '--proxy-bypass-list=127.0.0.1;codecombat.com;*.codecombat.com'\" \
+           && echo \"\$command\" | grep -qF -- \"--proxy-server=127.0.0.1:1 '--proxy-bypass-list=127.0.0.1:8123;codecombat.com;*.codecombat.com'\" \
            && ! echo \"\$command\" | grep -q -- --enable-unsafe-swiftshader"
 check "it is listed for a child, switched off" \
     sh -c "$ADMIN_AS modules marta | grep -qx 'codecombat off'"

@@ -50,7 +50,7 @@ check "Chromium's policy is root's and no package's conffile, blocks every addre
                                         and p[\"PromptForDownloadLocation\"] is True))' $POLICY"
 check "a module's Chromium is walled in by a proxy that answers nothing, with only the server past it" \
     sh -c "runuser -u marta -- /usr/libexec/kidux-webapp --print hello-web \
-           | grep -q -- \"--proxy-server=127.0.0.1:1 --proxy-bypass-list=127.0.0.1 .*'--app=\""
+           | grep -q -- \"--proxy-server=127.0.0.1:1 --proxy-bypass-list=127.0.0.1:8123 .*'--app=\""
 # The machine's own flags for Chromium, from the panel's Advanced settings
 # (D51, D52): written by the daemon where kidux-webapp reads them, after
 # Kidux's own; none is no file; a flag that would take the module out of
