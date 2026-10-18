@@ -111,12 +111,11 @@ can. Each phase assumes what it builds on is reasonably stable.
       guided projects, WebUSB/USB access for the child user.
 - [x] BASIC: wwwBASIC in an editor of Kidux's own, with its guide beside
       it (phase-4b-plan.md 4.10, 4.11, D84).
-- [ ] Offer wwwBASIC the fixes in kidux-module-basic's `patches/` (D88):
-      the pull request is ready on the owner's fork,
-      `github.com/othermore/wwwbasic`, branch
-      `regenerate-mjs-after-sleep-fix`, tested and linted as wwwBASIC's
-      own tests ask; the owner reviews it, signs Google's contributor
-      agreement, and sends it.
+- [x] Offer wwwBASIC the fixes in kidux-module-basic's `patches/` (D88):
+      the SLEEP fix, from the owner's fork, `github.com/othermore/wwwbasic`,
+      is accepted upstream.
+- [ ] kidux-module-basic built from wwwBASIC as published, at the commit
+      that holds the SLEEP fix, with no patch of Kidux's left.
 - [x] A web module that is a door to one website on the internet, held to
       that site's hosts (4.12, D85).
 - [x] CodeCombat, a door to codecombat.com, nothing of it shipped, not
