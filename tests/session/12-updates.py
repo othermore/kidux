@@ -81,8 +81,9 @@ def run(machine: Machine) -> None:
            shown and root("cat /etc/kidux/chromium-flags").stdout == "--disable-gpu-compositing\n",
            greeter_log())
     saves = int(root(f"grep -c '\"action\": \"config set\"' {AUDIT}").stdout.strip() or 0)
-    # From the pointer's speed, past the scroll's and the options, to Save.
-    for _ in range(3):
+    # From the pointer's speed, past the scroll's, the statistics switch and
+    # the options, to Save.
+    for _ in range(4):
         machine.key("tab")
     before = machine.mark()
     machine.key("ret")

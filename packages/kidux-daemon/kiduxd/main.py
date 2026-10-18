@@ -18,6 +18,8 @@ from .machine import SystemMachine
 from .network import Network
 from .service import Service
 from .updates import Updates
+from . import statistics
+from .config import Config
 
 #: How often idle adult-panel tokens are swept. The timeout itself is minutes,
 #: so a minute of slack is invisible; the check on every use is exact.
@@ -64,6 +66,16 @@ def serve(
     logger = log.get_logger("daemon")
     loop = GLib.MainLoop()
     outcome = {"code": 0}
+
+    # The usage-statistics snippet as config.toml has it (statistics.py): first
+    # boot writes it on a new machine, and this writes it on one upgraded from
+    # before the setting existed. Never before first boot, whose mark the
+    # config file is.
+    if paths.CONFIG_FILE.exists():
+        try:
+            statistics.apply(Config.load())
+        except Exception:
+            logger.exception("could not apply the usage statistics setting")
 
     bus_object.register()
 
