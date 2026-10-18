@@ -2,37 +2,40 @@
 
 *[Versión en español](../../es/modules/codecombat.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
 
-**CodeCombat** is a door to the CodeCombat website, where children learn to write real Python and JavaScript by playing: a hero walks through each level as the child's program tells it.
+**CodeCombat** is an educational coding adventure role-playing game where learners write genuine Python or JavaScript to direct their hero in real time through challenging dungeon campaigns.
 
 | | |
 |---|---|
-| **For** | Children from 9 to 16 |
-| **Before it** | Scratch |
-| **Needs** | The internet, and a CodeCombat account. The first levels are free; most of the site needs a subscription. |
-| **Website** | [codecombat.com](https://codecombat.com/), by CodeCombat Inc. Kidux has no connection with CodeCombat. |
+| **Recommended age** | Children from 9 to 16 years old with comfortable reading fluency |
+| **Recommended before** | Scratch |
+| **Internet connection** | Required (gameplay runs on CodeCombat web servers) |
+| **Web service** | [codecombat.com](https://codecombat.com/), managed by CodeCombat Inc. Kidux is not affiliated with or endorsed by CodeCombat. |
 
-## What it is
+## What it is and how it works
 
-The site is CodeCombat's, in the child's language. The module opens it and no other website: a link to anywhere else leads nowhere. The child writes a few lines of code, presses play, and the hero moves, fights or picks things up as the code says.
+This module provides dedicated, secure, and isolated access to the official CodeCombat website in the child's preferred language. The system blocks external links, third-party advertisements, and unapproved web domains to ensure a safe, focused learning environment.
+
+Children learn computational thinking and authentic syntax (loops, variables, function invocations, and conditionals) by typing code into an interactive code editor. When they run their program, their character carries out their instructions on screen.
 
 ![CodeCombat](../../images/en/module-codecombat.png)
 
-## What an adult sets
+## Configuration options for adults
 
-| Setting | What it does |
+Adults can configure account credentials on the **Modules** tab of the adult settings panel for automatic sign-in:
+
+| Setting | Description |
 |---|---|
-| **Email** | The email address of the child's CodeCombat account. |
-| **Password** | Its password. Kidux signs the child in with it, and the child never sees it. |
+| **Email** | The email address associated with the child's CodeCombat account. |
+| **Password** | The account password. Kidux uses it to sign in seamlessly without revealing the secret password to the child. |
 
-With the account given, the module signs the child in by itself each time it is opened, saying *Connecting to CodeCombat…* meanwhile. It sets the site's language to the child's and opens where the playing starts. When the account is wrong or the site does not answer, the module says so and offers to try again.
+When credentials are configured, the module automatically signs in every time it starts, displaying a brief status message (*Connecting to CodeCombat…*). If the credentials fail or network connectivity is unavailable, an error notice appears with an option to retry.
 
-Without an account given, the module says that the easiest is for an adult to put it in the panel, and offers a button to sign in by hand meanwhile.
+If no account has been pre-configured, the screen explains that an adult can supply credentials in the settings panel and provides a button to log in manually via the web interface.
 
 ![CodeCombat without an account](../../images/en/module-codecombat-no-account.png)
 
-## Good to know
+## Important notes
 
-- A subscription is bought on another computer, since the module opens no other site.
-- Signing in through Google, Facebook or Clever leads nowhere here.
-- The site may ask about its cookies the first time; that is the site's own question.
-- What the child does on the site is kept by CodeCombat, in the account. Nothing is saved in the child's folders.
+- **Subscriptions and premium levels**: Introductory levels are free to play; advanced campaign worlds require an active subscription purchased directly from CodeCombat. For child safety and financial security, purchases should be made from another device, as the module opens no website other than CodeCombat.
+- **Third-party federated logins**: Social authentication buttons (Google, Facebook, Clever) are disabled in this sandboxed environment; use direct email and password credentials.
+- **Cookies and data storage**: The website may prompt for cookie preferences on first launch. Game progress and statistics are saved remotely on CodeCombat cloud servers, leaving local disk storage clean.

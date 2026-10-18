@@ -2,24 +2,29 @@
 
 *[Versión en español](../../es/modules/wikipedia.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
 
-**Wikipedia** is a door to the whole encyclopedia, in the child's language, and to the projects it links to, such as Wiktionary and Wikibooks.
+**Wikipedia** provides filtered, secure access to the comprehensive free encyclopedia and its sister educational projects (such as Wiktionary and Wikibooks) in the child's configured language.
 
 | | |
 |---|---|
-| **For** | Children from 8 up. An adult decides, because Wikipedia is written for everyone, not only for children. |
-| **Needs** | The internet whenever it is used |
-| **Website** | [wikipedia.org](https://www.wikipedia.org/), by the Wikimedia Foundation and its volunteers |
+| **Recommended age** | From 8 years old and up (at the adult's discretion, as Wikipedia is an open general encyclopedia) |
+| **Internet connection** | Required at all times to fetch encyclopedia articles and multimedia |
+| **Web service** | [wikipedia.org](https://www.wikipedia.org/), operated by the Wikimedia Foundation and volunteer contributors |
 
-## What it is
+## What it is and how it works
 
-It is Wikipedia as everyone reads it. The module opens it, and Wikipedia's sister projects, and nothing else of the internet: a link out of them leads nowhere.
+This module opens a sandboxed browser window restricted strictly to Wikipedia and sister educational domains (such as Wiktionary, Wikidata, Wikimedia Commons, and Wikibooks). To protect young learners, all external web links, external reference citations, and social media sites are strictly blocked.
+
+Content is the full, authentic Wikipedia encyclopedia. Children can search for topics, read rich articles with illustrations and diagrams, and explore cross-links between related concepts seamlessly.
 
 ![Wikipedia](../../images/en/module-wikipedia.png)
 
-## What is inside
+## Navigation controls
 
-A bar along the top of the window has **Back** and **Forward**, which go to the page before and the page after. They are dimmed when there is nowhere to go. **Alt+Left**, and the back button of a mouse that has one, go back too.
+A slim top navigation bar provides essential browsing controls:
+- **Back** and **Forward**: navigate between visited articles in history (buttons are dimmed when no further history is available).
+- **Keyboard and mouse shortcuts**: standard keyboard shortcut **Alt + Left Arrow** and mouse thumb back buttons work seamlessly.
 
-## Good to know
+## Important notes
 
-Nothing is saved in the child's folders. Wikipedia's own search, its pictures and its links between articles all work as on any computer.
+- **Storage**: Reading articles does not store files in the child's documents folder.
+- **Adult supervision**: Because Wikipedia is an open general encyclopedia covering a wide range of human knowledge, adults can choose which children have the module enabled based on maturity and study requirements.

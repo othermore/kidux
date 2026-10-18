@@ -2,19 +2,19 @@
 
 *[Versión en español](../../es/modules/photography.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
 
-**Photography** is a guide to taking photographs with a real camera: what a camera does, how to hold it, and how to choose and look at a photograph.
+**Photography** is an illustrated, hands-on learning course designed to teach children how to take photographs with a real camera: understanding camera mechanics, holding the camera steadily, and mastering exposure, focus, and visual composition.
 
 | | |
 |---|---|
-| **For** | Children from 8 to 12 who read well |
-| **Needs** | A camera, and nothing from the internet |
-| **Made by** | Kidux. The photographs are free ones by other people, each credited under it; where none showed an effect clearly, a picture made by a computer shows it, and says so. |
+| **Recommended age** | Children from 8 to 12 years old with comfortable reading fluency |
+| **Technical requirements** | A digital camera (compact, bridge, mirrorless, or DSLR) and no internet connection |
+| **Learning materials** | Produced by Kidux. Includes educational photographs published under open licences as well as clearly labelled explanatory computer graphics. |
 
-## What it is
+## What it is and how it works
 
-Any camera with a dial or a menu for its modes will do: a compact, a bridge or a reflex, and to start with even a phone. The guide's example is the Olympus XZ-2. Each chapter's box **On the Olympus XZ-2** says which button, dial or menu does what the chapter teaches, and that other cameras have the same under other names.
+The guide is designed to work with any camera offering manual or creative mode dials, and can even be used with a smartphone camera to learn foundational concepts. As a consistent real-world reference, the lessons feature the advanced compact camera Olympus XZ-2: a dedicated callout box (**On the Olympus XZ-2**) in each chapter explains exactly which dial or button to use, noting common alternative terms used by other manufacturers.
 
-Each chapter has photographs of its effect, drawings of what the camera's screen shows, a **Try it** to do with the camera that day, and ideas to keep trying. A box **For the adult** says what the chapter teaches and what to help with: a dark room, a torch, the flash, a street at dusk. **Back**, **Next** and the list of **Chapters** move through the guide.
+Each chapter pairs concise theoretical principles with sample photographs, diagrams of the camera's display screen, and a practical assignment (**Try it**) to practice with the camera right away. In addition, an adult guidance box (**For the adult**) suggests collaborative exercises (such as setting up a dark room, using a torch, exploring the flash, or shooting outdoor dusk scenes).
 
 ![Photography](../../images/en/module-photography.png)
 
@@ -51,6 +51,6 @@ Each chapter has photographs of its effect, drawings of what the camera's screen
 29. Choosing, and telling a story
 30. The words of photography
 
-## Good to know
+## Important notes
 
-The guide is read on the computer; the photographs are taken with the camera, away from it. Nothing is saved in the child's folders.
+The lessons and interactive guides are viewed on the computer, while the hands-on photography assignments take place with a real camera away from the screen. The module does not store loose project files in the child's home folder.

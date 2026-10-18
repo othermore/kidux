@@ -2,31 +2,33 @@
 
 *[English version](../../en/modules/kalzium.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
 
-**Kalzium** es la tabla periódica. Cada elemento se abre con cómo es, dónde se encontró, una foto y un dibujo de su átomo.
+**Kalzium** es una completa tabla periódica interactiva de los elementos químicos diseñada por el proyecto educativo de KDE, ideal para estudiantes de ciencias y química.
 
 | | |
 |---|---|
-| **Para** | Niños de 10 a 16 años |
-| **Necesita** | Nada de internet |
-| **Programa** | [Kalzium](https://apps.kde.org/kalzium/), de KDE, bajo la licencia GPL-2, de Debian |
+| **Edad recomendada** | Estudiantes de 10 a 16 años |
+| **Conexión a internet** | No requerida (todo el contenido y las bases de datos están instalados localmente) |
+| **Software utilizado** | [Kalzium](https://apps.kde.org/kalzium/), desarrollado por la comunidad KDE bajo licencia GPL-2, empaquetado oficialmente en Debian |
 
-## Qué es
+## Qué es y cómo funciona
 
-La tabla ocupa la ventana. Un clic en un elemento abre todo lo suyo: su nombre, su número, qué aspecto tiene, dónde se descubrió, su átomo con sus electrones, y las temperaturas a las que se funde y hierve. Un deslizador enseña qué elementos son sólidos, líquidos o gases a cada temperatura, y hay un glosario de las palabras.
+Kalzium presenta una visión clara y detallada de la tabla periódica. Al seleccionar cualquier elemento químico, se despliega una ficha técnica completa con su símbolo, número atómico, masa, historia de su descubrimiento, fotografía de muestras reales, modelo orbital del átomo con sus electrones y puntos de fusión y ebullición.
+
+Incluye herramientas pedagógicas avanzadas, como una línea temporal histórica para observar qué elementos se conocían en cada época, un deslizador de temperatura interactivo para ver los cambios de estado (sólido, líquido o gas), una calculadora de masa molecular y un glosario químico ilustrado.
 
 ![Kalzium](../../images/es/module-kalzium.png)
 
-## La guía que lleva al lado
+## Guía didáctica integrada
 
-Kalzium se abre con una guía a la derecha, tres lecciones cortas:
+Kidux incluye un panel lateral interactivo con tres lecciones introductorias guiadas:
 
-1. **Encuentra un elemento**: las filas y las columnas de la tabla, y qué cuenta la página de un elemento.
-2. **Caliente y frío**: el deslizador de temperaturas, y qué elementos se funden primero.
-3. **¿Cuánto pesa el agua?**: la calculadora de moléculas, y el peso de una molécula a partir de sus átomos.
+1. **Encuentra un elemento**: cómo interpretar las filas (periodos), columnas (grupos) y bloques de la tabla, así como leer la ficha técnica de un elemento.
+2. **Frío y calor**: utilización del deslizador de temperatura para descubrir los puntos de cambio de fase y qué metales se funden a menor temperatura.
+3. **¿Cuánto pesa el agua?**: cálculo de masas moleculares a partir de la suma de sus átomos constituyentes (como la molécula de H₂O).
 
-**Plegar**, arriba de la guía, la pliega en una tira; **Guía** en la barra la abre otra vez.
+El botón **Plegar** en la parte superior del panel permite ocultar la guía para disponer de más espacio en pantalla; el botón **Guía** de la barra inferior permite volver a mostrarla en cualquier instante.
 
-## Conviene saber
+## Aspectos a tener en cuenta
 
-- El menú **Ayuda** de Kalzium está apagado, y también la descarga de contenido nuevo de la tienda de KDE: los dos abren un navegador web que el niño no tiene.
-- No se guarda nada en las carpetas del niño. Los ajustes propios de Kalzium se guardan para el niño, y se quedan cuando se quita el módulo.
+- **Seguridad y entorno restringido**: Las opciones de ayuda externa y descarga de complementos en línea de KDE se han deshabilitado intencionadamente para evitar accesos a navegadores web no supervisados.
+- **Persistencia de ajustes**: Las configuraciones de visualización se guardan en el perfil del menor sin interferir con sus carpetas personales ni saturar el espacio en disco.

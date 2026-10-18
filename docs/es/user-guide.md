@@ -652,10 +652,7 @@ versión. Debajo, cuando los hay, **Módulos previos recomendados:** nombra
 los módulos que conviene hacer antes. Es un consejo: cualquier módulo se
 puede activar para cualquier niño.
 
-Las dos listas van de los módulos para los niños más pequeños a los de
-los mayores, y los módulos cuyo nombre empieza por **[Prueba]** van al
-final. La casilla de arriba, **Buscar un módulo**, deja en las listas
-solo los módulos cuyo nombre o descripción tiene lo que escribes en ella.
+Las dos listas están ordenadas según la edad recomendada, desde los módulos para los niños más pequeños hacia los de los mayores. La casilla superior, **Buscar un módulo**, filtra las listas para mostrar solo los módulos cuyo nombre o descripción coincidan con el texto introducido.
 
 Cada módulo tiene un interruptor para cada niño, bajo el dibujo del niño.
 Un interruptor se guarda en cuanto lo cambias, y la pantalla del niño lo

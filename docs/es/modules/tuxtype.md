@@ -2,31 +2,31 @@
 
 *[English version](../../en/modules/tuxtype.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
 
-**Tux Typing** enseña a un niño a escribir a máquina. Del cielo caen letras y palabras, y el niño atrapa cada una escribiéndola, cada nivel un poco más difícil.
+**Tux Typing** es un clásico juego arcade de mecanografía protagonizado por el simpático pingüino Tux. Su objetivo es ayudar a los niños a familiarizarse con la distribución del teclado, ganar agilidad en la pulsación de teclas y aprender a escribir con precisión mediante divertidos minijuegos.
 
 | | |
 |---|---|
-| **Para** | Niños de 6 a 12 años |
-| **Antes** | GCompris, que enseña primero las letras del teclado |
-| **Necesita** | Nada de internet |
-| **Programa** | [Tux Typing](https://github.com/tux4kids/tuxtype), de Tux4Kids, bajo la licencia GPL-2, de Debian |
+| **Edad recomendada** | Niños de 6 a 12 años |
+| **Módulos recomendados antes** | GCompris (para una primera toma de contacto con las letras y el teclado) |
+| **Conexión a internet** | No requerida (funciona de forma 100 % autónoma sin conexión) |
+| **Software utilizado** | [Tux Typing](https://github.com/tux4kids/tuxtype), desarrollado por la comunidad Tux4Kids bajo licencia GPL-2, empaquetado en Debian |
 
-## Qué es
+## Qué es y cómo funciona
 
-El pingüino Tux está abajo en la pantalla, y las letras caen hacia él. El niño escribe cada letra antes de que llegue al suelo, y Tux se la come. Más adelante caen palabras enteras. Los niveles van más deprisa, y las palabras se hacen más largas.
+En los juegos de Tux Typing, el menor debe teclear letras sueltas o palabras completas a medida que caen del cielo antes de que toquen el suelo, permitiendo a Tux alimentarse o defender su territorio. Conforme se avanza de fase, la velocidad de caída aumenta de forma gradual y las palabras se vuelven más complejas.
 
-Sus menús están en el idioma del niño, y también las palabras que caen: un niño que habla español atrapa palabras en español.
+El juego está adaptado al idioma preferido del niño: los menús de navegación, las instrucciones y los diccionarios de palabras que caen en las partidas se corresponden con su lengua materna.
 
 ![Tux Typing](../../images/es/module-tuxtype.png)
 
-## Qué incluye
+## Modos de juego y lecciones
 
-- **Cascada de peces**, donde caen letras sueltas;
-- **Cometas**, donde caen palabras y el niño las escribe enteras;
-- lecciones que recorren el teclado unas pocas teclas cada vez, con los dedos que hay que usar;
-- un modo de práctica en el que el niño escribe un texto a su ritmo.
+- **Cascada de peces**: minijuego arcade donde caen peces con letras individuales; ideal para aprender la ubicación física de las teclas.
+- **Cometas**: reto donde caen meteoritos con palabras completas que deben teclearse antes del impacto.
+- **Lecciones guiadas de mecanografía**: ejercicios prácticos estructurados por filas del teclado que indican qué dedos utilizar para cada letra.
+- **Práctica libre**: textos para practicar la escritura continuada a ritmo propio sin presión de tiempo.
 
-## Conviene saber
+## Aspectos a tener en cuenta
 
-- Tux Typing guarda sus puntuaciones y sus ajustes para sí, no en las carpetas del niño. Al quitar el módulo se conservan para cuando vuelva.
-- Es un programa antiguo, hecho para el sistema de pantalla X11. Con un tamaño de pantalla marcado con \* en la página Sistema del panel de adulto puede verse un poco borroso; un tamaño sin \* lo arregla.
+- **Puntuaciones y récords**: Las mejores puntuaciones y los progresos se conservan de forma interna en la configuración del juego, sin saturar las carpetas de documentos personales del menor.
+- **Compatibilidad gráfica**: Al tratarse de una aplicación gráfica clásica, si se selecciona en el panel de adultos una resolución de pantalla escalada (marcada con `*`), los gráficos pueden mostrar un ligero suavizado. Seleccionar una resolución nativa sin asterisco garantiza la máxima nitidez.

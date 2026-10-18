@@ -2,32 +2,34 @@
 
 *[English version](../../en/modules/gcompris.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
 
-**GCompris** son más de cien juegos pequeños para los niños más pequeños: leer y escribir, contar, los colores y las formas, y aprender a usar el teclado y el ratón.
+**GCompris** es una completa suite educativa de software libre que ofrece más de un centenar de actividades interactivas para niños de entre 2 y 10 años, abarcando desde el aprendizaje de las letras y los números hasta conceptos de ciencia, geografía y manejo del ratón y el teclado.
 
 | | |
 |---|---|
-| **Para** | Niños de 2 a 10 años |
-| **Necesita** | Internet las primeras veces, para descargar sus voces y algunos dibujos. Después, nada. |
-| **Programa** | [GCompris](https://gcompris.net/), de la comunidad de GCompris, bajo la licencia GPL-3, de Debian |
+| **Edad recomendada** | Niños de 2 a 10 años |
+| **Conexión a internet** | Requerida únicamente durante las primeras ejecuciones para descargar las locuciones de voz y recursos multimedia adicionales. Una vez descargados, funciona completamente sin conexión. |
+| **Software utilizado** | [GCompris](https://gcompris.net/), desarrollado por la comunidad internacional de GCompris bajo licencia GPL-3, empaquetado oficialmente desde Debian |
 
-## Qué es
+## Qué es y cómo funciona
 
-GCompris es una colección de actividades, cada una un pequeño juego, y cada una enseña una cosa. El niño aprende las letras oyéndolas, cuenta con dibujos, ordena colores y formas, y se acostumbra al teclado y al ratón. Habla el idioma del niño, con voces que leen las palabras en alto.
+GCompris reúne una amplia colección de minijuegos y retos pedagógicos adaptados al desarrollo infantil. Los más pequeños pueden escuchar la pronunciación de las letras del abecedario, aprender a asociar cantidades con dibujos, reconocer figuras geométricas y adquirir destreza psicomotriz utilizando el ratón y el teclado de forma gradual y amena.
+
+El programa está íntegramente traducido y doblado con voces naturales en el idioma del niño, lo que permite su uso autónomo incluso antes de dominar la lectoescritura.
 
 ![GCompris](../../images/es/module-gcompris.png)
 
-## Qué incluye
+## Categorías de actividades incluidas
 
-Más de cien actividades, ordenadas por lo que enseñan:
+Las actividades se organizan por áreas de conocimiento claramente diferenciadas por iconos:
 
-- leer y escribir: las letras, sus sonidos, las palabras y el abecedario;
-- los números: contar, sumar, restar, el reloj y el dinero;
-- los colores y las formas, juegos de memoria y rompecabezas;
-- el propio ordenador: el teclado, el ratón, dibujar y lógica sencilla.
+- **Lectura y escritura**: reconocimiento de letras, fonética, formación de palabras y juegos de vocabulario.
+- **Matemáticas y lógica**: conteo numérico, sumas, restas, lectura del reloj analógico y digital, y manejo de monedas.
+- **Ciencia y geografía**: mapas interactivos del mundo, experimentos sobre el ciclo del agua y nociones básicas de física.
+- **Destreza digital**: ejercicios guiados para familiarizarse con el cursor del ratón, el doble clic, el teclado y el dibujo libre.
 
-Cada actividad dice, con un dibujo, para qué edades es. GCompris ocupa toda la pantalla por encima de la barra de Kidux, y el botón **Inicio** de la barra lleva al niño de vuelta a sus otras cosas.
+Cada actividad incluye indicadores visuales que señalan el nivel de dificultad y la edad recomendada. GCompris se muestra a pantalla completa sobre la barra inferior de Kidux; pulsar el botón **Inicio** de la barra permite salir y regresar cómodamente al lanzador principal.
 
-## Conviene saber
+## Aspectos a tener en cuenta
 
-- Sus voces y algunos de sus dibujos no están en el ordenador al principio. GCompris los descarga él solo de internet las primeras veces que se usa, así que entonces necesita conexión. Funciona sin ellos hasta que han llegado. El panel lo dice antes de instalar GCompris.
-- Lo que el niño dibuja o escribe en una actividad se queda dentro de GCompris. No se guarda nada en las carpetas del niño.
+- **Descarga de voces**: Para optimizar el tamaño de instalación inicial, los paquetes de audio y voces narradas se descargan automáticamente de internet cuando se seleccionan por primera vez las actividades que los requieren. El panel de adultos informa de este proceso antes de la instalación.
+- **Privacidad y archivos**: El avance, los dibujos y las puntuaciones se gestionan de forma interna dentro de la aplicación, sin generar archivos temporales ni carpetas sueltas en el directorio del menor.

@@ -2,39 +2,41 @@
 
 *[Versión en español](../../es/modules/step.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
 
-**Step** is a physics playground. The child puts bodies, springs, ropes and forces on the plane, presses play and watches what happens, with meters and graphs to read it.
+**Step** is an interactive two-dimensional physical simulator developed by the KDE Education Project. It enables learners to build virtual mechanical experiments on a canvas by placing bodies, springs, ropes, and forces to simulate motion laws, collision dynamics, and energy conservation in real time.
 
 | | |
 |---|---|
-| **For** | Children from 10 to 16 |
-| **Before it** | Simulations |
-| **Needs** | Nothing from the internet |
-| **Program** | [Step](https://apps.kde.org/step/), by KDE, under the GPL-2 licence, from Debian |
+| **Recommended age** | Students from 10 to 16 years old |
+| **Recommended before** | Simulations |
+| **Internet connection** | Not required (runs entirely offline without network access) |
+| **Software used** | [Step](https://apps.kde.org/step/), developed by the KDE community under the GPL-2 licence, packaged from Debian |
 
-## What it is
+## What it is and how it works
 
-On the left, the palette: particles, discs, boxes, springs, motors, forces, anchors and meters. The child drags one onto the world, sets its weight or its speed in the properties, and presses **Simulate**. Gravity is already there. The examples in Step's **File** menu are experiments ready to run.
+Step provides an extensive palette of mechanical entities: point particles, circular discs, rigid rectangular bodies, linear springs, mechanical motors, force fields, gravitational pulls, fixed anchors, and virtual sensors.
+
+The student places bodies into the world, specifies physical properties (such as mass, initial velocity, friction, or spring stiffness) in the properties inspector, and clicks **Simulate**. The simulation engine numerically solves the equations of motion in real time, rendering vector paths and dynamic plots. The **File > Examples** menu offers a wide assortment of classic physics experiments ready to run.
 
 ![Step](../../images/en/module-step.png)
 
-## The guide beside it
+## Built-in interactive guide
 
-Step opens with a guide on the right, six lessons. Five of them have a *mission*: a Step file with an experiment half done and a note inside saying what to try, copied into the child's **Documents**, in **Missions of Step**, the first time the guide opens.
+Kidux complements Step with a side-by-side interactive guide featuring six structured lessons. Five of them include a dedicated **lab mission**: a pre-configured project file with interactive challenges, automatically copied into the student's `Documents/Missions of Step` folder on first access:
 
-1. **A ball falls**: gravity, and a graph of the fall. Mission: `fall.step`.
-2. **A spring**: two bodies joined by a spring, and what stiffness does. Mission: `spring.step`.
-3. **A pendulum**: a weight on a rod, and why its swing takes the same time. Mission: `pendulum.step`.
-4. **Throw it**: a ball thrown sideways, and the arc it flies. Mission: `throw.step`.
-5. **Measure it**: meters and tracers, and reading a graph.
-6. **Bounce and crash**: a ball against a box, and what happens to its energy. Mission: `bounce.step`.
+1. **A ball falls**: gravitational acceleration and graphical plotting of free fall. Mission: `fall.step`.
+2. **A spring**: harmonic oscillators with two masses and spring constant variations. Mission: `spring.step`.
+3. **A pendulum**: rigid rods with weights and isochronism in small oscillations. Mission: `pendulum.step`.
+4. **Throw it**: two-dimensional projectile trajectories and horizontal launch curves. Mission: `throw.step`.
+5. **Measure it**: configuring meters, velocity vectors, and real-time graphs.
+6. **Bounce and crash**: elastic and inelastic collisions and momentum conservation. Mission: `bounce.step`.
 
-Step needs room for its world, so the guide says first how to fold it: **Fold**, at the top, folds it into a strip along the edge, and **Guide** on the bar opens it again where the child left it.
+To provide maximum screen space for the physical canvas, the **Fold** button at the top collapses the guide; clicking **Guide** on the bottom taskbar reopens it right where the student left off.
 
-## The child's files
+## Saving files and missions
 
-An experiment is saved from Step's own **File**, **Save**, as a `.step` file in the child's folders. A mission is opened the same way: **File**, **Open**, **Documents**, **Missions of Step**.
+Custom experiments can be saved in `.step` format using **File > Save** inside the student's personal documents folder. Lab missions are accessed via **File > Open > Documents > Missions of Step**.
 
-## Good to know
+## Important notes
 
-- Step's **Download New Experiments** and its **Help** menu are switched off: both open a web browser the child has not.
-- **Open in browser**, in Step's context information pane, opens nothing: a bubble says that the internet is closed here.
+- **Sandbox isolation**: Online community experiment downloads and external web help links are disabled to maintain an isolated, distraction-free environment.
+- **External links**: Clicking any web reference within the context information pane displays an informational notice that external internet access is disabled.

@@ -2,24 +2,29 @@
 
 *[English version](../../en/modules/wikipedia.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
 
-**Wikipedia** es una puerta a la enciclopedia entera, en el idioma del niño, y a los proyectos que enlaza, como Wikcionario y Wikilibros.
+**Wikipedia** proporciona acceso restringido a la enciclopedia libre y sus proyectos educativos hermanos (Wikcionario y Wikilibros) en el idioma configurado para el menor, en un entorno de lectura protegido.
 
 | | |
 |---|---|
-| **Para** | Niños a partir de 8 años. Lo decide un adulto, porque Wikipedia está escrita para todos, no solo para niños. |
-| **Necesita** | Internet siempre que se usa |
-| **Web** | [wikipedia.org](https://www.wikipedia.org/), de la Fundación Wikimedia y sus voluntarios |
+| **Edad recomendada** | A partir de 8 años (a criterio del adulto tutor, al tratarse de una enciclopedia general para todos los públicos) |
+| **Conexión a internet** | Requerida en todo momento para consultar artículos e imágenes en línea |
+| **Servicio web** | [wikipedia.org](https://www.wikipedia.org/), gestionado por la Fundación Wikimedia y su comunidad de autores voluntarios |
 
-## Qué es
+## Qué es y cómo funciona
 
-Es la Wikipedia que lee todo el mundo. El módulo la abre a ella, y a los proyectos hermanos de Wikipedia, y a nada más de internet: un enlace que salga de ellos no lleva a ninguna parte.
+El módulo abre una ventana de navegación confinada exclusivamente al dominio de Wikipedia y a sus proyectos educativos colaboradores (como Wikcionario, Wikidata, Wikimedia Commons y Wikilibros). Para salvaguardar la navegación infantil, cualquier enlace que apunte a páginas web externas o redes sociales queda automáticamente bloqueado.
+
+Los contenidos son los oficiales de Wikipedia. Los menores pueden realizar búsquedas, consultar artículos enciclopédicos con imágenes y diagramas, y seguir enlaces internos entre conceptos con total naturalidad.
 
 ![Wikipedia](../../images/es/module-wikipedia.png)
 
-## Qué incluye
+## Navegación y controles
 
-Una barra arriba de la ventana tiene **Atrás** y **Adelante**, que van a la página anterior y a la siguiente. Se ven apagados cuando no hay adónde ir. **Alt+Izquierda**, y el botón de volver de un ratón que lo tenga, también vuelven.
+La cabecera de la ventana incluye una barra de navegación con controles esenciales:
+- **Atrás** y **Adelante**: permiten retroceder o avanzar entre las páginas consultadas (los botones se atenúan cuando no hay más páginas en el historial).
+- **Atajos de teclado y ratón**: la combinación **Alt + Flecha izquierda** y los botones laterales de retroceso del ratón funcionan de manera estándar.
 
-## Conviene saber
+## Aspectos a tener en cuenta
 
-No se guarda nada en las carpetas del niño. El buscador de Wikipedia, sus imágenes y sus enlaces entre artículos funcionan como en cualquier ordenador.
+- **Almacenamiento**: La lectura no genera archivos en las carpetas personales del menor.
+- **Supervisión familiar**: Wikipedia es una enciclopedia universal editada colaborativamente por la comunidad; los adultos pueden decidir qué menores tienen activo el módulo según su madurez y necesidades escolares.

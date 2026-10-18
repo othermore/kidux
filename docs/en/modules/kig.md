@@ -2,43 +2,45 @@
 
 *[Versión en español](../../es/modules/kig.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
 
-**Kig** is geometry a child can move. Points, lines, circles and shapes go on the canvas, and each one keeps its rule when the child drags what it was built from: the middle stays in the middle, and the parallel stays parallel.
+**Kig** is an interactive dynamic geometry environment developed by the KDE Education Project. It allows students to construct mathematical figures—points, lines, polygons, circles, and conics—that strictly maintain their geometric properties when manipulated: a midpoint remains centered and parallel lines remain parallel when dragging any parent points.
 
 | | |
 |---|---|
-| **For** | Children from 10 to 14 |
-| **Before it** | GCompris |
-| **Needs** | Nothing from the internet |
-| **Program** | [Kig](https://apps.kde.org/kig/), by KDE, under the GPL-2 licence, from Debian |
+| **Recommended age** | Children from 10 to 14 years old |
+| **Recommended before** | GCompris |
+| **Internet connection** | Not required (runs entirely offline on the local system) |
+| **Software used** | [Kig](https://apps.kde.org/kig/), developed by the KDE community under the GPL-2 licence, packaged from Debian |
 
-## What it is
+## What it is and how it works
 
-Kig is a sheet of paper where everything can move. The tools are the small pictures in the bars at the sides: a point, a line through two points, a segment, a circle, a perpendicular, a parallel, the midpoint, the place where two things cross, an angle. The child builds a figure, then drags a point, and watches the rest of the figure follow its rules.
+Kig functions as an interactive geometric sketchbook. The side toolbar provides comprehensive construction tools: points, lines defined by two points, segments, circles, perpendiculars, parallels, midpoints, curve intersections, and real-time angle measurement.
+
+Students can construct complex geometric figures and experimentally verify theorems: by dragging a vertex across the canvas with the mouse, the rest of the figure morphs dynamically while respecting all mathematical rules.
 
 ![Kig, with its guide beside it](../../images/en/module-kig-guide.png)
 
-## The guide beside it
+## Built-in interactive guide
 
-Kig opens with a guide on the right, six lessons written for the child. Each step names Kig's tool as Kig names it, with Kig's own picture of the button to press. Four of the lessons have a *mission*: a Kig file half done, with what to try written inside it, copied into the child's **Documents**, in **Missions of Kig**, the first time the guide opens.
+Kidux pairs Kig with a side-by-side interactive guide featuring six structured lessons designed specifically for learners. Each step illustrates the required tool using its official name and icon. Four lessons include an interactive **mission**: a pre-configured geometry file with hands-on challenges, automatically copied into the child's personal folder (`Documents/Missions of Kig`) the first time the guide is opened.
 
-1. **Points and lines**: a point, a line through two points, dragging; naming a point; a triangle of three segments.
-2. **The middle of a segment**: a midpoint that stays in the middle. Mission: `middle.kig`.
-3. **Circles**: two circles that cross, and a point that lives on a circle. Mission: `two-circles.kig`.
-4. **Perpendicular and parallel**: lines that keep their rule, and a square that stays square. Mission: `parallels.kig`.
-5. **A triangle with three equal sides**: the oldest construction in geometry. Mission: `triangle.kig`.
-6. **Measure it**: angles and lengths that change as the child drags, and why a triangle's angles always add up to 180.
+1. **Points and lines**: placing free points, drawing lines through two points, assigning labels, and constructing triangles from line segments.
+2. **The midpoint of a segment**: constructing invariant center points. Mission: `middle.kig`.
+3. **Circles**: finding circle intersections and points constrained to circumferences. Mission: `two-circles.kig`.
+4. **Perpendicular and parallel**: lines that preserve angular relations and constructing an indeformable square. Mission: `parallels.kig`.
+5. **Equilateral triangle**: Euclid's classical compass-and-straightedge construction. Mission: `triangle.kig`.
+6. **Dynamic measurement**: measuring angles and lengths in real time, demonstrating why a triangle's interior angles always sum to 180°.
 
 ![A lesson of Kig's guide](../../images/en/module-guide-lesson.png)
 
-**Fold**, at the top of the guide, folds it into a strip along the edge, to give Kig the whole room. A click on the strip, or on **Guide** on the bar, opens it again.
+Clicking **Fold** at the top of the side panel collapses the guide into a slim edge bar to give full screen width to the drawing canvas; clicking the folded strip or the **Guide** button on the bottom bar re-opens it instantly.
 
 ![Kig with its guide folded](../../images/en/guide-folded.png)
 
-## The child's files
+## Saving and managing files
 
-What a child draws is saved from Kig's own **File**, **Save**, as a `.kig` file in the child's folders. A mission is opened the same way: **File**, **Open**, **Documents**, **Missions of Kig**.
+Constructed drawings can be saved in `.kig` format using **File > Save**, safely stored inside the child's home folder. Missions can be accessed anytime via **File > Open > Documents > Missions of Kig**.
 
-## Good to know
+## Important notes
 
-- Kig's **Help** menu is switched off, and so is the download of new objects from KDE's store: both open a web browser the child has not.
-- A link in Kig that leads to the internet opens nothing: a bubble says that the internet is closed here.
+- **Offline safety**: Online documentation menus and KDE Store add-on download features are disabled to ensure the application stays fully within the local environment.
+- **Blocked external links**: Any external hyperlink clicked inside the tool displays an informational tooltip stating that external internet access is disabled.

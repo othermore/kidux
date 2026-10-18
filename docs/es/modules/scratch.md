@@ -2,30 +2,32 @@
 
 *[English version](../../en/modules/scratch.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
 
-**Scratch** es el editor que los niños usan en el colegio para hacer juegos, historias y animaciones encajando bloques.
+**Scratch** es el popular entorno de programación visual desarrollado por el MIT Media Lab y la Scratch Foundation. Permite a los estudiantes crear videojuegos interactivos, narraciones animadas y simulaciones encajando bloques de código visuales y coloridos.
 
 | | |
 |---|---|
-| **Para** | Niños de 8 a 16 años |
-| **Antes** | ScratchJr |
-| **Necesita** | Internet para abrir su biblioteca de personajes, fondos y sonidos. Todo lo demás funciona sin ella. |
-| **Programa** | [Scratch](https://scratch.mit.edu/), de la Scratch Foundation, bajo la licencia AGPL-3, compilado por Kidux para funcionar en el ordenador |
+| **Edad recomendada** | Niños y jóvenes de 8 a 16 años |
+| **Módulos recomendados antes** | ScratchJr |
+| **Conexión a internet** | Opcional (solo se utiliza para descargar la biblioteca oficial de personajes, disfraces, fondos y efectos sonoros; la creación, edición y ejecución funcionan 100 % sin conexión) |
+| **Software utilizado** | [Scratch Desktop](https://scratch.mit.edu/), desarrollado por la Scratch Foundation bajo licencia AGPL-3, compilado por Kidux para su ejecución local |
 
-## Qué es
+## Qué es y cómo funciona
 
-Es el propio editor de Scratch, en el idioma del niño, funcionando en el propio ordenador. No tiene alrededor la comunidad de la web de Scratch: nada de lo que hace un niño se comparte, y nadie más puede verlo.
+Kidux integra el editor oficial completo de Scratch en el idioma seleccionado para el menor, ejecutándose directamente en el ordenador. Para preservar la privacidad infantil y evitar distracciones, el entorno prescinde de la red social abierta de la web de Scratch: los proyectos no se publican automáticamente en internet y ningún usuario externo puede interactuar con el menor.
+
+El entorno de trabajo cuenta con todas las herramientas de creación habituales: el escenario de previsualización, la lista de objetos (personajes) con sus propiedades, la paleta completa de bloques por categorías (movimiento, apariencia, sonido, eventos, control, sensores, operadores y variables) y los editores gráficos y de audio integrados.
 
 ![Scratch](../../images/es/module-scratch.png)
 
-## Qué incluye
+## Componentes y funciones disponibles
 
-- el editor, con el escenario, los objetos y todos los bloques que tiene Scratch;
-- la biblioteca de personajes, fondos y sonidos, que viene de los servidores de la Scratch Foundation cuando el niño la abre;
-- los editores de pintura y de sonido;
-- los textos de los tutoriales. Sus vídeos no se reproducen, porque están en una página web, y un módulo solo muestra sus propias páginas.
+- **Editor completo**: bloques estándar de programación, gestión de disfraces, capas y efectos sonoros.
+- **Biblioteca multimedia**: catálogo oficial de personajes, fondos y sonidos, que se descargan de forma segura de los servidores oficiales de Scratch al explorarlos.
+- **Editores multimedia**: herramientas de dibujo vectorial y mapa de bits para crear personajes propios, además de grabador y editor de efectos de sonido.
+- **Tutoriales guiados**: guías paso a paso con fichas descriptivas para aprender a crear animaciones y mecánicas de juego básicas. Sus vídeos no se reproducen, porque están en una página web, y un módulo solo muestra sus propias páginas.
 
-## Los archivos del niño
+## Guardar y abrir proyectos
 
-Para guardar un proyecto, el niño elige **Archivo** y después **Guardar en tu ordenador**. Se abre una ventana con las carpetas del niño, en **Descargas**, para elegir dónde guardar el proyecto y con qué nombre, y **Guardar** lo guarda. **Archivo** y después **Cargar desde tu ordenador** abre la misma ventana para escoger un proyecto.
+Para guardar un proyecto, basta con hacer clic en **Archivo > Guardar en tu ordenador**. Se abrirá el selector de archivos del sistema para asignarle un nombre y guardarlo en la carpeta de documentos del menor. Para retomar un trabajo anterior, se selecciona **Archivo > Cargar desde tu ordenador**.
 
-Un proyecto guardado desde Scratch se abre también en TurboWarp, y al revés.
+Los proyectos se guardan con la extensión estándar `.sb3` y son completamente compatibles con el módulo [TurboWarp](turbowarp.md) y con cualquier instalación convencional de Scratch.

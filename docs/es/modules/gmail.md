@@ -2,29 +2,33 @@
 
 *[English version](../../en/modules/gmail.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
 
-**Gmail** es una puerta a la web de Gmail, para un niño con una cuenta de Google. Es Gmail tal como es en cualquier ordenador, en el idioma del niño.
+**Gmail** ofrece acceso directo, seguro y aislado a la interfaz web de correo electrónico de Google en el idioma configurado para el menor.
 
 | | |
 |---|---|
-| **Para** | Niños a partir de 8 años |
-| **Necesita** | Internet siempre que se usa, y una cuenta de Google |
-| **Web** | [mail.google.com](https://mail.google.com/), de Google. Kidux no tiene ninguna relación con Google. |
+| **Edad recomendada** | A partir de 8 años |
+| **Conexión a internet** | Requerida en todo momento para enviar y recibir correo electrónico |
+| **Servicio web** | [mail.google.com](https://mail.google.com/), propiedad de Google LLC. Kidux no guarda relación comercial ni afiliación con Google. |
 
-## Qué es
+## Qué es y cómo funciona
 
-El módulo abre la web de Gmail y ninguna otra: un enlace que salga de ella no lleva a ninguna parte. Es el módulo para un niño menor de trece años, cuya cuenta de Google se gestiona con Family Link y no puede entrar en [Correo](mail.md). Sirve con cualquier cuenta de Google, para una familia que prefiera la web.
+Este módulo proporciona una ventana segura y restringida exclusivamente al servicio web oficial de Gmail. Por razones de seguridad y protección de menores, el sistema bloquea cualquier intento de navegar fuera del servicio de correo (como el buscador de Google, YouTube o sitios web externos enlazados en los mensajes).
+
+Es el módulo recomendado para cuentas de menores de trece años supervisadas mediante **Google Family Link**, ya que las políticas de seguridad de Google impiden la sincronización de estas cuentas infantiles en clientes de escritorio convencionales (como el módulo [Correo](mail.md)). También es ideal para familias que prefieran la interfaz habitual de Gmail en lugar de un gestor de correo de escritorio.
 
 ![Gmail](../../images/es/module-gmail.png)
 
-## Qué ajusta un adulto
+## Configuración para el adulto
 
-| Ajuste | Qué hace |
+Desde la pestaña **Módulos** del panel de control de adultos, es posible facilitar el inicio de sesión:
+
+| Parámetro | Descripción |
 |---|---|
-| **Dirección de correo** | La cuenta de Google del niño. La página de entrada de Google se abre con ella ya escrita. |
+| **Dirección de correo** | Cuenta de Google del menor. Al abrir el módulo, la pantalla de inicio de sesión de Google aparecerá con la dirección ya rellenada. |
 
-El adulto abre Gmail con el niño la primera vez y entra allí, con la contraseña y, si Google lo pide, el segundo paso. Gmail se queda dentro después. Cerrarlo, salir de la sesión o apagar el ordenador no cierra la sesión del niño, y Google vuelve a preguntar solo cuando él lo decide. La contraseña se escribe solo en la página de Google; el panel no la tiene nunca.
+Un adulto debe acompañar al menor durante la primera apertura para introducir la contraseña y completar la verificación en dos pasos si Google lo requiere. Tras este inicio inicial, la sesión permanece activa indefinidamente entre reinicios del equipo. Kidux nunca almacena ni tiene acceso a la contraseña del menor, ya que esta se introduce directamente en el formulario seguro oficial de Google.
 
-## Conviene saber
+## Aspectos a tener en cuenta
 
-- La web puede preguntar por sus cookies la primera vez; esa pregunta es de Google.
-- Los mensajes y los adjuntos se quedan en el Gmail de Google. No se guarda nada en las carpetas del niño.
+- **Mensajes y archivos adjuntos**: Los correos y documentos adjuntos se almacenan de forma segura en los servidores en la nube de Google, sin ocupar espacio de almacenamiento local en el equipo.
+- **Ventanas y previsualizaciones**: La previsualización de archivos adjuntos (imágenes o PDF) funciona de forma fluida dentro del visor de Gmail, bloqueando la descarga o ejecución de archivos sospechosos.

@@ -2,36 +2,42 @@
 
 *[English version](../../en/modules/mail.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
 
-**Correo** es un buzón de correo propio del niño, en Thunderbird, el programa de correo. El niño lee y escribe allí sus mensajes, y no tiene nada que configurar: la cuenta es la que da un adulto.
+**Correo** es un cliente de correo electrónico adaptado para menores basado en Mozilla Thunderbird. Permite al niño leer y redactar mensajes en un entorno simplificado y seguro, sin necesidad de realizar configuraciones técnicas complejas: la cuenta es administrada directamente por un adulto desde el panel.
 
 | | |
 |---|---|
-| **Para** | Niños a partir de 8 años |
-| **Necesita** | Internet para enviar y recibir, y una cuenta de correo: Gmail, Outlook, iCloud o cualquier proveedor que hable IMAP |
-| **Programa** | [Thunderbird](https://www.thunderbird.net/), de MZLA y la comunidad de Mozilla, bajo la licencia MPL-2.0, de Debian |
+| **Edad recomendada** | A partir de 8 años |
+| **Conexión a internet** | Requerida para enviar y sincronizar mensajes entrantes; admite cuentas estándar de Gmail, Outlook, iCloud o cualquier servidor IMAP |
+| **Software utilizado** | [Thunderbird](https://www.thunderbird.net/), desarrollado por MZLA Technologies y la comunidad Mozilla bajo licencia MPL-2.0, empaquetado oficialmente en Debian |
 
-## Qué es
+## Qué es y cómo funciona
 
-Thunderbird, preparado por Kidux para un niño y una cuenta. El niño ve su bandeja de entrada, escribe mensajes, y nada más: el chat de Thunderbird, sus complementos y sus ajustes avanzados están cerrados.
+Kidux adapta Thunderbird para aislar la experiencia de mensajería: el menor tiene acceso directo a su bandeja de entrada y al editor de mensajes, mientras que las funciones no aptas para niños (como chats públicos, instalación de extensiones, navegación web integrada y menús de configuración avanzada) se encuentran completamente deshabilitadas.
 
 ![Correo](../../images/es/module-mail.png)
 
-## Qué ajusta un adulto
+## Configuración para el adulto
 
-| Ajuste | Qué hace |
+El adulto configura los datos de la cuenta en la pestaña **Módulos** del panel de control:
+
+| Parámetro | Descripción |
 |---|---|
-| **Dirección de correo** | La dirección de correo del niño. Correo encuentra por sí solo los servidores del proveedor a partir de ella, para Gmail, Outlook, Hotmail, iCloud, Yahoo y casi todos los demás. |
-| **Nombre** | El nombre con el que salen los mensajes del niño. |
-| **Servidor de entrada** | Solo para un proveedor que Correo no encuentra por sí solo: su servidor IMAP, como `imap.example.org`. Un servidor en un puerto propio se escribe con el puerto, como `imap.example.org:143`. |
-| **Servidor de salida** | Solo para ese proveedor: su servidor SMTP, como `smtp.example.org`. |
+| **Dirección de correo** | Correo electrónico del menor. Correo autodetecta los servidores correspondientes para la gran mayoría de proveedores (Gmail, Outlook/Hotmail, iCloud, Yahoo, etc.). |
+| **Nombre** | Nombre visible del remitente que aparecerá en los mensajes enviados por el niño. |
+| **Servidor de entrada** | Necesario únicamente si el proveedor no se detecta de forma automática: dirección del servidor IMAP (por ejemplo, `imap.ejemplo.org`). Puede incluir puerto específico (`imap.ejemplo.org:993`). |
+| **Servidor de salida** | Dirección del servidor SMTP del proveedor (por ejemplo, `smtp.ejemplo.org:465`). |
 
-Después, el adulto abre Correo con el niño la primera vez. Con una cuenta de Gmail o de Outlook, se abre dentro de Correo la ventana de entrada de Google o de Microsoft. El adulto entra allí, con el segundo paso si la cuenta lo tiene, y Correo se queda dentro. Con cualquier otro proveedor, Correo pide la contraseña una vez. El adulto la escribe, con la casilla de recordarla marcada, y Correo la guarda. La contraseña se queda en la parte del ordenador que es solo del niño, que nadie más en él puede leer. El panel no la tiene nunca.
+Tras guardar la configuración en el panel, el adulto debe acompañar al menor en la primera apertura de la aplicación:
+- **Cuentas de Google o Microsoft**: se abrirá la ventana oficial de autenticación del proveedor para ingresar las credenciales y el segundo factor si procede.
+- **Otros proveedores**: la aplicación solicitará la contraseña una única vez. El adulto introduce la clave y marca la casilla para recordarla de forma permanente.
 
-## Conviene saber
+Thunderbird guarda la contraseña del buzón dentro del propio perfil del menor. El panel de adultos de Kidux nunca almacena ni tiene acceso a la contraseña del buzón.
 
-- La cuenta de Google de un niño menor de trece años se gestiona con Family Link, y Google no deja que una cuenta así entre en Correo. Para ella está el módulo [Gmail](gmail.md).
-- Lo que el niño cambie en la cuenta vuelve a estar como era la próxima vez que se abre Correo, y una cuenta añadida a mano desaparece: la cuenta es siempre la que se dio en el panel. Sin una dirección en el panel, o con un proveedor que Correo no encuentra y sin servidores puestos, Correo se abre solo con sus carpetas locales.
-- Un enlace en un mensaje no lleva a ninguna parte. Un adjunto se guarda en las **Descargas** del niño, y nunca se abre con otro programa.
-- Cuando un servidor no contesta, Correo lo dice en una burbuja encima de la barra, y en la línea de su parte de abajo.
+## Aspectos a tener en cuenta
+
+- **Cuentas con Google Family Link**: Las cuentas de menores de trece años gestionadas por Family Link no admiten acceso mediante clientes de correo externos como Thunderbird. Para estas cuentas debe utilizarse el módulo [Gmail](gmail.md).
+- **Inmutabilidad y seguridad**: Cualquier intento de modificar la cuenta o añadir cuentas secundarias se descarta automáticamente al reiniciar la aplicación; la configuración activa coincide siempre con la definida en el panel. Si no se introduce ninguna dirección de correo, la aplicación se abre únicamente con sus carpetas locales desconectadas.
+- **Seguridad en enlaces y descargas**: Los hipervínculos externos contenidos en los mensajes están desactivados. Los archivos adjuntos recibidos se descargan en la carpeta personal de **Descargas** sin ejecutarse automáticamente.
+- **Avisos de conexión**: Si el servidor de correo no está disponible o falla la conexión a internet, se muestra una notificación discreta sobre la barra inferior y en la barra de estado de la ventana.
 
 ![La burbuja de Correo cuando su servidor no contesta](../../images/es/mail-notice.png)

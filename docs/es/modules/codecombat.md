@@ -2,37 +2,40 @@
 
 *[English version](../../en/modules/codecombat.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
 
-**CodeCombat** es una puerta a la web de CodeCombat, donde los niños aprenden a escribir Python y JavaScript de verdad jugando: un héroe recorre cada nivel como le dice el programa del niño.
+**CodeCombat** es una plataforma educativa de aprendizaje de programación en forma de videojuego de rol y aventuras. Los menores escriben código real en Python o JavaScript para controlar las acciones de su héroe en tiempo real mientras recorren niveles y mazmorras.
 
 | | |
 |---|---|
-| **Para** | Niños de 9 a 16 años |
-| **Antes** | Scratch |
-| **Necesita** | Internet y una cuenta de CodeCombat. Los primeros niveles son gratis; casi toda la web necesita una suscripción. |
-| **Web** | [codecombat.com](https://codecombat.com/), de CodeCombat Inc. Kidux no tiene ninguna relación con CodeCombat. |
+| **Edad recomendada** | Niños de 9 a 16 años con fluidez lectora |
+| **Módulos recomendados antes** | Scratch |
+| **Conexión a internet** | Requerida (el juego se ejecuta en los servidores web de la plataforma) |
+| **Servicio web** | [codecombat.com](https://codecombat.com/), gestionado por CodeCombat Inc. Kidux no está afiliado ni vinculado comercialmente con CodeCombat. |
 
-## Qué es
+## Qué es y cómo funciona
 
-La web es de CodeCombat, en el idioma del niño. El módulo la abre a ella y a ninguna otra: un enlace a cualquier otro sitio no lleva a ninguna parte. El niño escribe unas líneas de código, pulsa reproducir, y el héroe se mueve, lucha o recoge cosas según dice el código.
+El módulo proporciona un acceso exclusivo, seguro y confinado a la web oficial de CodeCombat en el idioma configurado para el menor. El entorno no abre ninguna otra web, de modo que un enlace externo no lleva a ninguna parte, para garantizar una experiencia protegida y libre de distracciones.
+
+El niño aprende conceptos formales de programación (como bucles, variables, llamadas a funciones y condicionales) redactando instrucciones de código en el editor integrado. Al pulsar el botón de ejecución, el personaje cobra vida y ejecuta las órdenes escritas en pantalla.
 
 ![CodeCombat](../../images/es/module-codecombat.png)
 
-## Qué ajusta un adulto
+## Configuración para el adulto
 
-| Ajuste | Qué hace |
+El módulo puede configurarse desde la sección **Módulos** del panel de control de adultos para que el inicio de sesión sea automático:
+
+| Parámetro | Descripción |
 |---|---|
-| **Correo** | La dirección de correo de la cuenta de CodeCombat del niño. |
-| **Contraseña** | Su contraseña. Kidux entra con ella, y el niño nunca la ve. |
+| **Correo** | Dirección de correo electrónico asociada a la cuenta del menor en CodeCombat. |
+| **Contraseña** | Clave de acceso a la cuenta. Kidux la utiliza para iniciar la sesión de forma segura y transparente, sin mostrársela al niño. |
 
-Con la cuenta puesta, el módulo entra solo cada vez que se abre, diciendo *Conectándose a CodeCombat…* mientras tanto. Pone la web en el idioma del niño y abre donde se empieza a jugar. Si la cuenta no es correcta o la web no contesta, el módulo lo dice y ofrece intentarlo otra vez.
+Si se han rellenado estos campos, el módulo inicia sesión de manera desatendida cada vez que se abre la aplicación, mostrando un aviso temporal (*Conectándose a CodeCombat…*). Si las credenciales no son válidas o la plataforma experimenta problemas de red, se informa del error y se ofrece la posibilidad de reintentarlo.
 
-Sin cuenta puesta, el módulo dice que lo más fácil es que un adulto la ponga en el panel, y ofrece un botón para entrar a mano mientras tanto.
+Si no se han introducido credenciales previamente, la pantalla recordará al menor que un adulto puede configurar la cuenta en el panel, permitiendo también iniciar sesión de manera manual en la interfaz web.
 
 ![CodeCombat sin cuenta](../../images/es/module-codecombat-no-account.png)
 
-## Conviene saber
+## Aspectos a tener en cuenta
 
-- La suscripción se compra desde otro ordenador, porque el módulo no abre ninguna otra web.
-- Entrar con Google, Facebook o Clever no lleva a ninguna parte aquí.
-- La web puede preguntar por sus cookies la primera vez; esa pregunta es de la propia web.
-- Lo que el niño hace en la web lo guarda CodeCombat, en la cuenta. No se guarda nada en las carpetas del niño.
+- **Suscripciones y niveles de pago**: Los primeros niveles introductorios son gratuitos; el acceso a los niveles avanzados de la campaña requiere una suscripción contratada en la plataforma oficial. Por motivos de seguridad infantil, las compras deben realizarse desde otro dispositivo convencional, ya que el módulo no abre ninguna web distinta de CodeCombat.
+- **Métodos de acceso federados**: Los botones de inicio de sesión de terceros (Google, Facebook o Clever) no están disponibles en este entorno restringido. Se debe utilizar inicio de sesión con correo y contraseña directa.
+- **Cookies y progreso**: La plataforma puede solicitar confirmación de cookies analíticas en el primer inicio. El avance y las estadísticas de juego se guardan en la nube de CodeCombat, por lo que no ocupan espacio en las carpetas personales del menor.

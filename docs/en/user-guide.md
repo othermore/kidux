@@ -628,10 +628,7 @@ Under it, when there are any, **Recommended before:** names the modules
 that are best done first. That is advice: any module can be switched on
 for any child.
 
-Both lists go from the modules for the youngest children to those for the
-oldest, and the modules whose names begin with **[Test]** come last. The
-box at the top, **Find a module**, narrows both lists to the modules whose
-name or description has what you type in it.
+Both lists are ordered by recommended age, starting from modules for younger children up to older ones. The **Find a module** search box at the top filters the lists to show only modules whose name or description matches what you type.
 
 Each module has a switch for each child, under the child's picture. A
 switch is saved as soon as you flip it, and the child's screen follows it

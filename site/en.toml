@@ -5,243 +5,243 @@
 name = "English"
 
 [meta]
-title = "Kidux: a child's first computer, safe and ready to learn"
-description = "A complete, safe operating system for children. No distractions, learning modules ready to use, on the computer you already have. Free for families."
+title = "Kidux: A child's first computer, safe and ready to learn"
+description = "A complete, safe, and distraction-free operating system for children. Features ready-to-use learning modules on new or existing computers. Free for families."
 
 [nav]
 label = "Sections"
-what = "What it is"
+what = "About"
 modules = "Modules"
-docs = "Guide"
-adults = "For adults"
+docs = "User guide"
+adults = "Adult panel"
 licence = "Licence"
 contact = "Contact"
-support = "Donate"
+support = "Support"
 
 [hero]
-title = "Their first computer. Safe and free of distractions."
-lead = "Kidux is a complete operating system for children, with everything ready to learn. Put it on an old computer and hand it over with peace of mind."
+title = "Their first computer. Safe, focused, and ready to learn."
+lead = "Kidux turns any computer into a protected educational environment designed specifically for children. Give your child their own computer with complete peace of mind."
 get = "Get Kidux"
 docs = "Read the guide"
 support = "Support the project"
-note = "Free for families · In English and Spanish · Code published"
-picture = "A child's screen on Kidux, with a tile for each learning module"
+note = "Free for families · English and Spanish · Published source code"
+picture = "A child's screen in Kidux, showing a tile for each learning module"
 
 [pillars.safe]
-title = "A whole system, made safe"
-text = "Not an app, not a filter on top of something else: the entire computer. No ads, no store, no open internet. Only what you choose."
+title = "A complete and secure system"
+text = "Kidux is not just an application or a surface-level filter on top of something else: it is the entire operating system. No advertisements, no app stores, and no unrestricted web access. Children only access what you approve."
 
 [pillars.focus]
-title = "One thing at a time"
-text = "Each activity fills the screen, with nothing to wander off to. When they are ready, switch windows on and it becomes a real desktop."
+title = "One activity at a time"
+text = "By default, each activity opens full screen to minimize distractions and encourage concentration. As your child grows and feels ready, you can enable windows to introduce them to a traditional desktop environment."
 
 [pillars.learn]
-title = "Learning, ready to go"
-text = "Coding, logic, maths, reading and typing. Modules install with one button, already set up, with the focus on STEM."
+title = "Learn immediately, with zero setup"
+text = "Block and text programming, logic, mathematics, science, reading, and touch typing. All modules are pre-configured, focused on STEM education, and ready to explore."
 
 [pillars.hardware]
-title = "On the computer you already have"
-text = "Almost any PC or laptop made since 2008 will do. Give that old machine a second life."
+title = "Runs on hardware you already own"
+text = "Runs smoothly on almost any 64-bit PC or laptop manufactured since 2008. Give that older computer in your home a purposeful second life."
 soon = "Raspberry Pi 5, coming soon"
 
 [child]
-title = "A computer that is theirs"
-lead = "Their picture, their name, their password. And inside, only what an adult has chosen."
-point1 = "Each child signs in with their own picture and password."
-point2 = "No desktop to get lost in, no settings to break, no way out."
-point3 = "Brothers and sisters take turns, each with their own things."
-picture = "The sign-in screen, with each child's picture"
+title = "A computer of their very own"
+lead = "Their own avatar, their own name, and their own password. Inside, a personalized space containing only the activities chosen by their family."
+point1 = "Each child signs in using their own unique avatar and personal password."
+point2 = "A clean and protected interface: no confusing desktop clutter, no system settings to break, and no escape hatches."
+point3 = "Siblings can easily take turns sharing the same computer, keeping their work, limits, and language preferences separate."
+picture = "The sign-in screen, showing each child's avatar"
 
 [grow]
-title = "It grows with them"
-lead = "Start simple. Open it up when they are ready."
-single_title = "Full screen"
-single_text = "How every child starts: one activity on the screen, and a bar along the bottom to go home."
+title = "Grows with your child"
+lead = "Start with a guided, distraction-free interface, and unlock advanced features whenever they are ready."
+single_title = "Full-screen mode"
+single_text = "The ideal starting point: one activity fills the screen to keep attention focused, with an intuitive bottom bar to return home."
 single_picture = "A learning module filling the screen above the bar"
-windows_title = "Windows"
-windows_text = "For an older child: several programs in view, to move and resize, as on any computer."
+windows_title = "Windowed mode"
+windows_text = "For older children: multiple applications visible simultaneously that can be moved, resized, and arranged just like on a standard desktop."
 windows_picture = "Two learning modules open in windows"
-guide = "Some modules come with a guide beside them: lessons, missions and ideas, in the child's language."
+guide = "Several modules include an integrated interactive sidebar with step-by-step lessons, hands-on missions, and creative ideas in the child's language."
 
 [modules]
-title = "Many ways to learn, from 2 to 16"
-lead = "The programs teachers trust, installed and set up for you. You choose which ones each child may use."
-more = "Every module has its page in the guide: what it is, who it is for, what it needs, and what an adult can set in it."
-guide = "The modules, in the guide"
+title = "Multiple ways to learn, ages 2 to 16"
+lead = "Trusted educational tools used in classrooms worldwide, installed and managed by you. You choose which activities are available to each child."
+more = "Every module has a dedicated chapter in the user guide detailing its educational goals, recommended ages, requirements, and family configuration options."
+guide = "Explore modules in the guide"
 # The heading of the user guide's modules section, as its address has it.
 anchor = "9-learning-modules"
 
 [modules.gcompris]
 name = "GCompris"
 age = "Ages 2 to 10"
-text = "Over a hundred activities: reading, counting, colours, the keyboard and the mouse."
+text = "Over 100 playful educational activities covering reading, arithmetic, science, colors, and keyboard and mouse skills. Works offline once its voices are downloaded."
 anchor = "gcompris"
 
 [modules.scratchjr]
 name = "ScratchJr"
 age = "Ages 5 to 7"
-text = "Stories and games made with picture blocks. No reading needed."
+text = "An introductory programming environment for young children to create interactive stories using intuitive visual blocks, even before learning to read."
 anchor = "scratchjr"
 
 [modules.blockly]
 name = "Blockly Games"
 age = "Ages 6 to 12"
-text = "Puzzles that teach coding, one step harder each time."
+text = "A series of progressive puzzles designed by Google that teach fundamental programming principles step by step, without needing an internet connection."
 anchor = "blockly-games"
 
 [modules.tuxtype]
 name = "Tux Typing"
 age = "Ages 6 to 12"
-text = "Learn to type by catching the letters and words that fall."
+text = "Learn touch typing through fun arcade games: help Tux catch falling fish and protect comets by typing characters accurately and quickly."
 anchor = "tux-typing"
 
 [modules.scratch]
 name = "Scratch"
 age = "Ages 8 and up"
-text = "Make games and stories with blocks, as at school."
+text = "The world's leading block-based programming environment used in schools to create games, animations, and interactive stories safely and locally."
 anchor = "scratch"
 
 [modules.turbowarp]
 name = "TurboWarp"
 age = "Ages 8 and up"
-text = "Scratch made faster, for a slower computer."
+text = "An optimized, high-performance compiler for Scratch projects, ensuring complex games and scripts run smoothly even on older or modest hardware."
 anchor = "turbowarp"
 
 [modules.basic]
 name = "BASIC"
 age = "Ages 8 to 14"
-text = "The language of the first home computers, with a guide of thirty chapters beside it."
+text = "Explore classic computer programming in BASIC as it began on early home computers, accompanied by an interactive 30-chapter tutorial guide."
 anchor = "basic"
 
 [modules.wikipedia]
 name = "Wikipedia"
 age = "Ages 8 and up"
-text = "The whole encyclopedia in the child's language, with the rest of the internet closed."
+text = "Access the entire Wikipedia encyclopedia in the child's language along with sister reference projects, with the rest of the internet safely blocked."
 anchor = "wikipedia"
 
 [modules.codecombat]
 name = "CodeCombat"
 age = "Ages 9 to 16"
-text = "Learn Python and JavaScript by playing, on the CodeCombat website. An adult sets up the account."
+text = "Learn real Python or JavaScript by navigating a role-playing dungeon adventure. Requires an active internet connection and a platform account."
 anchor = "codecombat"
 
 [modules.mail]
 name = "Mail"
 age = "Ages 8 and up"
-text = "A mailbox of the child's own, in Thunderbird. An adult gives the account, and the child has nothing to set up."
+text = "A secure, simplified email client powered by Thunderbird, pre-configured by an adult so the child can read and write messages without setup hassle."
 anchor = "mail"
 
 [modules.gmail]
 name = "Gmail"
 age = "Ages 8 and up"
-text = "Gmail's website, for a Google account, including a child's account under Family Link. The rest of the internet stays closed."
+text = "Direct, dedicated access to the web interface of Gmail—ideal for child accounts managed under Google Family Link—with all other websites blocked."
 anchor = "gmail"
 
 [modules.kig]
 name = "Kig"
 age = "Ages 10 to 14"
-text = "Geometry you can move: points, lines and shapes that keep their rules when you drag them. With a guide."
+text = "Interactive, dynamic geometry: plot points, lines, and polygons that maintain geometric rules when dragged. Includes guided lessons and hands-on missions."
 anchor = "kig"
 
 [modules.kalzium]
 name = "Kalzium"
 age = "Ages 10 and up"
-text = "The periodic table: what each element is like, and how its atom is made. With a guide."
+text = "Explore the periodic table with high-resolution photos, atomic models, state-of-matter simulations, and step-by-step guided lessons offline."
 anchor = "kalzium"
 
 [modules.step]
 name = "Step"
 age = "Ages 10 and up"
-text = "Build a physics experiment with springs, weights and forces, and press play. With a guide."
+text = "An interactive physics laboratory to simulate forces, springs, gravity, and velocities in real time. Includes guided experiments and challenges."
 anchor = "step"
 
 [modules.simulations]
 name = "Simulations"
 age = "Ages 6 to 14"
-text = "PhET's science and maths experiments, to play with on the screen. They are kept on the computer."
+text = "A curated collection of 51 interactive science and math simulations by PhET (University of Colorado), stored locally for offline experimentation."
 anchor = "simulations"
 
 [modules.photography]
 name = "Photography"
 age = "Ages 8 to 12"
-text = "A guide to taking photographs with a real camera, in thirty chapters, with something to try in each."
+text = "A comprehensive thirty-chapter photography tutorial for learning with a real camera: light, shutter speed, aperture, focus, and framing, with practical exercises."
 anchor = "photography"
 
 [adults]
-title = "You decide. From one place."
-lead = "An adult panel, behind a password that is never typed where a child could catch it."
-point1 = "How long each day, and on which days."
-point2 = "Which modules each child may use."
-point3 = "More time, or none, at any moment."
-point4 = "When time is up the screen locks, and nothing is lost."
-picture = "A child's page in the adult panel, with their time and their days"
+title = "You decide the rules. From one place."
+lead = "A dedicated adult administration panel, protected by a master password that is never typed in front of children."
+point1 = "Set daily computer time allowances and specify permitted days of the week."
+point2 = "Individually select which educational modules each child can access."
+point3 = "Grant additional bonus time on the spot or adjust remaining minutes at any time."
+point4 = "When time runs out, the screen locks safely without losing any work in progress."
+picture = "A child's profile in the adult panel, displaying their time limits and active days"
 
 [get]
 title = "Get Kidux"
-lead = "Two ways to install it."
+lead = "Two convenient installation options."
 soon = "Coming soon"
 now = "Available today"
-needs = "What you need"
-need1 = "A 64-bit computer: almost any made since 2008."
-need2 = "2 GB of memory. 4 GB is better."
-need3 = "32 GB of disk."
-need4 = "A screen of 1280 by 800 at least. Better 1920 by 1080, or a high-density screen such as a MacBook's. On a smaller one, some activities may have parts hidden or not work well."
+needs = "System requirements"
+need1 = "A 64-bit computer: compatible with almost any PC or laptop manufactured since 2008."
+need2 = "2 GB of RAM (4 GB recommended for smoother multitasking)."
+need3 = "32 GB of storage space (the entire drive is utilized)."
+need4 = "A display resolution of at least 1280 × 800 pixels. 1920 × 1080 or a high-density display (such as a MacBook Retina screen) is recommended. On a smaller screen, some activities may have parts hidden or not work well."
 
 [get.image]
-title = "The Kidux image"
-text = "Download the image, write it to a USB stick or an SD card, start the computer from it and follow the steps."
+title = "Kidux disk image"
+text = "Download the ready-to-use disk image, write it to a USB flash drive or SD card, boot your computer from it, and follow the simple on-screen setup."
 download = "Download Kidux"
 
 [get.debian]
-title = "On Debian"
-text = "Install a Debian 13 with nothing else on it, add Kidux's package archive and install Kidux from it. The guide has every step."
-button = "Read the steps"
+title = "On Debian 13"
+text = "Install a minimal Debian 13 'trixie' system without a desktop environment, add the official Kidux package repository, and install the software. The guide covers every step."
+button = "Read installation steps"
 # The heading of the user guide the button leads to, as its address has it.
 anchor = "2-installing-kidux"
 
 [licence]
 title = "Free for families"
-lead = "And clear about everything else."
+lead = "Clear, honest, and transparent terms for everyone."
 
 [licence.home]
-title = "At home: free"
-text = "For you and the children in your care. No account, no sign-up, no small print."
+title = "At home: completely free"
+text = "Unlimited free use for you and the children in your care at home. No mandatory accounts, no telemetry, and no hidden fine print."
 
 [licence.schools]
 title = "Schools and organisations"
-text = "The licence is free too. We only ask you to write to us for it: we like to know where Kidux is used."
-button = "Ask for a licence"
-subject = "A licence for Kidux"
+text = "Licences are also free for educational institutions and community projects. We simply ask that you contact us so we can register your use and learn where Kidux helps children."
+button = "Request a licence"
+subject = "Kidux licence request for organisation"
 
 [licence.code]
-title = "Code in the open"
-text = "Every line is published on GitHub. Each version becomes free software, under the GPL, four years after it comes out."
-button = "See the code"
+title = "Open and published code"
+text = "Every line of source code is openly published on GitHub. Additionally, each released version transitions into free software under the GNU GPLv3 four years after release."
+button = "View the code"
 
 [support]
 title = "Supporting Kidux"
-text = "Kidux is an independent project, made over weekends and in spare time. Donations boost our motivation to keep maintaining and improving it, and help cover some of the costs."
+text = "Kidux is an independent community project developed during weekends and personal time. Voluntary donations help cover server costs and motivate us to keep improving and expanding the system."
 button = "Donate with GitHub Sponsors"
 frame = "Sponsor Kidux's developer on GitHub"
-note = "Any amount helps. Thank you."
+note = "Contributions of any size are deeply appreciated. Thank you for your support."
 
 [contact]
 title = "Contact"
-text = "A question, an idea, a school that wants to use Kidux: write to us."
+text = "Whether you have questions, feedback, or represent a school interested in deploying Kidux, we would love to hear from you."
 who = "Developed by"
 email = "Email"
-code = "Code and issues"
+code = "Code and issue tracker"
 code_text = "Kidux on GitHub"
 
 [footer]
 rights = "© 2026"
 licence = "Kidux is published under the Business Source License 1.1."
-visits = "Visits are also counted with GoatCounter, which uses no cookies."
-others = "GCompris, ScratchJr, Blockly Games, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat, Wikipedia, Kig, Kalzium, Step and PhET's simulations belong to their authors and keep their own licences. Kidux is built on Debian and is not affiliated with any of them."
+visits = "Visits are also counted using GoatCounter, which does not use tracking cookies."
+others = "GCompris, ScratchJr, Blockly Games, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat, Wikipedia, Kig, Kalzium, Step, and PhET simulations belong to their respective authors and retain their original licences. Kidux is built on Debian and is not affiliated with any of them."
 
 [cookies]
 title = "May we use cookies to count visits?"
-text = "We count visits with Google Analytics. With cookies, it can tell a new visit from a returning one. Without them, it only counts that someone came, and stores nothing in your browser."
-accept = "Yes, with cookies"
-reject = "No, without cookies"
-footer = "Cookies"
+text = "We measure site visits using Google Analytics. Enabling cookies allows the tool to distinguish between new and returning visitors. If you decline, visits are counted without saving any data in your browser."
+accept = "Accept with cookies"
+reject = "Continue without cookies"
+footer = "Cookie settings"

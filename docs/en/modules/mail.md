@@ -2,36 +2,42 @@
 
 *[Versión en español](../../es/modules/mail.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
 
-**Mail** is a mailbox of the child's own, in Thunderbird, the mail program. The child reads and writes their messages there, and has nothing to set up: the account is the one an adult gives.
+**Mail** is a child-friendly desktop email client powered by Mozilla Thunderbird. It provides learners with a safe, streamlined mailbox to read and compose emails without needing to configure complex network settings, as account details are managed by adults in the settings panel.
 
 | | |
 |---|---|
-| **For** | Children from 8 up |
-| **Needs** | The internet to send and receive, and an email account: Gmail, Outlook, iCloud or any provider that speaks IMAP |
-| **Program** | [Thunderbird](https://www.thunderbird.net/), by MZLA and the Mozilla community, under the MPL-2.0 licence, from Debian |
+| **Recommended age** | From 8 years old and up |
+| **Internet connection** | Required to sync, send, and receive email messages; supports standard Gmail, Outlook, iCloud, or generic IMAP providers |
+| **Software used** | [Thunderbird](https://www.thunderbird.net/), developed by MZLA Technologies and the Mozilla community under the MPL-2.0 licence, packaged from Debian |
 
-## What it is
+## What it is and how it works
 
-Thunderbird, set up by Kidux for one child and one account. The child sees their inbox, writes messages, and nothing else: Thunderbird's chat, its add-ons and its advanced settings are closed.
+Kidux customises Thunderbird to isolate the core messaging workflow: children have clear access to their inbox, message list, and email composer, while extraneous features (such as public chat networks, extension stores, full web browsing, and advanced configuration menus) are completely disabled.
 
 ![Mail](../../images/en/module-mail.png)
 
-## What an adult sets
+## Configuration options for adults
 
-| Setting | What it does |
+Adults configure mailbox parameters on the **Modules** tab of the adult settings panel:
+
+| Setting | Description |
 |---|---|
-| **Email address** | The child's email address. Mail finds the provider's servers from it by itself, for Gmail, Outlook, Hotmail, iCloud, Yahoo and most others. |
-| **Name** | The name the child's messages are sent as. |
-| **Incoming server** | Only for a provider Mail cannot find by itself: its IMAP server, such as `imap.example.org`. A server on a port of its own is written with the port, such as `imap.example.org:143`. |
-| **Outgoing server** | Only for such a provider: its SMTP server, such as `smtp.example.org`. |
+| **Email address** | The child's email address. Mail automatically detects server parameters for popular providers (Gmail, Outlook/Hotmail, iCloud, Yahoo, etc.). |
+| **Name** | The sender display name shown to recipients on outgoing emails. |
+| **Incoming server** | Required only if auto-discovery fails: the provider's IMAP host (e.g. `imap.example.org` or with port `imap.example.org:993`). |
+| **Outgoing server** | The provider's outgoing SMTP server address (e.g. `smtp.example.org:465`). |
 
-The adult then opens Mail with the child the first time. For a Gmail or Outlook account, Google's or Microsoft's own sign-in window opens inside Mail. The adult signs in there, with the second step if the account has one, and Mail stays signed in. For any other provider, Mail asks for the password once. The adult types it, with the box to remember it ticked, and Mail keeps it. The password stays in the child's own part of the computer, which nobody else on it can read. The panel never has it.
+After saving settings in the panel, an adult should assist the child on first launch:
+- **Google or Microsoft accounts**: an integrated sign-in window opens to enter credentials and verify two-factor authentication if configured.
+- **Other email providers**: a single password prompt appears; tick "Remember password" to save credentials permanently.
 
-## Good to know
+Thunderbird keeps the mailbox password inside the child's own profile. The Kidux adult settings panel never sees or stores mailbox passwords.
 
-- A Google account of a child under thirteen is managed with Family Link, and Google does not let such an account sign in to Mail. For it, the [Gmail](gmail.md) module is the way.
-- Whatever the child changes in the account is put back the next time Mail opens, and an account added by hand is gone: the account is always the one given on the panel. Without an address on the panel, or with a provider Mail cannot find and no servers given, Mail opens with only its local folders.
-- A link in a message leads nowhere. An attachment is saved in the child's **Downloads**, and never opened with another program.
-- When a server does not answer, Mail says so in a bubble above the bar, and in the line along its bottom.
+## Important notes
+
+- **Accounts managed by Google Family Link**: Children under thirteen whose Google accounts are supervised via Family Link cannot connect to external desktop clients like Thunderbird. Use the [Gmail](gmail.md) module for these accounts.
+- **State enforcement**: Any manual changes to email accounts or manually added secondary addresses are discarded whenever Mail restarts; active configuration strictly mirrors the adult panel. If no email address is set in the panel, Mail opens showing only local disconnected folders.
+- **Safe links and attachments**: Hyperlinks within message bodies are disabled to prevent untrusted web browsing. Received file attachments save safely into the child's **Downloads** folder without automatic execution.
+- **Connection status notices**: If the mail server is unreachable or the internet connection drops, an unobtrusive notice appears above the taskbar and along the window status bar.
 
 ![Mail's bubble when its server does not answer](../../images/en/mail-notice.png)

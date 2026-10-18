@@ -2,31 +2,33 @@
 
 *[Versión en español](../../es/modules/blockly-games.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
 
-**Blockly Games** are puzzles that teach the ideas behind programming with blocks, one step harder each time.
+**Blockly Games** is a series of interactive educational puzzles developed by Google to introduce computer science fundamentals and algorithmic thinking using visual coding blocks, following a gentle learning curve.
 
 | | |
 |---|---|
-| **For** | Children from 6 to 12 who read a little |
-| **Before it** | ScratchJr |
-| **Needs** | Nothing from the internet |
-| **Program** | [Blockly Games](https://blockly.games/), by Google, under the Apache-2.0 licence, built by Kidux to run on the computer |
+| **Recommended age** | Children from 6 to 12 years old with basic reading skills |
+| **Recommended before** | ScratchJr |
+| **Internet connection** | Not required (runs entirely offline on the local computer) |
+| **Software used** | [Blockly Games](https://blockly.games/), developed by Google under the Apache-2.0 licence, packaged for offline execution in Kidux |
 
-## What it is
+## What it is and how it works
 
-Each game is a series of levels. The first level needs one block; the last needs a loop inside a condition. The child drags blocks together, presses **Run**, and watches whether the character gets where it should. Everything is in the child's language.
+Each game is organised into ten progressive levels. In the initial levels, children connect two or three simple movement blocks; in advanced levels, they learn how to create nested loops, mathematical comparisons, and conditional branches.
+
+The child drags and snaps blocks together in the workspace, then clicks **Run** to check if their character follows the correct sequence to reach the objective. If the solution is incomplete or encounters an obstacle, visual hints help the child debug and try alternative ideas without penalties. All instructions, labels, and dialogues appear naturally in the child's configured language.
 
 ![Blockly Games](../../images/en/module-blockly-games.png)
 
-## What is inside
+## Included activities
 
-- **Maze**: guide a character through a maze with moves, turns and repeats;
-- **Bird**: fly a bird to its nest, with conditions on where it is;
-- **Turtle**: draw shapes with a turtle that leaves a trail;
-- **Movie**: make a short animation out of shapes that change with time;
-- **Music**: play a tune, one voice and then several.
+- **Maze**: teaches algorithmic sequencing, conditional turning, and repetition loops to navigate a character to the destination.
+- **Bird**: introduces logical operators and conditional decision-making based on the bird's current position and state.
+- **Turtle**: explores computational geometry by guiding a turtle that draws geometric shapes and intricate artistic patterns.
+- **Movie**: demonstrates the relationship between mathematical functions and time to produce an animated short scene.
+- **Music**: teaches algorithmic music composition, managing notes, rhythms, and multi-track polyphony.
 
 ![The maze, half solved](../../images/en/module-blockly-games-maze.png)
 
-## Good to know
+## Additional notes
 
-The games remember how far the child has got. Removing the module keeps that for when it comes back. Nothing is saved in the child's folders.
+Progress in each puzzle level is saved automatically in the child's profile. If an adult removes the module and reinstalls it later, all completed levels remain intact. The activities do not create loose project files in the child's home directory.

@@ -6,210 +6,105 @@
 </p>
 <p align="center"><a href="https://github.com/sponsors/othermore"><img src="https://img.shields.io/badge/Donate-GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Donate with GitHub Sponsors"></a></p>
 
-**Kidux is a Linux for a child's first computer.** You install it on any
-64-bit computer, old or new, and hand the computer over. The child gets a
-machine that is theirs. It has their own name and picture on the sign-in
-screen, their own password and their own language. It has only what an
-adult has decided they may use, and only for as long as the adult has
-decided.
+**Kidux is a Linux distribution specifically engineered to be a child's first computer.** You can install it on any 64-bit computer—new or old—transforming it into a secure, educational, and distraction-free environment tailored for young minds.
 
-Kidux is free for families, and its code is published. It is built on
-Debian, in English and Spanish.
+With Kidux, each child enjoys a personal digital space that genuinely feels like their own: their chosen avatar and name on the sign-in screen, their personal password, and their preferred language. At the same time, adults retain comprehensive control: children can only access authorized educational modules, and only during the daily hours or schedules set by their family.
+
+Kidux is completely free for home use by families, and all its source code is openly published on GitHub. Built on a proven Debian foundation, it provides bilingual English and Spanish support from day one.
 
 ## What a child sees
 
-The computer starts on a sign-in screen that shows each child's picture.
-A child taps their picture, types their password, and is inside. There is
-no desktop, no settings and no way out. The screen belongs to the child,
-and everything on it is something an adult chose.
+When the computer turns on, it displays a friendly sign-in screen with an avatar for each child. The child simply selects their picture and enters their password to enter. There is no confusing desktop clutter, no access to system settings, and no way to bypass protection. The screen is a clean personal space where every available tool has been thoughtfully chosen by an adult.
 
 ![The sign-in screen, with each child's picture](docs/images/en/sign-in.png)
 
-Inside, the child's screen shows the learning modules an adult has
-switched on for them, one tile each. A module can work in one of two
-ways, and an adult chooses which for each child:
+Once signed in, the child's screen presents the learning modules authorized by their family, displayed as intuitive visual tiles. An adult can configure each module to run in one of two modes depending on the child's age and experience:
 
-- **Full screen.** This is how every child starts. Each module fills the
-  screen, above a bar that runs along the bottom. From the bar the child
-  can go home, go to any other module they have open, or close the module
-  on screen. Several modules can be open at once, as on any computer, and
-  the child moves between them from the bar or with the keyboard.
-- **Windows.** For an older child, an adult can switch windows on. The
-  modules then open in windows with a frame and the usual buttons. Several
-  can be in view at once, and the child can move them, resize them,
-  minimise them and maximise them, as on any computer. The bar along the
-  bottom becomes the list of open windows.
+- **Full-screen mode.** The recommended starting mode for all children. Each module occupies the entire display area above a permanent bottom navigation bar. From this bar, the child can return home, switch between currently open modules, or close the active activity. Multiple modules can remain open concurrently, and the child navigates easily using the bar or simple keyboard shortcuts.
+- **Windowed mode.** For older or more experienced children, an adult can enable a traditional windowed layout. Activities then open with title bars, borders, and familiar minimize, maximize, and close buttons. Multiple windows can be arranged, resized, and moved side by side, while the bottom bar displays the list of open applications.
 
 ![A child's screen, with a tile for each learning module](docs/images/en/launcher-modules.png)
 
-When the child's time for the day is over, the screen locks. Nothing is
-lost: what the child was doing waits underneath. An adult can give more
-time, let the child save their work, or end the session. The child can
-lock the screen themselves whenever they step away. A session left alone
-for a few minutes locks by itself, and so does a laptop whose lid is
-closed. The child can always turn the computer off.
+When the child's allotted time for the day expires, the screen locks automatically and securely. Work in progress is never lost: open applications are frozen safely in the background while waiting for an adult to grant additional time, briefly unlock the session to save files, or sign out cleanly.
 
-Brothers and sisters take turns. One signs out and the next signs in, each
-with their own password, language and settings.
+Children can also lock the screen themselves whenever they step away. Sessions lock automatically after a few minutes of inactivity, and closing the lid of a laptop triggers an immediate lock. Under all circumstances, the child can always power off or restart the computer cleanly.
+
+Sharing the computer among siblings is effortless: one child simply signs out and the next signs in with their own password, immediately loading their personal files, daily time balance, authorized activities, and language settings.
 
 ## What an adult decides
 
-Everything is decided from one place: the adult panel. It opens with the
-adult password from the sign-in screen or from the lock screen, and from
-nowhere else.
+All system configuration is managed from a single central location: the adult administration panel. It is unlocked exclusively using the master adult password from either the sign-in screen or the lock screen, and cannot be accessed from anywhere else in the system.
 
-From the panel, an adult:
+From the panel, an adult can:
 
-- adds children, and chooses each child's picture, language, keyboard and
-  password;
-- decides how each child may use the computer. There are three choices:
-  - **whenever they like**;
-  - **a set time each day**. The time counts while the session is
-    unlocked, and starts again early every morning;
-  - **only when an adult says so**. The adult gives time each time;
-- chooses, for the first two, which days of the week the child may use
-  the computer. Only at the weekend, for instance;
-- gives more time at any moment, or sets what is left of today to any
-  number of minutes, including none;
-- switches windows on or off for each child;
-- chooses after how many minutes a session left alone locks itself, and
-  after how many the screen turns off;
-- adds and removes learning modules, and switches each one on for each
-  child.
+- Create child profiles, selecting an avatar, interface language, keyboard layout, and password for each.
+- Choose an access policy from three distinct modes:
+  - **Unlimited access**: the child may use the computer at any time.
+  - **Daily time allowance**: assigns a specific number of minutes per day. The timer counts down only while the session is unlocked and resets each morning.
+  - **Permission required**: the child requires an adult to grant time for each session.
+- Specify which days of the week computer use is permitted (for instance, reserving screen time for weekends only).
+- Grant bonus minutes immediately at any time, or adjust remaining time for the day to any specific amount (including zero to pause access).
+- Enable or disable windowed mode independently for each child.
+- Set idle timeout thresholds for automatically locking the screen and turning off the display to save energy.
+- Install and remove learning modules, and enable or disable each activity according to each child's maturity and interests.
 
 ![A child, in the adult panel](docs/images/en/panel-children.png)
 
-The adult password is never typed inside a child's session, so nothing a
-child does on the computer can ever capture it.
+The master adult password is never typed inside a child's session, ensuring that no software or script running under the child's account can intercept credentials or spoof the administration interface.
 
 ## Learning modules
 
-Everything a child does on Kidux is a learning module. An adult adds
-modules from the adult panel and switches each one on for each child. For
-each module, the panel says which ages it is meant for and which modules
-are best done before it.
+Every activity in Kidux is packaged as an independent learning module. Adults install modules and determine which ones appear on each child's screen. For each activity, the panel lists recommended age ranges and suggested preparatory modules.
 
-These are the modules Kidux offers:
+The following modules are available in Kidux:
 
-- [GCompris](docs/en/modules/gcompris.md): over a hundred activities for
-  children from two to ten, about reading, counting, colours, the keyboard
-  and the mouse.
-- [Tux Typing](docs/en/modules/tuxtype.md): a typing course for
-  children from six to twelve. Letters and words fall from the sky, and
-  the child catches them by typing them.
-- [ScratchJr](docs/en/modules/scratchjr.md): Scratch for the youngest, from
-  five to seven, with picture blocks and no words to read.
-- [Blockly Games](docs/en/modules/blockly-games.md): puzzles that teach programming
-  with blocks, one step harder each time, for children who read a little.
-  They work without the internet.
-- [Scratch](docs/en/modules/scratch.md): the editor children use at school
-  to make games and stories with blocks, for children from eight up. It
-  runs on the computer itself, without the Scratch website's community.
-- [TurboWarp](docs/en/modules/turbowarp.md): Scratch made faster, with the same
-  blocks and the same projects, for a slower computer.
-- [BASIC](docs/en/modules/basic.md): the language of the first home computers, through
-  [wwwBASIC](https://github.com/google/wwwbasic), with a guide beside it.
-  It is for children from eight who read well, and it works without the
-  internet.
-- [CodeCombat](docs/en/modules/codecombat.md): a door to the [CodeCombat](https://codecombat.com/) website,
-  where children learn Python and JavaScript by playing. It needs the
-  internet and an account, and most of the site is paid for. Kidux has no
-  connection with CodeCombat.
-- [Wikipedia](docs/en/modules/wikipedia.md): a door to the whole of
-  [Wikipedia](https://www.wikipedia.org/) in the child's language, and to
-  its sister projects, with the rest of the internet closed. Wikipedia is
-  written for everyone, not only for children.
-- [Mail](docs/en/modules/mail.md): a mailbox of the child's own, in
-  [Thunderbird](https://www.thunderbird.net/), with the account an adult
-  gives. It works with Gmail, Outlook, iCloud or any other provider, and
-  the child has nothing to set up.
-- [Gmail](docs/en/modules/gmail.md): a door to the [Gmail](https://mail.google.com/) website, for a
-  Google account. It is the one way for a child whose account is managed
-  with Family Link. It needs the internet, and Kidux has no connection
-  with Google.
-- [Kig](docs/en/modules/kig.md): geometry a child can move. Points,
-  lines, circles and shapes keep their rules when they are dragged. It is
-  for children from ten to fourteen, works without the internet, and comes
-  with a guide.
-- [Kalzium](docs/en/modules/kalzium.md): the periodic table, with what
-  each element is like and a drawing of its atom. It is for children from
-  ten up, works without the internet, and comes with a guide.
-- [Step](docs/en/modules/step.md): a physics playground. Bodies,
-  springs and forces go on a plane, and the child runs the experiment and
-  measures it. It is for children from ten up, works without the internet,
-  and comes with a guide.
-- [Simulations](docs/en/modules/simulations.md): experiments to play with on the screen, from
-  [PhET Interactive Simulations](https://phet.colorado.edu/) of the
-  University of Colorado Boulder, chosen for children from six to
-  fourteen. They are kept on the computer itself, in the versions PhET
-  published under the CC BY 4.0 licence. Kidux is not connected with PhET.
-- [Photography](docs/en/modules/photography.md): a guide to taking photographs with a real camera, for
-  children from eight who read well. It has thirty chapters, each with
-  something to try with the camera, and it works without the internet.
+- [GCompris](docs/en/modules/gcompris.md): a comprehensive educational suite featuring over 100 playful activities for children ages 2 to 10, covering literacy, numeracy, basic science, geography, colors, and keyboard and mouse coordination. Works offline; only its voices are downloaded the first time.
+- [Tux Typing](docs/en/modules/tuxtype.md): an engaging educational arcade game teaching touch typing to children ages 6 to 12. Help Tux the penguin catch falling fish and destroy comets by typing letters and words with increasing speed and precision.
+- [ScratchJr](docs/en/modules/scratchjr.md): an introductory programming environment created by the MIT Media Lab for young children (ages 5 to 7). Children snap together graphical blocks to create animated stories and games, even before learning to read.
+- [Blockly Games](docs/en/modules/blockly-games.md): a series of self-paced educational puzzles designed by Google that introduce core computer science and algorithmic thinking concepts step by step. Operates entirely offline.
+- [Scratch](docs/en/modules/scratch.md): the world's most widely used visual block-based programming environment from MIT, used in schools globally to create interactive stories, games, and animations. Runs locally and securely, without connecting to the online Scratch community; only its library of characters, backdrops, and sounds comes from the internet. For children ages 8 and up.
+- [TurboWarp](docs/en/modules/turbowarp.md): an enhanced, high-performance edition of Scratch with an integrated compiler that runs complex animations and scripts at full speed, ideal for older computers or resource-intensive projects.
+- [BASIC](docs/en/modules/basic.md): experience classic computer programming as it began on early home computers using [wwwBASIC](https://github.com/google/wwwbasic), accompanied by an exclusive 30-chapter interactive tutorial guide teaching programming from scratch without needing internet access.
+- [CodeCombat](docs/en/modules/codecombat.md): a gateway to the [CodeCombat](https://codecombat.com/) web platform, where children learn real-world Python or JavaScript syntax while controlling heroes in a dungeon role-playing adventure. Requires an active internet connection and a platform account, and most of the site is paid for. Kidux is independent and has no commercial affiliation with CodeCombat.
+- [Wikipedia](docs/en/modules/wikipedia.md): direct access to the complete [Wikipedia](https://www.wikipedia.org/) encyclopedia in the child's language and related Wikimedia reference resources, while keeping the rest of the web safely blocked.
+- [Mail](docs/en/modules/mail.md): a simplified, secure email client powered by [Thunderbird](https://www.thunderbird.net/), pre-configured by an adult with a family account (Gmail, Outlook, iCloud, or any standard IMAP/SMTP provider). Children can read and send messages without facing complex technical settings.
+- [Gmail](docs/en/modules/gmail.md): dedicated web access to [Gmail](https://mail.google.com/), specially designed for child Google accounts supervised via Family Link. Requires an internet connection while keeping all other web browsing restricted. Kidux has no connection with Google.
+- [Kig](docs/en/modules/kig.md): an interactive dynamic geometry laboratory from KDE for children ages 10 to 14. Points, lines, circles, and polygons dynamically maintain their geometric properties when dragged. Includes integrated guided lessons with hands-on missions, operating completely offline.
+- [Kalzium](docs/en/modules/kalzium.md): an interactive periodic table from KDE for ages 10 and up. Features high-resolution element photos, atomic models, a state-of-matter temperature slider, and guided educational activities without needing internet access.
+- [Step](docs/en/modules/step.md): an interactive physics simulation laboratory from KDE. Place bodies, springs, weights, and gravitational or electromagnetic forces on a canvas to simulate and measure physical phenomena in real time. Includes guided experiments and works offline.
+- [Simulations](docs/en/modules/simulations.md): a curated collection of 51 interactive science and math simulations developed by [PhET Interactive Simulations](https://phet.colorado.edu/) (University of Colorado Boulder) for ages 6 to 14, bundled locally under the CC BY 4.0 licence for offline experimentation. Kidux has no connection with PhET.
+- [Photography](docs/en/modules/photography.md): a practical, 30-chapter interactive guide teaching digital photography with a real camera. Explores lighting, shutter speed, aperture, focus, and framing, providing practical exercises for each topic without needing internet access.
 
 ![GCompris](docs/images/en/module-gcompris.png)
 
 ## Getting Kidux
 
-Kidux needs a computer with a 64-bit processor, which almost any PC or
-laptop made from 2008 onwards has; 2 GB of memory, and better 4 GB; 32 GB
-of disk, the whole disk; and a screen of at least 1280 by 800 pixels at
-100 %. Better a screen with more room: 1920 by 1080, or a high-density
-screen shown larger, such as a MacBook's 2880 by 1800 at 175 %. On a
-screen smaller than 1280 by 800, some of Kidux's screens scroll, and some
-learning modules may have parts hidden or not work well.
+Kidux runs on any 64-bit computer (compatible with almost any desktop or laptop PC manufactured since 2008). It requires a minimum of 2 GB of RAM (4 GB recommended for smoother multitasking), 32 GB of disk space (the entire drive is dedicated to the installation), and a display resolution of at least 1280 × 800 pixels at 100% scaling. A higher resolution is recommended (such as 1920 × 1080 or high-density displays like MacBook Retina panels at 175% scaling). On displays smaller than 1280 × 800, some activities may have parts hidden or not work well.
 
-There are two ways to install Kidux:
+Kidux offers two straightforward installation paths:
 
-- **From the Kidux image. Coming soon.** Download the image, write it to a
-  USB stick, an SD card or any other external drive, start the computer
-  from it and follow the steps on the screen.
-- **On Debian.** Install a Debian 13 with nothing else on it, add Kidux's
-  package archive and install Kidux from it. The user guide has
-  [every step](docs/en/user-guide.md#2-installing-kidux).
+- **Using the official Kidux disk image (coming soon)**: download the ready-to-use disk image, write it to a USB flash drive or SD card, boot your computer from it, and follow the simple graphical installer.
+- **On top of Debian**: install a clean, minimal base of Debian 13 "trixie" without a desktop environment, add the official Kidux package archive, and install the system packages. The user guide provides [detailed step-by-step instructions](docs/en/user-guide.md#2-installing-kidux).
 
 ## Documentation
 
-- [User guide](docs/en/user-guide.md), also [in Spanish](docs/es/user-guide.md):
-  installing Kidux, the first start, and every screen an adult or a child
-  will meet.
-- [Developer documentation](docs/dev/README.md): how Kidux is built, how
-  it works inside, and how to make a learning module.
+- [User guide](docs/en/user-guide.md), also available in [Spanish](docs/es/user-guide.md): comprehensive instructions covering installation, initial setup, and detailed explanations of every screen and setting for adults and children.
+- [Developer documentation](docs/dev/README.md) (in English): technical architecture specifications, security model details, Debian packaging guidelines, and instructions for creating new learning modules.
 
 ## Supporting Kidux
 
-Kidux is an independent project, made over weekends and in spare time.
-Donations boost our motivation to keep maintaining and improving it, and
-help cover some of the costs.
+Kidux is an independent community project developed during weekends and personal free time. Voluntary donations help cover server costs and ongoing maintenance, and motivate continued expansion of educational features.
 
 <p align="center"><a href="https://github.com/sponsors/othermore"><img src="https://img.shields.io/badge/Donate-GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Donate with GitHub Sponsors"></a></p>
 
 ## Name and licence
 
-*Kidux* is *kid* and *Tux*, the Linux penguin. The visual identity is in
-[branding/](branding/README.md).
+The name *Kidux* combines *kid* and *Tux*, the beloved Linux penguin mascot. Visual branding guidelines are documented in [branding/](branding/README.md).
 
-Kidux is developed by [Antonio Morales García](https://antonio.mg). Its
-own code, images and documents are published under the **Business Source
-License 1.1**. The full text, with its terms for Kidux, is in
-[LICENSE](LICENSE). Copyright (C) 2026 Antonio Morales García.
+Kidux is developed and maintained by [Antonio Morales García](https://antonio.mg). Its original codebase, images, and documentation are published under the **Business Source License 1.1** (BUSL-1.1). Complete legal terms are provided in the [LICENSE](LICENSE) file. Copyright (C) 2026 Antonio Morales García.
 
-In short: anyone may read the code, change it and pass it on. A family
-may use Kidux at home, on the computers of the children in their care,
-for free. An organisation, such as a school or an academy, needs a
-licence, which [info@kidux.org](mailto:info@kidux.org) grants. Four years
-after each version is published, that version becomes free software under
-the GNU General Public License, version 3 or later. The name Kidux and the
-penguin are not covered by the licence.
+In brief: anyone may inspect, modify, and redistribute the code. Families may use Kidux for free at home, on the computers of the children in their care. Organizations, such as schools or educational academies, require a licence, which can be requested from [info@kidux.org](mailto:info@kidux.org). Four years after publication, each release transitions into free software under the GNU General Public License version 3 or later (GPL-3.0-or-later). The Kidux trademark and penguin mascot remain outside this licence.
 
-Kidux is a Debian derivative, and it installs software written by other
-people under their own licences, which each component keeps. That is true
-of Debian's packages and of the learning modules' programs: Scratch
-(AGPL-3), TurboWarp (GPL-3), ScratchJr (BSD-3), Blockly Games
-(Apache-2.0), wwwBASIC (Apache-2.0), GCompris (GPL-3), Tux Typing (GPL-2)
-and PhET's simulations (CC BY 4.0). The source of each program Kidux
-builds is published beside the build, with the changes it is built with.
+Kidux is a Debian-derived distribution integrating third-party software under respective free software licences: Scratch (AGPL-3), TurboWarp (GPL-3), ScratchJr (BSD-3), Blockly Games (Apache-2.0), wwwBASIC (Apache-2.0), GCompris (GPL-3), Tux Typing (GPL-2), and PhET simulations (CC BY 4.0). Upstream source code modified or compiled for Kidux is published alongside the binary packages.
 
-The Photography guide shows photographs by other people, under Creative
-Commons licences or in the public domain, each credited where it is shown.
-Some of its pictures were made by a computer, and they say so.
+The Photography module includes photographs by various artists under Creative Commons or public domain licences, individually credited within each chapter. Pedagogical illustrations created by computer models are noted explicitly.

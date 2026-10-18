@@ -2,29 +2,31 @@
 
 *[Versión en español](../../es/modules/scratchjr.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
 
-**ScratchJr** is Scratch for the youngest. Characters move, talk and play when the child snaps picture blocks together, without a word to read.
+**ScratchJr** is an introductory coding platform specifically designed for early learners aged 5 to 7. Children can animate interactive characters and create simple games and stories by snapping together intuitive graphical blocks, without needing to be fluent readers.
 
 | | |
 |---|---|
-| **For** | Children from 5 to 7 |
-| **Needs** | Nothing from the internet |
-| **Program** | [ScratchJr](https://www.scratchjr.org/), by MIT and the Scratch Foundation, under the BSD-3 licence, as its community brings it to computers |
+| **Recommended age** | Children from 5 to 7 years old (early childhood and early elementary) |
+| **Internet connection** | Not required (runs entirely offline without network access) |
+| **Software used** | [ScratchJr](https://www.scratchjr.org/), developed collaboratively by the MIT Media Lab, Tufts University, and the Playful Invention Company under the BSD-3 licence |
 
-## What it is
+## What it is and how it works
 
-A child picks a character, drags blocks into a row, and presses the green flag. The character walks, jumps, grows, says something, and the child sees at once what each block did. There are no words on the blocks, only pictures, so a child who cannot read yet can make a story on their own.
+In ScratchJr, code blocks snap together horizontally using clear graphic symbols rather than written words. The child selects an animal or character, drags movement blocks into a script, and taps the green flag to run the animation.
+
+Characters can walk, jump, turn, change size, play recorded sounds, or respond to collisions. The wordless visual interface empowers young children to explore storytelling, sequential thinking, and problem solving independently.
 
 ![ScratchJr](../../images/en/module-scratchjr.png)
 
-## What is inside
+## Included features
 
-- characters and backgrounds to choose from, and a paint editor to draw new ones;
-- blocks to move, to turn, to grow and shrink, to say something, to wait, to repeat;
-- several pages in one project, for a story with more than one scene;
-- a camera block, which does nothing on a computer without a camera.
+- **Characters and backdrops**: an extensive library of colourful characters and environments, accompanied by an easy-to-use paint tool for custom drawings.
+- **Action and control blocks**: motion, rotation, speech bubbles, timed pauses, and repetition loops.
+- **Multi-scene stories**: capability to link multiple scenes together into complete narrative storybooks.
+- **Voice recording**: children can record their own voices using the computer's microphone to give custom voices to characters.
 
-ScratchJr brings its own copy of a web browser's engine with it, about 380 MB, which is why it takes a while to install.
+## Saving projects and storage
 
-## The child's files
+Projects save automatically in real time while the child creates, stored inside `Documents/ScratchJR` within the child's home folder. If the module is ever uninstalled to save space, saved creations remain untouched and are immediately available upon reinstallation.
 
-The child's projects are kept in a folder of their own **Documents**, called **ScratchJR**, which ScratchJr makes the first time it is opened. Removing the module leaves them there.
+*Technical note*: ScratchJr runs within a dedicated standalone desktop runtime (approximately 380 MB), so package installation may take a few minutes depending on your internet connection.

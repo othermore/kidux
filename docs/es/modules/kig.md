@@ -2,43 +2,45 @@
 
 *[English version](../../en/modules/kig.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
 
-**Kig** es geometría que el niño puede mover. Los puntos, las rectas, las circunferencias y las figuras se ponen sobre el lienzo, y cada una conserva su regla cuando el niño arrastra aquello de lo que se construyó: el punto medio sigue en medio, y la paralela sigue paralela.
+**Kig** es una aplicación de geometría dinámica interactiva desarrollada por el proyecto KDE. Permite construir figuras geométricas en pantalla (puntos, rectas, polígonos, circunferencias y cónicas) que conservan estrictamente sus propiedades matemáticas al interactuar con ellas: un punto medio se mantiene en el centro del segmento y una paralela sigue siendo paralela al arrastrar cualquiera de sus elementos de origen.
 
 | | |
 |---|---|
-| **Para** | Niños de 10 a 14 años |
-| **Antes** | GCompris |
-| **Necesita** | Nada de internet |
-| **Programa** | [Kig](https://apps.kde.org/kig/), de KDE, bajo la licencia GPL-2, de Debian |
+| **Edad recomendada** | Niños de 10 a 14 años |
+| **Módulos recomendados antes** | GCompris |
+| **Conexión a internet** | No requerida (funciona de forma 100 % autónoma sin conexión) |
+| **Software utilizado** | [Kig](https://apps.kde.org/kig/), desarrollado por la comunidad KDE bajo licencia GPL-2, empaquetado en Debian |
 
-## Qué es
+## Qué es y cómo funciona
 
-Kig es una hoja de papel en la que todo se puede mover. Las herramientas son los dibujitos de las barras de los lados: un punto, una recta por dos puntos, un segmento, una circunferencia, una perpendicular, una paralela, el punto medio, el sitio donde se cruzan dos cosas, un ángulo. El niño construye una figura, luego arrastra un punto, y mira cómo el resto de la figura sigue sus reglas.
+Kig actúa como un cuaderno de dibujo geométrico donde los elementos responden a leyes matemáticas. La barra de herramientas lateral organiza los elementos de construcción: puntos, rectas que pasan por dos puntos, segmentos, circunferencias, perpendiculares, paralelas, puntos medios, intersecciones entre curvas y cálculo interactivo de ángulos.
+
+El estudiante diseña una construcción y comprueba visualmente los teoremas: al arrastrar un vértice con el ratón, el resto de la figura se deforma en tiempo real respetando las restricciones geométricas fijadas.
 
 ![Kig, con su guía al lado](../../images/es/module-kig-guide.png)
 
-## La guía que lleva al lado
+## Guía didáctica interactiva
 
-Kig se abre con una guía a la derecha, seis lecciones escritas para el niño. Cada paso nombra la herramienta de Kig como la nombra Kig, con el propio dibujo del botón que hay que pulsar. Cuatro de las lecciones tienen una *misión*: un archivo de Kig a medio hacer, con lo que probar escrito dentro, que se copia en los **Documentos** del niño, en **Misiones de Kig**, la primera vez que se abre la guía.
+Kidux incluye una guía didáctica en el panel lateral derecho con seis lecciones prácticas diseñadas específicamente para el estudiante. Cada paso indica con precisión la herramienta correspondiente y su icono gráfico. Cuatro de estas lecciones incluyen una **misión práctica**: un archivo geométrico preconfigurado con retos para resolver, que se copia automáticamente en la carpeta personal del menor (`Documentos/Misiones de Kig`) la primera vez que se accede a la lección.
 
-1. **Puntos y rectas**: un punto, una recta por dos puntos, arrastrar; ponerle nombre a un punto; un triángulo de tres segmentos.
-2. **El medio de un segmento**: un punto medio que sigue en medio. Misión: `medio.kig`.
-3. **Circunferencias**: dos circunferencias que se cruzan, y un punto que vive en una circunferencia. Misión: `dos-circunferencias.kig`.
-4. **Perpendicular y paralela**: rectas que conservan su regla, y un cuadrado que se queda cuadrado. Misión: `paralelas.kig`.
-5. **Un triángulo con tres lados iguales**: la construcción más antigua de la geometría. Misión: `triangulo.kig`.
-6. **Mídelo**: ángulos y longitudes que cambian mientras el niño arrastra, y por qué los ángulos de un triángulo siempre suman 180.
+1. **Puntos y rectas**: construcción de puntos libres, rectas por dos puntos, etiquetado de nombres y trazado de triángulos con segmentos.
+2. **El punto medio de un segmento**: construcción de un punto central invariante. Misión: `medio.kig`.
+3. **Circunferencias**: intersección entre dos circunferencias y puntos restringidos al perímetro. Misión: `dos-circunferencias.kig`.
+4. **Perpendiculares y paralelas**: rectas que preservan su relación angular y construcción de un cuadrado indeformable. Misión: `paralelas.kig`.
+5. **Triángulo equilátero**: la construcción con regla y compás clásica de Euclides. Misión: `triangulo.kig`.
+6. **Medición dinámica**: visualización en tiempo real de longitudes y ángulos, demostrando por qué la suma de los ángulos de un triángulo siempre es 180°.
 
 ![Una lección de la guía de Kig](../../images/es/module-guide-lesson.png)
 
-**Plegar**, arriba de la guía, la pliega en una tira pegada al borde, para que Kig tenga todo el sitio. Un clic en la tira, o en **Guía** en la barra, la abre otra vez.
+El botón **Plegar** en la cabecera del panel lateral colapsa la guía para conceder todo el espacio de pantalla al lienzo de dibujo; al pulsar sobre la banda colapsada o en el botón **Guía** de la barra inferior, el panel vuelve a expandirse de inmediato.
 
 ![Kig con la guía plegada](../../images/es/guide-folded.png)
 
-## Los archivos del niño
+## Gestión de archivos y proyectos
 
-Lo que el niño dibuja se guarda desde el propio **Archivo**, **Guardar** de Kig, como un archivo `.kig` en las carpetas del niño. Una misión se abre de la misma forma: **Archivo**, **Abrir**, **Documentos**, **Misiones de Kig**.
+Los proyectos creados pueden guardarse en formato `.kig` mediante el menú **Archivo > Guardar**, quedando almacenados de forma segura en la carpeta personal del estudiante. Las misiones didácticas se abren cómodamente desde **Archivo > Abrir > Documentos > Misiones de Kig**.
 
-## Conviene saber
+## Aspectos a tener en cuenta
 
-- El menú **Ayuda** de Kig está apagado, y también la descarga de objetos nuevos de la tienda de KDE: los dos abren un navegador web que el niño no tiene.
-- Un enlace de Kig que lleva a internet no abre nada: una burbuja dice que aquí internet está cerrado.
+- **Entorno aislado**: Las opciones de ayuda externa por internet y los diálogos de descarga de complementos de KDE se encuentran deshabilitados para evitar la salida no supervisada a la web.
+- **Enlaces externos bloqueados**: Cualquier intento de apertura de hipervínculos externos es interceptado con un aviso informativo indicando que la navegación externa está desactivada.

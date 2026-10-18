@@ -2,17 +2,19 @@
 
 *[Versión en español](../../es/modules/simulations.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
 
-**Simulations** are experiments to play with on the screen: build a number, balance a seesaw, bend a ray of light, rub a balloon on a sweater, build an atom, put planets in orbit.
+**Simulations** is a curated suite of interactive math and science laboratories. It allows learners to explore abstract scientific concepts through direct visual experimentation: balancing seesaws, bending light beams with glass prisms, generating static electricity, assembling atoms, and simulating planetary gravitational orbits.
 
 | | |
 |---|---|
-| **For** | Children from 6 to 14 |
-| **Needs** | Nothing from the internet: the simulations are on the computer |
-| **Program** | [PhET Interactive Simulations](https://phet.colorado.edu/), by the University of Colorado Boulder, the versions published under the CC BY 4.0 licence. Kidux is not connected with PhET. |
+| **Recommended age** | Children and youths from 6 to 14 years old |
+| **Internet connection** | Not required (all interactive simulations are installed locally on the computer) |
+| **Software and content** | [PhET Interactive Simulations](https://phet.colorado.edu/), created by the University of Colorado Boulder under the Creative Commons Attribution 4.0 licence (CC BY 4.0). Kidux has no commercial affiliation with PhET. |
 
-## What it is
+## What it is and how it works
 
-PhET's simulations are used in schools everywhere. Kidux has chosen fifty-one of them for children from six to fourteen and sorted them by group and age, in a page of its own, in the child's language. Each one opens in its own frame, with **Simulations** at the top to come back to the list.
+PhET simulations are an internationally acclaimed educational resource used in science classrooms worldwide. Kidux packages 51 interactive laboratories tailored for ages 6 to 14, organized by discipline and developmental level, presented entirely in the child's preferred language.
+
+Each simulation opens in its own frame. A top navigation bar allows learners to return to the simulation gallery at any time.
 
 ![The list of simulations](../../images/en/module-simulations.png)
 
@@ -34,7 +36,7 @@ PhET's simulations are used in schools everywhere. Kidux has chosen fifty-one of
 
 **Earth, space and life**, ages 8 to 14: Gravity and Orbits, My Solar System, Greenhouse Effect, Under Pressure, Natural Selection.
 
-## Good to know
+## Important notes
 
-- Each simulation says, under it, that it is by PhET Interactive Simulations, University of Colorado Boulder, under CC BY 4.0, as PhET asks.
-- Nothing is saved in the child's folders.
+- **Attribution and licensing**: Every simulation carries proper attribution to PhET Interactive Simulations (University of Colorado Boulder) beneath the canvas as required by CC BY 4.0.
+- **Local storage**: Simulations execute in browser memory and do not leave temporary files in the child's documents folder.

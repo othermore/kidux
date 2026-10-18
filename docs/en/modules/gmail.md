@@ -2,29 +2,33 @@
 
 *[Versión en español](../../es/modules/gmail.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
 
-**Gmail** is a door to Gmail's website, for a child with a Google account. It is Gmail as it is on any computer, in the child's language.
+**Gmail** provides direct, secure, and isolated webmail access to Google email accounts in the child's configured system language.
 
 | | |
 |---|---|
-| **For** | Children from 8 up |
-| **Needs** | The internet whenever it is used, and a Google account |
-| **Website** | [mail.google.com](https://mail.google.com/), by Google. Kidux has no connection with Google. |
+| **Recommended age** | From 8 years old and up |
+| **Internet connection** | Required at all times to send and receive emails |
+| **Web service** | [mail.google.com](https://mail.google.com/), operated by Google LLC. Kidux is not affiliated with or endorsed by Google. |
 
-## What it is
+## What it is and how it works
 
-The module opens Gmail's website and no other: a link out of it leads nowhere. It is the module for a child under thirteen, whose Google account is managed with Family Link and cannot sign in to [Mail](mail.md). It suits any Google account, for a family that prefers the website.
+This module provides a dedicated browser sandbox restricted strictly to the official Gmail web interface. To ensure child safety, navigation outside the webmail service (such as Google Search, YouTube, or external links within email messages) is completely blocked.
+
+This module is strongly recommended for children under thirteen whose Google accounts are managed via **Google Family Link**, as Google's authentication policies prevent Family Link accounts from connecting to standard desktop mail clients (such as the [Mail](mail.md) module). It is also ideal for families who prefer the familiar webmail interface over a desktop client.
 
 ![Gmail](../../images/en/module-gmail.png)
 
-## What an adult sets
+## Configuration options for adults
 
-| Setting | What it does |
+Adults can configure account details in the **Modules** section of the adult settings panel to streamline sign-in:
+
+| Setting | Description |
 |---|---|
-| **Email address** | The child's Google account. Google's sign-in page opens with it already written. |
+| **Email address** | The child's Google account email. When the module launches, Google's sign-in page opens with this address pre-filled. |
 
-The adult opens Gmail with the child the first time and signs in there, with the password and, if Google asks for it, the second step. Gmail stays signed in afterwards. Closing it, logging out or turning the computer off does not sign the child out, and Google asks again only when it chooses to. The password is typed only in Google's page; the panel never has it.
+An adult should assist the child during the initial setup to enter the account password and complete two-factor authentication if requested by Google. Once authenticated, the session persists across application and system restarts. Kidux never stores or accesses the child's Google password, as authentication happens entirely within Google's secure login form.
 
-## Good to know
+## Important notes
 
-- The site may ask about its cookies the first time; that is Google's own question.
-- Messages and attachments stay in Google's Gmail. Nothing is saved in the child's folders.
+- **Cloud message storage**: Email messages and attachments remain securely in Google's cloud storage without consuming local hard drive space.
+- **Attachment previews**: Image and document attachments can be safely previewed within Gmail's built-in web viewer.

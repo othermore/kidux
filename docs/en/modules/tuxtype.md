@@ -2,31 +2,31 @@
 
 *[Versión en español](../../es/modules/tuxtype.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
 
-**Tux Typing** teaches a child to type. Letters and words fall from the sky, and the child catches each one by typing it, one level harder each time.
+**Tux Typing** is a classic arcade-style educational typing game starring Tux the Linux Penguin. It helps children master keyboard layout, improve typing speed, and build muscle memory through playful arcade challenges.
 
 | | |
 |---|---|
-| **For** | Children from 6 to 12 |
-| **Before it** | GCompris, which teaches the keyboard's letters first |
-| **Needs** | Nothing from the internet |
-| **Program** | [Tux Typing](https://github.com/tux4kids/tuxtype), by Tux4Kids, under the GPL-2 licence, from Debian |
+| **Recommended age** | Children from 6 to 12 years old |
+| **Recommended before** | GCompris (for initial familiarity with letters and keyboard keys) |
+| **Internet connection** | Not required (runs completely offline without internet connectivity) |
+| **Software used** | [Tux Typing](https://github.com/tux4kids/tuxtype), developed by the Tux4Kids community under the GPL-2 licence, packaged from Debian |
 
-## What it is
+## What it is and how it works
 
-Tux the penguin stands at the bottom of the screen, and letters fall towards him. The child types each letter before it lands, and Tux eats it. Later, whole words fall. The levels get faster, and the words get longer.
+In Tux Typing's arcade games, letters or complete words fall from the sky. The child must type each letter before it hits the ground so Tux can eat the falling fish or blast incoming asteroids. As players advance through stages, falling speeds increase and vocabulary words become longer.
 
-Its menus are in the child's language, and so are the words that fall: a Spanish-speaking child catches Spanish words.
+The interface and gameplay dictionaries are translated into the child's configured language, so children practice typing words in their native language.
 
 ![Tux Typing](../../images/en/module-tuxtype.png)
 
-## What is inside
+## Game modes and lessons
 
-- **Fish Cascade**, where single letters fall;
-- **Comet Zap**, where words fall and the child types them whole;
-- lessons that go through the keyboard a few keys at a time, with the fingers to use;
-- a practice mode where the child types a text at their own pace.
+- **Fish Cascade**: falling individual letters; ideal for learning key positions across the keyboard.
+- **Comet Zap**: falling words that must be typed accurately before impact.
+- **Guided typing lessons**: structured finger placement exercises teaching home row technique and touch-typing fundamentals.
+- **Practice mode**: free typing through passages at the child's own self-directed pace.
 
-## Good to know
+## Important notes
 
-- Tux Typing keeps its scores and its settings for itself, not in the child's folders. Removing the module keeps them for when it comes back.
-- It is an older program, made for the X11 display system. On a screen size marked with \* on the adult panel's System page it can look a little blurred; a size without \* fixes that.
+- **High scores and achievements**: Game progress, high scores, and unlocked stages are saved internally by the application without cluttering the child's personal documents folder.
+- **Display resolution**: As a legacy graphical application, choosing a scaled display mode (indicated by an asterisk `*` in the adult panel's System tab) may cause slight graphical softening. Selecting an unscaled native resolution restores crisp rendering.

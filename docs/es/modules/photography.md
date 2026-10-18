@@ -2,19 +2,19 @@
 
 *[English version](../../en/modules/photography.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
 
-**Fotografía** es una guía para hacer fotos con una cámara de verdad: qué hace una cámara, cómo sujetarla, y cómo elegir y mirar una foto.
+**Fotografía** es un curso práctico e ilustrado diseñado para aprender a fotografiar con una cámara real: cómo funciona la óptica, cómo sujetar el equipo con estabilidad y cómo dominar la exposición, el enfoque y la composición visual.
 
 | | |
 |---|---|
-| **Para** | Niños de 8 a 12 años que ya leen bien |
-| **Necesita** | Una cámara, y nada de internet |
-| **Hecha por** | Kidux. Las fotos son fotos libres de otras personas, cada una con su autor debajo; donde ninguna enseñaba un efecto con claridad, lo enseña una imagen hecha por un ordenador, y lo dice. |
+| **Edad recomendada** | Niños de 8 a 12 años con buen hábito lector |
+| **Requisitos técnicos** | Una cámara digital (compacta, bridge, réflex o sin espejo) y ninguna conexión a internet |
+| **Material didáctico** | Producido por Kidux. Incluye fotografías educativas bajo licencias libres y recreaciones explicativas debidamente acreditadas. |
 
-## Qué es
+## Qué es y cómo funciona
 
-Sirve cualquier cámara que tenga un dial o un menú para sus modos: una compacta, una bridge o una réflex, y para empezar incluso un móvil. El ejemplo de la guía es la Olympus XZ-2. El recuadro **En la Olympus XZ-2** de cada capítulo dice qué botón, dial o menú hace lo que enseña el capítulo, y que otras cámaras tienen lo mismo con otros nombres.
+El curso está pensado para aprovechar cualquier cámara que disponga de controles o diales de modo (manual, prioridad a la apertura o velocidad), e incluso para sentar las bases con la cámara de un teléfono móvil. A modo de referencia práctica constante, la guía utiliza la cámara compacta avanzada Olympus XZ-2: el apartado **En la Olympus XZ-2** de cada lección indica exactamente qué botón, dial o menú activar, explicando su equivalencia en otras marcas populares.
 
-Cada capítulo tiene fotos de su efecto, dibujos de lo que enseña la pantalla de la cámara, un **Pruébalo** para hacer con la cámara ese día, e ideas para seguir probando. Un recuadro **Para el adulto** dice qué enseña el capítulo y en qué ayudar: una habitación a oscuras, una linterna, el flash, una calle al anochecer. **Atrás**, **Siguiente** y la lista de **Capítulos** recorren la guía.
+Cada uno de los capítulos combina explicaciones teóricas claras, ejemplos fotográficos reales, esquemas visuales de la pantalla de la cámara y un reto práctico (**Pruébalo**) para salir a practicar con la cámara. Además, una sección orientativa titulada **Para el adulto** sugiere actividades conjuntas (como usar una linterna en una habitación a oscuras, explorar el flash o fotografiar el atardecer).
 
 ![Fotografía](../../images/es/module-photography.png)
 
@@ -51,6 +51,6 @@ Cada capítulo tiene fotos de su efecto, dibujos de lo que enseña la pantalla d
 29. Elegir, y contar una historia
 30. Las palabras de la fotografía
 
-## Conviene saber
+## Aspectos a tener en cuenta
 
-La guía se lee en el ordenador; las fotos se hacen con la cámara, lejos de él. No se guarda nada en las carpetas del niño.
+El curso y las actividades interactivas se consultan en el ordenador, mientras que las prácticas fotográficas se realizan en el entorno real con la cámara. El módulo no genera archivos adicionales en las carpetas personales del menor.
