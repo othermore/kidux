@@ -1,3 +1,10 @@
+kidux-webapps (0.1.16) trixie; urgency=medium
+
+  * A web module's wall lets the server through at its one port, not
+    every local port.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 16:30:14 +0200
+
 kidux-webapps (0.1.15) trixie; urgency=medium
 
   * A website's address takes the module's settings it names in braces,

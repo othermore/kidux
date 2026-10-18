@@ -361,9 +361,11 @@ passes the same options.
 Two things hold a web module's Chromium to what is its own (D85). The
 first is each module's **wall**: every Chromium `kidux-webapp` starts has a
 proxy that answers nothing, `--proxy-server=127.0.0.1:1`, and a bypass
-list of the server and the module's `hosts`, each with every name under
-it (`--proxy-bypass-list=127.0.0.1;codecombat.com;*.codecombat.com`), so
-that whatever else a page asks for fails; the daemon refuses every proxy
+list of the server, at its one port, and the module's `hosts`, each with
+every name under it
+(`--proxy-bypass-list=127.0.0.1:8123;codecombat.com;*.codecombat.com`), so
+that whatever else a page asks for fails, another local port among it; the
+daemon refuses every proxy
 flag among the machine's, which would take the wall down. The second is
 the **policy** every Chromium on the machine is held by, whatever starts
 it, `/etc/chromium/policies/managed/kidux.json`.

@@ -65,7 +65,7 @@ def test_chromium_opens_the_application_as_an_app_window_in_the_childs_language(
         "--password-store=basic",
         "--enable-unsafe-swiftshader",
         "--proxy-server=127.0.0.1:1",
-        "--proxy-bypass-list=127.0.0.1",
+        "--proxy-bypass-list=127.0.0.1:8123",
         "--user-data-dir=/home/leo/.config/kidux/hello-web/chromium",
         "--lang=es",
         "--app=http://127.0.0.1:8123/hello-web/?lang=es",
@@ -76,7 +76,7 @@ def test_a_website_s_chromium_reaches_its_hosts_and_nothing_else():
     command = webapp.argv(COMBAT, CHILD)
 
     assert "--proxy-server=127.0.0.1:1" in command
-    assert ("--proxy-bypass-list=127.0.0.1;cdn.example.org;*.cdn.example.org;"
+    assert ("--proxy-bypass-list=127.0.0.1:8123;cdn.example.org;*.cdn.example.org;"
             "codecombat.com;*.codecombat.com") in command
     assert command[-1] == "--app=https://codecombat.com/"
     # WebGL in software is for the server's own applications only (D85).
@@ -149,7 +149,7 @@ def test_print_shows_the_command_line_and_runs_nothing(tmp_path, monkeypatch, ca
     printed = capsys.readouterr().out
     assert printed.startswith("/usr/bin/chromium ") and printed.rstrip().endswith(
         "'--app=http://127.0.0.1:8123/hello-web/?lang=es' --disable-gpu")
-    assert "--proxy-server=127.0.0.1:1 --proxy-bypass-list=127.0.0.1 " in printed
+    assert "--proxy-server=127.0.0.1:1 --proxy-bypass-list=127.0.0.1:8123 " in printed
 
 
 def test_an_adult_s_settings_go_to_a_web_application_in_its_address():

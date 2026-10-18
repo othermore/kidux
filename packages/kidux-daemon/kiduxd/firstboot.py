@@ -144,17 +144,18 @@ def run(
 
 
 def sudo_members() -> list[str]:
+    """The human users in group sudo, whether it is a supplementary group of
+    theirs or their primary one: every group of each user is asked, not the
+    group's member list, which leaves out a user whose primary group it is."""
     try:
-        members = grp.getgrnam("sudo").gr_mem
+        sudo = grp.getgrnam("sudo").gr_gid
     except KeyError:
         return []
     humans = []
-    for name in members:
-        try:
-            if pwd.getpwnam(name).pw_uid >= 1000:
-                humans.append(name)
-        except KeyError:
-            continue
+    for user in pwd.getpwall():
+        if user.pw_uid >= 1000 and user.pw_name != "nobody" and \
+                sudo in os.getgrouplist(user.pw_name, user.pw_gid):
+            humans.append(user.pw_name)
     return sorted(humans)
 
 

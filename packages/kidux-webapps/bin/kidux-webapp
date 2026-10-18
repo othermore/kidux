@@ -79,9 +79,11 @@ def machine_flags(path=None) -> list[str]:
 
 
 def bypass(module: modules.Module) -> str:
-    """The proxy's bypass list: the server, then each host of the module and
-    every name under it."""
-    return ";".join(["127.0.0.1", *(f"{host};*.{host}" for host in module.hosts)])
+    """The proxy's bypass list: the server, at its one port, then each host of
+    the module and every name under it. Nothing else on the machine, on
+    another local port, is reachable past the wall."""
+    server = SERVER.removeprefix("http://")
+    return ";".join([server, *(f"{host};*.{host}" for host in module.hosts)])
 
 
 def settings(environ) -> dict[str, str]:

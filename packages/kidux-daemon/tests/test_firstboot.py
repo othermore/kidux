@@ -113,3 +113,26 @@ def test_first_boot_is_audited(tmp_path, monkeypatch):
 
     assert '"first boot"' in paths.AUDIT_LOG.read_text()
     assert state.read(paths.CONFIG_FILE, "config")["schema_version"] == 1
+
+
+def test_the_administrators_are_the_humans_in_sudo_by_any_of_their_groups(monkeypatch):
+    users = {"root": (0, 0), "maria": (1000, 1000), "jon": (1001, 27), "leo": (1002, 1002),
+             "nobody": (65534, 65534)}
+    groups = {"root": [0], "maria": [1000, 27], "jon": [27], "leo": [1002], "nobody": [65534]}
+    monkeypatch.setattr(firstboot.grp, "getgrnam",
+                        lambda name: type("g", (), {"gr_gid": 27, "gr_mem": ["maria"]})())
+    monkeypatch.setattr(firstboot.pwd, "getpwall",
+                        lambda: [type("u", (), {"pw_name": n, "pw_uid": u, "pw_gid": g})()
+                                 for n, (u, g) in users.items()])
+    monkeypatch.setattr(firstboot.os, "getgrouplist", lambda name, gid: groups[name])
+
+    # jon has sudo as his primary group, so the group's own member list misses him.
+    assert firstboot.sudo_members() == ["jon", "maria"]
+
+
+def test_without_a_sudo_group_nobody_is_an_administrator(monkeypatch):
+    def missing(name):
+        raise KeyError(name)
+    monkeypatch.setattr(firstboot.grp, "getgrnam", missing)
+
+    assert firstboot.sudo_members() == []
