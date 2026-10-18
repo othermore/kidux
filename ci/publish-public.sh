@@ -108,7 +108,9 @@ sftp() {
 
 # listed <remote directory>: the names in it, without . and ..
 listed() {
-    sftp -l "$REMOTE/$1" 2>/dev/null | grep -v '^\.\{1,2\}$' || true
+    # The slash at the end is what makes curl list a directory rather than
+    # fetch it as a file.
+    sftp -l "$REMOTE/$1/" 2>/dev/null | grep -v '^\.\{1,2\}$' || true
 }
 
 if ! sftp -l "$REMOTE/" >/dev/null 2>&1; then
