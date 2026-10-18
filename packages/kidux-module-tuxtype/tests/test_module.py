@@ -4,6 +4,7 @@ child's language and a home of the module's own."""
 
 import shutil
 import subprocess
+import tomllib
 from pathlib import Path
 
 from kidux import modules
@@ -66,9 +67,14 @@ def test_the_catalogue_is_complete_and_holds_the_manifests_words():
     untranslated = subprocess.run(
         ["msgattrib", "--untranslated", "--only-fuzzy", "--no-obsolete", str(catalogue)],
         capture_output=True, text=True, check=True).stdout
-    text = catalogue.read_text()
 
     assert [line for line in untranslated.splitlines() if line.startswith('msgid "')
             and line != 'msgid ""'] == []
-    for words in ("Tux Typing", "Learn to type: catch the falling letters and words"):
-        assert words in text
+    # The manifest's own name and description, each a msgid of the catalogue,
+    # read whole whatever the catalogue's line wrapping.
+    manifest = tomllib.loads((PACKAGE / "module.toml").read_text())
+    flat = subprocess.run(["msgcat", "--no-wrap", str(catalogue)],
+                          capture_output=True, text=True, check=True).stdout
+    for words in (manifest["name"], manifest["description"]):
+        escaped = words.replace("\\", "\\\\").replace('"', '\\"')
+        assert f'msgid "{escaped}"' in flat
