@@ -31,9 +31,9 @@ index 18fc7ad..35ae89d 100644
  {
 +  /* The theme's keyboard.lst is the truth about where a key is: learning */
 +  /* from a key pressed only fills in what the table left out, and a key  */
-+  /* the US layout has not, such as the Spanish n with a tilde, teaches */
-+  /* nothing.                                                            */
-+  if (key < 0 || key >= MAX_UNICODES || ch == -1
++  /* the US layout has not, such as the Spanish n with a tilde, which the */
++  /* practice passes as -1 whatever char's sign, teaches nothing.         */
++  if (key < 0 || key >= MAX_UNICODES || ch == (char) -1
 +   || strcmp(keyboard_list[key].keyname, "None") != 0)
 +    return;
    keyboard_list[key].latin_char = ch;
