@@ -25,7 +25,13 @@ is, fetched dists/stable/InRelease, as apt does once a day:
   usage statistics (statistics.py of kidux-daemon);
 - without one: the distinct addresses that sent `Debian APT-HTTP/1.3 Kidux`
   alone, a household behind one address counting once;
-- other apt clients, and the packages Kidux machines downloaded, by version.
+- other apt clients, and the packages Kidux machines downloaded, by version;
+
+and the same by week and by month, with an estimate of the machines in all:
+the machines with an identifier show how many machines usually come from
+one address, the median, and each address without one counts as that many.
+Last, the places many machines come from, an address or a range of near
+ones (a /24, or an IPv6 /48), which may be a school or a centre.
 
 Identifiers made by tests never count: those that begin with sixteen zeros,
 and those listed in ci/usage-test-ids.txt. Only lines of apt.kidux.org are
@@ -42,9 +48,11 @@ import argparse
 import datetime
 import gzip
 import html
+import ipaddress
 import netrc
 import os
 import re
+import statistics
 import sys
 import urllib.error
 import urllib.request
@@ -83,8 +91,9 @@ def is_test(identifier: str, known: set[str]) -> bool:
 def parse(lines, known: set[str] | None = None) -> dict:
     """The day's numbers, by day, from access log lines (text)."""
     known = test_ids() if known is None else known
-    days = defaultdict(lambda: {"ids": set(), "anonymous": set(), "other_apt": set(),
-                                "downloads": Counter(), "tests": set(), "other": 0})
+    days = defaultdict(lambda: {"ids": set(), "pairs": set(), "anonymous": set(),
+                                "other_apt": set(), "downloads": Counter(), "tests": set(),
+                                "other": 0})
     for line in lines:
         found = LINE.match(line.rstrip("\n"))
         if not found or found["site"] != SITE:
@@ -102,6 +111,7 @@ def parse(lines, known: set[str] | None = None) -> dict:
         if path == "/dists/stable/InRelease" and ok:
             if identified:
                 numbers["ids"].add(identified[1])
+                numbers["pairs"].add((identified[1], found["address"]))
             elif agent == KIDUX:
                 numbers["anonymous"].add(found["address"])
             else:
@@ -127,44 +137,154 @@ def read(path: Path) -> list[str]:
         return handle.readlines()
 
 
-def summary(numbers: dict, days: int | None) -> dict:
-    """The rows of the report and its totals, from parse()'s days."""
-    shown = sorted(numbers)
-    if days:
-        shown = shown[-days:]
-    rows, every_id, downloads, tests = [], set(), Counter(), set()
-    for day in shown:
+#: How many of each period the report shows, the latest last.
+SHOWN = {"day": 14, "week": 8, "month": 12}
+#: A place shows when this many machines with an identifier come from it.
+MANY = 3
+#: The places are looked for over the last this many days.
+PLACES_DAYS = 30
+
+
+def period_of(day: datetime.date, kind: str) -> str:
+    if kind == "day":
+        return day.isoformat()
+    if kind == "week":
+        year, week, _ = day.isocalendar()
+        return f"{year}-W{week:02d}"
+    return f"{day:%Y-%m}"
+
+
+def merged(numbers: dict, days: list) -> dict:
+    """One period's numbers, from its days'."""
+    out = {"ids": set(), "pairs": set(), "anonymous": set(), "other_apt": set(),
+           "downloads": Counter(), "tests": set(), "other": 0}
+    for day in days:
         n = numbers[day]
-        every_id |= n["ids"]
-        downloads.update(n["downloads"])
-        tests |= n["tests"]
-        rows.append({"day": day, "machines": len(n["ids"]) + len(n["anonymous"]),
-                     "ids": len(n["ids"]), "anonymous": len(n["anonymous"]),
-                     "other_apt": len(n["other_apt"]),
-                     "downloads": sum(n["downloads"].values()), "other": n["other"]})
-    return {"rows": rows, "machines_with_id": len(every_id), "tests": len(tests),
-            "downloads": sorted(downloads.items())}
+        for key in ("ids", "pairs", "anonymous", "other_apt", "tests"):
+            out[key] |= n[key]
+        out["downloads"].update(n["downloads"])
+        out["other"] += n["other"]
+    return out
 
 
-COLUMNS = (("machines", "machines"), ("ids", "by id"), ("anonymous", "no id"),
+def estimate(n: dict) -> tuple[float, float]:
+    """Machines behind an address, as the machines with an identifier show
+    it, and the machines estimated in all: those with an identifier, and
+    each address without one taken to hide as many. The median, not the
+    mean, so that a school's thirty machines behind one address do not make
+    every household count as several."""
+    behind = Counter(address for _, address in n["pairs"])
+    per_address = max(1.0, float(statistics.median(behind.values()))) if behind else 1.0
+    return per_address, len(n["ids"]) + len(n["anonymous"]) * per_address
+
+
+def network(address: str) -> str:
+    """The range an address is in: its /24, or for IPv6 its /48."""
+    try:
+        ip = ipaddress.ip_address(address)
+    except ValueError:
+        return address
+    size = 24 if ip.version == 4 else 48
+    return str(ipaddress.ip_network(f"{address}/{size}", strict=False))
+
+
+def places(n: dict) -> dict:
+    """Addresses and ranges many machines come from: schools, clubs, offices."""
+    by_address, by_range, range_addresses = defaultdict(set), defaultdict(set), defaultdict(set)
+    for identifier, address in n["pairs"]:
+        by_address[address].add(identifier)
+        by_range[network(address)].add(identifier)
+        range_addresses[network(address)].add(address)
+    anonymous_in = Counter(network(address) for address in n["anonymous"])
+    addresses = sorted(((a, len(m)) for a, m in by_address.items() if len(m) >= MANY),
+                       key=lambda item: -item[1])
+    ranges = sorted(((r, len(m), len(range_addresses[r]), anonymous_in[r])
+                     for r, m in by_range.items()
+                     if len(m) >= MANY and len(range_addresses[r]) > 1),
+                    key=lambda item: -item[1])
+    machines_per_address = Counter(len(m) for m in by_address.values())
+    return {"addresses": addresses, "ranges": ranges,
+            "machines_per_address": sorted(machines_per_address.items())}
+
+
+def summary(numbers: dict, days: int | None) -> dict:
+    """Every table of the report, from parse()'s days."""
+    every = sorted(numbers)
+    if days:
+        every = every[-days:]
+    tables = {}
+    for kind in ("day", "week", "month"):
+        grouped = defaultdict(list)
+        for day in every:
+            grouped[period_of(day, kind)].append(day)
+        rows = []
+        for period in sorted(grouped)[-SHOWN[kind]:]:
+            n = merged(numbers, grouped[period])
+            per_address, total = estimate(n)
+            rows.append({"period": period, "ids": len(n["ids"]), "anonymous": len(n["anonymous"]),
+                         "per_address": per_address, "estimate": round(total),
+                         "other_apt": len(n["other_apt"]),
+                         "downloads": sum(n["downloads"].values()), "other": n["other"]})
+        tables[kind] = rows
+    recent = [day for day in every if day > every[-1] - datetime.timedelta(days=PLACES_DAYS)]
+    window = merged(numbers, recent)
+    whole = merged(numbers, every)
+    return {"tables": tables, "places": places(window), "tests": len(whole["tests"]),
+            "downloads": sorted(whole["downloads"].items()), "first": every[0], "last": every[-1]}
+
+
+COLUMNS = (("period", ""), ("ids", "with id"), ("anonymous", "addresses without id"),
+           ("per_address", "machines per address"), ("estimate", "estimated machines"),
            ("other_apt", "other apt"), ("downloads", "downloads"), ("other", "others"))
-LEGEND = ("machines: by id plus no id, the machines that looked for updates that day. "
-          "no id: distinct addresses of Kidux machines without an identifier. "
-          "others: requests that were not apt's, browsers and crawlers.")
+#: The same columns, in the few letters a terminal has room for.
+SHORT = {"ids": "with id", "anonymous": "no-id addr", "per_address": "per addr",
+         "estimate": "estimate", "other_apt": "other apt", "downloads": "downloads",
+         "other": "others"}
+TITLES = {"day": "Machines by day", "week": "Machines by week", "month": "Machines by month"}
+LEGEND = ("with id: distinct machines that looked for updates and share usage statistics. "
+          "addresses without id: distinct addresses of Kidux machines that do not. "
+          "machines per address: how many machines with an identifier usually come from one "
+          "address, the median. estimated machines: those with an identifier, and each address without "
+          "one counted as that many. Over a week or a month an address that changes counts "
+          "more than once, so the day's estimate is the steadiest. others: requests that were "
+          "not apt's, browsers and crawlers.")
+
+
+def shown(row: dict, key: str, today: str | None):
+    value = row[key]
+    if key == "per_address":
+        return f"{value:.2f}"
+    if key == "period" and value == today:
+        return f"{value} (so far)"
+    return value
 
 
 def as_text(report: dict, today: datetime.date | None) -> str:
-    out = [f"{'day':<12}" + "".join(f"{title:>11}" for _, title in COLUMNS)]
-    for row in report["rows"]:
-        mark = " (so far)" if row["day"] == today else ""
-        out.append(f"{row['day'].isoformat():<12}"
-                   + "".join(f"{row[key]:>11}" for key, _ in COLUMNS) + mark)
-    out += ["", f"Machines with an identifier over these {len(report['rows'])} days: "
-                f"{report['machines_with_id']}"]
+    mark = today.isoformat() if today else None
+    out = []
+    for kind, rows in report["tables"].items():
+        out.append(TITLES[kind])
+        out.append(f"{'':<14}" + "".join(f"{SHORT[key]:>12}" for key, _ in COLUMNS[1:]))
+        for row in rows:
+            out.append(f"{shown(row, 'period', mark):<14}"
+                       + "".join(f"{shown(row, key, mark):>12}" for key, _ in COLUMNS[1:]))
+        out.append("")
+    p = report["places"]
+    out.append(f"Places with {MANY} machines or more, over the last {PLACES_DAYS} days")
+    if not p["addresses"] and not p["ranges"]:
+        out.append("  none")
+    for address, machines in p["addresses"]:
+        out.append(f"  address {address}: {machines} machines")
+    for network_, machines, addresses, anonymous in p["ranges"]:
+        out.append(f"  range {network_}: {machines} machines from {addresses} addresses"
+                   f"{f', and {anonymous} addresses without id' if anonymous else ''}")
+    out.append("Addresses by the machines with an identifier behind them: "
+               + ", ".join(f"{machines} machine{'s' if machines > 1 else ''}: {count}"
+                           for machines, count in p["machines_per_address"]))
     if report["tests"]:
-        out.append(f"Identifiers of tests, not counted: {report['tests']}")
+        out.append(f"\nIdentifiers of tests, not counted: {report['tests']}")
     if report["downloads"]:
-        out.append("Packages Kidux machines downloaded:")
+        out.append("\nPackages Kidux machines downloaded:")
         out += [f"  {package} {version}: {count}" for (package, version), count in report["downloads"]]
     out += ["", LEGEND]
     return "\n".join(out)
@@ -172,15 +292,31 @@ def as_text(report: dict, today: datetime.date | None) -> str:
 
 def as_html(report: dict, today: datetime.date | None) -> str:
     """The report as a page of its own, with nothing it fetches."""
-    def cell(value) -> str:
-        return f"<td>{html.escape(str(value))}</td>"
-    head = "".join(f"<th>{html.escape(title)}</th>" for _, title in COLUMNS)
-    body = "".join(
-        f"<tr><td>{row['day'].isoformat()}{' <small>so far</small>' if row['day'] == today else ''}</td>"
-        + "".join(cell(row[key]) for key, _ in COLUMNS) + "</tr>"
-        for row in reversed(report["rows"]))
-    downloads = "".join(f"<li>{html.escape(package)} {html.escape(version)}: {count}</li>"
-                        for (package, version), count in report["downloads"])
+    mark = today.isoformat() if today else None
+    e = html.escape
+    sections = []
+    for kind, rows in report["tables"].items():
+        head = "".join(f"<th>{e(title)}</th>" for _, title in COLUMNS)
+        body = "".join("<tr>" + "".join(f"<td>{e(str(shown(row, key, mark)))}</td>"
+                                         for key, _ in COLUMNS) + "</tr>"
+                       for row in reversed(rows))
+        sections.append(f"<h2>{e(TITLES[kind])}</h2><div class=\"wide\"><table><thead><tr>"
+                        f"{head}</tr></thead><tbody>{body}</tbody></table></div>")
+    p = report["places"]
+    items = [f"<li>address {e(a)}: <strong>{m}</strong> machines</li>" for a, m in p["addresses"]]
+    items += [f"<li>range {e(r)}: <strong>{m}</strong> machines from {a} addresses"
+              f"{f', and {n} addresses without id' if n else ''}</li>"
+              for r, m, a, n in p["ranges"]]
+    spread = ", ".join(f"{m} machine{'s' if m > 1 else ''}: {c}" for m, c in p["machines_per_address"])
+    sections.append(f"<h2>Places with {MANY} machines or more, over the last {PLACES_DAYS} days</h2>"
+                    f"<ul>{''.join(items) or '<li>none</li>'}</ul>"
+                    f"<p class=\"note\">Addresses by the machines with an identifier behind them: "
+                    f"{e(spread) or 'none'}.</p>")
+    if report["downloads"]:
+        downloads = "".join(f"<li>{e(package)} {e(version)}: {count}</li>"
+                            for (package, version), count in report["downloads"])
+        sections.append(f"<h2>Packages Kidux machines downloaded</h2><ul>{downloads}</ul>")
+    tests = f" {report['tests']} identifiers of tests are not counted." if report["tests"] else ""
     made = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -189,20 +325,19 @@ def as_html(report: dict, today: datetime.date | None) -> str:
 <title>Kidux machines</title>
 <style>
 body {{ background: #fdf6f0; color: #24313f; font: 16px/1.5 system-ui, sans-serif;
-       margin: 0 auto; max-width: 860px; padding: 16px; }}
-h1 {{ font-size: 1.4em; }}
+       margin: 0 auto; max-width: 960px; padding: 16px; }}
+h1 {{ font-size: 1.4em; }} h2 {{ font-size: 1.1em; margin-top: 1.6em; }}
 table {{ border-collapse: collapse; width: 100%; }}
 th, td {{ padding: 6px 8px; text-align: right; border-bottom: 1px solid #e6d9cc; }}
-th:first-child, td:first-child {{ text-align: left; }}
+th {{ font-weight: 600; font-size: 0.85em; }}
+th:first-child, td:first-child {{ text-align: left; white-space: nowrap; }}
 .wide {{ overflow-x: auto; }}
 p.note {{ color: #5b6672; font-size: 0.9em; }}
 </style></head><body>
 <h1>Kidux machines that follow apt.kidux.org</h1>
-<p><strong>{report["machines_with_id"]}</strong> machines with an identifier over these
-{len(report["rows"])} days{f"; {report['tests']} identifiers of tests not counted" if report["tests"] else ""}.</p>
-<div class="wide"><table><thead><tr><th>day</th>{head}</tr></thead><tbody>{body}</tbody></table></div>
-{f"<h2>Packages Kidux machines downloaded</h2><ul>{downloads}</ul>" if downloads else ""}
-<p class="note">{html.escape(LEGEND)}</p>
+<p>From {report["first"].isoformat()} to {report["last"].isoformat()}.{e(tests)}</p>
+{"".join(sections)}
+<p class="note">{e(LEGEND)}</p>
 <p class="note">Made {made} from the hosting's access logs (ci/usage.py).</p>
 </body></html>
 """

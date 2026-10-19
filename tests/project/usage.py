@@ -75,4 +75,43 @@ check("every test identifier in ci/usage-test-ids.txt is 32 hexadecimal figures"
       all(len(i) == 32 and all(c in "0123456789abcdef" for c in i) for i in usage.test_ids()),
       str(usage.test_ids()))
 
+# A school: five machines behind one address and two more from a near one;
+# three households of one provider's range, a machine each; and a household
+# without an identifier.
+SCHOOL = "".join(
+    f'203.0.113.{10 if i < 5 else 11} apt.kidux.org - [20/Oct/2026:08:{i:02d}:00 +0200] '
+    f'"GET /dists/stable/InRelease HTTP/1.1" 200 1864 "-" "Debian APT-HTTP/1.3 Kidux/5c{i:030x}"\n'
+    for i in range(7)) + "".join(
+    f'198.51.100.{20 + i} apt.kidux.org - [20/Oct/2026:09:00:00 +0200] '
+    f'"GET /dists/stable/InRelease HTTP/1.1" 200 1864 "-" "Debian APT-HTTP/1.3 Kidux/ab{i:030x}"\n'
+    for i in range(3)) + (
+    '192.0.2.50 apt.kidux.org - [20/Oct/2026:10:00:00 +0200] '
+    '"GET /dists/stable/InRelease HTTP/1.1" 200 1864 "-" "Debian APT-HTTP/1.3 Kidux"\n')
+school = usage.parse(SCHOOL.splitlines(), set())
+day = school[datetime.date(2026, 10, 20)]
+check("ten machines, each its own identifier, count as ten",
+      len(day["ids"]) == 10, str(len(day["ids"])))
+per_address, total = usage.estimate(day)
+check("the estimate counts an address without id as the median machines per address, "
+      "which the school does not pull up",
+      per_address == 1.0 and total == 11, f"{per_address} {total}")
+found = usage.places(day)
+check("the school shows as an address with five machines and a range with seven, "
+      "and the three near households as a range of their own",
+      found["addresses"] == [("203.0.113.10", 5)]
+      and found["ranges"] == [("203.0.113.0/24", 7, 2, 0), ("198.51.100.0/24", 3, 3, 0)],
+      str(found))
+check("addresses are told apart by how many machines are behind them",
+      found["machines_per_address"] == [(1, 3), (2, 1), (5, 1)], str(found["machines_per_address"]))
+
+all_days = usage.parse((LOG + SCHOOL).splitlines(), known)
+summary = usage.summary(all_days, None)
+check("days, ISO weeks and months each have their table",
+      [r["period"] for r in summary["tables"]["day"]] == ["2026-10-18", "2026-10-19", "2026-10-20"]
+      and [r["period"] for r in summary["tables"]["week"]] == ["2026-W42", "2026-W43"]
+      and [r["period"] for r in summary["tables"]["month"]] == ["2026-10"],
+      str({k: [r["period"] for r in v] for k, v in summary["tables"].items()}))
+check("a month counts a machine once however many days it looked",
+      summary["tables"]["month"][0]["ids"] == 3 + 10, str(summary["tables"]["month"][0]))
+
 sys.exit(1 if failed else 0)

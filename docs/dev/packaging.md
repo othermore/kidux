@@ -420,7 +420,14 @@ SFTP one. `report` reads only `apt.kidux.org`'s lines: a machine counts on a
 day when it fetched `InRelease`, by its identifier or, without one, by its
 address; an identifier that begins with sixteen zeros, or that
 `ci/usage-test-ids.txt` lists, is a test machine's and never counts; other
-apt clients, browsers and crawlers are counted apart.
+apt clients, browsers and crawlers are counted apart. It shows the machines
+by day, ISO week and month, with an estimate of them all: each address
+without an identifier counts as the median number of machines the
+identified ones show behind an address, which a school's many machines do
+not pull up. And the places many machines come from over the last thirty
+days, an address with three or more, or a range of near ones, a /24 or an
+IPv6 /48, which may be a school or a centre, or only a provider's
+neighbours.
 `tests/project/usage.py` holds it to lines in the hosting's own shape.
 
 The same counting runs on the hosting, as a page for the owner,
