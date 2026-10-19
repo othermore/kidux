@@ -1,0 +1,4 @@
+# The module starts it, with the theme of the child's language
+# (kidux-module-tuxtype): it is no command for a person to run, and
+# Debian's tuxtype has the manual page of the program it is.
+kidux-tuxtype: no-manual-page [usr/games/kidux-tuxtype]

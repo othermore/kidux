@@ -1,0 +1,11 @@
+[upstream]
+name = "Tux Typing"
+# No repository and no commit: Tux Typing is taken as Debian publishes its
+# source, the files debian-source.toml names (docs/dev/tuxtype.md).
+repository = ""
+commit = ""
+version = "1.8.3+deb7"
+node = ""
+build = "ci/upstream/tuxtype.sh"
+sha256 = "4ff482e5a9af6f6e350689c75e87f238a778b4fa5082b4ae48db1ba65819e041"
+source_sha256 = "4955daa2a3f0aec62f86fd65314466cd567aa6ccfef5b62e16323d55e40b827e"

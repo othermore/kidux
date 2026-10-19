@@ -1,0 +1,35 @@
+Source: kidux-tuxtype
+Section: games
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               libsdl-image1.2-dev,
+               libsdl-mixer1.2-dev,
+               libsdl-net1.2-dev,
+               libsdl-pango-dev,
+               libsdl-ttf2.0-dev,
+               libsdl1.2-dev,
+               librsvg2-dev,
+               libt4k-common0-dev,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+Homepage: https://github.com/tux4kids/tuxtype
+
+Package: kidux-tuxtype
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         fonts-sil-andika,
+         tuxtype-data (>= 1.8.3),
+Description: Tux Typing, as Kidux's typing module runs it
+ Kidux is a Debian derivative for a child's first computer. This is Tux
+ Typing, the typing tutor starring Tux, as Debian's tuxtype builds it, with
+ Kidux's patches for keyboards other than the US one: every key of the
+ theme's keyboard table keeps its place and its finger, a dead key, as the
+ acute accent of a Spanish keyboard, is no key typed, the practice's
+ keyboard labels the keys of the phrase being typed alone, and the games
+ list a theme's word lists in the order of their file names.
+ .
+ It installs as /usr/games/kidux-tuxtype, beside Debian's tuxtype, and
+ reads tuxtype-data's words, pictures and sounds. The Tux Typing learning
+ module, kidux-module-tuxtype, is what starts it.

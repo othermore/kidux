@@ -1,0 +1,46 @@
+#!/usr/bin/make -f
+
+DEST = debian/kidux-tuxtype
+TREE = build/tuxtype
+
+%:
+	dh $@
+
+# Tux Typing's source is upstream/, as ci/build-upstream.sh made it from
+# Debian's (upstream.toml); it is built in a copy, with Kidux's patches
+# applied there (docs/dev/tuxtype.md), and the build system made again as
+# Debian's build makes it.
+override_dh_autoreconf:
+
+override_dh_auto_configure:
+	rm -rf $(TREE)
+	mkdir -p build
+	cp -a upstream $(TREE)
+	for patch in patches/*.patch; do \
+	    patch --no-backup-if-mismatch -d $(TREE) -p1 < $$patch || exit 1; \
+	done
+	cd $(TREE) && autoreconf -fi
+	cd $(TREE) && ./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) \
+	    --prefix=/usr --bindir=/usr/games --localstatedir=/var/games --sysconfdir=/etc \
+	    --disable-silent-rules
+
+override_dh_auto_build:
+	$(MAKE) -C $(TREE)
+
+# Tux Typing has no tests of its own; the module's session test is the one
+# that tries this program (tests/session/25-module-tuxtype.py).
+override_dh_auto_test:
+
+# The program alone, its data being tuxtype-data's, and the two folders it
+# will not start without, which Debian's tuxtype makes as well: the word
+# lists all users share, and the settings that apply to all.
+override_dh_auto_install:
+	install -D -m 0755 $(TREE)/src/tuxtype $(DEST)/usr/games/kidux-tuxtype
+	install -d $(DEST)/var/games/tuxtype/words $(DEST)/etc/tuxtype
+
+# The archive takes .deb files alone.
+override_dh_strip:
+	dh_strip --no-automatic-dbgsym
+
+override_dh_auto_clean:
+	rm -rf build

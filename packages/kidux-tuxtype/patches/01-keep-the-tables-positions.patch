@@ -1,0 +1,41 @@
+Keep the keyboard table's positions
+
+Tux Typing's practice learns where a key is from each key pressed, through
+a switch that knows the US keyboard's keys only: a key it does not know,
+such as the ñ, the comma, the full stop or the hyphen of a Spanish
+keyboard, is given no position and no finger the first time it is
+pressed, so that the hand's finger is no longer lit for it in that run.
+The theme's keyboard.lst is the truth about where a key is: learning only
+fills in what the table left out, and teaches nothing from a key the
+switch does not know. A character 0, which a dead key gives, is no key of
+the table; the empty entries after the table's last matched it.
+diff --git a/src/alphabet.c b/src/alphabet.c
+index 18fc7ad..35ae89d 100644
+--- a/src/alphabet.c
++++ b/src/alphabet.c
+@@ -270,6 +270,11 @@ int GetIndex(wchar_t uni_char)
+ {
+   int i = 0;
+ 
++  /* No character, as a dead key gives, is no key of the table; the empty */
++  /* entries after its last would otherwise match it.                     */
++  if (uni_char == 0)
++    return -1;
++
+   while ((i < MAX_UNICODES)
+      &&  (keyboard_list[i].unicode_value != uni_char))
+   {
+@@ -1267,6 +1272,13 @@ void GenerateKeyboard(SDL_Surface* keyboard)
+ 
+ void updatekeylist(int key, char ch)
+ {
++  /* The theme's keyboard.lst is the truth about where a key is: learning */
++  /* from a key pressed only fills in what the table left out, and a key  */
++  /* the US layout has not, such as the Spanish n with a tilde, teaches */
++  /* nothing.                                                            */
++  if (key < 0 || key >= MAX_UNICODES || ch == -1
++   || strcmp(keyboard_list[key].keyname, "None") != 0)
++    return;
+   keyboard_list[key].latin_char = ch;
+   wchar_t wtmp = ch;
+   map_keys(wtmp, &keyboard_list[key]);

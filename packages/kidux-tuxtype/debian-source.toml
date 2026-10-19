@@ -1,0 +1,16 @@
+# Tux Typing 1.8.3 as Debian's 1.8.3-7 patches it: the files of the source
+# package Debian 13 "trixie" builds tuxtype from, by the addresses
+# snapshot.debian.org keeps every file Debian has published at, and the
+# SHA-256 each must have, as tuxtype_1.8.3-7.dsc gives it
+# (ci/upstream/tuxtype.sh).
+debian_version = "1.8.3-7"
+
+[orig]
+url = "https://snapshot.debian.org/file/3b71e624d5b9c25861ba012b66f3ade3c9cecbbb"
+name = "tuxtype_1.8.3.orig.tar.gz"
+sha256 = "e720b0a3131764630a8b8d0bd108e0aed6f72572222a3529a4cbed04f94c8fb3"
+
+[diff]
+url = "https://snapshot.debian.org/file/e15fa46655b77ad2aaf034776caf8a9a893672f6"
+name = "tuxtype_1.8.3-7.diff.gz"
+sha256 = "13f2e5464e481930f5f5fcffec430547e87a8f74b97d80c578f41d6388df9399"

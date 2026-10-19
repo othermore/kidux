@@ -1,0 +1,60 @@
+A dead key is not typing
+
+The acute accent of a Spanish keyboard is a dead key: it gives no
+character itself, and puts the accent on the vowel typed next. Tux
+Typing's practice counted it as a wrong key, with the error sound, and
+its games took its character 0 for a letter typed. A key down that gives
+no character is now neither right nor wrong in the practice, as Shift
+already was, and no letter in Fish Cascade and Comet Zap; the vowel after
+it is the key typed.
+diff --git a/src/laser.c b/src/laser.c
+index 7ece5d4..67d0992 100644
+--- a/src/laser.c
++++ b/src/laser.c
+@@ -214,8 +214,11 @@ int PlayLaserGame(int diff_level)
+ 				  fprintf(stderr,
+                                    "key_unicode = %d\n", key_unicode);
+ 				}
+-				/* Now update with case-folded value: */
+-				ans[ans_num++] = key_unicode;
++				/* Now update with case-folded value; a key that gives */
++				/* no character, as the dead key before an accented    */
++				/* vowel, is no letter typed:                          */
++				if (key_unicode != 0)
++					ans[ans_num++] = key_unicode;
+ 
+ 			}
+ 		}
+diff --git a/src/playgame.c b/src/playgame.c
+index ff37ad7..54e7dac 100644
+--- a/src/playgame.c
++++ b/src/playgame.c
+@@ -339,6 +339,11 @@ int PlayCascade(int diflevel)
+                 /* See what Unicode value was typed: */
+                 key_unicode = event.key.keysym.unicode;
+ 
++                /* A key that gives no character, as the dead key before an */
++                /* accented vowel, is no letter typed:                       */
++                if (key_unicode == 0)
++                  break;
++
+                 DEBUGCODE
+                 {fprintf(stderr, "\nkey_unicode = %d\twchar_t = %lc\t\n", key_unicode, key_unicode);}
+ 
+diff --git a/src/practice.c b/src/practice.c
+index 603a2e5..15261b8 100644
+--- a/src/practice.c
++++ b/src/practice.c
+@@ -610,6 +610,12 @@ int Phrases(wchar_t* pphrase )
+          || state == 1)
+           continue; 
+ 
++        /* A key that gives no character, as Shift, an arrow or the dead key */
++        /* that puts an accent on the vowel typed next, is not typing: it is */
++        /* neither right nor wrong, and the vowel after it is the key typed. */
++        if (event.key.keysym.unicode == 0)
++          continue;
++
+         /* Change to uppercase if shift used */
+         if(shift_pressed)
+           tmp=toupper(tmp);

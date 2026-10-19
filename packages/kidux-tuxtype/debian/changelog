@@ -1,0 +1,9 @@
+kidux-tuxtype (1.8.3+deb7.1) trixie; urgency=medium
+
+  * Tux Typing 1.8.3 as Debian's 1.8.3-7 builds it, as Kidux's own program,
+    kidux-tuxtype, with four patches: the keyboard table keeps every key's
+    place and finger, a dead key is no key typed, the practice's keyboard
+    labels the keys of its phrase alone, and the games list a theme's word
+    lists in the order of their file names.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 23:34:59 +0200

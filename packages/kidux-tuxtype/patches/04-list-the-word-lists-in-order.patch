@@ -1,0 +1,40 @@
+List a theme's word lists in order
+
+The games' menu of word lists takes a theme's lists in the order readdir()
+gives them, which is the order the disk keeps them in, so that Kidux's
+Spanish lists, numbered from the easiest to the hardest, came in any order,
+the list with the accents among the first. The theme's lists are now
+sorted by their file names, which the theme chooses; the lists all users
+share and a child's own still follow them, as they did.
+
+diff --git a/src/titlescreen.c b/src/titlescreen.c
+index f2d18e1..a0ed829 100644
+--- a/src/titlescreen.c
++++ b/src/titlescreen.c
+@@ -1298,8 +1298,24 @@ static int chooseWordlist(void)
+   } while (1); /* Loop continues until break occurs */
+   closedir(wordsDir);	
+ 
+-  
+-  
++  /* The theme's lists in the order of their file names, which a theme */
++  /* chooses, from the easiest to the hardest; readdir() gives them in */
++  /* the order the disk keeps them.                                    */
++  {
++    int i, j;
++    char swap[200];
++    for (i = 1; i < lists; i++)
++      for (j = i; j > 0 && strcmp(wordlistFile[j - 1], wordlistFile[j]) > 0; j--)
++      {
++        strcpy(swap, wordlistFile[j]);
++        strcpy(wordlistFile[j], wordlistFile[j - 1]);
++        strcpy(wordlistFile[j - 1], swap);
++        strcpy(swap, wordlistName[j]);
++        strcpy(wordlistName[j], wordlistName[j - 1]);
++        strcpy(wordlistName[j - 1], swap);
++      }
++  }
++
+   /* Adding global custom wordlists ------------------------------------ */
+  
+   sprintf(wordPath,"%s/words", settings.var_data_path);

@@ -1,0 +1,262 @@
+Label the keys in use
+
+The practice's keyboard labelled every key its table placed, the capital
+drawn up and to the left of the small letter, so that each key held two
+overlapping letters; with a table of characters alone, it labelled the
+keys learnt in earlier practices of the same run instead. A practice now
+labels the keys that type the characters of its phrase and no other, so
+that a child finds them at once: each key once, with the first character
+the table gives it unshifted, the small letter a real key shows, drawn in
+black, centred on the key, and blended into the keyboard by its own alpha,
+pixel by pixel: a plain blit of the label, a surface with alpha, onto the
+keyboard, another, turned the letter's soft edges into dark specks and
+lines.
+diff --git a/src/alphabet.c b/src/alphabet.c
+index 35ae89d..5ea5ce1 100644
+--- a/src/alphabet.c
++++ b/src/alphabet.c
+@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #include "globals.h"
+ #include "funcs.h"
+ #include "SDL_extras.h"
++#include "pixels.h"
+ 
+ 
+ 
+@@ -1183,17 +1184,73 @@ int map_keys(wchar_t wide_char, kbd_char* keyboard_entry)
+   return 0;
+ }
+ 
+-void GenerateKeyboard(SDL_Surface* keyboard)
++/* Where a key's label goes on keyboard/keyboard.png: the middle of the key */
++/* at the given row and column, as the key images of keyboard/ draw them.   */
++static void key_middle(const char* keyname, int* x, int* y)
+ {
+-  SDL_Surface* tmp = NULL;
+-  SDL_Rect new;
+-  int i;
+-  int col;
+-  char row;
+-  int render = 1;
++  char row = 0;
++  int col = 0;
++
++  *x = *y = -1;
++  if (sscanf(keyname, "%c%d", &row, &col) != 2)
++    return;
++  switch(row)
++  {
++    case 'A': *y = 12;  *x = 16; break;
++    case 'B': *y = 45;  *x = 27; break;
++    case 'C': *y = 75;  *x = 37; break;
++    case 'D': *y = 106; *x = 25; break;
++    default: return;
++  }
++  *x += (int)(30.5 * col);
++}
++
++/* Blends a label onto the keyboard by its own alpha, pixel by pixel, so */
++/* that what is drawn is the letter alone, whatever the two surfaces'    */
++/* formats: a plain blit of one surface with alpha onto another draws    */
++/* the label's box with it.                                              */
++static void blend_label(SDL_Surface* label, SDL_Surface* keyboard, int left, int top)
++{
++  int x, y;
++  Uint8 r, g, b, a, kr, kg, kb, ka;
++  Uint32 (*get_label)(SDL_Surface*, int, int) = getpixels[label->format->BytesPerPixel];
++  Uint32 (*get_key)(SDL_Surface*, int, int) = getpixels[keyboard->format->BytesPerPixel];
++  void (*put_key)(SDL_Surface*, int, int, Uint32) = putpixels[keyboard->format->BytesPerPixel];
++
++  SDL_LockSurface(label);
++  SDL_LockSurface(keyboard);
++  for (y = 0; y < label->h; y++)
++  {
++    for (x = 0; x < label->w; x++)
++    {
++      int kx = left + x, ky = top + y;
++      if (kx < 0 || ky < 0 || kx >= keyboard->w || ky >= keyboard->h)
++        continue;
++      SDL_GetRGBA(get_label(label, x, y), label->format, &r, &g, &b, &a);
++      if (a == 0)
++        continue;
++      SDL_GetRGBA(get_key(keyboard, kx, ky), keyboard->format, &kr, &kg, &kb, &ka);
++      kr = (r * a + kr * (255 - a)) / 255;
++      kg = (g * a + kg * (255 - a)) / 255;
++      kb = (b * a + kb * (255 - a)) / 255;
++      put_key(keyboard, kx, ky, SDL_MapRGBA(keyboard->format, kr, kg, kb, ka > a ? ka : a));
++    }
++  }
++  SDL_UnlockSurface(keyboard);
++  SDL_UnlockSurface(label);
++}
++
++/* Labels the keys of the drawn keyboard. With only, the keys that type    */
++/* the characters in it and no other, so that a child finds the keys of   */
++/* the exercise at once; without, every key the table places. Each key is  */
++/* labelled once, with the first character the table gives it unshifted:   */
++/* its small letter, the one printed on a real key.                        */
++void GenerateKeyboard(SDL_Surface* keyboard, const wchar_t* only)
++{
++  SDL_Surface* label = NULL;
++  int i, j, x, y, used, first;
+   wchar_t t[2];
+   char buf[8];
+-//  TTF_Font* smallfont = NULL;
+ 
+   DEBUGCODE { printf("Entering GenerateKeyboard\n"); }
+ 
+@@ -1203,68 +1260,50 @@ void GenerateKeyboard(SDL_Surface* keyboard)
+     return;
+   }
+ 
+-//   smallfont = LoadFont(settings.theme_font_name, 15);
+-//   if(!smallfont)
+-//   {
+-//     DEBUGCODE { printf("Error loading font\n"); }
+-//     return;
+-//   }
+-
+-  /* to give us a null-terminated string: */
+   t[1] = '\0';
+-  /* Draw the unshifted and shifted chars overlying the corresponding key */
+-  /* for every entry in keyboard_list[]:                                  */
+   for(i = 0; i < num_chars_used; i++)
+   {
+-    render = 1;
+-    new.x = 0;
+-    new.y = 0;
+-    new.w = 5;
+-    new.h = 5;
++    if (strcmp(keyboard_list[i].keyname, "None") == 0
++     || keyboard_list[i].shift != 0
++     || keyboard_list[i].unicode_value == ' ')
++      continue;
+ 
+-    t[0] = keyboard_list[i].unicode_value;
+-    sscanf(keyboard_list[i].keyname,"%c%d",&row,&col);
++    /* Only the first unshifted character of a key labels it: */
++    first = 1;
++    for (j = 0; j < i; j++)
++      if (keyboard_list[j].shift == 0
++       && strcmp(keyboard_list[j].keyname, keyboard_list[i].keyname) == 0)
++        first = 0;
++    if (!first)
++      continue;
+ 
+-    /* NOTE these values have been tweaked to better center the */
+-    /* characters on the key images - DSB.                      */
+-    switch(row)
++    /* And only a key some character of only is typed with: */
++    used = (only == NULL);
++    for (j = 0; only && only[j] && !used; j++)
+     {
+-      case 'A': new.y += 6;   new.x += 12; break;
+-      case 'B': new.y += 39;  new.x += 23; break;
+-      case 'C': new.y += 69;  new.x += 33; break;
+-      case 'D': new.y += 100;  new.x += 21; break;
+-//      case 'D': new.y += 99;  new.x += 54; break;
+-      case 'E': new.y += 129; break;
+-      default: render = 0; break;
++      int index = GetIndex(only[j]);
++      if (index >= 0
++       && strcmp(keyboard_list[index].keyname, keyboard_list[i].keyname) == 0)
++        used = 1;
+     }
+-
+-    if(!render)
++    if (!used)
+       continue;
+ 
+-    new.x += (int)(30.5 * col);
+-
+-    if(keyboard_list[i].shift > 0)
+-    {
+-      new.x -= 9;
+-      if(new.y < 9)
+-        new.y -= 5;
+-      else
+-        new.y -= 9;
+-    }
++    key_middle(keyboard_list[i].keyname, &x, &y);
++    if (x < 0)
++      continue;
+ 
+-    DEBUGCODE { printf("Making %d : %C\n",i,keyboard_list[i].unicode_value); }
++    t[0] = keyboard_list[i].unicode_value;
+     ConvertToUTF8(t, buf, 8);
+-    tmp = SimpleText(buf, 15, &black);
+-//    tmp = TTF_RenderUNICODE_Blended((TTF_Font*)smallfont, t, black);
+-    if(tmp == NULL)
++    label = SimpleText(buf, 14, &black);
++    if (label == NULL)
+     {
+-      fprintf(stderr, "Error Making %d : %C\n", i, keyboard_list[i].unicode_value);
++      fprintf(stderr, "GenerateKeyboard(): could not draw the label of '%C'\n", t[0]);
++      continue;
+     }
+-    else
+-      SDL_BlitSurface(tmp, NULL, keyboard, &new);
++    blend_label(label, keyboard, x - label->w / 2, y - label->h / 2);
++    SDL_FreeSurface(label);
+   }
+-  //Know this is safe - if NULL would have returned above:
+-//  TTF_CloseFont(smallfont);
+ 
+   DEBUGCODE { printf("Leaving GenerateKeyboard\n"); }
+ }
+diff --git a/src/funcs.h b/src/funcs.h
+index cfe8a73..793cb18 100644
+--- a/src/funcs.h
++++ b/src/funcs.h
+@@ -51,7 +51,7 @@ int GetShift(int i);
+ void GetKeyPos(int index, char *buf);
+ void GetWrongKeyPos(int index, char *buf);
+ //int map_keys(wchar_t *wide_str,keymap key);
+-void GenerateKeyboard(SDL_Surface* keyboard);
++void GenerateKeyboard(SDL_Surface* keyboard, const wchar_t* only);
+ void updatekeylist(int key,char ch);
+ void savekeyboard(void);
+ wchar_t GetLastKey(void);
+diff --git a/src/practice.c b/src/practice.c
+index 15261b8..b69f76e 100644
+--- a/src/practice.c
++++ b/src/practice.c
+@@ -102,7 +102,7 @@ static void recalc_positions(void);
+ static void calc_font_sizes(void);
+ static int create_labels(void);
+ static void display_next_letter(const wchar_t* str, Uint16 index);
+-static int practice_load_media(void);
++static int practice_load_media(const wchar_t* only);
+ static void practice_unload_media(void);
+ //static void show(char t);
+ SDL_Surface* GetKeypress1(int index);
+@@ -142,8 +142,9 @@ int Phrases(wchar_t* pphrase )
+   char accuracy_str[20];
+   SDL_Surface* tmpsurf = NULL;
+ 
+-  /* Load all needed graphics, strings, sounds.... */
+-  if (!practice_load_media())
++  /* Load all needed graphics, strings, sounds, and the keyboard with the */
++  /* keys of the phrase given labelled: */
++  if (!practice_load_media(pphrase != NULL && wcslen(pphrase) > 0 ? pphrase : NULL))
+   {
+     fprintf(stderr, "Phrases() - practice_load_media() failed, returning.\n\n");
+     return 0;
+@@ -860,7 +861,7 @@ static void calc_font_sizes(void)
+   bigfontsize = fontsize * 4;
+ }
+ 
+-static int practice_load_media(void)
++static int practice_load_media(const wchar_t* only)
+ {
+   int i;	
+   char fn[FNLEN];
+@@ -919,7 +920,7 @@ static int practice_load_media(void)
+   /* Now render letters for glyphs in alphabet: */
+   /* This is used for keyboard graphic */
+   RenderLetters(fontsize);
+-  GenerateKeyboard(keyboard);
++  GenerateKeyboard(keyboard, only);
+ 
+   LOG("DONE - Loading practice media\n");
+   DEBUGCODE { printf("Leaving practice_load_media\n"); }
