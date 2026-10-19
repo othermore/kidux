@@ -437,7 +437,15 @@ identifiers, the daily task `cron.php`, the logs user's line and the
 page's password go to `kidux-usage/` in the account's home, which no site
 serves, and the page, `index.php`, to `apt/usage/` (sources in
 `ci/usage-site/`). Opening the page keeps every day's log not kept yet and
-shows the numbers, today's so far among them; the hosting's scheduled
+shows the numbers, today's so far among them, and links to explore: every
+machine with an identifier, its first and last day, its addresses and how
+often it changed address; every address, with the machines behind it and
+its range; a machine's or an address's days one by one; a query of the
+database, read-only, with examples; and the database's table as CSV. The
+database, `usage.sqlite` beside the logs, is made again from the logs kept
+at each look, a row a day, address, identifier, client, kind of request,
+package and user agent, with how many requests, so that the logs stay what
+it all comes from; the hosting's scheduled
 task (*Tareas programadas - Cron*, `kidux-usage/cron.php`, daily) keeps
 them on the days nobody opens it. The hosting's Python is 3.7, which
 `usage.py` keeps to. Its two secrets on the release machine, outside the

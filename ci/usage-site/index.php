@@ -4,26 +4,33 @@
 //
 // The counting is ci/usage.py's, kept with its data in a folder of the
 // hosting that no site serves, kidux-usage/ in the account's home. Opening
-// the page first keeps every day's log not kept yet, so that the history
-// never depends on how long the hosting keeps its logs, then shows the
-// numbers, today's so far among them.
+// any page first keeps every day's log not kept yet, so that the history
+// never depends on how long the hosting keeps its logs; then usage.py makes
+// the page asked for: the summary, the machines or one of them, the
+// addresses or one of them, a query of the database, or its table as CSV.
+// The query reaches usage.py in its environment, never on a command line.
 
 $private = dirname(__DIR__, 2) . '/kidux-usage';
 putenv('KIDUX_USAGE_DIR=' . $private . '/logs');
 putenv('KIDUX_APT_HOSTING=' . $private . '/logs.netrc');
-$usage = escapeshellarg($private . '/usage.py');
+$usage = '/usr/bin/python3 ' . escapeshellarg($private . '/usage.py');
 
-exec("/usr/bin/python3 $usage fetch 2>&1", $fetched, $fetch_failed);
-exec("/usr/bin/python3 $usage report --today --html 2>&1", $page, $report_failed);
+$views = ['summary', 'ids', 'id', 'addresses', 'address', 'sql', 'csv'];
+$view = in_array($_GET['view'] ?? '', $views, true) ? $_GET['view'] : 'summary';
+$value = (string) ($_GET['value'] ?? $_GET['example'] ?? '');
+putenv('KIDUX_USAGE_SQL=' . (string) ($_POST['sql'] ?? ''));
 
-header('Content-Type: text/html; charset=utf-8');
+exec("$usage fetch 2>&1", $fetched, $fetch_failed);
+
 header('Cache-Control: no-store');
-if ($report_failed) {
-    http_response_code(500);
-    echo "<pre>", htmlspecialchars(implode("\n", $page)), "</pre>";
-    exit;
+if ($view === 'csv') {
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="kidux-usage-' . date('Y-m-d') . '.csv"');
+} else {
+    header('Content-Type: text/html; charset=utf-8');
 }
-echo implode("\n", $page);
-if ($fetch_failed) {
+$command = "$usage page --today --view " . escapeshellarg($view) . ' --value ' . escapeshellarg($value);
+passthru("$command 2>&1", $page_failed);
+if ($fetch_failed && $view !== 'csv') {
     echo "<pre>", htmlspecialchars(implode("\n", $fetched)), "</pre>";
 }

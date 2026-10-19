@@ -12,6 +12,7 @@ package downloaded, a browser and a crawler, and another site's line.
 import datetime
 import importlib.util
 import sys
+import tempfile
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
@@ -113,5 +114,29 @@ check("days, ISO weeks and months each have their table",
       str({k: [r["period"] for r in v] for k, v in summary["tables"].items()}))
 check("a month counts a machine once however many days it looked",
       summary["tables"]["month"][0]["ids"] == 3 + 10, str(summary["tables"]["month"][0]))
+
+# A machine that moves: two days at home, then a day at another address.
+MOVES = "".join(
+    f'{address} apt.kidux.org - [{day}/Oct/2026:07:00:00 +0200] '
+    f'"GET /dists/stable/InRelease HTTP/1.1" 200 1864 "-" "Debian APT-HTTP/1.3 Kidux/7e{0:030x}"\n'
+    for day, address in (("21", "192.0.2.70"), ("22", "192.0.2.70"), ("25", "198.51.100.70"))) + (
+    '203.0.113.9 apt.kidux.org - [21/Oct/2026:07:00:00 +0200] "GET / HTTP/1.1" 200 336 "-" '
+    '"Mozilla/5.0 (compatible; ExampleBot/1.0)"\n')
+with tempfile.TemporaryDirectory() as folder:
+    built = usage.build(MOVES.splitlines(), Path(folder) / "usage.sqlite")
+    connection = usage.read_only(built)
+    moved = {row[0]: row for row in usage.movements(connection)}["7e" + "0" * 30]
+    check("a machine's address changes are counted, and the days between them",
+          moved[1:] == ("2026-10-21", "2026-10-25", 3, 2, 1, "4.0"), str(moved))
+    names, rows = usage.query(connection, "SELECT client, agent, requests FROM requests WHERE client = 'web'")
+    check("the database keeps who else came, by user agent",
+          rows == [("web", "Mozilla/5.0 (compatible; ExampleBot/1.0)", 1)], str(rows))
+    try:
+        connection.execute("DELETE FROM requests")
+        refused = False
+    except Exception:
+        refused = True
+    check("a query may read the database and never change it", refused)
+    connection.close()
 
 sys.exit(1 if failed else 0)

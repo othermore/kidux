@@ -6,6 +6,12 @@
                                              the numbers, from the logs kept (or the files
                                              given); with --today, today's so far too; with
                                              --html, as a page rather than as text
+    ci/usage.py page [--view V] [--value X] [--today]
+                                             a page of https://apt.kidux.org/usage/: the
+                                             summary, the machines (ids) or one (id), the
+                                             addresses or one (address), a query of the
+                                             database (sql, KIDUX_USAGE_SQL), or the database's
+                                             table as CSV (csv)
 
 The archive is served by the project's web hosting at https://apt.kidux.org
 (D109), whose web server writes one access log a day, on
@@ -37,6 +43,11 @@ Identifiers made by tests never count: those that begin with sixteen zeros,
 and those listed in ci/usage-test-ids.txt. Only lines of apt.kidux.org are
 read, whatever else the space's log holds.
 
+To explore, every view but the summary first makes a database again from
+the logs kept, usage.sqlite beside them: a row a day, address, identifier,
+client, kind of request, package and user agent, with how many requests
+(SCHEMA says it), which a query reads and cannot change.
+
 It runs on the release machine and on the hosting itself, whose Python is
 3.7 (Debian 10), behind the page https://apt.kidux.org/usage/ that
 ci/publish-usage.sh puts there; so it keeps to what Python 3.7 has.
@@ -51,11 +62,14 @@ import html
 import ipaddress
 import netrc
 import os
+import csv
 import re
+import sqlite3
 import statistics
 import sys
 import urllib.error
 import urllib.request
+from urllib.parse import quote
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -88,37 +102,71 @@ def is_test(identifier: str, known: set[str]) -> bool:
     return identifier.startswith("0" * 16) or identifier in known
 
 
-def parse(lines, known: set[str] | None = None) -> dict:
-    """The day's numbers, by day, from access log lines (text)."""
+def records(lines, known: set[str] | None = None):
+    """Each line of apt.kidux.org, simplified: the day, the address, the
+    identifier if any, who asked (`kidux`, a Kidux machine, with or without
+    an identifier; `test`, a test machine's identifier; `apt`, another apt;
+    `web`, a browser or a crawler), what (`index`, InRelease; `lists`, the
+    other indexes; `package`, a .deb, with its name and version; `other`;
+    `error`, an answer that was not 200 or 304), and the user agent of a
+    client that is not Kidux's. What the database holds, a request a row."""
     known = test_ids() if known is None else known
-    days = defaultdict(lambda: {"ids": set(), "pairs": set(), "anonymous": set(),
-                                "other_apt": set(), "downloads": Counter(), "tests": set(),
-                                "other": 0})
     for line in lines:
         found = LINE.match(line.rstrip("\n"))
         if not found or found["site"] != SITE:
             continue
-        day = datetime.datetime.strptime(found["time"], "%d/%b/%Y:%H:%M:%S %z").date()
-        numbers = days[day]
-        agent, path, ok = found["agent"], found["path"], found["status"] in ("200", "304")
+        agent, path = found["agent"], found["path"]
         identified = IDENTIFIED.match(agent)
+        identifier = identified[1] if identified else None
         if not agent.startswith("Debian APT-HTTP/"):
+            client = "web"
+        elif identifier and is_test(identifier, known):
+            client = "test"
+        elif identifier or agent == KIDUX:
+            client = "kidux"
+        else:
+            client = "apt"
+        package = PACKAGE.match(path)
+        if found["status"] not in ("200", "304"):
+            kind = "error"
+        elif path == "/dists/stable/InRelease":
+            kind = "index"
+        elif package:
+            kind = "package"
+        elif path.startswith("/dists/"):
+            kind = "lists"
+        else:
+            kind = "other"
+        yield {"day": datetime.datetime.strptime(found["time"], "%d/%b/%Y:%H:%M:%S %z").date(),
+               "address": found["address"], "identifier": identifier, "client": client,
+               "kind": kind, "package": package[1] if package else None,
+               "version": package[2] if package else None,
+               "agent": agent if client in ("apt", "web") else None}
+
+
+def parse(lines, known: set[str] | None = None) -> dict:
+    """The day's numbers, by day, from access log lines (text)."""
+    days = defaultdict(lambda: {"ids": set(), "pairs": set(), "anonymous": set(),
+                                "other_apt": set(), "downloads": Counter(), "tests": set(),
+                                "other": 0})
+    for record in records(lines, known):
+        numbers, client, kind = days[record["day"]], record["client"], record["kind"]
+        if client == "web":
             numbers["other"] += 1
             continue
-        if identified and is_test(identified[1], known):
-            numbers["tests"].add(identified[1])
+        if client == "test":
+            numbers["tests"].add(record["identifier"])
             continue
-        if path == "/dists/stable/InRelease" and ok:
-            if identified:
-                numbers["ids"].add(identified[1])
-                numbers["pairs"].add((identified[1], found["address"]))
-            elif agent == KIDUX:
-                numbers["anonymous"].add(found["address"])
+        if kind == "index":
+            if client == "kidux" and record["identifier"]:
+                numbers["ids"].add(record["identifier"])
+                numbers["pairs"].add((record["identifier"], record["address"]))
+            elif client == "kidux":
+                numbers["anonymous"].add(record["address"])
             else:
-                numbers["other_apt"].add(found["address"])
-        package = PACKAGE.match(path)
-        if package and ok and agent.startswith(KIDUX):
-            numbers["downloads"][(package[1], package[2])] += 1
+                numbers["other_apt"].add(record["address"])
+        if kind == "package" and client == "kidux":
+            numbers["downloads"][(record["package"], record["version"])] += 1
     return dict(days)
 
 
@@ -291,7 +339,7 @@ def as_text(report: dict, today: datetime.date | None) -> str:
 
 
 def as_html(report: dict, today: datetime.date | None) -> str:
-    """The report as a page of its own, with nothing it fetches."""
+    """The report as the body of a page, which shell() frames."""
     mark = today.isoformat() if today else None
     e = html.escape
     sections = []
@@ -318,29 +366,10 @@ def as_html(report: dict, today: datetime.date | None) -> str:
         sections.append(f"<h2>Packages Kidux machines downloaded</h2><ul>{downloads}</ul>")
     tests = f" {report['tests']} identifiers of tests are not counted." if report["tests"] else ""
     made = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-    return f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>Kidux machines</title>
-<style>
-body {{ background: #fdf6f0; color: #24313f; font: 16px/1.5 system-ui, sans-serif;
-       margin: 0 auto; max-width: 960px; padding: 16px; }}
-h1 {{ font-size: 1.4em; }} h2 {{ font-size: 1.1em; margin-top: 1.6em; }}
-table {{ border-collapse: collapse; width: 100%; }}
-th, td {{ padding: 6px 8px; text-align: right; border-bottom: 1px solid #e6d9cc; }}
-th {{ font-weight: 600; font-size: 0.85em; }}
-th:first-child, td:first-child {{ text-align: left; white-space: nowrap; }}
-.wide {{ overflow-x: auto; }}
-p.note {{ color: #5b6672; font-size: 0.9em; }}
-</style></head><body>
-<h1>Kidux machines that follow apt.kidux.org</h1>
-<p>From {report["first"].isoformat()} to {report["last"].isoformat()}.{e(tests)}</p>
-{"".join(sections)}
-<p class="note">{e(LEGEND)}</p>
-<p class="note">Made {made} from the hosting's access logs (ci/usage.py).</p>
-</body></html>
-"""
+    return (f"<p>From {report['first'].isoformat()} to {report['last'].isoformat()}.{e(tests)}</p>"
+            + "".join(sections)
+            + f"<p class=\"note\">{e(LEGEND)}</p>"
+            + f"<p class=\"note\">Made {made} from the hosting's access logs (ci/usage.py).</p>")
 
 
 def report(files: list[Path], days: int | None, today: bool = False, page: bool = False) -> int:
@@ -359,7 +388,292 @@ def report(files: list[Path], days: int | None, today: bool = False, page: bool 
         print("No requests of apt.kidux.org in what was read.")
         return 0
     result = summary(numbers, days)
-    print(as_html(result, day) if page else as_text(result, day))
+    print(shell(TITLE, as_html(result, day)) if page else as_text(result, day))
+    return 0
+
+
+# --- The database, to explore ------------------------------------------------
+
+DATABASE = "usage.sqlite"
+TITLE = "Kidux machines that follow apt.kidux.org"
+SCHEMA = """
+CREATE TABLE requests (
+    day TEXT NOT NULL,          -- YYYY-MM-DD, the hosting's own day
+    address TEXT NOT NULL,      -- the address the request came from
+    identifier TEXT,            -- a Kidux machine's, when it shares usage statistics
+    client TEXT NOT NULL,       -- kidux, test, apt or web
+    kind TEXT NOT NULL,         -- index, lists, package, other or error
+    package TEXT, version TEXT, -- a package's, for kind package
+    agent TEXT,                 -- the user agent, for clients apt and web
+    requests INTEGER NOT NULL   -- how many such requests that day
+);
+CREATE VIEW machines AS         -- a Kidux machine with an identifier, a day and an address
+    SELECT day, identifier, address, SUM(requests) AS requests FROM requests
+    WHERE client = 'kidux' AND identifier IS NOT NULL GROUP BY day, identifier, address;
+CREATE VIEW anonymous AS        -- an address of Kidux machines without an identifier, a day
+    SELECT day, address, SUM(requests) AS requests FROM requests
+    WHERE client = 'kidux' AND identifier IS NULL GROUP BY day, address;
+"""
+COLUMNS_OF_REQUESTS = ("day", "address", "identifier", "client", "kind", "package", "version",
+                       "agent")
+EXAMPLES = (
+    ("Addresses with more than one machine",
+     "SELECT address, COUNT(DISTINCT identifier) AS machines FROM machines\n"
+     "GROUP BY address HAVING machines > 1 ORDER BY machines DESC"),
+    ("Machines seen at more than one address",
+     "SELECT identifier, COUNT(DISTINCT address) AS addresses, COUNT(DISTINCT day) AS days\n"
+     "FROM machines GROUP BY identifier HAVING addresses > 1 ORDER BY addresses DESC"),
+    ("Machines new each day",
+     "SELECT first, COUNT(*) AS machines FROM\n"
+     "(SELECT identifier, MIN(day) AS first FROM machines GROUP BY identifier)\n"
+     "GROUP BY first ORDER BY first"),
+    ("Packages downloaded by Kidux machines",
+     "SELECT package, version, SUM(requests) AS downloads FROM requests\n"
+     "WHERE client = 'kidux' AND kind = 'package' GROUP BY package, version\n"
+     "ORDER BY downloads DESC"),
+    ("Who else comes, by user agent",
+     "SELECT client, agent, SUM(requests) AS requests FROM requests\n"
+     "WHERE client IN ('apt', 'web') GROUP BY client, agent ORDER BY requests DESC"),
+)
+MOST_ROWS = 2000
+
+
+def build(lines, path: Path) -> Path:
+    """The database of these lines, made again whole: the kept logs are what
+    it is made from, so it is never out of step with them."""
+    counted = Counter(tuple(r[key] for key in COLUMNS_OF_REQUESTS[1:])
+                      + (r["day"].isoformat(),) for r in records(lines))
+    partial = path.with_name(path.name + ".partial")
+    if partial.exists():
+        partial.unlink()
+    connection = sqlite3.connect(str(partial))
+    with connection:
+        connection.executescript(SCHEMA)
+        connection.executemany(
+            "INSERT INTO requests (address, identifier, client, kind, package, version, agent, "
+            "day, requests) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            [key + (count,) for key, count in counted.items()])
+    connection.close()
+    partial.chmod(0o600)
+    partial.replace(path)
+    return path
+
+
+def read_only(path: Path) -> sqlite3.Connection:
+    """The database, opened so that a query may read it and nothing more."""
+    connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+    allowed = {sqlite3.SQLITE_SELECT, sqlite3.SQLITE_READ, sqlite3.SQLITE_FUNCTION}
+
+    def authorizer(action, *_):
+        return sqlite3.SQLITE_OK if action in allowed else sqlite3.SQLITE_DENY
+    connection.set_authorizer(authorizer)
+    steps = {"n": 0}
+
+    def progress():
+        steps["n"] += 1
+        return 1 if steps["n"] > 20000 else 0   # about a few seconds' work, then stop
+    connection.set_progress_handler(progress, 1000)
+    return connection
+
+
+def query(connection: sqlite3.Connection, sql: str, parameters=()) -> tuple[list, list]:
+    cursor = connection.execute(sql, parameters)
+    names = [column[0] for column in cursor.description or ()]
+    return names, cursor.fetchmany(MOST_ROWS)
+
+
+def link(view: str, value: str, text: str | None = None) -> str:
+    return (f'<a href="?view={view}&amp;value={html.escape(quote(value, safe=""))}">'
+            f"{html.escape(text if text is not None else value)}</a>")
+
+
+def table(names: list, rows: list, links: dict | None = None) -> str:
+    """Rows as a table; a column named in `links` links each value to a view."""
+    links = links or {}
+    head = "".join(f"<th>{html.escape(str(name))}</th>" for name in names)
+    body = []
+    for row in rows:
+        cells = []
+        for name, value in zip(names, row):
+            text = "" if value is None else str(value)
+            cells.append(f"<td>{link(links[name], text) if name in links and text else html.escape(text)}</td>")
+        body.append("<tr>" + "".join(cells) + "</tr>")
+    more = (f"<p class=\"note\">The first {MOST_ROWS} rows only.</p>"
+            if len(rows) >= MOST_ROWS else "")
+    return (f"<div class=\"wide\"><table><thead><tr>{head}</tr></thead>"
+            f"<tbody>{''.join(body)}</tbody></table></div>{more}")
+
+
+def shell(title: str, body: str) -> str:
+    nav = " · ".join(f'<a href="?view={view}">{name}</a>' for view, name in
+                     (("summary", "Summary"), ("ids", "Machines"), ("addresses", "Addresses"),
+                      ("sql", "Query"), ("csv", "Download the table")))
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Kidux machines</title>
+<style>
+body {{ background: #fdf6f0; color: #24313f; font: 16px/1.5 system-ui, sans-serif;
+       margin: 0 auto; max-width: 1100px; padding: 16px; }}
+h1 {{ font-size: 1.4em; }} h2 {{ font-size: 1.1em; margin-top: 1.6em; }}
+nav {{ margin-bottom: 1em; }}
+a {{ color: #1f5fa8; }}
+table {{ border-collapse: collapse; width: 100%; }}
+th, td {{ padding: 5px 8px; text-align: left; border-bottom: 1px solid #e6d9cc;
+          font-variant-numeric: tabular-nums; }}
+th {{ font-weight: 600; font-size: 0.85em; }}
+.wide {{ overflow-x: auto; }}
+p.note {{ color: #5b6672; font-size: 0.9em; }}
+textarea {{ width: 100%; font: 14px/1.4 ui-monospace, monospace; box-sizing: border-box; }}
+pre {{ white-space: pre-wrap; }}
+</style></head><body>
+<nav>{nav}</nav>
+<h1>{html.escape(title)}</h1>
+{body}
+</body></html>
+"""
+
+
+def movements(connection) -> list[tuple]:
+    """Every machine with an identifier: its first and last day, the days it
+    was seen, its addresses, how many times its address changed from one day
+    it was seen to the next, and the days between changes on average. A day
+    with two addresses takes the one it asked most from."""
+    seen = defaultdict(dict)
+    for day, identifier, address, requests in connection.execute(
+            "SELECT day, identifier, address, requests FROM machines ORDER BY day"):
+        best = seen[identifier].get(day)
+        if best is None or requests > best[1]:
+            seen[identifier][day] = (address, requests)
+    every_address = defaultdict(set)
+    for identifier, address in connection.execute("SELECT DISTINCT identifier, address FROM machines"):
+        every_address[identifier].add(address)
+    rows = []
+    for identifier, days in seen.items():
+        ordered = sorted(days)
+        changes = sum(1 for a, b in zip(ordered, ordered[1:]) if days[a][0] != days[b][0])
+        span = (datetime.date.fromisoformat(ordered[-1]) - datetime.date.fromisoformat(ordered[0])).days
+        rows.append((identifier, ordered[0], ordered[-1], len(ordered), len(every_address[identifier]),
+                     changes, f"{span / changes:.1f}" if changes else ""))
+    rows.sort(key=lambda row: (-row[3], row[0]))
+    return rows
+
+
+def machines_view(connection) -> str:
+    rows = movements(connection)
+    names = ["identifier", "first day", "last day", "days seen", "addresses", "address changes",
+             "days between changes"]
+    return (f"<p>{len(rows)} machines with an identifier. An address change is a day whose "
+            f"address differs from the day before it was seen; the days between changes are "
+            f"the days from its first to its last, over its changes.</p>"
+            + table(names, rows, {"identifier": "id"}))
+
+
+def machine_view(connection, identifier: str) -> str:
+    names, rows = query(connection, "SELECT day, address, requests FROM machines WHERE identifier = ? "
+                        "ORDER BY day", (identifier,))
+    rows = [(day, address, network(address), requests) for day, address, requests in rows]
+    _, downloads = query(connection, "SELECT day, package, version, requests FROM requests "
+                         "WHERE identifier = ? AND kind = 'package' ORDER BY day", (identifier,))
+    return (table(["day", "address", "range", "requests"], rows, {"address": "address"})
+            + "<h2>Packages it downloaded</h2>"
+            + (table(["day", "package", "version", "requests"], downloads) if downloads
+               else "<p>None.</p>"))
+
+
+def addresses_view(connection) -> str:
+    _, rows = query(connection, """
+        SELECT address, COUNT(DISTINCT identifier), COUNT(DISTINCT day), SUM(requests)
+        FROM machines GROUP BY address""")
+    _, anonymous = query(connection, "SELECT address, COUNT(DISTINCT day), SUM(requests) "
+                         "FROM anonymous GROUP BY address")
+    without = {address: (days, requests) for address, days, requests in anonymous}
+    merged = {address: [machines, days, requests, 0] for address, machines, days, requests in rows}
+    for address, (days, requests) in without.items():
+        merged.setdefault(address, [0, 0, 0, 0])[3] = days
+    table_rows = sorted(((address, network(address), m, d, r, a) for address, (m, d, r, a) in merged.items()),
+                        key=lambda row: (-row[2], -row[5], row[0]))
+    names = ["address", "range", "machines with id", "days with id", "requests with id",
+             "days without id"]
+    return (f"<p>{len(table_rows)} addresses Kidux machines came from.</p>"
+            + table(names, table_rows, {"address": "address"}))
+
+
+def address_view(connection, address: str) -> str:
+    _, rows = query(connection, "SELECT day, identifier, requests FROM machines WHERE address = ? "
+                    "ORDER BY day, identifier", (address,))
+    _, anonymous = query(connection, "SELECT day, requests FROM anonymous WHERE address = ? "
+                         "ORDER BY day", (address,))
+    near = network(address)
+    _, neighbours = query(connection, "SELECT DISTINCT address FROM requests WHERE client = 'kidux'")
+    others = sorted(a for (a,) in neighbours if network(a) == near and a != address)
+    return (f"<p>Range {html.escape(near)}"
+            + (": also " + ", ".join(link("address", a) for a in others) if others else ", no other address of it")
+            + ".</p><h2>Machines with an identifier</h2>"
+            + (table(["day", "identifier", "requests"], rows, {"identifier": "id"}) if rows else "<p>None.</p>")
+            + "<h2>Kidux requests without an identifier</h2>"
+            + (table(["day", "requests"], anonymous) if anonymous else "<p>None.</p>"))
+
+
+def sql_view(connection, sql: str) -> str:
+    examples = "".join(f"<li><a href=\"?view=sql&amp;example={i}\">{html.escape(name)}</a></li>"
+                       for i, (name, _) in enumerate(EXAMPLES))
+    form = (f'<form method="post" action="?view=sql"><textarea name="sql" rows="6">{html.escape(sql)}'
+            f'</textarea><p><button type="submit">Run</button></p></form>')
+    result = ""
+    if sql.strip():
+        try:
+            names, rows = query(connection, sql)
+            result = f"<p>{len(rows)} rows.</p>" + table(names, rows)
+        except sqlite3.Error as error:
+            result = f"<p><strong>{html.escape(str(error))}</strong></p>"
+    schema = html.escape(SCHEMA.strip())
+    return (form + result + f"<h2>Examples</h2><ul>{examples}</ul>"
+            f"<h2>The tables</h2><pre>{schema}</pre>")
+
+
+def explore(view: str, value: str, today: bool) -> int:
+    """A page of the hosting's usage/: the database made again from the logs
+    kept, and today's so far, then the view asked for."""
+    lines = []
+    for path in kept_files():
+        lines += read(path)
+    if today:
+        login, password = credentials()
+        body = download(datetime.date.today(), login, password)
+        if body:
+            lines += body.decode("utf-8", "replace").splitlines()
+    if view == "summary":
+        numbers = parse(lines)
+        body = (as_html(summary(numbers, None), datetime.date.today() if today else None)
+                if numbers else "<p>No requests yet.</p>")
+        print(shell(TITLE, body))
+        return 0
+    path = build(lines, KEPT / DATABASE)
+    connection = read_only(path)
+    if view == "csv":
+        writer = csv.writer(sys.stdout)
+        cursor = connection.execute("SELECT * FROM requests ORDER BY day, address")
+        writer.writerow([column[0] for column in cursor.description])
+        writer.writerows(cursor)
+        return 0
+    if view == "ids":
+        title, body = "Machines with an identifier", machines_view(connection)
+    elif view == "id":
+        title, body = f"Machine {value}", machine_view(connection, value)
+    elif view == "addresses":
+        title, body = "Addresses", addresses_view(connection)
+    elif view == "address":
+        title, body = f"Address {value}", address_view(connection, value)
+    elif view == "sql":
+        sql = os.environ.get("KIDUX_USAGE_SQL", "")
+        if value.isdigit() and int(value) < len(EXAMPLES):
+            sql = EXAMPLES[int(value)][1]
+        title, body = "Query", sql_view(connection, sql)
+    else:
+        title, body = "Kidux machines", "<p>No such page.</p>"
+    print(shell(title, body))
     return 0
 
 
@@ -438,9 +752,16 @@ def main(argv: list[str]) -> int:
     reporting.add_argument("--today", action="store_true")
     reporting.add_argument("--html", action="store_true")
     reporting.add_argument("files", nargs="*", type=Path)
+    exploring = commands.add_parser("page")
+    exploring.add_argument("--view", default="summary",
+                           choices=("summary", "ids", "id", "addresses", "address", "sql", "csv"))
+    exploring.add_argument("--value", default="")
+    exploring.add_argument("--today", action="store_true")
     asked = parser.parse_args(argv[1:])
     if asked.command == "fetch":
         return fetch(asked.since)
+    if asked.command == "page":
+        return explore(asked.view, asked.value, asked.today)
     return report(asked.files or kept_files(), asked.days, asked.today, asked.html)
 
 
