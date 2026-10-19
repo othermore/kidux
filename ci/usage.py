@@ -294,6 +294,23 @@ SHORT = {"ids": "with id", "anonymous": "no-id addr", "per_address": "per addr",
          "estimate": "estimate", "other_apt": "other apt", "downloads": "downloads",
          "other": "others"}
 TITLES = {"day": "Machines by day", "week": "Machines by week", "month": "Machines by month"}
+#: What each column of the summary means, shown by its ? on the page.
+SUMMARY_HELP = {
+    "with id": "Distinct machines that looked for updates and share usage statistics, "
+               "each counted once by its identifier.",
+    "addresses without id": "Distinct addresses of Kidux machines that do not share usage "
+                            "statistics. A household behind one address counts once; over a "
+                            "week or a month an address that changes counts more than once.",
+    "machines per address": "How many machines with an identifier usually come from one "
+                            "address: the median, so that a school's many machines do not "
+                            "pull it up.",
+    "estimated machines": "The machines with an identifier, and each address without one "
+                          "counted as the machines per address. The day's is the steadiest.",
+    "other apt": "Distinct addresses of apt clients that are not Kidux: a mirror, or someone "
+                 "trying the archive.",
+    "downloads": "Packages Kidux machines downloaded, each an install or an upgrade.",
+    "others": "Requests that were not apt's: browsers and crawlers.",
+}
 LEGEND = ("with id: distinct machines that looked for updates and share usage statistics. "
           "addresses without id: distinct addresses of Kidux machines that do not. "
           "machines per address: how many machines with an identifier usually come from one "
@@ -344,13 +361,21 @@ def as_text(report: dict, today: datetime.date | None) -> str:
     return "\n".join(out)
 
 
+def heading(name: str, help: dict | None) -> str:
+    """A column's heading, with a ? that explains it when there is a word for it."""
+    text = (help or {}).get(name)
+    mark = (f' <button type="button" class="help" aria-label="What this is" '
+            f'data-help="{html.escape(text)}">?</button>' if text else "")
+    return f"<th>{html.escape(str(name))}{mark}</th>"
+
+
 def as_html(report: dict, today: datetime.date | None) -> str:
     """The report as the body of a page, which shell() frames."""
     mark = today.isoformat() if today else None
     e = html.escape
     sections = []
     for kind, rows in report["tables"].items():
-        head = "".join(f"<th>{e(title)}</th>" for _, title in COLUMNS)
+        head = "".join(heading(title, SUMMARY_HELP) for _, title in COLUMNS)
         body = "".join("<tr>" + "".join(f"<td>{e(str(shown(row, key, mark)))}</td>"
                                          for key, _ in COLUMNS) + "</tr>"
                        for row in reversed(rows))
@@ -374,7 +399,6 @@ def as_html(report: dict, today: datetime.date | None) -> str:
     made = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     return (f"<p>From {report['first'].isoformat()} to {report['last'].isoformat()}.{e(tests)}</p>"
             + "".join(sections)
-            + f"<p class=\"note\">{e(LEGEND)}</p>"
             + f"<p class=\"note\">Made {made} from the hosting's access logs (ci/usage.py).</p>")
 
 
@@ -497,10 +521,11 @@ def link(view: str, value: str, text: str | None = None) -> str:
             f"{html.escape(text if text is not None else value)}</a>")
 
 
-def table(names: list, rows: list, links: dict | None = None) -> str:
-    """Rows as a table; a column named in `links` links each value to a view."""
+def table(names: list, rows: list, links: dict | None = None, help: dict | None = None) -> str:
+    """Rows as a table; a column named in `links` links each value to a view,
+    and one named in `help` has a ? that says what it is."""
     links = links or {}
-    head = "".join(f"<th>{html.escape(str(name))}</th>" for name in names)
+    head = "".join(heading(name, help) for name in names)
     body = []
     for row in rows:
         cells = []
@@ -534,14 +559,45 @@ table {{ border-collapse: collapse; width: 100%; }}
 th, td {{ padding: 5px 8px; text-align: left; border-bottom: 1px solid #e6d9cc;
           font-variant-numeric: tabular-nums; }}
 th {{ font-weight: 600; font-size: 0.85em; }}
+td:first-child {{ white-space: nowrap; }}
 .wide {{ overflow-x: auto; }}
 p.note {{ color: #5b6672; font-size: 0.9em; }}
 textarea {{ width: 100%; font: 14px/1.4 ui-monospace, monospace; box-sizing: border-box; }}
 pre {{ white-space: pre-wrap; }}
+button.help {{ border: 1px solid #b9a894; border-radius: 50%; background: #fff; color: #5b6672;
+              font: 600 11px/1 system-ui, sans-serif; width: 17px; height: 17px; padding: 0;
+              margin-left: 3px; cursor: help; vertical-align: 1px; }}
+#tip {{ position: fixed; display: none; max-width: 300px; background: #24313f; color: #fdf6f0;
+        font-size: 0.85em; font-weight: 400; line-height: 1.4; padding: 8px 10px;
+        border-radius: 6px; z-index: 1; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); }}
 </style></head><body>
 <nav>{nav}</nav>
 <h1>{html.escape(title)}</h1>
 {body}
+<div id="tip" role="tooltip"></div>
+<script>
+// A column's ? shows what it is: on hover, on focus, or tapped.
+const tip = document.getElementById("tip");
+function show(button) {{
+  tip.textContent = button.dataset.help;
+  tip.style.display = "block";
+  const box = button.getBoundingClientRect();
+  const left = Math.min(box.left, window.innerWidth - tip.offsetWidth - 8);
+  tip.style.left = Math.max(8, left) + "px";
+  const below = box.bottom + 6;
+  tip.style.top = (below + tip.offsetHeight < window.innerHeight
+                   ? below : box.top - tip.offsetHeight - 6) + "px";
+}}
+function hide() {{ tip.style.display = "none"; }}
+for (const button of document.querySelectorAll("button.help")) {{
+  button.addEventListener("mouseenter", () => show(button));
+  button.addEventListener("mouseleave", hide);
+  button.addEventListener("focus", () => show(button));
+  button.addEventListener("blur", hide);
+  button.addEventListener("click", () => tip.style.display === "block" ? hide() : show(button));
+}}
+window.addEventListener("scroll", hide, {{ passive: true }});
+</script>
 </body></html>
 """
 
@@ -575,10 +631,14 @@ def machines_view(connection) -> str:
     rows = movements(connection)
     names = ["identifier", "first day", "last day", "days seen", "addresses", "address changes",
              "days between changes"]
+    help = {"days seen": "Days it looked for updates.",
+            "addresses": "Distinct addresses it came from.",
+            "address changes": "Days whose address differs from the day before it was seen.",
+            "days between changes": "From its first day to its last, over its address changes."}
     return (f"<p>{len(rows)} machines with an identifier. An address change is a day whose "
             f"address differs from the day before it was seen; the days between changes are "
             f"the days from its first to its last, over its changes.</p>"
-            + table(names, rows, {"identifier": "id"}))
+            + table(names, rows, {"identifier": "id"}, help))
 
 
 def machine_view(connection, identifier: str) -> str:
@@ -607,8 +667,14 @@ def addresses_view(connection) -> str:
                         key=lambda row: (-row[2], -row[5], row[0]))
     names = ["address", "range", "machines with id", "days with id", "requests with id",
              "days without id"]
+    help = {"range": "Its /24, or for IPv6 its /48: near addresses, often one provider's or "
+                     "one place's.",
+            "machines with id": "Distinct machines with an identifier that came from it.",
+            "days with id": "Days a machine with an identifier came from it.",
+            "requests with id": "Requests of those machines from it.",
+            "days without id": "Days Kidux machines without an identifier came from it."}
     return (f"<p>{len(table_rows)} addresses Kidux machines came from.</p>"
-            + table(names, table_rows, {"address": "address"}))
+            + table(names, table_rows, {"address": "address"}, help))
 
 
 def address_view(connection, address: str) -> str:
@@ -671,12 +737,19 @@ def packages_view(connection) -> str:
     rows = installed(connection)
     names = ["package", "machines with id", f"in the last {PLACES_DAYS} days", "addresses without id",
              "newest version", "machines on it"]
+    help = {"machines with id": "Machines with an identifier that downloaded it, to install it or "
+                                "to upgrade it.",
+            f"in the last {PLACES_DAYS} days": "The same, over the last days only.",
+            "addresses without id": "Addresses of Kidux machines without an identifier that "
+                                    "downloaded it.",
+            "newest version": "The newest version downloaded.",
+            "machines on it": "Machines with an identifier that downloaded the newest version."}
     return ("<p>A machine counts for a package when it downloaded it, to install it or to "
             "upgrade it. Removing a package asks the archive for nothing, so a machine that "
             "removed one still counts; and a package installed before the archive was at "
             "apt.kidux.org shows the first time it is upgraded from here. The most machines "
             "first: what is worth working on.</p>"
-            + (table(names, rows) if rows else "<p>No package downloaded yet.</p>"))
+            + (table(names, rows, help=help) if rows else "<p>No package downloaded yet.</p>"))
 
 
 def sql_view(connection, sql: str) -> str:
