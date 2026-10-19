@@ -6,7 +6,7 @@ name = "Español"
 
 [meta]
 title = "Kidux: el primer ordenador de un niño, seguro y listo para aprender"
-description = "Un sistema operativo seguro, educativo y sin distracciones para el primer ordenador de tus hijos. Incluye módulos de aprendizaje listos para usar y funciona en equipos nuevos o antiguos. Gratuito para las familias."
+description = "Un sistema operativo seguro, educativo y sin distracciones para el primer ordenador de tus hijos. Incluye módulos de aprendizaje listos para usar y funciona en equipos nuevos o antiguos. Software libre y gratuito para todos."
 
 [nav]
 label = "Secciones"
@@ -24,7 +24,7 @@ lead = "Kidux transforma cualquier ordenador en un entorno educativo protegido, 
 get = "Consigue Kidux"
 docs = "Leer el manual"
 support = "Apoya el proyecto"
-note = "Gratis para las familias · En español y en inglés · Código publicado"
+note = "Gratis para todos · En español y en inglés · Software libre"
 picture = "La pantalla de un niño en Kidux, con un dibujo por cada módulo de aprendizaje"
 
 [pillars.safe]
@@ -214,7 +214,7 @@ button = "Cuéntanos tu colegio"
 subject = "Kidux en nuestro colegio"
 
 [licence.code]
-title = "Código libre y publicado"
+title = "Código que cualquiera puede estudiar y cambiar"
 text = "El código fuente completo está publicado en GitHub bajo la GNU GPLv3, y cualquiera puede usarlo, estudiarlo, modificarlo y compartirlo."
 button = "Ver el repositorio"
 

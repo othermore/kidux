@@ -6,7 +6,7 @@ name = "English"
 
 [meta]
 title = "Kidux: A child's first computer, safe and ready to learn"
-description = "A complete, safe, and distraction-free operating system for children. Features ready-to-use learning modules on new or existing computers. Free for families."
+description = "A complete, safe, and distraction-free operating system for children. Features ready-to-use learning modules on new or existing computers. Free software, free for everyone."
 
 [nav]
 label = "Sections"
@@ -24,7 +24,7 @@ lead = "Kidux turns any computer into a protected educational environment design
 get = "Get Kidux"
 docs = "Read the guide"
 support = "Support the project"
-note = "Free for families · English and Spanish · Published source code"
+note = "Free for everyone · English and Spanish · Free software"
 picture = "A child's screen in Kidux, showing a tile for each learning module"
 
 [pillars.safe]
@@ -214,7 +214,7 @@ button = "Tell us about your school"
 subject = "Kidux at our school"
 
 [licence.code]
-title = "Free and published code"
+title = "Code anyone may study and change"
 text = "Every line of source code is published on GitHub under the GNU GPLv3, and anyone may use it, study it, change it and share it."
 button = "View the code"
 

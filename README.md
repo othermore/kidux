@@ -10,7 +10,7 @@
 
 With Kidux, each child enjoys a personal digital space that genuinely feels like their own: their chosen avatar and name on the sign-in screen, their personal password, and their preferred language. At the same time, adults retain comprehensive control: children can only access authorized educational modules, and only during the daily hours or schedules set by their family.
 
-Kidux is completely free for home use by families, and all its source code is openly published on GitHub. Built on a proven Debian foundation, it provides bilingual English and Spanish support from day one.
+Kidux is free software, free for everyone, at home or at school, and all its source code is on GitHub for anyone to study, change and share. Built on a proven Debian foundation, it provides bilingual English and Spanish support from day one.
 
 ## What a child sees
 

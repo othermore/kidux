@@ -10,7 +10,7 @@
 
 Con Kidux, cada menor dispone de un espacio digital que siente verdaderamente suyo: su nombre y su avatar en la pantalla de bienvenida, su propia contraseña personal y su idioma preferido. Al mismo tiempo, los adultos mantienen el control total: solo estarán disponibles los módulos de aprendizaje previamente autorizados, y únicamente durante el horario o tiempo diario que la familia decida.
 
-Kidux es totalmente gratuito para las familias y su código fuente está publicado abiertamente en GitHub. Está construido sobre una base sólida y probada de Debian, disponible en español y en inglés desde el primer día.
+Kidux es software libre y gratuito para todos, en casa o en el colegio, y su código fuente está en GitHub para que cualquiera pueda estudiarlo, modificarlo y compartirlo. Está construido sobre una base sólida y probada de Debian, disponible en español y en inglés desde el primer día.
 
 ## Lo que ve un niño
 
