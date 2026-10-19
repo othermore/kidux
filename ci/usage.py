@@ -265,20 +265,22 @@ def summary(numbers: dict, days: int | None) -> dict:
     every = sorted(numbers)
     if days:
         every = every[-days:]
-    tables = {}
+    def row(period: str, days: list) -> dict:
+        n = merged(numbers, days)
+        per_address, total = estimate(n)
+        return {"period": period, "ids": len(n["ids"]), "anonymous": len(n["anonymous"]),
+                "per_address": per_address, "estimate": round(total),
+                "other_apt": len(n["other_apt"]),
+                "downloads": sum(n["downloads"].values()), "other": n["other"]}
+
+    # Every machine ever seen first, each counted once however many days it
+    # looked, then the days, the weeks and the months.
+    tables = {"all": [row(f"since {every[0].isoformat()}", every)]}
     for kind in ("day", "week", "month"):
         grouped = defaultdict(list)
         for day in every:
             grouped[period_of(day, kind)].append(day)
-        rows = []
-        for period in sorted(grouped)[-SHOWN[kind]:]:
-            n = merged(numbers, grouped[period])
-            per_address, total = estimate(n)
-            rows.append({"period": period, "ids": len(n["ids"]), "anonymous": len(n["anonymous"]),
-                         "per_address": per_address, "estimate": round(total),
-                         "other_apt": len(n["other_apt"]),
-                         "downloads": sum(n["downloads"].values()), "other": n["other"]})
-        tables[kind] = rows
+        tables[kind] = [row(period, grouped[period]) for period in sorted(grouped)[-SHOWN[kind]:]]
     recent = [day for day in every if day > every[-1] - datetime.timedelta(days=PLACES_DAYS)]
     window = merged(numbers, recent)
     whole = merged(numbers, every)
@@ -293,19 +295,21 @@ COLUMNS = (("period", ""), ("ids", "with id"), ("anonymous", "addresses without 
 SHORT = {"ids": "with id", "anonymous": "no-id addr", "per_address": "per addr",
          "estimate": "estimate", "other_apt": "other apt", "downloads": "downloads",
          "other": "others"}
-TITLES = {"day": "Machines by day", "week": "Machines by week", "month": "Machines by month"}
+TITLES = {"all": "Machines over all time", "day": "Machines by day", "week": "Machines by week", "month": "Machines by month"}
 #: What each column of the summary means, shown by its ? on the page.
 SUMMARY_HELP = {
     "with id": "Distinct machines that looked for updates and share usage statistics, "
-               "each counted once by its identifier.",
+               "each counted once by its identifier, however many days it looked.",
     "addresses without id": "Distinct addresses of Kidux machines that do not share usage "
                             "statistics. A household behind one address counts once; over a "
-                            "week or a month an address that changes counts more than once.",
+                            "week, a month or all time, an address that changes counts more "
+                            "than once.",
     "machines per address": "How many machines with an identifier usually come from one "
                             "address: the median, so that a school's many machines do not "
                             "pull it up.",
     "estimated machines": "The machines with an identifier, and each address without one "
-                          "counted as the machines per address. The day's is the steadiest.",
+                          "counted as the machines per address. The day's is the steadiest; "
+                          "over all time it is the most an estimate.",
     "other apt": "Distinct addresses of apt clients that are not Kidux: a mirror, or someone "
                  "trying the archive.",
     "downloads": "Packages Kidux machines downloaded, each an install or an upgrade.",

@@ -112,6 +112,10 @@ check("days, ISO weeks and months each have their table",
       and [r["period"] for r in summary["tables"]["week"]] == ["2026-W42", "2026-W43"]
       and [r["period"] for r in summary["tables"]["month"]] == ["2026-10"],
       str({k: [r["period"] for r in v] for k, v in summary["tables"].items()}))
+check("all time counts every machine once, from the first day",
+      summary["tables"]["all"][0]["period"] == "since 2026-10-18"
+      and summary["tables"]["all"][0]["ids"] == 3 + 10
+      and list(summary["tables"])[0] == "all", str(summary["tables"]["all"]))
 check("a month counts a machine once however many days it looked",
       summary["tables"]["month"][0]["ids"] == 3 + 10, str(summary["tables"]["month"][0]))
 
