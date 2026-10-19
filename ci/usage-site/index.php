@@ -14,6 +14,7 @@
 $private = dirname(__DIR__, 2) . '/kidux-usage';
 putenv('KIDUX_USAGE_DIR=' . $private . '/logs');
 putenv('KIDUX_APT_HOSTING=' . $private . '/logs.netrc');
+putenv('KIDUX_USAGE_LOGS=' . $private . '/logs.url');
 $usage = '/usr/bin/python3 ' . escapeshellarg($private . '/usage.py');
 
 $views = ['summary', 'ids', 'id', 'addresses', 'address', 'packages', 'sql', 'csv'];

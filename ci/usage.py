@@ -14,14 +14,19 @@
                                              table as CSV (csv)
 
 The archive is served by the project's web hosting at https://apt.kidux.org
-(D109), whose web server writes one access log a day, on
-https://logs.cluster131.hosting.ovh.net/<space>/ behind the logs user's
-password. `fetch` downloads each day it has not kept, as gzip, into
-~/.local/share/kidux/usage/ (KIDUX_USAGE_DIR names another folder), so that
-the history does not depend on how long the hosting keeps it; the logs
-user's line is in the same netrc file as the SFTP one,
-~/.config/kidux/apt-hosting.netrc (`machine logs.cluster131.hosting.ovh.net
-login <user> password <password>`), and nothing here prints or passes it.
+(D109), whose web server writes one access log a day for every site of the
+hosting, in a space behind the logs user's password: the day being written
+as osl/<space>-DD-MM-YYYY.log, each day done as
+logs/logs-MM-YYYY/<space>-DD-MM-YYYY.log.gz. The space's address is the
+one line of ~/.config/kidux/usage-logs.url (KIDUX_USAGE_LOGS names another
+file), kept out of the repository since it names the hosting's account.
+`fetch` keeps each day not kept yet, its lines of apt.kidux.org alone and
+gzipped, in ~/.local/share/kidux/usage/ (KIDUX_USAGE_DIR names another
+folder), so that the history does not depend on how long the hosting keeps
+it, and nothing of the other sites' visitors is kept. The logs user's line
+is in the same netrc file as the SFTP one, ~/.config/kidux/apt-hosting.netrc
+(`machine <the space's host> login <user> password <password>`), and
+nothing here prints or passes it.
 
 `report` counts, for each day, the machines that looked for updates, that
 is, fetched dists/stable/InRelease, as apt does once a day:
@@ -69,13 +74,13 @@ import statistics
 import sys
 import urllib.error
 import urllib.request
+import urllib.parse
 from urllib.parse import quote
 from collections import Counter, defaultdict
 from pathlib import Path
 
-HOST = "logs.cluster131.hosting.ovh.net"
-SPACE = "kidux.org"
 SITE = "apt.kidux.org"
+LOGS = Path(os.environ.get("KIDUX_USAGE_LOGS", Path.home() / ".config/kidux/usage-logs.url"))
 NETRC = Path(os.environ.get("KIDUX_APT_HOSTING", Path.home() / ".config/kidux/apt-hosting.netrc"))
 KEPT = Path(os.environ.get("KIDUX_USAGE_DIR", Path.home() / ".local/share/kidux/usage"))
 TEST_IDS = Path(__file__).resolve().parent / "usage-test-ids.txt"
@@ -171,7 +176,7 @@ def parse(lines, known: set[str] | None = None) -> dict:
 
 
 def kept_files() -> list[Path]:
-    return sorted(KEPT.glob(f"{SPACE}-*.log.gz"), key=lambda p: day_of(p))
+    return sorted(KEPT.glob("apt-*.log.gz"), key=lambda p: day_of(p))
 
 
 def day_of(path: Path) -> datetime.date:
@@ -314,8 +319,9 @@ def as_text(report: dict, today: datetime.date | None) -> str:
         out.append(TITLES[kind])
         out.append(f"{'':<14}" + "".join(f"{SHORT[key]:>12}" for key, _ in COLUMNS[1:]))
         for row in rows:
-            out.append(f"{shown(row, 'period', mark):<14}"
-                       + "".join(f"{shown(row, key, mark):>12}" for key, _ in COLUMNS[1:]))
+            out.append(f"{row['period']:<14}"
+                       + "".join(f"{shown(row, key, mark):>12}" for key, _ in COLUMNS[1:])
+                       + ("  (so far)" if row["period"] == mark else ""))
         out.append("")
     p = report["places"]
     out.append(f"Places with {MANY} machines or more, over the last {PLACES_DAYS} days")
@@ -736,25 +742,46 @@ def explore(view: str, value: str, today: bool) -> int:
     return 0
 
 
-def credentials() -> tuple[str, str]:
+def space() -> tuple[str, str, str]:
+    """The logs space's address, its host, and its name."""
     try:
-        entry = netrc.netrc(NETRC).authenticators(HOST)
+        url = LOGS.read_text(encoding="utf-8").strip().rstrip("/") + "/"
+    except FileNotFoundError:
+        sys.exit(f"{sys.argv[0]}: {LOGS} is missing: the logs space's address, "
+                 "https://logs.clusterNNN.hosting.ovh.net/<space>/")
+    parts = urllib.parse.urlsplit(url)
+    return url, parts.hostname, parts.path.strip("/").split("/")[-1]
+
+
+def credentials() -> tuple[str, str]:
+    host = space()[1]
+    try:
+        entry = netrc.netrc(NETRC).authenticators(host)
     except (FileNotFoundError, netrc.NetrcParseError) as error:
         sys.exit(f"{sys.argv[0]}: cannot read {NETRC}: {error}")
     if not entry:
-        sys.exit(f"{sys.argv[0]}: {NETRC} has no line for {HOST}: "
-                 f"machine {HOST} login <logs user> password <password>")
+        sys.exit(f"{sys.argv[0]}: {NETRC} has no line for {host}: "
+                 f"machine {host} login <logs user> password <password>")
     return entry[0], entry[2]
 
 
+def only_ours(body: bytes) -> bytes:
+    """The lines of apt.kidux.org, out of every site's of the hosting."""
+    return b"".join(line for line in body.splitlines(keepends=True)
+                    if line.split(b" ", 2)[1:2] == [SITE.encode()])
+
+
 def download(day: datetime.date, login: str, password: str) -> bytes | None:
-    """The day's log, or None when the hosting has none for it."""
+    """The day's lines of apt.kidux.org, or None when the hosting has no log
+    for that day: the one being written for today, the gzipped one for a
+    day done, or, for yesterday, the one being written if it is not done yet."""
+    url, host, name = space()
     stamp = day.strftime("%d-%m-%Y")
-    candidates = [f"https://{HOST}/{SPACE}/osl/{SPACE}-{stamp}.log",
-                  f"https://{HOST}/{SPACE}/osl/{SPACE}-{stamp}.log.gz",
-                  f"https://{HOST}/{SPACE}/logs/logs-{day:%m-%Y}/{SPACE}-{stamp}.log.gz"]
+    being_written = f"{url}osl/{name}-{stamp}.log"
+    done = f"{url}logs/logs-{day:%m-%Y}/{name}-{stamp}.log.gz"
+    candidates = [being_written] if day >= datetime.date.today() else [done, being_written]
     manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-    manager.add_password(None, f"https://{HOST}/", login, password)
+    manager.add_password(None, f"https://{host}/", login, password)
     opener = urllib.request.build_opener(urllib.request.HTTPBasicAuthHandler(manager))
     for url in candidates:
         try:
@@ -770,7 +797,7 @@ def download(day: datetime.date, login: str, password: str) -> bytes | None:
             continue
         if url.endswith(".gz"):
             body = gzip.decompress(body)
-        return body
+        return only_ours(body)
     return None
 
 
@@ -785,7 +812,7 @@ def fetch(since: datetime.date) -> int:
             if body is None:
                 missing.append(day)
             else:
-                target = KEPT / f"{SPACE}-{day.isoformat()}.log.gz"
+                target = KEPT / f"apt-{day.isoformat()}.log.gz"
                 # Written aside and renamed, so that a report read meanwhile
                 # never finds half a day.
                 partial = target.with_name(target.name + ".partial")

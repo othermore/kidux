@@ -409,13 +409,16 @@ ci/usage.py fetch              every day's access log not kept yet, up to yester
 ci/usage.py report [--days N]  the machines per day, and the packages they downloaded
 ```
 
-The hosting writes one access log a day for the space `kidux.org`, at
-`https://logs.cluster131.hosting.ovh.net/kidux.org/osl/kidux.org-DD-MM-YYYY.log`,
-behind the password of a logs user, about five minutes behind the requests;
-how long it keeps them is not said, so `ci/usage.py fetch` keeps every day
-it has not kept yet, gzipped, in `~/.local/share/kidux/usage/` on the
-release machine, which also keeps the year of connection logs a hosting's
-customer is asked to. The logs user's line is in the same netrc file as the
+The hosting writes one access log a day for all its sites, in a space
+behind the password of a logs user, about five minutes behind the
+requests: the day being written as `osl/<space>-DD-MM-YYYY.log`, each day
+done as `logs/logs-MM-YYYY/<space>-DD-MM-YYYY.log.gz`. How long it keeps
+them is not said, so `ci/usage.py fetch` keeps every day it has not kept
+yet, its lines of `apt.kidux.org` alone, gzipped, which also keeps the year
+of connection logs a hosting's customer is asked to, and nothing of the
+other sites' visitors. The space's address is the one line of
+`~/.config/kidux/usage-logs.url`, out of the repository since it names the
+hosting's account; the logs user's line is in the same netrc file as the
 SFTP one. `report` reads only `apt.kidux.org`'s lines: a machine counts on a
 day when it fetched `InRelease`, by its identifier or, without one, by its
 address; an identifier that begins with sixteen zeros, or that

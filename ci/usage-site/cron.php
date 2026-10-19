@@ -5,5 +5,6 @@
 
 putenv('KIDUX_USAGE_DIR=' . __DIR__ . '/logs');
 putenv('KIDUX_APT_HOSTING=' . __DIR__ . '/logs.netrc');
+putenv('KIDUX_USAGE_LOGS=' . __DIR__ . '/logs.url');
 passthru('/usr/bin/python3 ' . escapeshellarg(__DIR__ . '/usage.py') . ' fetch 2>&1', $failed);
 exit($failed);

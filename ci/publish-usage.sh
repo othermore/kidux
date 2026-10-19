@@ -10,31 +10,34 @@
 #
 #   kidux-usage/      in the account's home, which no site serves: usage.py,
 #                     its list of tests' identifiers, the daily task
-#                     cron.php, the logs user's line (logs.netrc), the
-#                     page's password (.htpasswd), and logs/, every day's
-#                     log as usage.py keeps it
+#                     cron.php, the logs space's address (logs.url), the
+#                     logs user's line (logs.netrc), the page's password
+#                     (.htpasswd), and logs/, every day's lines of
+#                     apt.kidux.org as usage.py keeps them
 #   apt/usage/        the page, index.php, and the .htaccess that asks for
 #                     the password
 #
 # What it needs on this machine, outside the repository: the netrc file of
 # ci/publish-public.sh, ~/.config/kidux/apt-hosting.netrc, with a line for
-# logs.cluster131.hosting.ovh.net beside the SFTP one; and the page's
-# password as Apache reads it, ~/.config/kidux/usage-page.htpasswd. Neither
-# is printed. Run it again whenever ci/usage.py or ci/usage-site/ changes.
+# the logs space's host beside the SFTP one; the logs space's address,
+# ~/.config/kidux/usage-logs.url; and the page's password as Apache reads
+# it, ~/.config/kidux/usage-page.htpasswd. None is printed. Run it again
+# whenever ci/usage.py or ci/usage-site/ changes.
 
 set -eu
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 NETRC="${KIDUX_APT_HOSTING:-$HOME/.config/kidux/apt-hosting.netrc}"
 HTPASSWD="${KIDUX_USAGE_HTPASSWD:-$HOME/.config/kidux/usage-page.htpasswd}"
-LOGS_HOST=logs.cluster131.hosting.ovh.net
+LOGS_URL="${KIDUX_USAGE_LOGS:-$HOME/.config/kidux/usage-logs.url}"
 
-for file in "$NETRC" "$HTPASSWD"; do
+for file in "$NETRC" "$HTPASSWD" "$LOGS_URL"; do
     if [ ! -r "$file" ]; then
         echo "$0: $file is missing (docs/dev/packaging.md, \"The public archive\")" >&2
         exit 1
     fi
 done
+LOGS_HOST="$(sed -n 's|^https://\([^/]*\)/.*|\1|p' "$LOGS_URL" | head -1)"
 if ! grep -q "^machine $LOGS_HOST " "$NETRC"; then
     echo "$0: $NETRC has no line for $LOGS_HOST, the logs user's" >&2
     exit 1
@@ -68,6 +71,7 @@ put "$REPO_ROOT/ci/usage.py" "$PRIVATE/usage.py" 600
 put "$REPO_ROOT/ci/usage-test-ids.txt" "$PRIVATE/usage-test-ids.txt" 600
 put "$REPO_ROOT/ci/usage-site/cron.php" "$PRIVATE/cron.php" 600
 put "$WORK/logs.netrc" "$PRIVATE/logs.netrc" 600
+put "$LOGS_URL" "$PRIVATE/logs.url" 600
 put "$HTPASSWD" "$PRIVATE/.htpasswd" 644
 sftp -Q "chmod 711 $PRIVATE" "$REMOTE$HOME_DIR/" -o /dev/null
 
