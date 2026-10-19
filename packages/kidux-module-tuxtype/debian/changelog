@@ -1,3 +1,13 @@
+kidux-module-tuxtype (0.1.5) trixie; urgency=medium
+
+  * Lessons of Kidux's own, twelve in Spanish and twelve in English, in a
+    theme of Tux Typing's for each language: Debian's Spanish theme had none,
+    so that its list showed English file names and opened nothing.
+  * The Spanish keyboard's table of fingers, with ñ, the comma and the full
+    stop, which Debian's Spanish theme lacks.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 21:26:50 +0200
+
 kidux-module-tuxtype (0.1.4) trixie; urgency=medium
 
   * The description an adult reads on the Modules page, written at more length.

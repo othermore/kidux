@@ -116,6 +116,10 @@ can. Each phase assumes what it builds on is reasonably stable.
       is accepted upstream.
 - [x] kidux-module-basic built from wwwBASIC as published, at the commit
       that holds the SLEEP fix, with no patch of Kidux's left (D111).
+- [x] Tux Typing's lessons: twelve of Kidux's own, in Spanish and English,
+      in a theme of Tux Typing's for each language, with the Spanish
+      keyboard's ñ; and a module ended by force killed five seconds on
+      (D112).
 - [x] A web module that is a door to one website on the internet, held to
       that site's hosts (4.12, D85).
 - [x] CodeCombat, a door to codecombat.com, nothing of it shipped, not

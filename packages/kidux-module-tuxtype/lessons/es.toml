@@ -1,0 +1,109 @@
+# Kidux's typing lessons for Tux Typing, in Spanish (lessons/build.py, D112).
+# One lesson a [[lesson]]: the keys it brings, and the name its file shows
+# when they are not plain letters; the lines that place the fingers; a drill
+# of those keys, and a line of words made only of keys already learnt. Every
+# line fits Tux Typing's screen and every practice one line of it, which the
+# build checks.
+
+language = "es"
+locale = "es_ES.UTF-8"
+# The theme whose words and pictures the lessons' theme takes, for the games.
+base = "espanol"
+keyboard = "keyboard-es.lst"
+file = "Lección {number:02d} - {name}"
+
+[words]
+title = "Lección {number}: {keys}"
+start = "Pulsa Intro para empezar"
+practise = "Pulsa la P para practicar"
+now_words = "Ahora, palabras con lo aprendido."
+well_done = "¡Muy bien!"
+next = "Sigue con la lección {next}."
+last = "Has terminado todas las lecciones."
+back = "Pulsa Intro para volver"
+
+[[lesson]]
+keys = "a s d f"
+intro = ["Pon los dedos de la mano izquierda", "sobre a, s, d y f."]
+fingers = ["Meñique en la a, anular en la s,", "corazón en la d e índice en la f."]
+drill = "asdf fdsa as df sa fd"
+words = "da das fa dada sasa"
+
+[[lesson]]
+keys = "j k l ñ"
+intro = ["Pon los dedos de la mano derecha", "sobre j, k, l y ñ."]
+fingers = ["Índice en la j, corazón en la k,", "anular en la l y meñique en la ñ."]
+drill = "jklñ ñlkj jk lñ kj ñl"
+words = "sala las alas falda"
+
+[[lesson]]
+keys = "g h"
+intro = ["Los índices se estiran hacia dentro:", "el izquierdo a la g, el derecho a la h."]
+fingers = ["Vuelve siempre a la f y a la j", "después de cada letra."]
+drill = "fgf jhj gh hg fgh jhg"
+words = "gala hada haga lasaña"
+
+[[lesson]]
+keys = "e i"
+intro = ["Los dedos corazón suben una fila:", "el izquierdo a la e, el derecho a la i."]
+fingers = ["La e con el corazón izquierdo,", "la i con el corazón derecho."]
+drill = "ded kik de ki ei ie dei"
+words = "idea sale dile fiel seda"
+
+[[lesson]]
+keys = "r u"
+intro = ["Los índices suben una fila:", "el izquierdo a la r, el derecho a la u."]
+fingers = ["La r con el índice izquierdo,", "la u con el índice derecho."]
+drill = "frf juj fr ju ru ur fru"
+words = "rueda furia duda lugar"
+
+[[lesson]]
+keys = "t y"
+intro = ["Los índices suben y se estiran:", "el izquierdo a la t, el derecho a la y."]
+fingers = ["La t con el índice izquierdo,", "la y con el índice derecho."]
+drill = "ftf jyj ft jy ty yt fty"
+words = "ayer tarde tuya rueda"
+
+[[lesson]]
+keys = "w o"
+intro = ["Los anulares suben una fila:", "el izquierdo a la w, el derecho a la o."]
+fingers = ["La w con el anular izquierdo,", "la o con el anular derecho."]
+drill = "sws lol sw lo wo ow swo"
+words = "hola oso todo kiwi"
+
+[[lesson]]
+keys = "q p"
+intro = ["Los meñiques suben una fila:", "el izquierdo a la q, el derecho a la p."]
+fingers = ["La q con el meñique izquierdo,", "la p con el meñique derecho."]
+drill = "aqa ñpñ aq ñp qp pq aqp"
+words = "queso papa pito quiero"
+
+[[lesson]]
+keys = "v m"
+intro = ["Los índices bajan una fila:", "el izquierdo a la v, el derecho a la m."]
+fingers = ["La v con el índice izquierdo,", "la m con el índice derecho."]
+drill = "fvf jmj fv jm vm mv fvm"
+words = "mesa vaso mira verde"
+
+[[lesson]]
+keys = "b n"
+intro = ["Los índices bajan y se estiran:", "el izquierdo a la b, el derecho a la n."]
+fingers = ["La b con el índice izquierdo,", "la n con el índice derecho."]
+drill = "fbf jnj fb jn bn nb fbn"
+words = "nube bonita nadar beber"
+
+[[lesson]]
+keys = "c ,"
+name = "c y coma"
+intro = ["Los dedos corazón bajan una fila:", "el izquierdo a la c, el derecho a la coma."]
+fingers = ["La c con el corazón izquierdo,", "la coma con el corazón derecho."]
+drill = "dcd k,k dc k, c, ,c dck,"
+words = "casa, cama, coche, cine"
+
+[[lesson]]
+keys = "x z ."
+name = "x z y punto"
+intro = ["Abajo a la izquierda, la x y la z;", "abajo a la derecha, el punto."]
+fingers = ["La x con el anular, la z con el", "meñique, el punto con el anular."]
+drill = "sxs aza l.l sx az l. xz."
+words = "zapato. taxi. pez. luz."

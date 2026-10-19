@@ -3,9 +3,11 @@
 Installed through the daemon, as the panel installs it, and switched on for
 Leo from the command line. Leo opens it by keyboard: it comes up in a
 window of its own, through XWayland, its pictures scaled to fill the room
-above the bar, with the words of Leo's language where Tux Typing has them
-(Spanish, `--theme espanol`), and its home the module's own directory, not
-Leo's. Alt+F4 closes it, the launcher comes back, and the daemon removes it.
+above the bar, with Kidux's theme of Leo's language (`--theme kidux-es`, or
+`kidux-en`), and its home the module's own directory, not Leo's. Its
+Lessons list Kidux's lessons in Leo's language, and the first one opens and
+starts its practice when P is pressed. Alt+F4 closes it, the launcher comes
+back, and the daemon removes it.
 """
 
 import time
@@ -24,6 +26,7 @@ from sessionlib import (
     launcher_log,
     launcher_shown,
     on_screen,
+    pointer,
     report,
     root,
     wait,
@@ -32,6 +35,16 @@ from sessionlib import (
 
 HOME = f"/home/{CHILD}"
 DATA = f"{HOME}/.local/share/kidux/tuxtype"
+#: Tux Typing's main menu's Lessons, and the first lesson of its list, where
+#: they are on the screen; and a place over nothing, for the pointer to rest.
+LESSONS = "0.477,0.48"
+FIRST_LESSON = "0.5,0.084"
+ASIDE = "0.97,0.5"
+#: The first lesson's file, as the list shows it and Tux Typing logs it.
+FIRST = {"es": "Lección 01 - a s d f.xml", "en": "Lesson 01 - a s d f.xml"}
+#: The lesson's pages, green; the practice has none of it.
+LESSON_GREEN = (0x3F, 0x7F, 0x3F)
+
 #: The room above the launcher's bar, and the bar.
 ABOVE_THE_BAR = (0.0, 0.0, 1.0, 0.92)
 BAR = (0xF2, 0xE2, 0xCC)
@@ -86,13 +99,38 @@ def run(machine: Machine) -> None:
     pid = tuxtype_pid()
     arguments = root(f"tr '\\0' ' ' < /proc/{pid}/cmdline").stdout
     environment = root(f"tr '\\0' '\\n' < /proc/{pid}/environ").stdout
-    theme = "--theme espanol" if SPEAKS["lang"] == "es" else ""
-    report("in a window, with the words of Leo's language, at home in its own directory",
+    theme = "--theme kidux-es" if SPEAKS["lang"] == "es" else "--theme kidux-en"
+    report("in a window, with Kidux's theme of Leo's language, at home in its own directory",
            "--window" in arguments and "SDL_VIDEODRIVER=" not in environment
-           and (theme in arguments if theme else "--theme" not in arguments)
+           and theme in arguments
            and f"HOME={DATA}" in environment
            and root(f"test -d {DATA}/.tuxtype").returncode == 0,
            arguments + "\n" + root(f"ls -la {DATA}").stdout)
+
+    # Its Lessons, by the pointer: a fresh Tux Typing's menu does not always
+    # start on the same entry, so keys cannot be counted.
+    before = journal_count("kidux-module-tuxtype", FIRST[SPEAKS["lang"]])
+    pointer(LESSONS, "click", ASIDE)
+    listed = wait(lambda: journal_count("kidux-module-tuxtype", FIRST[SPEAKS["lang"]]) > before, 15)
+    machine.still(3)
+    machine.screenshot("module-tuxtype-lessons")
+    report("its Lessons list Kidux's lessons in Leo's language", listed,
+           root("journalctl -b --no-pager -t kidux-module-tuxtype | tail -5").stdout)
+    pointer(FIRST_LESSON, "click", ASIDE)
+    time.sleep(3)
+    machine.key("ret")                           # past the first page
+    time.sleep(3)
+    page = machine.screenshot("module-tuxtype-lesson-fingers")
+    machine.key("p")                             # P practises
+    time.sleep(4)
+    practice = machine.screenshot("module-tuxtype-lesson")
+    report("the first lesson opens, says where the fingers go, and P starts its practice",
+           colour_share(page, LESSON_GREEN, ABOVE_THE_BAR) > 0.3
+           and colour_share(practice, LESSON_GREEN, ABOVE_THE_BAR) < 0.05,
+           f"{page}; {practice}")
+    for _ in range(3):                           # out of the practice, the lesson, the list
+        machine.key("esc")
+        time.sleep(2)
 
     # Alt+F4 asks it to close; a Tux Typing that asks something first is
     # ended by Alt+F4 again, as the bar's question says (D45).

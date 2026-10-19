@@ -42,17 +42,34 @@ def started(tmp_path, **environment) -> str:
                                **environment}).stdout.strip()
 
 
-def test_a_spanish_speaking_child_gets_the_spanish_words(tmp_path):
+def themes(tmp_path) -> str:
+    """A themes folder with Kidux's two themes, as the package installs them."""
+    folder = tmp_path / "themes"
+    for language in ("es", "en"):
+        (folder / f"kidux-{language}").mkdir(parents=True, exist_ok=True)
+    return str(folder)
+
+
+def test_a_spanish_speaking_child_gets_kidux_s_spanish_theme(tmp_path):
     data = tmp_path / "data"
-    assert started(tmp_path, LANG="es_ES.UTF-8", XDG_DATA_HOME=str(data)) \
-        == f"{data} unset --window --theme espanol"
+    assert started(tmp_path, LANG="es_ES.UTF-8", XDG_DATA_HOME=str(data),
+                   KIDUX_TUXTYPE_THEMES=themes(tmp_path)) \
+        == f"{data} unset --window --theme kidux-es"
     assert data.is_dir()
 
 
-def test_an_english_speaking_child_gets_tux_typing_s_own(tmp_path):
+def test_an_english_speaking_child_gets_kidux_s_english_theme(tmp_path):
     data = tmp_path / "data"
-    assert started(tmp_path, LANG="en_US.UTF-8", XDG_DATA_HOME=str(data)) \
-        == f"{data} unset --window"
+    assert started(tmp_path, LANG="en_GB.UTF-8", XDG_DATA_HOME=str(data),
+                   KIDUX_TUXTYPE_THEMES=themes(tmp_path)) \
+        == f"{data} unset --window --theme kidux-en"
+
+
+def test_a_language_without_lessons_gets_english_s(tmp_path):
+    assert started(tmp_path, LANG="de_DE.UTF-8", XDG_DATA_HOME=str(tmp_path / "data"),
+                   KIDUX_TUXTYPE_THEMES=themes(tmp_path)).endswith("--theme kidux-en")
+    assert started(tmp_path, LANG="C", XDG_DATA_HOME=str(tmp_path / "data"),
+                   KIDUX_TUXTYPE_THEMES=themes(tmp_path)).endswith("--theme kidux-en")
 
 
 def test_the_manifests_version_is_the_packages():

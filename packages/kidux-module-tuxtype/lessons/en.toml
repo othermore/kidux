@@ -1,0 +1,109 @@
+# Kidux's typing lessons for Tux Typing, in English (lessons/build.py, D112).
+# One lesson a [[lesson]]: the keys it brings, and the name its file shows
+# when they are not plain letters; the lines that place the fingers; a drill
+# of those keys, and a line of words made only of keys already learnt. Every
+# line fits Tux Typing's screen and every practice one line of it, which the
+# build checks.
+
+language = "en"
+locale = "en_US.UTF-8"
+# No base theme: Tux Typing's own words and pictures, and its own keyboard.
+base = ""
+keyboard = ""
+file = "Lesson {number:02d} - {name}"
+
+[words]
+title = "Lesson {number}: {keys}"
+start = "Press Enter to start"
+practise = "Press P to practise"
+now_words = "Now, words with what you know."
+well_done = "Well done!"
+next = "Go on with lesson {next}."
+last = "You have done every lesson."
+back = "Press Enter to go back"
+
+[[lesson]]
+keys = "a s d f"
+intro = ["Put the fingers of your left hand", "on a, s, d and f."]
+fingers = ["Little finger on a, ring on s,", "middle on d and index on f."]
+drill = "asdf fdsa as df sa fd"
+words = "add sad dad fad"
+
+[[lesson]]
+keys = "j k l ;"
+intro = ["Put the fingers of your right hand", "on j, k, l and ;."]
+fingers = ["Index on j, middle on k,", "ring on l and little finger on ;."]
+drill = "jkl; ;lkj jk l; kj ;l"
+words = "salad flask lads fall"
+
+[[lesson]]
+keys = "g h"
+intro = ["The index fingers reach inwards:", "the left one to g, the right to h."]
+fingers = ["Always go back to f and j", "after each letter."]
+drill = "fgf jhj gh hg fgh jhg"
+words = "glad hash dash half"
+
+[[lesson]]
+keys = "e i"
+intro = ["The middle fingers go up a row:", "the left one to e, the right to i."]
+fingers = ["e with the left middle finger,", "i with the right middle finger."]
+drill = "ded kik de ki ei ie dei"
+words = "slide hide side field"
+
+[[lesson]]
+keys = "r u"
+intro = ["The index fingers go up a row:", "the left one to r, the right to u."]
+fingers = ["r with the left index finger,", "u with the right index finger."]
+drill = "frf juj fr ju ru ur fru"
+words = "rule fire ride sure"
+
+[[lesson]]
+keys = "t y"
+intro = ["The index fingers go up and reach:", "the left one to t, the right to y."]
+fingers = ["t with the left index finger,", "y with the right index finger."]
+drill = "ftf jyj ft jy ty yt fty"
+words = "they stay ready tide"
+
+[[lesson]]
+keys = "w o"
+intro = ["The ring fingers go up a row:", "the left one to w, the right to o."]
+fingers = ["w with the left ring finger,", "o with the right ring finger."]
+drill = "sws lol sw lo wo ow swo"
+words = "wood slow low two owl"
+
+[[lesson]]
+keys = "q p"
+intro = ["The little fingers go up a row:", "the left one to q, the right to p."]
+fingers = ["q with the left little finger,", "p with the right little finger."]
+drill = "aqa ;p; aq ;p qp pq aqp"
+words = "quiet quote pipe paper"
+
+[[lesson]]
+keys = "v m"
+intro = ["The index fingers go down a row:", "the left one to v, the right to m."]
+fingers = ["v with the left index finger,", "m with the right index finger."]
+drill = "fvf jmj fv jm vm mv fvm"
+words = "move memo vote mile"
+
+[[lesson]]
+keys = "b n"
+intro = ["The index fingers go down and reach:", "the left one to b, the right to n."]
+fingers = ["b with the left index finger,", "n with the right index finger."]
+drill = "fbf jnj fb jn bn nb fbn"
+words = "bone nine bent noble"
+
+[[lesson]]
+keys = "c ,"
+name = "c and comma"
+intro = ["The middle fingers go down a row:", "the left one to c, the right to comma."]
+fingers = ["c with the left middle finger,", "comma with the right middle finger."]
+drill = "dcd k,k dc k, c, ,c dck,"
+words = "cat, cake, nice, clock"
+
+[[lesson]]
+keys = "x z ."
+name = "x z and stop"
+intro = ["Down on the left, x and z;", "down on the right, the full stop."]
+fingers = ["x with the ring finger, z with the", "little finger, the stop with ring."]
+drill = "sxs aza l.l sx az l. xz."
+words = "fox. zoo. box. size."

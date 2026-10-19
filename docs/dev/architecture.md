@@ -1956,3 +1956,21 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   authors publish it is one thing less to keep. D88 stands for the next
   fix: a patch while wwwBASIC has not taken it, offered upstream, and
   dropped once it is in.
+- **D112 — A module stopped by force is killed five seconds later, and Tux
+  Typing has Kidux's own lessons.** Decided 2026-10-18 by the owner, on the
+  owner's finding that Tux Typing's lessons opened nothing, refining D45.
+  Tux Typing lists the lessons of its theme and opens them from the theme
+  too, so that Debian's Spanish theme, which has none, listed the English
+  drafts by their file names and opened nothing; and its Spanish keyboard
+  table lost its ñ to a character that replaced it, so that a practice
+  with ñ drew a second keyboard. Patching Tux Typing would mean building it
+  rather than taking Debian's; Kidux instead brings a theme of its own for
+  each language it has lessons in, `kidux-es` and `kidux-en`, with Tux
+  Typing's words linked and twelve lessons of its own written as data and
+  checked at build time against what the program can show
+  (`lessons/build.py` of kidux-module-tuxtype). Trying them found that Tux
+  Typing, made with SDL 1.2, turns SIGTERM into a quit it does not heed on
+  its lessons' list, so that *Close it anyway* left it on the screen for
+  the user manager's ninety seconds: every module's scope now has
+  `TimeoutStopSec=5s`, the time a program that saves on SIGTERM needs and
+  no longer than a child waits.

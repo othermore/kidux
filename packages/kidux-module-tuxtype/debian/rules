@@ -7,6 +7,7 @@ MODULE = $(DEST)/usr/share/kidux/modules/tuxtype
 	dh $@
 
 override_dh_auto_build:
+	python3 -B lessons/build.py build/themes
 	for po in po/*.po; do \
 	    lang=$$(basename $$po .po); \
 	    mkdir -p build/$$lang; \
@@ -15,7 +16,7 @@ override_dh_auto_build:
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	pyflakes3 tests
+	pyflakes3 tests lessons/build.py
 	sh -n bin/kidux-module-tuxtype
 	python3 -m pytest -q -p no:cacheprovider tests
 endif
@@ -24,6 +25,9 @@ override_dh_auto_install:
 	install -D -m 0644 module.toml $(MODULE)/module.toml
 	install -D -m 0644 icon.svg $(MODULE)/icon.svg
 	install -D -m 0755 bin/kidux-module-tuxtype $(DEST)/usr/libexec/kidux-module-tuxtype
+	# Kidux's themes, with their links to Tux Typing's own words kept as links.
+	mkdir -p $(DEST)/usr/share/tuxtype/themes
+	cp -dR --no-preserve=ownership build/themes/kidux-* $(DEST)/usr/share/tuxtype/themes/
 	for mo in build/*/kidux-module-tuxtype.mo; do \
 	    lang=$$(basename $$(dirname $$mo)); \
 	    install -D -m 0644 $$mo $(DEST)/usr/share/locale/$$lang/LC_MESSAGES/kidux-module-tuxtype.mo; \

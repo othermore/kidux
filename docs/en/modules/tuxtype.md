@@ -19,14 +19,27 @@ The interface and gameplay dictionaries are translated into the child's configur
 
 ![Tux Typing](../../images/en/module-tuxtype.png)
 
-## Game modes and lessons
+## Game modes
 
 - **Fish Cascade**: falling individual letters; ideal for learning key positions across the keyboard.
 - **Comet Zap**: falling words that must be typed accurately before impact.
-- **Guided typing lessons**: structured finger placement exercises teaching home row technique and touch-typing fundamentals.
-- **Practice mode**: free typing through passages at the child's own self-directed pace.
+- **Lessons**: Kidux's typing course, described below.
+
+## Typing lessons
+
+Kidux brings a course of its own of twelve lessons, in English or in Spanish as the child's language is, which teaches touch typing with all ten fingers in the classic order: the home row first (a s d f and j k l ;), then the top row and last the bottom one, with the comma and the full stop.
+
+- **Choosing a lesson**: on the main menu, **Lessons** shows the list, from "Lesson 01 - a s d f" to "Lesson 12 - x z and stop". A lesson is chosen with the mouse, or with the arrows and Enter.
+- **Each lesson's steps**: a first page brings the new keys (**Enter** to go on); the second shows which finger types each of them over a drawn keyboard; **P** starts the practice of those keys and, once it is done, a second practice with words made only of letters already learnt.
+- **During the practice**: the line to type is at the top; below, the next key large and, over the drawn hands, a red dot on the finger that types it. At the end, Tux celebrates with the time, the errors and the accuracy.
+- **Leaving**: **Esc** leaves the practice or the lesson at any moment.
+
+![A lesson's page, with the fingers and the keyboard](../../images/en/module-tuxtype-lesson-fingers.png)
+
+![A lesson's practice, with the next key and the finger that types it](../../images/en/module-tuxtype-lesson.png)
 
 ## Important notes
 
 - **High scores and achievements**: Game progress, high scores, and unlocked stages are saved internally by the application without cluttering the child's personal documents folder.
+- **What the course does not cover yet**: Capital letters and accented letters.
 - **Display resolution**: As a legacy graphical application, choosing a scaled display mode (indicated by an asterisk `*` in the adult panel's System tab) may cause slight graphical softening. Selecting an unscaled native resolution restores crisp rendering.

@@ -2,9 +2,10 @@
 # Tux Typing, as a child's learning module.
 #
 # Tux Typing takes its menus' language from the session, and its words, the
-# ones that fall, from a theme it is given, English when it is given none:
-# so a child whose language has a theme of Tux Typing's gets it, `espanol`
-# for Spanish. It starts in a window, --window, rather than asking for the
+# ones that fall, and its lessons from a theme it is given. Kidux brings a
+# theme of its own for each language it has lessons in, kidux-<language>
+# (lessons/build.py): the words of Tux Typing's theme for that language, and
+# Kidux's lessons. A child whose language has none gets English's. It starts in a window, --window, rather than asking for the
 # whole screen: the compositor gives it the room above the bar either way,
 # and labwc gives a window taken out of fullscreen a title bar (modules.md,
 # section 2). It draws through XWayland, not through the Wayland the session
@@ -21,10 +22,14 @@ set -eu
 
 unset SDL_VIDEODRIVER
 
-theme=""
-case "${LC_ALL:-${LC_MESSAGES:-${LANG:-}}}" in
-    es*) theme="espanol" ;;
-esac
+THEMES="${KIDUX_TUXTYPE_THEMES:-/usr/share/tuxtype/themes}"
+language="${LC_ALL:-${LC_MESSAGES:-${LANG:-}}}"
+language="${language%%_*}"
+language="${language%%.*}"
+theme="kidux-$language"
+if [ -z "$language" ] || [ ! -d "$THEMES/$theme" ]; then
+    theme="kidux-en"
+fi
 
 if [ -n "${XDG_DATA_HOME:-}" ]; then
     mkdir -p "$XDG_DATA_HOME"
@@ -32,7 +37,4 @@ if [ -n "${XDG_DATA_HOME:-}" ]; then
     export HOME
 fi
 
-if [ -n "$theme" ]; then
-    exec /usr/games/tuxtype --window --theme "$theme"
-fi
-exec /usr/games/tuxtype --window
+exec /usr/games/tuxtype --window --theme "$theme"
