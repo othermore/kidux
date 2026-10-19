@@ -427,6 +427,10 @@ EXAMPLES = (
      "SELECT first, COUNT(*) AS machines FROM\n"
      "(SELECT identifier, MIN(day) AS first FROM machines GROUP BY identifier)\n"
      "GROUP BY first ORDER BY first"),
+    ("Machines that have each module, by the module's downloads",
+     "SELECT package, COUNT(DISTINCT identifier) AS machines FROM requests\n"
+     "WHERE client = 'kidux' AND kind = 'package' AND package LIKE 'kidux-module-%'\n"
+     "GROUP BY package ORDER BY machines DESC"),
     ("Packages downloaded by Kidux machines",
      "SELECT package, version, SUM(requests) AS downloads FROM requests\n"
      "WHERE client = 'kidux' AND kind = 'package' GROUP BY package, version\n"
@@ -507,6 +511,7 @@ def table(names: list, rows: list, links: dict | None = None) -> str:
 def shell(title: str, body: str) -> str:
     nav = " · ".join(f'<a href="?view={view}">{name}</a>' for view, name in
                      (("summary", "Summary"), ("ids", "Machines"), ("addresses", "Addresses"),
+                      ("packages", "Packages"),
                       ("sql", "Query"), ("csv", "Download the table")))
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -616,6 +621,58 @@ def address_view(connection, address: str) -> str:
             + (table(["day", "requests"], anonymous) if anonymous else "<p>None.</p>"))
 
 
+def debian_order(version: str):
+    """A key that sorts versions near enough Debian's way for picking the
+    newest: digits as numbers, `~` before anything."""
+    return [(0, int(part)) if part.isdigit() else (1 if part != "~" else -1, part)
+            for part in re.findall(r"\d+|~|[^\d~]+", version)]
+
+
+def installed(connection, days: int = PLACES_DAYS) -> list[tuple]:
+    """Every package Kidux machines downloaded: the machines with an
+    identifier that ever did, those that did over the last `days` days, the
+    addresses without one that did, its newest version downloaded, and the
+    machines that downloaded that one. A download is an install or an
+    upgrade; removing a package asks the archive for nothing, so a machine
+    that removed it still counts."""
+    last = connection.execute("SELECT MAX(day) FROM requests").fetchone()[0]
+    since = (datetime.date.fromisoformat(last) - datetime.timedelta(days=days - 1)).isoformat() if last else ""
+    rows = []
+    packages = [row[0] for row in connection.execute(
+        "SELECT DISTINCT package FROM requests WHERE client = 'kidux' AND kind = 'package'")]
+    for package in packages:
+        ever = connection.execute("SELECT COUNT(DISTINCT identifier) FROM requests WHERE package = ? "
+                                  "AND client = 'kidux' AND kind = 'package' AND identifier IS NOT NULL",
+                                  (package,)).fetchone()[0]
+        recent = connection.execute("SELECT COUNT(DISTINCT identifier) FROM requests WHERE package = ? "
+                                    "AND client = 'kidux' AND kind = 'package' AND identifier IS NOT NULL "
+                                    "AND day >= ?", (package, since)).fetchone()[0]
+        without = connection.execute("SELECT COUNT(DISTINCT address) FROM requests WHERE package = ? "
+                                     "AND client = 'kidux' AND kind = 'package' AND identifier IS NULL",
+                                     (package,)).fetchone()[0]
+        versions = [row[0] for row in connection.execute(
+            "SELECT DISTINCT version FROM requests WHERE package = ? AND kind = 'package'", (package,))]
+        newest = max(versions, key=debian_order)
+        on_newest = connection.execute("SELECT COUNT(DISTINCT identifier) FROM requests WHERE package = ? "
+                                       "AND version = ? AND client = 'kidux' AND identifier IS NOT NULL",
+                                       (package, newest)).fetchone()[0]
+        rows.append((package, ever, recent, without, newest, on_newest))
+    rows.sort(key=lambda row: (-row[1], -row[3], row[0]))
+    return rows
+
+
+def packages_view(connection) -> str:
+    rows = installed(connection)
+    names = ["package", "machines with id", f"in the last {PLACES_DAYS} days", "addresses without id",
+             "newest version", "machines on it"]
+    return ("<p>A machine counts for a package when it downloaded it, to install it or to "
+            "upgrade it. Removing a package asks the archive for nothing, so a machine that "
+            "removed one still counts; and a package installed before the archive was at "
+            "apt.kidux.org shows the first time it is upgraded from here. The most machines "
+            "first: what is worth working on.</p>"
+            + (table(names, rows) if rows else "<p>No package downloaded yet.</p>"))
+
+
 def sql_view(connection, sql: str) -> str:
     examples = "".join(f"<li><a href=\"?view=sql&amp;example={i}\">{html.escape(name)}</a></li>"
                        for i, (name, _) in enumerate(EXAMPLES))
@@ -664,6 +721,8 @@ def explore(view: str, value: str, today: bool) -> int:
         title, body = f"Machine {value}", machine_view(connection, value)
     elif view == "addresses":
         title, body = "Addresses", addresses_view(connection)
+    elif view == "packages":
+        title, body = "Packages", packages_view(connection)
     elif view == "address":
         title, body = f"Address {value}", address_view(connection, value)
     elif view == "sql":
@@ -754,7 +813,8 @@ def main(argv: list[str]) -> int:
     reporting.add_argument("files", nargs="*", type=Path)
     exploring = commands.add_parser("page")
     exploring.add_argument("--view", default="summary",
-                           choices=("summary", "ids", "id", "addresses", "address", "sql", "csv"))
+                           choices=("summary", "ids", "id", "addresses", "address", "packages",
+                                    "sql", "csv"))
     exploring.add_argument("--value", default="")
     exploring.add_argument("--today", action="store_true")
     asked = parser.parse_args(argv[1:])

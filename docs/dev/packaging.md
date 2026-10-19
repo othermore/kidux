@@ -440,7 +440,9 @@ serves, and the page, `index.php`, to `apt/usage/` (sources in
 shows the numbers, today's so far among them, and links to explore: every
 machine with an identifier, its first and last day, its addresses and how
 often it changed address; every address, with the machines behind it and
-its range; a machine's or an address's days one by one; a query of the
+its range; a machine's or an address's days one by one; every package
+Kidux machines downloaded, with the machines that did and those on its
+newest version, to see what is most used; a query of the
 database, read-only, with examples; and the database's table as CSV. The
 database, `usage.sqlite` beside the logs, is made again from the logs kept
 at each look, a row a day, address, identifier, client, kind of request,

@@ -7,7 +7,8 @@
 // any page first keeps every day's log not kept yet, so that the history
 // never depends on how long the hosting keeps its logs; then usage.py makes
 // the page asked for: the summary, the machines or one of them, the
-// addresses or one of them, a query of the database, or its table as CSV.
+// addresses or one of them, the packages they have, a query of the
+// database, or its table as CSV.
 // The query reaches usage.py in its environment, never on a command line.
 
 $private = dirname(__DIR__, 2) . '/kidux-usage';
@@ -15,7 +16,7 @@ putenv('KIDUX_USAGE_DIR=' . $private . '/logs');
 putenv('KIDUX_APT_HOSTING=' . $private . '/logs.netrc');
 $usage = '/usr/bin/python3 ' . escapeshellarg($private . '/usage.py');
 
-$views = ['summary', 'ids', 'id', 'addresses', 'address', 'sql', 'csv'];
+$views = ['summary', 'ids', 'id', 'addresses', 'address', 'packages', 'sql', 'csv'];
 $view = in_array($_GET['view'] ?? '', $views, true) ? $_GET['view'] : 'summary';
 $value = (string) ($_GET['value'] ?? $_GET['example'] ?? '');
 putenv('KIDUX_USAGE_SQL=' . (string) ($_POST['sql'] ?? ''));

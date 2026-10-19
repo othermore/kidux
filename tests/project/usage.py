@@ -139,4 +139,23 @@ with tempfile.TemporaryDirectory() as folder:
     check("a query may read the database and never change it", refused)
     connection.close()
 
+# Two machines install Scratch, one upgrades it, and a household without an
+# identifier installs it too.
+INSTALLS = "".join(
+    f'{address} apt.kidux.org - [{day}/Oct/2026:07:00:00 +0200] '
+    f'"GET /pool/main/k/kidux-module-scratch/kidux-module-scratch_{version}_all.deb HTTP/1.1" '
+    f'200 89556104 "-" "Debian APT-HTTP/1.3 Kidux{identifier}"\n'
+    for day, address, identifier, version in (
+        ("21", "192.0.2.80", "/8a" + "0" * 30, "15.2.0+build2.3"),
+        ("28", "192.0.2.80", "/8a" + "0" * 30, "15.2.0+build2.10"),
+        ("22", "192.0.2.81", "/8b" + "0" * 30, "15.2.0+build2.3"),
+        ("22", "198.51.100.82", "", "15.2.0+build2.3")))
+with tempfile.TemporaryDirectory() as folder:
+    connection = usage.read_only(usage.build(INSTALLS.splitlines(), Path(folder) / "usage.sqlite"))
+    rows = usage.installed(connection)
+    check("a package counts the machines that downloaded it, and those on its newest version, "
+          "build2.10 after build2.3",
+          rows == [("kidux-module-scratch", 2, 2, 1, "15.2.0+build2.10", 1)], str(rows))
+    connection.close()
+
 sys.exit(1 if failed else 0)
