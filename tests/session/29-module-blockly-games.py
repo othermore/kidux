@@ -23,6 +23,7 @@ from sessionlib import (
     launcher_log,
     launcher_shown,
     on_screen,
+    pointer,
     report,
     root,
     wait,
@@ -71,6 +72,8 @@ def run(machine: Machine) -> None:
     machine.key("ret")
     opened = wait(lambda: SPEAKS["blockly"] in (games_window().get("title") or ""), 60, 2)
     wait(lambda: on_screen() == "blockly-games", 10)
+    # The pointer aside, over no game, so that no hand and no address show.
+    pointer("0.97,0.55")
     machine.still(5)
     picture = machine.screenshot("module-blockly-games")
     window = games_window()

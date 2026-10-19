@@ -25,6 +25,7 @@ from sessionlib import (
     launcher_log,
     launcher_shown,
     on_screen,
+    pointer,
     report,
     root,
     wait,
@@ -35,6 +36,9 @@ from sessionlib import (
 ABOVE_THE_BAR = (0.0, 0.0, 1.0, 0.92)
 #: The module's own bar of Back and Forward, along the window's top.
 WIKI_BAR = (0.0, 0.0, 1.0, 0.05)
+#: Where the pointer rests for the guide's picture: the page's right margin,
+#: over no link, so that no hand and no address under the window show.
+ASIDE = "0.97,0.55"
 
 
 def daemon(command: str) -> bool:
@@ -71,7 +75,7 @@ def run(machine: Machine) -> None:
     opened = wait(lambda: "Wikipedia" in (wiki_window().get("title") or ""), 90, 2)
     wait(lambda: on_screen() == "wikipedia", 10)
     machine.still(5)
-    picture = machine.screenshot("module-wikipedia")
+    picture = machine.screenshot("module-wikipedia-front")
     window = wiki_window()
     if window and not opened:
         print("      the site did not answer: the window is there, Wikipedia's title never came",
@@ -94,6 +98,12 @@ def run(machine: Machine) -> None:
     report("Leo searches from the front page, and the article opens",
            wait(lambda: "Debian" in (wiki_window().get("title") or ""), 30),
            f"title {wiki_window().get('title')!r}")
+    # The guide's picture is of the article, which stays as it is from one
+    # day to the next, and not of the front page, whose news and featured
+    # article change daily and are written for everyone, not for children.
+    pointer(ASIDE)
+    machine.still(3)
+    machine.screenshot("module-wikipedia")
     # On the article the bar's Back is the first stop.
     machine.still(3)
     machine.key("tab")
