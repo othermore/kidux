@@ -1,0 +1,7 @@
+# Identifiers that machines of tests sent to apt.kidux.org, which ci/usage.py
+# never counts. One a line; anything after # is a note. Identifiers that
+# begin with sixteen zeros are tests whether listed or not.
+0123456789abcdef0123456789abcdef   # apt's debug output, tried from hija, 2026-10-18
+51d1002cbf595fe691f73b47438577cd   # session machine, Spanish, 2026-10-18
+d73d7a8639b660a1ee8e28d0e286e590   # the same, as a machine upgraded from 0.2.5
+936c7fdc2dca2272cdfd334fb40e0b87   # session machine, English, 2026-10-18

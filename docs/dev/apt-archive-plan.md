@@ -17,7 +17,7 @@ the battery has passed, and the release is one battery and one `--release`.
 | A.3 | `kidux-apt-source` names the new address, and tells the server it is Kidux | built |
 | A.4 | *Share usage statistics*: a switch on the panel's Advanced page and a question of the first-run wizard, on by default, which adds an identifier of the machine's own to every fetch | built |
 | A.5 | Both addresses serve stable until every machine has moved; then GitHub Pages stops serving `apt/` and the site's workflow is decoupled from the archive | the old address still serves |
-| A.6 | `ci/usage.py`: what the logs say, in a few numbers | to do, once the first logs exist |
+| A.6 | `ci/usage.py`: what the logs say, in a few numbers, and every day's log kept on the release machine | built; a daily timer to fetch is to do |
 
 ### A.1 The hosting
 
@@ -83,9 +83,13 @@ the archive that day, near enough; the distinct identifiers among them are
 the machines whose adult shares statistics, counted one by one. A `.deb`
 fetched is an install or an upgrade of that package.
 
-`ci/usage.py` downloads the hosting's raw logs (OVHcloud's logs platform,
-with a credentials line of its own in the same netrc file) and prints, for
-a range of dates: machines per day, by address and by identifier, fetches
-of each package by version, and the share of clients that are not Kidux. It
-keeps nothing. It is written once the first release has left logs to read,
-since the logs' shape is the hosting's.
+`ci/usage.py fetch` downloads each day's access log from the hosting's logs
+space, `https://logs.cluster131.hosting.ovh.net/kidux.org/osl/`, with the
+logs user's line of the same netrc file, and keeps it gzipped on the
+release machine; `report` prints machines per day, by identifier and by
+address, the packages Kidux machines downloaded by version, and other
+clients apart (packaging.md, "The public archive"). What is left is to run
+`fetch` every day by itself: a systemd timer of the release machine's user,
+persistent, so that a day the machine was off is fetched the next time it
+is on. The hosting's Logs Data Platform streams are not used: the daily
+files are what the counting needs, and they cost nothing.
