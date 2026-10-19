@@ -303,7 +303,10 @@ the policy, with no GTK in it, so its test is the specification:
   bar asks *<name> has not closed. It may have something to save.* with
   *Cancel*, which leaves it and forgets the request, and *Close it anyway*,
   which stops its scope (`launch.stop`, `systemctl --user stop
-  kidux-module-<id>.scope`) and every process in it. Close pressed again
+  kidux-module-<id>.scope`) and every process in it: SIGTERM, and SIGKILL
+  five seconds later, the scope's `TimeoutStopSec`, since a program made
+  with SDL 1.2, Tux Typing for one, turns SIGTERM into a quit it does not
+  heed on every screen (D112). Close pressed again
   while the bar asks is the same as *Close it anyway*; pressed before the
   wait is over, it asks again. Nothing is ended without that question.
 - `settle` reads every window each time and puts the desk in order, which

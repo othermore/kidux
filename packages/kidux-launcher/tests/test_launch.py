@@ -26,6 +26,7 @@ SCOPE = [
     "systemd-run", "--user", "--scope", "--quiet", "--collect",
     "--unit=kidux-module-hello",
     "--property=MemoryMax=2G",
+    "--property=TimeoutStopSec=5s",
     f"--setenv=XDG_DATA_HOME={DATA}",
     f"--setenv=XDG_CONFIG_HOME={CONFIG}",
     f"--setenv=XDG_CACHE_HOME={CACHE}",

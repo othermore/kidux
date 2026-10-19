@@ -6,7 +6,9 @@ one place and its test is the specification.
 
 Every module runs in a systemd user scope of its own, `kidux-module-<id>`,
 under the child's user manager: the scope is what ends it
-(`systemctl --user stop`), caps its memory, is frozen with the session under
+(`systemctl --user stop`: SIGTERM, then SIGKILL STOP_SECONDS later, since
+some programs, SDL 1.2's among them, turn SIGTERM into a quit they do not
+heed on every screen), caps its memory, is frozen with the session under
 the lock screen (D40), and keeps the module running if the launcher
 crashes, so the child's work is not lost. With `--scope`, systemd-run runs
 the program itself, so the launcher's child process is the module.
@@ -27,6 +29,11 @@ import subprocess
 from kidux import modules as kidux_modules
 
 log = logging.getLogger("kidux.launcher")
+
+#: How long a module stopped by force has to end before it is killed: a
+#: program that saves on SIGTERM has the time to, and one that ignores it
+#: is gone before the child wonders why Close it anyway did nothing.
+STOP_SECONDS = 5
 
 
 def data_home(home: str, module_id: str) -> str:
@@ -153,6 +160,7 @@ def command(module, home: str, settings: dict | None = None) -> list[str]:
         "systemd-run", "--user", "--scope", "--quiet", "--collect",
         f"--unit={unit(module.id)}",
         f"--property=MemoryMax={module.memory_max}",
+        f"--property=TimeoutStopSec={STOP_SECONDS}s",
         f"--setenv=XDG_DATA_HOME={data}",
         f"--setenv=XDG_CONFIG_HOME={config}",
         f"--setenv=XDG_CACHE_HOME={cache}",

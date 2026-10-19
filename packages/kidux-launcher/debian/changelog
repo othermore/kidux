@@ -1,3 +1,11 @@
+kidux-launcher (0.3.24) trixie; urgency=medium
+
+  * A module ended by Close it anyway is killed five seconds after it is
+    asked to end, if it has not: a program that does not heed SIGTERM on
+    some screen, as Tux Typing on its lessons' list, stayed for ninety.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 21:36:08 +0200
+
 kidux-launcher (0.3.23) trixie; urgency=medium
 
   * Kidux is free software: GPL-3.0-or-later, in LICENSE and debian/copyright.
