@@ -2,7 +2,10 @@
 """How many machines follow the public archive, from the hosting's access logs.
 
     ci/usage.py fetch [--since YYYY-MM-DD]   keep every day's log not kept yet, up to yesterday
-    ci/usage.py report [--days N] [FILE…]    the numbers, from the logs kept (or the files given)
+    ci/usage.py report [--days N] [--today] [--html] [FILE…]
+                                             the numbers, from the logs kept (or the files
+                                             given); with --today, today's so far too; with
+                                             --html, as a page rather than as text
 
 The archive is served by the project's web hosting at https://apt.kidux.org
 (D109), whose web server writes one access log a day, on
@@ -27,11 +30,18 @@ is, fetched dists/stable/InRelease, as apt does once a day:
 Identifiers made by tests never count: those that begin with sixteen zeros,
 and those listed in ci/usage-test-ids.txt. Only lines of apt.kidux.org are
 read, whatever else the space's log holds.
+
+It runs on the release machine and on the hosting itself, whose Python is
+3.7 (Debian 10), behind the page https://apt.kidux.org/usage/ that
+ci/publish-usage.sh puts there; so it keeps to what Python 3.7 has.
 """
+
+from __future__ import annotations
 
 import argparse
 import datetime
 import gzip
+import html
 import netrc
 import os
 import re
@@ -117,37 +127,104 @@ def read(path: Path) -> list[str]:
         return handle.readlines()
 
 
-def report(files: list[Path], days: int | None) -> int:
-    lines = []
-    for path in files:
-        lines += read(path)
-    numbers = parse(lines)
-    if not numbers:
-        print("No requests of apt.kidux.org in what was read.")
-        return 0
+def summary(numbers: dict, days: int | None) -> dict:
+    """The rows of the report and its totals, from parse()'s days."""
     shown = sorted(numbers)
     if days:
         shown = shown[-days:]
-    print(f"{'day':<12}{'machines':>9}{'by id':>8}{'no id':>8}{'other apt':>11}{'downloads':>11}{'others':>8}")
-    every_id, downloads = set(), Counter()
+    rows, every_id, downloads, tests = [], set(), Counter(), set()
     for day in shown:
         n = numbers[day]
         every_id |= n["ids"]
         downloads.update(n["downloads"])
-        print(f"{day.isoformat():<12}{len(n['ids']) + len(n['anonymous']):>9}{len(n['ids']):>8}"
-              f"{len(n['anonymous']):>8}{len(n['other_apt']):>11}{sum(n['downloads'].values()):>11}"
-              f"{n['other']:>8}")
-    print()
-    print(f"Machines with an identifier over these {len(shown)} days: {len(every_id)}")
-    tests = set().union(*(numbers[day]["tests"] for day in shown))
-    if tests:
-        print(f"Identifiers of tests, not counted: {len(tests)}")
-    if downloads:
-        print("Packages Kidux machines downloaded:")
-        for (package, version), count in sorted(downloads.items()):
-            print(f"  {package} {version}: {count}")
-    print("\nmachines: by id plus no id. no id: distinct addresses of Kidux machines without an\n"
-          "identifier. others: requests that were not apt's, browsers and crawlers.")
+        tests |= n["tests"]
+        rows.append({"day": day, "machines": len(n["ids"]) + len(n["anonymous"]),
+                     "ids": len(n["ids"]), "anonymous": len(n["anonymous"]),
+                     "other_apt": len(n["other_apt"]),
+                     "downloads": sum(n["downloads"].values()), "other": n["other"]})
+    return {"rows": rows, "machines_with_id": len(every_id), "tests": len(tests),
+            "downloads": sorted(downloads.items())}
+
+
+COLUMNS = (("machines", "machines"), ("ids", "by id"), ("anonymous", "no id"),
+           ("other_apt", "other apt"), ("downloads", "downloads"), ("other", "others"))
+LEGEND = ("machines: by id plus no id, the machines that looked for updates that day. "
+          "no id: distinct addresses of Kidux machines without an identifier. "
+          "others: requests that were not apt's, browsers and crawlers.")
+
+
+def as_text(report: dict, today: datetime.date | None) -> str:
+    out = [f"{'day':<12}" + "".join(f"{title:>11}" for _, title in COLUMNS)]
+    for row in report["rows"]:
+        mark = " (so far)" if row["day"] == today else ""
+        out.append(f"{row['day'].isoformat():<12}"
+                   + "".join(f"{row[key]:>11}" for key, _ in COLUMNS) + mark)
+    out += ["", f"Machines with an identifier over these {len(report['rows'])} days: "
+                f"{report['machines_with_id']}"]
+    if report["tests"]:
+        out.append(f"Identifiers of tests, not counted: {report['tests']}")
+    if report["downloads"]:
+        out.append("Packages Kidux machines downloaded:")
+        out += [f"  {package} {version}: {count}" for (package, version), count in report["downloads"]]
+    out += ["", LEGEND]
+    return "\n".join(out)
+
+
+def as_html(report: dict, today: datetime.date | None) -> str:
+    """The report as a page of its own, with nothing it fetches."""
+    def cell(value) -> str:
+        return f"<td>{html.escape(str(value))}</td>"
+    head = "".join(f"<th>{html.escape(title)}</th>" for _, title in COLUMNS)
+    body = "".join(
+        f"<tr><td>{row['day'].isoformat()}{' <small>so far</small>' if row['day'] == today else ''}</td>"
+        + "".join(cell(row[key]) for key, _ in COLUMNS) + "</tr>"
+        for row in reversed(report["rows"]))
+    downloads = "".join(f"<li>{html.escape(package)} {html.escape(version)}: {count}</li>"
+                        for (package, version), count in report["downloads"])
+    made = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Kidux machines</title>
+<style>
+body {{ background: #fdf6f0; color: #24313f; font: 16px/1.5 system-ui, sans-serif;
+       margin: 0 auto; max-width: 860px; padding: 16px; }}
+h1 {{ font-size: 1.4em; }}
+table {{ border-collapse: collapse; width: 100%; }}
+th, td {{ padding: 6px 8px; text-align: right; border-bottom: 1px solid #e6d9cc; }}
+th:first-child, td:first-child {{ text-align: left; }}
+.wide {{ overflow-x: auto; }}
+p.note {{ color: #5b6672; font-size: 0.9em; }}
+</style></head><body>
+<h1>Kidux machines that follow apt.kidux.org</h1>
+<p><strong>{report["machines_with_id"]}</strong> machines with an identifier over these
+{len(report["rows"])} days{f"; {report['tests']} identifiers of tests not counted" if report["tests"] else ""}.</p>
+<div class="wide"><table><thead><tr><th>day</th>{head}</tr></thead><tbody>{body}</tbody></table></div>
+{f"<h2>Packages Kidux machines downloaded</h2><ul>{downloads}</ul>" if downloads else ""}
+<p class="note">{html.escape(LEGEND)}</p>
+<p class="note">Made {made} from the hosting's access logs (ci/usage.py).</p>
+</body></html>
+"""
+
+
+def report(files: list[Path], days: int | None, today: bool = False, page: bool = False) -> int:
+    lines = []
+    for path in files:
+        lines += read(path)
+    day = None
+    if today:
+        login, password = credentials()
+        day = datetime.date.today()
+        body = download(day, login, password)
+        if body:
+            lines += body.decode("utf-8", "replace").splitlines()
+    numbers = parse(lines)
+    if not numbers:
+        print("No requests of apt.kidux.org in what was read.")
+        return 0
+    result = summary(numbers, days)
+    print(as_html(result, day) if page else as_text(result, day))
     return 0
 
 
@@ -201,9 +278,13 @@ def fetch(since: datetime.date) -> int:
                 missing.append(day)
             else:
                 target = KEPT / f"{SPACE}-{day.isoformat()}.log.gz"
-                with gzip.open(target, "wb") as handle:
+                # Written aside and renamed, so that a report read meanwhile
+                # never finds half a day.
+                partial = target.with_name(target.name + ".partial")
+                with gzip.open(partial, "wb") as handle:
                     handle.write(body)
-                target.chmod(0o600)
+                partial.chmod(0o600)
+                partial.replace(target)
                 lines = body.count(b"\n")
                 print(f"kept {target.name}, {lines} lines")
         day += datetime.timedelta(days=1)
@@ -219,11 +300,13 @@ def main(argv: list[str]) -> int:
     fetching.add_argument("--since", type=datetime.date.fromisoformat, default=FIRST_DAY)
     reporting = commands.add_parser("report")
     reporting.add_argument("--days", type=int)
+    reporting.add_argument("--today", action="store_true")
+    reporting.add_argument("--html", action="store_true")
     reporting.add_argument("files", nargs="*", type=Path)
     asked = parser.parse_args(argv[1:])
     if asked.command == "fetch":
         return fetch(asked.since)
-    return report(asked.files or kept_files(), asked.days)
+    return report(asked.files or kept_files(), asked.days, asked.today, asked.html)
 
 
 if __name__ == "__main__":

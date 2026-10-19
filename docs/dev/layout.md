@@ -19,6 +19,7 @@ ci/archive/conf/             the apt archive's configuration, with the key each 
 ci/archive/development-key.pgp   the public part of the key testing is signed with
 ci/vm/                       a throwaway Kidux machine to use over VNC
 ci/upstream/                 the build scripts of programs that are not in Debian (D68)
+ci/usage-site/               the page of the machines that follow the archive, on the hosting
 .github/workflows/           continuous integration (packaging.md)
 tests/                       every test, one file each, by kind (tests/README.md)
 tests/lib/                   what runs them: the VM runners, their seeds, the

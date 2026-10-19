@@ -1,0 +1,7 @@
+# The page of the machines that follow the archive, for the owner alone
+# (ci/publish-usage.sh writes this, with the account's home in it).
+AuthType Basic
+AuthName "Kidux usage"
+AuthUserFile @PRIVATE@/.htpasswd
+Require valid-user
+Options -Indexes

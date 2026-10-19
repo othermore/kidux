@@ -423,6 +423,21 @@ address; an identifier that begins with sixteen zeros, or that
 apt clients, browsers and crawlers are counted apart.
 `tests/project/usage.py` holds it to lines in the hosting's own shape.
 
+The same counting runs on the hosting, as a page for the owner,
+`https://apt.kidux.org/usage/`, behind a password its `.htaccess` asks
+for. `ci/publish-usage.sh` puts it there: `usage.py`, its list of tests'
+identifiers, the daily task `cron.php`, the logs user's line and the
+page's password go to `kidux-usage/` in the account's home, which no site
+serves, and the page, `index.php`, to `apt/usage/` (sources in
+`ci/usage-site/`). Opening the page keeps every day's log not kept yet and
+shows the numbers, today's so far among them; the hosting's scheduled
+task (*Tareas programadas - Cron*, `kidux-usage/cron.php`, daily) keeps
+them on the days nobody opens it. The hosting's Python is 3.7, which
+`usage.py` keeps to. Its two secrets on the release machine, outside the
+repository: the logs user's line in `~/.config/kidux/apt-hosting.netrc`,
+and the page's user and password as Apache reads them,
+`~/.config/kidux/usage-page.htpasswd`, made with `openssl passwd -apr1`.
+
 The source of what the archive holds is the repository itself, and for the
 programs built at development time the source tarballs of their releases
 (D71); the suite's own source packages are not copied.

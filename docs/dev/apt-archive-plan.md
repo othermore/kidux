@@ -17,7 +17,7 @@ the battery has passed, and the release is one battery and one `--release`.
 | A.3 | `kidux-apt-source` names the new address, and tells the server it is Kidux | built |
 | A.4 | *Share usage statistics*: a switch on the panel's Advanced page and a question of the first-run wizard, on by default, which adds an identifier of the machine's own to every fetch | built |
 | A.5 | Both addresses serve stable until every machine has moved; then GitHub Pages stops serving `apt/` and the site's workflow is decoupled from the archive | the old address still serves |
-| A.6 | `ci/usage.py`: what the logs say, in a few numbers, and every day's log kept on the release machine | built; a daily timer to fetch is to do |
+| A.6 | `ci/usage.py`: what the logs say, in a few numbers; every day's log kept; a page for the owner on the hosting, `apt.kidux.org/usage/`, behind a password | built; the hosting's daily task to set in its panel |
 
 ### A.1 The hosting
 
@@ -88,8 +88,10 @@ space, `https://logs.cluster131.hosting.ovh.net/kidux.org/osl/`, with the
 logs user's line of the same netrc file, and keeps it gzipped on the
 release machine; `report` prints machines per day, by identifier and by
 address, the packages Kidux machines downloaded by version, and other
-clients apart (packaging.md, "The public archive"). What is left is to run
-`fetch` every day by itself: a systemd timer of the release machine's user,
-persistent, so that a day the machine was off is fetched the next time it
-is on. The hosting's Logs Data Platform streams are not used: the daily
-files are what the counting needs, and they cost nothing.
+clients apart (packaging.md, "The public archive"). The same script runs on
+the hosting behind `https://apt.kidux.org/usage/`, a page with a password
+that `ci/publish-usage.sh` puts there, keeping the logs on the hosting
+itself; a scheduled task of the hosting's runs `fetch` every day, set once
+in its panel. The hosting's Logs Data Platform streams are not used, nor a
+database: the daily files are what the counting needs, a year of them is
+read in a moment, and they cost nothing.
