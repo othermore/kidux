@@ -864,7 +864,9 @@ fall: a Spanish-speaking child catches Spanish words. It is for children
 from six to twelve. GCompris, which teaches the keyboard's letters first,
 is a good start before it. Its **Lessons** menu holds Kidux's typing
 course: twelve lessons that teach typing with all ten fingers, a row at a
-time.
+time, fourteen in Spanish, whose last two bring the accented vowels. In
+each practice, the drawn keyboard has only the keys being practised
+written on it.
 
 Tux Typing keeps its scores and its settings for itself, not in the
 child's folders. Removing the module keeps them for when it comes back.

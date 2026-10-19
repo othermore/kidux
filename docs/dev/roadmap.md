@@ -120,6 +120,14 @@ can. Each phase assumes what it builds on is reasonably stable.
       in a theme of Tux Typing's for each language, with the Spanish
       keyboard's ñ; and a module ended by force killed five seconds on
       (D112).
+- [x] Tux Typing built by Kidux, kidux-tuxtype, with patches for keyboards
+      other than the US one: the ñ keeps its finger, the dead key of an
+      accent is no error, the practice's keyboard labels the keys of the
+      exercise alone; two lessons of the accented vowels at the end of the
+      Spanish course, and Spanish word lists of Kidux's own for the games
+      (tuxtype-plan.md, D113).
+- [ ] Offer Tux4Kids the patches in kidux-tuxtype's `patches/` (D113),
+      once the owner has looked at them.
 - [x] A web module that is a door to one website on the internet, held to
       that site's hosts (4.12, D85).
 - [x] CodeCombat, a door to codecombat.com, nothing of it shipped, not

@@ -894,8 +894,10 @@ poco más difícil. Sus menús están en el idioma del niño, y también las
 palabras que caen: un niño que habla español atrapa palabras en español.
 Es para niños de seis a doce años. GCompris, que enseña primero las
 letras del teclado, es un buen comienzo antes. Su menú **Lecciones** trae
-el curso de mecanografía de Kidux: doce lecciones que enseñan a escribir
-con los diez dedos, fila a fila.
+el curso de mecanografía de Kidux: catorce lecciones que enseñan a escribir
+con los diez dedos, fila a fila, y al final las vocales con tilde. En cada
+práctica, el teclado dibujado muestra escritas solo las teclas que se
+practican.
 
 Tux Typing guarda sus puntuaciones y sus ajustes para sí, no en las
 carpetas del niño. Al quitar el módulo se conservan para cuando vuelva.

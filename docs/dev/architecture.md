@@ -1973,4 +1973,31 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   its lessons' list, so that *Close it anyway* left it on the screen for
   the user manager's ninety seconds: every module's scope now has
   `TimeoutStopSec=5s`, the time a program that saves on SIGTERM needs and
-  no longer than a child waits.
+  no longer than a child waits. *Taking Debian's Tux Typing rather than
+  building it: superseded by D113, which builds it with patches of
+  Kidux's.*
+- **D113 — Kidux builds Tux Typing itself, with patches for keyboards
+  other than the US one, and its course has the accents.** Decided
+  2026-10-18 by the owner, on the acceptance test of D112's lessons,
+  refining D112. Four things no theme can put right are Tux Typing's own
+  code: its practice learns where a key is from each key pressed, through
+  a list of the US keyboard's keys, so that the ñ, the comma, the full stop
+  and the hyphen of a Spanish keyboard lost their finger the first time
+  they were pressed; the dead key of an accent counted as a wrong key, and
+  the games took it for a letter; its keyboard labelled every key twice,
+  the capital over the small letter, or only the keys of earlier
+  practices; and its games' menu listed a theme's word lists in the
+  disk's order. So Kidux builds Tux Typing from Debian's own source, 1.8.3
+  as Debian's 1.8.3-7 patches it, with four small patches of its own, as a
+  package of its own, kidux-tuxtype, which installs
+  `/usr/games/kidux-tuxtype` beside Debian's `tuxtype` and reads Debian's
+  tuxtype-data; the module runs it. Its source is taken as files by their
+  SHA-256 from snapshot.debian.org (D68's way, as PhET's simulations are),
+  and the patches are kept in the package, as D88 has them, to offer to
+  Tux4Kids, though its repository has had no release since 2014. On top,
+  the module's data: each language's keyboard table gives every key its
+  place, the keyboard of a practice labels the keys of that practice
+  alone, so that a child finds them at once, the Spanish course ends with
+  two lessons of the accented vowels, and the Spanish games have word
+  lists of Kidux's own, with the ñ in all and the accents only in the
+  last, as the owner asked.
