@@ -166,6 +166,8 @@ with tempfile.TemporaryDirectory() as folder:
 MIXED = (b'198.51.100.1 antonio.mg - [18/Oct/2026:10:00:00 +0200] "GET / HTTP/1.1" 200 1 "-" "x"\n'
          b'198.51.100.2 apt.kidux.org - [18/Oct/2026:10:00:01 +0200] "GET / HTTP/1.1" 200 1 "-" "x"\n'
          b'198.51.100.3 apt2.kidux.org - [18/Oct/2026:10:00:02 +0200] "GET / HTTP/1.1" 200 1 "-" "x"\n')
+check("today's log is written up to its last line's time, whichever site it is",
+      usage.written_up_to(MIXED) == "10:00", usage.written_up_to(MIXED))
 check("of the hosting's every site, only apt.kidux.org's lines are kept",
       usage.only_ours(MIXED) == MIXED.splitlines(keepends=True)[1], str(usage.only_ours(MIXED)))
 

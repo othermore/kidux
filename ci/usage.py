@@ -4,7 +4,7 @@
     ci/usage.py fetch [--since YYYY-MM-DD]   keep every day's log not kept yet, up to yesterday
     ci/usage.py report [--days N] [--today] [--html] [FILE…]
                                              the numbers, from the logs kept (or the files
-                                             given); with --today, today's so far too; with
+                                             given); with --today, today's up to now too; with
                                              --html, as a page rather than as text
     ci/usage.py page [--view V] [--value X] [--today]
                                              a page of https://apt.kidux.org/usage/: the
@@ -324,17 +324,18 @@ LEGEND = ("with id: distinct machines that looked for updates and share usage st
           "not apt's, browsers and crawlers.")
 
 
-def shown(row: dict, key: str, today: str | None):
+def shown(row: dict, key: str, today: dict):
+    """A cell; today's period says how far its log is written, `up to 22:14`."""
     value = row[key]
     if key == "per_address":
         return f"{value:.2f}"
-    if key == "period" and value == today:
-        return f"{value} (so far)"
+    if key == "period" and value in today:
+        return f"{value} ({today[value]})"
     return value
 
 
-def as_text(report: dict, today: datetime.date | None) -> str:
-    mark = today.isoformat() if today else None
+def as_text(report: dict, today: dict) -> str:
+    mark = today
     out = []
     for kind, rows in report["tables"].items():
         out.append(TITLES[kind])
@@ -342,7 +343,7 @@ def as_text(report: dict, today: datetime.date | None) -> str:
         for row in rows:
             out.append(f"{row['period']:<14}"
                        + "".join(f"{shown(row, key, mark):>12}" for key, _ in COLUMNS[1:])
-                       + ("  (so far)" if row["period"] == mark else ""))
+                       + (f"  ({mark[row['period']]})" if row["period"] in mark else ""))
         out.append("")
     p = report["places"]
     out.append(f"Places with {MANY} machines or more, over the last {PLACES_DAYS} days")
@@ -373,9 +374,9 @@ def heading(name: str, help: dict | None) -> str:
     return f"<th>{html.escape(str(name))}{mark}</th>"
 
 
-def as_html(report: dict, today: datetime.date | None) -> str:
+def as_html(report: dict, today: dict) -> str:
     """The report as the body of a page, which shell() frames."""
-    mark = today.isoformat() if today else None
+    mark = today
     e = html.escape
     sections = []
     for kind, rows in report["tables"].items():
@@ -410,19 +411,16 @@ def report(files: list[Path], days: int | None, today: bool = False, page: bool 
     lines = []
     for path in files:
         lines += read(path)
-    day = None
+    label = {}
     if today:
-        login, password = credentials()
-        day = datetime.date.today()
-        body = download(day, login, password)
-        if body:
-            lines += body.decode("utf-8", "replace").splitlines()
+        more, label = todays()
+        lines += more
     numbers = parse(lines)
     if not numbers:
         print("No requests of apt.kidux.org in what was read.")
         return 0
     result = summary(numbers, days)
-    print(shell(TITLE, as_html(result, day)) if page else as_text(result, day))
+    print(shell(TITLE, as_html(result, label)) if page else as_text(result, label))
     return 0
 
 
@@ -775,18 +773,17 @@ def sql_view(connection, sql: str) -> str:
 
 def explore(view: str, value: str, today: bool) -> int:
     """A page of the hosting's usage/: the database made again from the logs
-    kept, and today's so far, then the view asked for."""
+    kept, and today's up to now, then the view asked for."""
     lines = []
     for path in kept_files():
         lines += read(path)
+    label = {}
     if today:
-        login, password = credentials()
-        body = download(datetime.date.today(), login, password)
-        if body:
-            lines += body.decode("utf-8", "replace").splitlines()
+        more, label = todays()
+        lines += more
     if view == "summary":
         numbers = parse(lines)
-        body = (as_html(summary(numbers, None), datetime.date.today() if today else None)
+        body = (as_html(summary(numbers, None), label)
                 if numbers else "<p>No requests yet.</p>")
         print(shell(TITLE, body))
         return 0
@@ -848,10 +845,33 @@ def only_ours(body: bytes) -> bytes:
                     if line.split(b" ", 2)[1:2] == [SITE.encode()])
 
 
-def download(day: datetime.date, login: str, password: str) -> bytes | None:
-    """The day's lines of apt.kidux.org, or None when the hosting has no log
-    for that day: the one being written for today, the gzipped one for a
-    day done, or, for yesterday, the one being written if it is not done yet."""
+def written_up_to(body: bytes) -> str:
+    """The time of a log's last line, of any site: how far it is written."""
+    for line in reversed(body.splitlines()):
+        found = re.search(rb"\[\d{2}/\w{3}/\d{4}:(\d{2}:\d{2}):\d{2} [+-]\d{4}\]", line)
+        if found:
+            return found[1].decode()
+    return ""
+
+
+def todays() -> tuple[list[str], dict]:
+    """Today's lines of apt.kidux.org, and the label of today's row: how far
+    the hosting has written its log, `up to 22:14`."""
+    login, password = credentials()
+    day = datetime.date.today()
+    found = download(day, login, password)
+    if found is None:
+        return [], {}
+    ours, written = found
+    label = {day.isoformat(): f"up to {written}" if written else "so far"}
+    return ours.decode("utf-8", "replace").splitlines(), label
+
+
+def download(day: datetime.date, login: str, password: str) -> tuple[bytes, str] | None:
+    """The day's lines of apt.kidux.org and the time its log is written up
+    to, or None when the hosting has no log for that day: the one being
+    written for today, the gzipped one for a day done, or, for yesterday,
+    the one being written if it is not done yet."""
     url, host, name = space()
     stamp = day.strftime("%d-%m-%Y")
     being_written = f"{url}osl/{name}-{stamp}.log"
@@ -874,7 +894,7 @@ def download(day: datetime.date, login: str, password: str) -> bytes | None:
             continue
         if url.endswith(".gz"):
             body = gzip.decompress(body)
-        return only_ours(body)
+        return only_ours(body), written_up_to(body)
     return None
 
 
@@ -885,10 +905,11 @@ def fetch(since: datetime.date) -> int:
     day, yesterday, missing = since, datetime.date.today() - datetime.timedelta(days=1), []
     while day <= yesterday:
         if day not in kept:
-            body = download(day, login, password)
-            if body is None:
+            found = download(day, login, password)
+            if found is None:
                 missing.append(day)
             else:
+                body = found[0]
                 target = KEPT / f"apt-{day.isoformat()}.log.gz"
                 # Written aside and renamed, so that a report read meanwhile
                 # never finds half a day.
