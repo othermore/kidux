@@ -7,9 +7,11 @@
 
 language = "es"
 locale = "es_ES.UTF-8"
-# The theme whose words and pictures the lessons' theme takes, for the games.
+# The theme whose pictures the lessons' theme takes; the games' words are
+# Kidux's own lists, in word_lists, and the keyboard table is Kidux's.
 base = "espanol"
 keyboard = "keyboard-es.lst"
+word_lists = "words-es"
 file = "Lección {number:02d} - {name}"
 
 [words]
@@ -76,7 +78,7 @@ keys = "q p"
 intro = ["Los meñiques suben una fila:", "el izquierdo a la q, el derecho a la p."]
 fingers = ["La q con el meñique izquierdo,", "la p con el meñique derecho."]
 drill = "aqa ñpñ aq ñp qp pq aqp"
-words = "queso papa pito quiero"
+words = "queso papa tipo quiero"
 
 [[lesson]]
 keys = "v m"
@@ -107,3 +109,19 @@ intro = ["Abajo a la izquierda, la x y la z;", "abajo a la derecha, el punto."]
 fingers = ["La x con el anular, la z con el", "meñique, el punto con el anular."]
 drill = "sxs aza l.l sx az l. xz."
 words = "zapato. taxi. pez. luz."
+
+[[lesson]]
+keys = "á é"
+name = "á y é"
+intro = ["La tilde se pulsa antes que la vocal:", "primero la tecla a la derecha de la ñ,", "y después la a o la e."]
+fingers = ["La tilde, con el meñique derecho;", "á y é, con los dedos de la a y la e."]
+drill = "aá eé áa ée á é áé éá"
+words = "mamá papá café bebé sofá"
+
+[[lesson]]
+keys = "í ó ú"
+name = "í ó y ú"
+intro = ["Las otras vocales con tilde, igual:", "primero la tecla de la tilde,", "y después la i, la o o la u."]
+fingers = ["í con el corazón, ó con el anular,", "y ú con el índice derecho."]
+drill = "ií oó uú íó óú úí í ó ú"
+words = "río león avión tú menú allí"

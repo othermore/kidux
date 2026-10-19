@@ -75,7 +75,16 @@ ADULT_PASSWORD = "the adult password"
 WIZARD_CHILD, WIZARD_CHILD_NAME, WIZARD_CHILD_PASSWORD = "nora", "Nora", "nora password"
 
 #: QEMU's names for the keys that are not their own character.
-KEY_NAMES = {" ": "spc", "\n": "ret", "-": "minus", ".": "dot", ",": "comma", "/": "slash"}
+KEY_NAMES = {" ": "spc", "\n": "ret", "-": "minus", ".": "dot", ",": "comma", "/": "slash",
+             ";": "semicolon"}
+#: What only the Spanish keyboard types, by the keys it has in the US
+#: keyboard's places: the ñ where the US one has the semicolon, and an
+#: accented vowel as a child types it, the dead key of the acute accent,
+#: where the US keyboard has the apostrophe, and then the vowel.
+SPANISH_KEYS = {"ñ": ["semicolon"], "Ñ": ["shift-semicolon"],
+                **{accented: ["apostrophe", vowel] for accented, vowel in zip("áéíóú", "aeiou")},
+                **{accented: ["apostrophe", f"shift-{vowel}"]
+                   for accented, vowel in zip("ÁÉÍÓÚ", "aeiou")}}
 
 #: The pause after each key, a quick child's: QEMU holds a key down for a
 #: tenth of a second, and a screen needs a moment to take it.
@@ -230,12 +239,15 @@ class Machine:
             connection.connect(str(MONITOR))
             _answer(connection)
             for character in text:
-                name = KEY_NAMES.get(character, character.lower())
-                if character.isupper():
-                    name = f"shift-{name}"
-                connection.sendall(f"sendkey {name}\n".encode())
-                _answer(connection)
-                time.sleep(KEY_PACE)
+                if character in SPANISH_KEYS:
+                    names = SPANISH_KEYS[character]
+                else:
+                    name = KEY_NAMES.get(character, character.lower())
+                    names = [f"shift-{name}" if character.isupper() else name]
+                for name in names:
+                    connection.sendall(f"sendkey {name}\n".encode())
+                    _answer(connection)
+                    time.sleep(KEY_PACE)
 
     def frame(self) -> bytes:
         """The screen as it is now, as raw pixels, to compare with another."""

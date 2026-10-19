@@ -7,9 +7,11 @@
 
 language = "en"
 locale = "en_US.UTF-8"
-# No base theme: Tux Typing's own words and pictures, and its own keyboard.
+# No base theme: Tux Typing's own words and pictures, with Kidux's keyboard
+# table, which places every key.
 base = ""
-keyboard = ""
+keyboard = "keyboard-en.lst"
+word_lists = ""
 file = "Lesson {number:02d} - {name}"
 
 [words]

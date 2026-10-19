@@ -6,14 +6,14 @@ Files: *
 Copyright: 2026 Antonio Morales García <info@kidux.org>
 License: GPL-3.0-or-later
 
-Files: lessons/keyboard-tuxtype.lst lessons/keyboard-es.lst
+Files: lessons/keyboard-en.lst lessons/keyboard-es.lst
 Copyright: 2001-2003 Tux4Kids
            2026 Antonio Morales García <info@kidux.org>
 License: GPL-2
-Comment: keyboard-tuxtype.lst is Tux Typing's own table of which finger types
- each key, as Debian's tuxtype-data installs it, kept for the build's checks;
- keyboard-es.lst is the same table for the Spanish keyboard, which Kidux's
- Spanish lessons install.
+Comment: keyboard-en.lst is Tux Typing's own table of which finger types each
+ key, as Debian's tuxtype-data installs it, with each key's place on the US
+ keyboard added; keyboard-es.lst is the same for the Spanish keyboard, with
+ the ñ, the comma, the full stop, the hyphen and the accented vowels.
 
 License: GPL-3.0-or-later
  This program is free software: you can redistribute it and/or modify

@@ -1,10 +1,16 @@
 kidux-module-tuxtype (0.1.5) trixie; urgency=medium
 
-  * Lessons of Kidux's own, twelve in Spanish and twelve in English, in a
-    theme of Tux Typing's for each language: Debian's Spanish theme had none,
-    so that its list showed English file names and opened nothing.
-  * The Spanish keyboard's table of fingers, with ñ, the comma and the full
-    stop, which Debian's Spanish theme lacks.
+  * Lessons of Kidux's own, fourteen in Spanish, the last two with the
+    accented vowels, and twelve in English, in a theme of Tux Typing's for
+    each language: Debian's Spanish theme had none, so that its list showed
+    English file names and opened nothing.
+  * Each language's keyboard table, with every key's place: the Spanish one
+    with the ñ, the comma, the full stop, the hyphen and the accented vowels.
+  * Word lists of Kidux's own for the Spanish games, seven, with the ñ, and
+    the accents in the last.
+  * Tux Typing is Kidux's build of it, kidux-tuxtype: the ñ keeps its finger,
+    the dead key of an accent is no error, and the practice's keyboard
+    labels the keys of the exercise alone.
 
  -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 21:26:50 +0200
 

@@ -34,7 +34,7 @@ def started(tmp_path, **environment) -> str:
     in a session that asks SDL for Wayland."""
     script = tmp_path / "kidux-module-tuxtype"
     script.write_text((PACKAGE / "bin" / "kidux-module-tuxtype").read_text()
-                      .replace("exec /usr/games/tuxtype",
+                      .replace("exec /usr/games/kidux-tuxtype",
                                'exec echo "$HOME" "${SDL_VIDEODRIVER-unset}"'))
     return subprocess.run(["sh", str(script)], check=True, capture_output=True, text=True,
                           env={"HOME": str(tmp_path / "home"), "PATH": "/usr/bin:/bin",

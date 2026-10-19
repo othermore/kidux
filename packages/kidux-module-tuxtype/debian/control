@@ -14,7 +14,7 @@ Rules-Requires-Root: no
 Package: kidux-module-tuxtype
 Architecture: all
 Depends: ${misc:Depends},
-         tuxtype,
+         kidux-tuxtype (>= 1.8.3+deb7.1~),
          tuxtype-data,
 XB-Kidux-Name-en: Tux Typing
 XB-Kidux-Description-en: An arcade typing tutor starring Tux the penguin: practise keyboard speed and accuracy by typing falling letters and words, in the child's language.

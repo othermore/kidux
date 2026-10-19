@@ -2,13 +2,15 @@
 # Tux Typing, as a child's learning module.
 #
 # Tux Typing takes its menus' language from the session, and its words, the
-# ones that fall, and its lessons from a theme it is given. Kidux brings a
-# theme of its own for each language it has lessons in, kidux-<language>
-# (lessons/build.py): the words of Tux Typing's theme for that language, and
-# Kidux's lessons. A child whose language has none gets English's. It starts in a window, --window, rather than asking for the
-# whole screen: the compositor gives it the room above the bar either way,
-# and labwc gives a window taken out of fullscreen a title bar (modules.md,
-# section 2). It draws through XWayland, not through the Wayland the session
+# ones that fall, its lessons and its keyboard from a theme it is given.
+# Kidux brings a theme of its own for each language it has lessons in,
+# kidux-<language> (lessons/build.py): its keyboard table, its words and
+# Kidux's lessons. A child whose language has none gets English's. The
+# program is Kidux's build of Tux Typing, kidux-tuxtype, whose practice
+# knows a keyboard other than the US one (D113). It starts in a window,
+# --window, rather than asking for the whole screen: the compositor gives it
+# the room above the bar either way, and labwc gives a window taken out of
+# fullscreen a title bar (modules.md, section 2). It draws through XWayland, not through the Wayland the session
 # asks SDL for: there SDL 1.2 (sdl12-compat) scales its 640x480 pictures to
 # the room it is given, while as a Wayland window it stays at 640x480 in a
 # corner.
@@ -37,4 +39,4 @@ if [ -n "${XDG_DATA_HOME:-}" ]; then
     export HOME
 fi
 
-exec /usr/games/tuxtype --window --theme "$theme"
+exec /usr/games/kidux-tuxtype --window --theme "$theme"

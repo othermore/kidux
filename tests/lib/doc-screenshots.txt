@@ -67,3 +67,4 @@ module-codecombat-no-account module-codecombat-no-account.png
 mail-notice             mail-notice.png
 module-tuxtype-lesson-fingers module-tuxtype-lesson-fingers.png
 module-tuxtype-lesson   module-tuxtype-lesson.png
+module-tuxtype-lesson-accents module-tuxtype-lesson-accents.png
