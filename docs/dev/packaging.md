@@ -41,7 +41,7 @@ sudo ci/setup-dev-host.sh
 
 It creates `/srv/kidux-apt` owned by you, points nginx at it, puts you in the
 `kvm` group so test VMs run at full speed, and lets your systemd linger, so
-that a push set for the evening (`ci/push.sh --later`, D99) outlives your
+that a push set for the evening (`ci/push.sh --later`, D99, D114) outlives your
 session. Log out and back in afterwards for the group to take effect. It is
 safe to run again.
 
@@ -319,9 +319,10 @@ Promotion copies what is already in `testing` rather than publishing a fresh
 build, so the bits a family gets are the bits that were tested, byte for byte.
 
 **The hours.** Nothing of Kidux's reaches GitHub, or carries a time that is
-read there, outside the hours it is seen working (D99, `ci/hours.py`):
-Madrid's 19:00 to 02:00 around a weekday night, and all of Saturday and
-Sunday, so Friday 19:00 to Monday 02:00 without a break. `ci/push.sh` is
+read there, outside the hours it is seen working (D99, D114,
+`ci/hours.py`): Madrid's 19:00 to 03:00 around a night from Tuesday to
+Friday, and all of Saturday, Sunday and Monday, so Friday 19:00 to
+Tuesday 03:00 without a break. `ci/push.sh` is
 the one way to push: inside the hours it dates the commits not yet on
 `origin/main` again, the author's and the committer's dates alike, the
 last at the push and each earlier one a minute before (closer when the

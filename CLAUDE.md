@@ -126,9 +126,10 @@ instead of scattering decisions across chats.
   changelog dated in the future breaks build reproducibility, because `dpkg`
   only clamps file times that are newer than `SOURCE_DATE_EPOCH` (D23);
   `tests/run reproducible` catches it. A date in the past is safe.
-- **GitHub only in the evening and at the weekend (D99).** Nothing is pushed,
-  released or run on GitHub outside Madrid's 19:00 to 02:00 on a weekday and
-  the whole weekend. `ci/push.sh` is the one way to push: it dates the
+- **GitHub only in the evening, at the weekend and on Monday (D114).**
+  Nothing is pushed, released or run on GitHub outside Madrid's 19:00 to
+  03:00 around a night from Tuesday to Friday, and the whole of Saturday,
+  Sunday and Monday. `ci/push.sh` is the one way to push: it dates the
   commits not yet on GitHub inside those hours and pushes; outside them,
   `ci/push.sh --later` sets a timer for the hours' next opening, and
   `--then-publish` has the timer promote and publish after the push, so

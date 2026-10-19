@@ -10,9 +10,9 @@
                                           inside the hours and ending now; prints the new head
 
 Nothing of Kidux's reaches GitHub, or carries a time that is read there,
-outside these hours, Madrid's: from 19:00 to 02:00 around a weekday night,
-and the whole of Saturday and Sunday, so from Friday 19:00 to Monday 02:00
-without a break. A commit's dates, the author's and the committer's, are
+outside these hours, Madrid's: from 19:00 to 03:00 around a night from
+Tuesday to Friday, and the whole of Saturday, Sunday and Monday, so from
+Friday 19:00 to Tuesday 03:00 without a break (D114). A commit's dates, the author's and the committer's, are
 set inside them when it is pushed (ci/push.sh); a changelog's date, which
 the built package carries and the archive shows, is taken from here when a
 package gets its version. A date in the past keeps a build reproducible,
@@ -29,11 +29,13 @@ from pathlib import Path
 
 ZONE = zoneinfo.ZoneInfo("Europe/Madrid")
 OPENS = datetime.time(19, 0)
-CLOSES = datetime.time(2, 0)
+CLOSES = datetime.time(3, 0)
 #: The last minute before the hours close, for a date that has to be inside
 #: them and before now.
-LAST = datetime.time(1, 59)
-SATURDAY, SUNDAY = 5, 6
+LAST = datetime.time(2, 59)
+#: The days the hours cover whole: the weekend and Monday.
+MONDAY, SATURDAY, SUNDAY = 0, 5, 6
+WHOLE_DAYS = (SATURDAY, SUNDAY, MONDAY)
 REPO = Path(__file__).resolve().parents[1]
 
 
@@ -43,7 +45,7 @@ def now() -> datetime.datetime:
 
 def allowed(when: datetime.datetime) -> bool:
     """Whether `when`, in Madrid's time, is inside the hours."""
-    if when.weekday() in (SATURDAY, SUNDAY):
+    if when.weekday() in WHOLE_DAYS:
         return True
     return when.time() >= OPENS or when.time() < CLOSES
 
@@ -57,11 +59,11 @@ def opens(when: datetime.datetime) -> datetime.datetime:
 
 def began(when: datetime.datetime) -> datetime.datetime:
     """When the stretch of hours `when` is in began: the 19:00 that opened
-    it, Friday's for a weekend. For a `when` inside the hours."""
+    it, Friday's for the weekend and Monday. For a `when` inside the hours."""
     day = when.date()
-    if when.time() < CLOSES or when.weekday() in (SATURDAY, SUNDAY):
+    if when.time() < CLOSES or when.weekday() in WHOLE_DAYS:
         day -= datetime.timedelta(days=1)
-    while day.weekday() in (SATURDAY, SUNDAY):
+    while day.weekday() in WHOLE_DAYS:
         day -= datetime.timedelta(days=1)
     return datetime.datetime.combine(day, OPENS, ZONE)
 
@@ -140,8 +142,9 @@ def main(args: list[str]) -> int:
     if args == ["allowed"]:
         if allowed(moment):
             return 0
-        print(f"outside the hours Kidux is seen working (19:00 to 02:00 on a weekday, "
-              f"all weekend); they open at {opens(moment):%Y-%m-%d %H:%M}", file=sys.stderr)
+        print(f"outside the hours Kidux is seen working (19:00 to 03:00 from Tuesday to "
+              f"Friday, all of Saturday, Sunday and Monday); they open at "
+              f"{opens(moment):%Y-%m-%d %H:%M}", file=sys.stderr)
         return 1
     if args in (["next"], ["next", "--calendar"]):
         print(opens(moment).strftime("%Y-%m-%d %H:%M:%S" if len(args) == 2 else "%c %Z"))

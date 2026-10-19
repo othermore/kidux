@@ -3,7 +3,8 @@
 
     tests/project/hours.py
 
-Madrid's 19:00 to 02:00 around a weekday night and all weekend; the next
+Madrid's 19:00 to 03:00 around a night from Tuesday to Friday, and all of
+Saturday, Sunday and Monday; the next
 opening and the last moment before now inside them; a changelog date that
 keeps to them and to the entry before; and commits dated again for a push
 with nothing of them changed but their dates.
@@ -39,35 +40,37 @@ def at(text: str) -> datetime.datetime:
 
 
 # 2026-10-12 is a Monday.
-check("a weekday's day is outside the hours, its evening and its small hours inside",
+check("a day from Tuesday to Friday is outside the hours, its evening and small hours inside",
       not hours.allowed(at("2026-10-13 11:00")) and not hours.allowed(at("2026-10-13 18:59"))
-      and hours.allowed(at("2026-10-13 19:00")) and hours.allowed(at("2026-10-14 01:59"))
-      and not hours.allowed(at("2026-10-14 02:00")))
-check("the weekend is inside, Friday evening to Monday's small hours",
+      and hours.allowed(at("2026-10-13 19:00")) and hours.allowed(at("2026-10-14 02:59"))
+      and not hours.allowed(at("2026-10-14 03:00")) and not hours.allowed(at("2026-10-16 12:00")))
+check("the weekend and Monday are inside, Friday evening to Tuesday's small hours",
       hours.allowed(at("2026-10-17 12:00")) and hours.allowed(at("2026-10-18 03:00"))
-      and hours.allowed(at("2026-10-19 01:30")) and not hours.allowed(at("2026-10-19 02:30")))
+      and hours.allowed(at("2026-10-19 12:00")) and hours.allowed(at("2026-10-20 02:30"))
+      and not hours.allowed(at("2026-10-20 03:30")))
 check("the hours next open at 19:00 that day, or are open now",
       hours.opens(at("2026-10-13 11:00")) == at("2026-10-13 19:00")
       and hours.opens(at("2026-10-13 20:00")) == at("2026-10-13 20:00"))
-check("a stretch began at the 19:00 that opened it, Friday's for a weekend",
+check("a stretch began at the 19:00 that opened it, Friday's for the weekend and Monday",
       hours.began(at("2026-10-13 20:00")) == at("2026-10-13 19:00")
       and hours.began(at("2026-10-14 01:00")) == at("2026-10-13 19:00")
       and hours.began(at("2026-10-18 12:00")) == at("2026-10-16 19:00")
-      and hours.began(at("2026-10-19 01:00")) == at("2026-10-16 19:00"))
-check("the last moment inside the hours before a weekday's noon is 01:59 that morning",
-      hours.latest(at("2026-10-13 11:00")) == at("2026-10-13 01:59")
+      and hours.began(at("2026-10-19 13:00")) == at("2026-10-16 19:00")
+      and hours.began(at("2026-10-20 01:00")) == at("2026-10-16 19:00"))
+check("the last moment inside the hours before a weekday's noon is 02:59 that morning",
+      hours.latest(at("2026-10-13 11:00")) == at("2026-10-13 02:59")
       and hours.latest(at("2026-10-13 23:00")) == at("2026-10-13 23:00"))
 
 parsed = email.utils.parsedate_to_datetime
 dated = parsed(hours.changelog_date(at("2026-10-13 11:00:30"), None))
 check("a changelog date inside the hours, not after now, in Madrid's time",
-      dated == at("2026-10-13 01:59") and dated.utcoffset() == at("2026-10-13 01:59").utcoffset(),
+      dated == at("2026-10-13 02:59") and dated.utcoffset() == at("2026-10-13 02:59").utcoffset(),
       str(dated))
-previous = at("2026-10-13 01:59")
+previous = at("2026-10-13 02:59")
 check("and after the entry before it, a minute on, never after now",
-      parsed(hours.changelog_date(at("2026-10-13 11:00"), previous)) == at("2026-10-13 02:00")
-      and parsed(hours.changelog_date(at("2026-10-13 01:59:20"), previous))
-      == at("2026-10-13 01:59:20"))
+      parsed(hours.changelog_date(at("2026-10-13 11:00"), previous)) == at("2026-10-13 03:00")
+      and parsed(hours.changelog_date(at("2026-10-13 02:59:20"), previous))
+      == at("2026-10-13 02:59:20"))
 with tempfile.TemporaryDirectory() as scratch:
     hours.REPO = Path(scratch)
     (Path(scratch) / "packages" / "kidux-module-new" / "debian").mkdir(parents=True)

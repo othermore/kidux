@@ -1778,7 +1778,8 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   comes from `ci/hours.py changelog-date`, the last moment inside the hours
   not after now, since a changelog date is in the package and in the
   repository; a date in the past keeps a build reproducible (D23). A
-  commit once pushed never changes.
+  commit once pushed never changes. *The hours themselves, 19:00 to 02:00
+  and the weekend: superseded by D114, which widens them.*
 - **D100 — Removing a module takes with it what was installed for it
   alone.** Decided 2026-10-16 by the owner. `remove` is `apt-get purge
   --auto-remove` of the module's package: Thunderbird and its sixty-five
@@ -2001,3 +2002,11 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   two lessons of the accented vowels, and the Spanish games have word
   lists of Kidux's own, with the ñ in all and the accents only in the
   last, as the owner asked.
+- **D114 — The hours Kidux is seen working on GitHub run to 03:00, and
+  Monday is a whole day of them.** Decided 2026-10-19 by the owner,
+  refining D99. The hours are Madrid's 19:00 to 03:00 around a night from
+  Tuesday to Friday, and the whole of Saturday, Sunday and Monday, so from
+  Friday 19:00 to Tuesday 03:00 without a break. Everything else of D99
+  stands: `ci/push.sh` the one way to push, the commits dated inside the
+  hours at the push, the changelog's date the last moment inside them not
+  after now, the archive's release on GitHub keeping to them.
