@@ -1947,3 +1947,12 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   the same licence rather than licensed to the owner. The name and the
   penguin stay outside the licence, for a trademark. Each package gets its
   next version with the change, since `debian/copyright` is part of it.
+- **D111 — BASIC installs wwwBASIC as it is published.** Decided
+  2026-10-18 by the owner, refining D88. The one patch D88 brought,
+  `SLEEP` reading its number in `wwwbasic.mjs`, was sent to wwwBASIC from
+  the owner's fork and merged as its pull request 61. So `upstream.toml`
+  pins the merge, `dda9602`, the package copies `wwwbasic.mjs` unchanged,
+  and `patches/` and its step in `debian/rules` are gone: a program as its
+  authors publish it is one thing less to keep. D88 stands for the next
+  fix: a patch while wwwBASIC has not taken it, offered upstream, and
+  dropped once it is in.

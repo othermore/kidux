@@ -7,12 +7,11 @@ WEBAPP = $(DEST)/usr/share/kidux/webapps/basic
 %:
 	dh $@
 
-# wwwBASIC as upstream.toml's build took it, with Kidux's small fixes in
-# patches/ applied to a copy (docs/dev/basic.md, section 2).
+# wwwBASIC as upstream.toml's build took it, unchanged (docs/dev/basic.md,
+# section 2).
 override_dh_auto_build:
 	mkdir -p build/wwwbasic
 	cp upstream/wwwbasic.mjs upstream/LICENSE upstream/README.md build/wwwbasic/
-	for patch in patches/*.patch; do patch --no-backup-if-mismatch -d build/wwwbasic -p1 < $$patch || exit 1; done
 	for po in po/*.po; do \
 	    lang=$$(basename $$po .po); \
 	    mkdir -p build/locale/$$lang/LC_MESSAGES; \

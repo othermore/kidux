@@ -114,8 +114,8 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [x] Offer wwwBASIC the fixes in kidux-module-basic's `patches/` (D88):
       the SLEEP fix, from the owner's fork, `github.com/othermore/wwwbasic`,
       is accepted upstream.
-- [ ] kidux-module-basic built from wwwBASIC as published, at the commit
-      that holds the SLEEP fix, with no patch of Kidux's left.
+- [x] kidux-module-basic built from wwwBASIC as published, at the commit
+      that holds the SLEEP fix, with no patch of Kidux's left (D111).
 - [x] A web module that is a door to one website on the internet, held to
       that site's hosts (4.12, D85).
 - [x] CodeCombat, a door to codecombat.com, nothing of it shipped, not

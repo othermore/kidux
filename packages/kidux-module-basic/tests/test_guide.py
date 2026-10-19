@@ -16,7 +16,7 @@ import pytest
 
 PACKAGE = Path(__file__).resolve().parents[1]
 CONTENT = PACKAGE / "content"
-# wwwBASIC as the package build patches it, or where WWWBASIC says.
+# wwwBASIC as the package build copies it, or where WWWBASIC says.
 WWWBASIC = Path(os.environ.get("WWWBASIC", PACKAGE / "build" / "wwwbasic" / "wwwbasic.mjs"))
 
 

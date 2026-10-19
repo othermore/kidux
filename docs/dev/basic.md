@@ -46,20 +46,15 @@ packs `wwwbasic.js`, `wwwbasic.mjs`, `LICENSE`, `README.md` and its
 `wwwbasic.mjs`, a JavaScript module, and the tests load the same file
 under Node.js, so that what they try is what the page runs.
 
-What Kidux needs of wwwBASIC is met first through its bindings, the
-object of functions it calls to draw, print, read a key or make a sound.
-What a binding cannot do, a small fix to wwwBASIC can (D88): each is a
-patch in the package's `patches/`, applied by `debian/rules` to a copy
-of `wwwbasic.mjs` in `build/wwwbasic/`, which the tests try and the
-package installs, while the tarball stays wwwBASIC's own. The patched
-file says at its top that Kidux changed it, as its licence asks. The one
-fix, `patches/sleep.patch`: `SLEEP n` waits n thousandths of a second,
-and `wwwbasic.mjs` read `SLEEP` itself as its number and stopped every
-program that used it. wwwBASIC's `wwwbasic.mjs` is made from
-`wwwbasic.js` by its `tools/to_mjs.js`, and was not made again after the
-fix went into `wwwbasic.js`; the patch is what making it again gives. It
-is offered to wwwBASIC from the owner's fork, `github.com/othermore/wwwbasic`,
-branch `regenerate-mjs-after-sleep-fix`, as the roadmap says.
+What Kidux needs of wwwBASIC is met through its bindings, the object of
+functions it calls to draw, print, read a key or make a sound, and
+wwwBASIC is installed as it is published: `debian/rules` copies
+`wwwbasic.mjs` into `build/wwwbasic/`, which the tests try and the
+package installs. The commit `upstream.toml` pins holds the one fix
+Kidux needed, `SLEEP n` reading its number in `wwwbasic.mjs` as
+`wwwbasic.js` did, which Kidux sent to wwwBASIC and wwwBASIC took (D111).
+A fix wwwBASIC has not taken yet goes back to being a patch in the
+package's `patches/`, applied to that copy (D88).
 
 Anything bigger, a statement wwwBASIC lacks, is not added: the guide is
 written for what the machine does. What it had to be written around:

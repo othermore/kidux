@@ -3,7 +3,7 @@
 # editor of Kidux's own with a guide for the child beside it, served by
 # kidux-webapps under /basic/ (D84; docs/dev/basic.md).
 id = "basic"
-version = "0+git20260223.5"
+version = "0+git20261018.1"
 name = "BASIC"
 description = "Learn the classic BASIC programming language with an interactive guide beside it: write programs, draw shapes, play sounds, and see your code run instantly."
 min_age = 8

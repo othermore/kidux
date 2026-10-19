@@ -1,3 +1,10 @@
+kidux-module-basic (0+git20261018.1) trixie; urgency=medium
+
+  * wwwBASIC as published, at the commit that holds its SLEEP fix, with
+    no patch of Kidux's.
+
+ -- Antonio Morales García <info@kidux.org>  Sun, 18 Oct 2026 20:17:55 +0200
+
 kidux-module-basic (0+git20260223.5) trixie; urgency=medium
 
   * The description an adult reads on the Modules page, written at more length.
