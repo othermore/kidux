@@ -57,6 +57,12 @@ first, second = days.get(datetime.date(2026, 10, 18)), days.get(datetime.date(20
 
 check("only apt.kidux.org's lines are read, by the day they were made",
       sorted(days) == [datetime.date(2026, 10, 18), datetime.date(2026, 10, 19)], str(sorted(days)))
+usage.INCLUDE_TESTS = True
+counted = usage.parse(LOG.splitlines(), known)[datetime.date(2026, 10, 18)]
+usage.INCLUDE_TESTS = False
+check("with the page's toggle on, the test machines count as any other",
+      "00000000000000000000000000000001" in counted["ids"] and not counted["tests"],
+      str(counted["ids"]))
 check("a machine with an identifier counts once a day however often it looks",
       first["ids"] == {"51d1002cbf595fe691f73b47438577ce", "936c7fdc2dca2272cdfd334fb40e0b88"},
       str(first["ids"]))
@@ -112,6 +118,10 @@ check("days, ISO weeks and months each have their table",
       and [r["period"] for r in summary["tables"]["week"]] == ["2026-W42", "2026-W43"]
       and [r["period"] for r in summary["tables"]["month"]] == ["2026-10"],
       str({k: [r["period"] for r in v] for k, v in summary["tables"].items()}))
+check("the test machines are listed apart, each with its address and requests",
+      ("0123456789abcdef0123456789abcdef", "192.0.2.1", 1, 1, "2026-10-18") in summary["test_rows"]
+      and ("00000000000000000000000000000001", "192.0.2.1", 1, 2, "2026-10-18") in summary["test_rows"],
+      str(summary["test_rows"]))
 check("all time counts every machine once, from the first day",
       summary["tables"]["all"][0]["period"] == "since 2026-10-18"
       and summary["tables"]["all"][0]["ids"] == 3 + 10

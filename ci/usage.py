@@ -81,6 +81,9 @@ from pathlib import Path
 
 SITE = "apt.kidux.org"
 LOGS = Path(os.environ.get("KIDUX_USAGE_LOGS", Path.home() / ".config/kidux/usage-logs.url"))
+#: Whether the test machines count as any other, which the page's toggle asks
+#: for (KIDUX_USAGE_TESTS=1); they are kept apart otherwise.
+INCLUDE_TESTS = os.environ.get("KIDUX_USAGE_TESTS") == "1"
 NETRC = Path(os.environ.get("KIDUX_APT_HOSTING", Path.home() / ".config/kidux/apt-hosting.netrc"))
 KEPT = Path(os.environ.get("KIDUX_USAGE_DIR", Path.home() / ".local/share/kidux/usage"))
 TEST_IDS = Path(__file__).resolve().parent / "usage-test-ids.txt"
@@ -125,7 +128,7 @@ def records(lines, known: set[str] | None = None):
         identifier = identified[1] if identified else None
         if not agent.startswith("Debian APT-HTTP/"):
             client = "web"
-        elif identifier and is_test(identifier, known):
+        elif identifier and not INCLUDE_TESTS and is_test(identifier, known):
             client = "test"
         elif identifier or agent == KIDUX:
             client = "kidux"
@@ -153,7 +156,7 @@ def parse(lines, known: set[str] | None = None) -> dict:
     """The day's numbers, by day, from access log lines (text)."""
     days = defaultdict(lambda: {"ids": set(), "pairs": set(), "anonymous": set(),
                                 "other_apt": set(), "downloads": Counter(), "tests": set(),
-                                "other": 0})
+                                "test_requests": Counter(), "other": 0})
     for record in records(lines, known):
         numbers, client, kind = days[record["day"]], record["client"], record["kind"]
         if client == "web":
@@ -161,6 +164,7 @@ def parse(lines, known: set[str] | None = None) -> dict:
             continue
         if client == "test":
             numbers["tests"].add(record["identifier"])
+            numbers["test_requests"][(record["identifier"], record["address"])] += 1
             continue
         if kind == "index":
             if client == "kidux" and record["identifier"]:
@@ -210,12 +214,13 @@ def period_of(day: datetime.date, kind: str) -> str:
 def merged(numbers: dict, days: list) -> dict:
     """One period's numbers, from its days'."""
     out = {"ids": set(), "pairs": set(), "anonymous": set(), "other_apt": set(),
-           "downloads": Counter(), "tests": set(), "other": 0}
+           "downloads": Counter(), "tests": set(), "test_requests": Counter(), "other": 0}
     for day in days:
         n = numbers[day]
         for key in ("ids", "pairs", "anonymous", "other_apt", "tests"):
             out[key] |= n[key]
         out["downloads"].update(n["downloads"])
+        out["test_requests"].update(n["test_requests"])
         out["other"] += n["other"]
     return out
 
@@ -284,7 +289,16 @@ def summary(numbers: dict, days: int | None) -> dict:
     recent = [day for day in every if day > every[-1] - datetime.timedelta(days=PLACES_DAYS)]
     window = merged(numbers, recent)
     whole = merged(numbers, every)
+    # Each test machine, by its identifier and address: its days and requests.
+    test_days = defaultdict(set)
+    for day in every:
+        for key in numbers[day]["test_requests"]:
+            test_days[key].add(day)
+    test_rows = sorted((identifier, address, len(test_days[(identifier, address)]),
+                        count, max(test_days[(identifier, address)]).isoformat())
+                       for (identifier, address), count in whole["test_requests"].items())
     return {"tables": tables, "places": places(window), "tests": len(whole["tests"]),
+            "test_rows": test_rows,
             "downloads": sorted(whole["downloads"].items()), "first": every[0], "last": every[-1]}
 
 
@@ -400,6 +414,16 @@ def as_html(report: dict, today: dict) -> str:
         downloads = "".join(f"<li>{e(package)} {e(version)}: {count}</li>"
                             for (package, version), count in report["downloads"])
         sections.append(f"<h2>Packages Kidux machines downloaded</h2><ul>{downloads}</ul>")
+    if report["test_rows"]:
+        sections.append(
+            "<h2>Test machines, not counted</h2>"
+            + table(["identifier", "address", "days seen", "requests", "last day"],
+                    report["test_rows"], help={
+                        "identifier": "An identifier that begins with sixteen zeros, or that "
+                                      "ci/usage-test-ids.txt lists: a machine of Kidux's tests, "
+                                      "kept apart from the families' machines.",
+                        "days seen": "Days it made a request.",
+                        "requests": "Every request it made, of any kind."}))
     tests = f" {report['tests']} identifiers of tests are not counted." if report["tests"] else ""
     made = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     return (f"<p>From {report['first'].isoformat()} to {report['last'].isoformat()}.{e(tests)}</p>"
@@ -518,8 +542,15 @@ def query(connection: sqlite3.Connection, sql: str, parameters=()) -> tuple[list
     return names, cursor.fetchmany(MOST_ROWS)
 
 
+def address_of(view: str, value: str = "", tests: bool | None = None, key: str = "value") -> str:
+    """A page's address, keeping whether the test machines are counted."""
+    tests = INCLUDE_TESTS if tests is None else tests
+    parts = [f"view={view}"] + ([f"{key}={quote(value, safe='')}"] if value else [])
+    return html.escape("?" + "&".join(parts + (["tests=1"] if tests else [])))
+
+
 def link(view: str, value: str, text: str | None = None) -> str:
-    return (f'<a href="?view={view}&amp;value={html.escape(quote(value, safe=""))}">'
+    return (f'<a href="{address_of(view, value)}">'
             f"{html.escape(text if text is not None else value)}</a>")
 
 
@@ -541,11 +572,16 @@ def table(names: list, rows: list, links: dict | None = None, help: dict | None 
             f"<tbody>{''.join(body)}</tbody></table></div>{more}")
 
 
-def shell(title: str, body: str) -> str:
-    nav = " · ".join(f'<a href="?view={view}">{name}</a>' for view, name in
+def shell(title: str, body: str, view: str = "summary", value: str = "") -> str:
+    nav = " · ".join(f'<a href="{address_of(page)}">{name}</a>' for page, name in
                      (("summary", "Summary"), ("ids", "Machines"), ("addresses", "Addresses"),
                       ("packages", "Packages"),
                       ("sql", "Query"), ("csv", "Download the table")))
+    # The toggle: the same page with the test machines counted, or kept apart.
+    toggle = (f'<span class="toggle">Test machines: '
+              f'<strong>{"included" if INCLUDE_TESTS else "excluded"}</strong> · '
+              f'<a href="{address_of(view, value, tests=not INCLUDE_TESTS)}">'
+              f'{"exclude them" if INCLUDE_TESTS else "include them"}</a></span>')
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -555,7 +591,9 @@ def shell(title: str, body: str) -> str:
 body {{ background: #fdf6f0; color: #24313f; font: 16px/1.5 system-ui, sans-serif;
        margin: 0 auto; max-width: 1100px; padding: 16px; }}
 h1 {{ font-size: 1.4em; }} h2 {{ font-size: 1.1em; margin-top: 1.6em; }}
-nav {{ margin-bottom: 1em; }}
+nav {{ margin-bottom: 1em; display: flex; flex-wrap: wrap; gap: 4px 16px;
+       justify-content: space-between; }}
+.toggle {{ color: #5b6672; font-size: 0.9em; }}
 a {{ color: #1f5fa8; }}
 table {{ border-collapse: collapse; width: 100%; }}
 th, td {{ padding: 5px 8px; text-align: left; border-bottom: 1px solid #e6d9cc;
@@ -573,7 +611,7 @@ button.help {{ border: 1px solid #b9a894; border-radius: 50%; background: #fff; 
         font-size: 0.85em; font-weight: 400; line-height: 1.4; padding: 8px 10px;
         border-radius: 6px; z-index: 1; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); }}
 </style></head><body>
-<nav>{nav}</nav>
+<nav>{nav}{toggle}</nav>
 <h1>{html.escape(title)}</h1>
 {body}
 <div id="tip" role="tooltip"></div>
@@ -755,9 +793,9 @@ def packages_view(connection) -> str:
 
 
 def sql_view(connection, sql: str) -> str:
-    examples = "".join(f"<li><a href=\"?view=sql&amp;example={i}\">{html.escape(name)}</a></li>"
+    examples = "".join(f"<li><a href=\"{address_of('sql', str(i), key='example')}\">{html.escape(name)}</a></li>"
                        for i, (name, _) in enumerate(EXAMPLES))
-    form = (f'<form method="post" action="?view=sql"><textarea name="sql" rows="6">{html.escape(sql)}'
+    form = (f'<form method="post" action="{address_of("sql")}"><textarea name="sql" rows="6">{html.escape(sql)}'
             f'</textarea><p><button type="submit">Run</button></p></form>')
     result = ""
     if sql.strip():
@@ -812,7 +850,7 @@ def explore(view: str, value: str, today: bool) -> int:
         title, body = "Query", sql_view(connection, sql)
     else:
         title, body = "Kidux machines", "<p>No such page.</p>"
-    print(shell(title, body))
+    print(shell(title, body, view, value))
     return 0
 
 

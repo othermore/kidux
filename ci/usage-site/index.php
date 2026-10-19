@@ -21,6 +21,8 @@ $views = ['summary', 'ids', 'id', 'addresses', 'address', 'packages', 'sql', 'cs
 $view = in_array($_GET['view'] ?? '', $views, true) ? $_GET['view'] : 'summary';
 $value = (string) ($_GET['value'] ?? $_GET['example'] ?? '');
 putenv('KIDUX_USAGE_SQL=' . (string) ($_POST['sql'] ?? ''));
+// The page's toggle: the test machines counted as any other, or kept apart.
+putenv('KIDUX_USAGE_TESTS=' . (($_GET['tests'] ?? '') === '1' ? '1' : ''));
 
 exec("$usage fetch 2>&1", $fetched, $fetch_failed);
 
