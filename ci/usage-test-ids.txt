@@ -5,3 +5,4 @@
 51d1002cbf595fe691f73b47438577cd   # session machine, Spanish, 2026-10-18
 d73d7a8639b660a1ee8e28d0e286e590   # the same, as a machine upgraded from 0.2.5
 936c7fdc2dca2272cdfd334fb40e0b87   # session machine, English, 2026-10-18
+30bdb785d9ff6ce73caf9d62d12a4b0c   # the Spanish session machine as one upgraded, again, 2026-10-18
