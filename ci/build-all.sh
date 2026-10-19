@@ -32,6 +32,7 @@ kidux-greeter
 kidux-launcher
 kidux-module-hello
 kidux-module-gcompris
+kidux-tuxtype
 kidux-module-tuxtype
 kidux-module-kig
 kidux-module-kalzium
