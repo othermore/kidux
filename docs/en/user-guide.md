@@ -29,61 +29,70 @@ not need a guide: every screen they can reach explains itself.
 
 ## 2. Installing Kidux
 
-There are two ways to put Kidux on a computer, and one way to see it
-before giving it a computer at all.
+There are two ways to put Kidux on a computer, and a third option for
+seeing it work before giving it a computer at all. This table sums up
+which one suits each case:
 
 | What you want | What to do |
 |---|---|
-| **Install Kidux on a computer** | **Download the installer**, write it to a USB stick and start the computer from it: [From the Kidux image](#from-the-kidux-image), below. The usual way, and the quickest. |
-| **Try Kidux first**, on the computer you use every day | Download an image ready to run in an emulator on Windows, macOS or Linux, with a family already in it: [Trying Kidux in an emulator](try.md). Nothing is installed on the computer itself. |
-| Install it on a Debian you set up yourself | [On Debian](#on-debian), further down. It gives exactly the same Kidux, and takes about an hour. |
+| **Install Kidux on a computer** | **Download the installer**, write it to a USB stick and start the computer from it. It is the usual way and the quickest, and it is explained next, in [From the Kidux image](#from-the-kidux-image). |
+| **Try Kidux first**, on the computer you use every day | Download an image prepared to run in an emulator, on Windows, macOS or Linux, with a family already in it. Nothing is installed on the computer itself. The page [Trying Kidux in an emulator](try.md) explains how. |
+| **Install it on a Debian** you set up yourself | It is explained further down, in [On Debian](#on-debian). The result is exactly the same Kidux, but the process takes about an hour. |
 
 ### From the Kidux image
 
-Kidux's installer is an image of a USB stick: everything Kidux needs, in
-one file of about 750 MB. It installs Kidux on the whole of the
-computer's disk in a few minutes, with no network needed while it does.
-Everything on the computer's disk is erased: copy anything you want to
-keep somewhere else first.
+Kidux's installer is an image of a USB stick: a single file, of about
+750 MB, with everything Kidux needs. You write it to a stick, start the
+computer from it and, in a few minutes, Kidux is installed on the
+computer's whole disk. It needs no network connection while it installs.
 
-1. **Download the installer.** On another computer, download
-   [kidux-amd64.iso](https://iso.kidux.org/kidux-amd64.iso). If you want
-   to check that the file arrived whole, its SHA-256 sum is in
-   [SHA256SUMS](https://iso.kidux.org/SHA256SUMS), signed with Kidux's key
-   in [SHA256SUMS.sign](https://iso.kidux.org/SHA256SUMS.sign). The file's
-   own name says the version of Kidux it installs.
+Bear in mind that everything on the computer's disk is erased. If there is
+anything you want to keep, copy it somewhere else first.
 
-2. **Write it to a USB stick** of 2 GB or more, with a program such as
-   [balenaEtcher](https://etcher.balena.io/): choose the file, choose the
-   stick, and write. Everything on the stick is erased. An SD card or any
-   other external drive the computer can start from works the same way.
+1. **Download the installer.** On another computer, download the file
+   [kidux-amd64.iso](https://iso.kidux.org/kidux-amd64.iso). The file's
+   full name says the version of Kidux it installs. If you want to check
+   that the download arrived whole, its SHA-256 sum is in
+   [SHA256SUMS](https://iso.kidux.org/SHA256SUMS), and that list's
+   signature, made with Kidux's key, is in
+   [SHA256SUMS.sign](https://iso.kidux.org/SHA256SUMS.sign).
 
-3. **Start the computer from the stick.** Plug the stick in and turn the
-   computer on, and open its boot menu: usually that means pressing F12,
-   F11, F8, Esc or F2 just after turning it on, or holding down the Option
-   key on a Mac. Choose the stick. A computer with **Secure Boot** on starts
-   it as it is: there is no need to turn Secure Boot off.
+2. **Write it to a USB stick** of 2 GB or more. You can use a program such
+   as [balenaEtcher](https://etcher.balena.io/): choose the file, choose
+   the stick and press write. Everything that was on the stick is erased.
+   An SD card, or any other external drive the computer can start from,
+   works exactly the same way.
 
-4. **Choose the language.** Kidux's menu offers **Instalar Kidux**, in
-   Spanish, and **Install Kidux**, in English; the first starts by itself
-   after ten seconds. If the screen stays black or garbled, start again
-   and choose **Gráficos seguros / Safe graphics**, which has both.
+3. **Start the computer from the stick.** Plug the stick in, turn the
+   computer on and open its boot menu. Usually that is done by pressing
+   F12, F11, F8, Esc or F2 just after turning it on; on a Mac, by holding
+   down the Option key. In that menu, choose the stick. If the computer
+   has **Secure Boot** turned on, there is no need to turn it off: the
+   stick starts as it is.
+
+4. **Choose the language.** Kidux's menu offers two options: **Instalar
+   Kidux**, in Spanish, and **Install Kidux**, in English. If you choose
+   neither, the first starts by itself after ten seconds. If the screen
+   stays black or garbled, start the computer again and choose **Gráficos
+   seguros / Safe graphics**, which offers the same two options with
+   simpler graphics.
 
    ![Kidux's boot menu, with Install Kidux chosen](../images/en/install-boot-menu.png)
 
-5. **Answer the installer.** Its steps are listed on the left, and
-   **Next** moves on:
+5. **Answer the installer.** Its steps are listed in the left-hand
+   column, and the **Next** button moves from one to the next. This is
+   what each step asks:
 
    | Step | What it asks |
    |---|---|
-   | **Welcome** | Nothing: it checks that the computer has enough disk and memory. |
-   | **Location** | The time zone, from the map. |
-   | **Keyboard** | The keyboard's layout, which can be tried in the box below it. Kidux asks for its own language and keyboard again at its first start. |
-   | **Partitions** | Nothing to choose: the whole disk is erased and divided as Kidux needs, the system on one part and the children's work on another. The page shows the disk before and after. |
-   | **Users** | An account for you, the adult who looks after the computer: your name, a user name, the computer's name, `kidux` already written, and a password, twice. The children get theirs in Kidux, and this password is not the one that opens Kidux's adult panel, which the first start asks for. Leave **Log in automatically** unticked: Kidux always starts at its own sign-in screen. |
-   | **Summary** | What is about to happen. **Install** starts it, after one more question. |
-   | **Install** | A bar shows how far it has got. It takes a few minutes. |
-   | **Finish** | Kidux is installed. With **Restart now** ticked, **Done** restarts the computer. |
+   | **Welcome** | Nothing. It checks that the computer has enough disk and memory. |
+   | **Location** | The time zone. It is chosen on the map. |
+   | **Keyboard** | The keyboard's layout, which can be tried in the box below it. Do not worry if you are unsure: Kidux asks for its own language and keyboard again at its first start. |
+   | **Partitions** | Nothing to choose. The installer erases the whole disk and divides it as Kidux needs: the system on one part and the children's work on another. The page shows how the disk looks before and after. |
+   | **Users** | An account for you, the adult who looks after the computer. It asks for your name, a user name, the computer's name (`kidux` is already written) and a password, twice. The children will have their own accounts inside Kidux. Nor is this password the one that opens the adult panel, which is chosen at the first start. Leave **Log in automatically** unticked: Kidux always starts at its own sign-in screen. |
+   | **Summary** | Shows what is about to happen. The **Install** button sets it going, after one last question to confirm. |
+   | **Install** | A bar shows the progress. It takes a few minutes. |
+   | **Finish** | Kidux is now installed. With the **Restart now** box ticked, the **Done** button restarts the computer. |
 
    The installer's first page:
 
@@ -105,9 +114,9 @@ keep somewhere else first.
 
    ![The Finish page, with Restart now ticked](../images/en/install-finished.png)
 
-6. **Take the stick out** when the computer restarts. It shows Kidux's
-   logo and starts for the first time: the next section, *The first
-   start*, describes what happens then.
+6. **Take the stick out** when the computer restarts. As it starts, it
+   shows Kidux's logo and begins its first start. The next section, *The
+   first start*, describes what happens then.
 
 ### On Debian
 
@@ -1258,12 +1267,13 @@ More about it: [Photography's page](modules/photography.md).
 
 ## 10. Updates and reinstalling
 
-Updates install themselves every morning, in the background: Debian's
-security updates and Kidux's own. Nothing needs doing. They wait while a
-child is signed in, and install once the last child has logged out, so
-that nothing a child is using changes under them; a child who signs in
-while they are being installed is told that the computer is being
-updated, and can sign in a moment later.
+Updates install themselves, every morning and in the background. They
+include both Debian's security updates and Kidux's own, and nothing needs
+doing to receive them. While a child is inside their session, the updates
+wait, and they install once the last child has logged out, so that nothing
+a child is using changes in the meantime. If a child tries to sign in just
+while they are being installed, the screen tells them that the computer is
+being updated, and they can sign in a moment later.
 
 Kidux's updates come from `apt.kidux.org`, a server of the project's. Like
 any web server, it records each request with the address it came from,
@@ -1274,8 +1284,8 @@ statistics**, on the System page under Advanced, adds an identifier made
 for this computer alone, so that it is counted as one computer rather than as an
 address; it is on unless you turn it off.
 
-To install updates at once, without waiting for the morning, use the
-adult panel's **System** page:
+If you want to install them at once, without waiting for the next
+morning, use the adult panel's **System** page:
 
 1. Press **Look for updates**. The page says how many updates there are,
    and which.

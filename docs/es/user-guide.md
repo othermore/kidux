@@ -31,64 +31,71 @@ explica sola.
 
 ## 2. Instalar Kidux
 
-Hay dos formas de poner Kidux en un ordenador, y una de verlo antes de
-dedicarle ningún ordenador.
+Hay dos formas de poner Kidux en un ordenador, y una tercera opción
+para verlo funcionar antes de dedicarle ningún ordenador. Esta tabla
+resume cuál conviene en cada caso:
 
-| Lo que se quiere | Qué hacer |
+| Lo que quieres | Qué hacer |
 |---|---|
-| **Instalar Kidux en un ordenador** | **Descargar el instalador**, grabarlo en una memoria USB y arrancar el ordenador desde ella: [Con la imagen de Kidux](#con-la-imagen-de-kidux), a continuación. Es la forma habitual, y la más rápida. |
-| **Probarlo primero**, en el ordenador de todos los días | Descargar una imagen lista para funcionar en un emulador en Windows, macOS o Linux, con una familia ya creada: [Probar Kidux en un emulador](try.md). No se instala nada en el propio ordenador. |
-| Instalarlo sobre un Debian preparado por uno mismo | [Sobre Debian](#sobre-debian), más abajo. Da exactamente el mismo Kidux, y lleva alrededor de una hora. |
+| **Instalar Kidux en un ordenador** | **Descarga el instalador**, grábalo en una memoria USB y arranca el ordenador desde ella. Es la forma habitual y la más rápida, y se explica a continuación, en [Con la imagen de Kidux](#con-la-imagen-de-kidux). |
+| **Probarlo primero**, en el ordenador de todos los días | Descarga una imagen preparada para funcionar en un emulador, en Windows, macOS o Linux, con una familia ya creada. No se instala nada en el propio ordenador. La página [Probar Kidux en un emulador](try.md) explica cómo hacerlo. |
+| **Instalarlo sobre un Debian** preparado por uno mismo | Se explica más abajo, en [Sobre Debian](#sobre-debian). El resultado es exactamente el mismo Kidux, pero el proceso lleva alrededor de una hora. |
 
 ### Con la imagen de Kidux
 
-El instalador de Kidux es la imagen de una memoria USB: todo lo que
-Kidux necesita, en un solo archivo de unos 750 MB. Instala Kidux en el
-disco entero del ordenador en pocos minutos, sin necesidad de red mientras
-lo hace. Se borra todo lo que haya en el disco del ordenador: copia antes en
-otro sitio lo que quieras conservar.
+El instalador de Kidux es la imagen de una memoria USB: un solo
+archivo, de unos 750 MB, con todo lo que Kidux necesita. Se graba en una
+memoria, se arranca el ordenador desde ella y, en pocos minutos, Kidux
+queda instalado en el disco completo del ordenador. Mientras instala no
+necesita conexión a la red.
 
-1. **Descarga el instalador.** Desde otro ordenador, descarga
-   [kidux-amd64.iso](https://iso.kidux.org/kidux-amd64.iso). Si quieres
-   comprobar que el archivo ha llegado entero, su suma SHA-256 está en
-   [SHA256SUMS](https://iso.kidux.org/SHA256SUMS), firmada con la clave de
-   Kidux en [SHA256SUMS.sign](https://iso.kidux.org/SHA256SUMS.sign). El
-   propio nombre del archivo dice la versión de Kidux que instala.
+Ten en cuenta que se borra todo lo que haya en el disco del ordenador. Si
+hay algo que quieras conservar, cópialo antes en otro sitio.
 
-2. **Grábalo en una memoria USB** de 2 GB o más, con un programa como
-   [balenaEtcher](https://etcher.balena.io/): se elige el archivo, se
-   elige la memoria y se graba. Se borra todo lo que hubiera en la
-   memoria. Una tarjeta SD o cualquier otra unidad externa desde la que el
-   ordenador pueda arrancar sirve igual.
+1. **Descarga el instalador.** Desde otro ordenador, descarga el archivo
+   [kidux-amd64.iso](https://iso.kidux.org/kidux-amd64.iso). El nombre
+   completo del archivo indica la versión de Kidux que instala. Si quieres
+   comprobar que la descarga ha llegado entera, su suma SHA-256 está en
+   [SHA256SUMS](https://iso.kidux.org/SHA256SUMS), y la firma de esa
+   lista, hecha con la clave de Kidux, en
+   [SHA256SUMS.sign](https://iso.kidux.org/SHA256SUMS.sign).
 
-3. **Arranca el ordenador desde la memoria.** Conecta la memoria,
-   enciende el ordenador y abre su menú de arranque: normalmente se pulsa
-   F12, F11, F8, Esc o F2 justo después de encenderlo, o se mantiene
-   pulsada la tecla Opción en un Mac. Elige la memoria. Un ordenador con
-   **arranque seguro** (Secure Boot) activado la arranca tal cual: no hace
-   falta desactivarlo.
+2. **Grábalo en una memoria USB** de 2 GB o más. Puedes usar un programa
+   como [balenaEtcher](https://etcher.balena.io/): se elige el archivo, se
+   elige la memoria y se pulsa grabar. Todo lo que hubiera en la memoria
+   se borra. Una tarjeta SD, o cualquier otra unidad externa desde la que
+   el ordenador pueda arrancar, sirve exactamente igual.
 
-4. **Elige el idioma.** El menú de Kidux ofrece **Instalar Kidux**, en
-   español, e **Install Kidux**, en inglés; la primera opción arranca sola
-   a los diez segundos. Si la pantalla se queda negra o se ve mal, vuelve
-   a arrancar y elige **Gráficos seguros / Safe graphics**, que tiene las
-   dos.
+3. **Arranca el ordenador desde la memoria.** Conecta la memoria, enciende
+   el ordenador y abre su menú de arranque. Normalmente se consigue
+   pulsando F12, F11, F8, Esc o F2 justo después de encenderlo; en un Mac,
+   manteniendo pulsada la tecla Opción. En ese menú, elige la memoria. Si
+   el ordenador tiene activado el **arranque seguro** (Secure Boot), no
+   hace falta desactivarlo: la memoria arranca tal cual.
+
+4. **Elige el idioma.** El menú de Kidux ofrece dos opciones: **Instalar
+   Kidux**, en español, e **Install Kidux**, en inglés. Si no eliges
+   ninguna, la primera arranca sola a los diez segundos. Si la pantalla se
+   queda negra o se ve mal, vuelve a arrancar el ordenador y elige
+   **Gráficos seguros / Safe graphics**, que ofrece las mismas dos opciones
+   con unos gráficos más sencillos.
 
    ![El menú de arranque de Kidux, con Instalar Kidux elegido](../images/es/install-boot-menu.png)
 
-5. **Responde al instalador.** Sus pasos aparecen a la izquierda, y
-   **Siguiente** pasa al siguiente:
+5. **Responde al instalador.** Sus pasos aparecen en la columna de la
+   izquierda, y el botón **Siguiente** pasa de uno al siguiente. Esto es
+   lo que pregunta cada paso:
 
    | Paso | Lo que pregunta |
    |---|---|
-   | **Primeros pasos** | Nada: comprueba que el ordenador tiene disco y memoria suficientes. |
-   | **Ubicación** | La zona horaria, en el mapa. |
-   | **Teclado** | La distribución del teclado, que se puede probar en el recuadro de debajo. Kidux vuelve a preguntar su idioma y su teclado en su primer arranque. |
-   | **Particiones** | Nada que elegir: se borra el disco entero y se divide como Kidux necesita, el sistema en una parte y el trabajo de los niños en otra. La página muestra el disco antes y después. |
-   | **Usuarios** | Una cuenta para ti, el adulto que cuida del ordenador: tu nombre, un nombre de usuario, el nombre del equipo, ya escrito `kidux`, y una contraseña, dos veces. Los niños tienen las suyas en Kidux, y esta contraseña no es la que abre el panel de adulto de Kidux, que se pide en el primer arranque. Deja sin marcar **Iniciar sesión automáticamente**: Kidux arranca siempre en su propia pantalla de entrada. |
-   | **Resumen** | Lo que va a ocurrir. **Instalar** lo empieza, tras una última pregunta. |
-   | **Instalar** | Una barra muestra cuánto lleva. Tarda unos minutos. |
-   | **Terminar** | Kidux está instalado. Con **Reiniciar ahora** marcado, **Hecho** reinicia el ordenador. |
+   | **Primeros pasos** | Nada. Comprueba que el ordenador tiene disco y memoria suficientes. |
+   | **Ubicación** | La zona horaria. Se elige en el mapa. |
+   | **Teclado** | La distribución del teclado, que se puede probar en el recuadro de debajo. No te preocupes si dudas: Kidux vuelve a preguntar su idioma y su teclado en su primer arranque. |
+   | **Particiones** | Nada que elegir. El instalador borra el disco entero y lo divide como Kidux necesita: el sistema en una parte y el trabajo de los niños en otra. La página muestra cómo queda el disco antes y después. |
+   | **Usuarios** | Una cuenta para ti, el adulto que cuida del ordenador. Se pide tu nombre, un nombre de usuario, el nombre del equipo (viene ya escrito `kidux`) y una contraseña, dos veces. Los niños tendrán sus propias cuentas dentro de Kidux. Esta contraseña tampoco es la que abre el panel de adulto, que se elige en el primer arranque. Deja sin marcar **Iniciar sesión automáticamente**: Kidux arranca siempre en su propia pantalla de entrada. |
+   | **Resumen** | Muestra lo que va a ocurrir. El botón **Instalar** lo pone en marcha, tras una última pregunta de confirmación. |
+   | **Instalar** | Una barra muestra el progreso. Tarda unos minutos. |
+   | **Terminar** | Kidux ya está instalado. Con la casilla **Reiniciar ahora** marcada, el botón **Hecho** reinicia el ordenador. |
 
    La primera página del instalador:
 
@@ -110,9 +117,9 @@ otro sitio lo que quieras conservar.
 
    ![La página Terminar, con Reiniciar ahora marcado](../images/es/install-finished.png)
 
-6. **Retira la memoria** cuando el ordenador se reinicie. Muestra el logo
-   de Kidux y arranca por primera vez: la sección siguiente, *El primer
-   arranque*, describe lo que ocurre entonces.
+6. **Retira la memoria** cuando el ordenador se reinicie. Al arrancar,
+   muestra el logo de Kidux y empieza su primer arranque. La sección
+   siguiente, *El primer arranque*, describe lo que ocurre entonces.
 
 ### Sobre Debian
 
@@ -1301,12 +1308,14 @@ Más en [su página](modules/photography.md).
 
 ## 10. Actualizar y reinstalar
 
-Las actualizaciones se instalan solas cada mañana, en segundo plano: las
-de seguridad de Debian y las de Kidux. No hay que hacer nada. Esperan
-mientras hay un niño dentro de su sesión, y se instalan cuando ha salido
-el último, para que nada de lo que esté usando cambie mientras tanto; un
-niño que entra mientras se están instalando ve que el ordenador se está
-actualizando, y puede entrar un momento después.
+Las actualizaciones se instalan solas, cada mañana y en segundo plano.
+Incluyen tanto las actualizaciones de seguridad de Debian como las de
+Kidux, y no hay que hacer nada para recibirlas. Mientras un niño está
+dentro de su sesión, las actualizaciones esperan, y se instalan cuando ha
+salido el último, de modo que nada de lo que esté usando cambia mientras
+tanto. Si un niño intenta entrar justo mientras se están instalando, la
+pantalla le avisa de que el ordenador se está actualizando, y puede entrar
+un momento después.
 
 Las actualizaciones de Kidux vienen de `apt.kidux.org`, un servidor del
 proyecto. Como cualquier servidor web, anota cada petición con la
@@ -1318,8 +1327,8 @@ Avanzado, añade un identificador hecho solo para este ordenador, para que se cu
 como un ordenador y no como una dirección; está encendido salvo que lo
 apagues tú.
 
-Para instalarlas en el momento, sin esperar a la mañana, usa la página
-**Sistema** del panel de adulto:
+Si quieres instalarlas en el momento, sin esperar a la mañana siguiente,
+usa la página **Sistema** del panel de adulto:
 
 1. Pulsa **Buscar actualizaciones**. La página dice cuántas
    actualizaciones hay, y cuáles.

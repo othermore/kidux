@@ -188,12 +188,12 @@ need4 = "A display resolution of at least 1280 × 800 pixels. 1920 × 1080 or a 
 
 [get.image]
 title = "Download the installer"
-text = "The Kidux image, about 750 MB: write it to a USB flash drive, start the computer from it, with Secure Boot on or off, and the graphical installer leaves Kidux on the whole disk in a few minutes."
+text = "Download the Kidux image (about 750 MB), write it to a USB flash drive and start the computer from it. The graphical installer leaves Kidux ready in a few minutes, with no need to turn Secure Boot off."
 download = "Download Kidux"
 
 [get.try]
 title = "Try it first"
-text = "An image ready for VirtualBox, UTM or QEMU starts Kidux inside a window on Windows, macOS or Linux, with a child and six modules already set up, and nothing installed on the computer itself."
+text = "An image prepared for VirtualBox, UTM or QEMU starts Kidux inside a window, on Windows, macOS or Linux, with a child and six modules already set up. Nothing is installed on the computer itself."
 button = "Try Kidux in an emulator"
 
 [get.debian]

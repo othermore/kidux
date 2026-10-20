@@ -83,8 +83,8 @@ Kidux runs on any 64-bit computer (compatible with almost any desktop or laptop 
 
 There are two ways to install Kidux, and one to try it first:
 
-- **Download the installer**: download [the Kidux image](https://iso.kidux.org/kidux-amd64.iso), about 750 MB, write it to a USB flash drive or SD card, boot your computer from it, with Secure Boot on or off, and follow the graphical installer, which leaves Kidux installed in a few minutes. The user guide explains [every step](docs/en/user-guide.md#from-the-kidux-image).
-- **Try it first in an emulator**: on Windows, macOS or Linux, an image ready for VirtualBox, UTM or QEMU starts Kidux inside a window, with a family already set up and six modules switched on, without installing anything on the computer itself. [Trying Kidux in an emulator](docs/en/try.md) explains how, and gives the passwords.
+- **Download the installer**: download [the Kidux image](https://iso.kidux.org/kidux-amd64.iso), about 750 MB, write it to a USB flash drive or SD card and boot your computer from it. The graphical installer guides you through every step and leaves Kidux installed in a few minutes, with no need to turn Secure Boot off. The user guide explains [every step in detail](docs/en/user-guide.md#from-the-kidux-image).
+- **Try it first in an emulator**: an image prepared for VirtualBox, UTM or QEMU starts Kidux inside a window, on Windows, macOS or Linux, with a family already created and six modules switched on. Nothing is installed on the computer itself. The page [Trying Kidux in an emulator](docs/en/try.md) explains how to do it and gives the passwords.
 - **On top of Debian**: install a clean, minimal base of Debian 13 "trixie" without a desktop environment, add the official Kidux package archive, and install the system packages. The user guide provides [detailed step-by-step instructions](docs/en/user-guide.md#2-installing-kidux).
 
 ## Documentation

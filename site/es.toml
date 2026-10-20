@@ -188,12 +188,12 @@ need4 = "Pantalla con resolución mínima de 1280 × 800 píxeles. Se recomienda
 
 [get.image]
 title = "Descargar el instalador"
-text = "La imagen de Kidux, de unos 750 MB: se graba en una memoria USB, se arranca el ordenador desde ella, con el arranque seguro activado o no, y el instalador gráfico deja Kidux en el disco entero en pocos minutos."
+text = "Descarga la imagen de Kidux (unos 750 MB), grábala en una memoria USB y arranca el ordenador desde ella. El instalador gráfico deja Kidux listo en pocos minutos, sin necesidad de desactivar el arranque seguro."
 download = "Descargar Kidux"
 
 [get.try]
 title = "Probarlo primero"
-text = "Una imagen lista para VirtualBox, UTM o QEMU arranca Kidux dentro de una ventana en Windows, macOS o Linux, con un niño y seis módulos ya preparados, sin instalar nada en el propio ordenador."
+text = "Una imagen preparada para VirtualBox, UTM o QEMU arranca Kidux dentro de una ventana, en Windows, macOS o Linux, con un niño y seis módulos ya configurados. No se instala nada en el propio ordenador."
 button = "Probar Kidux en un emulador"
 
 [get.debian]
