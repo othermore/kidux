@@ -29,14 +29,63 @@ not need a guide: every screen they can reach explains itself.
 
 ## 2. Installing Kidux
 
-There are two ways to put Kidux on a computer.
+There are two ways to put Kidux on a computer, and one way to see it
+before giving it a computer at all.
+
+| What you want | What to do |
+|---|---|
+| **Install Kidux on a computer** | **Download the installer**, write it to a USB stick and start the computer from it: [From the Kidux image](#from-the-kidux-image), below. The usual way, and the quickest. |
+| **Try Kidux first**, on the computer you use every day | Download an image ready to run in an emulator on Windows, macOS or Linux, with a family already in it: [Trying Kidux in an emulator](try.md). Nothing is installed on the computer itself. |
+| Install it on a Debian you set up yourself | [On Debian](#on-debian), further down. It gives exactly the same Kidux, and takes about an hour. |
 
 ### From the Kidux image
 
-**Coming soon.** Kidux will have an image of its own that installs
-everything by itself. You download the image, write it to a USB stick, an
-SD card or any other external drive, start the computer from it, and
-follow the steps on the screen.
+Kidux's installer is an image of a USB stick: everything Kidux needs, in
+one file of about 900 MB. It installs Kidux on the whole of the
+computer's disk in a few minutes, with no network needed while it does.
+Everything on the computer's disk is erased: copy anything you want to
+keep somewhere else first.
+
+1. **Download the installer.** On another computer, download
+   [kidux-amd64.iso](https://iso.kidux.org/kidux-amd64.iso). If you want
+   to check that the file arrived whole, its SHA-256 sum is in
+   [SHA256SUMS](https://iso.kidux.org/SHA256SUMS), signed with Kidux's key
+   in [SHA256SUMS.sign](https://iso.kidux.org/SHA256SUMS.sign). The file's
+   own name says the version of Kidux it installs.
+
+2. **Write it to a USB stick** of 2 GB or more, with a program such as
+   [balenaEtcher](https://etcher.balena.io/): choose the file, choose the
+   stick, and write. Everything on the stick is erased. An SD card or any
+   other external drive the computer can start from works the same way.
+
+3. **Start the computer from the stick.** Plug the stick in and turn the
+   computer on, and open its boot menu: usually that means pressing F12,
+   F11, F8, Esc or F2 just after turning it on, or holding down the Option
+   key on a Mac. Choose the stick. A computer with **Secure Boot** on starts
+   it as it is: there is no need to turn Secure Boot off.
+
+4. **Choose the language.** Kidux's menu offers **Instalar Kidux**, in
+   Spanish, and **Install Kidux**, in English; the first starts by itself
+   after ten seconds. If the screen stays black or garbled, start again
+   and choose **Gráficos seguros / Safe graphics**, which has both.
+
+5. **Answer the installer.** Its steps are listed on the left, and
+   **Next** moves on:
+
+   | Step | What it asks |
+   |---|---|
+   | **Welcome** | Nothing: it checks that the computer has enough disk and memory. |
+   | **Location** | The time zone, from the map. |
+   | **Keyboard** | The keyboard's layout, which can be tried in the box below it. Kidux asks for its own language and keyboard again at its first start. |
+   | **Partitions** | Nothing to choose: the whole disk is erased and divided as Kidux needs, the system on one part and the children's work on another. The page shows the disk before and after. |
+   | **Users** | An account for you, the adult who looks after the computer: your name, a user name, the computer's name, `kidux` already written, and a password, twice. The children get theirs in Kidux, and this password is not the one that opens Kidux's adult panel, which the first start asks for. Leave **Log in automatically** unticked: Kidux always starts at its own sign-in screen. |
+   | **Summary** | What is about to happen. **Install** starts it, after one more question. |
+   | **Install** | A bar shows how far it has got. It takes a few minutes. |
+   | **Finish** | Kidux is installed. With **Restart now** ticked, **Done** restarts the computer. |
+
+6. **Take the stick out** when the computer restarts. It shows Kidux's
+   logo and starts for the first time: the next section, *The first
+   start*, describes what happens then.
 
 ### On Debian
 

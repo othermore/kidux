@@ -178,8 +178,7 @@ picture = "La página de un niño en el panel del adulto, con su tiempo y sus d�
 
 [get]
 title = "Consigue Kidux"
-lead = "Dos formas sencillas de instalarlo en tu ordenador."
-soon = "Muy pronto"
+lead = "Descarga el instalador para un ordenador propio, o prueba Kidux primero en un emulador."
 now = "Disponible hoy"
 needs = "Requisitos del sistema"
 need1 = "Un ordenador con procesador de 64 bits: compatible con casi cualquier PC o portátil fabricado desde 2008."
@@ -188,9 +187,14 @@ need3 = "32 GB de espacio en disco (se utiliza el disco completo)."
 need4 = "Pantalla con resolución mínima de 1280 × 800 píxeles. Se recomienda 1920 × 1080 o pantallas de alta densidad (como la pantalla Retina de un MacBook). En pantallas menores, algunas actividades pueden tener partes ocultas o no funcionar bien."
 
 [get.image]
-title = "La imagen de Kidux"
-text = "Descarga la imagen de instalación lista para usar, grábala en una memoria USB o tarjeta SD, arranca el equipo desde ella y sigue las instrucciones en pantalla."
+title = "Descargar el instalador"
+text = "La imagen de Kidux, de unos 900 MB: se graba en una memoria USB, se arranca el ordenador desde ella, con el arranque seguro activado o no, y el instalador gráfico deja Kidux en el disco entero en pocos minutos."
 download = "Descargar Kidux"
+
+[get.try]
+title = "Probarlo primero"
+text = "Una imagen lista para VirtualBox, UTM o QEMU arranca Kidux dentro de una ventana en Windows, macOS o Linux, con un niño y seis módulos ya preparados, sin instalar nada en el propio ordenador."
+button = "Probar Kidux en un emulador"
 
 [get.debian]
 title = "Sobre Debian 13"

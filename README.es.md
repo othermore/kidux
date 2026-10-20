@@ -81,9 +81,10 @@ Estos son los módulos incluidos y disponibles en Kidux:
 
 Kidux puede instalarse en cualquier ordenador con procesador de 64 bits (compatible con la inmensa mayoría de ordenadores de sobremesa y portátiles fabricados desde 2008). Requiere un mínimo de 2 GB de memoria RAM (siendo muy recomendables 4 GB para mayor soltura), 32 GB de espacio en disco (se dedica la unidad completa al sistema) y una pantalla con resolución de al menos 1280 × 800 píxeles al 100 % de escala. Se recomienda una pantalla más amplia (1920 × 1080 o pantallas de alta densidad como las pantallas Retina de MacBook con escalado al 175 %). En pantallas menores a 1280 × 800, algunas actividades pueden tener partes ocultas o no funcionar bien.
 
-Existen dos formas de instalar Kidux:
+Hay dos formas de instalar Kidux, y una de probarlo antes:
 
-- **Mediante la imagen oficial de Kidux (muy pronto)**: se descarga la imagen de disco, se graba en una memoria USB o tarjeta SD, se arranca el equipo desde ella y se siguen las sencillas indicaciones del instalador gráfico.
+- **Descargar el instalador**: se descarga [la imagen de Kidux](https://iso.kidux.org/kidux-amd64.iso), de unos 900 MB, se graba en una memoria USB o tarjeta SD, se arranca el ordenador desde ella, también con el arranque seguro (Secure Boot) activado, y se siguen los pasos del instalador gráfico, que deja Kidux instalado en pocos minutos. El manual de uso explica [cada paso](docs/es/user-guide.md#con-la-imagen-de-kidux).
+- **Probarlo primero en un emulador**: en Windows, macOS o Linux, una imagen lista para VirtualBox, UTM o QEMU arranca Kidux dentro de una ventana, con una familia ya creada y seis módulos activados, sin instalar nada en el propio ordenador. La página [Probar Kidux en un emulador](docs/es/try.md) explica cómo, y da las contraseñas.
 - **Sobre una base de Debian**: se instala una versión limpia de Debian 13 "trixie" sin entorno de escritorio, se añade el repositorio de paquetes oficial de Kidux y se instala el sistema mediante paquetes deb. El manual de uso explica [todos los pasos de forma detallada](docs/es/user-guide.md#2-instalar-kidux).
 
 ## Documentación

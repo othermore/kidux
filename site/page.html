@@ -227,19 +227,18 @@
       <h2>{{ get.title }}</h2>
       <p>{{ get.lead }}</p>
     </div>
-    <div class="cards three">
+    <div class="cards four">
       <article class="card">
-{{#if site.download}}
         <span class="tag first now">{{ get.now }}</span>
-{{#else}}
-        <span class="tag first">{{ get.soon }}</span>
-{{/if}}
         <h3>{{ get.image.title }}</h3>
         <p>{{ get.image.text }}</p>
-{{#if site.download}}
         <a class="button primary small" href="{{ site.download }}">{{ get.image.download }}</a>
-{{#else}}
-{{/if}}
+      </article>
+      <article class="card">
+        <span class="tag first now">{{ get.now }}</span>
+        <h3>{{ get.try.title }}</h3>
+        <p>{{ get.try.text }}</p>
+        <a class="button primary small" href="{{ site.repository }}/blob/main/docs/{{ lang }}/{{ site.try }}">{{ get.try.button }}</a>
       </article>
       <article class="card">
         <span class="tag first now">{{ get.now }}</span>

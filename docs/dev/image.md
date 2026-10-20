@@ -141,8 +141,9 @@ modules Calamares has, and the scripts' behaviour with stand-ins.
    usage identifier (section 7).
 3. The installed system starts from its disk, on a copy, and answers over
    SSH. The test checks that it is the image's Kidux, with no installer or
-   live system left, that the system and `/home` are partitions of their
-   own and that the computer is called `kidux`; then the session tests 02
+   live system left, that the system's top folders are root's, that the
+   system and `/home` are partitions of their own and that the computer
+   is called `kidux`; then the session tests 02
    to 05 run on it, which take a fresh machine through its boot, its first
    start, a family and its closed doors.
 4. The installed disk, on another copy, starts under Secure Boot (OVMF
@@ -175,9 +176,15 @@ of `build/vm/install.qcow2`:
    shuts down.
 4. `qemu-img` converts the disk: `<name>-trial-<language>.qcow2`,
    compressed, for QEMU and UTM; and `<name>-trial-<language>.ova`, a
-   streamOptimized VMDK in an OVF package with a SHA-256 manifest, whose
-   VirtualBox section asks for UEFI, two processors, 4 GB of memory, a
-   USB tablet as the pointer and NAT networking.
+   streamOptimized VMDK in a plain OVF 1.0 package with a SHA-256
+   manifest: two processors, 4 GB of memory, the disk on SATA and NAT
+   networking. OVF cannot say that the machine starts with UEFI, so the
+   page that offers the images has the visitor tick *Enable EFI* in
+   VirtualBox.
+5. Each `.qcow2` is started with the very QEMU command the page gives,
+   without writing to it: the sign-in screen must come up with Leo, and
+   Leo must get their screen, both photographed as
+   `build/vm/trial-<language>-NN-<screen>.png`.
 
 A trial is Kidux whole: it signs in, locks, counts time and updates
 itself from `apt.kidux.org` like any Kidux machine.

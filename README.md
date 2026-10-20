@@ -81,9 +81,10 @@ The following modules are available in Kidux:
 
 Kidux runs on any 64-bit computer (compatible with almost any desktop or laptop PC manufactured since 2008). It requires a minimum of 2 GB of RAM (4 GB recommended for smoother multitasking), 32 GB of disk space (the entire drive is dedicated to the installation), and a display resolution of at least 1280 × 800 pixels at 100% scaling. A higher resolution is recommended (such as 1920 × 1080 or high-density displays like MacBook Retina panels at 175% scaling). On displays smaller than 1280 × 800, some activities may have parts hidden or not work well.
 
-Kidux offers two straightforward installation paths:
+There are two ways to install Kidux, and one to try it first:
 
-- **Using the official Kidux disk image (coming soon)**: download the ready-to-use disk image, write it to a USB flash drive or SD card, boot your computer from it, and follow the simple graphical installer.
+- **Download the installer**: download [the Kidux image](https://iso.kidux.org/kidux-amd64.iso), about 900 MB, write it to a USB flash drive or SD card, boot your computer from it, with Secure Boot on or off, and follow the graphical installer, which leaves Kidux installed in a few minutes. The user guide explains [every step](docs/en/user-guide.md#from-the-kidux-image).
+- **Try it first in an emulator**: on Windows, macOS or Linux, an image ready for VirtualBox, UTM or QEMU starts Kidux inside a window, with a family already set up and six modules switched on, without installing anything on the computer itself. [Trying Kidux in an emulator](docs/en/try.md) explains how, and gives the passwords.
 - **On top of Debian**: install a clean, minimal base of Debian 13 "trixie" without a desktop environment, add the official Kidux package archive, and install the system packages. The user guide provides [detailed step-by-step instructions](docs/en/user-guide.md#2-installing-kidux).
 
 ## Documentation

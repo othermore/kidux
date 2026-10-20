@@ -10,7 +10,8 @@ one dropped from the page is not left behind; every picture, style and
 link a page names must be there; each page must lead to the others, to the
 contact address and to where a donation is made; and every section of the
 user guide it sends a visitor to, the steps to install it and each module's,
-must be a heading of the guide in its language.
+must be a heading of the guide in its language, and the page on trying
+Kidux in an emulator must be there in it.
 Given the package archive's tarball, it must unpack it under apt/. With a
 measurement id for Google Analytics, each page counts a visit in Google's
 consent mode, its storage denied until a yes in the card; without one,
@@ -164,15 +165,13 @@ with tempfile.TemporaryDirectory() as scratch:
               and 'id="cookies"' not in page and "goatcounter" not in page.lower()
               and "{{" not in page)
 
-    # The same page with an image to download: the other half of what it says.
-    template_facts = dict(facts, **{"site.download": "https://example.org/kidux.iso"})
-    for language, table in words.items():
-        try:
-            page, _ = site.render(template, {**template_facts, **table, "lang": language, "root": "",
-                                              "page_url": ""}, site.markup(facts, words, language))
-            whole = "https://example.org/kidux.iso" in page and "{{" not in page
-        except KeyError as missing:
-            whole, page = False, f"lacks {missing.args[0]}"
-        check(f"{language}: with an image to download, the page offers it", whole)
+    # The two offers: the installer, and the page on trying it in an
+    # emulator, which is there in every language.
+    for language, page in pages.items():
+        text = page.read_text(encoding="utf-8")
+        trial = REPO / "docs" / language / facts["site.try"]
+        check(f"{language}: it offers the installer and the trial, whose page is there",
+              f'href="{facts["site.download"]}"' in text
+              and f'/docs/{language}/{facts["site.try"]}"' in text and trial.is_file(), str(trial))
 
 sys.exit(failed)

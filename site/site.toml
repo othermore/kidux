@@ -15,9 +15,12 @@ owner = "Antonio Morales García"
 owner_url = "https://antonio.mg"
 email = "info@kidux.org"
 
-# The page an installable image is downloaded from. While it is empty the
-# site says the image is on its way.
-download = ""
+# The installer, the newest release's image, by its name without a version
+# (docs/dev/image.md, section 6).
+download = "https://iso.kidux.org/kidux-amd64.iso"
+# The user guide's page on trying Kidux in an emulator, in each language's
+# folder of docs/.
+try = "try.md"
 
 # Google Analytics' measurement id, `G-…`: with it the page asks the visitor
 # whether it may count visits and, on a yes, loads Google's tag; empty, the

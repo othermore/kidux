@@ -36,22 +36,24 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [x] i18n CI checks: no untranslated `es.po` strings, content trees in parity.
 
 ## Phase 2 — First installable image (phase-2-plan.md)
-- [ ] The image's recipe in `image/` and `ci/build-image.sh`: a hybrid ISO
+- [x] The image's recipe in `image/` and `ci/build-image.sh`: a hybrid ISO
       (UEFI with Secure Boot, and BIOS) built without root on the release
       machine, from trixie and Kidux's archive, reproducible, booting to
-      the installer (phase-2-plan.md, 3.2).
-- [ ] Calamares with Kidux's branding, translated, the layout with a
-      separate `/home`, the non-free firmware in (D74): the package
-      `kidux-installer` (3.1).
-- [ ] The install test: the ISO boots under UEFI and BIOS, installs by
-      keyboard and pointer, and the installed machine passes its first
-      start (3.3).
-- [ ] The image built, tested and published with every release, on the
-      project's hosting, with the user guide, the README and the website
-      saying how to install from it (3.4, 3.5).
-- [ ] Ready-made images for a quick try in an emulator, from the install
+      the installer (D116; image.md).
+- [x] Calamares with Kidux's branding, in Spanish and English, the layout
+      with a separate `/home`, the non-free firmware in (D74): the package
+      `kidux-installer`.
+- [x] The install test, `tests/run install`: the ISO installs by keyboard
+      under UEFI and BIOS, the installed machine passes its first start,
+      and the image and the installed machine start under Secure Boot.
+- [x] The image built and tested in the battery and the release, published
+      at `https://iso.kidux.org` after the public archive, with the user
+      guide, the README and the website offering it.
+- [x] Ready-made images to try Kidux in an emulator, from the install
       test's disk, with a page that says how to run one on Windows, Linux
-      and macOS (4).
+      and macOS (`docs/en/try.md`).
+- [x] Test machines and trial images counted apart on the usage page by
+      their identifiers (D117).
 - [ ] After them: "Reinstall, keep my data", and the live session as the
       kiosk itself (6).
 - [ ] Install on the development MacBook and on at least one old BIOS-only PC.

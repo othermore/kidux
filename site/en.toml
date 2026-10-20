@@ -178,8 +178,7 @@ picture = "A child's profile in the adult panel, displaying their time limits an
 
 [get]
 title = "Get Kidux"
-lead = "Two convenient installation options."
-soon = "Coming soon"
+lead = "Download the installer for a computer of its own, or try Kidux first in an emulator."
 now = "Available today"
 needs = "System requirements"
 need1 = "A 64-bit computer: compatible with almost any PC or laptop manufactured since 2008."
@@ -188,9 +187,14 @@ need3 = "32 GB of storage space (the entire drive is utilized)."
 need4 = "A display resolution of at least 1280 × 800 pixels. 1920 × 1080 or a high-density display (such as a MacBook Retina screen) is recommended. On a smaller screen, some activities may have parts hidden or not work well."
 
 [get.image]
-title = "Kidux disk image"
-text = "Download the ready-to-use disk image, write it to a USB flash drive or SD card, boot your computer from it, and follow the simple on-screen setup."
+title = "Download the installer"
+text = "The Kidux image, about 900 MB: write it to a USB flash drive, start the computer from it, with Secure Boot on or off, and the graphical installer leaves Kidux on the whole disk in a few minutes."
 download = "Download Kidux"
+
+[get.try]
+title = "Try it first"
+text = "An image ready for VirtualBox, UTM or QEMU starts Kidux inside a window on Windows, macOS or Linux, with a child and six modules already set up, and nothing installed on the computer itself."
+button = "Try Kidux in an emulator"
 
 [get.debian]
 title = "On Debian 13"

@@ -72,16 +72,16 @@ other organisation, with nothing to ask for; the page still invites a
 school to write, which is how the owner learns where Kidux is used. It
 says the licence and no more.
 
-It says only what is true of Kidux today, and of the two ways to install
-it (D81) it says which is which. Kidux's own image is *coming soon*, with
-what installing from it will be;
-where the image is downloaded from is a fact, `download` in
-`site/site.toml`, and once it is set to an address the same card says
-*available today* and offers the download. Installing on Debian is
-*available today*, and its button leads to the steps, section 2 of the
-user guide in the page's language, by the heading's address in the words,
-`get.debian.anchor`; `tests/project/site.py` fails if the guide has no
-such section. The guide itself is a step away everywhere: *Guide* in the
+It says only what is true of Kidux today. *Get Kidux* offers the two ways
+in first (D116): the installer, whose address is a fact, `download` in
+`site/site.toml`, the newest release's image by its name without a
+version; and the trial, whose button leads to the user guide's page on
+trying Kidux in an emulator, `try` in `site/site.toml`, in the page's
+language. Installing on Debian follows, and its button leads to the
+steps, section 2 of the user guide in the page's language, by the
+heading's address in the words, `get.debian.anchor`;
+`tests/project/site.py` fails if the guide has no such section, or no
+page on trying it. The guide itself is a step away everywhere: *Guide* in the
 page's header, *Read the guide* beside *Get Kidux* at the top, and, in
 the part that shows the modules, each module's name leads to its own
 section of the guide and a button to the modules' section, by headings'

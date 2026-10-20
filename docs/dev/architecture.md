@@ -1488,7 +1488,8 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   earlier commits, whose messages say why each change of those days was
   made, are kept in a private repository.
 - **D81 — Two ways to install: Kidux's own image, said to be coming, and on
-  Debian, step by step.** Decided 2026-10-02 by the owner. The README, the
+  Debian, step by step.** *Said to be coming: superseded by D116, which
+  made the image.* Decided 2026-10-02 by the owner. The README, the
   user guide and the website name both. The image is the one thing the
   user documents speak of before it exists: *coming soon*, and what
   installing from it will be, the image downloaded, written to a USB
@@ -2021,3 +2022,34 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   so that a machine in use every morning still gets its updates that day
   (daemon.md, section 13; updates-plan.md). The lists' daily refresh,
   which installs nothing, is left alone.
+- **D116 — Kidux's image: an installer made on the release machine,
+  published with every release, and trial images made from it.** Decided
+  2026-10-19 by the owner (phase-2-plan.md). The image is a hybrid ISO
+  for UEFI, with Secure Boot, and for a BIOS, built without root by
+  mmdebstrap, sqfstar and xorriso from trixie and Kidux's archive,
+  reproducible, and named by the kidux-base it carries and its suite's
+  date. Its live system is a Kidux machine with Calamares in place of the
+  sign-in screen, `kidux-installer`, which copies it to the disk and takes
+  itself off, so that an installed Kidux is the Kidux the guide installs on
+  Debian, partitions and first start alike. Not on GitHub: the owner does
+  not want the project to depend on it (D39), its releases take no file
+  over two gigabytes, and its runners keep its hours (D114); the image is
+  served by the project's hosting at `iso.kidux.org`, beside the archive,
+  under its own name and under one without a version that the website
+  links to, its sums signed with the archive's key. The install test
+  installs it under UEFI and a BIOS, starts it under Secure Boot, and runs
+  the first-start tests on it; the disk it leaves becomes the images to
+  try Kidux in an emulator, with a demonstration family, for QEMU, UTM and
+  VirtualBox. The user documents and the website offer the installer and
+  the trial as the two ways in, the installation on Debian after them
+  (image.md).
+- **D117 — Test machines and trial images say who they are to the
+  archive's usage count.** Decided 2026-10-19 by the owner. A test
+  machine's address changes, and the identifiers its first starts made
+  had to be listed by hand; every test machine now sends a fixed one,
+  sixteen zeros and its number (1 and 2 the session machines, 3 the
+  acceptance machine, 4 the install test's, 5 ci/vm/try.sh's), which the
+  usage page leaves out at sight. Every copy of a trial image shares the
+  image's identifier, sixteen f's and its number (1 Spanish, 2 English),
+  listed in `ci/usage-trial-ids.txt`, and the page counts trials apart
+  from the families' machines, one for each address (image.md, section 7).
