@@ -10,6 +10,7 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	pyflakes3 bin/kidux-closed bin/kidux-idle bin/kidux-lid-watch lib/greeter-session lib/labwc-rc tests
 	sh -n bin/kidux-session
 	sh -n lib/session-inner
+	sh -n lib/compositor
 	python3 -B -m pytest -q -p no:cacheprovider tests
 endif
 
@@ -41,6 +42,7 @@ override_dh_auto_install:
 	    $(DEST)/usr/share/kidux/session/share/applications/kidux-closed.desktop
 	install -D -m 0755 lib/session-inner $(DEST)/usr/lib/kidux/session-inner
 	install -D -m 0755 lib/greeter-session $(DEST)/usr/lib/kidux/greeter-session
+	install -D -m 0755 lib/compositor $(DEST)/usr/lib/kidux/compositor
 	install -D -m 0755 lib/labwc-rc $(DEST)/usr/lib/kidux/labwc-rc
 	install -D -m 0755 bin/kidux-lid-watch $(DEST)/usr/lib/kidux/kidux-lid-watch
 	install -D -m 0755 bin/kidux-idle $(DEST)/usr/lib/kidux/kidux-idle

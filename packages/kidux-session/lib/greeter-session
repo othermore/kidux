@@ -33,6 +33,7 @@ from gi.repository import Gio, GLib
 BUS = "org.kidux.Daemon1"
 PATH = "/org/kidux/Daemon1"
 GREETER = "/usr/libexec/kidux-greeter"
+COMPOSITOR = "/usr/lib/kidux/compositor"
 LOGIN1 = "org.freedesktop.login1"
 #: The longest the sign-in screen waits for the sessions before it to end.
 SETTLE_SECONDS = 10.0
@@ -118,9 +119,11 @@ def main() -> None:
     greeter = [GREETER] + (["--lock", username] if username else [])
     if username is None:
         wait_for_the_screen()
+    # cage through compositor, which starts it again drawing in software
+    # on a card that cannot draw for it.
     os.execvpe(
-        "cage",
-        ["cage", "--", "/usr/lib/kidux/session-inner", *greeter],
+        COMPOSITOR,
+        [COMPOSITOR, "cage", "--", "/usr/lib/kidux/session-inner", *greeter],
         environment(username),
     )
 

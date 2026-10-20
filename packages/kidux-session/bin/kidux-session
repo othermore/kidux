@@ -54,4 +54,7 @@ if made="$(mktemp -d "${XDG_RUNTIME_DIR:-/tmp}/kidux-labwc.XXXXXX")" \
         && /usr/lib/kidux/labwc-rc "$configuration/rc.xml" > "$made/rc.xml"; then
     rc="$made/rc.xml"
 fi
-exec labwc -C "$configuration" -c "$rc" -s "/usr/lib/kidux/session-inner --keep-running /usr/libexec/kidux-launcher"
+# Through compositor, which starts labwc again drawing in software on a
+# card that cannot draw for it.
+exec /usr/lib/kidux/compositor labwc -C "$configuration" -c "$rc" \
+    -s "/usr/lib/kidux/session-inner --keep-running /usr/libexec/kidux-launcher"

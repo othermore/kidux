@@ -1,3 +1,11 @@
+kidux-session (0.5.20) trixie; urgency=medium
+
+  * The sign-in screen, the lock screen and a child's session start their
+    compositor again drawing in software when the graphics card cannot draw
+    for it, as a virtual machine's card without 3D: VirtualBox and VMware.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 19 Oct 2026 21:45:12 +0200
+
 kidux-session (0.5.19) trixie; urgency=medium
 
   * Kidux is free software: GPL-3.0-or-later, in LICENSE and debian/copyright.

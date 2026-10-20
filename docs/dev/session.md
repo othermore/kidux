@@ -71,10 +71,21 @@ user = "_greetd"
 
 `/usr/lib/kidux/greeter-session` asks the daemon (`GetConfig`) for the
 machine's language, keyboard layout and display scale, exports them, and
-`exec`s `cage -- /usr/lib/kidux/session-inner /usr/libexec/kidux-greeter`:
+`exec`s `cage -- /usr/lib/kidux/session-inner /usr/libexec/kidux-greeter`,
+through `/usr/lib/kidux/compositor` (below):
 the inner step of section 3 sets the scale and the idle dimming for the
 sign-in screen exactly as for a child's session. If the daemon cannot be
 asked, the screen comes up in the defaults anyway.
+
+Both compositors, `cage` for the trusted screens and `labwc` for a child's
+session, start through `/usr/lib/kidux/compositor`. wlroots draws with the
+card's OpenGL ES, and in software (pixman) by itself only on a card with
+no render node; a card with a render node and no working OpenGL, as a
+virtual machine's VMSVGA without 3D in VirtualBox or VMware, leaves it no
+way to draw, and the compositor stops at once. `compositor` starts it
+once more with `WLR_RENDERER=pixman` when it stops within five seconds
+with no renderer named, and says so in the journal; on any other card
+the first start stays.
 
 Before it starts `cage`, the sign-in screen waits, up to ten seconds, until
 no other session of its seat is still `closing` in logind. greetd starts it
@@ -161,9 +172,10 @@ need to.
    `/usr/share/kidux/session/xdg` goes first in `XDG_CONFIG_DIRS` and
    `/usr/share/kidux/session/share` first in `XDG_DATA_DIRS`, for links out
    of a module (below).
-2. `exec labwc -C /usr/share/kidux/labwc/kiosk -c <rc.xml> -s
-   "/usr/lib/kidux/session-inner --keep-running /usr/libexec/kidux-launcher"`:
-   `labwc` (D58), with Kidux's configuration and no other: `-C` is the only
+2. `exec /usr/lib/kidux/compositor labwc -C /usr/share/kidux/labwc/kiosk
+   -c <rc.xml> -s "/usr/lib/kidux/session-inner --keep-running
+   /usr/libexec/kidux-launcher"`: `labwc` (D58), through `compositor`
+   (section 2), with Kidux's configuration and no other: `-C` is the only
    directory it reads, so a child's `~/.config/labwc` is never read; `desk`
    in place of `kiosk` for a child whose modules open in windows
    (`KIDUX_WINDOWS=1`, D46). `-c` is that directory's `rc.xml` with the

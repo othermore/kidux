@@ -1,0 +1,30 @@
+#!/bin/sh
+# A compositor, cage or labwc, that falls back to drawing in software when
+# the graphics card cannot draw for it. docs/dev/session.md, section 2.
+#
+#   compositor <compositor> [<argument>...]
+#
+# wlroots, which both are made of, draws with the card's OpenGL ES and,
+# only on a card with no render node, in software (pixman) by itself. A
+# card with a render node and no working OpenGL leaves it with no way to
+# draw, and the compositor stops at once: a virtual machine's card without
+# 3D, VirtualBox's or VMware's VMSVGA, is one. So a compositor that stops
+# within its first seconds, with no renderer named, is started once more
+# with wlroots' software renderer. On any other card the first start is the
+# one that stays, and a renderer named in WLR_RENDERER is kept as it is.
+
+set -u
+
+GRACE_SECONDS="${KIDUX_COMPOSITOR_GRACE:-5}"
+
+started="$(date +%s)"
+"$@"
+status=$?
+if [ "$status" -ne 0 ] && [ -z "${WLR_RENDERER:-}" ] \
+        && [ "$(( $(date +%s) - started ))" -lt "$GRACE_SECONDS" ]; then
+    echo "compositor: $1 stopped at once ($status); starting it again with the software renderer" >&2
+    WLR_RENDERER=pixman
+    export WLR_RENDERER
+    exec "$@"
+fi
+exit "$status"
