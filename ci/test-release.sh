@@ -26,13 +26,18 @@
 # since a development build's version shows on the screens. The push, the
 # promotion to stable and the public archive follow, each on the owner's
 # word. Then
+# Kidux's image, built from the testing suite as it now stands
+# (ci/build-image.sh), since it carries the packages; then
 # tests/run, kind by kind: the project's checks first and alone, since they
-# are quick; then reproducibility, the acceptance VM and the session VMs, one
-# set up in Spanish and one in English, which use every screen by keyboard and
-# photograph it (tests/README.md), all four at once. They share nothing but
-# the archive, which nothing writes to until they are done, and the base
-# image, which the VMs only read. The
-# rebuilds run at a lower priority than the VMs, whose tests wait on screens.
+# are quick; then reproducibility, the packages' and the image's, the
+# acceptance VM, the session VMs, one set up in Spanish and one in English,
+# which use every screen by keyboard and photograph it (tests/README.md),
+# and the image's installation on a VM, all at once; and when the
+# installation passed, the trial images, made from the disk it left
+# (ci/build-trial-image.py; docs/dev/image.md). They share nothing but the
+# archive, which nothing writes to until they are done, and the base image,
+# which the VMs only read. The rebuilds run at a lower priority than the
+# VMs, whose tests wait on screens.
 # The VMs start from Debian with Kidux's Debian dependencies installed
 # (tests/lib/warm-image.sh); KIDUX_VM_COLD=1, for a release, starts them
 # from the stock image.
@@ -53,8 +58,8 @@
 # kept in build/releases/<label>/verdicts, with a `release` mark for a
 # release run. The exit status is the number of stages that failed.
 #
-# --only reruns one test stage (project, reproducible, acceptance, session or
-# session-en)
+# --only reruns one test stage (project, reproducible, acceptance, session,
+# session-en or install)
 # of a run that already built and published, for a stage that failed for a
 # reason outside the code: a mirror down, a machine that did not come up. It
 # builds nothing, so what it tests is byte for byte what the rest of the run
@@ -106,8 +111,8 @@ if [ "${2:-}" = --release ] && [ "$#" -eq 2 ]; then
 elif [ "${2:-}" = --only ]; then
     ONLY="${3:-}"
     case "$ONLY" in
-        project|reproducible|acceptance|session|session-en) ;;
-        *) echo "usage: $0 <label> --only project|reproducible|acceptance|session|session-en" >&2
+        project|reproducible|acceptance|session|session-en|install) ;;
+        *) echo "usage: $0 <label> --only project|reproducible|acceptance|session|session-en|install" >&2
            exit 2 ;;
     esac
 elif [ "$#" -gt 1 ]; then
@@ -270,12 +275,20 @@ else
             && stage publish env KIDUX_BUILD_DIR="$PACKAGES_DIR" KIDUX_DEV_BUILD="$dev" \
                 ./ci/publish-local.sh; then
         published > "$OUT/published"
+        stage image ./ci/build-image.sh testing
         stage "test: project" ./tests/run project
         stage_start "test: reproducible" nice -n 10 ./tests/run reproducible
+        stage_start "test: reproducible image" nice -n 10 ./tests/run reproducible image
         stage_start "test: acceptance" ./tests/run acceptance
         stage_start "test: session" ./tests/run session
         stage_start "test: session-en" ./tests/run session-en
+        if grep -q '^PASS  image (' "$VERDICTS"; then
+            stage_start "test: install" ./tests/run install
+        fi
         stages_wait
+        if grep -q '^PASS  test: install (' "$VERDICTS"; then
+            stage "trial images" ./ci/build-trial-image.py
+        fi
         pictures
     fi
 fi
@@ -283,8 +296,8 @@ fi
 failed="$(grep -c '^FAIL' "$VERDICTS" 2>/dev/null)"
 echo
 echo "==> $([ -f "$OUT/release" ] && echo Release || echo Battery) $LABEL"
-for name in build publish "test: project" "test: reproducible" "test: acceptance" "test: session" \
-        "test: session-en"; do
+for name in build publish image "test: project" "test: reproducible" "test: reproducible image" \
+        "test: acceptance" "test: session" "test: session-en" "test: install" "trial images"; do
     grep "^[A-Z]*  $name (" "$VERDICTS" 2>/dev/null
 done
 [ "${failed:-0}" -eq 0 ] && echo "==> Everything passed." || echo "==> $failed stages failed."
