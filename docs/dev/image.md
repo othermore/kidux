@@ -51,6 +51,11 @@ the installer's language and keyboard as `kidux.lang=` and
   and `kidux-installer`.
 - `image/grub/grub.cfg`: the boot menu.
 - `image/sources`: Debian's sources for the installed system, deb822.
+- `image/forget-host`: what the live system learnt of the machine that
+  built it, taken out: its name servers, its host name as exim4's mail
+  name, apt's lock file of the builder's user and mmdebstrap's own apt
+  setting, so that the image holds nothing of the builder and two
+  machines build the same bytes.
 
 `ci/build-image.sh [testing|stable]` builds it into `build/image/`, without
 root:
@@ -62,6 +67,7 @@ root:
    as apt installs them on Debian. Its hooks download `grub-pc` into the
    image's `pool/`, set Debian's sources, the hostname `kidux` and an
    empty machine-id, empty apt's lists and caches and AppArmor's cache,
+   run `image/forget-host`,
    take the kernel and its initramfs out for the image's own boot and
    leave no initramfs in the live system, since the installer makes the
    installed system's, and write the package list beside the image
@@ -114,8 +120,8 @@ installer takes it off the installed system.
 - **The initramfs, then GRUB.** After the packages module, Calamares'
   initramfs module makes the installed system's initramfs, which the
   image does not carry, so that GRUB's menu, written next, finds it.
-  `kidux-installer-grub` runs before Calamares' boot loader module. Under UEFI it tells debconf to keep GRUB on the removable path
-  too; under a BIOS it replaces `grub-efi-amd64` with `grub-pc` from the
+  `kidux-installer-grub` runs before Calamares' boot loader module.
+  Under UEFI it tells debconf to keep GRUB on the removable path too; under a BIOS it replaces `grub-efi-amd64` with `grub-pc` from the
   image's `pool/` with dpkg, the disk preseeded as its install device, so
   that Debian's GRUB updates later put GRUB on the disk the right way.
   After the boot loader module, `kidux-installer-efi` puts the shim and
@@ -157,31 +163,38 @@ modules Calamares has, and the scripts' behaviour with stand-ins.
 5. Under a BIOS, the image installs again, and the disk starts to the
    first start.
 6. Under UEFI once more, from the boot menu's English entry, with the
-   administrator Anna, for the English pictures alone.
+   administrator Anna, `anna`, for the English pictures, and the helper
+   prepares that disk too.
 
 Every picture is `build/vm/install-NN-<screen>.png`, the English
 installation's `build/vm/install-en-NN-<screen>.png`; the boot menu and
 the installer's pages that the user guide shows are listed in
 `tests/lib/doc-screenshots.txt`, and the release run copies them, as it
-copies the session's. The disk of step 1 is kept as
-`build/vm/install.qcow2`, prepared and not yet started, for the trial
-images.
+copies the session's. The disks of steps 1 and 6 are kept, prepared and
+not yet started, for the trial images: `build/vm/install.qcow2` and
+`build/vm/install-en.qcow2`.
 
 ## 5. The trial images
 
 `ci/build-trial-image.py [es|en]` makes, for each language, from a copy
-of `build/vm/install.qcow2`:
+of the disk the install test left in that language, `build/vm/install.qcow2`
+or `build/vm/install-en.qcow2`, so that the system under Kidux, its locale
+and keyboard, are the language's as its installer wrote them:
 
-1. The machine starts, and through the daemon, as the adult panel does it,
-   gets the trial's family: the adult password `kidux`; Leo, password
-   `leo`, with no limit of time; the machine and Leo in the image's
-   language and keyboard; and BASIC, Tux Typing, Scratch, GCompris,
-   Simulations and Kig, installed from the public archive and switched on
-   for Leo.
+1. The machine starts and gets, for the while it is made, the development
+   archive's suite the image was built from (`testing`, or what
+   `KIDUX_IMAGE_SUITE` names) with its key, so that its modules are the
+   ones the image's packages go with, a release's in a release run.
+   Through the daemon, as the adult panel does it, it gets the trial's
+   family: the adult password `kidux`; Leo, password `leo`, with no limit
+   of time; Kidux and Leo in the image's language and keyboard; and
+   BASIC, Tux Typing, Scratch, GCompris, Simulations and Kig, installed
+   and switched on for Leo.
 2. Its usage identifier becomes the trial's (section 7).
 3. What the tests added goes: the SSH server, the key, sudo without a
-   password, the test machine's identifier and the development archive's
-   address. The administrator's password, `ana`'s, becomes `kidux`. Apt's
+   password, the test machine's identifier, and the development archive,
+   its address, source and key. The administrator's password, `ana`'s or
+   `anna`'s, becomes `kidux`. Apt's
    caches and the journal are emptied, the free space is trimmed, which
    the virtual disk passes on to the image file, and the machine shuts
    down.
@@ -205,27 +218,34 @@ itself from `apt.kidux.org` like any Kidux machine.
 
 The images are published at `https://iso.kidux.org`, the hosting's folder
 `iso` beside `apt`, over the same SFTP and credentials as the archive.
-`ci/publish-image.sh [<name>]` takes one build's files, the newest unless
-named:
+`ci/publish-image.sh` takes the release's files, those of the version of
+`kidux-base` the stable suite holds, and refuses unless all five are
+there, the installer and the four trial images; `--dev` takes the newest
+`~dev` build's, whichever were made; a name, that build's:
 
 1. Writes `<name>.SHA256SUMS` and signs it, `<name>.SHA256SUMS.sign`,
    with the archive's key for a release, and the development key for a
    `~dev` build.
 2. Uploads each file under another name and renames it into place, the
    images first and the sums last.
-3. Writes `.htaccess`, whose redirects give the names without a version:
+3. Writes `.htaccess`, whose redirects, each anchored to the whole name,
+   give the names without a version:
    `kidux-amd64.iso`, `kidux-trial-<language>.qcow2` and `.ova`,
    `SHA256SUMS` and `SHA256SUMS.sign` lead to the newest release's files,
    which the website and the user guide link to; `kidux-dev-…` lead to the
    newest `~dev` build's, for trying.
-4. Removes every image neither of the two holds.
+4. Removes every image neither of the two holds. An `.htaccess` that is
+   there and cannot be read stops it first, since one written without the
+   other kind's lines would have their files removed.
 5. Checks what the world sees over HTTPS: the sums identical and their
    signature good, each image's size and its first and last mebibyte, and
    each name without a version leading to its file.
 
 A `~dev` build's images may be published at any hour, since nothing links
-to them. A release's go after `ci/publish-public.sh`, in `ci/push.sh
---then-publish`'s chain (packaging.md, "The public archive").
+to them. A release's go up in `ci/push.sh --then-publish`'s chain after
+the promotion and before the push, since a push of `site/` publishes the
+website at once, and the website and the README link to them; the public
+archive follows the push (packaging.md, "The public archive").
 
 ## 7. Counting them
 

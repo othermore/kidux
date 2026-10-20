@@ -3,20 +3,26 @@
 
     ci/build-trial-image.py [es|en …]       both languages unless named
 
-docs/dev/image.md, section 5. The disk tests/run install left,
-build/vm/install.qcow2, is Kidux installed from the image by its own
-installer and not yet started. A copy of it starts once more, and through
-the daemon, as the adult panel does it, gets the trial's family: the adult
-password `kidux`, one child, Leo, password `leo`, and the modules
-TRIAL_MODULES names, installed from the archive and switched on for Leo.
-The machine speaks the image's language, and its usage identifier is the
-trial's own (ci/usage-trial-ids.txt): sixteen f's and 01 for Spanish, 02
-for English, which every copy shares, so that the archive's usage page
-counts the trials apart from the families' machines. Then what the tests
-added to the disk goes (tests/lib/install-vm.py: the SSH server and its
-key, sudo without a password, the test machine's identifier and the
-development archive's address), the administrator's password becomes
-`kidux` too, Leo has no limit of time, for a trial, the free space is given back, and the machine is shut down.
+docs/dev/image.md, section 5. The disks tests/run install left,
+build/vm/install.qcow2 and build/vm/install-en.qcow2, are Kidux installed
+from the image by its own installer, from the boot menu's Spanish entry
+and its English one, and not yet started: each language's trial image is
+made from its own, so that the system under Kidux speaks the image's
+language too. A copy of it starts once more, and through the daemon, as
+the adult panel does it, gets the trial's family: the adult password
+`kidux`, one child, Leo, password `leo`, and the modules TRIAL_MODULES
+names, switched on for Leo and installed from the suite the image was
+built from, the development archive's, as the image's own packages were,
+so that a release's trial images carry the release's modules. Kidux
+speaks the image's language, and its usage identifier is the trial's own
+(ci/usage-trial-ids.txt): sixteen f's and 01 for Spanish, 02 for English,
+which every copy shares, so that the archive's usage page counts the
+trials apart from the families' machines. Then what the tests added to
+the disk goes (tests/lib/install-vm.py: the SSH server and its key, sudo
+without a password, the test machine's identifier and the development
+archive, its address and its key), the administrator's password becomes
+`kidux` too, Leo has no limit of time, for a trial, the free space is
+given back, and the machine is shut down.
 
 Each qcow2 is then started as docs/en/try.md starts it, with QEMU's
 command given there, changing nothing in it: the sign-in screen must come
@@ -49,20 +55,27 @@ spec.loader.exec_module(install_vm)
 sessionlib = install_vm.sessionlib
 
 OUT = Path(os.environ.get("KIDUX_IMAGE_DIR", REPO / "build" / "image"))
-DISK = install_vm.DISK
+#: The development archive's suite the image was built from, and its key,
+#: which the trial's modules come from while it is made.
+SUITE = os.environ.get("KIDUX_IMAGE_SUITE", "testing")
+ARCHIVE_KEY = REPO / "ci" / "archive" / "development-key.pgp"
+BUILD_SOURCE = "/etc/apt/sources.list.d/kidux-image-build.sources"
+BUILD_KEY = "/etc/apt/keyrings/kidux-image-build.pgp"
 #: The trial's family, and its passwords, which the page that offers the
 #: images says (docs/en/try.md).
 ADULT_PASSWORD = "kidux"
-#: The administrator the installer made in the install test, whose password
-#: becomes the adult one too.
-ADMIN = sessionlib.USER
 CHILD, CHILD_NAME, CHILD_PASSWORD = "leo", "Leo", "leo"
 #: What the trial shows, decided by the owner (phase-2-plan.md, section 2):
 #: programming, typing, play, and two of the sciences, a web one and a Qt one.
 TRIAL_MODULES = ("basic", "tuxtype", "scratch", "gcompris", "simulations", "kig")
+#: Each language's: Kidux's locale and keyboard, its usage number, the
+#: install test's disk it is made from, and the administrator the installer
+#: made there, whose password becomes the adult one too.
 LANGUAGES = {
-    "es": {"locale": "es_ES.UTF-8", "keyboard": "es", "number": 1},
-    "en": {"locale": "en_US.UTF-8", "keyboard": "us", "number": 2},
+    "es": {"locale": "es_ES.UTF-8", "keyboard": "es", "number": 1,
+           "disk": install_vm.DISK, "admin": install_vm.ADMINS["es"]},
+    "en": {"locale": "en_US.UTF-8", "keyboard": "us", "number": 2,
+           "disk": install_vm.ENGLISH_DISK, "admin": install_vm.ADMINS["en"]},
 }
 
 
@@ -81,7 +94,7 @@ def step(name: str, command: str, timeout: float = 1800) -> bool:
 
 def as_adult(arguments: str) -> str:
     """kidux-as as the administrator, with the trial's adult password."""
-    return (f"runuser -u {ADMIN} -- env KIDUX_AS_ADULT={ADULT_PASSWORD} "
+    return (f"runuser -u {sessionlib.USER} -- env KIDUX_AS_ADULT={ADULT_PASSWORD} "
             f"/usr/local/bin/kidux-as {arguments}")
 
 
@@ -158,10 +171,14 @@ def tried(qcow2: Path, language: str) -> bool:
 def build(language: str, name: str) -> bool:
     speaks = LANGUAGES[language]
     print(f"==> {name}-trial-{language}", flush=True)
+    if not speaks["disk"].exists():
+        print(f"    FAILED: no {speaks['disk']}; tests/run install leaves it", flush=True)
+        return False
+    sessionlib.USER = admin = speaks["admin"]
     work = sessionlib.VM / f"trial-{language}.qcow2"
     work.unlink(missing_ok=True)
-    subprocess.run(["qemu-img", "create", "-f", "qcow2", "-b", str(DISK), "-F", "qcow2",
-                    str(work)], check=True, capture_output=True)
+    subprocess.run(["qemu-img", "create", "-f", "qcow2", "-b", str(speaks["disk"]), "-F",
+                    "qcow2", str(work)], check=True, capture_output=True)
     machine = sessionlib.Machine()
     install_vm.qemu(machine, work, "uefi")
     try:
@@ -169,12 +186,14 @@ def build(language: str, name: str) -> bool:
             print("    FAILED: the machine never answered", flush=True)
             return False
         sessionlib.copy(sessionlib.SEED_SOURCE / "tools" / "kidux-as", "/usr/local/bin/kidux-as")
+        sessionlib.copy(ARCHIVE_KEY, BUILD_KEY, "0644")
         locale, keyboard = speaks["locale"], speaks["keyboard"]
         steps = [
-            ("the machine's language and keyboard",
-             f"grep -qx '{locale} UTF-8' /etc/locale.gen || echo '{locale} UTF-8' >> /etc/locale.gen; "
-             f"locale-gen >/dev/null && localectl set-locale LANG={locale} "
-             f"&& localectl set-x11-keymap {keyboard} && setupcon --save-only 2>/dev/null; true"),
+            ("the system in the image's language, as its installer left it",
+             f"grep -qx 'LANG={locale}' /etc/default/locale"),
+            (f"the development archive's {SUITE}, which the image came from, for the modules",
+             f"printf 'Types: deb\\nURIs: http://kidux.local/apt\\nSuites: {SUITE}\\n"
+             f"Components: main\\nSigned-By: {BUILD_KEY}\\n' > {BUILD_SOURCE}"),
             ("the family: the adult password and Leo",
              as_adult(f"family {CHILD} {CHILD_NAME} {CHILD_PASSWORD}")),
             ("Kidux in the machine's language, set up",
@@ -198,11 +217,12 @@ def build(language: str, name: str) -> bool:
              "&& systemctl restart kidux-daemon && sleep 3 "
              f"&& grep -q 'Kidux/{identifier}' /etc/apt/apt.conf.d/61kidux-statistics"),
             ("the administrator's password, the trial's",
-             f"echo '{ADMIN}:{ADULT_PASSWORD}' | chpasswd"),
+             f"echo '{admin}:{ADULT_PASSWORD}' | chpasswd"),
             ("what only the tests needed, gone, and the free space given back",
              "rm -f /etc/sudoers.d/90-kidux-tests /etc/apt/apt.conf.d/99kidux-test-machine "
              "/etc/apt/apt.conf.d/99kidux-vm-lean /usr/local/bin/kidux-as /usr/local/bin/kidux-toplevels "
-             f"&& sed -i '/kidux.local/d' /etc/hosts && rm -rf /home/{ADMIN}/.ssh "
+             f"{BUILD_SOURCE} {BUILD_KEY} "
+             f"&& sed -i '/kidux.local/d' /etc/hosts && rm -rf /home/{admin}/.ssh "
              "&& DEBIAN_FRONTEND=noninteractive apt-get purge -y openssh-server >/dev/null "
              "&& apt-get autoremove --purge -y >/dev/null && apt-get clean "
              "&& rm -rf /var/lib/apt/lists/* && journalctl --rotate && journalctl --vacuum-time=1s "
@@ -317,9 +337,6 @@ OVF = """<?xml version="1.0"?>
 
 def main(argv: list[str]) -> int:
     languages = argv[1:] or list(LANGUAGES)
-    if not DISK.exists():
-        print(f"{argv[0]}: no {DISK}; tests/run install leaves it", file=sys.stderr)
-        return 1
     images = sorted(OUT.glob("kidux-*-amd64.iso"), key=lambda path: path.stat().st_mtime)
     if not images:
         print(f"{argv[0]}: no installer in {OUT}", file=sys.stderr)

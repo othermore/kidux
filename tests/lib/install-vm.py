@@ -11,19 +11,23 @@ its first start (tests/session/02 to 05) run on it, as on the session
 machine installed on Debian. Then the same image installs once more on a
 computer that starts with a BIOS, which must reach the first start too, and
 starts under Secure Boot, as the installed system does; and once more under
-UEFI from the boot menu's English entry, for the English pictures alone.
+UEFI from the boot menu's English entry, for the English pictures and the
+English trial image.
 
 Every picture is left in build/vm/install-NN-<screen>.png, the English
 installation's in build/vm/install-en-NN-<screen>.png; those the user
 guide shows are listed in tests/lib/doc-screenshots.txt, and the release
-copies them. The disk the UEFI installation made is kept, as
-build/vm/install.qcow2, the first start not done: the trial images are
-made from it (ci/build-trial-image.py).
+copies them. The disks the two UEFI installations made are kept, as
+build/vm/install.qcow2 and build/vm/install-en.qcow2, prepared and the
+first start not done: the trial images are made from them, the Spanish one
+from the first and the English one from the second
+(ci/build-trial-image.py).
 
 To be reached by the tests, the installed system gets what a session
 machine's cloud-init gives it, and nothing else, before it first starts: an
-SSH server with the tests' key for the administrator, `ana`, whom the
-tests reach the machine as, sudo without a password for them, the name of the
+SSH server with the tests' key for the administrator, `ana`, or `anna` on
+the English installation, whom the tests reach the machine as, sudo
+without a password for them, the name of the
 development archive's address, and its usage identifier, sixteen zeros and
 4 (sessionlib.test_identifier). A helper machine, the session machines'
 Debian, writes them onto the disk, which the installed system never sees
@@ -46,6 +50,8 @@ from sessionlib import BASE, REPO, VM, Machine, report, ssh, up, wait
 
 RUN = "install"
 DISK = VM / f"{RUN}.qcow2"
+#: The English installation's disk, for the English trial image.
+ENGLISH_DISK = VM / f"{RUN}-en.qcow2"
 BIOS_DISK = VM / f"{RUN}-bios.qcow2"
 KEY = VM / f"{RUN}_key"
 HELPER = VM / f"{RUN}-helper.qcow2"
@@ -67,7 +73,6 @@ sessionlib.KEY = KEY
 sessionlib.SSH_PORT = SSH_PORT
 sessionlib.MONITOR = VM / f"{RUN}-monitor.sock"
 sessionlib.CONSOLE = VM / f"{RUN}-console.log"
-sessionlib.USER = "ana"
 
 #: The installer's colours (kidux-installer's branding.desc): the cream of
 #: its sidebar, and the ink of the step it is on.
@@ -84,6 +89,8 @@ FIRST_BUTTON = (0.40, 0.555, 0.49, 0.62)
 #: The administrator the installer makes, in each language: a name, from
 #: which it suggests the login, `ana` or `anna`, and a password.
 ADMIN_NAMES = {"es": "Ana", "en": "Anna"}
+ADMINS = {"es": "ana", "en": "anna"}
+sessionlib.USER = ADMINS["es"]
 ADMIN_PASSWORD = "the admin password"
 #: The installer's *Next*, by the letter its button underlines.
 NEXT = {"es": "alt-s", "en": "alt-n"}
@@ -303,7 +310,7 @@ def prepare(disk: Path) -> bool:
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=1200)
     HELPER.unlink(missing_ok=True)
     text = log.read_text(errors="replace") if log.exists() else ""
-    return report("the installed disk gets the tests' way in, from a helper machine",
+    return report(f"{disk.name} gets the tests' way in, from a helper machine",
                   helper.returncode == 0 and "KIDUX-PREPARED" in text, text[-3000:])
 
 
@@ -408,13 +415,14 @@ def main(argv: list[str]) -> int:
             power_off(machine)
         BIOS_DISK.unlink(missing_ok=True)
 
-        # The boot menu's English entry under UEFI, installed for the
-        # English pictures alone, on a machine whose pictures are its own.
+        # The boot menu's English entry under UEFI, for the English
+        # pictures, on a machine whose pictures are its own, and kept,
+        # prepared as the Spanish one is, for the English trial image.
         sessionlib.RUN = f"{RUN}-en"
-        english = VM / f"{RUN}-en.qcow2"
-        install(machine, iso, english, "uefi", "uefi-", "en")
-        english.unlink(missing_ok=True)
-        sessionlib.RUN = RUN
+        sessionlib.USER = ADMINS["en"]
+        if install(machine, iso, ENGLISH_DISK, "uefi", "uefi-", "en"):
+            prepare(ENGLISH_DISK)
+        sessionlib.RUN, sessionlib.USER = RUN, ADMINS["es"]
     finally:
         power_off(machine)
     return sessionlib.failures

@@ -772,6 +772,17 @@ installs; and when the last child's session ends the daemon starts it
 (`StartUnit`) if its last run was skipped, the condition checked again
 by systemd (D115).
 
+The fence has no time limit, by choice. A daily upgrade that hangs keeps
+children at the waiting screen until it ends or the computer restarts,
+which ends it; stopping it after a while instead would kill dpkg half way
+and leave packages half installed, which is worse than a child waiting.
+apt's own timeouts end a download that hangs. And the condition sees
+sessions logind has registered: a child the daemon has just let in and
+whose session logind has not yet registered, a fraction of a second, is
+not seen by a daily upgrade starting in that instant. The timer starts
+it once a day, at a random moment within the hour after 06:00, so the
+two meeting is left as it is.
+
 The daemon never runs apt itself. Its unit has no network and a read-only
 system (section 14), and an update can replace and restart the daemon
 half-way through. So every apt job runs in a transient system unit,

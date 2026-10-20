@@ -18,7 +18,7 @@ Kidux's archive like any Kidux computer.
 |---|---|
 | **The child** | **Leo**, password `leo`. |
 | **The adult password**, which opens the adult panel | `kidux` |
-| **The administrator**, for the text console, which a trial does not need | `ana`, password `kidux` |
+| **The administrator**, for the text console, which a trial does not need | `anna`, password `kidux` |
 | **Learning modules installed and switched on for Leo** | BASIC, Tux Typing, Scratch, GCompris, Simulations and Kig. The adult panel installs more. |
 | **Time** | Leo has no time limit, so that you can try at leisure. The adult panel sets one. |
 | **Languages** | One image in Spanish and one in English. |
