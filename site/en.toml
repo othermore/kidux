@@ -190,6 +190,9 @@ need4 = "A display resolution of at least 1280 × 800 pixels. 1920 × 1080 or a 
 title = "Download the installer"
 text = "Download the Kidux image (about 750 MB), write it to a USB flash drive and start the computer from it. The graphical installer leaves Kidux ready in a few minutes, with no need to turn Secure Boot off."
 download = "Download Kidux"
+guide = "How to install it, step by step with pictures"
+# The heading of the user guide the link leads to, as its address has it.
+anchor = "from-the-kidux-image"
 
 [get.try]
 title = "Try it first"

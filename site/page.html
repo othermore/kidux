@@ -227,12 +227,13 @@
       <h2>{{ get.title }}</h2>
       <p>{{ get.lead }}</p>
     </div>
-    <div class="cards four">
+    <div class="cards three">
       <article class="card">
         <span class="tag first now">{{ get.now }}</span>
         <h3>{{ get.image.title }}</h3>
         <p>{{ get.image.text }}</p>
         <a class="button primary small" href="{{ site.download }}">{{ get.image.download }}</a>
+        <p class="more"><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ get.image.anchor }}">{{ get.image.guide }}</a></p>
       </article>
       <article class="card">
         <span class="tag first now">{{ get.now }}</span>
@@ -246,16 +247,16 @@
         <p>{{ get.debian.text }}</p>
         <a class="button primary small" href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ get.debian.anchor }}">{{ get.debian.button }}</a>
       </article>
-      <article class="card">
-        <h3>{{ get.needs }}</h3>
-        <ul class="ticks">
-          <li>{{ get.need1 }}</li>
-          <li>{{ get.need2 }}</li>
-          <li>{{ get.need3 }}</li>
-          <li>{{ get.need4 }}</li>
-        </ul>
-      </article>
     </div>
+    <article class="card needs">
+      <h3>{{ get.needs }}</h3>
+      <ul class="ticks">
+        <li>{{ get.need1 }}</li>
+        <li>{{ get.need2 }}</li>
+        <li>{{ get.need3 }}</li>
+        <li>{{ get.need4 }}</li>
+      </ul>
+    </article>
   </div>
 </section>
 

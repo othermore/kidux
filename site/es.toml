@@ -190,6 +190,9 @@ need4 = "Pantalla con resolución mínima de 1280 × 800 píxeles. Se recomienda
 title = "Descargar el instalador"
 text = "Descarga la imagen de Kidux (unos 750 MB), grábala en una memoria USB y arranca el ordenador desde ella. El instalador gráfico deja Kidux listo en pocos minutos, sin necesidad de desactivar el arranque seguro."
 download = "Descargar Kidux"
+guide = "Cómo instalarlo, paso a paso y con capturas"
+# The heading of the user guide the link leads to, as its address has it.
+anchor = "con-la-imagen-de-kidux"
 
 [get.try]
 title = "Probarlo primero"

@@ -201,6 +201,9 @@ h3 { font-size: 22px; line-height: 1.25; }
 }
 
 .card .ticks { margin-top: 14px; }
+.card.needs { margin-top: 20px; }
+@media (min-width: 860px) { .card.needs .ticks { columns: 2; column-gap: 40px; } .card.needs .ticks li { break-inside: avoid; } }
+.card .more { margin-top: 14px; font-size: 17px; }
 
 .pair { display: grid; gap: 28px; }
 @media (min-width: 820px) { .pair { grid-template-columns: 1fr 1fr; } }
