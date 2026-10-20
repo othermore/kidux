@@ -2053,3 +2053,20 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   image's identifier, sixteen f's and its number (1 Spanish, 2 English),
   listed in `ci/usage-trial-ids.txt`, and the page counts trials apart
   from the families' machines, one for each address (image.md, section 7).
+- **D118 — The trial images start in VirtualBox and UTM as they are, and
+  Kidux's compositors draw in software where the card cannot draw for
+  them.** Decided 2026-10-19 by the owner, after the images were tried in
+  VirtualBox on the release machine and in UTM on a Mac. The OVA carries
+  VirtualBox's own description of the machine (`vbox:Machine`, which
+  other importers skip) for what OVF cannot say: UEFI, the VMSVGA card,
+  a USB tablet for the pointer, HD Audio; so the page on trying Kidux
+  asks for no setting. VMSVGA without 3D has a render node and no working
+  OpenGL ES, which wlroots neither draws with nor falls back from, so cage
+  and labwc stopped at once and the screen stayed black. Both now start
+  through `/usr/lib/kidux/compositor`, which starts a compositor once
+  more with `WLR_RENDERER=pixman` when it stops within five seconds with
+  no renderer named, and leaves the first start on any other card; a
+  wrapper rather than a setting, since greetd gives the greeter a clean
+  environment (session.md, section 2; image.md, section 5). On a Mac with
+  an Apple processor UTM emulates the PC, and the page asks for four
+  cores, since two are too slow to use.
