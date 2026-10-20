@@ -1,0 +1,31 @@
+#!/bin/sh
+# The installer's session in the live system: Calamares, full screen in a
+# kiosk compositor, in the language and with the keyboard the boot menu's
+# entry chose (kidux.lang= and kidux.keyboard= on the kernel's command
+# line). greetd starts it again if it ends, so that closing the installer
+# brings it back rather than a black screen.
+
+set -eu
+
+CMDLINE="${KIDUX_CMDLINE:-/proc/cmdline}"
+lang=es_ES.UTF-8
+keyboard=es
+
+for word in $(cat "$CMDLINE"); do
+    case "$word" in
+        kidux.lang=*) lang="${word#kidux.lang=}" ;;
+        kidux.keyboard=*) keyboard="${word#kidux.keyboard=}" ;;
+    esac
+done
+
+LANG="$lang"
+LANGUAGE="${lang%%.*}"
+XKB_DEFAULT_LAYOUT="$keyboard"
+QT_QPA_PLATFORM=wayland
+export LANG LANGUAGE XKB_DEFAULT_LAYOUT QT_QPA_PLATFORM
+
+if [ -n "${KIDUX_INSTALLER_PRINT:-}" ]; then
+    echo "$LANG $LANGUAGE $XKB_DEFAULT_LAYOUT"
+    exit 0
+fi
+exec cage -s -- calamares

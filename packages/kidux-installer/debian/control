@@ -1,0 +1,33 @@
+Source: kidux-installer
+Section: admin
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               pyflakes3 <!nocheck>,
+               python3 <!nocheck>,
+               python3-pytest <!nocheck>,
+               python3-yaml <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-installer
+Architecture: all
+Depends: ${misc:Depends},
+         cage,
+         calamares,
+         dosfstools,
+         greetd,
+         live-boot,
+         qt6-wayland,
+Description: Kidux's installer, for the live system of Kidux's image
+ Kidux is a Debian derivative for a child's first computer. This package is
+ the installer of its image: Calamares, with Kidux's settings and look,
+ started full screen in place of Kidux's sign-in screen when the image's
+ live system starts. It copies the live system, a Kidux machine already, to
+ the computer's disk, with the system and /home on partitions of their own,
+ and the administrator's account.
+ .
+ It belongs in the image's live system alone: the installer takes it off the
+ system it installs. Installing it on a Kidux machine would replace the
+ sign-in screen with the installer at the next start of a live system only,
+ and change nothing else.

@@ -24,5 +24,8 @@ same() {
 same branding/svg/logo.svg packages/kidux-common/data/branding/logo.svg
 same branding/svg/mascot.svg packages/kidux-common/data/branding/mascot.svg
 same branding/png/logo-512.png packages/kidux-session/plymouth/logo.png
+same branding/png/mascot-256.png packages/kidux-installer/calamares/branding/kidux/mascot.png
+same branding/png/icon-128.png packages/kidux-installer/calamares/branding/kidux/icon.png
+same branding/png/logo-512.png packages/kidux-installer/calamares/branding/kidux/logo.png
 
 exit "$failed"

@@ -1,0 +1,27 @@
+#!/usr/bin/make -f
+
+DEST = debian/kidux-installer
+
+%:
+	dh $@
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 tests
+	for script in bin/*; do sh -n $$script || exit 1; done
+	python3 -m pytest -q -p no:cacheprovider tests
+endif
+
+override_dh_auto_install:
+	for script in bin/*; do install -D -m 0755 $$script $(DEST)/usr/libexec/$$(basename $$script); done
+	install -D -m 0644 greetd/installer.toml $(DEST)/usr/share/kidux-installer/greetd.toml
+	mkdir -p $(DEST)/usr/share/calamares
+	cp -R --no-preserve=ownership calamares/settings.conf calamares/modules calamares/branding \
+	    $(DEST)/usr/share/calamares/
+	install -D -m 0644 systemd/greetd.service.d/zz-kidux-installer.conf \
+	    $(DEST)/usr/lib/systemd/system/greetd.service.d/zz-kidux-installer.conf
+	install -D -m 0644 systemd/kidux-firstboot.service.d/kidux-installer.conf \
+	    $(DEST)/usr/lib/systemd/system/kidux-firstboot.service.d/kidux-installer.conf
+
+override_dh_auto_clean:
+	rm -rf tests/__pycache__

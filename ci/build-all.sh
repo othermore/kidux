@@ -52,6 +52,7 @@ kidux-module-hello-web
 kidux-module-simulations
 kidux-session
 kidux-base
+kidux-installer
 "
 
 for package in $FIRST; do

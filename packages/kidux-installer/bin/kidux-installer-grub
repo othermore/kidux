@@ -1,0 +1,50 @@
+#!/bin/sh
+# The GRUB package for the way this computer starts, put in the installed
+# system before the boot loader goes on the disk.
+#
+#   kidux-installer-grub <root of the installed system>
+#
+# The live system carries grub-efi-amd64, with the signed GRUB and the shim
+# for Secure Boot, and grub-pc-bin. A computer that started the installer
+# with UEFI keeps them. One that started it with a BIOS gets grub-pc instead,
+# from the image's pool/, since grub-pc and grub-efi-amd64 cannot both be
+# installed: with the right one in place, Debian's GRUB updates put GRUB on
+# the disk again the right way. The disk is written into debconf for
+# either, as the Debian installer does, for those updates to find it.
+
+set -eu
+
+ROOT="$1"
+MEDIUM="${KIDUX_MEDIUM:-/run/live/medium}"
+
+disk() {
+    # The disk the installed system's root is on, by a name that lasts.
+    source="$(findmnt -n -o SOURCE "$ROOT")"
+    parent="$(lsblk -n -o PKNAME "$source" | head -1)"
+    for link in /dev/disk/by-id/*; do
+        case "$link" in *-part*) continue ;; esac
+        if [ "$(readlink -f "$link")" = "/dev/$parent" ]; then
+            echo "$link"
+            return
+        fi
+    done
+    echo "/dev/$parent"
+}
+
+if [ -d /sys/firmware/efi ]; then
+    echo "grub-efi-amd64 grub2/force_efi_extra_removable boolean true" \
+        | chroot "$ROOT" debconf-set-selections
+    exit 0
+fi
+
+deb="$(ls "$MEDIUM"/pool/grub-pc_*.deb | head -1)"
+cp "$deb" "$ROOT/tmp/grub-pc.deb"
+echo "grub-pc grub-pc/install_devices multiselect $(disk)" \
+    | chroot "$ROOT" debconf-set-selections
+# grub-pc and grub-efi-amd64 conflict: the one goes, then the other comes,
+# by dpkg itself, since the image has no network to count on and grub-pc
+# needs nothing the system does not already have.
+chroot "$ROOT" env DEBIAN_FRONTEND=noninteractive dpkg --remove grub-efi-amd64
+chroot "$ROOT" env DEBIAN_FRONTEND=noninteractive \
+    dpkg --force-confold --install /tmp/grub-pc.deb
+rm -f "$ROOT/tmp/grub-pc.deb"

@@ -1,0 +1,15 @@
+#!/bin/sh
+# On a computer started with UEFI, GRUB on the disk's removable path too,
+# EFI/BOOT/BOOTX64.EFI, as the shim with the signed GRUB beside it: a
+# firmware that forgets its boot entries, as some do and as a virtual
+# machine's may, still starts Kidux, Secure Boot or not.
+#
+#   kidux-installer-efi <root of the installed system>
+
+set -eu
+
+ROOT="$1"
+
+[ -d /sys/firmware/efi ] || exit 0
+chroot "$ROOT" grub-install --target=x86_64-efi --efi-directory=/boot/efi \
+    --bootloader-id=debian --uefi-secure-boot --force-extra-removable --no-nvram

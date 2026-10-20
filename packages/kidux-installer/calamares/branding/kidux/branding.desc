@@ -1,0 +1,39 @@
+# Kidux's look in its installer: the brand's pictures and colours
+# (branding/README.md), copied in by ci/render-branding.sh.
+---
+componentName:  kidux
+welcomeStyleCalamares:   false
+welcomeExpandingLogo:   true
+windowExpanding:    fullscreen
+windowSize: 1280px,800px
+windowPlacement: center
+sidebar: widget
+navigation: widget
+
+strings:
+    productName:         "Kidux"
+    shortProductName:    "Kidux"
+    version:             ""
+    shortVersion:        ""
+    versionedName:       "Kidux"
+    shortVersionedName:  "Kidux"
+    bootloaderEntryName: "debian"
+    productUrl:          "https://kidux.org/"
+    supportUrl:          "https://github.com/othermore/kidux/issues"
+    knownIssuesUrl:      ""
+    releaseNotesUrl:     ""
+    donateUrl:           ""
+
+images:
+    productIcon:         "icon.png"
+    productLogo:         "mascot.png"
+    productWelcome:      "logo.png"
+
+style:
+   SidebarBackground:        "#fff6e9"
+   SidebarText:              "#3b2f2a"
+   SidebarTextCurrent:       "#fff6e9"
+   SidebarBackgroundCurrent: "#3b2f2a"
+
+slideshow:               "show.qml"
+slideshowAPI: 2

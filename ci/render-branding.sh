@@ -126,6 +126,11 @@ rsvg-convert --output="$SHEET" "$SHEET.svg"
 cp "$SVG/logo.svg" "$SVG/mascot.svg" "$REPO_ROOT/packages/kidux-common/data/branding/"
 # The boot splash is drawn by Plymouth, which takes PNG.
 cp "$PNG/logo-512.png" "$REPO_ROOT/packages/kidux-session/plymouth/logo.png"
+# The installer's look, Calamares' branding, which takes PNG too.
+INSTALLER="$REPO_ROOT/packages/kidux-installer/calamares/branding/kidux"
+cp "$PNG/mascot-256.png" "$INSTALLER/mascot.png"
+cp "$PNG/icon-128.png" "$INSTALLER/icon.png"
+cp "$PNG/logo-512.png" "$INSTALLER/logo.png"
 rm -f "$SHEET.svg"
 echo "==> $SHEET"
 ls "$PNG" | wc -l | sed 's/^/==> PNG files: /'

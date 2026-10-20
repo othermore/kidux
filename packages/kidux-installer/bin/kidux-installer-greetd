@@ -1,0 +1,15 @@
+#!/bin/sh
+# greetd, as the live system starts it: with the installer's configuration
+# when the kernel was started with kidux.live, which every entry of the
+# image's boot menu has, and Kidux's own otherwise.
+
+set -eu
+
+CMDLINE="${KIDUX_CMDLINE:-/proc/cmdline}"
+
+for word in $(cat "$CMDLINE"); do
+    if [ "$word" = kidux.live ]; then
+        exec greetd --config /usr/share/kidux-installer/greetd.toml
+    fi
+done
+exec greetd --config /usr/share/kidux/greetd.toml

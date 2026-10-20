@@ -1,0 +1,8 @@
+# greetd in the live system: no sign-in screen, the installer instead, as
+# root, which Calamares needs to write the disk (bin/kidux-installer-greetd).
+[terminal]
+vt = 7
+
+[default_session]
+command = "/usr/libexec/kidux-installer-session"
+user = "root"
