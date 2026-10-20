@@ -150,10 +150,10 @@ def importable(package: Path) -> bool:
         return True
     read = subprocess.run(["VBoxManage", "import", "--dry-run", str(package)],
                           capture_output=True, text=True, timeout=600)
-    settings = [line.strip() for line in read.stdout.splitlines()
-                if "Firmware" in line or "Graphics" in line or "Pointing" in line]
     if read.returncode == 0:
-        print("    VirtualBox reads it: " + "; ".join(settings), flush=True)
+        named = [line.split('"')[1] for line in read.stdout.splitlines()
+                 if "Suggested VM name" in line]
+        print(f"    VirtualBox reads it, as {', '.join(named) or 'a machine'}", flush=True)
         return True
     print(f"    FAILED: VirtualBox does not read it: {read.stderr.strip()[-500:]}", flush=True)
     return False
