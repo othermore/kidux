@@ -239,10 +239,15 @@ there, the installer and the four trial images; `--dev` takes the newest
    `kidux-amd64.iso`, `kidux-trial-<language>.qcow2` and `.ova`,
    `SHA256SUMS` and `SHA256SUMS.sign` lead to the newest release's files,
    which the website and the user guide link to; `kidux-dev-…` lead to the
-   newest `~dev` build's, for trying.
-4. Removes every image neither of the two holds. An `.htaccess` that is
-   there and cannot be read stops it first, since one written without the
-   other kind's lines would have their files removed.
+   newest `~dev` build's, for trying before a release. A `~dev` build
+   keeps the release's lines; a release keeps none of the `~dev` build's,
+   since it is what that build was made for.
+4. Removes every image those names no longer lead to: the `~dev` build
+   before a `~dev` build, and every `~dev` build at a release, since the
+   hosting's space is small. So the hosting holds the newest release and,
+   between releases, the newest `~dev` build. An `.htaccess` that is there
+   and cannot be read stops a `~dev` build's publishing first, since one
+   written without the release's lines would have its files removed.
 5. Checks what the world sees over HTTPS: the sums identical and their
    signature good, each image's size and its first and last mebibyte, and
    each name without a version leading to its file.

@@ -25,8 +25,12 @@
 # .htaccess sends the names without a version to the newest release's files,
 # which the website's buttons and the user guide link to: kidux-amd64.iso,
 # kidux-trial-<language>.qcow2 and .ova, and SHA256SUMS and SHA256SUMS.sign;
-# and kidux-dev-… to the newest `~dev` build's, for trying. What neither the
-# newest release nor the newest `~dev` build holds is removed.
+# and kidux-dev-… to the newest `~dev` build's, for trying before a release.
+# What those names do not lead to is removed: a `~dev` build takes the
+# place of the one before it, and a release takes the place of the `~dev`
+# builds too, since it is what they were made for and the hosting's space
+# is small; so the hosting holds the newest release and, between releases,
+# the newest `~dev` build.
 #
 # What the world sees is checked afterwards over HTTPS: the sums, identical
 # and their signature good; each image's size, and its first and last
@@ -132,10 +136,11 @@ for file in $FILES "$NAME.SHA256SUMS" "$NAME.SHA256SUMS.sign"; do
     put "$OUT/$file" "$file"
 done
 
-# The names without a version: this build's for its kind, the other kind's
-# as they were. A .htaccess that is there and cannot be read stops it all,
-# since writing one without the other kind's lines would lose them, and
-# then remove their files.
+# The names without a version: this build's, and, for a `~dev` build, the
+# release's as they were; a release keeps nothing of the `~dev` builds. A
+# .htaccess that is there and cannot be read stops it all, since one
+# written without the release's lines would lose them, and then remove
+# their files.
 mkdir -p "$CHECK"
 rm -f "$CHECK/htaccess"
 if sftp -l "$REMOTE/" | grep -qxF .htaccess; then
@@ -153,11 +158,9 @@ redirect() {
 {
     echo "# Written by ci/publish-image.sh: the names without a version, for the"
     echo "# newest release (kidux-…) and the newest development build (kidux-dev-…)."
-    # The other kind's lines, as they were.
+    # The release's lines, as they were, under a `~dev` build.
     awk -v dev="$dev" '$1 == "RedirectMatch" {
-        mine = dev ? ($3 ~ /^\^\/kidux-dev[-.]/) \
-                   : ($3 ~ /^\^\/SHA256SUMS/ || ($3 ~ /^\^\/kidux-/ && $3 !~ /^\^\/kidux-dev[-.]/))
-        if (!mine) print
+        if (dev && $3 !~ /^\^\/kidux-dev/) print
     }' "$CHECK/htaccess"
     for file in $FILES; do
         redirect "$ALIAS-${file#"$NAME"-}" "$file"
@@ -172,7 +175,7 @@ redirect() {
 } > "$CHECK/htaccess.new"
 put "$CHECK/htaccess.new" .htaccess
 
-echo "==> Removing what neither the newest release nor the newest development build holds"
+echo "==> Removing what the names without a version no longer lead to"
 kept="$(awk '$1 == "RedirectMatch" { print substr($4, 2) }' "$CHECK/htaccess.new")"
 sftp -l "$REMOTE/" | while read -r file; do
     case "$file" in
