@@ -10,16 +10,20 @@ from the disk, and the session tests that take a fresh Kidux machine through
 its first start (tests/session/02 to 05) run on it, as on the session
 machine installed on Debian. Then the same image installs once more on a
 computer that starts with a BIOS, which must reach the first start too, and
-starts under Secure Boot, as the installed system does.
+starts under Secure Boot, as the installed system does; and once more under
+UEFI from the boot menu's English entry, for the English pictures alone.
 
-Every picture is left in build/vm/install-NN-<screen>.png. The disk the
-UEFI installation made is kept, as build/vm/install.qcow2, the first start
-not done: the trial images are made from it (ci/build-trial-image.py).
+Every picture is left in build/vm/install-NN-<screen>.png, the English
+installation's in build/vm/install-en-NN-<screen>.png; those the user
+guide shows are listed in tests/lib/doc-screenshots.txt, and the release
+copies them. The disk the UEFI installation made is kept, as
+build/vm/install.qcow2, the first start not done: the trial images are
+made from it (ci/build-trial-image.py).
 
 To be reached by the tests, the installed system gets what a session
 machine's cloud-init gives it, and nothing else, before it first starts: an
-SSH server with the tests' key for the administrator, who is `debian` as on
-the session machine, sudo without a password for them, the name of the
+SSH server with the tests' key for the administrator, `ana`, whom the
+tests reach the machine as, sudo without a password for them, the name of the
 development archive's address, and its usage identifier, sixteen zeros and
 4 (sessionlib.test_identifier). A helper machine, the session machines'
 Debian, writes them onto the disk, which the installed system never sees
@@ -63,6 +67,7 @@ sessionlib.KEY = KEY
 sessionlib.SSH_PORT = SSH_PORT
 sessionlib.MONITOR = VM / f"{RUN}-monitor.sock"
 sessionlib.CONSOLE = VM / f"{RUN}-console.log"
+sessionlib.USER = "ana"
 
 #: The installer's colours (kidux-installer's branding.desc): the cream of
 #: its sidebar, and the ink of the step it is on.
@@ -76,9 +81,16 @@ STEPS = ("welcome", "location", "keyboard", "partitions", "users", "summary", "i
 BUTTON = (0xeb, 0xe2, 0xd5)
 #: Where the first of them, English, is.
 FIRST_BUTTON = (0.40, 0.555, 0.49, 0.62)
-#: The administrator the installer makes: a name, from which it suggests
-#: the login `debian`, and a password.
-ADMIN_NAME, ADMIN_PASSWORD = "Debian", "the admin password"
+#: The administrator the installer makes, in each language: a name, from
+#: which it suggests the login, `ana` or `anna`, and a password.
+ADMIN_NAMES = {"es": "Ana", "en": "Anna"}
+ADMIN_PASSWORD = "the admin password"
+#: The installer's *Next*, by the letter its button underlines.
+NEXT = {"es": "alt-s", "en": "alt-n"}
+#: The boot menu's highlight, GRUB's light gray, on its first entry and on
+#: its second, the English one.
+HIGHLIGHT = (152, 152, 152)
+MENU_ROWS = {"es": (0.2, 0.228, 0.8, 0.246), "en": (0.2, 0.252, 0.8, 0.27)}
 #: How long an installation may take, copying and all.
 INSTALL_MINUTES = 30
 
@@ -102,7 +114,8 @@ def qemu(machine: Machine, disk: Path, firmware: str, iso: Path | None = None) -
     accel = ["-enable-kvm", "-cpu", "host"] if os.access("/dev/kvm", os.W_OK) else ["-cpu", "max"]
     machine.process = subprocess.Popen(
         ["qemu-system-x86_64", *accel, "-m", "4096", "-smp", "2", *options,
-         "-drive", f"file={disk},format=qcow2,if=virtio,cache=unsafe", *cdrom,
+         "-drive", f"file={disk},format=qcow2,if=virtio,cache=unsafe,discard=unmap,"
+         "detect-zeroes=unmap", *cdrom,
          "-netdev", f"user,id=net0,hostfwd=tcp:127.0.0.1:{SSH_PORT}-:22",
          "-device", "virtio-net-pci,netdev=net0",
          "-vga", "none", "-device", "VGA,edid=on,xres=1280,yres=800",
@@ -142,40 +155,58 @@ def on_step(machine: Machine, step: str, seconds: float = 30) -> bool:
     return machine.showing(INK, step_box(step), share=0.6, seconds=seconds)
 
 
-def next_step(machine: Machine, step: str, prefix: str) -> bool:
-    """Alt+S, the installer's *Next*, and a picture of the page it opens."""
-    machine.key("alt-s")
+def next_step(machine: Machine, step: str, prefix: str, language: str = "es") -> bool:
+    """The installer's *Next*, and a picture of the page it opens."""
+    machine.key(NEXT[language])
     reached = on_step(machine, step, 60)
     time.sleep(1)
     machine.screenshot(f"{prefix}{step}")
     return reached
 
 
-def install(machine: Machine, iso: Path, disk: Path, firmware: str, prefix: str) -> bool:
-    """The image's installer, from its boot menu's first entry, in Spanish,
-    to the end of the installation."""
+def boot_menu(machine: Machine, prefix: str, language: str) -> bool:
+    """The image's boot menu, under UEFI: its entry in `language` chosen,
+    photographed, and started."""
+    shown = machine.showing(HIGHLIGHT, MENU_ROWS["es"], share=0.5, seconds=60)
+    if language == "en":
+        machine.key("down")
+        shown = shown and machine.showing(HIGHLIGHT, MENU_ROWS["en"], share=0.5, seconds=10)
+    machine.screenshot(f"{prefix}boot-menu")
+    machine.key("ret")
+    return shown
+
+
+def install(machine: Machine, iso: Path, disk: Path, firmware: str, prefix: str,
+            language: str = "es") -> bool:
+    """The image's installer, from its boot menu's entry in `language`, to
+    the end of the installation."""
+    label = firmware if language == "es" else f"{firmware}, in English"
     fresh_disk(disk)
     qemu(machine, disk, firmware, iso)
+    if firmware == "uefi" and not report(
+            f"{label}: the image's boot menu offers Kidux in {language}",
+            boot_menu(machine, prefix, language)):
+        return False
     shown = on_step(machine, "welcome", 300) and machine.still(10)
     welcome = machine.screenshot(f"{prefix}welcome")
-    if not report(f"{firmware}: the image starts the installer, Kidux's, full screen",
+    if not report(f"{label}: the image starts the installer, Kidux's, full screen",
                   shown, str(welcome)):
         return False
     for step in ("location", "keyboard", "partitions", "users"):
-        if not report(f"{firmware}: the installer goes on to its {step} page",
-                      next_step(machine, step, prefix)):
+        if not report(f"{label}: the installer goes on to its {step} page",
+                      next_step(machine, step, prefix, language)):
             return False
     # The name, from which the login comes; the computer's name, which the
     # installer suggests; and the password twice.
-    machine.type(ADMIN_NAME)
+    machine.type(ADMIN_NAMES[language])
     for _ in range(3):
         machine.key("tab")
     machine.type(ADMIN_PASSWORD)
     machine.key("tab")
     machine.type(ADMIN_PASSWORD)
     machine.screenshot(f"{prefix}users-filled")
-    if not report(f"{firmware}: the administrator's page takes the name and password",
-                  next_step(machine, "summary", prefix)):
+    if not report(f"{label}: the administrator's page takes the name and password",
+                  next_step(machine, "summary", prefix, language)):
         return False
     machine.key("alt-i")                 # Install
     time.sleep(2)
@@ -195,7 +226,7 @@ def install(machine: Machine, iso: Path, disk: Path, firmware: str, prefix: str)
         time.sleep(5)
     minutes = (time.monotonic() - started) / 60
     picture = machine.screenshot(f"{prefix}finished" if finished else f"{prefix}failed")
-    report(f"{firmware}: the installer installs Kidux on the disk, in {minutes:.0f} minutes",
+    report(f"{label}: the installer installs Kidux on the disk, in {minutes:.0f} minutes",
            finished, str(picture))
     power_off(machine)
     return finished
@@ -209,6 +240,7 @@ def helper_seed() -> None:
     CIDATA.mkdir(parents=True)
     public_key = KEY.with_suffix(".pub").read_text().strip()
     identifier = sessionlib.test_identifier(NUMBER)
+    admin = sessionlib.USER
     script = f"""#!/bin/sh
 set -eux
 t=/mnt/kidux
@@ -224,10 +256,10 @@ chroot $t apt-get update
 chroot $t env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openssh-server
 rm -f $t/etc/resolv.conf $t/usr/sbin/policy-rc.d
 mv $t/etc/resolv.conf.kidux $t/etc/resolv.conf || true
-chroot $t install -d -m 700 -o debian -g debian /home/debian/.ssh
-echo '{public_key}' > $t/home/debian/.ssh/authorized_keys
-chroot $t chown debian:debian /home/debian/.ssh/authorized_keys
-echo 'debian ALL=(ALL) NOPASSWD:ALL' > $t/etc/sudoers.d/90-kidux-tests
+chroot $t install -d -m 700 -o {admin} -g {admin} /home/{admin}/.ssh
+echo '{public_key}' > $t/home/{admin}/.ssh/authorized_keys
+chroot $t chown {admin}:{admin} /home/{admin}/.ssh/authorized_keys
+echo '{admin} ALL=(ALL) NOPASSWD:ALL' > $t/etc/sudoers.d/90-kidux-tests
 chmod 440 $t/etc/sudoers.d/90-kidux-tests
 echo 'Acquire::http::User-Agent "Debian APT-HTTP/1.3 Kidux/{identifier}";' \\
     > $t/etc/apt/apt.conf.d/99kidux-test-machine
@@ -313,7 +345,7 @@ def main(argv: list[str]) -> int:
         print("tests/run install: no image; ci/build-image.sh makes one", file=sys.stderr)
         return 1
     print(f"==> {iso.name}", flush=True)
-    for old in VM.glob(f"{RUN}-[0-9][0-9]-*.png"):
+    for old in [*VM.glob(f"{RUN}-[0-9][0-9]-*.png"), *VM.glob(f"{RUN}-en-[0-9][0-9]-*.png")]:
         old.unlink()
     machine = Machine()
     try:
@@ -375,6 +407,14 @@ def main(argv: list[str]) -> int:
             first_start_shown(machine, "bios", "bios-first-start")
             power_off(machine)
         BIOS_DISK.unlink(missing_ok=True)
+
+        # The boot menu's English entry under UEFI, installed for the
+        # English pictures alone, on a machine whose pictures are its own.
+        sessionlib.RUN = f"{RUN}-en"
+        english = VM / f"{RUN}-en.qcow2"
+        install(machine, iso, english, "uefi", "uefi-", "en")
+        english.unlink(missing_ok=True)
+        sessionlib.RUN = RUN
     finally:
         power_off(machine)
     return sessionlib.failures

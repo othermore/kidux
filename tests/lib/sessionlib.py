@@ -64,6 +64,10 @@ VNC_DISPLAY = os.environ.get("KIDUX_VM_VNC", "")
 #: quick loop; unset, the card's own 1280x800, which every picture is of.
 SCREEN = os.environ.get("KIDUX_VM_SCREEN", "")
 ARCHIVE = "http://kidux.local/apt"
+#: The administrator the tests reach the machine as: the cloud image's own
+#: user on a session machine, the one its installer made on the install
+#: test's (tests/lib/install-vm.py).
+USER = "debian"
 
 #: The first picture on the sign-in screen, which has the keyboard's focus
 #: when the screen comes up: children are listed by name, and kidux-as makes
@@ -349,7 +353,7 @@ def ssh(command: str, timeout: float = 300) -> subprocess.CompletedProcess:
             "ssh", "-i", str(KEY), "-p", str(SSH_PORT),
             "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null",
             "-o", "LogLevel=ERROR", "-o", "ConnectTimeout=5", "-o", "BatchMode=yes",
-            "debian@127.0.0.1", command,
+            f"{USER}@127.0.0.1", command,
         ],
         capture_output=True, text=True, timeout=timeout,
     )
@@ -371,7 +375,7 @@ def copy(source: Path, destination: str, mode: str = "0755") -> None:
         [
             "scp", "-i", str(KEY), "-P", str(SSH_PORT),
             "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null",
-            "-o", "LogLevel=ERROR", str(source), f"debian@127.0.0.1:/tmp/{source.name}",
+            "-o", "LogLevel=ERROR", str(source), f"{USER}@127.0.0.1:/tmp/{source.name}",
         ],
         check=True, capture_output=True,
     )

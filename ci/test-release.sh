@@ -211,13 +211,18 @@ stages_wait() {
 }
 
 pictures() {
-    # The session runs' pictures into the report, compared with the previous
-    # run's; the guide's own copied to docs/images/<language>/ when every
-    # stage of a release run passed. The Spanish run's are
-    # session-NN-<screen>.png, the English run's session-en-NN-<screen>.png.
+    # The pictures of the session runs, the installations and the trial
+    # images into the report, compared with the previous run's; the guide's
+    # own copied to docs/images/<language>/ when every stage of a release
+    # run passed. The Spanish session run's are session-NN-<screen>.png, the
+    # English one's session-en-NN-<screen>.png; the installations' are
+    # install-NN- and install-en-NN-, the trial images' trial-es-NN- and
+    # trial-en-NN-.
     rm -rf "$OUT/screens"
     mkdir -p "$OUT/screens"
-    cp build/vm/session-[0-9]*.png build/vm/session-en-[0-9]*.png "$OUT/screens/" 2>/dev/null
+    cp build/vm/session-[0-9]*.png build/vm/session-en-[0-9]*.png \
+        build/vm/install-[0-9]*.png build/vm/install-en-[0-9]*.png \
+        build/vm/trial-es-[0-9]*.png build/vm/trial-en-[0-9]*.png "$OUT/screens/" 2>/dev/null
     if [ -n "$PREVIOUS" ] && [ -d "$PREVIOUS/screens" ]; then
         echo "==> Comparing the screens with $(basename "$PREVIOUS")"
         ./tests/lib/screenshot-diff.py "$PREVIOUS/screens" "$OUT/screens" "$OUT/report" \
@@ -229,12 +234,16 @@ pictures() {
     elif ! grep -q '^FAIL' "$VERDICTS"; then
         echo "==> Updating the user guide's pictures"
         for language in es en; do
-            run=session
-            [ "$language" = es ] || run="session-$language"
+            # The session run, the installation and the trial image in
+            # that language; a screen is found in the one that takes it.
+            runs="session install trial-es"
+            [ "$language" = es ] || runs="session-$language install-$language trial-$language"
             mkdir -p "docs/images/$language"
             grep -v '^#' tests/lib/doc-screenshots.txt | while read -r screen file; do
                 [ -n "$screen" ] || continue
-                picture="$(ls "$OUT"/screens/"$run"-[0-9]*-"$screen".png 2>/dev/null | head -1)"
+                picture="$(for run in $runs; do
+                    ls "$OUT"/screens/"$run"-[0-9]*-"$screen".png 2>/dev/null
+                done | head -1)"
                 if [ -n "$picture" ]; then
                     cp "$picture" "docs/images/$language/$file"
                 else
@@ -258,7 +267,7 @@ if [ -n "$ONLY" ]; then
     else
         stage "test: $ONLY" ./tests/run "$ONLY"
     fi
-    case "$ONLY" in session*) pictures ;; esac
+    case "$ONLY" in session*|install) pictures ;; esac
 else
     rm -f "$VERDICTS" "$OUT/published" "$OUT/release"
     rm -rf "$PACKAGES_DIR"

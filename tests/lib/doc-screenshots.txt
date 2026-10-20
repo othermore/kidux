@@ -1,9 +1,11 @@
-# Which pictures of tests/run session the user guide, the README and the
-# website show.
+# Which pictures of tests/run session, tests/run install and
+# ci/build-trial-image.py the user guide, the README and the website show.
 #
 # One per line: the screen's name as the harness saves it, without its number,
-# then the file it becomes in docs/images/es/, from the Spanish run, and in
-# docs/images/en/, from the English one (tests/run session-en).
+# then the file it becomes in docs/images/es/, from the Spanish runs, and in
+# docs/images/en/, from the English ones: tests/run session and
+# session-en; the installation from the boot menu's Spanish entry and its
+# English one; the Spanish trial image and the English one.
 # ci/test-release.sh copies them after a green run, so each document always
 # shows the screens as they are, in its own language. A picture neither needs
 # is simply not listed here.
@@ -68,3 +70,11 @@ mail-notice             mail-notice.png
 module-tuxtype-lesson-fingers module-tuxtype-lesson-fingers.png
 module-tuxtype-lesson   module-tuxtype-lesson.png
 module-tuxtype-lesson-accents module-tuxtype-lesson-accents.png
+uefi-boot-menu          install-boot-menu.png
+uefi-welcome            install-welcome.png
+uefi-partitions         install-partitions.png
+uefi-users-filled       install-users.png
+uefi-summary            install-summary.png
+uefi-finished           install-finished.png
+trial-sign-in           trial-sign-in.png
+trial-leo               trial-leo.png

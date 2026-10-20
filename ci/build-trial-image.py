@@ -53,6 +53,9 @@ DISK = install_vm.DISK
 #: The trial's family, and its passwords, which the page that offers the
 #: images says (docs/en/try.md).
 ADULT_PASSWORD = "kidux"
+#: The administrator the installer made in the install test, whose password
+#: becomes the adult one too.
+ADMIN = sessionlib.USER
 CHILD, CHILD_NAME, CHILD_PASSWORD = "leo", "Leo", "leo"
 #: What the trial shows, decided by the owner (phase-2-plan.md, section 2):
 #: programming, typing, play, and two of the sciences, a web one and a Qt one.
@@ -77,7 +80,9 @@ def step(name: str, command: str, timeout: float = 1800) -> bool:
 
 
 def as_adult(arguments: str) -> str:
-    return f"KIDUX_AS_ADULT={ADULT_PASSWORD} /usr/local/bin/kidux-as {arguments}"
+    """kidux-as as the administrator, with the trial's adult password."""
+    return (f"runuser -u {ADMIN} -- env KIDUX_AS_ADULT={ADULT_PASSWORD} "
+            f"/usr/local/bin/kidux-as {arguments}")
 
 
 def ova(qcow2: Path, name: str) -> Path:
@@ -118,6 +123,8 @@ def tried(qcow2: Path, language: str) -> bool:
     """The image started as the page on trying Kidux says, without writing
     to it: the sign-in screen with Leo, then Leo's own screen."""
     sessionlib.RUN = f"trial-{language}"
+    for old in sessionlib.VM.glob(f"trial-{language}-[0-9][0-9]-*.png"):
+        old.unlink()
     sessionlib.MONITOR.unlink(missing_ok=True)
     machine = sessionlib.Machine()
     machine.process = subprocess.Popen(
@@ -134,13 +141,13 @@ def tried(qcow2: Path, language: str) -> bool:
         shown = machine.showing(sessionlib.CREAM, (0, 0, 1, 0.2), share=0.9, seconds=240)
         time.sleep(30)
         greeter = machine.settled()
-        machine.screenshot("sign-in")
+        machine.screenshot("trial-sign-in")
         machine.key("ret")                   # Leo, the only picture, has the focus
         time.sleep(3)
         machine.type(CHILD_PASSWORD + "\n")
         time.sleep(30)
         signed_in = sessionlib.difference(greeter, machine.settled()) > 0.2
-        picture = machine.screenshot("leo")
+        picture = machine.screenshot("trial-leo")
         print(("    " if shown and signed_in else "    FAILED: ")
               + f"started as the page says, Leo signs in: {picture.name}", flush=True)
         return shown and signed_in
@@ -169,20 +176,19 @@ def build(language: str, name: str) -> bool:
              f"locale-gen >/dev/null && localectl set-locale LANG={locale} "
              f"&& localectl set-x11-keymap {keyboard} && setupcon --save-only 2>/dev/null; true"),
             ("the family: the adult password and Leo",
-             f"runuser -u debian -- env {as_adult(f'family {CHILD} {CHILD_NAME} {CHILD_PASSWORD}')}"),
+             as_adult(f"family {CHILD} {CHILD_NAME} {CHILD_PASSWORD}")),
             ("Kidux in the machine's language, set up",
-             "runuser -u debian -- env " + as_adult(f"set-config default_language '\"{locale}\"'")
-             + " && runuser -u debian -- env " + as_adult(f"set-config default_keyboard '\"{keyboard}\"'")
-             + " && runuser -u debian -- env " + as_adult("set-config setup_complete true")),
+             as_adult(f"set-config default_language '\"{locale}\"'")
+             + " && " + as_adult(f"set-config default_keyboard '\"{keyboard}\"'")
+             + " && " + as_adult("set-config setup_complete true")),
             ("Leo in the machine's language, with no limit of time to try it in",
-             "runuser -u debian -- env " + as_adult(f"set-profile {CHILD} language {locale}")
-             + " && runuser -u debian -- env " + as_adult(f"set-profile {CHILD} keyboard {keyboard}")
-             + " && runuser -u debian -- env " + as_adult(f"set-policy {CHILD} unlimited 0")),
+             as_adult(f"set-profile {CHILD} language {locale}")
+             + " && " + as_adult(f"set-profile {CHILD} keyboard {keyboard}")
+             + " && " + as_adult(f"set-policy {CHILD} unlimited 0")),
         ]
         for module in TRIAL_MODULES:
             steps.append((f"{module}, installed and switched on for Leo",
-                          "runuser -u debian -- env " + as_adult(f"install {module}")
-                          + " | grep -q '^installed ' && runuser -u debian -- env "
+                          as_adult(f"install {module}") + " | grep -q '^installed ' && "
                           + as_adult(f"enable {CHILD} {module} on")))
         identifier = trial_identifier(speaks["number"])
         steps += [
@@ -192,11 +198,11 @@ def build(language: str, name: str) -> bool:
              "&& systemctl restart kidux-daemon && sleep 3 "
              f"&& grep -q 'Kidux/{identifier}' /etc/apt/apt.conf.d/61kidux-statistics"),
             ("the administrator's password, the trial's",
-             f"echo 'debian:{ADULT_PASSWORD}' | chpasswd"),
+             f"echo '{ADMIN}:{ADULT_PASSWORD}' | chpasswd"),
             ("what only the tests needed, gone, and the free space given back",
              "rm -f /etc/sudoers.d/90-kidux-tests /etc/apt/apt.conf.d/99kidux-test-machine "
              "/etc/apt/apt.conf.d/99kidux-vm-lean /usr/local/bin/kidux-as /usr/local/bin/kidux-toplevels "
-             "&& sed -i '/kidux.local/d' /etc/hosts && rm -rf /home/debian/.ssh "
+             f"&& sed -i '/kidux.local/d' /etc/hosts && rm -rf /home/{ADMIN}/.ssh "
              "&& DEBIAN_FRONTEND=noninteractive apt-get purge -y openssh-server >/dev/null "
              "&& apt-get autoremove --purge -y >/dev/null && apt-get clean "
              "&& rm -rf /var/lib/apt/lists/* && journalctl --rotate && journalctl --vacuum-time=1s "
