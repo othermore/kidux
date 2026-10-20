@@ -5,9 +5,10 @@
 #                               dated inside them, ending now, then pushed
 #   ci/push.sh --later          the same at the next moment the hours allow, by a timer of
 #                               the user's systemd; nothing to watch for
-#   ci/push.sh --then-publish   after the push, ci/promote.sh, ci/publish-public.sh and
-#                               ci/publish-image.sh, the last steps of a release; with
-#                               --later, after the timer's push
+#   ci/push.sh --then-publish   the last steps of a release around the push:
+#                               ci/promote.sh and ci/publish-image.sh before it,
+#                               ci/publish-public.sh after it; with --later, at
+#                               the timer's push
 #
 # Nothing of Kidux's goes to GitHub by any other way: a commit made in the
 # day is pushed in the evening with the evening's dates, the author's and the
@@ -68,6 +69,15 @@ if ! git merge-base --is-ancestor "$base" "$old"; then
     exit 2
 fi
 count="$(git rev-list --count "$base..$old")"
+
+# A release's images go up before the push: the website, which a push of
+# site/ publishes at once, and the README link to them by their names
+# without a version. Neither the promotion nor the images touch GitHub.
+if [ -n "$PUBLISH" ]; then
+    "$REPO_ROOT/ci/promote.sh"
+    "$REPO_ROOT/ci/publish-image.sh"
+fi
+
 if [ "$count" -eq 0 ]; then
     echo "==> Nothing to push: origin/main is main."
 else
@@ -79,7 +89,5 @@ else
 fi
 
 if [ -n "$PUBLISH" ]; then
-    "$REPO_ROOT/ci/promote.sh"
     "$REPO_ROOT/ci/publish-public.sh"
-    "$REPO_ROOT/ci/publish-image.sh"
 fi

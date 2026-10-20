@@ -304,11 +304,13 @@ ci/test-release.sh <label> --release
 ci/push.sh [--later]           then, each on the owner's word: the push, inside
                                the hours (below), now or at a timer's next chance
 ci/promote.sh                  into stable
-ci/publish-public.sh           and the public archive, inside the hours too
-ci/publish-image.sh            and the release's image and trial images, at
-                               https://iso.kidux.org (image.md, section 6);
-                               ci/push.sh --then-publish does the three after
-                               the push
+ci/publish-image.sh            the release's image and trial images, at
+                               https://iso.kidux.org (image.md, section 6),
+                               inside the hours too
+ci/publish-public.sh           and the public archive; ci/push.sh
+                               --then-publish does the first two before the
+                               push, which publishes the website that links
+                               to the images, and the third after it
 ```
 
 A version made only of numbers is a release, and a release never changes
@@ -340,8 +342,9 @@ outside them it refuses, or with `--later` sets a timer of the user's
 systemd for the moment they open (`systemctl --user list-timers`,
 `journalctl --user -u kidux-push-<time>`), which lives while the user has
 a session or lingers (`sudo loginctl enable-linger`). `--then-publish`
-runs `ci/promote.sh`, `ci/publish-public.sh` and `ci/publish-image.sh`
-after the push, and the last two keep to the hours by themselves. A commit once pushed
+runs `ci/promote.sh` and `ci/publish-image.sh` before the push and
+`ci/publish-public.sh` after it, and the last two keep to the hours by
+themselves. A commit once pushed
 never changes, so only the commits still to push are dated again, and as
 the last step: after a release, the battery's record of its commit names
 the one before the dating, which only matters to a `--release` run again.

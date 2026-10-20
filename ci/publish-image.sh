@@ -2,13 +2,17 @@
 # Publish Kidux's images at https://iso.kidux.org: the installer and the
 # images to try Kidux in an emulator (D116).
 #
-#   ci/publish-image.sh            the images of the newest build in build/image/
+#   ci/publish-image.sh            the release's: the images of the version
+#                                  of kidux-base the stable suite holds
+#   ci/publish-image.sh --dev      the newest `~dev` build's in build/image/
 #   ci/publish-image.sh <name>     those of kidux-<version>-<date>, the name
 #                                  every file of one build begins with
 #
 # One build's files are the installer, kidux-<version>-<date>-amd64.iso
 # (ci/build-image.sh), and the trial images, kidux-<version>-<date>-trial-
-# <language>.qcow2 and .ova (ci/build-trial-image.py), whichever were made.
+# <language>.qcow2 and .ova (ci/build-trial-image.py). A release publishes
+# all five or nothing, since the website and the guide link to every one;
+# a `~dev` build, whichever were made.
 # Beside them goes kidux-<version>-<date>.SHA256SUMS, their sums, and
 # kidux-<version>-<date>.SHA256SUMS.sign, its signature: by the archive's
 # key, which kidux-archive-keyring ships, for a release; by the development
@@ -29,9 +33,10 @@
 # mebibyte, the same as here; and each name without a version answering
 # with the file it names.
 #
-# A release's images are published after ci/publish-public.sh, in
-# ci/push.sh --then-publish's chain, inside the hours Kidux is seen
-# working (D99); a `~dev` build's at any hour, since nothing links to them.
+# A release's images are published after ci/promote.sh and before
+# ci/publish-public.sh, which puts up the website that links to them, in
+# ci/push.sh --then-publish's chain, inside the hours Kidux is seen working
+# (D99); a `~dev` build's at any hour, since nothing links to them.
 
 set -eu
 
@@ -44,14 +49,28 @@ RELEASE_KEY=27E3FC17DBA9E4578268F8EEB3768AF190169C5E
 DEVELOPMENT_KEY=C5635C3123C0A599645929CF813EF459076E9055
 KEYRING="$REPO_ROOT/packages/kidux-archive-keyring/keyrings/kidux-archive-keyring.pgp"
 DEVELOPMENT_KEYRING="$REPO_ROOT/ci/archive/development-key.pgp"
+STABLE="${KIDUX_ARCHIVE_ROOT:-/srv/kidux-apt}/dists/stable/main/binary-amd64/Packages"
+#: What a release's images are, every one of them.
+RELEASE_FILES="amd64.iso trial-es.qcow2 trial-es.ova trial-en.qcow2 trial-en.ova"
 
-if [ $# -gt 0 ]; then
-    NAME="$1"
-else
-    newest="$(ls -t "$OUT"/kidux-*-amd64.iso 2>/dev/null | head -1)"
-    [ -n "$newest" ] || { echo "$0: no image in $OUT; ci/build-image.sh makes one" >&2; exit 1; }
-    NAME="$(basename "$newest" -amd64.iso)"
-fi
+newest() {
+    # newest <glob>: the name of the newest build whose installer matches.
+    found="$(ls -t "$OUT"/$1-amd64.iso 2>/dev/null | head -1)"
+    [ -n "$found" ] || { echo "$0: no image $1-amd64.iso in $OUT" >&2; exit 1; }
+    basename "$found" -amd64.iso
+}
+
+case "${1:-}" in
+    "")
+        # The release: the version the stable suite holds, as promoted.
+        version="$(awk '/^Package: kidux-base$/ { found = 1; next }
+                        found && /^Version: / { print $2; exit }' "$STABLE" 2>/dev/null)"
+        [ -n "$version" ] || { echo "$0: $STABLE holds no kidux-base" >&2; exit 1; }
+        NAME="$(newest "kidux-$version-[0-9]*")"
+        ;;
+    --dev) NAME="$(newest "kidux-*~dev.*")" ;;
+    *) NAME="$1" ;;
+esac
 case "$NAME" in
     kidux-*~dev.*) dev=1; KEY="$DEVELOPMENT_KEY"; CHECK_KEYRING="$DEVELOPMENT_KEYRING"; ALIAS=kidux-dev ;;
     kidux-*) dev=0; KEY="$RELEASE_KEY"; CHECK_KEYRING="$KEYRING"; ALIAS=kidux ;;
@@ -67,6 +86,14 @@ case "$FILES" in
     *"$NAME-amd64.iso"*) ;;
     *) echo "$0: $OUT has no $NAME-amd64.iso" >&2; exit 1 ;;
 esac
+if [ "$dev" = 0 ]; then
+    for kind in $RELEASE_FILES; do
+        [ -s "$OUT/$NAME-$kind" ] || {
+            echo "$0: $OUT has no $NAME-$kind; a release publishes every image or none" >&2
+            exit 1
+        }
+    done
+fi
 
 echo "==> The sums of $NAME, signed with $KEY"
 (cd "$OUT" && sha256sum $FILES > "$NAME.SHA256SUMS")
@@ -106,33 +133,47 @@ for file in $FILES "$NAME.SHA256SUMS" "$NAME.SHA256SUMS.sign"; do
 done
 
 # The names without a version: this build's for its kind, the other kind's
-# as they were.
+# as they were. A .htaccess that is there and cannot be read stops it all,
+# since writing one without the other kind's lines would lose them, and
+# then remove their files.
 mkdir -p "$CHECK"
 rm -f "$CHECK/htaccess"
-sftp -o "$CHECK/htaccess" "$REMOTE/.htaccess" 2>/dev/null || : > "$CHECK/htaccess"
+if sftp -l "$REMOTE/" | grep -qxF .htaccess; then
+    sftp -o "$CHECK/htaccess" "$REMOTE/.htaccess" \
+        || { echo "$0: $REMOTE_DIR/.htaccess is there and cannot be read" >&2; exit 1; }
+else
+    : > "$CHECK/htaccess"
+fi
+
+redirect() {
+    # redirect <name> <file>: <name> exactly, and nothing that begins with it.
+    printf 'RedirectMatch 302 ^/%s$ /%s\n' "$(printf '%s' "$1" | sed 's/[.]/\\./g')" "$2"
+}
+
 {
     echo "# Written by ci/publish-image.sh: the names without a version, for the"
     echo "# newest release (kidux-…) and the newest development build (kidux-dev-…)."
     # The other kind's lines, as they were.
-    awk -v dev="$dev" '$1 == "Redirect" {
-        mine = dev ? ($3 ~ /^\/kidux-dev[-.]/) : ($3 ~ /^\/SHA256SUMS/ || ($3 ~ /^\/kidux-/ && $3 !~ /^\/kidux-dev[-.]/))
+    awk -v dev="$dev" '$1 == "RedirectMatch" {
+        mine = dev ? ($3 ~ /^\^\/kidux-dev[-.]/) \
+                   : ($3 ~ /^\^\/SHA256SUMS/ || ($3 ~ /^\^\/kidux-/ && $3 !~ /^\^\/kidux-dev[-.]/))
         if (!mine) print
     }' "$CHECK/htaccess"
     for file in $FILES; do
-        echo "Redirect 302 /$ALIAS-${file#"$NAME"-} /$file"
+        redirect "$ALIAS-${file#"$NAME"-}" "$file"
     done
     if [ "$dev" = 1 ]; then
-        echo "Redirect 302 /$ALIAS.SHA256SUMS /$NAME.SHA256SUMS"
-        echo "Redirect 302 /$ALIAS.SHA256SUMS.sign /$NAME.SHA256SUMS.sign"
+        redirect "$ALIAS.SHA256SUMS" "$NAME.SHA256SUMS"
+        redirect "$ALIAS.SHA256SUMS.sign" "$NAME.SHA256SUMS.sign"
     else
-        echo "Redirect 302 /SHA256SUMS /$NAME.SHA256SUMS"
-        echo "Redirect 302 /SHA256SUMS.sign /$NAME.SHA256SUMS.sign"
+        redirect SHA256SUMS "$NAME.SHA256SUMS"
+        redirect SHA256SUMS.sign "$NAME.SHA256SUMS.sign"
     fi
 } > "$CHECK/htaccess.new"
 put "$CHECK/htaccess.new" .htaccess
 
 echo "==> Removing what neither the newest release nor the newest development build holds"
-kept="$(grep '^Redirect' "$CHECK/htaccess.new" | awk '{ print substr($4, 2) }')"
+kept="$(awk '$1 == "RedirectMatch" { print substr($4, 2) }' "$CHECK/htaccess.new")"
 sftp -l "$REMOTE/" | while read -r file; do
     case "$file" in
         kidux-*) ;;
