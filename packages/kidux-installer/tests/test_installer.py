@@ -61,9 +61,10 @@ def test_every_step_is_a_module_calamares_has_or_one_of_kidux_s_instances():
 
 def test_the_steps_run_in_the_order_the_install_needs():
     steps = [s for s in settings()["sequence"][1]["exec"]]
-    order = ["partition", "mount", "unpackfs", "machineid", "fstab", "users",
-             "shellprocess@kidux-grub", "bootloader", "shellprocess@kidux-efi", "packages",
-             "initramfs", "umount"]
+    # The initramfs before GRUB, whose menu names it: the image carries none.
+    order = ["partition", "mount", "unpackfs", "machineid", "fstab", "users", "packages",
+             "initramfs", "shellprocess@kidux-grub", "bootloader", "shellprocess@kidux-efi",
+             "umount"]
     assert [s for s in steps if s in order] == order
 
 

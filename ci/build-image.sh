@@ -12,7 +12,9 @@
 # with Kidux's installer beside it (kidux-installer). It goes into a
 # squashfs straight from mmdebstrap's tar (sqfstar), so that its files keep
 # their owners without root; the tar has no entry for the root directory
-# itself, which is root's too, not the builder's. The image around it:
+# itself, which is root's too, not the builder's. It carries no initramfs:
+# the live system boots from the image's own, and the installer makes the
+# installed system's (kidux-installer). The image around it:
 #
 #   .disk/info                 what the image is, which GRUB looks for
 #   live/vmlinuz, initrd.img   the live system's kernel, and its initramfs
@@ -114,13 +116,14 @@ mmdebstrap --mode=unshare --variant=standard --components=main,non-free-firmware
     --customize-hook="download /tmp/packages '$WORK/packages'" \
     --customize-hook='rm -f "$1"/tmp/packages' \
     --customize-hook="sync-out /boot '$WORK/boot'" \
+    --customize-hook='rm -f "$1"/boot/initrd.img-*' \
     trixie - \
     "deb $MIRROR trixie main non-free-firmware" \
     "deb $MIRROR trixie-updates main non-free-firmware" \
     "deb $SECURITY trixie-security main non-free-firmware" \
     "deb [signed-by=$KEYDIR/kidux.gpg] $ARCHIVE $SUITE main" \
     2> "$OUT/mmdebstrap.log" \
-    | sqfstar -quiet -comp xz -no-progress -root-uid 0 -root-gid 0 -root-mode 0755 \
+    | sqfstar -quiet -comp xz -Xbcj x86 -b 1M -no-progress -root-uid 0 -root-gid 0 -root-mode 0755 \
         "$WORK/iso/live/filesystem.squashfs" \
     > "$OUT/sqfstar.log" 2>&1
 
