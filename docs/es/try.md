@@ -6,6 +6,8 @@
 
 Lo que se ve en la ventana es Kidux completo, no una demostración recortada. Es el mismo sistema que el instalador pone en un ordenador, con su pantalla de entrada, la pantalla del niño, los límites de tiempo, la pantalla de bloqueo y el panel de adulto. Incluso se actualiza por sí solo desde el archivo de paquetes de Kidux, como lo haría cualquier ordenador con Kidux instalado.
 
+Conviene saber de antemano que un emulador nunca va tan rápido como un ordenador real. Kidux funciona dentro de otro sistema, que tiene que repartir con él su procesador y su memoria, así que todo responde algo más despacio que en un ordenador con Kidux instalado. En un Mac con procesador de Apple la diferencia es mayor: Kidux está hecho para procesadores de PC, y el Mac tiene que imitar uno entero, instrucción a instrucción. Por eso, en esos Mac, hace falta darle al emulador más recursos, sobre todo más núcleos de procesador; los pasos de UTM, más abajo, indican cuántos. Nada de esto afecta a cómo va Kidux instalado en un ordenador propio.
+
 ## La familia de la imagen de prueba
 
 La imagen viene preparada con estos datos, para que puedas empezar a probar nada más arrancarla:
@@ -18,7 +20,7 @@ La imagen viene preparada con estos datos, para que puedas empezar a probar nada
 | **Módulos de aprendizaje** | Leo tiene instalados y activados seis módulos: BASIC, Tux Typing, Scratch, GCompris, Simulaciones y Kig. Desde el panel de adulto se pueden instalar los demás. |
 | **Tiempo** | Leo no tiene ningún límite de tiempo, para que puedas probar con calma. Si quieres ver cómo funcionan los límites, el panel de adulto permite ponerle uno. |
 | **Idiomas** | Hay dos imágenes: una en español y otra en inglés. |
-| **Lo que necesita** | Unos 4 GB de memoria libres para el emulador, y alrededor de 10 GB de espacio en disco. |
+| **Lo que necesita** | Unos 4 GB de memoria libres para el emulador, y alrededor de 10 GB de espacio en disco. En un Mac con procesador de Apple, además, varios núcleos de procesador para el emulador: cuatro o más. |
 
 Una vez arrancado, Kidux muestra su pantalla de entrada con el dibujo de Leo. Tras escribir la contraseña de Leo, aparece su pantalla con los seis módulos:
 

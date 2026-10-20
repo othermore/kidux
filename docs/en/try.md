@@ -6,6 +6,8 @@
 
 What you see in the window is the whole of Kidux, not a cut-down demonstration. It is the same system the installer puts on a computer, with its sign-in screen, the child's screen, the time limits, the lock screen and the adult panel. It even updates itself from Kidux's package archive, as any computer with Kidux installed would.
 
+It is worth knowing beforehand that an emulator never runs as fast as a real computer. Kidux runs inside another system, which has to share its processor and memory with it, so everything responds a little more slowly than on a computer with Kidux installed. On a Mac with an Apple processor the difference is greater: Kidux is made for PC processors, and the Mac has to imitate a whole one, instruction by instruction. So on those Macs the emulator needs more resources, above all more processor cores; the UTM steps below say how many. None of this affects how Kidux runs once installed on a computer of its own.
+
 ## The family in the trial image
 
 The image comes prepared with these details, so that you can start trying it as soon as it has started:
@@ -18,7 +20,7 @@ The image comes prepared with these details, so that you can start trying it as 
 | **Learning modules** | Leo has six modules installed and switched on: BASIC, Tux Typing, Scratch, GCompris, Simulations and Kig. The others can be installed from the adult panel. |
 | **Time** | Leo has no time limit at all, so that you can try at leisure. If you want to see how the limits work, the adult panel lets you set one. |
 | **Languages** | There are two images: one in Spanish and one in English. |
-| **What it needs** | About 4 GB of memory free for the emulator, and around 10 GB of disk space. |
+| **What it needs** | About 4 GB of memory free for the emulator, and around 10 GB of disk space. On a Mac with an Apple processor, also several processor cores for the emulator: four or more. |
 
 Once it has started, Kidux shows its sign-in screen with Leo's picture. After Leo's password is typed, their screen appears with the six modules:
 
