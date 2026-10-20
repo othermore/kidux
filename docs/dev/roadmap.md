@@ -35,18 +35,25 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [x] `kidux-launcher`: the child's screen, remaining time, Lock and Log out.
 - [x] i18n CI checks: no untranslated `es.po` strings, content trees in parity.
 
-## Phase 2 — First installable image
-- [ ] `live-build` configuration in `image/`, hybrid ISO (UEFI + BIOS), live session
-      is the kiosk itself.
-- [ ] Calamares with our branding, translated, guided layout with separate `/home`,
-      and a "Reinstall, keep my data" path; the non-free firmware ticked by
-      default and untickable (D74).
-- [ ] GitHub Actions: build ISO on tag, QEMU smoke test, publish to Releases;
-      the image built and published again with every release of the
-      packages, so that it always installs the current versions.
-- [ ] Ready-made images for a quick try in an emulator, as simple as they
-      can be, with a page that says how to run one on Windows, Linux and
-      macOS, for someone who wants to see Kidux before installing it.
+## Phase 2 — First installable image (phase-2-plan.md)
+- [ ] The image's recipe in `image/` and `ci/build-image.sh`: a hybrid ISO
+      (UEFI with Secure Boot, and BIOS) built without root on the release
+      machine, from trixie and Kidux's archive, reproducible, booting to
+      the installer (phase-2-plan.md, 3.2).
+- [ ] Calamares with Kidux's branding, translated, the layout with a
+      separate `/home`, the non-free firmware in (D74): the package
+      `kidux-installer` (3.1).
+- [ ] The install test: the ISO boots under UEFI and BIOS, installs by
+      keyboard and pointer, and the installed machine passes its first
+      start (3.3).
+- [ ] The image built, tested and published with every release, on the
+      project's hosting, with the user guide, the README and the website
+      saying how to install from it (3.4, 3.5).
+- [ ] Ready-made images for a quick try in an emulator, from the install
+      test's disk, with a page that says how to run one on Windows, Linux
+      and macOS (4).
+- [ ] After them: "Reinstall, keep my data", and the live session as the
+      kiosk itself (6).
 - [ ] Install on the development MacBook and on at least one old BIOS-only PC.
 - [x] The package archive's stable suite published at `https://apt.kidux.org`,
       a web hosting of the project's own whose logs count the machines that
@@ -189,12 +196,14 @@ can. Each phase assumes what it builds on is reasonably stable.
 ## Phase 7 — Public release 1.0
 - [ ] Upgrade tooling: unattended security updates, panel-driven feature updates,
       tested reinstall-keeping-data.
+- [ ] The daily unattended upgrade fenced as the panel's install is: it
+      does not start under a child's session, no child signs in while it
+      runs, and a skipped run is made up when the last child logs out
+      (updates-plan.md).
 - [ ] Updates that announce themselves: the sign-in screen and the adult
       panel say when updates wait, and when one has been installed and
       needs a restart, without the adult having to look for them; the
-      machine looks by itself, and the daily unattended upgrade of the
-      stable suite keeps out of a child's session as the panel's own
-      install does.
+      machine looks by itself.
 - [ ] Tests on 3+ machines with different hardware (UEFI, BIOS, low RAM).
 - [ ] The user guide complete in both languages, with final screenshots.
 - [x] Public name and visual identity (`branding/`).
