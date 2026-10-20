@@ -6,8 +6,8 @@
 #
 # Boots stock Debian under QEMU, hands it the checks in seed/user-data through
 # cloud-init, and greps the serial console for the verdict. The VM writes
-# nothing back: -snapshot keeps every change in memory, so each run starts from
-# the same untouched image and there is nothing to clean up.
+# nothing back: it runs on an overlay of the image, removed at the end, so
+# each run starts from the same untouched image.
 #
 # Needs: a published archive (ci/publish-local.sh) and membership of the kvm
 # group. Without kvm it still runs, on emulation, perhaps ten times slower.
@@ -50,6 +50,12 @@ fi
 # Debian with what Kidux needs from Debian already installed, or the stock
 # image when KIDUX_VM_COLD=1 (tests/lib/warm-image.sh).
 IMAGE="$("$REPO_ROOT/tests/lib/warm-image.sh")"
+# The machine's disk: an overlay on the image of 12 GiB, as the session
+# machines' are, since the stock image's 3 GiB fill up once Chromium and
+# a module or two are installed; cloud-init grows the root into it.
+DISK="$VM_DIR/acceptance.qcow2"
+rm -f "$DISK"
+qemu-img create -q -f qcow2 -b "$IMAGE" -F qcow2 "$DISK" 12G
 
 # --- serve the cloud-init seed ----------------------------------------------
 
@@ -72,7 +78,7 @@ python3 -m http.server "$SEED_PORT" --bind 127.0.0.1 --directory "$SERVED" \
     >"$VM_DIR/seed-server.log" 2>&1 &
 SEED_PID=$!
 # shellcheck disable=SC2064
-trap "kill $SEED_PID 2>/dev/null || true" EXIT INT TERM
+trap "kill $SEED_PID 2>/dev/null || true; rm -f '$DISK'" EXIT INT TERM
 
 # --- firmware ----------------------------------------------------------------
 
@@ -104,8 +110,7 @@ timeout "$TIMEOUT" qemu-system-x86_64 \
     -machine q35 \
     -drive if=pflash,format=raw,unit=0,readonly=on,file="$OVMF_CODE" \
     -drive if=pflash,format=raw,unit=1,file="$OVMF_VARS" \
-    -drive file="$IMAGE",format=qcow2,if=virtio \
-    -snapshot \
+    -drive file="$DISK",format=qcow2,if=virtio \
     -netdev user,id=net0 \
     -device virtio-net-pci,netdev=net0 \
     -smbios "type=1,serial=ds=nocloud;s=http://10.0.2.2:$SEED_PORT/" \
