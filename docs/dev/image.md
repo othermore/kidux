@@ -200,11 +200,17 @@ and keyboard, are the language's as its installer wrote them:
    down.
 4. `qemu-img` converts the disk: `<name>-trial-<language>.qcow2`,
    compressed, for QEMU and UTM; and `<name>-trial-<language>.ova`, a
-   streamOptimized VMDK in a plain OVF 1.0 package with a SHA-256
-   manifest: two processors, 4 GB of memory, the disk on SATA and NAT
-   networking. OVF cannot say that the machine starts with UEFI, so the
-   page that offers the images has the visitor tick *Enable EFI* in
-   VirtualBox.
+   streamOptimized VMDK in an OVF 1.0 package with a SHA-256 manifest:
+   two processors, 4 GB of memory, the disk on SATA, NAT networking, USB
+   and sound. OVF itself cannot say that the machine starts with UEFI, nor
+   name its graphics card or pointer, so the package also carries
+   VirtualBox's own description of the machine, `vbox:Machine`, which
+   VirtualBox reads in place of the plain one and other emulators skip:
+   UEFI, the VMSVGA card, a USB tablet for the pointer, HD Audio, the
+   clock in UTC. Its identifiers, the machine's and the disk's, come from
+   the image's name rather than at random. VMSVGA without
+   3D is a card wlroots cannot draw with; Kidux's compositors draw in
+   software on it (`docs/dev/session.md`, section 2).
 5. Each `.qcow2` is started with the very QEMU command the page gives,
    without writing to it: the sign-in screen must come up with Leo, and
    Leo must get their screen, both photographed as

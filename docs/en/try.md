@@ -42,20 +42,20 @@ Leo's password, Leo's own screen with the modules:
 
 The Spanish images are `kidux-trial-es.ova` and `kidux-trial-es.qcow2`, at
 the same address. Each file is about 1.5 GB. Their SHA-256 sums are
-in [SHA256SUMS](https://iso.kidux.org/SHA256SUMS).
+in [SHA256SUMS](https://iso.kidux.org/SHA256SUMS), each beside the
+file's name with its version, the name a browser saves it under; a file
+saved under the link's name is compared by hand with the line of its
+language and kind.
 
 ## Windows, or a Mac or Linux, with VirtualBox
 
 1. Install VirtualBox, and download the `.ova` image.
 2. In VirtualBox, choose **File > Import Appliance**, choose the image,
-   and press **Finish**. VirtualBox makes a machine with two processors
-   and 4 GB of memory.
-3. Choose the machine, press **Settings**, and under **System >
-   Motherboard** tick **Enable EFI (special OSes only)**: Kidux starts
-   with UEFI, as a computer bought in the last ten years does. Press
-   **OK**.
-4. Press **Start**. Kidux's logo appears, and then its sign-in screen
-   with Leo.
+   and press **Finish**. VirtualBox makes a machine with two processors,
+   4 GB of memory and UEFI start-up, as a computer bought in the last ten
+   years has.
+3. Choose the machine and press **Start**. Kidux's logo appears, and
+   then its sign-in screen with Leo.
 
 To see Kidux's screens whole, make the window at least 1280 by 800, or
 use **View > Full-screen Mode**.
@@ -63,24 +63,35 @@ use **View > Full-screen Mode**.
 ## A Mac with UTM
 
 1. Install UTM, and download the `.qcow2` image.
-2. In UTM, choose **Create a New Virtual Machine**, then **Emulate**, then
-   **Other**. Leave **Boot Device** as **None**, and press **Continue**.
-3. On **Hardware**, choose the architecture **x86_64** and the system
-   **Standard PC (Q35 + ICH9)**, give it **4096 MB** of memory and **2**
-   cores, and continue. On **Storage**, continue as it is; it is replaced
-   in a moment. Skip **Shared Directory**, and on **Summary** call it
-   *Kidux* and press **Save**.
-4. Open the machine's settings. Under **Drives**, delete the drive UTM
-   made, then press **New**, choose **Import**, the interface **VirtIO**,
-   and the `.qcow2` image. Under **QEMU**, leave **UEFI Boot** ticked.
-   Press **Save**.
-5. Start the machine. Kidux's logo appears, and then its sign-in screen
-   with Leo.
+2. In UTM, press **Create a New Virtual Machine**, then **Emulate**, then
+   **Other**.
+3. On **Hardware**, leave the machine **Intel ICH9 based PC (2009,
+   x86_64)** chosen and the memory at **4096 MiB**, and in **CPU Cores**
+   type **4**, or half your Mac's cores if it has more than 8. Press
+   **Continue**.
+4. On the next screen, under **Boot Device**, choose **None**, leave
+   **UEFI Boot** ticked, and press **Continue**.
+5. On **Storage**, press **Continue** as it is: that disk is replaced in a
+   moment. On **Shared Directory**, press **Continue** without choosing
+   anything. On **Summary**, name it *Kidux*, tick **Open VM Settings**,
+   and press **Save**.
+6. In the settings that open, go down the left-hand column to **Drives**.
+   Choose **IDE Drive**, press **Delete**, and confirm it. Then press
+   **New...**, change **Interface** to **VirtIO**, press **Import...**,
+   and choose the `.qcow2` image. Press **Save**.
+7. Start the machine with the triangle beside its name. UTM's logo
+   appears, then Kidux's and, in under a minute, its sign-in screen with
+   Leo. If the screen stays black for a few seconds in between, wait:
+   that is normal.
+
+UTM copies the image when it imports it, at about 3.5 GB, so the
+downloaded file can be deleted afterwards.
 
 On a Mac with an Apple processor, UTM emulates a whole PC processor,
-since Kidux is made for PCs: everything works, but slowly, much more
-slowly than on a real computer. On a Mac with an Intel processor UTM, or
-VirtualBox, runs it at full speed.
+since Kidux is made for PCs: everything works, but more slowly than on a
+real computer. The more cores you give it, the better: with 2 it is very
+slow, with 4 it is usable, and with 8 it runs quite well. On a Mac with
+an Intel processor UTM, or VirtualBox, runs it at full speed.
 
 ## Linux with QEMU
 

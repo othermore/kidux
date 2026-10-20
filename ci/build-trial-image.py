@@ -45,6 +45,7 @@ import subprocess
 import sys
 import tarfile
 import time
+import uuid
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -98,6 +99,11 @@ def as_adult(arguments: str) -> str:
             f"/usr/local/bin/kidux-as {arguments}")
 
 
+def machine_name(name: str) -> str:
+    """The machine's name in the emulator: Kidux, and the image's language."""
+    return "Kidux (" + name.rsplit("-trial-", 1)[1] + ")"
+
+
 def ova(qcow2: Path, name: str) -> Path:
     """The disk as a VMDK in an OVF package, with its manifest."""
     work = OUT / f"{name}.ova-work"
@@ -110,8 +116,10 @@ def ova(qcow2: Path, name: str) -> Path:
                                   capture_output=True, text=True, check=True)
                    .stdout.split('"virtual-size":')[1].split(",")[0])
     ovf = work / f"{name}.ovf"
-    ovf.write_text(OVF.format(name=name, disk=vmdk.name, size=vmdk.stat().st_size,
-                              capacity=capacity))
+    ovf.write_text(OVF.format(machine=machine_name(name), disk=vmdk.name,
+                              size=vmdk.stat().st_size, capacity=capacity,
+                              machine_uuid=uuid.uuid5(uuid.NAMESPACE_URL, f"kidux:{name}"),
+                              disk_uuid=uuid.uuid5(uuid.NAMESPACE_URL, f"kidux:{name}:disk1")))
     manifest = work / f"{name}.mf"
     manifest.write_text("".join(
         f"SHA256({path.name})= {hashlib.sha256(path.read_bytes()).hexdigest()}\n"
@@ -248,10 +256,15 @@ def build(language: str, name: str) -> bool:
     return tried(qcow2, language)
 
 
-#: The OVF package's descriptor, plain OVF 1.0, which every importer
-#: reads: two processors, 4 GB of memory, the disk on SATA and a NAT
-#: network. OVF cannot say that the machine starts with UEFI, which the
-#: page on trying Kidux has the visitor tick.
+#: The OVF package's descriptor: OVF 1.0 that every importer reads, two
+#: processors, 4 GB of memory, the disk on SATA, a USB controller, sound
+#: and a NAT network; and VirtualBox's own section, in the form VirtualBox
+#: exports it, for what OVF cannot say: UEFI, which Kidux's disk starts
+#: with, the VMSVGA screen, the pointer as a USB tablet,
+#: so that it is never caught in the window, and the sound's output. Its
+#: machine and disk identifiers come from the image's name, so that the
+#: same image gives the same package, and the disk's is the same in both
+#: places, as VirtualBox requires.
 OVF = """<?xml version="1.0"?>
 <Envelope ovf:version="1.0" xml:lang="en-US" xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1" xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData" xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:vbox="http://www.virtualbox.org/ovf/machine">
   <References>
@@ -259,7 +272,7 @@ OVF = """<?xml version="1.0"?>
   </References>
   <DiskSection>
     <Info>The disk</Info>
-    <Disk ovf:capacity="{capacity}" ovf:diskId="vmdisk1" ovf:fileRef="file1" ovf:format="http://www.vmware.com/interfaces/specifications/vmdk.html#streamOptimized"/>
+    <Disk ovf:capacity="{capacity}" ovf:diskId="vmdisk1" ovf:fileRef="file1" ovf:format="http://www.vmware.com/interfaces/specifications/vmdk.html#streamOptimized" vbox:uuid="{disk_uuid}"/>
   </DiskSection>
   <NetworkSection>
     <Info>The network</Info>
@@ -267,7 +280,7 @@ OVF = """<?xml version="1.0"?>
       <Description>The computer's own connection</Description>
     </Network>
   </NetworkSection>
-  <VirtualSystem ovf:id="{name}">
+  <VirtualSystem ovf:id="{machine}">
     <Info>Kidux, to try in an emulator</Info>
     <ProductSection>
       <Info>The product</Info>
@@ -285,12 +298,12 @@ OVF = """<?xml version="1.0"?>
       <System>
         <vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
         <vssd:InstanceID>0</vssd:InstanceID>
-        <vssd:VirtualSystemIdentifier>{name}</vssd:VirtualSystemIdentifier>
+        <vssd:VirtualSystemIdentifier>{machine}</vssd:VirtualSystemIdentifier>
         <vssd:VirtualSystemType>virtualbox-2.2</vssd:VirtualSystemType>
       </System>
       <Item>
-        <rasd:Caption>2 virtual CPU</rasd:Caption>
-        <rasd:ElementName>2 virtual CPU</rasd:ElementName>
+        <rasd:Caption>2 virtual CPUs</rasd:Caption>
+        <rasd:ElementName>2 virtual CPUs</rasd:ElementName>
         <rasd:InstanceID>1</rasd:InstanceID>
         <rasd:ResourceType>3</rasd:ResourceType>
         <rasd:VirtualQuantity>2</rasd:VirtualQuantity>
@@ -312,11 +325,27 @@ OVF = """<?xml version="1.0"?>
         <rasd:ResourceType>20</rasd:ResourceType>
       </Item>
       <Item>
+        <rasd:Address>0</rasd:Address>
+        <rasd:Caption>usb</rasd:Caption>
+        <rasd:ElementName>usb</rasd:ElementName>
+        <rasd:InstanceID>4</rasd:InstanceID>
+        <rasd:ResourceType>23</rasd:ResourceType>
+      </Item>
+      <Item>
+        <rasd:AddressOnParent>3</rasd:AddressOnParent>
+        <rasd:AutomaticAllocation>false</rasd:AutomaticAllocation>
+        <rasd:Caption>sound</rasd:Caption>
+        <rasd:ElementName>sound</rasd:ElementName>
+        <rasd:InstanceID>5</rasd:InstanceID>
+        <rasd:ResourceSubType>ensoniq1371</rasd:ResourceSubType>
+        <rasd:ResourceType>35</rasd:ResourceType>
+      </Item>
+      <Item>
         <rasd:AddressOnParent>0</rasd:AddressOnParent>
         <rasd:Caption>disk1</rasd:Caption>
         <rasd:ElementName>disk1</rasd:ElementName>
-        <rasd:HostResource>/disk/vmdisk1</rasd:HostResource>
-        <rasd:InstanceID>4</rasd:InstanceID>
+        <rasd:HostResource>ovf:/disk/vmdisk1</rasd:HostResource>
+        <rasd:InstanceID>6</rasd:InstanceID>
         <rasd:Parent>3</rasd:Parent>
         <rasd:ResourceType>17</rasd:ResourceType>
       </Item>
@@ -325,11 +354,46 @@ OVF = """<?xml version="1.0"?>
         <rasd:Caption>Ethernet adapter on 'NAT'</rasd:Caption>
         <rasd:Connection>NAT</rasd:Connection>
         <rasd:ElementName>Ethernet adapter on 'NAT'</rasd:ElementName>
-        <rasd:InstanceID>5</rasd:InstanceID>
+        <rasd:InstanceID>7</rasd:InstanceID>
         <rasd:ResourceSubType>E1000</rasd:ResourceSubType>
         <rasd:ResourceType>10</rasd:ResourceType>
       </Item>
     </VirtualHardwareSection>
+    <vbox:Machine ovf:required="false" version="1.16-linux" uuid="{{{machine_uuid}}}" name="{machine}" OSType="Debian_64" snapshotFolder="Snapshots">
+      <ovf:Info>VirtualBox's own settings, for what OVF cannot say</ovf:Info>
+      <Hardware>
+        <Memory RAMSize="4096"/>
+        <HID Pointing="USBTablet"/>
+        <Display controller="VMSVGA" VRAMSize="32"/>
+        <Firmware type="EFI"/>
+        <BIOS>
+          <IOAPIC enabled="true"/>
+        </BIOS>
+        <USB>
+          <Controllers>
+            <Controller name="OHCI" type="OHCI"/>
+          </Controllers>
+        </USB>
+        <Network>
+          <Adapter slot="0" enabled="true" type="82540EM">
+            <NAT/>
+          </Adapter>
+        </Network>
+        <AudioAdapter controller="HDA" driver="Default" enabled="true" enabledOut="true"/>
+        <StorageControllers>
+          <StorageController name="SATA" type="AHCI" PortCount="1" useHostIOCache="false" Bootable="true">
+            <AttachedDevice type="HardDisk" hotpluggable="false" port="0" device="0">
+              <Image uuid="{{{disk_uuid}}}"/>
+            </AttachedDevice>
+          </StorageController>
+        </StorageControllers>
+        <RTC localOrUTC="UTC"/>
+        <CPU count="2">
+          <PAE enabled="false"/>
+          <LongMode enabled="true"/>
+        </CPU>
+      </Hardware>
+    </vbox:Machine>
   </VirtualSystem>
 </Envelope>
 """

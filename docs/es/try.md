@@ -44,20 +44,20 @@ la contraseña de Leo, la pantalla de Leo con sus módulos:
 
 Las imágenes en inglés son `kidux-trial-en.ova` y `kidux-trial-en.qcow2`,
 en la misma dirección. Cada archivo ocupa unos 1,5 GB. Sus sumas
-SHA-256 están en [SHA256SUMS](https://iso.kidux.org/SHA256SUMS).
+SHA-256 están en [SHA256SUMS](https://iso.kidux.org/SHA256SUMS), cada una
+junto al nombre del archivo con su versión, que es el nombre con que lo
+guarda el navegador; un archivo guardado con el nombre del enlace se
+compara a mano con la línea de su idioma y su tipo.
 
 ## Windows, o un Mac o Linux, con VirtualBox
 
 1. Instala VirtualBox y descarga la imagen `.ova`.
 2. En VirtualBox, elige **Archivo > Importar servicio virtualizado**,
    elige la imagen y pulsa **Terminar**. VirtualBox crea una máquina con
-   dos procesadores y 4 GB de memoria.
-3. Elige la máquina, pulsa **Configuración** y, en **Sistema > Placa
-   base**, marca **Habilitar EFI (sólo SO especiales)**: Kidux arranca
-   con UEFI, como un ordenador comprado en los últimos diez años. Pulsa
-   **Aceptar**.
-4. Pulsa **Iniciar**. Aparece el logo de Kidux, y después su pantalla de
-   entrada con Leo.
+   dos procesadores, 4 GB de memoria y arranque UEFI, como un ordenador
+   comprado en los últimos diez años.
+3. Elige la máquina y pulsa **Iniciar**. Aparece el logo de Kidux, y
+   después su pantalla de entrada con Leo.
 
 Para ver enteras las pantallas de Kidux, haz la ventana de al menos 1280
 por 800, o usa **Ver > Modo pantalla completa**.
@@ -65,25 +65,36 @@ por 800, o usa **Ver > Modo pantalla completa**.
 ## Un Mac con UTM
 
 1. Instala UTM y descarga la imagen `.qcow2`.
-2. En UTM, elige **Crear una nueva máquina virtual**, después **Emular** y
-   después **Otro**. Deja **Dispositivo de arranque** en **Ninguno** y
-   pulsa **Continuar**.
-3. En **Hardware**, elige la arquitectura **x86_64** y el sistema
-   **Standard PC (Q35 + ICH9)**, dale **4096 MB** de memoria y **2**
-   núcleos, y continúa. En **Almacenamiento**, continúa tal cual; se
-   sustituye enseguida. Sáltate **Directorio compartido**, y en
-   **Resumen** llámala *Kidux* y pulsa **Guardar**.
-4. Abre los ajustes de la máquina. En **Unidades**, borra la unidad que
-   creó UTM, pulsa **Nueva**, elige **Importar**, la interfaz **VirtIO** y
-   la imagen `.qcow2`. En **QEMU**, deja marcado **Arranque UEFI**. Pulsa
+2. En UTM, pulsa **Crear una nueva Máquina Virtual (VM)**, después
+   **Emular** y después **Otro**.
+3. En **Hardware**, deja elegida la máquina **Intel ICH9 based PC (2009,
+   x86_64)** y la memoria en **4096 MiB**, y en **Núcleos de CPU** escribe
+   **4**, o la mitad de los núcleos de tu Mac si tiene más de 8. Pulsa
+   **Continuar**.
+4. En la pantalla siguiente, en **Boot Device**, marca **Ninguno**, deja
+   marcado **Arranque UEFI** y pulsa **Continuar**.
+5. En **Almacenamiento**, pulsa **Continuar** tal cual: ese disco se
+   sustituye enseguida. En **Directorio compartido**, pulsa **Continuar**
+   sin elegir nada. En **Resumen**, ponle de nombre *Kidux*, marca **Abrir
+   configuración de la VM** y pulsa **Guardar**.
+6. En la configuración que se abre, baja por la columna de la izquierda
+   hasta **Unidades de disco**. Elige **Unidad IDE**, pulsa **Eliminar** y
+   confírmalo. Después pulsa **Nuevo...**, cambia **Interfaz** a
+   **VirtIO**, pulsa **Importar...** y elige la imagen `.qcow2`. Pulsa
    **Guardar**.
-5. Arranca la máquina. Aparece el logo de Kidux, y después su pantalla de
-   entrada con Leo.
+7. Arranca la máquina con el triángulo que hay junto a su nombre. Aparece
+   el logo de UTM, después el de Kidux y, en menos de un minuto, su
+   pantalla de entrada con Leo. Si entre medias la pantalla se queda negra
+   unos segundos, espera: es normal.
+
+UTM copia la imagen al importarla y la deja en unos 3,5 GB, así que el
+archivo descargado se puede borrar después.
 
 En un Mac con procesador de Apple, UTM emula un procesador de PC entero,
-porque Kidux está hecho para PC: todo funciona, pero despacio, mucho más
-despacio que en un ordenador real. En un Mac con procesador Intel, UTM o
-VirtualBox lo hacen funcionar a velocidad normal.
+porque Kidux está hecho para PC: todo funciona, pero más despacio que en
+un ordenador real. Cuantos más núcleos le des, mejor: con 2 va muy lento,
+con 4 se puede usar y con 8 va bastante bien. En un Mac con procesador
+Intel, UTM o VirtualBox lo hacen funcionar a velocidad normal.
 
 ## Linux con QEMU
 
