@@ -29,9 +29,10 @@ DEV_GROUP="$(id -gn "$DEV_USER")"
 
 # Tools the build chroot installs for itself, but that are also wanted outside a
 # build: for running the tests and the linters while writing code (the
-# daemon's need argon2, a guide's pages markdown), for looking at an avatar
-# without booting anything, and for making the photography guide's pictures
-# (packages/kidux-module-photography/pictures/prepare.py).
+# daemon's need argon2, a guide's pages markdown, the installer's yaml), for
+# looking at an avatar without booting anything, and for making the
+# photography guide's pictures (packages/kidux-module-photography/pictures/
+# prepare.py).
 echo "==> Development tools"
 apt-get install -y --no-install-recommends \
     gettext \
@@ -42,7 +43,25 @@ apt-get install -y --no-install-recommends \
     python3-markdown \
     python3-pil \
     python3-pytest \
-    python3-tomli-w
+    python3-tomli-w \
+    python3-yaml
+
+# What Kidux's image is built, installed and made into trial images with
+# (docs/dev/image.md): the live system, its squashfs, the EFI partition,
+# GRUB for both ways a computer starts, the hybrid ISO, and the virtual
+# machines and their firmware.
+echo "==> Tools for the image"
+apt-get install -y --no-install-recommends \
+    dosfstools \
+    grub-efi-amd64-bin \
+    grub-pc-bin \
+    mmdebstrap \
+    mtools \
+    ovmf \
+    qemu-system-x86 \
+    qemu-utils \
+    squashfs-tools \
+    xorriso
 
 echo "==> Archive root $ARCHIVE_ROOT, owned by $DEV_USER:$DEV_GROUP"
 mkdir -p "$ARCHIVE_ROOT"

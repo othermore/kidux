@@ -31,6 +31,8 @@ instead, in English and Spanish.
   screen.
 - [panel.md](panel.md): the adult panel and the first-run wizard.
 - [launcher.md](launcher.md): `kidux-launcher`, the child's screen.
+- [image.md](image.md): Kidux's image, its installer and the images to try
+  it in an emulator: how they are built, tested, published and counted.
 - [installer.md](installer.md): the installable image and the installer, as
   designed.
 - [modules.md](modules.md): what a learning module is and how to make one.

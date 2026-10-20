@@ -1,0 +1,29 @@
+# The packages of the image's live system (ci/build-image.sh), beside what
+# mmdebstrap's "standard" variant gives, which is what the Debian installer
+# gives with "standard system utilities" ticked. The live system is the
+# system the installer copies to the disk: everything a Kidux machine has,
+# and what installs it, which the installer takes off again (kidux-installer).
+#
+# Kidux, as the user guide installs it on Debian: its archive and key, and
+# kidux-base, with its recommends.
+kidux-archive-keyring
+kidux-apt-source
+kidux-base
+# The kernel, and the administrator's sudo and console the Debian installer
+# gives.
+linux-image-amd64
+sudo
+keyboard-configuration
+console-setup
+# Booting: the live system from the image, and GRUB on the disk for either
+# way a computer starts. grub-efi-amd64 comes with the signed GRUB and the
+# shim, for Secure Boot; a computer that starts with a BIOS gets grub-pc in
+# its place from the image's pool/ (kidux-installer-grub).
+live-boot
+grub-efi-amd64
+grub-efi-amd64-signed
+shim-signed
+grub-pc-bin
+efibootmgr
+# The installer.
+kidux-installer

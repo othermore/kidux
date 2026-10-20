@@ -18,6 +18,8 @@
 #   acceptance     a stock Debian VM installs the packages: tests/acceptance/
 #   session        a VM rebooted into Kidux, driven by keyboard: tests/session/
 #   session-en     the same, the machine set up in English
+#   install        Kidux's image installs on a VM, which starts into Kidux:
+#                  tests/lib/install-vm.py, after ci/build-image.sh
 #
 # Each package's own unit tests run when it is built (ci/build-package.sh).
 # The VMs install from the local archive's testing suite, so publish what they
@@ -65,6 +67,7 @@ for kind in $kinds; do
         acceptance) runner="$HERE/lib/acceptance-vm.sh" ;;
         session) runner="$HERE/lib/session-vm.py" ;;
         session-en) runner="$HERE/lib/session-vm.py"; language=en ;;
+        install) runner="$HERE/lib/install-vm.py" ;;
         *)
             echo "$0: no kind of test called '$kind'" >&2
             exit 2

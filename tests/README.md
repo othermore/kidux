@@ -18,10 +18,11 @@ everything that checks something and says PASS or FAIL lives here.
 | (every package) | Each package builds twice into the same bytes | `tests/run reproducible` | nothing to add: every package in `packages/` is included |
 | `acceptance/` | A stock Debian that installs the packages: the archive, the daemon, children, time and the lock on real logind sessions, updates through the daemon | `tests/run acceptance`, inside the VM | a `.sh` file sourced with `check "<what>" <command>`, or an executable that prints its own PASS or FAIL lines and exits with how many failed |
 | `session/` | A machine rebooted into Kidux, driven from outside by keyboard: every screen, every door, the boot, in Spanish; `session-en` the same machine set up in English | `tests/run session`, `tests/run session-en` | a Python file with `run(machine)`, using `tests/lib/sessionlib.py` |
+| (the image) | Kidux's image installs on an empty disk under UEFI and a BIOS, starts under Secure Boot, and the installed machine passes the first-start tests of `session/` (docs/dev/image.md) | `tests/run install`, after `ci/build-image.sh` | nothing to add: `lib/install-vm.py` drives the installer and runs `session/02` to `05` |
 
 `lib/` is not tests: it is what the runners are made of. `lib/project.sh`,
-`lib/reproducible.sh`, `lib/acceptance-vm.sh` and `lib/session-vm.py` run each
-kind; `lib/unit.sh` and `lib/vm.py` are the quick loop below; `lib/base-image.sh` fetches the Debian cloud image, once, even when
+`lib/reproducible.sh`, `lib/acceptance-vm.sh`, `lib/session-vm.py` and
+`lib/install-vm.py` run each kind; `lib/unit.sh` and `lib/vm.py` are the quick loop below; `lib/base-image.sh` fetches the Debian cloud image, once, even when
 both VMs ask together, and `lib/warm-image.sh` makes from it the image they
 start from, with Kidux's Debian dependencies already installed
 (docs/dev/packaging.md, "Before a release"); `lib/seed/` is the acceptance VM's cloud-init seed and the fixtures both

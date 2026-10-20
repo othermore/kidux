@@ -2,12 +2,15 @@
 # Talk to kidux-daemon as whoever runs this, on one connection, the way
 # the adult panel does. busctl cannot: every busctl is a new connection,
 # and a token is only good on the connection that unlocked.
+import os
 import sys
 
 from gi.repository import Gio, GLib
 
 BUS, PATH = "org.kidux.Daemon1", "/org/kidux/Daemon1"
-ADULT = "the adult password"
+#: The adult panel's password: the tests', or the one KIDUX_AS_ADULT names,
+#: a trial image's (ci/build-trial-image.py).
+ADULT = os.environ.get("KIDUX_AS_ADULT", "the adult password")
 bus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
 
 
@@ -47,17 +50,18 @@ def unlock(connection=None):
 AVATARS = {"leo": "owl", "marta": "fox", "zoe": "whale"}
 
 
-def create(token, username, name, connection=None):
+def create(token, username, name, connection=None, password=None):
     """A child in the machine's language and keyboard once one was chosen
     for it, as the panel's form offers; in Spanish on a machine where none
-    was, as the acceptance run's is."""
+    was, as the acceptance run's is. Their password is "<username> password"
+    unless another is given."""
     config = call("Daemon1", "GetConfig", reply="(a{sv})")[0]
     language, keyboard = "es_ES.UTF-8", "es"
     if config.get("language_chosen"):
         language, keyboard = config["default_language"], config["default_keyboard"]
     call("Children1", "Create", "(sssssss)",
          (token, username, name, language, keyboard, AVATARS.get(username, "star"),
-          f"{username} password"),
+          password or f"{username} password"),
          connection=connection)
 
 
@@ -68,6 +72,12 @@ if action == "setup":
     token = unlock()
     create(token, "marta", "Marta")
     create(token, "leo", "Leo")
+elif action == "family":
+    # The adult password, if none is set yet, and one child with a password
+    # of their own: family leo Leo leo.
+    if not call("Parental1", "IsPasswordSet", reply="(b)")[0]:
+        call("Parental1", "SetPassword", "(ss)", ("", ADULT))
+    create(unlock(), sys.argv[2], sys.argv[3], password=sys.argv[4])
 elif action == "list":
     print(" ".join(sorted(c["username"] for c in call("Children1", "List", reply="(aa{sv})")[0])))
 elif action == "reuse-token":
