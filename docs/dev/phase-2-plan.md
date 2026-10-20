@@ -51,12 +51,24 @@ published, in steps that each leave something working.
   a name without a date, `kidux-amd64.iso`, which the website's download
   button points at. The date is in the name because the image changes
   whenever the packages it carries do, kidux-base's version or not.
-- **Published on the project's hosting**, in a folder served as
-  `https://iso.kidux.org/` beside `apt.kidux.org`, by
-  `ci/publish-image.sh` over the same SFTP, the file first and the sums
-  last, verified over HTTPS afterwards. GitHub's releases take no file
-  over two gigabytes and the trial images will pass it. The owner creates
-  the folder and its address in the hosting's panel, as for `apt`.
+- **Published on the project's hosting**, at `https://iso.kidux.org/`,
+  the hosting's folder `iso` beside `apt`, over the same SFTP and the same
+  credentials, by `ci/publish-image.sh`: the file first and the sums
+  last, each put in place whole by a rename, verified over HTTPS
+  afterwards. GitHub's releases take no file over two gigabytes and the
+  trial images will pass it. The folder and its address exist, with their
+  certificate.
+- **Downloads are counted on the usage page.** The hosting writes
+  `iso.kidux.org`'s requests to the same logs as `apt.kidux.org`'s, which
+  `ci/usage.py` already fetches, keeping the archive's lines alone; it
+  keeps the images' lines too, and the page at `apt.kidux.org/usage/`
+  gets a table of downloads: for each file offered, how many addresses
+  fetched it by day, week, month and since the first day, a download
+  being one address and one file on one day whatever the number of
+  requests, since a browser fetches a large file in many ranges (status
+  200 or 206); and a view of the downloads by file and day. The test
+  machines' identifiers do not apply there; `tests/project/usage.py`
+  gets the new lines' cases, and `ci/publish-usage.sh` puts the page up.
 - **The trial images come from the installer.** The battery's new install
   test (section 4) installs Kidux from the ISO in a virtual machine and
   keeps the disk; the trial image is that disk with the first start done
@@ -69,16 +81,15 @@ published, in steps that each leave something working.
 Each has a default this plan works with, to be changed if the owner says
 so.
 
-1. **The hosting folder and its address**: `iso.kidux.org`, a folder `iso`
-   of the hosting, as `apt.kidux.org` is the folder `apt`. The owner sets
-   both up in the panel, with the certificate; nothing can be published
-   before.
-2. **The trial image's family**: one child, *Leo*, password `leo`, the
-   adult password `kidux`, Spanish machine with a second image in
+1. **The trial image's family**: one child, *Leo*, password `leo`, the
+   adult password `kidux`, a Spanish machine and a second image in
    English; both passwords written on the page that offers the image.
-   Modules switched on for the child: Tux Typing and BASIC, which need no
-   internet and weigh little; GCompris if the size stays reasonable.
-3. **Staging**: the first image installs fresh, erasing the disk; *Reinstall,
+   Modules installed and switched on for the child, decided by the owner:
+   BASIC, Tux Typing, Scratch, GCompris, and of the science modules
+   Simulations and Kig, which open at once, need no internet and show a
+   web module and a Qt one; Step waits, its physics being Kig's kind of
+   screen again.
+2. **Staging**: the first image installs fresh, erasing the disk; *Reinstall,
    keep my data* and the live kiosk come after it works (section 6).
 
 ## 3. The image, step by step
@@ -124,10 +135,20 @@ quick loop before the battery.
   image is not a release.
 - **3.5 Documents.** The user guide's *With Kidux's image* written as the
   finished thing (installer.md, sections 1 to 5; the guide loses *coming
-  soon* and D81's exception closes), the README and the website
-  (`download` in `site/site.toml`, the system requirements already
-  there), `docs/dev/image.md` from `installer.md` and this plan's results,
-  `packaging.md`'s release order, the roadmap, and D116 in the log.
+  soon* and D81's exception closes), the README and the website,
+  `docs/dev/image.md` from `installer.md` and this plan's results,
+  `packaging.md`'s release order and the tools the release machine needs
+  (`squashfs-tools`, `xorriso`, `grub-pc-bin`, `mtools`, beside the
+  `mmdebstrap`, `grub-efi-amd64-bin`, `ovmf` and `qemu-utils` it has), the
+  roadmap, and D116 in the log. The website and the guide offer two
+  things, each as plain as the other, before the installation on Debian:
+  **download the installer**, the ISO, to put Kidux on a whole computer;
+  and **try it first**, an image for an emulator on Linux, Windows or
+  macOS, to see Kidux before giving it a computer. On the site, two cards
+  of the *Get Kidux* section with their buttons (`download` and `try` in
+  `site/site.toml`, their words in both `site/<language>.toml`, which
+  `tests/project/site.py` holds to the same keys); in the guide, section
+  2 opening with the two.
 
 ## 4. The trial images
 
@@ -138,14 +159,18 @@ quick loop before the battery.
   the daemon, shuts it down, and converts the disk: `qcow2` for QEMU and
   UTM, `vmdk` inside an OVA for VirtualBox and VMware, each compressed,
   with `SHA256SUMS`. One of each per language the image has.
-- **4.2 The page.** `docs/en/try.md` and `docs/es/try.md`: what the image
-  is, the family inside it and its passwords, and for each system what to
-  install and what to click: QEMU on Linux (one command, given whole),
-  VirtualBox on Windows (import the OVA, start), UTM on macOS (import the
-  qcow2; on an Apple Silicon Mac Kidux runs under emulation of a 64-bit
-  PC and is slow, said plainly), VirtualBox on an Intel Mac. The website
-  gets a *Try it* button beside *Download*. A screen of 1280 by 800, which
-  the emulators give by default or by one setting, said where it is not.
+- **4.2 The page.** `docs/en/try.md` and `docs/es/try.md`, which the
+  site's *Try it first* button and the guide's section 2 lead to: what
+  the image is, that it is Kidux whole and not a demonstration, the
+  family inside it and its passwords, the modules switched on, and for
+  each system what to install and what to click, in order: Windows
+  (VirtualBox, import the OVA, start), macOS (UTM, import the qcow2; on
+  an Apple Silicon Mac Kidux runs under emulation of a 64-bit PC and is
+  slow, said plainly; VirtualBox on an Intel Mac), Linux (QEMU, one
+  command given whole, or VirtualBox). A screen of 1280 by 800, which
+  the emulators give by default or by one setting, said where it is not;
+  and what the trial cannot show, the real machine's Wi-Fi, lid and
+  keys.
 - **4.3 Tested.** The battery boots the `qcow2` once and checks that the
   sign-in screen comes up with the demonstration child, and that the
   modules switched on open; the OVA is imported into VirtualBox by hand on
