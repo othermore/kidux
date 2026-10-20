@@ -34,13 +34,13 @@ LANGUAGES = {
            "hello": "[Prueba] Hola", "done": "Hecho", "heading": "¡Hola!", "pak": "es",
            "saved": "hola.txt",
            "blockly": "Juegos de Blockly", "photography": "Fotografía",
-           "seed_port": 8002, "ssh_port": 2222},
+           "seed_port": 8002, "ssh_port": 2222, "machine": 1},
     "en": {"tabs": 0, "locale": "en_US.UTF-8", "keyboard": "us", "lang": "en",
            "folders": ("Documents", "Downloads"),
            "hello": "[Test] Hello", "done": "Done", "heading": "Hello!", "pak": "en-US",
            "saved": "hello.txt",
            "blockly": "Blockly Games", "photography": "Photography",
-           "seed_port": 8003, "ssh_port": 2223},
+           "seed_port": 8003, "ssh_port": 2223, "machine": 2},
 }
 #: The language the machine is set up in, and so of every screen and picture
 #: (KIDUX_VM_LANGUAGE): Spanish, the tests' own, unless it says otherwise.
@@ -407,6 +407,15 @@ def reboot(machine: Machine) -> bool:
     root("systemctl reboot", timeout=20)
     return wait(lambda: up() and boot_id() not in ("", before), 240, 3)
 
+def test_identifier(number: int) -> str:
+    """A test machine's usage identifier: sixteen zeros, then its number,
+    which ci/usage.py and the usage page leave out of every count. Every
+    fetch of the machine's says it, in place of the one its first start
+    made (99kidux-test-machine): 1 the Spanish session machine, 2 the
+    English one, 3 the acceptance machine, 4 the install test's, 5 the
+    machine of ci/vm/try.sh."""
+    return f"{number:032x}"
+
 def write_seed() -> None:
     SEED.mkdir(parents=True, exist_ok=True)
     public_key = (KEY.with_suffix(".pub")).read_text().strip()
@@ -426,6 +435,9 @@ write_files:
   - path: /etc/apt/apt.conf.d/99kidux-vm-lean
     content: |
       Acquire::Languages "none";
+  - path: /etc/apt/apt.conf.d/99kidux-test-machine
+    content: |
+      Acquire::http::User-Agent "Debian APT-HTTP/1.3 Kidux/{test_identifier(SPEAKS['machine'])}";
 runcmd:
   - [ sh, -c, "sed -i 's/^Types: deb deb-src/Types: deb/' /etc/apt/sources.list.d/debian.sources || true" ]
 """)

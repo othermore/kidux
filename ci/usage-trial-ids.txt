@@ -1,0 +1,7 @@
+# Identifiers of the images to try Kidux in an emulator (docs/dev/image.md),
+# which ci/usage.py counts apart from the families' machines: every copy of
+# an image shares its identifier, so a trial is told by its address. One a
+# line; anything after # is a note. Identifiers that begin with sixteen f's
+# are trials whether listed or not.
+ffffffffffffffffffffffffffffff01   # the Spanish trial image
+ffffffffffffffffffffffffffffff02   # the English trial image

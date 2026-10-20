@@ -9,9 +9,10 @@
     ci/usage.py page [--view V] [--value X] [--today]
                                              a page of https://apt.kidux.org/usage/: the
                                              summary, the machines (ids) or one (id), the
-                                             addresses or one (address), a query of the
-                                             database (sql, KIDUX_USAGE_SQL), or the database's
-                                             table as CSV (csv)
+                                             addresses or one (address), the images
+                                             downloaded (images), a query of the database
+                                             (sql, KIDUX_USAGE_SQL), or the database's table
+                                             as CSV (csv)
 
 The archive is served by the project's web hosting at https://apt.kidux.org
 (D109), whose web server writes one access log a day for every site of the
@@ -20,9 +21,9 @@ as osl/<space>-DD-MM-YYYY.log, each day done as
 logs/logs-MM-YYYY/<space>-DD-MM-YYYY.log.gz. The space's address is the
 one line of ~/.config/kidux/usage-logs.url (KIDUX_USAGE_LOGS names another
 file), kept out of the repository since it names the hosting's account.
-`fetch` keeps each day not kept yet, its lines of apt.kidux.org alone and
-gzipped, in ~/.local/share/kidux/usage/ (KIDUX_USAGE_DIR names another
-folder), so that the history does not depend on how long the hosting keeps
+`fetch` keeps each day not kept yet, its lines of apt.kidux.org and of
+iso.kidux.org, where the images are downloaded from, alone and gzipped,
+in ~/.local/share/kidux/usage/ (KIDUX_USAGE_DIR names another folder), so that the history does not depend on how long the hosting keeps
 it, and nothing of the other sites' visitors is kept. The logs user's line
 is in the same netrc file as the SFTP one, ~/.config/kidux/apt-hosting.netrc
 (`machine <the space's host> login <user> password <password>`), and
@@ -45,8 +46,19 @@ Last, the places many machines come from, an address or a range of near
 ones (a /24, or an IPv6 /48), which may be a school or a centre.
 
 Identifiers made by tests never count: those that begin with sixteen zeros,
-and those listed in ci/usage-test-ids.txt. Only lines of apt.kidux.org are
-read, whatever else the space's log holds.
+as every test machine's does, 00…01 the Spanish session machine, 00…02 the
+English one, 00…03 the acceptance machine, 00…04 the install test's and
+00…05 ci/vm/try.sh's (tests/lib/sessionlib.py, test_identifier), and those
+listed in ci/usage-test-ids.txt. The images to try Kidux in an
+emulator carry identifiers of their own, which begin with sixteen f's,
+ff…01 the Spanish image's and ff…02 the English one's, and those listed in
+ci/usage-trial-ids.txt: everyone who runs one shares it, so a trial is
+counted apart, by its address. Only lines of apt.kidux.org and
+iso.kidux.org are read, whatever else the space's log holds.
+
+The images are counted as downloads: one address fetching one file on one
+day is one download, however many requests a browser splits it into, a
+whole answer (200) or a part of one (206).
 
 To explore, every view but the summary first makes a database again from
 the logs kept, usage.sqlite beside them: a row a day, address, identifier,
@@ -80,6 +92,10 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 SITE = "apt.kidux.org"
+#: Where the images are downloaded from (phase-2-plan.md), whose lines are
+#: kept beside the archive's.
+IMAGES = "iso.kidux.org"
+SITES = (SITE, IMAGES)
 LOGS = Path(os.environ.get("KIDUX_USAGE_LOGS", Path.home() / ".config/kidux/usage-logs.url"))
 #: Whether the test machines count as any other, which the page's toggle asks
 #: for (KIDUX_USAGE_TESTS=1); they are kept apart otherwise.
@@ -87,6 +103,7 @@ INCLUDE_TESTS = os.environ.get("KIDUX_USAGE_TESTS") == "1"
 NETRC = Path(os.environ.get("KIDUX_APT_HOSTING", Path.home() / ".config/kidux/apt-hosting.netrc"))
 KEPT = Path(os.environ.get("KIDUX_USAGE_DIR", Path.home() / ".local/share/kidux/usage"))
 TEST_IDS = Path(__file__).resolve().parent / "usage-test-ids.txt"
+TRIAL_IDS = Path(__file__).resolve().parent / "usage-trial-ids.txt"
 #: The first day the archive was at apt.kidux.org.
 FIRST_DAY = datetime.date(2026, 10, 18)
 
@@ -98,27 +115,45 @@ LINE = re.compile(r'^(?P<address>\S+) (?P<site>\S+) \S+ \[(?P<time>[^\]]+)\] '
 KIDUX = "Debian APT-HTTP/1.3 Kidux"
 IDENTIFIED = re.compile(r"^Debian APT-HTTP/1\.3 Kidux/([0-9a-f]{32})$")
 PACKAGE = re.compile(r"^/pool/main/[^/]+/[^/]+/([^_/]+)_([^_/]+)_[^_/]+\.deb$")
+#: A file of the images' site that is an image: the installer, an .iso, or
+#: one to try Kidux in an emulator.
+IMAGE = re.compile(r"^/(kidux-[^/]+\.(?:iso|qcow2(?:\.xz)?|ova|zip))$")
+
+
+def listed(path: Path) -> set[str]:
+    """The identifiers a file lists, one a line, anything after # a note."""
+    if not path.exists():
+        return set()
+    return {line.split("#")[0].strip() for line in path.read_text().splitlines()} - {""}
 
 
 def test_ids() -> set[str]:
-    if not TEST_IDS.exists():
-        return set()
-    return {line.split("#")[0].strip() for line in TEST_IDS.read_text().splitlines()} - {""}
+    return listed(TEST_IDS)
+
+
+def trial_ids() -> set[str]:
+    return listed(TRIAL_IDS)
 
 
 def is_test(identifier: str, known: set[str]) -> bool:
     return identifier.startswith("0" * 16) or identifier in known
 
 
-def records(lines, known: set[str] | None = None):
+def is_trial(identifier: str, trials: set[str]) -> bool:
+    return identifier.startswith("f" * 16) or identifier in trials
+
+
+def records(lines, known: set[str] | None = None, trials: set[str] | None = None):
     """Each line of apt.kidux.org, simplified: the day, the address, the
     identifier if any, who asked (`kidux`, a Kidux machine, with or without
-    an identifier; `test`, a test machine's identifier; `apt`, another apt;
-    `web`, a browser or a crawler), what (`index`, InRelease; `lists`, the
+    an identifier; `test`, a test machine's identifier; `trial`, an image to
+    try Kidux in, whose identifier everyone who runs it shares; `apt`,
+    another apt; `web`, a browser or a crawler), what (`index`, InRelease; `lists`, the
     other indexes; `package`, a .deb, with its name and version; `other`;
     `error`, an answer that was not 200 or 304), and the user agent of a
     client that is not Kidux's. What the database holds, a request a row."""
     known = test_ids() if known is None else known
+    trials = trial_ids() if trials is None else trials
     for line in lines:
         found = LINE.match(line.rstrip("\n"))
         if not found or found["site"] != SITE:
@@ -128,6 +163,8 @@ def records(lines, known: set[str] | None = None):
         identifier = identified[1] if identified else None
         if not agent.startswith("Debian APT-HTTP/"):
             client = "web"
+        elif identifier and is_trial(identifier, trials):
+            client = "trial"
         elif identifier and not INCLUDE_TESTS and is_test(identifier, known):
             client = "test"
         elif identifier or agent == KIDUX:
@@ -152,15 +189,46 @@ def records(lines, known: set[str] | None = None):
                "agent": agent if client in ("apt", "web") else None}
 
 
-def parse(lines, known: set[str] | None = None) -> dict:
+def image_records(lines):
+    """Each download of an image from iso.kidux.org: the day, the address and
+    the file, for every request a whole answer (200) or a part of one (206)
+    answered."""
+    for line in lines:
+        found = LINE.match(line.rstrip("\n"))
+        if not found or found["site"] != IMAGES or found["status"] not in ("200", "206"):
+            continue
+        image = IMAGE.match(found["path"])
+        if not image or found["method"] != "GET":
+            continue
+        yield {"day": datetime.datetime.strptime(found["time"], "%d/%b/%Y:%H:%M:%S %z").date(),
+               "address": found["address"], "file": image[1]}
+
+
+def kind_of(file: str) -> str:
+    """An image's kind: the installer, or one to try Kidux in an emulator."""
+    return "installer" if file.endswith(".iso") else "trial"
+
+
+def fresh_day() -> dict:
+    return {"ids": set(), "pairs": set(), "anonymous": set(), "other_apt": set(),
+            "downloads": Counter(), "tests": set(), "test_requests": Counter(), "other": 0,
+            "trials": set(), "images": set()}
+
+
+def parse(lines, known: set[str] | None = None, trials: set[str] | None = None) -> dict:
     """The day's numbers, by day, from access log lines (text)."""
-    days = defaultdict(lambda: {"ids": set(), "pairs": set(), "anonymous": set(),
-                                "other_apt": set(), "downloads": Counter(), "tests": set(),
-                                "test_requests": Counter(), "other": 0})
-    for record in records(lines, known):
+    lines = list(lines)
+    days = defaultdict(fresh_day)
+    for image in image_records(lines):
+        days[image["day"]]["images"].add((image["file"], image["address"]))
+    for record in records(lines, known, trials):
         numbers, client, kind = days[record["day"]], record["client"], record["kind"]
         if client == "web":
             numbers["other"] += 1
+            continue
+        if client == "trial":
+            if kind == "index":
+                numbers["trials"].add((record["identifier"], record["address"]))
             continue
         if client == "test":
             numbers["tests"].add(record["identifier"])
@@ -212,16 +280,19 @@ def period_of(day: datetime.date, kind: str) -> str:
 
 
 def merged(numbers: dict, days: list) -> dict:
-    """One period's numbers, from its days'."""
-    out = {"ids": set(), "pairs": set(), "anonymous": set(), "other_apt": set(),
-           "downloads": Counter(), "tests": set(), "test_requests": Counter(), "other": 0}
+    """One period's numbers, from its days'. The images' downloads are added
+    up day by day, an address and a file a download each day; the trials
+    are the distinct addresses that ran one in the period."""
+    out = fresh_day()
+    out["image_downloads"] = Counter()
     for day in days:
         n = numbers[day]
-        for key in ("ids", "pairs", "anonymous", "other_apt", "tests"):
+        for key in ("ids", "pairs", "anonymous", "other_apt", "tests", "trials"):
             out[key] |= n[key]
         out["downloads"].update(n["downloads"])
         out["test_requests"].update(n["test_requests"])
         out["other"] += n["other"]
+        out["image_downloads"].update(file for file, _ in n["images"])
     return out
 
 
@@ -278,14 +349,25 @@ def summary(numbers: dict, days: int | None) -> dict:
                 "other_apt": len(n["other_apt"]),
                 "downloads": sum(n["downloads"].values()), "other": n["other"]}
 
+    def image_row(period: str, days: list) -> dict:
+        n = merged(numbers, days)
+        kinds = Counter()
+        for file, count in n["image_downloads"].items():
+            kinds[kind_of(file)] += count
+        return {"period": period, "installer": kinds["installer"], "trial": kinds["trial"],
+                "trials": len({address for _, address in n["trials"]})}
+
     # Every machine ever seen first, each counted once however many days it
     # looked, then the days, the weeks and the months.
     tables = {"all": [row(f"since {every[0].isoformat()}", every)]}
+    images = {"all": [image_row(f"since {every[0].isoformat()}", every)]}
     for kind in ("day", "week", "month"):
         grouped = defaultdict(list)
         for day in every:
             grouped[period_of(day, kind)].append(day)
         tables[kind] = [row(period, grouped[period]) for period in sorted(grouped)[-SHOWN[kind]:]]
+        images[kind] = [image_row(period, grouped[period])
+                        for period in sorted(grouped)[-SHOWN[kind]:]]
     recent = [day for day in every if day > every[-1] - datetime.timedelta(days=PLACES_DAYS)]
     window = merged(numbers, recent)
     whole = merged(numbers, every)
@@ -297,8 +379,26 @@ def summary(numbers: dict, days: int | None) -> dict:
     test_rows = sorted((identifier, address, len(test_days[(identifier, address)]),
                         count, max(test_days[(identifier, address)]).isoformat())
                        for (identifier, address), count in whole["test_requests"].items())
+    # Each image: its downloads, and the first and last day it was downloaded.
+    image_days = defaultdict(set)
+    for day in every:
+        for file, _ in numbers[day]["images"]:
+            image_days[file].add(day)
+    image_rows = sorted((file, kind_of(file), count, min(image_days[file]).isoformat(),
+                         max(image_days[file]).isoformat())
+                        for file, count in whole["image_downloads"].items())
+    # Each trial, by the image's identifier and the address it ran at: its
+    # days, the first and the last.
+    trial_days = defaultdict(set)
+    for day in every:
+        for key in numbers[day]["trials"]:
+            trial_days[key].add(day)
+    trial_rows = sorted((identifier, address, len(seen), min(seen).isoformat(),
+                         max(seen).isoformat())
+                        for (identifier, address), seen in trial_days.items())
     return {"tables": tables, "places": places(window), "tests": len(whole["tests"]),
-            "test_rows": test_rows,
+            "test_rows": test_rows, "images": images, "image_rows": image_rows,
+            "trial_rows": trial_rows,
             "downloads": sorted(whole["downloads"].items()), "first": every[0], "last": every[-1]}
 
 
@@ -310,6 +410,18 @@ SHORT = {"ids": "with id", "anonymous": "no-id addr", "per_address": "per addr",
          "estimate": "estimate", "other_apt": "other apt", "downloads": "downloads",
          "other": "others"}
 TITLES = {"all": "Machines over all time", "day": "Machines by day", "week": "Machines by week", "month": "Machines by month"}
+IMAGE_COLUMNS = (("period", ""), ("installer", "installer downloads"),
+                 ("trial", "trial image downloads"), ("trials", "trials run"))
+IMAGE_TITLES = {"all": "Images over all time", "day": "Images by day", "week": "Images by week",
+                "month": "Images by month"}
+IMAGE_HELP = {
+    "installer downloads": "Downloads of the installer, the .iso of iso.kidux.org: one address "
+                           "fetching one file on one day is one download.",
+    "trial image downloads": "Downloads of the images to try Kidux in an emulator, counted "
+                             "the same way.",
+    "trials run": "Distinct addresses an image to try Kidux in looked for updates from: every "
+                  "copy of an image shares its identifier, so a trial is told by its address.",
+}
 #: What each column of the summary means, shown by its ? on the page.
 SUMMARY_HELP = {
     "with id": "Distinct machines that looked for updates and share usage statistics, "
@@ -371,6 +483,15 @@ def as_text(report: dict, today: dict) -> str:
     out.append("Addresses by the machines with an identifier behind them: "
                + ", ".join(f"{machines} machine{'s' if machines > 1 else ''}: {count}"
                            for machines, count in p["machines_per_address"]))
+    for kind, rows in report["images"].items():
+        out.append("")
+        out.append(IMAGE_TITLES[kind])
+        out += [f"{row['period']:<14}{row['installer']:>12}{row['trial']:>12}{row['trials']:>12}"
+                for row in rows]
+    if report["trial_rows"]:
+        out.append("\nTrial images, counted apart:")
+        out += [f"  {identifier} at {address}: {days} days, {first} to {last}"
+                for identifier, address, days, first, last in report["trial_rows"]]
     if report["tests"]:
         out.append(f"\nIdentifiers of tests, not counted: {report['tests']}")
     if report["downloads"]:
@@ -414,6 +535,31 @@ def as_html(report: dict, today: dict) -> str:
         downloads = "".join(f"<li>{e(package)} {e(version)}: {count}</li>"
                             for (package, version), count in report["downloads"])
         sections.append(f"<h2>Packages Kidux machines downloaded</h2><ul>{downloads}</ul>")
+    # The images: the installer and the trial images downloaded, and the
+    # trials run, which are not among the machines above.
+    for kind, rows in report["images"].items():
+        head = "".join(heading(title, IMAGE_HELP) for _, title in IMAGE_COLUMNS)
+        body = "".join("<tr>" + "".join(f"<td>{e(str(shown(row, key, mark)))}</td>"
+                                         for key, _ in IMAGE_COLUMNS) + "</tr>"
+                       for row in reversed(rows))
+        sections.append(f"<h2>{e(IMAGE_TITLES[kind])}</h2><div class=\"wide\"><table><thead>"
+                        f"<tr>{head}</tr></thead><tbody>{body}</tbody></table></div>")
+    if report["image_rows"]:
+        sections.append(
+            "<h2>Each image downloaded</h2>"
+            + table(["file", "kind", "downloads", "first day", "last day"], report["image_rows"]))
+    if report["trial_rows"]:
+        sections.append(
+            "<h2>Trial images, counted apart</h2>"
+            + table(["identifier", "address", "days seen", "first day", "last day"],
+                    report["trial_rows"], help={
+                        "identifier": "An identifier that begins with sixteen f's, or that "
+                                      "ci/usage-trial-ids.txt lists: an image to try Kidux in "
+                                      "an emulator, ff…01 the Spanish one and ff…02 the "
+                                      "English one, which every copy of it shares.",
+                        "address": "Where a copy of the image ran: a trial is told apart from "
+                                   "another by its address alone.",
+                        "days seen": "Days it looked for updates."}))
     if report["test_rows"]:
         sections.append(
             "<h2>Test machines, not counted</h2>"
@@ -421,7 +567,10 @@ def as_html(report: dict, today: dict) -> str:
                     report["test_rows"], help={
                         "identifier": "An identifier that begins with sixteen zeros, or that "
                                       "ci/usage-test-ids.txt lists: a machine of Kidux's tests, "
-                                      "kept apart from the families' machines.",
+                                      "kept apart from the families' machines. 00…01 is the "
+                                      "Spanish session machine, 00…02 the English one, 00…03 "
+                                      "the acceptance machine, 00…04 the install test's, "
+                                      "00…05 ci/vm/try.sh's.",
                         "days seen": "Days it made a request.",
                         "requests": "Every request it made, of any kind."}))
     tests = f" {report['tests']} identifiers of tests are not counted." if report["tests"] else ""
@@ -575,7 +724,7 @@ def table(names: list, rows: list, links: dict | None = None, help: dict | None 
 def shell(title: str, body: str, view: str = "summary", value: str = "") -> str:
     nav = " · ".join(f'<a href="{address_of(page)}">{name}</a>' for page, name in
                      (("summary", "Summary"), ("ids", "Machines"), ("addresses", "Addresses"),
-                      ("packages", "Packages"),
+                      ("packages", "Packages"), ("images", "Images"),
                       ("sql", "Query"), ("csv", "Download the table")))
     # The toggle: the same page with the test machines counted, or kept apart.
     toggle = (f'<span class="toggle">Test machines: '
@@ -792,6 +941,19 @@ def packages_view(connection) -> str:
             + (table(names, rows, help=help) if rows else "<p>No package downloaded yet.</p>"))
 
 
+def images_view(lines) -> str:
+    """Every image's downloads, by day: the day, the file and its downloads,
+    the latest first."""
+    by_day = defaultdict(set)
+    for image in image_records(lines):
+        by_day[(image["day"].isoformat(), image["file"])].add(image["address"])
+    rows = sorted(((day, file, kind_of(file), len(addresses))
+                   for (day, file), addresses in by_day.items()), reverse=True)
+    if not rows:
+        return "<p>No image has been downloaded yet.</p>"
+    return table(["day", "file", "kind", "downloads"], rows)
+
+
 def sql_view(connection, sql: str) -> str:
     examples = "".join(f"<li><a href=\"{address_of('sql', str(i), key='example')}\">{html.escape(name)}</a></li>"
                        for i, (name, _) in enumerate(EXAMPLES))
@@ -841,6 +1003,8 @@ def explore(view: str, value: str, today: bool) -> int:
         title, body = "Addresses", addresses_view(connection)
     elif view == "packages":
         title, body = "Packages", packages_view(connection)
+    elif view == "images":
+        title, body = "Images downloaded", images_view(lines)
     elif view == "address":
         title, body = f"Address {value}", address_view(connection, value)
     elif view == "sql":
@@ -878,9 +1042,11 @@ def credentials() -> tuple[str, str]:
 
 
 def only_ours(body: bytes) -> bytes:
-    """The lines of apt.kidux.org, out of every site's of the hosting."""
+    """The lines of apt.kidux.org and iso.kidux.org, out of every site's of
+    the hosting."""
+    ours = [site.encode() for site in SITES]
     return b"".join(line for line in body.splitlines(keepends=True)
-                    if line.split(b" ", 2)[1:2] == [SITE.encode()])
+                    if line.split(b" ", 2)[1:2] and line.split(b" ", 2)[1] in ours)
 
 
 def written_up_to(body: bytes) -> str:
@@ -977,7 +1143,7 @@ def main(argv: list[str]) -> int:
     exploring = commands.add_parser("page")
     exploring.add_argument("--view", default="summary",
                            choices=("summary", "ids", "id", "addresses", "address", "packages",
-                                    "sql", "csv"))
+                                    "images", "sql", "csv"))
     exploring.add_argument("--value", default="")
     exploring.add_argument("--today", action="store_true")
     asked = parser.parse_args(argv[1:])

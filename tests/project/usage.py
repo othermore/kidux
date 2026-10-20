@@ -6,7 +6,9 @@
 Lines in the shape the hosting writes them, taken from its log of
 2026-10-18 with the addresses replaced by documentation ones: machines with
 an identifier and without, an identifier of a test, other apt clients, a
-package downloaded, a browser and a crawler, and another site's line.
+package downloaded, a browser and a crawler, and another site's line; and
+in the shape iso.kidux.org's will be, the images downloaded and the trial
+images looking for updates.
 """
 
 import datetime
@@ -55,7 +57,7 @@ known = {"0123456789abcdef0123456789abcdef"}
 days = usage.parse(LOG.splitlines(), known)
 first, second = days.get(datetime.date(2026, 10, 18)), days.get(datetime.date(2026, 10, 19))
 
-check("only apt.kidux.org's lines are read, by the day they were made",
+check("only apt.kidux.org's lines are read here, by the day they were made",
       sorted(days) == [datetime.date(2026, 10, 18), datetime.date(2026, 10, 19)], str(sorted(days)))
 usage.INCLUDE_TESTS = True
 counted = usage.parse(LOG.splitlines(), known)[datetime.date(2026, 10, 18)]
@@ -172,13 +174,80 @@ with tempfile.TemporaryDirectory() as folder:
           rows == [("kidux-module-scratch", 2, 2, 1, "15.2.0+build2.10", 1)], str(rows))
     connection.close()
 
-# The hosting's log holds every site's lines; only the archive's are kept.
+# The images: a browser that fetches the installer in three parts, and again
+# the next day; another address that fetches it whole; a look at its size
+# alone, a file that is not there and the sums, none of them a download; and
+# a trial image downloaded.
+ISO = "kidux-0.2.7-20261020-amd64.iso"
+TRIAL = "kidux-0.2.7-20261020-trial-es.qcow2"
+IMAGES = "".join(
+    f'{address} iso.kidux.org - [{day}/Oct/2026:{hour}:00:00 +0200] "{method} /{file} HTTP/1.1" '
+    f'{status} 1000 "-" "Mozilla/5.0"\n'
+    for address, day, hour, method, file, status in (
+        ("192.0.2.90", "20", "10", "GET", ISO, "206"),
+        ("192.0.2.90", "20", "10", "GET", ISO, "206"),
+        ("192.0.2.90", "20", "11", "GET", ISO, "206"),
+        ("192.0.2.90", "21", "09", "GET", ISO, "206"),
+        ("192.0.2.91", "20", "12", "GET", ISO, "200"),
+        ("192.0.2.92", "20", "12", "HEAD", ISO, "200"),
+        ("192.0.2.93", "20", "12", "GET", "kidux-0.1.0-amd64.iso", "404"),
+        ("192.0.2.94", "20", "12", "GET", "SHA256SUMS", "200"),
+        ("192.0.2.95", "21", "08", "GET", TRIAL, "200"))) + "".join(
+    # Two copies of the Spanish trial image, and one of them again the next
+    # day, looking for updates.
+    f'{address} apt.kidux.org - [{day}/Oct/2026:{hour}:00:00 +0200] '
+    f'"GET /dists/stable/InRelease HTTP/1.1" 200 1864 "-" "Debian APT-HTTP/1.3 Kidux/{"f" * 30}01"\n'
+    for address, day, hour in (("192.0.2.95", "21", "09"), ("192.0.2.95", "22", "09"),
+                               ("198.51.100.96", "21", "10")))
+image_days = usage.parse(IMAGES.splitlines(), set(), set())
+check("a download is one address and one file on one day, whole or in parts, "
+      "and nothing else is one",
+      image_days[datetime.date(2026, 10, 20)]["images"]
+      == {(ISO, "192.0.2.90"), (ISO, "192.0.2.91")}
+      and image_days[datetime.date(2026, 10, 21)]["images"]
+      == {(ISO, "192.0.2.90"), (TRIAL, "192.0.2.95")},
+      str({day: numbers["images"] for day, numbers in image_days.items()}))
+check("a trial image is no family's machine: it is counted apart, by its address",
+      image_days[datetime.date(2026, 10, 21)]["trials"]
+      == {("f" * 30 + "01", "192.0.2.95"), ("f" * 30 + "01", "198.51.100.96")}
+      and not any(numbers["ids"] or numbers["anonymous"] for numbers in image_days.values()),
+      str({day: (n["trials"], n["ids"], n["anonymous"]) for day, n in image_days.items()}))
+image_summary = usage.summary(image_days, None)
+check("the images' table counts the installer's downloads and the trial image's apart, "
+      "and the trials run",
+      image_summary["images"]["all"][0] == {"period": "since 2026-10-20", "installer": 3,
+                                             "trial": 1, "trials": 2}
+      and [(r["period"], r["installer"], r["trial"]) for r in image_summary["images"]["day"]]
+      == [("2026-10-20", 2, 0), ("2026-10-21", 1, 1), ("2026-10-22", 0, 0)],
+      str(image_summary["images"]))
+check("each image is listed with its downloads, first and last day",
+      image_summary["image_rows"] == [(ISO, "installer", 3, "2026-10-20", "2026-10-21"),
+                                      (TRIAL, "trial", 1, "2026-10-21", "2026-10-21")],
+      str(image_summary["image_rows"]))
+check("each trial is listed with the image's identifier, its address and its days",
+      image_summary["trial_rows"] == [("f" * 30 + "01", "192.0.2.95", 2, "2026-10-21", "2026-10-22"),
+                                      ("f" * 30 + "01", "198.51.100.96", 1, "2026-10-21",
+                                       "2026-10-21")],
+      str(image_summary["trial_rows"]))
+check("the images' page lists the downloads by day and file",
+      "2026-10-21" in usage.images_view(IMAGES.splitlines()) and TRIAL in usage.images_view(IMAGES.splitlines()))
+check("every identifier in ci/usage-trial-ids.txt is 32 hexadecimal figures, "
+      "and none is a test's",
+      usage.trial_ids()
+      and all(len(i) == 32 and all(c in "0123456789abcdef" for c in i)
+              and not usage.is_test(i, usage.test_ids()) for i in usage.trial_ids()),
+      str(usage.trial_ids()))
+
+# The hosting's log holds every site's lines; only the archive's and the
+# images' are kept.
 MIXED = (b'198.51.100.1 antonio.mg - [18/Oct/2026:10:00:00 +0200] "GET / HTTP/1.1" 200 1 "-" "x"\n'
          b'198.51.100.2 apt.kidux.org - [18/Oct/2026:10:00:01 +0200] "GET / HTTP/1.1" 200 1 "-" "x"\n'
-         b'198.51.100.3 apt2.kidux.org - [18/Oct/2026:10:00:02 +0200] "GET / HTTP/1.1" 200 1 "-" "x"\n')
+         b'198.51.100.3 apt2.kidux.org - [18/Oct/2026:10:00:02 +0200] "GET / HTTP/1.1" 200 1 "-" "x"\n'
+         b'198.51.100.4 iso.kidux.org - [18/Oct/2026:10:00:03 +0200] "GET / HTTP/1.1" 200 1 "-" "x"\n')
 check("today's log is written up to its last line's time, whichever site it is",
       usage.written_up_to(MIXED) == "10:00", usage.written_up_to(MIXED))
-check("of the hosting's every site, only apt.kidux.org's lines are kept",
-      usage.only_ours(MIXED) == MIXED.splitlines(keepends=True)[1], str(usage.only_ours(MIXED)))
+check("of the hosting's every site, only apt.kidux.org's and iso.kidux.org's lines are kept",
+      usage.only_ours(MIXED) == b"".join(MIXED.splitlines(keepends=True)[i] for i in (1, 3)),
+      str(usage.only_ours(MIXED)))
 
 sys.exit(1 if failed else 0)

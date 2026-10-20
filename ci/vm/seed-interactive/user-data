@@ -27,6 +27,13 @@ write_files:
     content: |
       Acquire::Languages "none";
 
+  # Every fetch of Kidux's archive says it comes from a test machine, this
+  # one, number 5, which the archive's usage page leaves out
+  # (tests/lib/sessionlib.py, test_identifier).
+  - path: /etc/apt/apt.conf.d/99kidux-test-machine
+    content: |
+      Acquire::http::User-Agent "Debian APT-HTTP/1.3 Kidux/00000000000000000000000000000005";
+
   # Root straight onto the serial console, no password prompt.
   - path: /etc/systemd/system/serial-getty@ttyS0.service.d/autologin.conf
     content: |
