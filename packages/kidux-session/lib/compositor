@@ -1,30 +1,76 @@
-#!/bin/sh
-# A compositor, cage or labwc, that falls back to drawing in software when
-# the graphics card cannot draw for it. docs/dev/session.md, section 2.
-#
-#   compositor <compositor> [<argument>...]
-#
-# wlroots, which both are made of, draws with the card's OpenGL ES and,
-# only on a card with no render node, in software (pixman) by itself. A
-# card with a render node and no working OpenGL leaves it with no way to
-# draw, and the compositor stops at once: a virtual machine's card without
-# 3D, VirtualBox's or VMware's VMSVGA, is one. So a compositor that stops
-# within its first seconds, with no renderer named, is started once more
-# with wlroots' software renderer. On any other card the first start is the
-# one that stays, and a renderer named in WLR_RENDERER is kept as it is.
+#!/usr/bin/python3
+"""A compositor, cage or labwc, that falls back to drawing in software when
+the graphics card cannot draw for it. docs/dev/session.md, section 2.
 
-set -u
+    compositor <compositor> [<argument>...]
 
-GRACE_SECONDS="${KIDUX_COMPOSITOR_GRACE:-5}"
+wlroots, which both are made of, draws with the card's OpenGL ES and,
+only on a card with no render node, in software (pixman) by itself. A
+card with a render node and no working OpenGL leaves it with no way to
+draw, and the compositor stops at once: a virtual machine's card without
+3D, VirtualBox's or VMware's VMSVGA, is one. So a compositor that stops
+of its own accord within its first seconds, with no renderer named, is
+started once more with wlroots' software renderer. On any other card the
+first start is the one that stays, and a renderer named in WLR_RENDERER
+is kept as it is.
 
-started="$(date +%s)"
-"$@"
-status=$?
-if [ "$status" -ne 0 ] && [ -z "${WLR_RENDERER:-}" ] \
-        && [ "$(( $(date +%s) - started ))" -lt "$GRACE_SECONDS" ]; then
-    echo "compositor: $1 stopped at once ($status); starting it again with the software renderer" >&2
-    WLR_RENDERER=pixman
-    export WLR_RENDERER
-    exec "$@"
-fi
-exit "$status"
+This process stays the session's first while the compositor runs as its
+child, since exec would leave nobody to start it again, and so it has to
+end as the compositor would: greetd ends a session, and systemd the lock
+screen (KillMode=mixed), with a signal to the first process alone, and
+the rest of the session is killed outright once it is gone. The signals
+that end it are passed on to the compositor, which is waited for to its
+end; and a compositor so ended is not started again.
+"""
+
+import os
+import signal
+import sys
+import time
+
+#: How long after its start a compositor's stop is taken to be the card's.
+GRACE_SECONDS = float(os.environ.get("KIDUX_COMPOSITOR_GRACE", "5"))
+#: The signals a session is ended with, passed on.
+PASSED_ON = (signal.SIGTERM, signal.SIGHUP, signal.SIGINT)
+
+
+def main(argv: list[str]) -> int:
+    if not argv:
+        print(__doc__.split("\n\n")[1].strip(), file=sys.stderr)
+        return 2
+    if os.environ.get("WLR_RENDERER"):
+        os.execvp(argv[0], argv)
+
+    started = time.monotonic()
+    child = os.fork()
+    if child == 0:
+        try:
+            os.execvp(argv[0], argv)
+        except OSError as error:
+            print(f"compositor: {argv[0]}: {error.strerror}", file=sys.stderr)
+            os._exit(127)
+
+    ended = []
+
+    def pass_on(signum, _frame):
+        ended.append(signum)
+        try:
+            os.kill(child, signum)
+        except ProcessLookupError:
+            pass
+
+    for signum in PASSED_ON:
+        signal.signal(signum, pass_on)
+    _pid, status = os.waitpid(child, 0)
+    code = os.waitstatus_to_exitcode(status)
+
+    if code > 0 and not ended and time.monotonic() - started < GRACE_SECONDS:
+        print(f"compositor: {argv[0]} stopped at once ({code}); "
+              "starting it again with the software renderer", file=sys.stderr, flush=True)
+        os.environ["WLR_RENDERER"] = "pixman"
+        os.execvp(argv[0], argv)
+    return code if code >= 0 else 128 - code
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

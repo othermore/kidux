@@ -83,9 +83,15 @@ card's OpenGL ES, and in software (pixman) by itself only on a card with
 no render node; a card with a render node and no working OpenGL, as a
 virtual machine's VMSVGA without 3D in VirtualBox or VMware, leaves it no
 way to draw, and the compositor stops at once. `compositor` starts it
-once more with `WLR_RENDERER=pixman` when it stops within five seconds
-with no renderer named, and says so in the journal; on any other card
-the first start stays.
+once more with `WLR_RENDERER=pixman` when it stops of its own accord
+within five seconds with no renderer named, and says so in the journal;
+on any other card the first start stays. `compositor` is the session's
+first process while the compositor runs as its child, and ends as the
+compositor would have: greetd ends a session, and systemd the lock screen
+(`KillMode=mixed`), with a signal to the first process alone and kills
+the rest once it is gone, so `compositor` passes SIGTERM, SIGHUP and
+SIGINT on to the compositor and waits for it to end, and a compositor so
+ended is not started again.
 
 Before it starts `cage`, the sign-in screen waits, up to ten seconds, until
 no other session of its seat is still `closing` in logind. greetd starts it
