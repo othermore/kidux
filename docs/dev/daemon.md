@@ -759,6 +759,19 @@ archive's for one on offer from `Modules1.Available`'s `offered_version`.
 
 ### Updates
 
+Two things install packages on a Kidux machine: the jobs below, which
+the panel asks for, and Debian's daily upgrade, `apt-daily-upgrade.service`,
+whose `unattended-upgrades` installs Debian's security updates and
+Kidux's stable suite every morning. Both keep to one rule: dpkg never
+changes anything under a child's session. The daily upgrade has, from
+kidux-base, a drop-in with `ExecCondition=/usr/libexec/kidux-no-child-session`,
+so that systemd skips it while any member of `kidux-children` has a
+session, and its result is then `exec-condition`; the daemon answers
+`updating` to `Access1.CheckAccess` while it runs, as while its own job
+installs; and when the last child's session ends the daemon starts it
+(`StartUnit`) if its last run was skipped, the condition checked again
+by systemd (D115).
+
 The daemon never runs apt itself. Its unit has no network and a read-only
 system (section 14), and an update can replace and restart the daemon
 half-way through. So every apt job runs in a transient system unit,
@@ -779,7 +792,7 @@ daemon answers `Busy`.
   in an earlier update is finished before anything new starts; then
   `apt-get -y dist-upgrade`, non-interactive, keeping edited configuration
   files, and waiting up to ten minutes for apt's lock, which
-  `unattended-upgrades` may hold. Refused with `SessionActive` while any
+  the daily upgrade may hold. Refused with `SessionActive` while any
   child session exists, locked or not: dpkg must never replace the launcher
   or a module under a running session. `UpdateProgress(d fraction, s
   package)` while it runs; `UpdateFinished(s outcome, s detail)` at the end,

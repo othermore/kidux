@@ -84,7 +84,7 @@ Everything we build is a `.deb` under `packages/`:
 
 | Kind | Mechanism |
 |---|---|
-| Security updates | `unattended-upgrades` enabled for Debian security and our `stable` suite. Silent. |
+| Security updates | `unattended-upgrades` enabled for Debian security and our `stable` suite. Silent, and never under a child's session (D115). |
 | Feature updates | The adult panel's *System* page looks for updates and installs them through `kidux-daemon`, which runs apt in a unit of its own, and never while a child has a session (`daemon.md` section 13). |
 | Debian major version (trixie → forky) | `kidux-upgrade` tool: rewrites sources, runs the upgrade, reboots. Offered from the panel once we have tested it. |
 | Reinstall | Boot the ISO, choose "Reinstall, keep my data": the installer formats `/` only and mounts the existing data partition. |
@@ -2010,3 +2010,14 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   stands: `ci/push.sh` the one way to push, the commits dated inside the
   hours at the push, the changelog's date the last moment inside them not
   after now, the archive's release on GitHub keeping to them.
+- **D115 — Debian's daily upgrade is fenced as the panel's install is.**
+  Decided 2026-10-19 by the owner, on finding that the daily upgrade,
+  which installs Kidux's stable suite as well as Debian's security
+  updates, ran under a child's session as readily as under none, against
+  the rule the panel's *Install* keeps and the user guide states. It stays
+  Debian's, with a condition from kidux-base that skips it while a child
+  has a session; the daemon keeps children from signing in while it runs;
+  and a run skipped for a child is made up when the last child logs out,
+  so that a machine in use every morning still gets its updates that day
+  (daemon.md, section 13; updates-plan.md). The lists' daily refresh,
+  which installs nothing, is left alone.

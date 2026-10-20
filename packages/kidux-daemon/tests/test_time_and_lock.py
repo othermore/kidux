@@ -898,6 +898,16 @@ class UpdateRunner:
     def update_active(self):
         return self.active
 
+    daily = ("inactive", "success")
+    daily_started = 0
+
+    def daily_upgrade_state(self):
+        return self.daily
+
+    def start_daily_upgrade(self):
+        self.daily_started += 1
+        self.daily = ("activating", "success")
+
 
 @pytest.fixture
 def updates(h, tmp_path):
@@ -955,6 +965,36 @@ def test_no_session_starts_while_an_update_is_being_installed(h, updates):
     runner.active = False
     h.service.updates.poll()
     assert h.call(GREETER, "Access1", "CheckAccess", "ana")[0] == "allowed"
+
+
+def test_no_session_starts_while_debian_s_daily_upgrade_runs(h, updates):
+    runner, _token = updates
+    h.policy(mode="unlimited")
+    runner.daily = ("active", "success")
+
+    assert h.call(GREETER, "Access1", "CheckAccess", "ana")[0] == "updating"
+
+    runner.daily = ("inactive", "success")
+    assert h.call(GREETER, "Access1", "CheckAccess", "ana")[0] == "allowed"
+
+
+def test_the_last_child_s_logout_makes_up_a_skipped_daily_upgrade(h, updates):
+    runner, _token = updates
+    h.service.session_appeared(SESSION)
+    runner.daily = ("inactive", "exec-condition")
+
+    h.service.session_disappeared("3")
+
+    assert runner.daily_started == 1
+
+
+def test_a_logout_after_a_daily_upgrade_that_ran_starts_nothing(h, updates):
+    runner, _token = updates
+    h.service.session_appeared(SESSION)
+
+    h.service.session_disappeared("3")
+
+    assert runner.daily_started == 0
 
 
 def test_a_child_may_not_ask_about_updates(h, updates):

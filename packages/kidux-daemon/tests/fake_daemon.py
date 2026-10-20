@@ -39,6 +39,16 @@ class FakeMachine:
         return ("Package: kidux-module-hello\n"
                 "Description: Kidux learning module: Hello, a first page to read\n\n", "")
 
+    def update_active(self):
+        return False
+
+    def daily_upgrade_state(self):
+        """Debian's daily upgrade, idle and last run to the end."""
+        return ("inactive", "success")
+
+    def start_daily_upgrade(self):
+        pass
+
 
 connection = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
 service, bus_object = main.build(

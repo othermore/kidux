@@ -4,12 +4,21 @@ The package it updates is made in the machine and served from a directory
 (`kidux-as canary`); the real archive is never touched. Then the System
 page's Advanced settings (D52): Chromium's options, set from the command
 line before the panel opened, shown on their page, and saved again from it.
+
+Last, Debian's daily upgrade fenced as the panel's install is (D115), with
+a stand-in for it that only leaves a mark and waits, so that nothing needs
+to be there to install: under Leo's session it is skipped; when Leo logs
+out the daemon starts it; and Leo, signing in while it runs, waits on the
+sign-in screen and gets in once it has finished.
 """
 
 import time
 
 from sessionlib import (
+    CHILD_PASSWORD,
     Machine,
+    active_terminal,
+    child_session,
     children_count,
     greeter_log,
     open_panel,
@@ -19,11 +28,93 @@ from sessionlib import (
 )
 
 AUDIT = "/home/.kidux/state/audit.log"
+DAILY = "apt-daily-upgrade.service"
+#: The stand-in's drop-in, beside kidux-base's own, and the mark it leaves.
+STAND_IN = "/etc/systemd/system/apt-daily-upgrade.service.d/zz-kidux-test.conf"
+RAN = "/var/tmp/daily-upgrade.ran"
+#: How long the stand-in takes, long enough for Leo to try to sign in.
+STAND_IN_SECONDS = 45
 
 
 def audit_line(action: str, outcome: str) -> bool:
     lines = root(f"grep '\"action\": \"{action}\"' {AUDIT}").stdout.splitlines()
     return any(f'"outcome": "{outcome}"' in line for line in lines)
+
+
+def daily(field: str) -> str:
+    return root(f"systemctl show -p {field} --value {DAILY}").stdout.strip()
+
+
+def runs() -> int:
+    return len(root(f"cat {RAN} 2>/dev/null").stdout.split())
+
+
+def sign_in(machine: Machine) -> None:
+    """Leo, the first picture, and Leo's password."""
+    password = machine.mark()
+    machine.key("ret")
+    machine.shown("password", password)
+    machine.submit(CHILD_PASSWORD)
+
+
+def log_out(machine: Machine) -> bool:
+    """Leo logs out from the lock screen, past Continue and Adult."""
+    locked = machine.mark()
+    machine.monitor("system_powerdown")
+    wait(lambda: active_terminal() == "tty8", 20)
+    machine.shown("locked", locked)
+    machine.key("tab")
+    machine.key("tab")
+    asked = machine.mark()
+    machine.key("ret")
+    machine.shown("child_password", asked)
+    choose = machine.submit(CHILD_PASSWORD)
+    gone = wait(lambda: child_session() is None, 30)
+    machine.shown("choose", choose, 30)
+    return gone
+
+
+def daily_upgrade(machine: Machine) -> None:
+    unit = ("[Service]\nExecStartPre=\nExecStart=\n"
+            f"ExecStart=/bin/sh -c 'echo ran >> {RAN}; sleep {STAND_IN_SECONDS}'\n")
+    root(f"rm -f {RAN} && mkdir -p {STAND_IN.rsplit('/', 1)[0]} "
+         f"&& printf '%s' \"{unit}\" > {STAND_IN} && systemctl daemon-reload")
+    report("Debian's daily upgrade has kidux-base's condition, beside the test's stand-in",
+           "kidux-no-child-session" in daily("ExecCondition")
+           and root(f"systemctl cat {DAILY}").stdout.count("zz-kidux-test.conf") == 1,
+           root(f"systemctl cat {DAILY}").stdout)
+
+    sign_in(machine)
+    signed_in = wait(lambda: child_session() is not None, 30)
+    root(f"systemctl start {DAILY}", timeout=120)
+    report("with Leo signed in, it is skipped, and nothing of it runs",
+           signed_in and daily("Result") == "exec-condition" and runs() == 0,
+           daily("Result") + "\n" + root(f"journalctl -b -u {DAILY} --no-pager | tail -5").stdout)
+
+    report("when Leo logs out, the daemon starts it",
+           log_out(machine) and wait(lambda: runs() == 1, 30)
+           and audit_line("daily upgrade", "started"),
+           root(f"journalctl -b -u {DAILY} --no-pager | tail -5").stdout
+           + root(f"tail -3 {AUDIT}").stdout)
+
+    # While it runs, Leo's password gets the waiting screen, which goes back
+    # to the pictures by itself; once it has finished, Leo gets in.
+    waiting = machine.mark()
+    sign_in(machine)
+    held = (machine.shown("waiting", waiting, 15) and child_session() is None
+            and daily("ActiveState") in ("active", "activating"))
+    finished = wait(lambda: daily("ActiveState") == "inactive", STAND_IN_SECONDS + 30, 2)
+    choose = machine.mark()
+    machine.shown("choose", choose, 30)
+    sign_in(machine)
+    report("Leo, signing in while it runs, waits, and gets in once it has finished",
+           held and finished and wait(lambda: child_session() is not None, 30),
+           greeter_log())
+    report("and the run Leo waited for was the only one", runs() == 1,
+           root(f"cat {RAN}").stdout)
+    log_out(machine)
+
+    root(f"rm -f {STAND_IN} {RAN} && systemctl daemon-reload")
 
 
 def run(machine: Machine) -> None:
@@ -119,3 +210,5 @@ def run(machine: Machine) -> None:
     machine.shown("choose", before)
     root("rm -f /etc/apt/sources.list.d/kidux-test-canary.list")
     machine.still()
+
+    daily_upgrade(machine)

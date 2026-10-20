@@ -1,0 +1,56 @@
+#!/usr/bin/python3
+"""Whether no child has a session: the condition of Debian's daily upgrade (D115).
+
+    /usr/libexec/kidux-no-child-session
+
+Debian's `unattended-upgrades`, which `apt-daily-upgrade.service` runs every
+morning, installs Kidux's stable suite as well as Debian's security updates.
+dpkg must never replace the launcher or a module under a child who is using
+them, so the service runs only when no child has a session: this is its
+`ExecCondition=`. It exits 0 when no session logind lists belongs to a member
+of the group `kidux-children`, and 1 when one does, which makes systemd skip
+the service quietly; the daemon starts it again once the last child has gone
+(daemon.md, section 13). When logind cannot be asked it exits 0: there is no
+session it could protect, and security updates are not to be held back by a
+failure that has nothing to do with a child.
+"""
+
+import json
+import subprocess
+import sys
+
+GROUP = "kidux-children"
+
+
+def sessions() -> list[dict]:
+    done = subprocess.run(["loginctl", "list-sessions", "--json=short"],
+                          capture_output=True, text=True, timeout=30, check=True)
+    listed = json.loads(done.stdout or "[]")
+    return listed if isinstance(listed, list) else []
+
+
+def is_child(user: str) -> bool:
+    done = subprocess.run(["id", "-nG", "--", user], capture_output=True, text=True, timeout=30)
+    return done.returncode == 0 and GROUP in done.stdout.split()
+
+
+def main() -> int:
+    try:
+        listed = sessions()
+    except (OSError, subprocess.SubprocessError, ValueError) as error:
+        print(f"kidux-no-child-session: logind could not be asked ({error}); "
+              "the daily upgrade runs", file=sys.stderr)
+        return 0
+    for session in listed:
+        if not isinstance(session, dict):
+            continue
+        user = session.get("user")
+        if session.get("class") == "user" and isinstance(user, str) and is_child(user):
+            print(f"kidux-no-child-session: {user} has a session; the daily upgrade waits "
+                  "until the last child has logged out", file=sys.stderr)
+            return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

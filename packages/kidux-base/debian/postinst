@@ -45,9 +45,18 @@ ensure_locales() {
     fi
 }
 
+# The daily upgrade's condition (D115) is a drop-in of Debian's own unit,
+# which systemd reads only when told to.
+reload_systemd() {
+    if [ -d /run/systemd/system ]; then
+        systemctl daemon-reload || true
+    fi
+}
+
 case "$1" in
     configure)
         ensure_locales
+        reload_systemd
         ;;
     abort-upgrade|abort-remove|abort-deconfigure)
         ;;

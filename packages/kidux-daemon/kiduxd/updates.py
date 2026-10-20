@@ -12,6 +12,13 @@ The same runner installs and removes one module's package for the panel
 (daemon.md section 9): `kidux-update install <package>` and `remove
 <package>`, the package made by the daemon from a module id it checked.
 
+Debian's own daily upgrade, `apt-daily-upgrade.service`, installs Kidux's
+stable suite too, unattended. kidux-base fences it with a condition that
+skips it while a child has a session (D115); here the daemon keeps
+children from signing in while it runs, as while its own job installs,
+and starts it again once the last child has gone if its last run was
+skipped.
+
 The file is lines apt writes on its status descriptor, `dlstatus:` while
 downloading and `pmstatus:` while installing, plus the script's own lines,
 all starting `kidux:`:
@@ -33,6 +40,12 @@ from .errors import Busy
 
 UNIT = "kidux-update.service"
 SCRIPT = "/usr/libexec/kidux-update"
+#: Debian's daily upgrade, and the result systemd gives a run that its
+#: condition, kidux-base's kidux-no-child-session, skipped.
+DAILY = "apt-daily-upgrade.service"
+SKIPPED = "exec-condition"
+#: The states of a unit that is running, or about to, or ending.
+RUNNING = ("active", "activating", "deactivating", "reloading")
 STATUS = Path(os.environ.get("KIDUX_UPDATE_STATUS", "/run/kidux/update.status"))
 
 JOBS = {"check": "checking", "apply": "applying", "install": "installing",
@@ -49,6 +62,8 @@ class Runner(Protocol):
 
     def start_update(self, kind: str, package: str = "") -> None: ...
     def update_active(self) -> bool: ...
+    def daily_upgrade_state(self) -> tuple[str, str]: ...
+    def start_daily_upgrade(self) -> None: ...
 
 
 @dataclass
@@ -141,6 +156,27 @@ class Updates:
         self._runner.start_update(kind, package)
         self.reading = Reading(job=JOBS[kind], package=package, module=package)
         self.last = Last()
+
+    def installing(self) -> bool:
+        """Whether something is installing or removing packages, so that no
+        child's session may start: this daemon's own job, or Debian's daily
+        upgrade."""
+        if self.reading.job in ("applying", "installing", "removing"):
+            return True
+        active, _result = self._runner.daily_upgrade_state()
+        return active in RUNNING
+
+    def make_up_daily(self) -> bool:
+        """Start Debian's daily upgrade if its last run was skipped for a
+        child's session: called when the last child has logged out. Its
+        condition is checked again by systemd, so a child who has signed in
+        meanwhile is safe. True if it was started."""
+        active, result = self._runner.daily_upgrade_state()
+        if active in RUNNING or result != SKIPPED:
+            return False
+        self._runner.start_daily_upgrade()
+        self._audit("daily upgrade", "started", reason="skipped while a child played")
+        return True
 
     def state(self) -> tuple:
         return (self.reading.job, float(self.reading.fraction), self.reading.package,

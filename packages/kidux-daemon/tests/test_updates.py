@@ -80,6 +80,18 @@ class FakeRunner:
     def update_active(self) -> bool:
         return self.active
 
+    #: Debian's daily upgrade, as systemd would say: its state and its
+    #: last run's result.
+    daily = ("inactive", "success")
+    daily_started = 0
+
+    def daily_upgrade_state(self) -> tuple[str, str]:
+        return self.daily
+
+    def start_daily_upgrade(self) -> None:
+        self.daily_started += 1
+        self.daily = ("activating", "success")
+
     def write(self, text: str) -> None:
         with open(self.status, "a") as handle:
             handle.write(text)
@@ -327,3 +339,56 @@ def test_the_script_removes_a_module_that_is_only_a_folder(fake_apt, tmp_path):
     assert not (tmp_path / "modules" / "canary").exists()
     assert (tmp_path / "modules" / "hello").is_dir()
     assert not (tmp_path / "apt-calls").exists()
+
+
+# --- Debian's daily upgrade (D115) ---------------------------------------------
+
+
+@pytest.mark.parametrize("state, installing", [
+    (("inactive", "success"), False),
+    (("inactive", "exec-condition"), False),
+    (("activating", "success"), True),
+    (("active", "success"), True),
+    (("deactivating", "success"), True),
+    (("", ""), False),
+])
+def test_debian_s_daily_upgrade_counts_as_installing_while_it_runs(job, state, installing):
+    updates, runner, _signals, _audit = job
+    runner.daily = state
+
+    assert updates.installing() is installing
+
+
+def test_this_daemon_s_own_job_counts_as_installing_but_a_check_does_not(job):
+    updates, runner, _signals, _audit = job
+    updates.start("check")
+    assert updates.installing() is False
+
+    runner.write("kidux:checked:0:\n")
+    runner.active = False
+    updates.poll()
+    updates.start("apply")
+    assert updates.installing() is True
+
+
+def test_a_daily_upgrade_skipped_for_a_child_is_made_up(job):
+    updates, runner, _signals, audit = job
+    runner.daily = ("inactive", "exec-condition")
+
+    assert updates.make_up_daily() is True
+    assert runner.daily_started == 1
+    assert ("daily upgrade", "started") in audit
+
+
+@pytest.mark.parametrize("state", [
+    ("inactive", "success"),      # it ran: nothing to make up
+    ("inactive", "exit-code"),    # it failed for a reason of its own
+    ("activating", "exec-condition"),
+    ("", ""),                     # no such unit
+])
+def test_nothing_else_makes_it_run_again(job, state):
+    updates, runner, _signals, _audit = job
+    runner.daily = state
+
+    assert updates.make_up_daily() is False
+    assert runner.daily_started == 0

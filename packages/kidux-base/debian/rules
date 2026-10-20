@@ -2,3 +2,12 @@
 
 %:
 	dh $@
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	pyflakes3 tests bin/kidux-no-child-session
+	python3 -m pytest -q -p no:cacheprovider tests
+endif
+
+override_dh_auto_clean:
+	rm -rf tests/__pycache__

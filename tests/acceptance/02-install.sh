@@ -16,6 +16,11 @@ done
 
 check "unattended-upgrades accepts the Kidux origin" \
     sh -c 'grep -q "origin=Kidux" /etc/apt/apt.conf.d/60kidux-unattended-upgrades'
+# ... and runs only when no child has a session (D115): systemd has read
+# kidux-base's condition into Debian's daily upgrade, and with nobody signed
+# in the condition lets it run.
+check "Debian's daily upgrade runs only when no child has a session" \
+    sh -c 'systemctl show -p ExecCondition --value apt-daily-upgrade.service | grep -q /usr/libexec/kidux-no-child-session && /usr/libexec/kidux-no-child-session'
 
 # A child's session runs labwc (session.md, section 3), and nothing a person
 # types comes with it: kidux-session conflicts with the terminal labwc

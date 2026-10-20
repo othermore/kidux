@@ -584,6 +584,13 @@ class Service:
         self.timekeeper.untrack(tracked.username)
         self._ending.discard(session_id)
         self._audit("session ended", "ok", child=tracked.username, session=session_id)
+        if not self.timekeeper.sessions and self.updates is not None:
+            # The last child has gone: Debian's daily upgrade, if it was
+            # skipped for a child's session, runs now (D115).
+            try:
+                self.updates.make_up_daily()
+            except Exception:
+                _log.warning("could not start the daily upgrade", exc_info=True)
 
     def end_abandoned_locks(self) -> None:
         """End every locked session that has lost its compositor (locker.py,
@@ -692,9 +699,9 @@ class Service:
         self.gate.require_child(username)
         # Installing an update is refused while a child has a session; the
         # other half of that rule is that no session starts while one is
-        # being installed, or dpkg would replace the launcher under it.
-        if self.updates is not None and self.updates.job in ("applying", "installing",
-                                                             "removing"):
+        # being installed, by the panel or by Debian's daily upgrade (D115),
+        # or dpkg would replace the launcher under it.
+        if self.updates is not None and self.updates.installing():
             return "updating", 0
         policy, usage, _ = self.timekeeper.load(username)
         return check_access(policy, usage, weekday_of(usage))

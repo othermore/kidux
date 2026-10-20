@@ -1,0 +1,16 @@
+#!/bin/sh
+# Tell systemd the daily upgrade's condition (D115) is gone with the package.
+
+set -e
+
+case "$1" in
+    remove|purge)
+        if [ -d /run/systemd/system ]; then
+            systemctl daemon-reload || true
+        fi
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

@@ -1187,9 +1187,12 @@ More about it: [Photography's page](modules/photography.md).
 
 ## 10. Updates and reinstalling
 
-Security updates install themselves in the background, from Debian and
-from Kidux. Nothing needs doing, and a child's session is never
-interrupted by one.
+Updates install themselves every morning, in the background: Debian's
+security updates and Kidux's own. Nothing needs doing. They wait while a
+child is signed in, and install once the last child has logged out, so
+that nothing a child is using changes under them; a child who signs in
+while they are being installed is told that the computer is being
+updated, and can sign in a moment later.
 
 Kidux's updates come from `apt.kidux.org`, a server of the project's. Like
 any web server, it records each request with the address it came from,
@@ -1200,7 +1203,8 @@ statistics**, on the System page under Advanced, adds an identifier made
 for this computer alone, so that it is counted as one computer rather than as an
 address; it is on unless you turn it off.
 
-Everything else is installed from the adult panel's **System** page:
+To install updates at once, without waiting for the morning, use the
+adult panel's **System** page:
 
 1. Press **Look for updates**. The page says how many updates there are,
    and which.

@@ -1,3 +1,10 @@
+kidux-base (0.2.7) trixie; urgency=medium
+
+  * Debian's daily upgrade, which installs Kidux's stable suite as well as
+    Debian's security updates, runs only when no child has a session.
+
+ -- Antonio Morales García <info@kidux.org>  Mon, 19 Oct 2026 08:50:43 +0200
+
 kidux-base (0.2.6) trixie; urgency=medium
 
   * Kidux is free software: GPL-3.0-or-later, in LICENSE and debian/copyright.

@@ -1227,9 +1227,12 @@ Más en [su página](modules/photography.md).
 
 ## 10. Actualizar y reinstalar
 
-Las actualizaciones de seguridad se instalan solas, en segundo plano,
-tanto las de Debian como las de Kidux. No hay que hacer nada, y nunca
-interrumpen la sesión de un niño.
+Las actualizaciones se instalan solas cada mañana, en segundo plano: las
+de seguridad de Debian y las de Kidux. No hay que hacer nada. Esperan
+mientras hay un niño dentro de su sesión, y se instalan cuando ha salido
+el último, para que nada de lo que esté usando cambie mientras tanto; un
+niño que entra mientras se están instalando ve que el ordenador se está
+actualizando, y puede entrar un momento después.
 
 Las actualizaciones de Kidux vienen de `apt.kidux.org`, un servidor del
 proyecto. Como cualquier servidor web, anota cada petición con la
@@ -1241,7 +1244,8 @@ Avanzado, añade un identificador hecho solo para este ordenador, para que se cu
 como un ordenador y no como una dirección; está encendido salvo que lo
 apagues tú.
 
-Todo lo demás se instala desde la página **Sistema** del panel de adulto:
+Para instalarlas en el momento, sin esperar a la mañana, usa la página
+**Sistema** del panel de adulto:
 
 1. Pulsa **Buscar actualizaciones**. La página dice cuántas
    actualizaciones hay, y cuáles.

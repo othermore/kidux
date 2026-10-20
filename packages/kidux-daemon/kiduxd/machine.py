@@ -6,7 +6,7 @@ from gi.repository import Gio, GLib
 
 from .errors import Busy, Failed
 from .locker import LOCK_VT
-from .updates import SCRIPT, STATUS, UNIT
+from .updates import DAILY, RUNNING, SCRIPT, STATUS, UNIT
 
 SYSTEMD = "org.freedesktop.systemd1"
 SYSTEMD_PATH = "/org/freedesktop/systemd1"
@@ -173,13 +173,33 @@ class SystemMachine:
                               capture_output=True, text=True, timeout=60)
         return done.stdout
 
+    def _unit_property(self, path: str, interface: str, name: str):
+        return self._call(SYSTEMD, path, "org.freedesktop.DBus.Properties", "Get",
+                          GLib.Variant("(ss)", (f"org.freedesktop.systemd1.{interface}", name)),
+                          "(v)")[0]
+
     def update_active(self) -> bool:
         try:
             path = self._call(SYSTEMD, SYSTEMD_PATH, SYSTEMD_MANAGER, "GetUnit",
                               GLib.Variant("(s)", (UNIT,)), "(o)")[0]
-            state = self._call(SYSTEMD, path, "org.freedesktop.DBus.Properties", "Get",
-                               GLib.Variant("(ss)", ("org.freedesktop.systemd1.Unit",
-                                                     "ActiveState")), "(v)")[0]
+            state = self._unit_property(path, "Unit", "ActiveState")
         except Failed:
             return False
-        return state in ("active", "activating", "deactivating", "reloading")
+        return state in RUNNING
+
+    def daily_upgrade_state(self) -> tuple[str, str]:
+        """Debian's daily upgrade's state and its last run's result, `exec-condition`
+        for one its condition skipped; empty where systemd has no such unit."""
+        try:
+            path = self._call(SYSTEMD, SYSTEMD_PATH, SYSTEMD_MANAGER, "LoadUnit",
+                              GLib.Variant("(s)", (DAILY,)), "(o)")[0]
+            if self._unit_property(path, "Unit", "LoadState") != "loaded":
+                return ("", "")
+            return (self._unit_property(path, "Unit", "ActiveState"),
+                    self._unit_property(path, "Service", "Result"))
+        except Failed:
+            return ("", "")
+
+    def start_daily_upgrade(self) -> None:
+        self._call(SYSTEMD, SYSTEMD_PATH, SYSTEMD_MANAGER, "StartUnit",
+                   GLib.Variant("(ss)", (DAILY, "replace")), "(o)")
