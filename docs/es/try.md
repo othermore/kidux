@@ -20,11 +20,18 @@ Kidux.
 |---|---|
 | **El niño** | **Leo**, contraseña `leo`. |
 | **La contraseña de adulto**, que abre el panel de adulto | `kidux` |
-| **El administrador**, para la consola de texto, que una prueba no necesita | `debian`, contraseña `kidux` |
+| **El administrador**, para la consola de texto, que una prueba no necesita | `ana`, contraseña `kidux` |
 | **Módulos de aprendizaje instalados y activados para Leo** | BASIC, Tux Typing, Scratch, GCompris, Simulaciones y Kig. El panel de adulto instala más. |
 | **Tiempo** | Leo no tiene límite de tiempo, para que puedas probar con calma. El panel de adulto pone uno. |
 | **Idiomas** | Una imagen en español y otra en inglés. |
 | **Lo que necesita** | 4 GB de memoria libres para el emulador, y unos 10 GB de disco. |
+
+Una vez arrancado, Kidux muestra su pantalla de entrada con Leo y, tras
+la contraseña de Leo, la pantalla de Leo con sus módulos:
+
+![La pantalla de entrada de la imagen de prueba, con Leo](../images/es/trial-sign-in.png)
+
+![La pantalla de Leo, con seis módulos de aprendizaje](../images/es/trial-leo.png)
 
 ## Qué imagen, para qué emulador
 
@@ -36,7 +43,7 @@ Kidux.
 | **Linux** | QEMU, o VirtualBox | el `.qcow2` para QEMU, el `.ova` para VirtualBox |
 
 Las imágenes en inglés son `kidux-trial-en.ova` y `kidux-trial-en.qcow2`,
-en la misma dirección. Cada archivo ocupa unos 2,5 GB. Sus sumas
+en la misma dirección. Cada archivo ocupa unos 1,5 GB. Sus sumas
 SHA-256 están en [SHA256SUMS](https://iso.kidux.org/SHA256SUMS).
 
 ## Windows, o un Mac o Linux, con VirtualBox

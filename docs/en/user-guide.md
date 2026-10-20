@@ -41,7 +41,7 @@ before giving it a computer at all.
 ### From the Kidux image
 
 Kidux's installer is an image of a USB stick: everything Kidux needs, in
-one file of about 900 MB. It installs Kidux on the whole of the
+one file of about 750 MB. It installs Kidux on the whole of the
 computer's disk in a few minutes, with no network needed while it does.
 Everything on the computer's disk is erased: copy anything you want to
 keep somewhere else first.
@@ -69,6 +69,8 @@ keep somewhere else first.
    after ten seconds. If the screen stays black or garbled, start again
    and choose **Gráficos seguros / Safe graphics**, which has both.
 
+   ![Kidux's boot menu, with Install Kidux chosen](../images/en/install-boot-menu.png)
+
 5. **Answer the installer.** Its steps are listed on the left, and
    **Next** moves on:
 
@@ -82,6 +84,26 @@ keep somewhere else first.
    | **Summary** | What is about to happen. **Install** starts it, after one more question. |
    | **Install** | A bar shows how far it has got. It takes a few minutes. |
    | **Finish** | Kidux is installed. With **Restart now** ticked, **Done** restarts the computer. |
+
+   The installer's first page:
+
+   ![The installer's welcome page](../images/en/install-welcome.png)
+
+   The disk, divided as Kidux needs it:
+
+   ![The Partitions page, with the disk before and after](../images/en/install-partitions.png)
+
+   Your account, the adult's:
+
+   ![The Users page, filled in](../images/en/install-users.png)
+
+   What is about to happen:
+
+   ![The Summary page](../images/en/install-summary.png)
+
+   And the end:
+
+   ![The Finish page, with Restart now ticked](../images/en/install-finished.png)
 
 6. **Take the stick out** when the computer restarts. It shows Kidux's
    logo and starts for the first time: the next section, *The first

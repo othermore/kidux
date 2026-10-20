@@ -11,7 +11,7 @@ One hybrid ISO, `kidux-<version>-<date>-amd64.iso`, which starts a
 computer with UEFI, with or without Secure Boot, or with a BIOS, from a USB
 stick or as a CD. `<version>` is the version of `kidux-base` it carries,
 which is Kidux's version; `<date>` is the date of the archive suite it was
-built from. It is about 900 MB.
+built from. It is about 750 MB.
 
 It starts a live system, which is a Kidux machine already, with
 Kidux's installer in place of the sign-in screen. The installer copies that
@@ -62,19 +62,21 @@ root:
    as apt installs them on Debian. Its hooks download `grub-pc` into the
    image's `pool/`, set Debian's sources, the hostname `kidux` and an
    empty machine-id, empty apt's lists and caches and AppArmor's cache,
-   and write the package list beside the image
+   take the kernel and its initramfs out for the image's own boot and
+   leave no initramfs in the live system, since the installer makes the
+   installed system's, and write the package list beside the image
    (`<name>.packages`). Downloads are kept in `build/image/cache/`.
 3. Its tar output goes straight into `sqfstar`, so that the files keep
    their owners without root, the root directory given to root since the
-   tar has no entry for it, xz-compressed, every time clamped to the
-   suite's.
+   tar has no entry for it, compressed with xz, its x86 filter and blocks
+   of a mebibyte, every time clamped to the suite's.
 4. GRUB's El Torito image for a BIOS (`grub-mkimage`), the EFI system
    partition (`mkfs.fat` with a fixed serial, `mcopy` with the times kept),
    every file touched to the suite's time, and `xorriso` makes the hybrid
    image, with `<name>.iso.sha256` beside it.
 
-It takes about two and a half minutes on the release machine once the
-cache is warm. The same suite gives the same bytes: two builds in a row
+It takes about three minutes on the release machine once the cache is
+warm. The same suite gives the same bytes: two builds in a row
 give identical images.
 
 The release machine needs `mmdebstrap`, `squashfs-tools`, `xorriso`,
@@ -109,8 +111,10 @@ installer takes it off the installed system.
   automatically* box is Calamares' own and does nothing here, since the
   installer configures no display manager: Kidux's sign-in screen is
   always the one.
-- **GRUB.** `kidux-installer-grub` runs before Calamares' boot loader
-  module. Under UEFI it tells debconf to keep GRUB on the removable path
+- **The initramfs, then GRUB.** After the packages module, Calamares'
+  initramfs module makes the installed system's initramfs, which the
+  image does not carry, so that GRUB's menu, written next, finds it.
+  `kidux-installer-grub` runs before Calamares' boot loader module. Under UEFI it tells debconf to keep GRUB on the removable path
   too; under a BIOS it replaces `grub-efi-amd64` with `grub-pc` from the
   image's `pool/` with dpkg, the disk preseeded as its install device, so
   that Debian's GRUB updates later put GRUB on the disk the right way.
@@ -129,16 +133,16 @@ modules Calamares has, and the scripts' behaviour with stand-ins.
 
 `tests/lib/install-vm.py` takes the newest image in `build/image/`:
 
-1. Under UEFI, a machine with an empty 40 GB disk starts the image, and
-   the test takes the installer through its pages by keyboard, in Spanish,
-   waiting at each for the sidebar to mark it, with the administrator
-   `debian`; then waits for the end, failing at once if the installer's
-   error replaces its pages.
+1. Under UEFI, a machine with an empty 40 GB disk starts the image; the
+   test waits for the boot menu, takes its Spanish entry, and takes the
+   installer through its pages by keyboard, waiting at each for the
+   sidebar to mark it, with the administrator Ana, `ana`; then waits for
+   the end, failing at once if the installer's error replaces its pages.
 2. A helper machine, the session machines' Debian, mounts the installed
    disk and writes onto it what a session machine's cloud-init gives:
-   an SSH server with the tests' key, sudo without a password for
-   `debian`, the development archive's address, and the test machine's
-   usage identifier (section 7).
+   an SSH server with the tests' key, sudo without a password for `ana`,
+   whom the tests reach the machine as, the development archive's
+   address, and the test machine's usage identifier (section 7).
 3. The installed system starts from its disk, on a copy, and answers over
    SSH. The test checks that it is the image's Kidux, with no installer or
    live system left, that the system's top folders are root's, that the
@@ -152,10 +156,16 @@ modules Calamares has, and the scripts' behaviour with stand-ins.
    too.
 5. Under a BIOS, the image installs again, and the disk starts to the
    first start.
+6. Under UEFI once more, from the boot menu's English entry, with the
+   administrator Anna, for the English pictures alone.
 
-Every picture is `build/vm/install-NN-<screen>.png`. The disk of step 1 is
-kept as `build/vm/install.qcow2`, prepared and not yet started, for the
-trial images.
+Every picture is `build/vm/install-NN-<screen>.png`, the English
+installation's `build/vm/install-en-NN-<screen>.png`; the boot menu and
+the installer's pages that the user guide shows are listed in
+`tests/lib/doc-screenshots.txt`, and the release run copies them, as it
+copies the session's. The disk of step 1 is kept as
+`build/vm/install.qcow2`, prepared and not yet started, for the trial
+images.
 
 ## 5. The trial images
 
@@ -171,9 +181,10 @@ of `build/vm/install.qcow2`:
 2. Its usage identifier becomes the trial's (section 7).
 3. What the tests added goes: the SSH server, the key, sudo without a
    password, the test machine's identifier and the development archive's
-   address. The administrator's password becomes `kidux`. Apt's caches
-   and the journal are emptied, the free space is trimmed, and the machine
-   shuts down.
+   address. The administrator's password, `ana`'s, becomes `kidux`. Apt's
+   caches and the journal are emptied, the free space is trimmed, which
+   the virtual disk passes on to the image file, and the machine shuts
+   down.
 4. `qemu-img` converts the disk: `<name>-trial-<language>.qcow2`,
    compressed, for QEMU and UTM; and `<name>-trial-<language>.ova`, a
    streamOptimized VMDK in a plain OVF 1.0 package with a SHA-256
@@ -184,7 +195,8 @@ of `build/vm/install.qcow2`:
 5. Each `.qcow2` is started with the very QEMU command the page gives,
    without writing to it: the sign-in screen must come up with Leo, and
    Leo must get their screen, both photographed as
-   `build/vm/trial-<language>-NN-<screen>.png`.
+   `build/vm/trial-<language>-NN-<screen>.png`, which the page shows from
+   a release run.
 
 A trial is Kidux whole: it signs in, locks, counts time and updates
 itself from `apt.kidux.org` like any Kidux machine.

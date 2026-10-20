@@ -18,11 +18,18 @@ Kidux's archive like any Kidux computer.
 |---|---|
 | **The child** | **Leo**, password `leo`. |
 | **The adult password**, which opens the adult panel | `kidux` |
-| **The administrator**, for the text console, which a trial does not need | `debian`, password `kidux` |
+| **The administrator**, for the text console, which a trial does not need | `ana`, password `kidux` |
 | **Learning modules installed and switched on for Leo** | BASIC, Tux Typing, Scratch, GCompris, Simulations and Kig. The adult panel installs more. |
 | **Time** | Leo has no time limit, so that you can try at leisure. The adult panel sets one. |
 | **Languages** | One image in Spanish and one in English. |
 | **What it needs** | 4 GB of memory free for the emulator, and about 10 GB of disk. |
+
+Once it has started, Kidux shows its sign-in screen with Leo, and after
+Leo's password, Leo's own screen with the modules:
+
+![The sign-in screen of the trial image, with Leo](../images/en/trial-sign-in.png)
+
+![Leo's screen, with six learning modules](../images/en/trial-leo.png)
 
 ## Which image, for which emulator
 
@@ -34,7 +41,7 @@ Kidux's archive like any Kidux computer.
 | **Linux** | QEMU, or VirtualBox | the `.qcow2` for QEMU, the `.ova` for VirtualBox |
 
 The Spanish images are `kidux-trial-es.ova` and `kidux-trial-es.qcow2`, at
-the same address. Each file is about 2.5 GB. Their SHA-256 sums are
+the same address. Each file is about 1.5 GB. Their SHA-256 sums are
 in [SHA256SUMS](https://iso.kidux.org/SHA256SUMS).
 
 ## Windows, or a Mac or Linux, with VirtualBox

@@ -188,7 +188,7 @@ need4 = "Pantalla con resolución mínima de 1280 × 800 píxeles. Se recomienda
 
 [get.image]
 title = "Descargar el instalador"
-text = "La imagen de Kidux, de unos 900 MB: se graba en una memoria USB, se arranca el ordenador desde ella, con el arranque seguro activado o no, y el instalador gráfico deja Kidux en el disco entero en pocos minutos."
+text = "La imagen de Kidux, de unos 750 MB: se graba en una memoria USB, se arranca el ordenador desde ella, con el arranque seguro activado o no, y el instalador gráfico deja Kidux en el disco entero en pocos minutos."
 download = "Descargar Kidux"
 
 [get.try]

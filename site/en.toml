@@ -188,7 +188,7 @@ need4 = "A display resolution of at least 1280 × 800 pixels. 1920 × 1080 or a 
 
 [get.image]
 title = "Download the installer"
-text = "The Kidux image, about 900 MB: write it to a USB flash drive, start the computer from it, with Secure Boot on or off, and the graphical installer leaves Kidux on the whole disk in a few minutes."
+text = "The Kidux image, about 750 MB: write it to a USB flash drive, start the computer from it, with Secure Boot on or off, and the graphical installer leaves Kidux on the whole disk in a few minutes."
 download = "Download Kidux"
 
 [get.try]

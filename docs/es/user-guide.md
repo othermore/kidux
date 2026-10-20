@@ -43,7 +43,7 @@ dedicarle ningún ordenador.
 ### Con la imagen de Kidux
 
 El instalador de Kidux es la imagen de una memoria USB: todo lo que
-Kidux necesita, en un solo archivo de unos 900 MB. Instala Kidux en el
+Kidux necesita, en un solo archivo de unos 750 MB. Instala Kidux en el
 disco entero del ordenador en pocos minutos, sin necesidad de red mientras
 lo hace. Se borra todo lo que haya en el disco del ordenador: copia antes en
 otro sitio lo que quieras conservar.
@@ -74,6 +74,8 @@ otro sitio lo que quieras conservar.
    a arrancar y elige **Gráficos seguros / Safe graphics**, que tiene las
    dos.
 
+   ![El menú de arranque de Kidux, con Instalar Kidux elegido](../images/es/install-boot-menu.png)
+
 5. **Responde al instalador.** Sus pasos aparecen a la izquierda, y
    **Siguiente** pasa al siguiente:
 
@@ -87,6 +89,26 @@ otro sitio lo que quieras conservar.
    | **Resumen** | Lo que va a ocurrir. **Instalar** lo empieza, tras una última pregunta. |
    | **Instalar** | Una barra muestra cuánto lleva. Tarda unos minutos. |
    | **Terminar** | Kidux está instalado. Con **Reiniciar ahora** marcado, **Hecho** reinicia el ordenador. |
+
+   La primera página del instalador:
+
+   ![La página de bienvenida del instalador](../images/es/install-welcome.png)
+
+   El disco, dividido como Kidux lo necesita:
+
+   ![La página Particiones, con el disco antes y después](../images/es/install-partitions.png)
+
+   Tu cuenta, la del adulto:
+
+   ![La página Usuarios, rellena](../images/es/install-users.png)
+
+   Lo que va a ocurrir:
+
+   ![La página Resumen](../images/es/install-summary.png)
+
+   Y el final:
+
+   ![La página Terminar, con Reiniciar ahora marcado](../images/es/install-finished.png)
 
 6. **Retira la memoria** cuando el ordenador se reinicie. Muestra el logo
    de Kidux y arranca por primera vez: la sección siguiente, *El primer
