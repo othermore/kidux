@@ -3,6 +3,7 @@
 #
 #   tests/run reproducible kidux-base
 #   tests/run reproducible                 every package
+#   tests/run reproducible image           Kidux's image, ci/build-image.sh
 #
 # "Everything that ends up on a user's machine must be reproducible from this
 # repository" is a project rule, and a rule nobody checks is a wish. This is the
@@ -25,6 +26,27 @@ set -eu
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 BUILD_DIR="$REPO_ROOT/build"
 WORK="$BUILD_DIR/reproducible"
+
+if [ "${1:-}" = image ]; then
+    # The image from the testing suite, twice, into folders of its own that
+    # share the downloads, and the two compared byte for byte.
+    rm -rf "$WORK"
+    for run in first second; do
+        mkdir -p "$WORK/$run"
+        ln -s "$BUILD_DIR/image/cache" "$WORK/$run/cache"
+        KIDUX_IMAGE_DIR="$WORK/$run" "$REPO_ROOT/ci/build-image.sh" testing \
+            > "$WORK/$run.log" 2>&1 || { echo "FAIL  the image builds; see $WORK/$run.log"; exit 1; }
+    done
+    first="$(cat "$WORK"/first/*.iso.sha256 | cut -d' ' -f1)"
+    second="$(cat "$WORK"/second/*.iso.sha256 | cut -d' ' -f1)"
+    if [ "$first" = "$second" ]; then
+        echo "PASS  the image, built twice, is the same bytes: $first"
+        rm -rf "$WORK"
+        exit 0
+    fi
+    echo "FAIL  the image differs between two builds: $first and $second (kept in $WORK)"
+    exit 1
+fi
 
 if [ "$#" -gt 0 ]; then
     packages="$*"

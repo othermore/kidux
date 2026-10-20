@@ -27,7 +27,7 @@ Out of it come, into build/image/ beside the installer, with the name the
 installer has and `-trial-<language>`:
 
     .qcow2   compressed, for QEMU, and for UTM on a Mac
-    .ova     a VMDK in an OVF package, for VirtualBox, starting with UEFI
+    .ova     a VMDK in an OVF package, for VirtualBox
 
 Without root: the virtual machine is QEMU's, the conversions qemu-img's.
 """
@@ -81,8 +81,7 @@ def as_adult(arguments: str) -> str:
 
 
 def ova(qcow2: Path, name: str) -> Path:
-    """The disk as a VMDK in an OVF package: VirtualBox's own section says
-    it starts with UEFI and has a screen of 1280 by 800."""
+    """The disk as a VMDK in an OVF package, with its manifest."""
     work = OUT / f"{name}.ova-work"
     work.mkdir(exist_ok=True)
     vmdk = work / f"{name}-disk1.vmdk"
@@ -223,9 +222,10 @@ def build(language: str, name: str) -> bool:
     return tried(qcow2, language)
 
 
-#: The OVF package's descriptor: OVF 1.0 for any importer, and VirtualBox's
-#: own section, which it reads for what OVF does not say: UEFI, the screen,
-#: the pointer as a tablet.
+#: The OVF package's descriptor, plain OVF 1.0, which every importer
+#: reads: two processors, 4 GB of memory, the disk on SATA and a NAT
+#: network. OVF cannot say that the machine starts with UEFI, which the
+#: page on trying Kidux has the visitor tick.
 OVF = """<?xml version="1.0"?>
 <Envelope ovf:version="1.0" xml:lang="en-US" xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1" xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData" xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:vbox="http://www.virtualbox.org/ovf/machine">
   <References>
@@ -304,37 +304,6 @@ OVF = """<?xml version="1.0"?>
         <rasd:ResourceType>10</rasd:ResourceType>
       </Item>
     </VirtualHardwareSection>
-    <vbox:Machine ovf:required="false" version="1.16-linux" name="Kidux">
-      <ovf:Info>VirtualBox's own settings</ovf:Info>
-      <Hardware>
-        <CPU count="2"/>
-        <Memory RAMSize="4096"/>
-        <Firmware type="EFI"/>
-        <HID Pointing="USBTablet" Keyboard="PS2Keyboard"/>
-        <Display controller="VMSVGA" VRAMSize="32"/>
-        <USB>
-          <Controllers>
-            <Controller name="OHCI" type="OHCI"/>
-          </Controllers>
-        </USB>
-        <Audio driver="Default" controller="HDA" enabled="true" enabledOut="true"/>
-        <Network>
-          <Adapter slot="0" enabled="true" type="82540EM">
-            <NAT/>
-          </Adapter>
-        </Network>
-        <GuestProperties>
-          <GuestProperty name="/VirtualBox/GuestAdd/VBoxService/--timesync-set-start" value="1" flags=""/>
-        </GuestProperties>
-      </Hardware>
-      <StorageControllers>
-        <StorageController name="SATA" type="AHCI" PortCount="1" useHostIOCache="false" Bootable="true">
-          <AttachedDevice type="HardDisk" hotpluggable="false" port="0" device="0">
-            <Image uuid="{{00000000-0000-0000-0000-000000000001}}"/>
-          </AttachedDevice>
-        </StorageController>
-      </StorageControllers>
-    </vbox:Machine>
   </VirtualSystem>
 </Envelope>
 """
