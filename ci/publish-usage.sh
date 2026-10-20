@@ -9,11 +9,12 @@
 # archive:
 #
 #   kidux-usage/      in the account's home, which no site serves: usage.py,
-#                     its list of tests' identifiers, the daily task
+#                     its lists of tests' and trial images' identifiers,
+#                     the daily task
 #                     cron.php, the logs space's address (logs.url), the
 #                     logs user's line (logs.netrc), the page's password
 #                     (.htpasswd), and logs/, every day's lines of
-#                     apt.kidux.org as usage.py keeps them
+#                     apt.kidux.org and iso.kidux.org as usage.py keeps them
 #   apt/usage/        the page, index.php, and the .htaccess that asks for
 #                     the password
 #
@@ -69,6 +70,7 @@ sed "s|@PRIVATE@|$PRIVATE|" "$REPO_ROOT/ci/usage-site/htaccess.in" > "$WORK/htac
 echo "==> The private folder, which no site serves"
 put "$REPO_ROOT/ci/usage.py" "$PRIVATE/usage.py" 600
 put "$REPO_ROOT/ci/usage-test-ids.txt" "$PRIVATE/usage-test-ids.txt" 600
+put "$REPO_ROOT/ci/usage-trial-ids.txt" "$PRIVATE/usage-trial-ids.txt" 600
 put "$REPO_ROOT/ci/usage-site/cron.php" "$PRIVATE/cron.php" 600
 put "$WORK/logs.netrc" "$PRIVATE/logs.netrc" 600
 put "$LOGS_URL" "$PRIVATE/logs.url" 600

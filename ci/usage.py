@@ -486,6 +486,7 @@ def as_text(report: dict, today: dict) -> str:
     for kind, rows in report["images"].items():
         out.append("")
         out.append(IMAGE_TITLES[kind])
+        out.append(f"{'':<14}{'installer':>12}{'trial':>12}{'trials run':>12}")
         out += [f"{row['period']:<14}{row['installer']:>12}{row['trial']:>12}{row['trials']:>12}"
                 for row in rows]
     if report["trial_rows"]:
