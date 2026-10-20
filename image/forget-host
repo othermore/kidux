@@ -1,0 +1,33 @@
+#!/bin/sh
+# What the live system learnt of the machine that built it, taken out
+# (ci/build-image.sh), so that the image holds nothing of that machine's
+# and two machines build the same bytes.
+#
+#   image/forget-host <root of the live system>
+#
+# mmdebstrap installs inside the builder's own host name and network: apt's
+# lock file keeps the builder's user (apt makes it again as root's later),
+# /etc/resolv.conf its name servers, and exim4-config takes the builder's
+# host name as the mail name, which debconf and exim4's configuration
+# remember. A Kidux machine's name is kidux, as its /etc/hostname says;
+# NetworkManager writes /etc/resolv.conf on the machine itself.
+# mmdebstrap's own apt setting, which says only what image/packages are
+# installed with, goes too.
+
+set -eu
+
+ROOT="$1"
+
+rm -f "$ROOT/etc/resolv.conf" "$ROOT/var/cache/apt/archives/lock" \
+    "$ROOT/etc/apt/apt.conf.d/99mmdebstrap" "$ROOT/var/cache/debconf/"*-old
+
+echo kidux > "$ROOT/etc/mailname"
+if [ -f "$ROOT/etc/exim4/update-exim4.conf.conf" ]; then
+    sed -i "s/^dc_other_hostnames=.*/dc_other_hostnames='kidux'/" \
+        "$ROOT/etc/exim4/update-exim4.conf.conf"
+    printf '%s\n' "exim4-config exim4/mailname string kidux" \
+        "exim4-config exim4/dc_other_hostnames string kidux" \
+        | chroot "$ROOT" debconf-set-selections
+    rm -f "$ROOT/var/cache/debconf/"*-old
+    chroot "$ROOT" update-exim4.conf
+fi

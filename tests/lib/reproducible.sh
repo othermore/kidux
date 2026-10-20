@@ -29,8 +29,11 @@ WORK="$BUILD_DIR/reproducible"
 
 if [ "${1:-}" = image ]; then
     # The image from the testing suite, twice, into folders of its own that
-    # share the downloads, and the two compared byte for byte.
+    # share the downloads, and the two compared byte for byte. Its own work
+    # folder, since the battery checks the packages at the same time.
+    WORK="$BUILD_DIR/reproducible-image"
     rm -rf "$WORK"
+    mkdir -p "$BUILD_DIR/image/cache"
     for run in first second; do
         mkdir -p "$WORK/$run"
         ln -s "$BUILD_DIR/image/cache" "$WORK/$run/cache"

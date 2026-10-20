@@ -111,6 +111,8 @@ mmdebstrap --mode=unshare --variant=standard --components=main,non-free-firmware
     --customize-hook='printf "127.0.0.1\tlocalhost\n127.0.1.1\tkidux\n::1\tlocalhost ip6-localhost ip6-loopback\n" > "$1"/etc/hosts' \
     --customize-hook='rm -rf "$1"/var/lib/apt/lists/* && : > "$1"/etc/machine-id && rm -f "$1"/var/lib/dbus/machine-id' \
     --customize-hook='rm -rf "$1"/var/cache/apparmor/* "$1"/var/cache/apt/archives/partial/*' \
+    --customize-hook="upload '$REPO_ROOT/image/forget-host' /tmp/forget-host" \
+    --customize-hook='sh "$1"/tmp/forget-host "$1" && rm -f "$1"/tmp/forget-host' \
     --customize-hook='touch -d "@$SOURCE_DATE_EPOCH" "$1"/var/cache/apt/archives "$1"/var/cache/apt/archives/partial' \
     --customize-hook='chroot "$1" dpkg-query -W -f "\${Package} \${Version}\n" > "$1"/tmp/packages' \
     --customize-hook="download /tmp/packages '$WORK/packages'" \
