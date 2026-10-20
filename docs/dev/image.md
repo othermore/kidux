@@ -211,11 +211,13 @@ and keyboard, are the language's as its installer wrote them:
    the image's name rather than at random. VMSVGA without
    3D is a card wlroots cannot draw with; Kidux's compositors draw in
    software on it (`docs/dev/session.md`, section 2).
-5. Each `.qcow2` is started with the very QEMU command the page gives,
-   without writing to it: the sign-in screen must come up with Leo, and
-   Leo must get their screen, both photographed as
-   `build/vm/trial-<language>-NN-<screen>.png`, which the page shows from
-   a release run.
+5. Each `.ova` is read by VirtualBox where it is installed, as an
+   import would read it and making nothing (`VBoxManage import
+   --dry-run`), so that its own section is understood; and each `.qcow2`
+   is started with the very QEMU command the page gives, without writing
+   to it: the sign-in screen must come up with Leo, and Leo must get their
+   screen, both photographed as `build/vm/trial-<language>-NN-<screen>.png`,
+   which the page shows from a release run.
 
 A trial is Kidux whole: it signs in, locks, counts time and updates
 itself from `apt.kidux.org` like any Kidux machine.

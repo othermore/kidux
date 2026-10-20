@@ -41,6 +41,7 @@ Without root: the virtual machine is QEMU's, the conversions qemu-img's.
 import hashlib
 import importlib.util
 import os
+import shutil
 import subprocess
 import sys
 import tarfile
@@ -138,6 +139,24 @@ def ova(qcow2: Path, name: str) -> Path:
         path.unlink()
     work.rmdir()
     return target
+
+
+def importable(package: Path) -> bool:
+    """The OVA read by VirtualBox, where it is installed, as an import
+    would read it, making nothing: its own section must be understood."""
+    if shutil.which("VBoxManage") is None:
+        print("    VirtualBox is not installed here: its reading of the OVA is not checked",
+              flush=True)
+        return True
+    read = subprocess.run(["VBoxManage", "import", "--dry-run", str(package)],
+                          capture_output=True, text=True, timeout=600)
+    settings = [line.strip() for line in read.stdout.splitlines()
+                if "Firmware" in line or "Graphics" in line or "Pointing" in line]
+    if read.returncode == 0:
+        print("    VirtualBox reads it: " + "; ".join(settings), flush=True)
+        return True
+    print(f"    FAILED: VirtualBox does not read it: {read.stderr.strip()[-500:]}", flush=True)
+    return False
 
 
 def tried(qcow2: Path, language: str) -> bool:
@@ -253,7 +272,7 @@ def build(language: str, name: str) -> bool:
     work.unlink(missing_ok=True)
     for path in (qcow2, package):
         print(f"    {path.name}: {path.stat().st_size / 2**30:.2f} GiB", flush=True)
-    return tried(qcow2, language)
+    return importable(package) and tried(qcow2, language)
 
 
 #: The OVF package's descriptor: OVF 1.0 that every importer reads, two
