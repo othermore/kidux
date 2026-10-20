@@ -41,7 +41,12 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [ ] Calamares with our branding, translated, guided layout with separate `/home`,
       and a "Reinstall, keep my data" path; the non-free firmware ticked by
       default and untickable (D74).
-- [ ] GitHub Actions: build ISO on tag, QEMU smoke test, publish to Releases.
+- [ ] GitHub Actions: build ISO on tag, QEMU smoke test, publish to Releases;
+      the image built and published again with every release of the
+      packages, so that it always installs the current versions.
+- [ ] Ready-made images for a quick try in an emulator, as simple as they
+      can be, with a page that says how to run one on Windows, Linux and
+      macOS, for someone who wants to see Kidux before installing it.
 - [ ] Install on the development MacBook and on at least one old BIOS-only PC.
 - [x] The package archive's stable suite published at `https://apt.kidux.org`,
       a web hosting of the project's own whose logs count the machines that
@@ -184,6 +189,12 @@ can. Each phase assumes what it builds on is reasonably stable.
 ## Phase 7 — Public release 1.0
 - [ ] Upgrade tooling: unattended security updates, panel-driven feature updates,
       tested reinstall-keeping-data.
+- [ ] Updates that announce themselves: the sign-in screen and the adult
+      panel say when updates wait, and when one has been installed and
+      needs a restart, without the adult having to look for them; the
+      machine looks by itself, and the daily unattended upgrade of the
+      stable suite keeps out of a child's session as the panel's own
+      install does.
 - [ ] Tests on 3+ machines with different hardware (UEFI, BIOS, low RAM).
 - [ ] The user guide complete in both languages, with final screenshots.
 - [x] Public name and visual identity (`branding/`).
