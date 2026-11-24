@@ -530,9 +530,13 @@ The decisions for architecture.md's log:
 
 ## 5. What the two sites are, read on 2026-11-24
 
-Read with a headless Chromium from the development machine, in Spanish,
-every host but the listed ones refused; 4.40 confirms it on a Kidux
-machine.
+Read twice: with a headless Chromium from the development machine, every
+host but the listed ones refused; then by step 4.40 on a Kidux machine,
+as Leo, each module a folder copied by hand, Chromium's net log read
+over the use a child makes of it. Every host the wall refused on both
+sites, besides those named below, is Chromium's own background
+services (its updates, Safe Browsing, autofill, the spelling
+dictionary, Google's account list), as for every door.
 
 **Kydux**, version 0.1.2.
 - One host of its own, `kydux.kidux.org`, on GitHub Pages: its pages, its
@@ -543,49 +547,109 @@ machine.
   `www.googletagmanager.com` and `region1.google-analytics.com`, after a
   yes to the notice. The game's own content policy lets it reach
   `*.googletagmanager.com`, `*.google-analytics.com` and
-  `*.analytics.google.com`, which is the manifest's list.
+  `*.analytics.google.com`, which is the manifest's list. On the Kidux
+  machine, over the notice answered *Accept*, the welcome page, the
+  story, the wizard made, the first lesson with its program run (Pyodide
+  loaded, *Python 3.14.2 listo*), the first level, the start screen, a
+  game exported and imported, and the welcome page's link out, the game
+  asked for nothing outside its five hosts; answered *Reject*, for
+  nothing but `kydux.kidux.org` and `kidux.goatcounter.com`.
 - Its first screen is the notice about cookies, with *Accept* and
   *Reject*, and *Reject* asks once more. Then, for a new player, the
-  welcome page, `#about`; the window's title is `Kydux — cookies`, then
-  `Kydux — ` and the page's name.
+  welcome page, `#about`. The window's title is `Kydux — cookies`, then
+  `Kydux — qué es` in Spanish and `Kydux — about` in English. From the
+  page as it loads, Tab, Tab, Enter answers *Reject*, which shows the
+  whole of why with the focus on *Accept them*, and Tab, Enter answers
+  *Yes, reject them*; the same keys in both languages. A *no* lasts a
+  day and a half, and the notice asks again after it; a *yes* is for
+  good.
 - Its language is the one saved in the browser, else the first of the
   browser's languages it has, else English. It has Spanish and English.
+  Inside Kidux it opens in the child's language with nothing added:
+  Spanish for Leo in Spanish, English for Leo in English
+  (`kidux-webapp`'s `--lang`).
+- The address's `?from=kidux` changes nothing in the game and stays in
+  the address through every screen (`?from=kidux#about`, `#story/…`,
+  `#wizard`, `#lesson/…`, `#level/…`).
+- Saved games are in the browser's local storage, in the module's own
+  Chromium profile, `~/.config/kidux/kydux/chromium` (D89). They are
+  there after the module is closed and opened again, and after the child
+  logs out and in: the start screen says *Continue game*. Kidux's
+  Chromium policy clears no site's data, and nothing of Kidux's clears a
+  module's profile. The game does not ask the browser to keep its
+  storage as persistent, which Chromium may otherwise clear on its own
+  only when the disk is nearly full.
+- The start screen's *Export* keeps a game as `kydux-<name>.json` through
+  Chromium's file dialog, which opens on the child's *Descargas*;
+  *Import a game* opens the same dialog on the child's home, reads the
+  file and asks the new game's name.
 - One link out of the game: *Meet Kidux* on the welcome page, to
-  `https://kidux.org`. No link opens a new window.
-- Saved games are in the browser's local storage. The start screen keeps
-  one as a `.json` file, through an address the page makes itself
-  (`blob:`), and opens one from a file.
+  `https://kidux.org`. In Kidux it shows Chromium's own *This page is
+  blocked* in the same window, and Alt+Left brings the game back with
+  nothing lost. No link opens a new window.
 - It draws with Phaser, on WebGL where the browser has it and on a 2D
-  canvas otherwise. With WebGL switched off the first scene draws the
-  same, grid and all. Nothing was looked at beyond the first scene.
+  canvas otherwise. On the Kidux test machine, which has no WebGL for a
+  website's module, the castle's gate and the first level draw whole,
+  grid and all. Nothing was looked at beyond the first level.
 - It is made for windows from 1024 × 700; a Kidux screen of 1280 × 800
   leaves it 1280 × 736 above the bar.
+- Its module's memory peaks at 0.8 GB over the first level, so the
+  module keeps the default cap, 2 GB.
 
 **Expedition Code**, in beta.
 - By Sean Clark; for ages 9 and up; *not intended for absolute
   beginners*, its notice says. Players write JavaScript-style code, or
   words that an AI turns into JavaScript, to complete missions; up to
   three play in one room, each on their own computer.
-- Hosts at the front page: `www.expeditioncode.com` (the bare name sends
-  to `www`), a WebSocket to `spotted-shepherd-639.convex.cloud`, the
-  backend; `fonts.googleapis.com`, `fonts.gstatic.com`;
-  `us.i.posthog.com`, `us-assets.i.posthog.com`; and the video's:
-  `www.youtube.com`, `i.ytimg.com`, `googleads.g.doubleclick.net`,
-  `static.doubleclick.net`, `www.google.com`, `jnn-pa.googleapis.com`.
-  Not looked at beyond the choice of an explorer: 4.40 plays a mission.
-- Its pages have no title. Its language is English, whatever the
-  browser's.
+- Its hosts: `www.expeditioncode.com` (the bare name sends to `www`);
+  its backend, a WebSocket to `spotted-shepherd-639.convex.cloud`,
+  without which *Play now* turns a wheel for ever; and Google's fonts,
+  `fonts.googleapis.com` and `fonts.gstatic.com`, the site's lettering.
+  Behind the wall with those four, the game makes an explorer, opens a
+  room, runs a mission's program and answers it. Refused, and the game
+  works without them: PostHog's `us.i.posthog.com` and
+  `us-assets.i.posthog.com`, its counting of clicks; and the front page's
+  video, `www.youtube.com` and what its player brings (`i.ytimg.com`,
+  `googleads.g.doubleclick.net`, `static.doubleclick.net`,
+  `www.google.com`, `jnn-pa.googleapis.com`). No voice service was asked
+  for over the first mission.
+- Its pages but *About* have no title, so the window is named after the
+  address: `expeditioncode.com` on the front page,
+  `expeditioncode.com/room/<id>/code` in a mission. Its front page is a
+  night-blue gradient, within 20 of `#101a38` over most of the room
+  above the bar. Its language is English, whatever the browser's.
 - *Play now* shows a notice that it is a beta, then *Create new
-  explorer* or *I have a secret phrase*: a display name, an emoji and a
-  phrase, kept as a hash; no email, no password. A device's id in the
-  browser keeps a player signed in on the same computer.
+  explorer* or *I have a secret phrase*. A new explorer is a display
+  name and an avatar chosen from a grid of emoji, and the site then
+  gives a secret phrase of three words (*Generate new phrase* draws
+  another), to write down: it is how the explorer comes back on another
+  computer. No email, no password. On the same computer the site keeps
+  the explorer in the browser, in the module's profile: closed and
+  opened again, it opens on the explorer's profile.
+- The avatars and some of the site's words are emoji, which a Kidux
+  machine has no font for: every avatar shows as the same empty box,
+  and a child cannot tell one from another.
+- A room is opened by its host, with a code of six letters on screen,
+  and joined by typing that code: there is no public list of rooms.
 - Its privacy page says: no advertising; the code a child writes is sent
   to an AI provider, Anthropic, without a name; a voice reads the game's
   words and a player may speak their code, through ElevenLabs; clicks
   are counted with PostHog and page views by Vercel, the site's own
   host.
-- Links out: `youtube.com/watch?v=VuWysb-EyrU`, the basics video, in a
-  new window; `seanclark.dev`; the providers' privacy pages.
+- The editor has a microphone button. The test machine has no
+  microphone, and the site says *Requested device not found*; what
+  Chromium asks on a computer with one is the owner's hand test.
+- *Learn the Basics* opens the YouTube video in a frame over the page,
+  which shows Chromium's *Your organization doesn't allow you to view
+  this site*; Esc closes it. The video is
+  `youtube.com/watch?v=VuWysb-EyrU`.
+- Links that ask for a new window (`target="_blank"`), as *About*'s
+  *Visit seanclark.dev*: Chromium opens a window of its own with tabs
+  and an address bar, and the page in it is blocked; Ctrl+W, or the
+  tab's ×, closes it and the game is there as it was. CodeCombat's
+  module does the same with its footer's links. The window is the
+  module's Chromium, so its wall and the policy hold in it.
+- Its module's memory peaks at 0.3 GB in a mission: the default cap.
 
 ## 6. Content
 
