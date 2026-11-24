@@ -865,7 +865,19 @@ The status file is `/run/kidux/update.status`, in the daemon's
 (`RuntimeDirectoryPreserve=yes`). If the daemon is restarted by the update,
 it finds the unit still running and the status file still there when it
 comes back, and carries on watching; a unit that has already ended leaves its verdict in the file,
-which is emitted once and deleted. The panel listens for the signals on the
+which is emitted once and deleted.
+
+A job has ended when the status file holds its verdict, whatever systemd
+says; or when systemd says the job's unit is gone, no such unit or a
+state that is not running, and one more look at the file finds no
+verdict: then the job stopped before it finished, and is reported as
+failed. While systemd does not answer, as when an update re-executes
+systemd itself, which every update of systemd does and which keeps it
+away for some 0.4 seconds, the job is still running and is asked about
+again at the next look, half a second later; the log says so once a
+job (D124). The question waits a second at most, since it is asked from
+the daemon's main loop. The daily upgrade's last known state stands the
+same way, and nothing is started while systemd does not answer. The panel listens for the signals on the
 bus name, so it survives the restart too; only its token dies with the
 daemon (section 4), and the next thing the adult does asks for the password
 again. Our own packages never restart greetd (`session.md`), so an update

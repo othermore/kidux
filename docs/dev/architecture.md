@@ -2154,3 +2154,15 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   leaves it so: what matters is that a child reaches no website outside
   the module's, and that holds there as in the module's own window.
   Ctrl+W, or the tab's ×, closes it.
+
+- **D124 — The daemon believes that an update's job has stopped only
+  when systemd says so.** Decided 2026-11-24, on update-watch-plan.md,
+  for the owner to overturn. Asked about a unit, systemd answers that it
+  runs, that it is gone, or nothing. The daemon read no answer as
+  *gone*, so an update that restarted systemd, which every update of
+  systemd does, was reported as stopped while it still ran, children
+  could sign in under it, and the next job was refused. No answer now
+  means *ask again*: the job ends by its own verdict, or when systemd
+  says its unit is gone. The same holds for Debian's daily upgrade,
+  whose last known state stands while systemd does not answer. No time
+  limit: a child waiting is better than dpkg under a child's session.

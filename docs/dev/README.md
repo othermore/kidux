@@ -85,7 +85,7 @@ instead, in English and Spanish.
 - [phase-4g-plan.md](phase-4g-plan.md): a guide beside a module, in a
   pane of the launcher's, and the first guides, Kig's, Step's and
   Kalzium's, built.
-- [phase-4h-plan.md](phase-4h-plan.md): the current plan: Kydux, the Kidux
+- [phase-4h-plan.md](phase-4h-plan.md): Kydux, the Kidux
   family's own game, as a module shown first, and Expedition Code, both
   doors to a website; built, but for the website's part, which waits on
   the branch `phase-4h-site` for the release's pictures (its step 4.44).
@@ -95,6 +95,9 @@ instead, in English and Spanish.
   hosting of the project's own, `apt.kidux.org`, whose logs say how many
   machines follow it, built; what is left is the old address's end and
   `ci/usage.py`.
+- [update-watch-plan.md](update-watch-plan.md): an update that restarts
+  systemd followed to its end, instead of reported as stopped (D124),
+  built.
 
 A plan describes what is to be built and is rewritten as things are built;
 a design document describes what exists. Neither keeps history: that belongs

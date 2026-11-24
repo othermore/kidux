@@ -212,6 +212,9 @@ can. Each phase assumes what it builds on is reasonably stable.
       does not start under a child's session, no child signs in while it
       runs, and a skipped run is made up when the last child logs out
       (updates-plan.md, D115).
+- [x] An update that restarts systemd followed to its end, instead of
+      reported as stopped while it still runs (update-watch-plan.md,
+      D124).
 - [ ] Updates that announce themselves: the sign-in screen and the adult
       panel say when updates wait, and when one has been installed and
       needs a restart, without the adult having to look for them; the
