@@ -38,7 +38,36 @@ Found by the battery `phase-4h-2`, run cold on 2026-11-24
 - From a warm image, which holds Debian's packages of the day, the same
   tests find one package and pass.
 
-Read from the code, and to be confirmed on a machine by step W1:
+Found on the quick loop's machine by step W1, on 2026-11-24, with the
+daemon 0.3.39 and the tests' package's 1.1 given a `postinst` that runs
+`systemctl daemon-reexec` and then waits ten seconds:
+
+- The daemon answered `failed`, *the update stopped before it finished*,
+  2.4 seconds after the start, while `kidux-update.service` was
+  `active`. The job went on and ended eleven seconds later, `Deactivated
+  successfully`, with 1.1 in place; its verdict was lost, since the
+  daemon had deleted the status file when it gave its own. The audit
+  trail says `update finished`, `failed`; the daemon's journal says
+  nothing.
+- systemd is away for about 0.4 seconds: the re-execution is asked for
+  at 17:59:56.007 and the new systemd runs at 56.114. A call to systemd
+  in flight then fails with `org.freedesktop.DBus.Error.NoReply`
+  (*Message recipient disconnected from message bus without replying*)
+  after 0.35 to 0.37 seconds, not after the call's own timeout; the next
+  call, at once, is answered. Three clients asking without a pause, some
+  9000 calls each over 25 seconds, met that one failure each, and no
+  other error.
+- systemd never answers `NoSuchUnit` for the running unit: before and
+  after its re-execution it answers `active`. It answers `NoSuchUnit`
+  before the job starts and once it has gone, `inactive` and then
+  collected.
+- So the fault is a race. The daemon asks every half second, and one of
+  its questions in flight during those 0.4 seconds is enough: the first
+  try met it, a second, with a 1.2 made the same way, did not and ended
+  `updated`. The battery's update, 43 packages with systemd among them,
+  met it in all three of its runs: acceptance, session and session-en.
+
+Read from the code:
 
 - `kiduxd/updates.py`, `Updates.poll`: with no verdict in the status file
   and `update_active()` false, the verdict is *the update stopped before
