@@ -1,0 +1,24 @@
+<!-- Expedition Code: a small rocket rising to the right over a night-blue
+     circle, two stars beside it. Drawn for Kidux, not the site's mark; flat
+     shapes like the avatars (branding/README.md). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"
+     role="img" aria-label="Expedition Code">
+  <circle cx="64" cy="64" r="60" fill="#24313f"/>
+  <!-- two stars -->
+  <path d="M34 30 L37 38 L45 41 L37 44 L34 52 L31 44 L23 41 L31 38 Z" fill="#f0a202"/>
+  <path d="M94 86 L96 91 L101 93 L96 95 L94 100 L92 95 L87 93 L92 91 Z" fill="#fdf6f0"/>
+  <g transform="rotate(45 64 64)">
+    <!-- the flame -->
+    <path d="M56 92 Q64 116 72 92 Z" fill="#e2703a"/>
+    <path d="M60 92 Q64 106 68 92 Z" fill="#f0a202"/>
+    <!-- the fins -->
+    <path d="M52 70 L40 92 L54 88 Z" fill="#e2703a" stroke="#141c26" stroke-width="3"
+          stroke-linejoin="round"/>
+    <path d="M76 70 L88 92 L74 88 Z" fill="#e2703a" stroke="#141c26" stroke-width="3"
+          stroke-linejoin="round"/>
+    <!-- the body, and its window -->
+    <path d="M64 18 C78 30 80 58 76 92 L52 92 C48 58 50 30 64 18 Z" fill="#fdf6f0"
+          stroke="#141c26" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="64" cy="54" r="8" fill="#cfe3f3" stroke="#141c26" stroke-width="3"/>
+  </g>
+</svg>

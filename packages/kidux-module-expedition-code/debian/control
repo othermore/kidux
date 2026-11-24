@@ -1,0 +1,42 @@
+Source: kidux-module-expedition-code
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3,
+               python3-kidux (>= 0.1.55~) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-expedition-code
+Architecture: all
+Depends: ${misc:Depends},
+         fonts-noto-color-emoji,
+         kidux-webapps (>= 0.1.11~),
+XB-Kidux-Name-en: Expedition Code
+XB-Kidux-Description-en: A coding game on its own website: children write JavaScript-style code to complete missions, alone or with up to two other players in a room. In English only, and in beta. Requires internet; it asks for no email and no password. Kidux is not connected with Expedition Code.
+XB-Kidux-Name-es: Expedition Code
+XB-Kidux-Description-es: Un juego de programación en su propia web: los niños escriben código al estilo de JavaScript para completar misiones, solos o con hasta otros dos jugadores en una sala. Solo en inglés, y en fase beta. Requiere conexión a internet; no pide correo ni contraseña. Kidux no tiene ninguna relación con Expedition Code.
+XB-Kidux-Ages: 9-
+XB-Kidux-Before: scratch
+Description: Kidux learning module: Expedition Code, a door to the Expedition Code website
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module opens the Expedition Code website, where children write code to
+ complete missions, in a window of its own, and no other website: a link
+ to anywhere else leads nowhere. Nothing of Expedition Code is in this
+ package; the site and its missions are its author's.
+ .
+ It needs the internet. The site is in English only and in beta. It asks
+ for no email and no password: a child chooses a name and an avatar, and
+ the site gives a secret phrase to write down. Children may play in a
+ room with others. The video the site opens with is on YouTube and does
+ not play here. The package brings a font of emoji, which the site's
+ avatars are drawn with.
+ .
+ Kidux and its author have no connection with Expedition Code.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

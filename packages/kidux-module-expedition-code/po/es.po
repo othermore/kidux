@@ -1,0 +1,23 @@
+# Spanish translation for kidux-module-expedition-code.
+# Copyright (C) 2026 Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-expedition-code package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-expedition-code 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-11-24 02:59+0100\n"
+"PO-Revision-Date: 2026-11-24 02:59+0100\n"
+"Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Expedition Code"
+msgstr "Expedition Code"
+
+msgid "A coding game on its own website: children write JavaScript-style code to complete missions, alone or with up to two other players in a room. In English only, and in beta. Requires internet; it asks for no email and no password. Kidux is not connected with Expedition Code."
+msgstr "Un juego de programación en su propia web: los niños escriben código al estilo de JavaScript para completar misiones, solos o con hasta otros dos jugadores en una sala. Solo en inglés, y en fase beta. Requiere conexión a internet; no pide correo ni contraseña. Kidux no tiene ninguna relación con Expedition Code."

@@ -53,6 +53,7 @@ module-basic            module-basic.png
 module-codecombat       module-codecombat.png
 module-wikipedia        module-wikipedia.png
 module-kydux            module-kydux.png
+module-expedition-code  module-expedition-code.png
 module-mail             module-mail.png
 module-gmail            module-gmail.png
 module-kig              module-kig.png

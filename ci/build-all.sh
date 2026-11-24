@@ -45,6 +45,7 @@ kidux-module-basic
 kidux-module-codecombat
 kidux-module-wikipedia
 kidux-module-kydux
+kidux-module-expedition-code
 kidux-module-mail
 kidux-module-gmail
 kidux-module-photography

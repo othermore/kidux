@@ -1,0 +1,20 @@
+# Expedition Code: a door to the Expedition Code website (D85, D121).
+# Nothing of it is shipped: its missions are its own and live on its site.
+# Its avatars are emoji, which the package's font draws.
+id = "expedition-code"
+version = "0.1.0"
+name = "Expedition Code"
+description = "A coding game on its own website: children write JavaScript-style code to complete missions, alone or with up to two other players in a room. In English only, and in beta. Requires internet; it asks for no email and no password. Kidux is not connected with Expedition Code."
+min_age = 9
+recommended_before = ["scratch"]
+launch = { web = "https://www.expeditioncode.com/" }
+# Its pages, its backend and its fonts, read from Chromium's net log over
+# the front page, a new explorer, a room and a mission's program run:
+# without the backend, a WebSocket to Convex, Play now waits for ever.
+# Left out (D122), with the game working without them: YouTube and what
+# its player brings, which the front page's video needs, since YouTube is
+# a site to browse; and PostHog, the site's counting of clicks.
+hosts = ["expeditioncode.com", "spotted-shepherd-639.convex.cloud",
+         "fonts.googleapis.com", "fonts.gstatic.com"]
+categories = ["programming"]
+i18n_domain = "kidux-module-expedition-code"
