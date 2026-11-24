@@ -1,6 +1,6 @@
 # BASIC
 
-*[Versión en español](../../es/modules/basic.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/basic.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **BASIC** was the programming language that introduced millions of children to computing during the home computer revolution of the 1980s, and it remains one of the most accessible and rewarding ways to learn real programming. This module recreates that foundational experience in a modern, split-screen format: on the left, an interactive environment with a code editor and display screen; on the right, a comprehensive step-by-step interactive tutorial.
 

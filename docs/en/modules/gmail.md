@@ -1,6 +1,6 @@
 # Gmail
 
-*[Versión en español](../../es/modules/gmail.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/gmail.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **Gmail** provides direct, secure, and isolated webmail access to Google email accounts in the child's configured system language.
 

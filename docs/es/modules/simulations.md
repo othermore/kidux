@@ -1,6 +1,6 @@
 # Simulaciones
 
-*[English version](../../en/modules/simulations.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
+*[English version](../../en/modules/simulations.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje) · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **Simulaciones** es una colección de laboratorios y experimentos científicos y matemáticos interactivos. Permite a los menores manipular conceptos abstractos de forma visual y lúdica: equilibrar balancines, desviar rayos de luz mediante prismas, experimentar con electricidad estática, construir átomos o simular órbitas gravitatorias de planetas.
 

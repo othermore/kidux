@@ -33,7 +33,7 @@ from sessionlib import (
 )
 
 #: The modules, in the order of their tiles.
-MODULES = ("basic", "blockly-games", "codecombat", "scratch", "tuxtype", "wikipedia")
+MODULES = ("basic", "blockly-games", "kydux", "scratch", "tuxtype", "wikipedia")
 AS = "runuser -u debian -- /usr/local/bin/kidux-as"
 #: A tile's white, and where the row of tiles is.
 WHITE, TILES = (0xFF, 0xFF, 0xFF), (0.08, 0.33, 0.92, 0.63)

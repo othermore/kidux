@@ -1,6 +1,6 @@
 # Kig
 
-*[English version](../../en/modules/kig.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
+*[English version](../../en/modules/kig.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje) · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **Kig** es una aplicación de geometría dinámica interactiva desarrollada por el proyecto KDE. Permite construir figuras geométricas en pantalla (puntos, rectas, polígonos, circunferencias y cónicas) que conservan estrictamente sus propiedades matemáticas al interactuar con ellas: un punto medio se mantiene en el centro del segmento y una paralela sigue siendo paralela al arrastrar cualquiera de sus elementos de origen.
 

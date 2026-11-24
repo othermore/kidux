@@ -1,6 +1,6 @@
 # ScratchJr
 
-*[Versión en español](../../es/modules/scratchjr.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/scratchjr.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **ScratchJr** is an introductory coding platform specifically designed for early learners aged 5 to 7. Children can animate interactive characters and create simple games and stories by snapping together intuitive graphical blocks, without needing to be fluent readers.
 

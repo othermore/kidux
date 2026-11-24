@@ -1,6 +1,6 @@
 # Scratch
 
-*[English version](../../en/modules/scratch.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
+*[English version](../../en/modules/scratch.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje) · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **Scratch** es el popular entorno de programación visual desarrollado por el MIT Media Lab y la Scratch Foundation. Permite a los estudiantes crear videojuegos interactivos, narraciones animadas y simulaciones encajando bloques de código visuales y coloridos.
 

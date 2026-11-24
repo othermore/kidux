@@ -1,6 +1,6 @@
 # Photography
 
-*[Versión en español](../../es/modules/photography.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/photography.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **Photography** is an illustrated, hands-on learning course designed to teach children how to take photographs with a real camera: understanding camera mechanics, holding the camera steadily, and mastering exposure, focus, and visual composition.
 

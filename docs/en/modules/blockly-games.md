@@ -1,6 +1,6 @@
 # Blockly Games
 
-*[Versión en español](../../es/modules/blockly-games.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/blockly-games.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **Blockly Games** is a series of interactive educational puzzles developed by Google to introduce computer science fundamentals and algorithmic thinking using visual coding blocks, following a gentle learning curve.
 

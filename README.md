@@ -2,7 +2,8 @@
 
 <p align="center">
   <a href="https://kidux.org/"><b>kidux.org</b></a> ·
-  <a href="README.es.md">Versión en español</a>
+  <a href="README.es.md">Versión en español</a> ·
+  Of the Kidux family: <a href="https://kydux.kidux.org/">Kydux, learn Python with magic</a>
 </p>
 <p align="center"><a href="https://github.com/sponsors/othermore"><img src="https://img.shields.io/badge/Donate-GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Donate with GitHub Sponsors"></a></p>
 
@@ -11,6 +12,13 @@
 With Kidux, each child enjoys a personal digital space that genuinely feels like their own: their chosen avatar and name on the sign-in screen, their personal password, and their preferred language. At the same time, adults retain comprehensive control: children can only access authorized educational modules, and only during the daily hours or schedules set by their family.
 
 Kidux is free software, free for everyone, at home or at school, and all its source code is on GitHub for anyone to study, change and share. Built on a proven Debian foundation, it provides bilingual English and Spanish support from day one.
+
+**Kydux, the family's own game.** [Kydux](https://kydux.kidux.org) is a
+game for learning real Python, made by the same hands as Kidux: a young
+wizard arrives at a school of magic, and every step there is taken by
+writing a program. In Kidux it is a learning module like the others. It
+is also played on its own, in any web browser and on any computer, at
+[kydux.kidux.org](https://kydux.kidux.org), with nothing to install.
 
 ## What a child sees
 
@@ -58,6 +66,12 @@ Every activity in Kidux is packaged as an independent learning module. Adults in
 
 The following modules are available in Kidux:
 
+- [Kydux](docs/en/modules/kydux.md): the Kidux family's own game for
+  learning real Python, from ages 8 and up. A story at a school of
+  magic, short lessons that explain one idea each, and levels solved by
+  writing a program. Free, in English and Spanish, with no account.
+  Requires internet. Also played without Kidux, in any browser, at
+  [kydux.kidux.org](https://kydux.kidux.org).
 - [GCompris](docs/en/modules/gcompris.md): a comprehensive educational suite featuring over 100 playful activities for children ages 2 to 10, covering literacy, numeracy, basic science, geography, colors, and keyboard and mouse coordination. Works offline; only its voices are downloaded the first time.
 - [Tux Typing](docs/en/modules/tuxtype.md): an engaging educational arcade game teaching touch typing to children ages 6 to 12. Help Tux the penguin catch falling fish and destroy comets by typing letters and words with increasing speed and precision.
 - [ScratchJr](docs/en/modules/scratchjr.md): an introductory programming environment created by the MIT Media Lab for young children (ages 5 to 7). Children snap together graphical blocks to create animated stories and games, even before learning to read.
@@ -65,7 +79,6 @@ The following modules are available in Kidux:
 - [Scratch](docs/en/modules/scratch.md): the world's most widely used visual block-based programming environment from MIT, used in schools globally to create interactive stories, games, and animations. Runs locally and securely, without connecting to the online Scratch community; only its library of characters, backdrops, and sounds comes from the internet. For children ages 8 and up.
 - [TurboWarp](docs/en/modules/turbowarp.md): an enhanced, high-performance edition of Scratch with an integrated compiler that runs complex animations and scripts at full speed, ideal for older computers or resource-intensive projects.
 - [BASIC](docs/en/modules/basic.md): experience classic computer programming as it began on early home computers using [wwwBASIC](https://github.com/google/wwwbasic), accompanied by an exclusive 30-chapter interactive tutorial guide teaching programming from scratch without needing internet access.
-- [CodeCombat](docs/en/modules/codecombat.md): a gateway to the [CodeCombat](https://codecombat.com/) web platform, where children learn real-world Python or JavaScript syntax while controlling heroes in a dungeon role-playing adventure. Requires an active internet connection and a platform account, and most of the site is paid for. Kidux is independent and has no commercial affiliation with CodeCombat.
 - [Wikipedia](docs/en/modules/wikipedia.md): direct access to the complete [Wikipedia](https://www.wikipedia.org/) encyclopedia in the child's language and related Wikimedia reference resources, while keeping the rest of the web safely blocked.
 - [Mail](docs/en/modules/mail.md): a simplified, secure email client powered by [Thunderbird](https://www.thunderbird.net/), pre-configured by an adult with a family account (Gmail, Outlook, iCloud, or any standard IMAP/SMTP provider). Children can read and send messages without facing complex technical settings.
 - [Gmail](docs/en/modules/gmail.md): dedicated web access to [Gmail](https://mail.google.com/), specially designed for child Google accounts supervised via Family Link. Requires an internet connection while keeping all other web browsing restricted. Kidux has no connection with Google.
@@ -75,7 +88,20 @@ The following modules are available in Kidux:
 - [Simulations](docs/en/modules/simulations.md): a curated collection of 51 interactive science and math simulations developed by [PhET Interactive Simulations](https://phet.colorado.edu/) (University of Colorado Boulder) for ages 6 to 14, bundled locally under the CC BY 4.0 licence for offline experimentation. Kidux has no connection with PhET.
 - [Photography](docs/en/modules/photography.md): a practical, 30-chapter interactive guide teaching digital photography with a real camera. Explores lighting, shutter speed, aperture, focus, and framing, providing practical exercises for each topic without needing internet access.
 
+Two more modules are doors to coding games on other people's websites,
+for a family that wants them. Kidux has no connection with either.
+
+- [CodeCombat](docs/en/modules/codecombat.md): [CodeCombat](https://codecombat.com/),
+  Python or JavaScript in a dungeon adventure. Requires internet and an
+  account, and most of the site is paid for.
+- [Expedition Code](docs/en/modules/expedition-code.md): [Expedition
+  Code](https://www.expeditioncode.com/), missions solved with
+  JavaScript-style code, alone or with others. Requires internet. In
+  English only, and in beta.
+
 ![GCompris](docs/images/en/module-gcompris.png)
+
+![Kydux](docs/images/en/module-kydux.png)
 
 ## Getting Kidux
 

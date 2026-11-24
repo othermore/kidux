@@ -1,6 +1,6 @@
 # Mail
 
-*[Versión en español](../../es/modules/mail.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/mail.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **Mail** is a child-friendly desktop email client powered by Mozilla Thunderbird. It provides learners with a safe, streamlined mailbox to read and compose emails without needing to configure complex network settings, as account details are managed by adults in the settings panel.
 

@@ -1,6 +1,6 @@
 # GCompris
 
-*[Versión en español](../../es/modules/gcompris.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/gcompris.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **GCompris** is a comprehensive educational software suite featuring more than a hundred interactive learning activities for children aged 2 to 10, covering literacy, mathematics, science, geography, and foundational mouse and keyboard skills.
 

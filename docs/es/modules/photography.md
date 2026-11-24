@@ -1,6 +1,6 @@
 # Fotografía
 
-*[English version](../../en/modules/photography.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
+*[English version](../../en/modules/photography.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje) · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **Fotografía** es un curso práctico e ilustrado diseñado para aprender a fotografiar con una cámara real: cómo funciona la óptica, cómo sujetar el equipo con estabilidad y cómo dominar la exposición, el enfoque y la composición visual.
 

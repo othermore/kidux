@@ -1,6 +1,6 @@
 # BASIC
 
-*[English version](../../en/modules/basic.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
+*[English version](../../en/modules/basic.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje) · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **BASIC** fue el lenguaje con el que aprendieron a programar millones de personas en los primeros ordenadores domésticos de los años 80, y sigue siendo una de las formas más didácticas, directas y divertidas de comprender cómo funciona un programa. Este módulo recrea esa experiencia clásica mediante un entorno dividido en dos partes: a la izquierda, un ordenador interactivo con su editor de código y pantalla de salida; a la derecha, un completo manual interactivo paso a paso.
 

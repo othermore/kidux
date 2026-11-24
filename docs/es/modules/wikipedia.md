@@ -1,6 +1,6 @@
 # Wikipedia
 
-*[English version](../../en/modules/wikipedia.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
+*[English version](../../en/modules/wikipedia.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje) · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **Wikipedia** proporciona acceso restringido a la enciclopedia libre y sus proyectos educativos hermanos (Wikcionario y Wikilibros) en el idioma configurado para el menor, en un entorno de lectura protegido.
 

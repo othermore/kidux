@@ -64,8 +64,10 @@ icon theme is needed and the tile is the same on every machine.
   window; `web`, an `https://` address on the internet, in which `{lang}`
   stands for the child's language code (`https://{lang}.wikipedia.org/`)
   and `{<key>}` for the value of one of the module's settings, encoded
-  for an address (`&Email={email}`, Gmail's), opened the same way; or `exec`, a native program. Whichever it is, the
-  launcher starts it in a systemd user scope, `kidux-module-<id>`, which is
+  for an address (`&Email={email}`, Gmail's), and which may carry a fixed
+  word of its own (`https://kydux.kidux.org/?from=kidux`, which tells the
+  game it is opened from Kidux), opened the same way; or `exec`, a native
+  program. Whichever it is, the launcher starts it in a systemd user scope, `kidux-module-<id>`, which is
   how it is ended and how its memory is capped.
 - `hosts` names the internet hosts a web module's pages may reach, each
   standing for itself and every name under it: lower-case DNS names, no
@@ -212,7 +214,13 @@ Modules page shows as such and removes as a folder (D101).
   that it opens a website, whose site it is, and what the site asks for,
   an account or a subscription, before the adult switches it on. What the
   child does there is the site's, under the site's rules; Kidux only keeps
-  the door to that site and no other.
+  the door to that site and no other. Its `hosts` are what the site needs
+  to work, each by its own name: its pages, its backend, the fonts and
+  libraries it fetches behind them. Never a site to browse, though a page
+  embeds it or links to it, since the wall holds a module to hosts and not
+  to pages; nor a third party's counting or advertising when the site
+  works without it. A site of the Kidux family keeps its own counting
+  (D122).
 - **A link out of a module opens nothing** (D107). A program that asks
   the desktop to open a web page or a link, a button such as Step's *Open
   in browser* or a link in its help, gets a bubble from the module, *That
@@ -269,7 +277,9 @@ package, under `packages/kidux-module-<id>/content/<lang>/`, since a source
 package holds only its own directory; English is the reference tree, and
 `tests/project/content.py` fails when the Spanish tree is missing a file or
 was translated from an older English one. A third-party program is only
-chosen as a module if it already speaks both languages.
+chosen as a module if it already speaks both languages; a door to a
+website in one language says so in its description, as Expedition Code's
+does (D121).
 
 **A guide** (`guide = true`) is such content: one lesson a file,
 `content/<lang>/NN-<slug>.md`, in the order of their numbers; the files

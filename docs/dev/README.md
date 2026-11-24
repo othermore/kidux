@@ -82,9 +82,12 @@ instead, in English and Spanish.
   Photography, a guide to taking photographs with a real camera, built.
 - [phase-4f-plan.md](phase-4f-plan.md): Kig, Kalzium and Step as modules,
   and Simulations, PhET's experiments served on the computer, built.
-- [phase-4g-plan.md](phase-4g-plan.md): the current plan: a guide beside
-  a module, in a pane of the launcher's, and the first guides, Kig's,
-  Step's and Kalzium's.
+- [phase-4g-plan.md](phase-4g-plan.md): a guide beside a module, in a
+  pane of the launcher's, and the first guides, Kig's, Step's and
+  Kalzium's, built.
+- [phase-4h-plan.md](phase-4h-plan.md): the current plan: Kydux, the Kidux
+  family's own game, as a module shown first, and Expedition Code, both
+  doors to a website.
 - [test-battery-plan.md](test-battery-plan.md): making `ci/test-release.sh`
   faster without making it mean less.
 - [apt-archive-plan.md](apt-archive-plan.md): the stable suite on a

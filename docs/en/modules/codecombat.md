@@ -1,6 +1,6 @@
 # CodeCombat
 
-*[Versión en español](../../es/modules/codecombat.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/codecombat.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **CodeCombat** is an educational coding adventure role-playing game where learners write genuine Python or JavaScript to direct their hero in real time through challenging dungeon campaigns.
 

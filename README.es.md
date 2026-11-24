@@ -2,7 +2,8 @@
 
 <p align="center">
   <a href="https://kidux.org/es/"><b>kidux.org</b></a> ·
-  <a href="README.md">English version</a>
+  <a href="README.md">English version</a> ·
+  De la familia Kidux: <a href="https://kydux.kidux.org/">Kydux, aprende Python con magia</a>
 </p>
 <p align="center"><a href="https://github.com/sponsors/othermore"><img src="https://img.shields.io/badge/Donar-GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Donar con GitHub Sponsors"></a></p>
 
@@ -11,6 +12,14 @@
 Con Kidux, cada menor dispone de un espacio digital que siente verdaderamente suyo: su nombre y su avatar en la pantalla de bienvenida, su propia contraseña personal y su idioma preferido. Al mismo tiempo, los adultos mantienen el control total: solo estarán disponibles los módulos de aprendizaje previamente autorizados, y únicamente durante el horario o tiempo diario que la familia decida.
 
 Kidux es software libre y gratuito para todos, en casa o en el colegio, y su código fuente está en GitHub para que cualquiera pueda estudiarlo, modificarlo y compartirlo. Está construido sobre una base sólida y probada de Debian, disponible en español y en inglés desde el primer día.
+
+**Kydux, el juego de la familia.** [Kydux](https://kydux.kidux.org) es
+un juego para aprender Python de verdad, hecho por las mismas manos que
+Kidux: quien juega llega a un colegio de magia, y allí cada paso se da
+escribiendo un programa. En Kidux es un módulo de aprendizaje más.
+También se juega por su cuenta, en cualquier navegador y en cualquier
+ordenador, en [kydux.kidux.org](https://kydux.kidux.org), sin instalar
+nada.
 
 ## Lo que ve un niño
 
@@ -58,6 +67,13 @@ Todas las actividades de Kidux están organizadas en módulos de aprendizaje ind
 
 Estos son los módulos incluidos y disponibles en Kidux:
 
+- [Kydux](docs/es/modules/kydux.md): el juego de la familia Kidux para
+  aprender Python de verdad, a partir de 8 años. Una historia en un
+  colegio de magia, lecciones cortas que explican una idea cada una, y
+  niveles que se resuelven escribiendo un programa. Gratis, en español
+  y en inglés, sin cuenta. Requiere conexión a internet. También se
+  juega sin Kidux, en cualquier navegador, en
+  [kydux.kidux.org](https://kydux.kidux.org).
 - [GCompris](docs/es/modules/gcompris.md): una completa suite educativa con más de 100 actividades para niños de 2 a 10 años que abarcan lectura, numeración, ciencias, geografía, colores y destreza motriz con teclado y ratón. Funciona sin conexión; solo sus voces se descargan la primera vez.
 - [Tux Typing](docs/es/modules/tuxtype.md): un clásico juego formativo de mecanografía para niños de 6 a 12 años. Ayuda al pingüino Tux a atrapar peces y salvar cometas tecleando letras y palabras con velocidad y precisión crecientes.
 - [ScratchJr](docs/es/modules/scratchjr.md): la versión adaptada de Scratch para los más pequeños (de 5 a 7 años). Permite crear historias y animaciones interactivas ensamblando bloques visuales con dibujos, sin necesidad de saber leer todavía.
@@ -65,7 +81,6 @@ Estos son los módulos incluidos y disponibles en Kidux:
 - [Scratch](docs/es/modules/scratch.md): el conocido entorno de programación visual por bloques del MIT utilizado en escuelas de todo el mundo para crear videojuegos, animaciones y proyectos interactivos. Funciona de manera local e independiente, sin conectar a la red social de Scratch; solo su biblioteca de personajes, fondos y sonidos viene de internet. Para niños a partir de 8 años.
 - [TurboWarp](docs/es/modules/turbowarp.md): una versión de alto rendimiento de Scratch con un compilador integrado que permite ejecutar los mismos bloques y proyectos con total fluidez, ideal para ordenadores más lentos o proyectos muy pesados.
 - [BASIC](docs/es/modules/basic.md): una recreación de la programación clásica en BASIC de los primeros ordenadores domésticos mediante [wwwBASIC](https://github.com/google/wwwbasic), acompañada de un curso interactivo propio de 30 capítulos que enseña a programar desde cero sin requerir conexión a internet.
-- [CodeCombat](docs/es/modules/codecombat.md): una puerta de acceso controlado a la plataforma web [CodeCombat](https://codecombat.com/), donde los niños aprenden a escribir código real en Python o JavaScript mientras guían a su héroe en un juego de rol de mazmorras. Requiere conexión a internet y una cuenta de usuario, y casi toda la web es de pago. Kidux es independiente y no tiene afiliación comercial con CodeCombat.
 - [Wikipedia](docs/es/modules/wikipedia.md): acceso directo a la enciclopedia libre [Wikipedia](https://www.wikipedia.org/) en el idioma del niño y a sus proyectos educativos asociados, manteniendo bloqueado el resto de internet para garantizar consultas seguras.
 - [Correo](docs/es/modules/mail.md): un cliente de correo electrónico seguro y simplificado basado en [Thunderbird](https://www.thunderbird.net/), preconfigurado por un adulto con una cuenta familiar (Gmail, Outlook, iCloud o cualquier servidor IMAP/SMTP). El menor solo tiene que leer y escribir mensajes, sin opciones complejas de configuración.
 - [Gmail](docs/es/modules/gmail.md): acceso web directo y exclusivo a [Gmail](https://mail.google.com/), especialmente diseñado para cuentas infantiles de Google supervisadas mediante Family Link. Requiere conexión a internet y mantiene el resto de la navegación web restringida. Kidux no tiene ninguna relación con Google.
@@ -75,7 +90,21 @@ Estos son los módulos incluidos y disponibles en Kidux:
 - [Simulaciones](docs/es/modules/simulations.md): colección de 51 experimentos interactivos de física, química, matemáticas y ciencias de la Tierra creados por [PhET Interactive Simulations](https://phet.colorado.edu/) (Universidad de Colorado Boulder), adaptados para niños de 6 a 14 años e instalados localmente para utilizarlos sin conexión bajo licencia CC BY 4.0. Kidux no tiene ninguna relación con PhET.
 - [Fotografía](docs/es/modules/photography.md): una guía práctica en 30 capítulos interactivos para aprender el arte de la fotografía con una cámara digital real. Enseña conceptos como iluminación, velocidad de obturación, apertura del diafragma, enfoque y composición, proponiendo retos prácticos para probar con la cámara sin necesidad de internet.
 
+Otros dos módulos son puertas a juegos de programación en webs de otras
+personas, para la familia que los quiera. Kidux no tiene relación con
+ninguno de los dos.
+
+- [CodeCombat](docs/es/modules/codecombat.md): [CodeCombat](https://codecombat.com/),
+  Python o JavaScript en una aventura de mazmorras. Requiere conexión a
+  internet y una cuenta, de pago para casi todo.
+- [Expedition Code](docs/es/modules/expedition-code.md): [Expedition
+  Code](https://www.expeditioncode.com/), misiones que se resuelven con
+  código al estilo de JavaScript, a solas o con otros. Requiere
+  conexión a internet. Solo en inglés, y en fase beta.
+
 ![GCompris](docs/images/es/module-gcompris.png)
+
+![Kydux](docs/images/es/module-kydux.png)
 
 ## Cómo conseguir Kidux
 

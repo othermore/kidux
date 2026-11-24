@@ -1,6 +1,6 @@
 # Step
 
-*[Versión en español](../../es/modules/step.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/step.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **Step** is an interactive two-dimensional physical simulator developed by the KDE Education Project. It enables learners to build virtual mechanical experiments on a canvas by placing bodies, springs, ropes, and forces to simulate motion laws, collision dynamics, and energy conservation in real time.
 

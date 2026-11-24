@@ -1,6 +1,6 @@
 # Kalzium
 
-*[English version](../../en/modules/kalzium.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
+*[English version](../../en/modules/kalzium.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje) · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **Kalzium** es una completa tabla periódica interactiva de los elementos químicos diseñada por el proyecto educativo de KDE, ideal para estudiantes de ciencias y química.
 

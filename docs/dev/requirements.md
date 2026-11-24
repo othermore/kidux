@@ -107,8 +107,12 @@ and built so that any further language is a translation, not a development task.
 - **Electronics with micro:bit:** several guided, progressive projects (light an LED,
   sensors, radio, …) with the official MakeCode (blocks) and micro:bit Python
   editors served locally and working offline, including their simulators.
+- **Kydux:** the Kidux family's own game for learning real Python, a door to its
+  website, in English and Spanish, free and with no account.
 - **CodeCombat:** optional online module (real Python/JavaScript, free first world,
   subscription for the rest) for families who want it.
+- **Expedition Code:** optional online module (missions solved with JavaScript-style
+  code, in English only, in beta) for families who want it.
 - **AI learning:** guided projects in which the child configures and uses AI agents
   in a controlled and safe way through an adult-managed gateway.
 - **Python:** our own course in a real editor (Thonny): turtle graphics, then games

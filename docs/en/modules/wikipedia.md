@@ -1,6 +1,6 @@
 # Wikipedia
 
-*[Versión en español](../../es/modules/wikipedia.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/wikipedia.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **Wikipedia** provides filtered, secure access to the comprehensive free encyclopedia and its sister educational projects (such as Wiktionary and Wikibooks) in the child's configured language.
 

@@ -1,6 +1,6 @@
 # TurboWarp
 
-*[English version](../../en/modules/turbowarp.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
+*[English version](../../en/modules/turbowarp.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje) · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **TurboWarp** es una versión de alto rendimiento de Scratch basada en un compilador optimizado a JavaScript. Mantiene la misma interfaz, bloques y compatibilidad de archivos que Scratch, pero ejecuta los proyectos y animaciones con una tasa de fotogramas muy superior.
 

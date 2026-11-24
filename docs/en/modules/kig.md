@@ -1,6 +1,6 @@
 # Kig
 
-*[Versión en español](../../es/modules/kig.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/kig.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **Kig** is an interactive dynamic geometry environment developed by the KDE Education Project. It allows students to construct mathematical figures—points, lines, polygons, circles, and conics—that strictly maintain their geometric properties when manipulated: a midpoint remains centered and parallel lines remain parallel when dragging any parent points.
 

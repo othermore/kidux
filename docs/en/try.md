@@ -1,6 +1,6 @@
 # Trying Kidux in an emulator
 
-*[Versión en español](../es/try.md)*
+*[Versión en español](../es/try.md)* · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **Kidux can be tried on the computer you use every day, before you give it a computer of its own.** This is done with an emulator: a program that runs a complete computer inside a window. The emulator starts Kidux from an image prepared especially for this trial, with a family already in it, one child and several learning modules switched on for them. Nothing is installed on your computer apart from the emulator itself, and when you close the window everything is left exactly as it was.
 

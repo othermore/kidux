@@ -179,6 +179,14 @@ can. Each phase assumes what it builds on is reasonably stable.
       the program's half done, copied into the child's Documents (4.35
       to 4.37); and a link out of a module answered with a bubble, opening
       nothing (4.38, D107; phase-4g-plan.md).
+- [ ] Kydux, the Kidux family's own game, as a door to its website, its
+      counting open and kidux.org closed (4.41, D120; phase-4h-plan.md).
+- [ ] Expedition Code as a door to its website, with its backend and
+      fonts and without YouTube or its counting, and a font of emoji for
+      its avatars (4.42, D121, D122).
+- [ ] Kydux first in the README, the user guide and the website, with a
+      link to the game on every page, and the doors to other people's
+      coding games last (4.43, 4.44).
 - [ ] A file that is not a web page, a plain text file for one, that a
       program asks the desktop to open: `xdg-open` in a child's session
       finds no default for it and falls back on `run-mailcap`, which

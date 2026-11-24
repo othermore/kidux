@@ -1,6 +1,6 @@
 # Simulations
 
-*[Versión en español](../../es/modules/simulations.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/simulations.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **Simulations** is a curated suite of interactive math and science laboratories. It allows learners to explore abstract scientific concepts through direct visual experimentation: balancing seesaws, bending light beams with glass prisms, generating static electricity, assembling atoms, and simulating planetary gravitational orbits.
 

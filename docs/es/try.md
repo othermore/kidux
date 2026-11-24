@@ -1,6 +1,6 @@
 # Probar Kidux en un emulador
 
-*[English version](../en/try.md)*
+*[English version](../en/try.md)* · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **Kidux se puede probar en el ordenador de todos los días, antes de dedicarle un ordenador propio.** Para ello se utiliza un emulador: un programa que hace funcionar un ordenador completo dentro de una ventana. El emulador arranca Kidux desde una imagen preparada especialmente para esta prueba, en la que ya hay una familia creada, con un niño y varios módulos de aprendizaje activados para él. En tu ordenador no se instala nada aparte del propio emulador, y cuando cierras la ventana todo queda exactamente como estaba.
 

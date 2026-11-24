@@ -1,6 +1,6 @@
 # Tux Typing
 
-*[Versión en español](../../es/modules/tuxtype.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/tuxtype.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **Tux Typing** is a classic arcade-style educational typing game starring Tux the Linux Penguin. It helps children master keyboard layout, improve typing speed, and build muscle memory through playful arcade challenges.
 

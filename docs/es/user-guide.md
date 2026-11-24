@@ -1,6 +1,6 @@
 # Manual de uso de Kidux
 
-*[English version](../en/user-guide.md)*
+*[English version](../en/user-guide.md)* · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 Este manual es para el adulto que se ocupa de un ordenador con Kidux. Los
 niños no necesitan manual: cada pantalla a la que pueden llegar se
@@ -966,6 +966,11 @@ Cada módulo de aprendizaje es algo que un niño puede abrir desde su
 pantalla. Un adulto activa cada módulo para cada niño, en la página
 **Módulos** del panel de adulto (sección 8).
 
+Uno de ellos es de la casa: **Kydux**, un juego para aprender Python,
+hecho por las mismas manos. Se juega en su web, así que cualquiera lo
+juega también sin Kidux, en cualquier navegador, en
+[kydux.kidux.org](https://kydux.kidux.org).
+
 Algunos módulos están hechos de páginas web. Se abren a toda pantalla por
 encima de la barra, en el navegador Chromium, sin barra de direcciones ni
 pestañas, y solo muestran sus propias páginas. Un enlace que salga de
@@ -979,12 +984,39 @@ ese sitio y nada más de internet. Un enlace a cualquier otro sitio no
 lleva a ninguna parte, y Chromium enseña una página que dice que está
 bloqueado. Su nombre y su descripción dicen qué sitio abren y qué pide,
 como una cuenta o una suscripción, para que el adulto lo sepa antes de
-activarlo. Necesitan internet siempre que se usan.
+activarlo. Necesitan internet siempre que se usan. Lo que una web así
+cuenta de sus visitas, y lo que pregunta sobre cookies, es cosa de esa
+web.
 
 Los módulos cuyo nombre empieza por **[Prueba]** existen para comprobar
 que Kidux funciona, no para que los use un niño. Uno que dice **Una
 carpeta, no de un paquete** se copió en el ordenador a mano en vez de
 instalarse; **Eliminar** quita su carpeta.
+
+### Kydux
+
+**Kydux** es un juego para aprender a programar en Python, para niños a
+partir de ocho años. Quien juega llega a un colegio de magia, y allí
+cada paso pide un poco de Python de verdad: una historia cuenta lo que
+pasa, una lección corta explica una idea, y el nivel que viene después
+pide usarla en un programa propio. Está en el idioma del niño y no
+necesita cuenta.
+
+Kydux es de la familia Kidux, y el módulo es una puerta a su web: abre
+el juego y ninguna otra web. Necesita internet siempre que se usa. El
+mismo juego se juega sin Kidux, en cualquier navegador, en
+[kydux.kidux.org](https://kydux.kidux.org).
+
+La primera vez, el juego pregunta si puede usar cookies para contar
+cómo se juega. Esa pregunta es del propio juego, y se juega igual se
+responda lo que se responda. Las partidas de cada niño se guardan en el
+ordenador, las de cada uno por separado, y al día siguiente siguen ahí;
+la pantalla de inicio del juego también guarda una partida como
+archivo, donde el niño diga, y la vuelve a abrir.
+
+![Kydux](../images/es/module-kydux.png)
+
+Más en [su página](modules/kydux.md).
 
 ### GCompris
 
@@ -1130,36 +1162,6 @@ misma ventana para traerlo de vuelta.
 ![BASIC](../images/es/module-basic.png)
 
 Más en [su página](modules/basic.md).
-
-### CodeCombat
-
-**CodeCombat** es una puerta a la web de CodeCombat, donde los niños a
-partir de nueve años aprenden a escribir Python y JavaScript de verdad
-jugando: un héroe recorre cada nivel como le dice el programa del niño.
-La web es de CodeCombat, en el idioma del niño, y el módulo la abre a
-ella y a ninguna otra. Kidux no tiene ninguna relación con CodeCombat.
-
-Necesita internet y una cuenta de CodeCombat. Los primeros niveles son
-gratis. Casi toda la web necesita una suscripción, que un adulto compra
-desde otro ordenador, porque el módulo no abre ninguna otra web.
-
-Un adulto pone la cuenta de cada niño en los **Ajustes** de CodeCombat
-del panel: su correo y su contraseña. Entonces el módulo entra solo cada
-vez que se abre, diciendo *Conectándose a CodeCombat…* mientras tanto.
-Pone la web en el idioma del niño y abre donde se empieza a jugar. El
-niño nunca ve la contraseña. Si la cuenta no es correcta o la web no
-contesta, el módulo lo dice y ofrece intentarlo otra vez.
-
-Sin cuenta puesta, el módulo dice que lo más fácil es que un adulto la
-ponga en el panel, y ofrece un botón para entrar a mano mientras tanto.
-Ese botón abre la ventana de entrada de la web, donde el niño escribe el
-correo y la contraseña de la cuenta. Entrar con Google, Facebook o Clever
-no lleva a ninguna parte aquí. La web puede preguntar por sus cookies la
-primera vez; esa pregunta es de la propia web.
-
-![CodeCombat](../images/es/module-codecombat.png)
-
-Más en [su página](modules/codecombat.md).
 
 ### Wikipedia
 
@@ -1342,6 +1344,54 @@ imagen hecha por un ordenador, y lo dice debajo.
 ![Fotografía](../images/es/module-photography.png)
 
 Más en [su página](modules/photography.md).
+
+### CodeCombat
+
+**CodeCombat** es una puerta a la web de CodeCombat, donde los niños a
+partir de nueve años aprenden a escribir Python y JavaScript de verdad
+jugando: un héroe recorre cada nivel como le dice el programa del niño.
+La web es de CodeCombat, en el idioma del niño, y el módulo la abre a
+ella y a ninguna otra. Kidux no tiene ninguna relación con CodeCombat.
+
+Necesita internet y una cuenta de CodeCombat. Los primeros niveles son
+gratis. Casi toda la web necesita una suscripción, que un adulto compra
+desde otro ordenador, porque el módulo no abre ninguna otra web.
+
+Un adulto pone la cuenta de cada niño en los **Ajustes** de CodeCombat
+del panel: su correo y su contraseña. Entonces el módulo entra solo cada
+vez que se abre, diciendo *Conectándose a CodeCombat…* mientras tanto.
+Pone la web en el idioma del niño y abre donde se empieza a jugar. El
+niño nunca ve la contraseña. Si la cuenta no es correcta o la web no
+contesta, el módulo lo dice y ofrece intentarlo otra vez.
+
+Sin cuenta puesta, el módulo dice que lo más fácil es que un adulto la
+ponga en el panel, y ofrece un botón para entrar a mano mientras tanto.
+Ese botón abre la ventana de entrada de la web, donde el niño escribe el
+correo y la contraseña de la cuenta. Entrar con Google, Facebook o Clever
+no lleva a ninguna parte aquí.
+
+![CodeCombat](../images/es/module-codecombat.png)
+
+Más en [su página](modules/codecombat.md).
+
+### Expedition Code
+
+**Expedition Code** es una puerta a la web de Expedition Code, un juego
+de programación para niños a partir de nueve años que ya hayan
+programado un poco: las misiones se completan escribiendo código al
+estilo de JavaScript, a solas o con hasta otros dos jugadores en una
+sala. La web es de su autor, está solo en inglés y en fase beta, y el
+módulo la abre a ella y a ninguna otra. Kidux no tiene ninguna relación
+con Expedition Code.
+
+Necesita internet, y ninguna cuenta: el niño elige un nombre y un
+avatar, y la web le da una frase secreta para apuntarla, con la que
+vuelve a entrar desde otro ordenador. El vídeo con el que se presenta la
+web está en YouTube, que aquí sigue cerrado.
+
+![Expedition Code](../images/es/module-expedition-code.png)
+
+Más en [su página](modules/expedition-code.md).
 
 ## 10. Actualizar y reinstalar
 

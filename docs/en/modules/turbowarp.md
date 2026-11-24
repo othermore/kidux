@@ -1,6 +1,6 @@
 # TurboWarp
 
-*[Versión en español](../../es/modules/turbowarp.md)* · [Back to the user guide](../user-guide.md#9-learning-modules)
+*[Versión en español](../../es/modules/turbowarp.md)* · [Back to the user guide](../user-guide.md#9-learning-modules) · Of the Kidux family: [Kydux, learn Python with magic](https://kydux.kidux.org)
 
 **TurboWarp** is a high-performance alternative to Scratch featuring an optimised Just-in-Time JavaScript compiler. It shares the exact same block interface and project formats as Scratch, but runs games, scripts, and animations with substantially higher framerates.
 

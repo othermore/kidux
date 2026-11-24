@@ -1,6 +1,6 @@
 # Correo
 
-*[English version](../../en/modules/mail.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
+*[English version](../../en/modules/mail.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje) · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **Correo** es un cliente de correo electrónico adaptado para menores basado en Mozilla Thunderbird. Permite al niño leer y redactar mensajes en un entorno simplificado y seguro, sin necesidad de realizar configuraciones técnicas complejas: la cuenta es administrada directamente por un adulto desde el panel.
 

@@ -421,8 +421,9 @@ the panel, the installer, the modules and the lesson content.
 ## 8. Technology per module
 
 Verified against trixie on 2026-09-22 (`qa.debian.org/madison`), the
-typing and Scratch family's rows in phase 4, on 2026-10-01, and the BASIC,
-CodeCombat and Wikipedia rows on 2026-10-03 (phase-4b-plan.md), against
+typing and Scratch family's rows in phase 4, on 2026-10-01, the BASIC,
+CodeCombat and Wikipedia rows on 2026-10-03 (phase-4b-plan.md), and the
+Kydux and Expedition Code rows on 2026-11-24 (phase-4h-plan.md), against
 what was built and tested.
 
 | Module | Choice | Source | Why |
@@ -437,7 +438,9 @@ what was built and tested.
 | micro:bit, blocks | MakeCode for micro:bit, `pxt staticpkg` build served locally | packaged by us (MIT upstream) | Official editor with simulator, offline, translated. Flashing over WebUSB in Chromium; hex download as fallback. |
 | micro:bit, Python | micro:bit Python Editor v3, static build served locally | packaged by us (MIT upstream) | Official editor with simulator and reference, offline, `es-ES` translation shipped upstream. Thonny is the advanced option once the child knows Python. |
 | Python | Our own course in Thonny 4.1: `turtle`, then Pygame Zero (`python3-pgzero`, Thonny has a built-in Pygame Zero mode), then micro:bit | `thonny` (trixie) | Real Python in a real editor, offline, free. This is the main road to Python. |
+| Kydux | `kidux-module-kydux`, a door to kydux.kidux.org (D85, D120) | ours, the game's own repository `github.com/othermore/kydux`, nothing of it in the package, step 4.41 | The family's own game: real Python taught from nothing, in English and Spanish, free, with no account. |
 | CodeCombat | `kidux-module-codecombat`, a door to codecombat.com (D85, D86) | ours, nothing of CodeCombat's in it, step 4.13 | Teaches real Python/JavaScript and is translated, but the levels are proprietary (`LICENSE-LEVELS.md`: not open source, not allowed on other servers), so it cannot be shipped locally. First world free, rest by subscription bought by the adult. |
+| Expedition Code | `kidux-module-expedition-code`, a door to expeditioncode.com (D85, D121) | ours, nothing of Expedition Code's in it, step 4.42 | Missions solved with JavaScript-style code, alone or with others, with no account to give; in English only and in beta. Its package brings `fonts-noto-color-emoji` (trixie, 2.051), which its avatars are drawn with. |
 | Wikipedia (8–) | `kidux-module-wikipedia`, a door to the encyclopedia in the child's language and the Wikimedia projects (D85, D87) | ours, nothing of Wikipedia's in it, step 4.14 | The whole encyclopedia, free and in every language Kidux ships, with the rest of the internet closed; written for everyone, so the adult decides. |
 | Mail (8–) | `kidux-module-mail`: Thunderbird 140 ESR with the account an adult gives, locked by its policies (D95) | `thunderbird`, `thunderbird-l10n-all` (trixie), step 4.22 | A real mail client that signs in to Google and Microsoft by itself and speaks IMAP to every other provider, with nothing for the child to set up; not for a Family Link account, which Google keeps out of it. |
 | Gmail (8–) | `kidux-module-gmail`, a door to Gmail's website with the child's address filled in (D85, D96) | ours, nothing of Google's in it, step 4.23 | The way for a Family Link account, which Google keeps out of Thunderbird, and for a family that prefers the website. |
@@ -2101,3 +2104,41 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   `sleep.conf.d` sets `AllowHibernation`, `AllowSuspendThenHibernate`
   and `AllowHybridSleep` to no, and Kidux never changes swap, the
   kernel's command line or the initramfs (power.md).
+
+- **D120 — Kydux, the family's own game, is a door to its site with its
+  counting open, and is shown first.** Decided 2026-11-24 by the owner,
+  on phase-4h-plan.md. The game is played on its site, `kydux.kidux.org`,
+  and nothing of it is shipped: a new version of the game needs no new
+  module. Its hosts are the game's and those its counting uses, since the
+  game asks about cookies itself and the family reads its own numbers;
+  never `kidux.org`. The documents and the website show it first, link to
+  it and say it is played in any browser without Kidux; the doors to
+  other people's coding games come last. Its address carries
+  `?from=kidux`, which the game can read later to leave out its link to
+  `kidux.org` and to tell Kidux's players apart, with no new version of
+  the module.
+
+- **D121 — Expedition Code is a door to expeditioncode.com, nothing of it
+  shipped, in English only, and Kidux says it is not connected with
+  it.** Decided 2026-11-24 by the owner, on phase-4h-plan.md. No account
+  is given on the panel: the site keeps a player by a name and an avatar
+  the child chooses and a secret phrase it gives. YouTube and the site's
+  counting are left out. Its description says the language, that it is
+  in beta, that children may play with others in a room, and that Kidux
+  has no connection with it. It is taken though modules.md asks a
+  third-party program to speak both languages, since the owner asked for
+  it by name. The site's avatars are emoji, which a Kidux machine had no
+  font for (step 4.40), so its package depends on
+  `fonts-noto-color-emoji`, the owner's choice the same day over leaving
+  the boxes or giving every machine the font.
+
+- **D122 — A door module's hosts are what its site needs to work, and
+  never a site to browse.** Decided 2026-11-24 by the owner, on
+  phase-4h-plan.md: what matters is that the child cannot go out of the
+  site, so a host a site only fetches from behind its pages, a font, a
+  library, its own backend, is among the module's hosts, each by its own
+  name. Left out: a host with pages of its own that a link or a player's
+  button leads to, whatever embeds it, since the wall holds a module to
+  hosts and not to pages; and a third party's counting and advertising,
+  when the site works without them. A site of the family's keeps its own
+  counting.

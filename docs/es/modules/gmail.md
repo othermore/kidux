@@ -1,6 +1,6 @@
 # Gmail
 
-*[English version](../../en/modules/gmail.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
+*[English version](../../en/modules/gmail.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje) · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **Gmail** ofrece acceso directo, seguro y aislado a la interfaz web de correo electrónico de Google en el idioma configurado para el menor.
 

@@ -49,7 +49,7 @@ the page names and the battery does not take stops the build. The two the
 page opens with, a child's launcher with a tile for every module and two
 modules in windows, are taken by `tests/session/30-every-module.py`, which
 installs six of them, so that the picture stays clean: BASIC, Blockly
-Games, CodeCombat, Scratch, Tux Typing and Wikipedia. The pictures are
+Games, Kydux, Scratch, Tux Typing and Wikipedia. The pictures are
 written by a release run of the battery alone (D93), so the site shows
 released screens.
 

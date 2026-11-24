@@ -1,6 +1,6 @@
 # Juegos de Blockly
 
-*[English version](../../en/modules/blockly-games.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje)
+*[English version](../../en/modules/blockly-games.md)* · [Volver al manual](../user-guide.md#9-módulos-de-aprendizaje) · De la familia Kidux: [Kydux, aprende Python con magia](https://kydux.kidux.org)
 
 **Juegos de Blockly** es una serie de rompecabezas interactivos desarrollados por Google para introducir los conceptos esenciales de la informática y el pensamiento computacional mediante bloques visuales, con una curva de dificultad suave y progresiva.
 
