@@ -2,7 +2,9 @@
 # Step 9.8 on a real machine: updates are looked for and installed through
 # the daemon, in a unit of their own, and refused while a child is signed in.
 # The package it updates is made here, in the machine, and served from a
-# directory: the real archive is never touched.
+# directory: the real archive is never touched. Its update re-executes
+# systemd half-way, as an update of systemd does, and the daemon follows
+# the job to its end all the same (D124).
 import subprocess
 import time
 
@@ -71,6 +73,9 @@ audit = open("/home/.kidux/state/audit.log").read()
 report("the audit trail has the check, the start and the end",
        '"update check"' in audit and '"update started"' in audit and '"update finished"' in audit,
        audit[-600:])
+finished = [line for line in audit.splitlines() if '"action": "update finished"' in line]
+report("and the end is ok: systemd re-executed half-way did not stop the job",
+       bool(finished) and '"outcome": "ok"' in finished[-1], "\n".join(finished[-2:]))
 
 run("rm", "-f", "/etc/apt/sources.list.d/kidux-test-canary.list")
 raise SystemExit(failures)

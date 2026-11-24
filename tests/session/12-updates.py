@@ -1,7 +1,9 @@
 """Updates from the panel, by keyboard: looked for, found, installed (plan step 9.8).
 
 The package it updates is made in the machine and served from a directory
-(`kidux-as canary`); the real archive is never touched. Then the System
+(`kidux-as canary`); the real archive is never touched. Its update
+re-executes systemd half-way, as an update of systemd does, and the panel
+says it is installed all the same (D124). Then the System
 page's Advanced settings (D52): Chromium's options, set from the command
 line before the panel opened, shown on their page, and saved again from it.
 

@@ -249,6 +249,17 @@ elif action == "canary":
             control.write(f"Package: kidux-test-canary\nVersion: {version}\nArchitecture: all\n"
                           "Maintainer: Kidux tests <tests@kidux.invalid>\n"
                           "Description: a package the update tests upgrade\n")
+        if version == "1.1":
+            # An update that brings systemd re-executes it half-way, and for
+            # some 0.4 seconds systemd answers nothing; the daemon must follow
+            # the job to its end all the same (D124). Three times, a second
+            # apart, so that the daemon's half-second watch meets one; then
+            # a wait, so that the job runs well after systemd is back.
+            with open(f"{tree}/DEBIAN/postinst", "w") as postinst:
+                postinst.write("#!/bin/sh\nset -e\nif [ \"$1\" = configure ]; then\n"
+                               "    for n in 1 2 3; do systemctl daemon-reexec; sleep 1; done\n"
+                               "    sleep 5\nfi\n")
+            os.chmod(f"{tree}/DEBIAN/postinst", 0o755)
         subprocess.run(["dpkg-deb", "--root-owner-group", "--build", tree,
                         f"{base}/kidux-test-canary_{version}_all.deb"],
                        check=True, capture_output=True)

@@ -209,6 +209,109 @@ def test_after_a_restart_a_finished_job_is_reported_once(job):
     assert len(signals) == 1
 
 
+# --- while systemd does not answer (D124) --------------------------------------
+#
+# An update that brings systemd re-executes it half-way, and for that moment
+# systemd answers nothing: the job is still running, and is asked about again.
+
+
+def test_a_job_systemd_does_not_answer_about_is_still_running(job):
+    updates, runner, signals, audit = job
+    updates.start("apply")
+    runner.answering = False
+
+    assert updates.poll() is True
+    assert updates.poll() is True
+    assert not [s for s in signals if s[1] == "UpdateFinished"]
+    assert audit == []
+    assert updates.installing() is True
+
+    runner.write("kidux:done:updated\n")
+    assert updates.poll() is False
+    assert ("System1", "UpdateFinished", "(ss)", ("updated", "")) in signals
+    assert ("update finished", "ok") in audit
+
+
+def test_a_verdict_ends_the_job_whatever_systemd_answers(job):
+    updates, runner, signals, _ = job
+    updates.start("apply")
+    runner.write("kidux:done:updated\n")
+    runner.answering = False
+
+    assert updates.poll() is False
+    assert updates.state()[3] == "updated"
+
+
+def test_a_unit_gone_after_systemd_came_back_without_a_verdict_stopped(job):
+    updates, runner, _, audit = job
+    updates.start("apply")
+    runner.answering = False
+    assert updates.poll() is True
+
+    runner.answering, runner.active = True, False
+    assert updates.poll() is False
+    assert updates.state()[3:5] == ("failed", "the update stopped before it finished")
+    assert ("update finished", "failed") in audit
+
+
+def test_systemd_s_silence_is_said_once_a_job_and_its_answer_once(job, caplog):
+    updates, runner, _, _ = job
+    updates.start("apply")
+    with caplog.at_level("INFO", logger="kidux.updates"):
+        # Two absences in one job, as an update of systemd and of D-Bus
+        # may make.
+        for _ in range(2):
+            runner.answering = False
+            for _ in range(3):
+                updates.poll()
+            runner.answering = True
+            updates.poll()
+
+    said = [record.getMessage() for record in caplog.records]
+    assert len([m for m in said if "does not answer" in m]) == 1
+    assert len([m for m in said if "answers about" in m]) == 1
+
+
+def test_after_a_restart_a_job_systemd_does_not_answer_about_is_watched(job):
+    _, runner, signals, _ = job
+    runner.start_update("apply")
+    runner.answering = False
+    again = Updates(runner, status=runner.status, emit=lambda *s: signals.append(s))
+
+    assert again.resume() is True
+    assert again.state()[0] == "applying"
+    assert signals == []
+
+
+def test_a_job_is_tried_while_systemd_does_not_answer(job):
+    updates, runner, _, _ = job
+    runner.answering = False
+
+    updates.start("check")
+
+    assert runner.started == ["check"]
+
+
+def test_a_daily_upgrade_last_seen_running_still_runs_while_systemd_is_away(job):
+    updates, runner, _, audit = job
+    runner.daily = ("active", "success")
+    assert updates.installing() is True
+
+    runner.answering = False
+    assert updates.installing() is True
+
+
+def test_nothing_is_made_up_while_systemd_does_not_answer(job):
+    updates, runner, _, audit = job
+    runner.daily = ("inactive", "exec-condition")
+    assert updates.installing() is False
+    runner.answering = False
+
+    assert updates.make_up_daily() is False
+    assert runner.daily_started == 0
+    assert audit == []
+
+
 # --- the script ----------------------------------------------------------------
 
 
