@@ -35,8 +35,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Protocol
 
+from kidux.log import get_logger
+
 from .catalogue import PREFIX
 from .errors import Busy
+
+_log = get_logger("updates")
 
 UNIT = "kidux-update.service"
 SCRIPT = "/usr/libexec/kidux-update"
@@ -46,6 +50,10 @@ DAILY = "apt-daily-upgrade.service"
 SKIPPED = "exec-condition"
 #: The states of a unit that is running, or about to, or ending.
 RUNNING = ("active", "activating", "deactivating", "reloading")
+#: What systemd answers about the update's unit (D124): it runs; it is
+#: gone, no such unit or a state not running; or nothing, as while an
+#: update re-executes systemd itself, which says nothing about the job.
+UNIT_RUNNING, UNIT_GONE, UNIT_UNKNOWN = "running", "gone", "unknown"
 STATUS = Path(os.environ.get("KIDUX_UPDATE_STATUS", "/run/kidux/update.status"))
 
 JOBS = {"check": "checking", "apply": "applying", "install": "installing",
@@ -61,8 +69,16 @@ class Runner(Protocol):
     """What the job needs from systemd."""
 
     def start_update(self, kind: str, package: str = "") -> None: ...
-    def update_active(self) -> bool: ...
-    def daily_upgrade_state(self) -> tuple[str, str]: ...
+
+    def update_unit(self) -> str:
+        """UNIT_RUNNING, UNIT_GONE or UNIT_UNKNOWN."""
+        ...
+
+    def daily_upgrade_state(self) -> tuple[str, str] | None:
+        """The daily upgrade's state and its last run's result, ("", "")
+        where systemd has no such unit, None when systemd does not answer."""
+        ...
+
     def start_daily_upgrade(self) -> None: ...
 
 
@@ -140,6 +156,14 @@ class Updates:
         self._partial = ""
         self.reading = Reading()
         self.last = Last()
+        #: The daily upgrade as systemd last told it, which stands while
+        #: systemd does not answer (D124).
+        self._daily: tuple[str, str] = ("", "")
+        #: Whether systemd has not answered about the running job since it
+        #: last did, and what of it the log has said for this job, once
+        #: each: "away" and "back".
+        self._unanswered = False
+        self._said: set[str] = set()
 
     @property
     def job(self) -> str:
@@ -149,13 +173,25 @@ class Updates:
         return self.reading.job != "idle"
 
     def start(self, kind: str, package: str = "") -> None:
-        if self.running() or self._runner.update_active():
+        # A unit systemd says still runs is a job of its own; while systemd
+        # does not answer, the start is tried, and fails as systemd makes it.
+        if self.running() or self._runner.update_unit() == UNIT_RUNNING:
             raise Busy("an update is already running")
         self._status.unlink(missing_ok=True)
         self._offset, self._partial = 0, ""
         self._runner.start_update(kind, package)
         self.reading = Reading(job=JOBS[kind], package=package, module=package)
         self.last = Last()
+        self._unanswered, self._said = False, set()
+
+    def _daily_state(self) -> tuple[tuple[str, str], bool]:
+        """The daily upgrade's state, and whether systemd answered: its last
+        known state while it does not (D124)."""
+        state = self._runner.daily_upgrade_state()
+        if state is None:
+            return self._daily, False
+        self._daily = state
+        return state, True
 
     def installing(self) -> bool:
         """Whether something is installing or removing packages, so that no
@@ -163,16 +199,17 @@ class Updates:
         upgrade."""
         if self.reading.job in ("applying", "installing", "removing"):
             return True
-        active, _result = self._runner.daily_upgrade_state()
+        (active, _result), _answered = self._daily_state()
         return active in RUNNING
 
     def make_up_daily(self) -> bool:
         """Start Debian's daily upgrade if its last run was skipped for a
         child's session: called when the last child has logged out. Its
         condition is checked again by systemd, so a child who has signed in
-        meanwhile is safe. True if it was started."""
-        active, result = self._runner.daily_upgrade_state()
-        if active in RUNNING or result != SKIPPED:
+        meanwhile is safe. True if it was started. Nothing is started while
+        systemd does not answer."""
+        (active, result), answered = self._daily_state()
+        if not answered or active in RUNNING or result != SKIPPED:
             return False
         self._runner.start_daily_upgrade()
         self._audit("daily upgrade", "started", reason="skipped while a child played")
@@ -206,7 +243,7 @@ class Updates:
         if (round(self.reading.fraction, 2), self.reading.package) != before:
             self._emit("System1", "UpdateProgress", "(ds)",
                        (float(self.reading.fraction), self.reading.package))
-        if self.reading.verdict is None and not self._runner.update_active():
+        if self.reading.verdict is None and self._unit_gone():
             # One more look: the unit may have written its last line and gone.
             self.reading = read(self._new_text(), self.reading)
             if self.reading.verdict is None:
@@ -226,10 +263,28 @@ class Updates:
         if self.reading.job == "idle":
             self._status.unlink(missing_ok=True)
             return False
-        if self.reading.verdict is None and self._runner.update_active():
+        if self.reading.verdict is None and self._runner.update_unit() != UNIT_GONE:
             return True
         self.poll()  # the verdict, emitted once; or "stopped" if there is none
         return False
+
+    def _unit_gone(self) -> bool:
+        """Whether systemd says the job's unit is gone. While systemd does
+        not answer, as while an update re-executes it, the job is taken as
+        still running and asked about again at the next poll (D124)."""
+        unit = self._runner.update_unit()
+        if unit == UNIT_UNKNOWN:
+            if "away" not in self._said:
+                _log.warning("systemd does not answer about %s; the update is taken as "
+                             "still running", UNIT)
+                self._said.add("away")
+            self._unanswered = True
+            return False
+        if self._unanswered and "back" not in self._said:
+            _log.info("systemd answers about %s again: %s", UNIT, unit)
+            self._said.add("back")
+        self._unanswered = False
+        return unit == UNIT_GONE
 
     def _finish(self) -> None:
         outcome, detail, packages = self.reading.verdict

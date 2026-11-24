@@ -13,7 +13,7 @@ from pathlib import Path
 import pytest
 
 from kiduxd.errors import Busy
-from kiduxd.updates import Updates, read
+from kiduxd.updates import UNIT_GONE, UNIT_RUNNING, UNIT_UNKNOWN, Updates, read
 
 
 # --- the status file -----------------------------------------------------------
@@ -71,22 +71,26 @@ class FakeRunner:
         self.status = status
         self.started: list[str] = []
         self.active = False
+        #: Whether systemd answers at all: not while it re-executes itself.
+        self.answering = True
 
     def start_update(self, kind: str, package: str = "") -> None:
         self.started.append(kind)
         self.active = True
         self.status.write_text(f"kidux:job:{kind}\n")
 
-    def update_active(self) -> bool:
-        return self.active
+    def update_unit(self) -> str:
+        if not self.answering:
+            return UNIT_UNKNOWN
+        return UNIT_RUNNING if self.active else UNIT_GONE
 
     #: Debian's daily upgrade, as systemd would say: its state and its
-    #: last run's result.
-    daily = ("inactive", "success")
+    #: last run's result; None while systemd does not answer.
+    daily: tuple[str, str] | None = ("inactive", "success")
     daily_started = 0
 
-    def daily_upgrade_state(self) -> tuple[str, str]:
-        return self.daily
+    def daily_upgrade_state(self) -> tuple[str, str] | None:
+        return self.daily if self.answering else None
 
     def start_daily_upgrade(self) -> None:
         self.daily_started += 1

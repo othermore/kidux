@@ -926,8 +926,8 @@ class UpdateRunner:
         self.active = True
         self.status.write_text(f"kidux:job:{kind}\n")
 
-    def update_active(self):
-        return self.active
+    def update_unit(self):
+        return "running" if self.active else "gone"
 
     daily = ("inactive", "success")
     daily_started = 0

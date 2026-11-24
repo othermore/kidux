@@ -1,3 +1,10 @@
+kidux-daemon (0.3.40) trixie; urgency=medium
+
+  * An update that restarts systemd is followed to its end, instead of
+    being reported as stopped while it still runs.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 24 Nov 2026 19:02:44 +0100
+
 kidux-daemon (0.3.39) trixie; urgency=medium
 
   * The panel's Suspending the computer settings: whether closing the lid

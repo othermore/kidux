@@ -6,7 +6,8 @@ from gi.repository import Gio, GLib
 
 from .errors import Busy, Failed
 from .locker import LOCK_VT
-from .updates import DAILY, RUNNING, SCRIPT, STATUS, UNIT
+from .updates import (DAILY, RUNNING, SCRIPT, STATUS, UNIT, UNIT_GONE, UNIT_RUNNING,
+                      UNIT_UNKNOWN)
 
 SYSTEMD = "org.freedesktop.systemd1"
 SYSTEMD_PATH = "/org/freedesktop/systemd1"
@@ -20,6 +21,14 @@ SEAT = "org.freedesktop.login1.Seat"
 SEAT0 = "/org/freedesktop/login1/seat/seat0"
 
 TIMEOUT_MS = 10_000
+#: How long a question about an update's unit or the daily upgrade waits
+#: for systemd: they are asked from the daemon's main loop, which answers
+#: the lock, the time and the sign-in. A call in flight while systemd
+#: re-executes itself fails with NoReply after some 0.4 seconds, and the
+#: next one is answered (update-watch-plan.md, section 1; D124).
+WATCH_TIMEOUT_MS = 1_000
+#: The one answer that says a unit is gone, as against not answering.
+NO_SUCH_UNIT = "org.freedesktop.systemd1.NoSuchUnit"
 
 
 def locker_unit(username: str) -> str:
@@ -30,7 +39,11 @@ class SystemMachine:
     def __init__(self, connection: Gio.DBusConnection) -> None:
         self._connection = connection
 
-    def _call(self, name, path, interface, method, arguments=None, reply=None):
+    def _call(self, name, path, interface, method, arguments=None, reply=None,
+              timeout_ms=TIMEOUT_MS):
+        """The call's answer, or Failed with `remote`, the D-Bus error's name
+        when the other side gave one, empty when it gave none (no reply, a
+        timeout, the bus gone)."""
         try:
             result = self._connection.call_sync(
                 name,
@@ -40,11 +53,13 @@ class SystemMachine:
                 arguments,
                 GLib.VariantType(reply) if reply else None,
                 Gio.DBusCallFlags.NONE,
-                TIMEOUT_MS,
+                timeout_ms,
                 None,
             )
         except GLib.Error as error:
-            raise Failed(f"{method} failed: {error.message}") from error
+            failed = Failed(f"{method} failed: {error.message}")
+            failed.remote = Gio.DBusError.get_remote_error(error) or ""
+            raise failed from error
         return result.unpack() if result is not None else None
 
     def _session_property(self, session_path: str, name: str):
@@ -173,32 +188,37 @@ class SystemMachine:
                               capture_output=True, text=True, timeout=60)
         return done.stdout
 
-    def _unit_property(self, path: str, interface: str, name: str):
+    def _unit_property(self, path: str, interface: str, name: str,
+                       timeout_ms: int = TIMEOUT_MS):
         return self._call(SYSTEMD, path, "org.freedesktop.DBus.Properties", "Get",
                           GLib.Variant("(ss)", (f"org.freedesktop.systemd1.{interface}", name)),
-                          "(v)")[0]
+                          "(v)", timeout_ms)[0]
 
-    def update_active(self) -> bool:
+    def update_unit(self) -> str:
+        """What systemd says of the update's unit: UNIT_RUNNING, UNIT_GONE
+        when it has no such unit or the unit has stopped, or UNIT_UNKNOWN
+        when it does not answer (D124)."""
         try:
             path = self._call(SYSTEMD, SYSTEMD_PATH, SYSTEMD_MANAGER, "GetUnit",
-                              GLib.Variant("(s)", (UNIT,)), "(o)")[0]
-            state = self._unit_property(path, "Unit", "ActiveState")
-        except Failed:
-            return False
-        return state in RUNNING
+                              GLib.Variant("(s)", (UNIT,)), "(o)", WATCH_TIMEOUT_MS)[0]
+            state = self._unit_property(path, "Unit", "ActiveState", WATCH_TIMEOUT_MS)
+        except Failed as error:
+            return UNIT_GONE if getattr(error, "remote", "") == NO_SUCH_UNIT else UNIT_UNKNOWN
+        return UNIT_RUNNING if state in RUNNING else UNIT_GONE
 
-    def daily_upgrade_state(self) -> tuple[str, str]:
+    def daily_upgrade_state(self) -> tuple[str, str] | None:
         """Debian's daily upgrade's state and its last run's result, `exec-condition`
-        for one its condition skipped; empty where systemd has no such unit."""
+        for one its condition skipped; empty where systemd has no such unit;
+        None when systemd does not answer (D124)."""
         try:
             path = self._call(SYSTEMD, SYSTEMD_PATH, SYSTEMD_MANAGER, "LoadUnit",
-                              GLib.Variant("(s)", (DAILY,)), "(o)")[0]
-            if self._unit_property(path, "Unit", "LoadState") != "loaded":
+                              GLib.Variant("(s)", (DAILY,)), "(o)", WATCH_TIMEOUT_MS)[0]
+            if self._unit_property(path, "Unit", "LoadState", WATCH_TIMEOUT_MS) != "loaded":
                 return ("", "")
-            return (self._unit_property(path, "Unit", "ActiveState"),
-                    self._unit_property(path, "Service", "Result"))
+            return (self._unit_property(path, "Unit", "ActiveState", WATCH_TIMEOUT_MS),
+                    self._unit_property(path, "Service", "Result", WATCH_TIMEOUT_MS))
         except Failed:
-            return ("", "")
+            return None
 
     def start_daily_upgrade(self) -> None:
         self._call(SYSTEMD, SYSTEMD_PATH, SYSTEMD_MANAGER, "StartUnit",

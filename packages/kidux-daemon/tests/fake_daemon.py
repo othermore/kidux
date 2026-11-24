@@ -39,8 +39,8 @@ class FakeMachine:
         return ("Package: kidux-module-hello\n"
                 "Description: Kidux learning module: Hello, a first page to read\n\n", "")
 
-    def update_active(self):
-        return False
+    def update_unit(self):
+        return "gone"
 
     def daily_upgrade_state(self):
         """Debian's daily upgrade, idle and last run to the end."""
