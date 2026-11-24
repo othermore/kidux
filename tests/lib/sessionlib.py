@@ -26,20 +26,24 @@ BASE = VM / "debian-13-genericcloud-amd64.qcow2"
 #: Tabs past the wizard's first language, English, it presses; the locale and
 #: keyboard the machine saves; two of the folders a child's home gets; the
 #: tests' hello modules' words in it, and the file hello-web saves; the name
-#: of Chromium's translation it loads; and the ports the run uses, its own,
-#: so that the battery runs every language at once.
+#: of Chromium's translation it loads; two modules' names, and the title of
+#: Kydux's welcome page, which a website gives in the browser's language;
+#: and the ports the run uses, its own, so that the battery runs every
+#: language at once.
 LANGUAGES = {
     "es": {"tabs": 1, "locale": "es_ES.UTF-8", "keyboard": "es", "lang": "es",
            "folders": ("Documentos", "Descargas"),
            "hello": "[Prueba] Hola", "done": "Hecho", "heading": "¡Hola!", "pak": "es",
            "saved": "hola.txt",
            "blockly": "Juegos de Blockly", "photography": "Fotografía",
+           "kydux": "Kydux — qué es",
            "seed_port": 8002, "ssh_port": 2222, "machine": 1},
     "en": {"tabs": 0, "locale": "en_US.UTF-8", "keyboard": "us", "lang": "en",
            "folders": ("Documents", "Downloads"),
            "hello": "[Test] Hello", "done": "Done", "heading": "Hello!", "pak": "en-US",
            "saved": "hello.txt",
            "blockly": "Blockly Games", "photography": "Photography",
+           "kydux": "Kydux — about",
            "seed_port": 8003, "ssh_port": 2223, "machine": 2},
 }
 #: The language the machine is set up in, and so of every screen and picture

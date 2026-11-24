@@ -1,0 +1,36 @@
+Source: kidux-module-kydux
+Section: misc
+Priority: optional
+Maintainer: Antonio Morales García <info@kidux.org>
+Build-Depends: debhelper-compat (= 13),
+               gettext,
+               pyflakes3 <!nocheck>,
+               python3,
+               python3-kidux (>= 0.1.55~) <!nocheck>,
+               python3-pytest <!nocheck>,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+
+Package: kidux-module-kydux
+Architecture: all
+Depends: ${misc:Depends},
+         kidux-webapps (>= 0.1.11~),
+XB-Kidux-Name-en: Kydux
+XB-Kidux-Description-en: A game of the Kidux family for learning real Python: a young wizard arrives at a school of magic, and every step there is taken by writing a program. Free, in English and Spanish, with no account. Requires internet. It is also played in any browser, without Kidux, at kydux.kidux.org.
+XB-Kidux-Name-es: Kydux
+XB-Kidux-Description-es: Un juego de la familia Kidux para aprender Python de verdad: quien juega llega a un colegio de magia, y allí cada paso se da escribiendo un programa. Gratis, en español y en inglés, sin cuenta. Requiere conexión a internet. También se juega en cualquier navegador, sin Kidux, en kydux.kidux.org.
+XB-Kidux-Ages: 8-
+Description: Kidux learning module: Kydux, a door to the family's game for learning Python
+ Kidux is a Debian derivative for a child's first computer. This learning
+ module opens Kydux, a game of the Kidux family in which a child learns
+ real Python at a school of magic, in a window of its own, and no other
+ website: a link to anywhere else leads nowhere. Nothing of the game is
+ in this package; it is played on its site, kydux.kidux.org, where anyone
+ plays it in a web browser, without Kidux.
+ .
+ It needs the internet whenever it is used. It is free, in English and
+ Spanish, and asks for no account. The game asks whether it may use
+ cookies to count how it is played.
+ .
+ Once it is installed, an adult switches it on for each child on the
+ Modules page of the adult panel.

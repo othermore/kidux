@@ -1,0 +1,19 @@
+<!-- Kydux: the game's own mark, its wizard's hat in ink with a gold band and
+     a wand with a gold star, drawn from the game's favicon on a circle of the
+     game's parchment, so that the tile and the game's tab show the same hat.
+     The mark is the Kidux family's own (branding/README.md). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128"
+     role="img" aria-label="Kydux">
+  <circle cx="64" cy="64" r="60" fill="#f3e8d2"/>
+  <g transform="translate(14.7 20.2) scale(2.9)">
+    <!-- the hat, its band and its brim -->
+    <path d="M6.5 24.5 L14.6 3.2 Q15.6 1.6 16.6 3.4 L21.5 24.5 Z" fill="#2b2533"/>
+    <path d="M7.6 20.6 L20.6 20.6 L21.3 23.6 L6.7 23.6 Z" fill="#d49b2a"/>
+    <ellipse cx="14" cy="25.4" rx="12.5" ry="3.2" fill="#2b2533"/>
+    <!-- the wand, and its star -->
+    <path d="M22.4 30 L29.2 15.6" stroke="#a06c38" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M22.4 30 L24.4 25.8" stroke="#6b4423" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M29.6 9.2 L30.6 12.4 L33.8 13.4 L30.6 14.4 L29.6 17.6 L28.6 14.4 L25.4 13.4 L28.6 12.4 Z"
+          fill="#d49b2a" stroke="#9f7016" stroke-width="0.5" stroke-linejoin="round"/>
+  </g>
+</svg>

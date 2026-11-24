@@ -1,0 +1,23 @@
+# Kydux: a door to the Kidux family's own game for learning Python (D85,
+# D120). Nothing of the game is shipped: it is played on its site, as in
+# any browser, and a new version of the game needs no new module. Its
+# saved games are in the browser's storage, in the module's own profile,
+# which stays in the child's home (D89).
+id = "kydux"
+version = "0.1.0"
+name = "Kydux"
+description = "A game of the Kidux family for learning real Python: a young wizard arrives at a school of magic, and every step there is taken by writing a program. Free, in English and Spanish, with no account. Requires internet. It is also played in any browser, without Kidux, at kydux.kidux.org."
+min_age = 8
+# The word after the question mark tells the game it is opened from Kidux.
+launch = { web = "https://kydux.kidux.org/?from=kidux" }
+# The game's own host, and those its counting of visits uses, which the
+# game asks the child about before any cookie (D120): GoatCounter, and
+# Google Analytics' tag and its collectors. Read from Chromium's net log
+# over the notice answered either way, the story, a lesson with its
+# program run, the first level and a game exported and imported: nothing
+# else is asked for. Never kidux.org: the welcome page's link to it leads
+# nowhere here, and Alt+Left comes back.
+hosts = ["kydux.kidux.org", "kidux.goatcounter.com", "googletagmanager.com",
+         "google-analytics.com", "analytics.google.com"]
+categories = ["programming"]
+i18n_domain = "kidux-module-kydux"

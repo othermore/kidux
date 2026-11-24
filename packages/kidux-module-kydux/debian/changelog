@@ -1,0 +1,6 @@
+kidux-module-kydux (0.1.0) trixie; urgency=medium
+
+  * Initial release: a door to Kydux, the Kidux family's game for learning
+    Python.
+
+ -- Antonio Morales García <info@kidux.org>  Tue, 24 Nov 2026 02:59:00 +0100

@@ -1,0 +1,23 @@
+# Spanish translation for kidux-module-kydux.
+# Copyright (C) 2026 Antonio Morales Garcia
+# This file is distributed under the same license as the kidux-module-kydux package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kidux-module-kydux 0.1.0\n"
+"Report-Msgid-Bugs-To: info@kidux.org\n"
+"POT-Creation-Date: 2026-11-24 02:59+0100\n"
+"PO-Revision-Date: 2026-11-24 02:59+0100\n"
+"Last-Translator: Antonio Morales Garcia <info@kidux.org>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Kydux"
+msgstr "Kydux"
+
+msgid "A game of the Kidux family for learning real Python: a young wizard arrives at a school of magic, and every step there is taken by writing a program. Free, in English and Spanish, with no account. Requires internet. It is also played in any browser, without Kidux, at kydux.kidux.org."
+msgstr "Un juego de la familia Kidux para aprender Python de verdad: quien juega llega a un colegio de magia, y allí cada paso se da escribiendo un programa. Gratis, en español y en inglés, sin cuenta. Requiere conexión a internet. También se juega en cualquier navegador, sin Kidux, en kydux.kidux.org."

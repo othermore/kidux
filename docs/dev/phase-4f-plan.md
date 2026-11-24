@@ -99,12 +99,12 @@ three and decided once, in 4.27:
   (a stand-in prints what it got), the restrictions switch off each of
   the actions above, the manifest's version is the package's.
   Acceptance, `tests/acceptance/22-module-kig.sh` and the next two
-  numbers, with 25 left for 4.30 (`26-no-key-no-archive.sh` stays
+  numbers, with 25 left for 4.30 (`28-no-key-no-archive.sh` stays
   last): installs through the daemon with its program and its Wayland
   plugin, the manifest, icon, starter, restrictions and Spanish words in
   place, listed for a child switched off, removed without a trace and the
   program gone with it (D100). Session, `tests/session/36-module-kig.py` and the next two,
-  with 40 left for 4.30 (`42-purge.py` stays last): as `25-module-tuxtype.py`, Leo opens
+  with 40 left for 4.30 (`44-purge.py` stays last): as `25-module-tuxtype.py`, Leo opens
   the tile, the window fills the room above the bar with the bar whole
   under it, its process has the module's directories and the
   restrictions first in its `XDG_CONFIG_DIRS`, the picture `module-<id>` taken once the

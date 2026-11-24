@@ -256,7 +256,7 @@ mission's.
 shows, in each mode, for every change of the module on screen, from
 `desk.py`'s own test's shape; the state read and written; the missions'
 copy that never overwrites. Session, `tests/session/41-guide.py`
-(`42-purge.py` stays last), with Kig installed through the
+(`44-purge.py` stays last), with Kig installed through the
 daemon as `36-module-kig.py` does: Leo opens Kig, the pane is there on
 the right with Kig's lessons in Leo's language and Kig filling the rest
 (the picture `module-kig-guide`, in the guide and on the website; the
