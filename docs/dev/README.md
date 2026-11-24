@@ -87,7 +87,8 @@ instead, in English and Spanish.
   Kalzium's, built.
 - [phase-4h-plan.md](phase-4h-plan.md): the current plan: Kydux, the Kidux
   family's own game, as a module shown first, and Expedition Code, both
-  doors to a website.
+  doors to a website; built, but for the website's part, which waits on
+  the branch `phase-4h-site` for the release's pictures (its step 4.44).
 - [test-battery-plan.md](test-battery-plan.md): making `ci/test-release.sh`
   faster without making it mean less.
 - [apt-archive-plan.md](apt-archive-plan.md): the stable suite on a
