@@ -5,7 +5,7 @@
 # installed Chromium's policy allows the site's pages, its backend and its
 # fonts, and nothing of YouTube's or of its counting's; its Chromium opens
 # the site, walled in to them; and it is removed without a trace of the
-# module's own.
+# module's own, its font going with it.
 
 ADMIN_AS="runuser -u debian -- /usr/local/bin/kidux-as"
 EXPEDITION=/usr/share/kidux/modules/expedition-code
@@ -32,5 +32,7 @@ check "it is listed for a child, switched off" \
 check "removing it leaves nothing of the module behind" \
     sh -c "$ADMIN_AS remove expedition-code | grep -q '^removed ' && test ! -e $EXPEDITION \
            && test -z \"\$(find /usr/share/locale -name 'kidux-module-expedition-code.*')\""
+check "and the font of emoji went with it, installed for it alone (D100)" \
+    sh -c "! fc-list | grep -q 'Noto Color Emoji'"
 check "and the policy went with the server, installed for it alone (D100)" \
     sh -c "test ! -e $POLICY"

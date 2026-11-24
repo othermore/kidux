@@ -4,8 +4,8 @@ kidux-module-kydux, a door to the Kidux family's game for learning Python
 (D120), is installed through the daemon, as the panel installs it, and
 switched on for Leo from the command line. Leo opens it by keyboard:
 Chromium's application window, filling the room above the bar, shows the
-game's question about cookies, which Leo answers *Reject* and then *Yes,
-reject them*, by keyboard; the game's welcome page follows, in Leo's
+game's question about cookies, which Leo answers *Refuse* and then *Yes,
+refuse them*, by keyboard; the game's welcome page follows, in Leo's
 language. The machine reaches the internet through QEMU's own network; a
 site that does not answer is said so, and still fails the test. For the
 test's length the machine sends the game's counting of visits nowhere,
@@ -105,14 +105,15 @@ def play(machine: Machine) -> None:
            f"{window}\n" + launcher_log())
 
     # The game's own keys (phase-4h-plan.md, section 5): from the page as it
-    # loads, Tab reaches Accept and Tab again Reject, which shows the whole
-    # of why with the focus on Accept them; Tab reaches Yes, reject them.
+    # loads, Tab reaches Accept and Tab again Refuse, which shows the whole
+    # of why with the focus on Accept the cookies; Tab reaches Yes, refuse
+    # them.
     for key in ("tab", "tab", "ret"):
         machine.key(key)
     machine.still(2)
     for key in ("tab", "ret"):
         machine.key(key)
-    report("Leo answers Reject and confirms it, and the welcome page follows, in Leo's language",
+    report("Leo answers Refuse and confirms it, and the welcome page follows, in Leo's language",
            wait(lambda: title() == SPEAKS["kydux"], 30),
            f"title {title()!r}, expected {SPEAKS['kydux']!r}")
     pointer(ASIDE)

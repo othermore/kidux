@@ -63,7 +63,7 @@ short script in the scratchpad. The flag is taken back at the end.
 
 1. *Its hosts.* A scratch profile each time (`rm -rf
    ~leo/.config/kidux/kydux`). Once answering *Accept* to the game's
-   question about cookies and once *Reject*; then the welcome page,
+   question about cookies and once *Refuse*; then the welcome page,
    *Start playing*, the story, the wizard made, the first lesson, the
    first level with a program run (Pyodide loads then), the map, the
    settings, music on. Expected, from section 5: nothing refused but what
@@ -107,7 +107,7 @@ short script in the scratchpad. The flag is taken back at the end.
    the default, left unwritten, otherwise.
 9. *For the session test.* The window's title at each screen (expected
    `Kydux — cookies`, then `Kydux — ` and the welcome page's own words),
-   and the keys that answer the notice with *Reject* and then confirm it,
+   and the keys that answer the notice with *Refuse* and then confirm it,
    from the page as it loads, in both languages.
 
 **Expedition Code.** With the manifest of section 6.2, its `hosts` first
@@ -229,7 +229,7 @@ without a trace, and the policy gone with the server (D100).
 3. The window is the module's, maximised and not fullscreen, above the
    bar, and its title comes to hold `Kydux` within 90 seconds. A site
    that does not answer is said so, and still fails the test.
-4. The game's question about cookies is answered *Reject*, and the
+4. The game's question about cookies is answered *Refuse*, and the
    question that follows confirmed, by the keys 4.40 found. The title
    stops holding `cookies`: the welcome page is on screen, in Leo's
    language.
@@ -515,11 +515,17 @@ The decisions for architecture.md's log:
   without Kidux; the doors to other people's coding games come last.
 - **D121 — Expedition Code is a door to expeditioncode.com, nothing of it
   shipped, in English only, and Kidux says it is not connected with
-  it.** No account is given on the panel: the site keeps a player by a
-  name, an emoji and a phrase of their own. YouTube and the site's
+  it.** Decided 2026-11-24 by the owner, on phase-4h-plan.md. No account
+  is given on the panel: the site keeps a player by a name and an avatar
+  the child chooses and a secret phrase it gives. YouTube and the site's
   counting are left out. Its description says the language, that it is
   in beta, that children may play with others in a room, and that Kidux
-  has no connection with it.
+  has no connection with it. It is taken though modules.md asks a
+  third-party program to speak both languages, since the owner asked for
+  it by name. The site's avatars are emoji, which a Kidux machine had no
+  font for (step 4.40), so its package depends on
+  `fonts-noto-color-emoji`, the owner's choice the same day over leaving
+  the boxes or giving every machine the font.
 - **D122 — A door module's hosts are what its site needs to work, and
   never a site to browse.** What a site fetches behind its pages is
   named, each host by its own name. Left out: a host with pages of its
@@ -552,17 +558,17 @@ dictionary, Google's account list), as for every door.
   story, the wizard made, the first lesson with its program run (Pyodide
   loaded, *Python 3.14.2 listo*), the first level, the start screen, a
   game exported and imported, and the welcome page's link out, the game
-  asked for nothing outside its five hosts; answered *Reject*, for
+  asked for nothing outside its five hosts; answered *Refuse*, for
   nothing but `kydux.kidux.org` and `kidux.goatcounter.com`.
 - Its first screen is the notice about cookies, with *Accept* and
-  *Reject*, and *Reject* asks once more. Then, for a new player, the
+  *Refuse*, and *Refuse* asks once more. Then, for a new player, the
   welcome page, `#about`. The window's title is `Kydux — cookies`, then
   `Kydux — qué es` in Spanish and `Kydux — about` in English. From the
-  page as it loads, Tab, Tab, Enter answers *Reject*, which shows the
-  whole of why with the focus on *Accept them*, and Tab, Enter answers
-  *Yes, reject them*; the same keys in both languages. A *no* lasts a
-  day and a half, and the notice asks again after it; a *yes* is for
-  good.
+  page as it loads, Tab, Tab, Enter answers *Refuse*, which shows the
+  whole of why with the focus on *Accept the cookies*, and Tab, Enter
+  answers *Yes, refuse them*; the same keys in both languages. A *no*
+  lasts a day and a half, and the notice asks again after it; a *yes* is
+  for good.
 - Its language is the one saved in the browser, else the first of the
   browser's languages it has, else English. It has Spanish and English.
   Inside Kidux it opens in the child's language with nothing added:
@@ -616,7 +622,7 @@ dictionary, Google's account list), as for every door.
 - Its pages but *About* have no title, so the window is named after the
   address: `expeditioncode.com` on the front page,
   `expeditioncode.com/room/<id>/code` in a mission. Its front page is a
-  night-blue gradient, within 20 of `#101a38` over most of the room
+  night-blue gradient, within 20 of `#141a38` over most of the room
   above the bar. Its language is English, whatever the browser's.
 - *Play now* shows a notice that it is a beta, then *Create new
   explorer* or *I have a secret phrase*. A new explorer is a display
@@ -644,11 +650,14 @@ dictionary, Google's account list), as for every door.
   this site*; Esc closes it. The video is
   `youtube.com/watch?v=VuWysb-EyrU`.
 - Links that ask for a new window (`target="_blank"`), as *About*'s
-  *Visit seanclark.dev*: Chromium opens a window of its own with tabs
-  and an address bar, and the page in it is blocked; Ctrl+W, or the
-  tab's ×, closes it and the game is there as it was. CodeCombat's
-  module does the same with its footer's links. The window is the
-  module's Chromium, so its wall and the policy hold in it.
+  *Visit seanclark.dev*, open a Chromium window of the module's own with
+  tabs and an address bar, as Ctrl+N does in any web module's window
+  (D123), and the page in it is blocked; Ctrl+W, or the tab's ×, closes
+  it and the game is there as it was. CodeCombat's module does the same
+  with its footer's links. The window is the module's Chromium, so its
+  wall and the policy hold in it: every website and `file://` are closed
+  there, and only Chromium's own pages, its settings and its history,
+  open.
 - Its module's memory peaks at 0.3 GB in a mission: the default cap.
 
 ## 6. Content
@@ -658,7 +667,9 @@ dictionary, Google's account list), as for every door.
 ```toml
 # Kydux: a door to the Kidux family's own game for learning Python (D85,
 # D120). Nothing of the game is shipped: it is played on its site, as in
-# any browser, and a new version of the game needs no new module.
+# any browser, and a new version of the game needs no new module. Its
+# saved games are in the browser's storage, in the module's own profile,
+# which stays in the child's home (D89).
 id = "kydux"
 version = "0.1.0"
 name = "Kydux"
@@ -669,13 +680,14 @@ launch = { web = "https://kydux.kidux.org/?from=kidux" }
 # The game's own host, and those its counting of visits uses, which the
 # game asks the child about before any cookie (D120): GoatCounter, and
 # Google Analytics' tag and its collectors. Read from Chromium's net log
-# over the notice, the story, a lesson and a level. Never kidux.org: the
-# welcome page's link to it leads nowhere here.
+# over the notice answered either way, the story, a lesson with its
+# program run, the first level and a game exported and imported: nothing
+# else is asked for. Never kidux.org: the welcome page's link to it leads
+# nowhere here, and Alt+Left comes back.
 hosts = ["kydux.kidux.org", "kidux.goatcounter.com", "googletagmanager.com",
          "google-analytics.com", "analytics.google.com"]
 categories = ["programming"]
 i18n_domain = "kidux-module-kydux"
-memory_max = "3G"
 ```
 
 Spanish description: *Un juego de la familia Kidux para aprender Python de
@@ -708,6 +720,7 @@ Description: Kidux learning module: Kydux, a door to the family's game for learn
 ```toml
 # Expedition Code: a door to the Expedition Code website (D85, D121).
 # Nothing of it is shipped: its missions are its own and live on its site.
+# Its avatars are emoji, which the package's font draws.
 id = "expedition-code"
 version = "0.1.0"
 name = "Expedition Code"
@@ -716,9 +729,11 @@ min_age = 9
 recommended_before = ["scratch"]
 launch = { web = "https://www.expeditioncode.com/" }
 # Its pages, its backend and its fonts, read from Chromium's net log over
-# the front page, a new explorer and a mission. Left out (D122): YouTube
-# and what its player brings, which the front page's video needs, since
-# YouTube is a site to browse; and PostHog, the site's counting of clicks.
+# the front page, a new explorer, a room and a mission's program run:
+# without the backend, a WebSocket to Convex, Play now waits for ever.
+# Left out (D122), with the game working without them: YouTube and what
+# its player brings, which the front page's video needs, since YouTube is
+# a site to browse; and PostHog, the site's counting of clicks.
 hosts = ["expeditioncode.com", "spotted-shepherd-639.convex.cloud",
          "fonts.googleapis.com", "fonts.gstatic.com"]
 categories = ["programming"]
@@ -742,9 +757,11 @@ Description: Kidux learning module: Expedition Code, a door to the Expedition Co
  package; the site and its missions are its author's.
  .
  It needs the internet. The site is in English only and in beta. It asks
- for no email and no password: a child chooses a name and a secret
- phrase. Children may play in a room with others. The video the site
- opens with is on YouTube and does not play here.
+ for no email and no password: a child chooses a name and an avatar, and
+ the site gives a secret phrase to write down. Children may play in a
+ room with others. The video the site opens with is on YouTube and does
+ not play here. The package brings a font of emoji, which the site's
+ avatars are drawn with.
  .
  Kidux and its author have no connection with Expedition Code.
  .
@@ -904,9 +921,10 @@ cookies, es cosa de esa web.*
 > only and in beta, and the module opens it and no other website. Kidux
 > has no connection with Expedition Code.
 >
-> It needs the internet, and no account: a child chooses a name, an emoji
-> and a secret phrase, and the phrase lets them back in. The video the
-> site opens with is on YouTube, which stays closed here.
+> It needs the internet, and no account: a child chooses a name and an
+> avatar, and the site gives a secret phrase to write down, which lets
+> them back in from another computer. The video the site opens with is
+> on YouTube, which stays closed here.
 >
 > ![Expedition Code](../images/en/module-expedition-code.png)
 >
@@ -920,9 +938,10 @@ cookies, es cosa de esa web.*
 > módulo la abre a ella y a ninguna otra. Kidux no tiene ninguna relación
 > con Expedition Code.
 >
-> Necesita internet, y ninguna cuenta: el niño elige un nombre, un emoji
-> y una frase secreta, y con la frase vuelve a entrar. El vídeo con el
-> que se presenta la web está en YouTube, que aquí sigue cerrado.
+> Necesita internet, y ninguna cuenta: el niño elige un nombre y un
+> avatar, y la web le da una frase secreta para apuntarla, con la que
+> vuelve a entrar desde otro ordenador. El vídeo con el que se presenta la
+> web está en YouTube, que aquí sigue cerrado.
 >
 > ![Expedition Code](../images/es/module-expedition-code.png)
 >
@@ -956,10 +975,11 @@ goes back; that the game needs a screen of 1280 × 720 or more.
 
 **Expedition Code's table:** recommended age, from 9, for a child who has
 programmed before; recommended before, Scratch; internet, required;
-language, English only; account, none, a name, an emoji and a secret
-phrase the child chooses; price, as the site says on the day of 4.40;
-web service, [expeditioncode.com](https://www.expeditioncode.com/), by
-Sean Clark, in beta; Kidux is not affiliated with or endorsed by it.
+language, English only; account, none: a name and an avatar the child
+chooses, and a secret phrase the site gives; price, none asked and none
+named by the site; web service,
+[expeditioncode.com](https://www.expeditioncode.com/), by Sean Clark, in
+beta; Kidux is not affiliated with or endorsed by it.
 
 **Expedition Code's notes**, each as 4.40 found it: children may play in
 a room with others, and how a room is joined; the code a child writes is
@@ -1045,12 +1065,12 @@ languages. `modules.lead` and `modules.title` stay.
 | Chromium with Pyodide and painted scenes goes over the module's memory cap and is killed | 4.40 measures the peak and sets `memory_max` |
 | The welcome page's *Meet Kidux* leaves the child on a blocked page with no button back | Known and said in the module's page; `?from=kidux` lets the game leave the link out later (decision 10) |
 | The session test presses keys on a page that the game's next version changes | The keys are few and found in 4.40; the test says which screen it expected when it fails; the game's designer is told that Kidux's test answers the notice by keyboard |
-| Test machines counted among the game's players | The session test closes the counting host for its length; it answers *Reject* |
+| Test machines counted among the game's players | The session test closes the counting host for its length; it answers *Refuse* |
 | A test on a site that does not answer fails the battery | As CodeCombat's and Wikipedia's: said in the output, and the test run again alone |
 | Expedition Code has no title, so the test cannot wait for one | It waits for the module's window and the page's colours (4.42) |
 | Expedition Code changes its backend's name, and the module shows a game that cannot save | The module's page says the site is in beta; the host is one line of the manifest and a new version; the session test does not see it, the owner's use does |
 | Expedition Code needs YouTube, its counting or WebGL to work at all | 4.40 stops and the owner decides |
-| A link that asks for a new window opens a second, blocked, window | 4.40 notes what opens for both modules and for CodeCombat; nothing is changed without the owner |
+| A link that asks for a new window, or Ctrl+N, opens a Chromium window with tabs and an address bar | Left so by the owner (D123): every website and `file://` are closed in it by the wall and the policy, only Chromium's own pages open, and Ctrl+W closes it |
 | The microphone's question, in a window without a frame, cannot be answered | 4.40 looks; if so, the owner decides between a policy for it and leaving the voice out |
 | Children meet strangers in a room | 4.40 finds how a room is joined; the description and the page say it; the adult decides, as for every door |
 | The website's build stops on a picture the release has not written yet | 4.44's branch and its scratch copy |

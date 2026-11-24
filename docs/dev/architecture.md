@@ -2142,3 +2142,15 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   hosts and not to pages; and a third party's counting and advertising,
   when the site works without them. A site of the family's keeps its own
   counting.
+
+- **D123 — A web module's new windows are left as Chromium makes them,
+  tabs and an address bar, since no website opens in them.** Decided
+  2026-11-24 by the owner, on the review of phase 4h. Ctrl+N in a web
+  module's application window, or a link that asks for a new window
+  (`target="_blank"`), opens a window of the same Chromium with tabs and
+  an address bar, which no manifest claims (D44, D85). Every website and
+  `file://` are closed in it, by the module's wall and the policy, and
+  Chromium's own pages, its settings and its history, open. The owner
+  leaves it so: what matters is that a child reaches no website outside
+  the module's, and that holds there as in the module's own window.
+  Ctrl+W, or the tab's ×, closes it.
