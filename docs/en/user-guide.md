@@ -962,22 +962,20 @@ package** was copied onto the computer by hand rather than installed;
 
 **Kydux** is a game for learning to program in Python, for children
 from eight. A young wizard arrives at a school of magic, and every step
-there needs a little real Python: a story tells what happens, a short
-lesson explains one idea, and the level after it asks the child to use
-it in a program of their own. It is in the child's language and needs
-no account.
+there is taken by writing a little Python. It has a fun story that
+keeps children interested, and short lessons that explain the
+fundamental ideas of programming. Each level is solved with a small
+program the child has to write with what the lessons taught, harder
+little by little and with help so that they do not get stuck.
 
-Kydux is of the Kidux family, and the module is a door to its website:
-it opens the game and no other site. It needs the internet whenever it
-is used. The same game is played without Kidux, in any web browser, at
-[kydux.kidux.org](https://kydux.kidux.org).
+Kydux is of the Kidux family, and we made it as an
+[alternative to CodeCombat](https://kydux.kidux.org). It needs the
+internet, because it is a game played on the web. It can also be played
+from any computer, at [kydux.kidux.org](https://kydux.kidux.org).
 
-The first time, the game asks whether it may use cookies to count how
-it is played. That is the game's own question, and it plays the same
-whatever the answer. A child's games are kept on the computer, each
-child their own, and are found again the next day; the game's start
-screen also keeps one as a file, which goes where the child says, and
-opens it again.
+Each child's games are kept on the computer, in the browser's own
+storage, and can be exported, to keep a copy or to take them to another
+computer.
 
 ![Kydux](../images/en/module-kydux.png)
 

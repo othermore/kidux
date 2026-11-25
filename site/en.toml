@@ -47,8 +47,11 @@ soon = "Raspberry Pi 5, coming soon"
 
 [kydux]
 title = "Kydux: learn Python with magic"
-lead = "A game of our own, of the Kidux family. A young wizard arrives at a school of magic, and every step there is taken by writing real Python."
-text = "A story, short lessons that explain one idea each, and levels to solve with a program of your own. For ages 8 and up, in English and Spanish, free and with no account."
+# The lead, with a link to the game in its middle: what comes before, the link and what comes after.
+lead = "A game of our own, of the Kidux family, made to offer an"
+lead_link = "alternative to CodeCombat"
+lead_after = ". A young wizard arrives at a school of magic, and every step there is taken by writing Python code."
+text = "With a gripping story and short lessons that explain the fundamental ideas of programming, each level is solved with a program the child has to write, with help that grows little by little so that they do not get stuck. For ages 8 and up, in English and Spanish, free and with no account."
 play = "Play Kydux now"
 guide = "Kydux in the guide"
 note = "In Kidux it is one more learning module. It is also played without Kidux: in any web browser, on any computer, with nothing to install."
