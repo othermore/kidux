@@ -292,13 +292,19 @@ def test_a_job_is_tried_while_systemd_does_not_answer(job):
     assert runner.started == ["check"]
 
 
-def test_a_daily_upgrade_last_seen_running_still_runs_while_systemd_is_away(job):
-    updates, runner, _, audit = job
-    runner.daily = ("active", "success")
-    assert updates.installing() is True
+def test_no_child_signs_in_while_systemd_does_not_answer_about_the_daily_upgrade(job):
+    # A systemd busy reloading, as apt makes it all through an upgrade, may
+    # be one with the daily upgrade running: the child waits and the
+    # sign-in screen asks again, whatever systemd said before.
+    updates, runner, _, _ = job
+    runner.daily = ("inactive", "success")
+    assert updates.installing() is False
 
     runner.answering = False
     assert updates.installing() is True
+
+    runner.answering = True
+    assert updates.installing() is False
 
 
 def test_nothing_is_made_up_while_systemd_does_not_answer(job):

@@ -21,11 +21,14 @@ SEAT = "org.freedesktop.login1.Seat"
 SEAT0 = "/org/freedesktop/login1/seat/seat0"
 
 TIMEOUT_MS = 10_000
-#: How long a question about an update's unit or the daily upgrade waits
-#: for systemd: they are asked from the daemon's main loop, which answers
-#: the lock, the time and the sign-in. A call in flight while systemd
-#: re-executes itself fails with NoReply after some 0.4 seconds, and the
-#: next one is answered (update-watch-plan.md, section 1; D124).
+#: How long the question about an update's unit waits for systemd: it is
+#: asked from the daemon's main loop, which answers the lock, the time and
+#: the sign-in, every half second while a job runs, and a job systemd does
+#: not answer about is asked about again (D124). A call in flight while
+#: systemd re-executes itself fails with NoReply after some 0.4 seconds,
+#: and the next one is answered (update-watch-plan.md, section 1). The
+#: daily upgrade's questions, asked once at a sign-in or a log-out, wait
+#: TIMEOUT_MS: their true answer is worth the wait.
 WATCH_TIMEOUT_MS = 1_000
 #: The one answer that says a unit is gone, as against not answering.
 NO_SUCH_UNIT = "org.freedesktop.systemd1.NoSuchUnit"
@@ -41,9 +44,11 @@ class SystemMachine:
 
     def _call(self, name, path, interface, method, arguments=None, reply=None,
               timeout_ms=TIMEOUT_MS):
-        """The call's answer, or Failed with `remote`, the D-Bus error's name
-        when the other side gave one, empty when it gave none (no reply, a
-        timeout, the bus gone)."""
+        """The call's answer, or Failed with `remote`, the name of the D-Bus
+        error that came back over the bus, from the other side or from the
+        bus itself (NoReply when the other side left without answering);
+        empty when no error came back over the bus: the call's own timeout,
+        the bus gone."""
         try:
             result = self._connection.call_sync(
                 name,
@@ -209,14 +214,15 @@ class SystemMachine:
     def daily_upgrade_state(self) -> tuple[str, str] | None:
         """Debian's daily upgrade's state and its last run's result, `exec-condition`
         for one its condition skipped; empty where systemd has no such unit;
-        None when systemd does not answer (D124)."""
+        None when systemd does not answer within TIMEOUT_MS, which a child's
+        sign-in takes as an upgrade that may be running (D124)."""
         try:
             path = self._call(SYSTEMD, SYSTEMD_PATH, SYSTEMD_MANAGER, "LoadUnit",
-                              GLib.Variant("(s)", (DAILY,)), "(o)", WATCH_TIMEOUT_MS)[0]
-            if self._unit_property(path, "Unit", "LoadState", WATCH_TIMEOUT_MS) != "loaded":
+                              GLib.Variant("(s)", (DAILY,)), "(o)")[0]
+            if self._unit_property(path, "Unit", "LoadState") != "loaded":
                 return ("", "")
-            return (self._unit_property(path, "Unit", "ActiveState", WATCH_TIMEOUT_MS),
-                    self._unit_property(path, "Service", "Result", WATCH_TIMEOUT_MS))
+            return (self._unit_property(path, "Unit", "ActiveState"),
+                    self._unit_property(path, "Service", "Result"))
         except Failed:
             return None
 

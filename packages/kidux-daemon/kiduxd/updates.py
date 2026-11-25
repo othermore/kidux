@@ -156,9 +156,6 @@ class Updates:
         self._partial = ""
         self.reading = Reading()
         self.last = Last()
-        #: The daily upgrade as systemd last told it, which stands while
-        #: systemd does not answer (D124).
-        self._daily: tuple[str, str] = ("", "")
         #: Whether systemd has not answered about the running job since it
         #: last did, and what of it the log has said for this job, once
         #: each: "away" and "back".
@@ -184,32 +181,28 @@ class Updates:
         self.last = Last()
         self._unanswered, self._said = False, set()
 
-    def _daily_state(self) -> tuple[tuple[str, str], bool]:
-        """The daily upgrade's state, and whether systemd answered: its last
-        known state while it does not (D124)."""
-        state = self._runner.daily_upgrade_state()
-        if state is None:
-            return self._daily, False
-        self._daily = state
-        return state, True
-
     def installing(self) -> bool:
         """Whether something is installing or removing packages, so that no
         child's session may start: this daemon's own job, or Debian's daily
-        upgrade."""
+        upgrade. While systemd does not answer about the daily upgrade, it
+        may be running: the child waits, and the sign-in screen asks again
+        (D124)."""
         if self.reading.job in ("applying", "installing", "removing"):
             return True
-        (active, _result), _answered = self._daily_state()
-        return active in RUNNING
+        daily = self._runner.daily_upgrade_state()
+        return daily is None or daily[0] in RUNNING
 
     def make_up_daily(self) -> bool:
         """Start Debian's daily upgrade if its last run was skipped for a
         child's session: called when the last child has logged out. Its
         condition is checked again by systemd, so a child who has signed in
         meanwhile is safe. True if it was started. Nothing is started while
-        systemd does not answer."""
-        (active, result), answered = self._daily_state()
-        if not answered or active in RUNNING or result != SKIPPED:
+        systemd does not answer (D124)."""
+        daily = self._runner.daily_upgrade_state()
+        if daily is None:
+            return False
+        active, result = daily
+        if active in RUNNING or result != SKIPPED:
             return False
         self._runner.start_daily_upgrade()
         self._audit("daily upgrade", "started", reason="skipped while a child played")
