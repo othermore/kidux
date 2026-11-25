@@ -33,6 +33,16 @@ def run(*argv):
     return subprocess.run(argv, capture_output=True, text=True)
 
 
+def daily_upgrade_at_rest():
+    """Whether Debian's daily download and upgrade neither run nor wait to."""
+    units = ("apt-daily.service", "apt-daily-upgrade.service")
+    states = run("systemctl", "is-active", *units).stdout.split()
+    jobs = run("systemctl", "list-jobs", "--no-legend").stdout
+    return (not any(state in ("active", "activating", "deactivating", "reloading")
+                    for state in states)
+            and not any(unit in jobs for unit in units))
+
+
 def kidux_as(*args, user="debian"):
     return run("runuser", "-u", user, "--", "/usr/local/bin/kidux-as", *args)
 
@@ -195,6 +205,13 @@ report("an adult logs the child out", result.returncode == 0
        and wait(lambda: session_id() is None, 10),
        f"rc={result.returncode} {result.stderr[-300:]} "
        + run("loginctl", "list-sessions", "--no-legend").stdout)
+
+# The day's change started Debian's daily upgrade, which was skipped under
+# the child's session and which the daemon makes up at the log-out (D115).
+# No child signs in while it runs, so the days are asked about once it has
+# ended: on a machine with Debian's updates waiting it has minutes of work.
+time.sleep(2)
+wait(daily_upgrade_at_rest, 900)
 
 # The days of the week (D54): today not ticked, the child is told it is
 # not their day; an adult's grant still lets them in.
