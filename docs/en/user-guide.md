@@ -974,8 +974,8 @@ internet, because it is a game played on the web. It can also be played
 from any computer, at [kydux.kidux.org](https://kydux.kidux.org).
 
 Each child's games are kept on the computer, in the browser's own
-storage, and can be exported, to keep a copy or to take them to another
-computer.
+storage, and are still there after it is closed or restarted. They can
+be exported, to keep a copy or to take them to another computer.
 
 ![Kydux](../images/en/module-kydux.png)
 

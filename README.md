@@ -14,11 +14,13 @@ With Kidux, each child enjoys a personal digital space that genuinely feels like
 Kidux is free software, free for everyone, at home or at school, and all its source code is on GitHub for anyone to study, change and share. Built on a proven Debian foundation, it provides bilingual English and Spanish support from day one.
 
 **Kydux, the family's own game.** [Kydux](https://kydux.kidux.org) is a
-game for learning real Python, made by the same hands as Kidux: a young
-wizard arrives at a school of magic, and every step there is taken by
-writing a program. In Kidux it is a learning module like the others. It
-is also played on its own, in any web browser and on any computer, at
-[kydux.kidux.org](https://kydux.kidux.org), with nothing to install.
+game for learning to program in Python, made by the same hands as Kidux
+as an alternative to CodeCombat: a young wizard arrives at a school of
+magic, and every step there is taken by writing Python code, with a fun
+story, short lessons and help so as not to get stuck. It comes as a
+module in Kidux, and is also played from the web browser on any
+computer, at [kydux.kidux.org](https://kydux.kidux.org), with nothing to
+install.
 
 ## What a child sees
 
@@ -67,10 +69,11 @@ Every activity in Kidux is packaged as an independent learning module. Adults in
 The following modules are available in Kidux:
 
 - [Kydux](docs/en/modules/kydux.md): the Kidux family's own game for
-  learning real Python, from ages 8 and up. A story at a school of
-  magic, short lessons that explain one idea each, and levels solved by
-  writing a program. Free, in English and Spanish, with no account.
-  Requires internet. Also played without Kidux, in any browser, at
+  learning to program in Python, from ages 8 and up. A fun story at a
+  school of magic, short lessons that explain the fundamental ideas of
+  programming, and levels solved by writing a small program, with help
+  so as not to get stuck. Free, in English and Spanish, with no account.
+  Requires internet. Also played from any computer, at
   [kydux.kidux.org](https://kydux.kidux.org).
 - [GCompris](docs/en/modules/gcompris.md): a comprehensive educational suite featuring over 100 playful activities for children ages 2 to 10, covering literacy, numeracy, basic science, geography, colors, and keyboard and mouse coordination. Works offline; only its voices are downloaded the first time.
 - [Tux Typing](docs/en/modules/tuxtype.md): an engaging educational arcade game teaching touch typing to children ages 6 to 12. Help Tux the penguin catch falling fish and destroy comets by typing letters and words with increasing speed and precision.

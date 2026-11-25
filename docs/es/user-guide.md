@@ -996,8 +996,8 @@ instalarse; **Eliminar** quita su carpeta.
 ### Kydux
 
 **Kydux** es un juego para aprender a programar en Python, para niños a
-partir de ocho años. Un mago llega a un colegio de magia, y allí cada
-paso se da escribiendo un poco de Python. Tiene una historia divertida
+partir de ocho años. Un mago o maga llega a un colegio de magia, y allí
+cada paso se da escribiendo un poco de Python. Tiene una historia divertida
 para que los niños mantengan el interés e incluye lecciones cortas para
 explicar los conceptos fundamentales de programación. Cada nivel se
 resuelve con un pequeño programa que el niño debe escribir con lo
@@ -1011,8 +1011,9 @@ desde cualquier ordenador, en
 [kydux.kidux.org](https://kydux.kidux.org).
 
 Las partidas de cada niño se guardan en el ordenador, en la propia
-memoria del navegador, y se pueden exportar para tener copia de
-seguridad o llevarlas a otro ordenador.
+memoria del navegador, y están ahí aunque se cierre o se reinicie. Se
+pueden exportar para tener copia de seguridad o llevarlas a otro
+ordenador.
 
 ![Kydux](../images/es/module-kydux.png)
 

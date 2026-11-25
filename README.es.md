@@ -14,12 +14,13 @@ Con Kidux, cada menor dispone de un espacio digital que siente verdaderamente su
 Kidux es software libre y gratuito para todos, en casa o en el colegio, y su código fuente está en GitHub para que cualquiera pueda estudiarlo, modificarlo y compartirlo. Está construido sobre una base sólida y probada de Debian, disponible en español y en inglés desde el primer día.
 
 **Kydux, el juego de la familia.** [Kydux](https://kydux.kidux.org) es
-un juego para aprender Python de verdad, hecho por las mismas manos que
-Kidux: quien juega llega a un colegio de magia, y allí cada paso se da
-escribiendo un programa. En Kidux es un módulo de aprendizaje más.
-También se juega por su cuenta, en cualquier navegador y en cualquier
-ordenador, en [kydux.kidux.org](https://kydux.kidux.org), sin instalar
-nada.
+un juego para aprender a programar en Python, hecho por las mismas manos
+que Kidux como alternativa a CodeCombat: un mago o maga llega a un
+colegio de magia, y allí cada paso se da escribiendo código Python, con
+una historia divertida, lecciones cortas y ayudas para no atrancarse.
+Viene como módulo en Kidux, y también se juega desde el navegador en
+cualquier ordenador, en [kydux.kidux.org](https://kydux.kidux.org), sin
+instalar nada.
 
 ## Lo que ve un niño
 
@@ -68,11 +69,12 @@ Todas las actividades de Kidux están organizadas en módulos de aprendizaje ind
 Estos son los módulos incluidos y disponibles en Kidux:
 
 - [Kydux](docs/es/modules/kydux.md): el juego de la familia Kidux para
-  aprender Python de verdad, a partir de 8 años. Una historia en un
-  colegio de magia, lecciones cortas que explican una idea cada una, y
-  niveles que se resuelven escribiendo un programa. Gratis, en español
-  y en inglés, sin cuenta. Requiere conexión a internet. También se
-  juega sin Kidux, en cualquier navegador, en
+  aprender a programar en Python, a partir de 8 años. Una historia
+  divertida en un colegio de magia, lecciones cortas que explican los
+  conceptos fundamentales de programación, y niveles que se resuelven
+  escribiendo un pequeño programa, con ayudas para no atrancarse.
+  Gratis, en español y en inglés, sin cuenta. Requiere conexión a
+  internet. También se juega desde cualquier ordenador, en
   [kydux.kidux.org](https://kydux.kidux.org).
 - [GCompris](docs/es/modules/gcompris.md): una completa suite educativa con más de 100 actividades para niños de 2 a 10 años que abarcan lectura, numeración, ciencias, geografía, colores y destreza motriz con teclado y ratón. Funciona sin conexión; solo sus voces se descargan la primera vez.
 - [Tux Typing](docs/es/modules/tuxtype.md): un clásico juego formativo de mecanografía para niños de 6 a 12 años. Ayuda al pingüino Tux a atrapar peces y salvar cometas tecleando letras y palabras con velocidad y precisión crecientes.

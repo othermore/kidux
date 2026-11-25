@@ -54,7 +54,7 @@ lead_after = ". A young wizard arrives at a school of magic, and every step ther
 text = "With a gripping story and short lessons that explain the fundamental ideas of programming, each level is solved with a program the child has to write, with help that grows little by little so that they do not get stuck. For ages 8 and up, in English and Spanish, free and with no account."
 play = "Play Kydux now"
 guide = "Kydux in the guide"
-note = "In Kidux it is one more learning module. It is also played without Kidux: in any web browser, on any computer, with nothing to install."
+note = "It comes as a module in Kidux, and is also played from the web browser on any computer, with nothing to install."
 picture = "Kydux's welcome page, open in Kidux above the bar"
 # The heading of the user guide's section on Kydux, as its address has it.
 anchor = "kydux"
@@ -85,7 +85,7 @@ more = "Every module has a dedicated chapter in the user guide detailing its edu
 guide = "Explore modules in the guide"
 # The heading of the user guide's modules section, as its address has it.
 anchor = "9-learning-modules"
-doors = "For a family that wants them, two more modules are doors to coding games on other people's websites:"
+doors = "There are also modules for two online coding games by other authors:"
 doors_and = "and"
 
 [modules.gcompris]
