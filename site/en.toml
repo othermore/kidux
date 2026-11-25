@@ -12,6 +12,7 @@ description = "A complete, safe, and distraction-free operating system for child
 label = "Sections"
 what = "About"
 modules = "Modules"
+kydux = "Kydux"
 docs = "User guide"
 adults = "Adult panel"
 licence = "Licence"
@@ -44,6 +45,17 @@ title = "Runs on hardware you already own"
 text = "Runs smoothly on almost any 64-bit PC or laptop manufactured since 2008. Give that older computer in your home a purposeful second life."
 soon = "Raspberry Pi 5, coming soon"
 
+[kydux]
+title = "Kydux: learn Python with magic"
+lead = "A game of our own, of the Kidux family. A young wizard arrives at a school of magic, and every step there is taken by writing real Python."
+text = "A story, short lessons that explain one idea each, and levels to solve with a program of your own. For ages 8 and up, in English and Spanish, free and with no account."
+play = "Play Kydux now"
+guide = "Kydux in the guide"
+note = "In Kidux it is one more learning module. It is also played without Kidux: in any web browser, on any computer, with nothing to install."
+picture = "Kydux's welcome page, open in Kidux above the bar"
+# The heading of the user guide's section on Kydux, as its address has it.
+anchor = "kydux"
+
 [child]
 title = "A computer of their very own"
 lead = "Their own avatar, their own name, and their own password. Inside, a personalized space containing only the activities chosen by their family."
@@ -70,6 +82,8 @@ more = "Every module has a dedicated chapter in the user guide detailing its edu
 guide = "Explore modules in the guide"
 # The heading of the user guide's modules section, as its address has it.
 anchor = "9-learning-modules"
+doors = "For a family that wants them, two more modules are doors to coding games on other people's websites:"
+doors_and = "and"
 
 [modules.gcompris]
 name = "GCompris"
@@ -121,9 +135,11 @@ anchor = "wikipedia"
 
 [modules.codecombat]
 name = "CodeCombat"
-age = "Ages 9 to 16"
-text = "Learn real Python or JavaScript by navigating a role-playing dungeon adventure. Requires an active internet connection and a platform account."
 anchor = "codecombat"
+
+[modules.expedition]
+name = "Expedition Code"
+anchor = "expedition-code"
 
 [modules.mail]
 name = "Mail"
@@ -246,7 +262,9 @@ mastodon_text = "@kidux@fosstodon.org"
 rights = "© 2026"
 licence = "Kidux is free software, published under the GNU General Public License, version 3 or later."
 visits = "Visits are also counted using GoatCounter, which does not use tracking cookies."
-others = "GCompris, ScratchJr, Blockly Games, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat, Wikipedia, Kig, Kalzium, Step, and PhET simulations belong to their respective authors and retain their original licences. Kidux is built on Debian and is not affiliated with any of them."
+others = "GCompris, ScratchJr, Blockly Games, Tux Typing, Scratch, TurboWarp, wwwBASIC, CodeCombat, Expedition Code, Wikipedia, Kig, Kalzium, Step, and PhET simulations belong to their respective authors and retain their original licences. Kidux is built on Debian and is not affiliated with any of them."
+family = "Of the Kidux family:"
+kydux = "Kydux, learn Python with magic"
 
 [cookies]
 title = "May we use cookies to count visits?"

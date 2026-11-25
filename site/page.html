@@ -27,6 +27,7 @@
     <nav aria-label="{{ nav.label }}">
       <a href="#what">{{ nav.what }}</a>
       <a href="#modules">{{ nav.modules }}</a>
+      <a href="#kydux">{{ nav.kydux }}</a>
       <a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md">{{ nav.docs }}</a>
       <a href="#adults">{{ nav.adults }}</a>
       <a href="#licence">{{ nav.licence }}</a>
@@ -88,6 +89,24 @@
         <span class="tag">{{ pillars.hardware.soon }}</span>
       </article>
     </div>
+  </div>
+</section>
+
+<section id="kydux" class="kydux">
+  <div class="wrap split flip">
+    <div>
+      <h2>{{ kydux.title }}</h2>
+      <p class="lead">{{ kydux.lead }}</p>
+      <p>{{ kydux.text }}</p>
+      <div class="actions">
+        <a class="button primary" href="{{ site.kydux }}">{{ kydux.play }}</a>
+        <a class="button quiet" href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ kydux.anchor }}">{{ kydux.guide }}</a>
+      </div>
+      <p class="note">{{ kydux.note }}</p>
+    </div>
+    <figure class="screen">
+      <img src="{{ root }}images/{{ lang }}/module-kydux.png" alt="{{ kydux.picture }}" width="1280" height="800" loading="lazy">
+    </figure>
   </div>
 </section>
 
@@ -167,10 +186,6 @@
         <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.wikipedia.anchor }}">{{ modules.wikipedia.name }}</a> <span class="age">{{ modules.wikipedia.age }}</span></h3><p>{{ modules.wikipedia.text }}</p></div>
       </article>
       <article class="module">
-        <img src="{{ root }}images/{{ lang }}/module-codecombat.png" alt="" width="1280" height="800" loading="lazy">
-        <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.codecombat.anchor }}">{{ modules.codecombat.name }}</a> <span class="age">{{ modules.codecombat.age }}</span></h3><p>{{ modules.codecombat.text }}</p></div>
-      </article>
-      <article class="module">
         <img src="{{ root }}images/{{ lang }}/module-mail.png" alt="" width="1280" height="800" loading="lazy">
         <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.mail.anchor }}">{{ modules.mail.name }}</a> <span class="age">{{ modules.mail.age }}</span></h3><p>{{ modules.mail.text }}</p></div>
       </article>
@@ -199,6 +214,7 @@
         <div><h3><a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.photography.anchor }}">{{ modules.photography.name }}</a> <span class="age">{{ modules.photography.age }}</span></h3><p>{{ modules.photography.text }}</p></div>
       </article>
     </div>
+    <p class="doors">{{ modules.doors }} <a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.codecombat.anchor }}">{{ modules.codecombat.name }}</a> {{ modules.doors_and }} <a href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.expedition.anchor }}">{{ modules.expedition.name }}</a>.</p>
     <p class="more">{{ modules.more }} <a class="button quiet small" href="{{ site.repository }}/blob/main/docs/{{ lang }}/user-guide.md#{{ modules.anchor }}">{{ modules.guide }}</a></p>
   </div>
 </section>
@@ -333,6 +349,7 @@
   <div class="wrap">
     <img src="{{ root }}brand/wordmark.svg" alt="Kidux" width="94" height="32" loading="lazy">
     <p>{{ footer.rights }} <a href="{{ site.owner_url }}">{{ site.owner }}</a>. {{ footer.licence }}</p>
+    <p class="family">{{ footer.family }} <a href="{{ site.kydux }}">{{ footer.kydux }}</a></p>
     <p>{{ footer.others }}</p>
 {{#if site.goatcounter}}
     <p>{{ footer.visits }}</p>

@@ -87,7 +87,15 @@ the part that shows the modules, each module's name leads to its own
 section of the guide and a button to the modules' section, by headings'
 addresses the words hold (`modules.anchor`, `modules.<id>.anchor`), every
 one of which the same check holds to a heading of the guide in that
-language; so a visitor sees how much there is and what each module does. Both states of the image's card are written, in every
+language; so a visitor sees how much there is and what each module does.
+Kydux, the Kidux family's own game, has a part of its own after the
+pillars (D120): its picture, a button to play it at its address,
+`kydux` in `site/site.toml`, one to its section of the guide, and the
+words that it is played without Kidux too; *Kydux* in the header leads
+there, and the footer names it on every page as of the Kidux family. The
+doors to other people's coding games, CodeCombat and Expedition Code,
+have no card: one sentence under the modules names them, each name
+leading to its section of the guide. Both states of the image's card are written, in every
 language, and checked.
 
 ## 3. Building and looking at it

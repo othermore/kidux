@@ -11,7 +11,10 @@ link a page names must be there; each page must lead to the others, to the
 contact address and to where a donation is made; and every section of the
 user guide it sends a visitor to, the steps to install it and each module's,
 must be a heading of the guide in its language, and the page on trying
-Kidux in an emulator must be there in it.
+Kidux in an emulator must be there in it. Kydux, the family's own game,
+has a part of its own before the modules, and each page leads to it, in
+that part and in the footer; the doors to other people's coding games are
+one sentence under the modules, with no card of their own (D120).
 Given the package archive's tarball, it must unpack it under apt/. With a
 measurement id for Google Analytics, each page counts a visit in Google's
 consent mode, its storage denied until a yes in the card; without one,
@@ -173,5 +176,14 @@ with tempfile.TemporaryDirectory() as scratch:
         check(f"{language}: it offers the installer and the trial, whose page is there",
               f'href="{facts["site.download"]}"' in text
               and f'/docs/{language}/{facts["site.try"]}"' in text and trial.is_file(), str(trial))
+
+    # Kydux first, with links to the game; the doors to other people's
+    # coding games last, without a card (D120).
+    for language, page in pages.items():
+        text = page.read_text(encoding="utf-8")
+        check(f"{language}: Kydux has its part and its links, and the doors to others' games no card",
+              'id="kydux"' in text and text.count(f'href="{facts["site.kydux"]}"') >= 2
+              and 0 <= text.find('id="kydux"') < text.find('id="modules"')
+              and "module-codecombat.png" not in text and 'class="doors"' in text, str(page))
 
 sys.exit(failed)

@@ -187,7 +187,7 @@ can. Each phase assumes what it builds on is reasonably stable.
 - [x] Kydux first in the README and the user guide, with a link to the
       game at the top of every page, and the doors to other people's
       coding games last (4.43).
-- [ ] Kydux's own part of the website, a link to it in the footer, and
+- [x] Kydux's own part of the website, a link to it in the footer, and
       the doors to other people's coding games in one line (4.44).
 - [ ] A file that is not a web page, a plain text file for one, that a
       program asks the desktop to open: `xdg-open` in a child's session

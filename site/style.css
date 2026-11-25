@@ -224,6 +224,13 @@ h3 { font-size: 22px; line-height: 1.25; }
 .age { font-size: 15px; color: var(--soft); white-space: nowrap; }
 .more { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 30px; font-size: 19px; color: var(--soft); }
 .more .button { margin: 0; }
+/* The doors to other people's coding games: one line under the grid. */
+.doors { margin-top: 26px; font-size: 19px; color: var(--soft); }
+
+/* Kydux, the family's own game: a part of its own, in the brand's sky. */
+section.kydux { background: var(--sky); }
+.kydux p:not(.lead):not(.note) { margin-top: 14px; font-size: 19px; color: var(--soft); }
+.kydux .screen { border-radius: 22px; }
 
 /* Where to give: the one dark place on the page. */
 .support { background: var(--night); color: var(--snow); text-align: center; }
