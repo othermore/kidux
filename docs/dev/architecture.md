@@ -1600,7 +1600,9 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   sign-ins through Google, Facebook or Clever lead nowhere, a subscription
   is bought by the adult on another computer, and the module's words say the
   site is CodeCombat's, that most of it needs a paid subscription, and that
-  Kidux has no connection with CodeCombat Inc.
+  Kidux has no connection with CodeCombat Inc. *That its description says
+  Kidux has no connection with CodeCombat: superseded by D125, which says
+  it on the module's page in the guide.*
 
 - **D87 — Wikipedia is a door to the whole encyclopedia in the child's
   language, and the Wikimedia projects, with the rest of the internet
@@ -1860,7 +1862,10 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   The module's name says what it is, not PhET's, which is a trademark,
   and its description names PhET as the simulations' author and says that
   Kidux is not connected with PhET. The current versions, if ever wanted,
-  would be a door to PhET's site (D85), shipping nothing.
+  would be a door to PhET's site (D85), shipping nothing. *That its
+  description says Kidux is not connected with PhET: superseded by D125,
+  which says it on the module's page in the guide; the description still
+  names PhET as the simulations' author.*
 
 - **D106 — A module may have a guide, shown by the launcher in a pane of
   its own on the right.** Decided 2026-10-17 by the owner, on
@@ -2130,7 +2135,9 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   it by name. The site's avatars are emoji, which a Kidux machine had no
   font for (step 4.40), so its package depends on
   `fonts-noto-color-emoji`, the owner's choice the same day over leaving
-  the boxes or giving every machine the font.
+  the boxes or giving every machine the font. *That its description says
+  Kidux has no connection with it: superseded by D125, which says it on
+  the module's page in the guide.*
 
 - **D122 — A door module's hosts are what its site needs to work, and
   never a site to browse.** Decided 2026-11-24 by the owner, on
@@ -2168,3 +2175,24 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   the last log-out, no child signs in, since it may be running, and
   nothing is started. No time limit: a child waiting is better than dpkg
   under a child's session.
+
+- **D125 — A module's description in the panel is written for a parent
+  weighing it, and that Kidux is not connected with a site's owner is
+  said on the module's own page in the guide.** Decided 2026-11-25 by the
+  owner, on the texts of Kydux, which read as a specification rather than
+  as words for someone deciding whether to install a module. The reader
+  of a description on the Modules page is a parent without a technical
+  profile, deciding in half a minute: it says what the child does and
+  learns, what it needs, the internet, an account, a price, and that it
+  is fun and the child will not get stuck, never how the module is
+  built, a door, a host, a browser's storage or a compiler. The
+  descriptions of Kydux, TurboWarp, Scratch, GCompris and Kig are written
+  so; that Kydux is played without Kidux too is on its page (D120), not
+  in its description. That Kidux is not affiliated with CodeCombat,
+  Expedition Code, Google or PhET is said on the page of the module that
+  opens their site or ships their work, beside the site or the software
+  it names, and not in the description; PhET's attribution, which its
+  licence asks for, stays in Simulations' description.
+  `tests/project/docs.sh` holds the four pages to it, in both languages.
+  This overturns that part of D86, D105 and D121. Mail's description
+  keeps *IMAP*, as the owner left it.

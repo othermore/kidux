@@ -76,7 +76,11 @@ icon theme is needed and the tile is the same on every machine.
   module's Chromium reaches those and nothing else (section 4).
 - `name` and `description` are what the adult panel and the launcher show,
   in the language of whoever is looking, through the module's own gettext
-  domain; the package installs the catalogue.
+  domain; the package installs the catalogue. The description is written
+  for a parent deciding whether to install the module: what the child does
+  and what it needs, never how the module is built; that Kidux is not
+  affiliated with a site's owner is said on the module's page in the
+  guide (D125).
 - `app_ids` says what the module's windows are called, as globs: a Wayland
   window's `app_id`, an X11 window's `WM_CLASS` class. It is how the
   launcher knows which module a window is of, since the compositor says

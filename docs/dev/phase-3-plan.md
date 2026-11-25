@@ -727,8 +727,10 @@ whether to download, which a child who cannot read cannot answer.
    gcompris-qt-data, qt6-wayland`, `memory_max = "3G"`, `min_age = 2`,
    `max_age = 10`, `launch = { exec = "/usr/libexec/kidux-module-gcompris"
    }`, `name = "GCompris"`,
-   `description = "Over a hundred activities: reading, counting, colours,
-   the keyboard and the mouse."`, translated in `po/es.po`; `icon.svg`
+   `description = "Over a hundred fun educational activities covering
+   reading, maths, science, colours, and mouse and keyboard skills. The
+   first time it needs the internet to download its voices."`, translated
+   in `po/es.po`; `icon.svg`
    drawn in the avatars' style, blocks with a letter and a number on the
    module's own colour, since the tile is Kidux's and not GCompris's logo.
    Its short description, for the panel: *Kidux learning module:
@@ -970,12 +972,12 @@ the Spanish machine, offers hello as *Hola* (picture
 ### 3.11 — GCompris says it needs the internet — S — **done 2026-09-26**
 
 D48. GCompris's description, in `module.toml` and so in its package's
-fields of 3.10, in both languages, ends *It needs the internet at first,
-to fetch its voices.*: GCompris downloads its voices, words and music
-itself the first times an activity asks for them. The user guide's
-section 9 says the same, and that the panel says so before it is
-installed. "Always" instead of "at first" if the owner's use at home shows
-it downloads on every start (step 3.16).
+fields of 3.10, in both languages, ends *The first time it needs the
+internet to download its voices.*: GCompris downloads its voices, words
+and music itself the first times an activity asks for them. The user
+guide's section 9 says the same, and that the panel says so before it is
+installed. "Always" instead of "the first time" if the owner's use at
+home shows it downloads on every start (step 3.16).
 
 **Tests.** `tests/project/module-fields.py` keeps the package's fields and
 the manifest's words in step, and `tests/project/i18n.sh` the Spanish;

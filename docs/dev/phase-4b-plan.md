@@ -786,17 +786,18 @@ pass, Scratch's library opens in the quick loop, and `kidux-webapp
 **Change.** Copied from `kidux-module-hello-web`, with no `webapp/` and no
 `content/`:
 - `module.toml`: `id = "codecombat"`, `version = "0.1.0"`, `name =
-  "CodeCombat"`, `description = "The CodeCombat website, where you learn
-  Python and JavaScript by playing. It needs the internet and a CodeCombat
-  account, paid for most of it; Kidux is not connected with CodeCombat."`,
+  "CodeCombat"`, `description = "An adventure role-playing game where
+  children learn real Python and JavaScript syntax. Requires internet and a
+  CodeCombat account, and most of the site is paid for."`,
   `min_age = 9`, `max_age = 16`, `recommended_before = ["scratch"]`,
   `launch = { web = "https://codecombat.com/" }`, `hosts = ["codecombat.com"]`
   plus what *Finding a site's hosts* finds to be CodeCombat's own, with a
   comment naming what was left out, `categories = ["programming"]`,
-  `memory_max = "3G"`. Spanish: `CodeCombat`, `La web de CodeCombat, donde
-  se aprende Python y JavaScript jugando. Necesita internet y una cuenta
-  de CodeCombat, de pago para casi todo; Kidux no tiene ninguna relación
-  con CodeCombat.`
+  `memory_max = "3G"`. Spanish: `CodeCombat`, `Juego de rol y aventuras
+  donde los niños aprenden a programar en Python y JavaScript. Requiere
+  conexión a internet y una cuenta de CodeCombat, de pago para casi todo.`
+  That Kidux is not affiliated with CodeCombat is said on the module's page
+  in the guide (D125).
 - `debian/control`: `Depends: kidux-webapps (>= 0.1.10)`; the fields;
   `Description: Kidux learning module: CodeCombat, a door to the CodeCombat
   website`, the long description saying the module ships nothing of

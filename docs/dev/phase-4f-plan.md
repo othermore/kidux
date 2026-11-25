@@ -246,8 +246,8 @@ child needs, and they never change under the module.
 **The name.** The module is *Simulations* (*Simulaciones*), `id =
 "simulations"`, not *PhET*: PhET is a trademark the agreement keeps for
 its owner, so the name says what the module is and the description says
-whose the simulations are, which the attribution requires, and that
-Kidux is not connected with PhET (as D86 says of CodeCombat). The
+whose the simulations are, which the attribution requires; the module's
+page in the guide says that Kidux is not affiliated with PhET (D125). The
 package is `kidux-module-simulations`.
 
 **The files, fetched at development time.** `upstream.toml` and a
@@ -386,10 +386,10 @@ sections and the website's cards. English first, Spanish beside it.
 
 | Module | `name` | `description` (English) | Spanish `name` | Spanish `description` |
 |---|---|---|---|---|
-| kig | Kig | Geometry you can move: points, lines, circles and shapes that keep their rules when you drag them. | Kig | Geometría que se mueve: puntos, rectas, circunferencias y figuras que conservan sus reglas cuando las arrastras. |
-| kalzium | Kalzium | The periodic table: every element, what it is like, its atom, and how matter changes with the temperature. | Kalzium | La tabla periódica: cada elemento, cómo es, su átomo, y cómo cambia la materia con la temperatura. |
-| step | Step | A physics playground: put springs, weights and forces on the table, press play and see what happens. | Step | Un laboratorio de física: pon muelles, pesos y fuerzas sobre la mesa, dale a reproducir y mira qué pasa. |
-| simulations | Simulations | Experiments to play with on the screen: numbers, forces, light, electricity, matter, planets and life. Simulations by PhET Interactive Simulations, University of Colorado Boulder, licensed under CC BY 4.0; Kidux is not connected with PhET. | Simulaciones | Experimentos para jugar en la pantalla: números, fuerzas, luz, electricidad, materia, planetas y vida. Simulaciones de PhET Interactive Simulations, Universidad de Colorado Boulder, bajo licencia CC BY 4.0; Kidux no tiene relación con PhET. |
+| kig | Kig | Interactive geometry: draw points, lines, circles and polygons, then move and stretch them to see what changes and what does not. | Kig | Geometría interactiva: dibuja puntos, rectas, circunferencias y polígonos, y muévelos y defórmalos para ver qué cambia y qué no. |
+| kalzium | Kalzium | Interactive periodic table of the elements with atomic models, chemical properties, changes of state across temperatures, and guided lessons. | Kalzium | Tabla periódica interactiva con modelos atómicos, propiedades químicas, cambios de estado según la temperatura y lecciones guiadas. |
+| step | Step | An interactive two-dimensional physics laboratory: experiment with bodies, springs, gravity, forces, and collisions, with guided lessons beside it. | Step | Laboratorio interactivo de física en dos dimensiones: experimenta con cuerpos, muelles, gravedad, fuerzas y colisiones, con lecciones guiadas al lado. |
+| simulations | Simulations | Interactive maths and science experiments: explore numbers, forces, light, electricity, atoms, planets and life. Simulations by PhET Interactive Simulations, University of Colorado Boulder, under CC BY 4.0. | Simulaciones | Experimentos interactivos de matemáticas y ciencia: explora números, fuerzas, luz, electricidad, átomos, planetas y vida. Simulaciones de PhET Interactive Simulations, Universidad de Colorado Boulder, bajo licencia CC BY 4.0. |
 
 Ages and what comes before, for `XB-Kidux-Ages` and `XB-Kidux-Before`:
 Kig 10–14, before it GCompris; Kalzium 10–16; Step 10–16, before it

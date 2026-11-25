@@ -202,8 +202,10 @@ packages/kidux-module-kydux/
   set is exactly the manifest's, `kidux.org` is not among them, and no
   host of the list is a parent of `kidux.org`'s other names (none ends
   the name `apt.kidux.org` or `iso.kidux.org`);
-- its words say it is played without Kidux: `kydux.kidux.org` in the
-  manifest's description and in `po/es.po`'s;
+- its words say what a family needs, free, in both languages, with no
+  account and the internet, in the manifest's description and in
+  `po/es.po`'s; that it is played without Kidux, at `kydux.kidux.org`, is
+  on its page in the guide, which `tests/project/docs.sh` holds (D125);
 - the manifest's version is the package's; the catalogue is complete.
 
 **Acceptance**, `tests/acceptance/26-module-kydux.sh`, as
@@ -270,9 +272,10 @@ after `kidux-module-kydux`.
 `recommended_before == ("scratch",)`), no settings, no `sign_in`; its
 hosts are exactly the manifest's, with `expeditioncode.com` among them
 and none of `youtube.com`, `google.com`, `posthog.com`, `convex.cloud`
-as a bare name, nor a name under the first three; its words say *Kidux
-is not connected with Expedition Code* and *In English only*, in both
-languages; the version; the catalogue.
+as a bare name, nor a name under the first three; its words say *In
+English only*, in both languages, and leave to its page in the guide that
+Kidux is not affiliated with Expedition Code, which `tests/project/docs.sh`
+holds (D125); the version; the catalogue.
 
 **Acceptance**, `tests/acceptance/27-module-expedition-code.sh`, as
 Kydux's: the policy's exact allowlist; `--print` with
@@ -673,7 +676,7 @@ dictionary, Google's account list), as for every door.
 id = "kydux"
 version = "0.1.0"
 name = "Kydux"
-description = "A game of the Kidux family for learning real Python: a young wizard arrives at a school of magic, and every step there is taken by writing a program. Free, in English and Spanish, with no account. Requires internet. It is also played in any browser, without Kidux, at kydux.kidux.org."
+description = "A game of the Kidux family for learning to program in Python: a young wizard arrives at a school of magic, and every step there is taken by writing Python code. A fun story, short lessons and levels solved with a small program, with help so as not to get stuck. Free, in English and Spanish, with no account. Requires internet."
 min_age = 8
 # The word after the question mark tells the game it is opened from Kidux.
 launch = { web = "https://kydux.kidux.org/?from=kidux" }
@@ -690,11 +693,12 @@ categories = ["programming"]
 i18n_domain = "kidux-module-kydux"
 ```
 
-Spanish description: *Un juego de la familia Kidux para aprender Python de
-verdad: quien juega llega a un colegio de magia, y allí cada paso se da
-escribiendo un programa. Gratis, en español y en inglés, sin cuenta.
-Requiere conexión a internet. También se juega en cualquier navegador,
-sin Kidux, en kydux.kidux.org.*
+Spanish description: *Un juego de la familia Kidux para aprender a
+programar en Python: un mago o maga llega a un colegio de magia, y allí
+cada paso se da escribiendo código Python. Una historia divertida,
+lecciones cortas y niveles que se resuelven con un pequeño programa, con
+ayudas para no atrancarse. Gratis, en español y en inglés, sin cuenta.
+Requiere conexión a internet.*
 
 `debian/control`'s description:
 
@@ -724,7 +728,7 @@ Description: Kidux learning module: Kydux, a door to the family's game for learn
 id = "expedition-code"
 version = "0.1.0"
 name = "Expedition Code"
-description = "A coding game on its own website: children write JavaScript-style code to complete missions, alone or with up to two other players in a room. In English only, and in beta. Requires internet; it asks for no email and no password. Kidux is not connected with Expedition Code."
+description = "A coding game on its own website: children write JavaScript-style code to complete missions, alone or with up to two other players in a room. In English only, and in beta. Requires internet; it asks for no email and no password."
 min_age = 9
 recommended_before = ["scratch"]
 launch = { web = "https://www.expeditioncode.com/" }
@@ -743,8 +747,9 @@ i18n_domain = "kidux-module-expedition-code"
 Spanish description: *Un juego de programación en su propia web: los niños
 escriben código al estilo de JavaScript para completar misiones, solos o
 con hasta otros dos jugadores en una sala. Solo en inglés, y en fase
-beta. Requiere conexión a internet; no pide correo ni contraseña. Kidux
-no tiene ninguna relación con Expedition Code.*
+beta. Requiere conexión a internet; no pide correo ni contraseña.*
+That Kidux is not affiliated with Expedition Code is said on the module's
+page in the guide (D125).
 
 `debian/control`'s description:
 

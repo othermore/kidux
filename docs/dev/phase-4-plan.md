@@ -411,8 +411,9 @@ project.
 *The package* (`kidux-module-scratch`, copied from `kidux-module-hello-web`
 and cut down):
 - `module.toml`: `id = "scratch"`, `name = "Scratch"`, `description =
-  "Make games and stories with blocks, as at school. Its characters,
-  backdrops and sounds come from the internet."`, `min_age = 8`,
+  "Create interactive games, animations, and stories with visual coding
+  blocks, as at school. It needs the internet for its library of
+  characters, backdrops and sounds."`, `min_age = 8`,
   `max_age = 16`, `recommended_before = ["scratchjr"]`, `launch = { webapp
   = "scratch" }`, `memory_max = "3G"`, `categories = ["programming"]`.
 - `debian/rules`: `override_dh_auto_install` copies `upstream/` to
@@ -527,8 +528,8 @@ does not build it, switches TurboWarp on instead.
   is the editor); `*.map` deleted; the licence files at the repository's
   root copied.
 - The package: `id = "turbowarp"`, `name = "TurboWarp"`, `description =
-  "Scratch, made faster: the same blocks and the same projects, for a
-  slower computer or when Scratch does not run well."`, ages 8 to 16,
+  "Scratch, only faster: the same blocks and the same projects, running
+  smoothly on a modest computer."`, ages 8 to 16,
   `recommended_before = ["scratchjr"]`, webapp `turbowarp`, `memory_max =
   "3G"`; copyright GPL-3 for TurboWarp's changes and BSD-3 for Scratch's
   code; the same lintian overrides as 4.4; icon: the same blocks in

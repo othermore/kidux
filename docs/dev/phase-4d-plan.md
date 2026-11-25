@@ -372,8 +372,9 @@ domains Google publishes as its own, written out in the manifest, with a
 comment saying where the list comes from; `min_age = 8`,
 `memory_max = "3G"`; the description saying it needs the internet and a
 Google account, that it is the module for a Family Link account, that an
-adult signs in with the child the first time, and that Kidux is not
-connected with Google. Its window, opened on `accounts.google.com`, is
+adult signs in with the child the first time; that Kidux is not
+affiliated with Google is said on the module's page in the guide (D125).
+Its window, opened on `accounts.google.com`, is
 Chromium's `chrome-accounts.google.com__*`, which the launcher knows as
 the module's from the address's host, as every door's.
 
