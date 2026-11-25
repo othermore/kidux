@@ -67,6 +67,20 @@ daemon 0.3.39 and the tests' package's 1.1 given a `postinst` that runs
   `updated`. The battery's update, 43 packages with systemd among them,
   met it in all three of its runs: acceptance, session and session-en.
 
+Found by the designer's review of the build, on the same machine, with
+the daemon 0.3.40~dev and a stand-in for the daily upgrade running:
+
+- A question to systemd asked during a `daemon-reload` waits for the
+  reload to end: 0.175 seconds on the quick loop's machine. apt reloads
+  systemd all through an upgrade, and on an old machine a reload can
+  last more than a second.
+- A generator that makes the reload last three seconds timed the daily
+  upgrade's question out at one second, and the answer remembered from
+  before, which may be days old since the daemon asks only at a child's
+  sign-in and at the last log-out, let the child in: `allowed`. Asked
+  with ten seconds and no answer remembered, the same reload answers
+  `updating`, after 2.5 seconds.
+
 Read from the code:
 
 - `kiduxd/updates.py`, `Updates.poll`: with no verdict in the status file
@@ -155,10 +169,15 @@ three answers, not two:
   systemd's name with no owner, the bus gone.
 
 `_call` keeps the D-Bus error's name for whoever needs to tell them
-apart. The question asked from the update's watch has a timeout short
-enough not to hold the daemon's main loop while systemd is away: a
-second, or what W1 finds is enough; the lock, the time and the sign-in
-are answered from that loop.
+apart: a `NoReply` from the bus has one; only the call's own timeout and
+the bus gone have none. The question asked from the update's watch,
+every half second while a job runs, has a timeout of a second, so as not
+to hold the daemon's main loop, which answers the lock, the time and the
+sign-in; W1 found that a call in flight while systemd re-executes fails
+after 0.37 seconds. The daily upgrade's questions, asked once at a
+child's sign-in and at the last log-out, keep the ten seconds of every
+other call: their true answer is worth the wait, through a reload of
+systemd too.
 
 **`kiduxd/updates.py`.** The `Runner` protocol gives the three answers
 for the update's unit, and the daily upgrade's state with *unknown* told
@@ -173,9 +192,13 @@ apart from *no such unit*.
   watched on **running** and on **unknown** alike.
 - `start`: `Busy` on **running**, as today. On **unknown** the start is
   tried, and fails as systemd makes it fail.
-- `installing` and `make_up_daily`: while the daily upgrade's state is
-  **unknown**, the answer is the last one systemd gave; a daily upgrade
-  that was running is still running, and nothing is started.
+- `installing`: while the daily upgrade's state is **unknown**, it is
+  true: the daily upgrade may be running, the child waits, and the
+  sign-in screen asks again by itself. No state is remembered: the
+  daemon asks about the daily upgrade only at a sign-in and at the last
+  log-out, so a remembered answer may be days old.
+- `make_up_daily`: while the daily upgrade's state is **unknown**,
+  nothing is started.
 - The daemon logs once per job, at warning, that systemd does not answer
   and the job is taken as still running, and once when it answers again.
 
@@ -198,8 +221,10 @@ in the panel or in any word a person reads.
 - **unknown** and then **gone** with no verdict ends *the update stopped
   before it finished*, as **gone** alone does today;
 - `resume` with a job in the file and systemd **unknown** watches it;
-- `installing()` with the daily upgrade last seen running and its state
-  **unknown** is true, and `make_up_daily` starts nothing;
+- `installing()` is true while systemd does not answer about the daily
+  upgrade, though it was last seen inactive, and false again once
+  systemd answers that it is; `make_up_daily` starts nothing while
+  systemd does not answer;
 - `start` while the unit is **running** is `Busy`.
 
 `fake_daemon.py` and `test_time_and_lock.py`, which have runners of
@@ -208,9 +233,13 @@ stand-in connection, the three answers are tested there by the error's
 name; if it has none, none is made for this.
 
 **On a machine.** `tests/lib/seed/tools/kidux-as canary` gives the 1.1
-package the `postinst` of W1: `systemctl daemon-reexec`, then a wait of
-a few seconds, with a comment that says why: an update that brings
-systemd restarts it half-way, and the job must be followed to its end.
+package a `postinst` that runs `systemctl daemon-reexec` three times, a
+second apart, and then waits five seconds, with a comment that says
+why: an update that brings systemd restarts it half-way, and the job
+must be followed to its end. One re-execution keeps systemd away for
+some 0.4 seconds, which the daemon's half-second watch meets about three
+times in four; three of them make it all but certain, so that the test
+says something.
 `tests/acceptance/07-updates.py` and `tests/session/12-updates.py` keep
 their checks, which now hold over such an update; each gains a sentence
 in its header, and 07 a check that the audit trail's *update finished*
@@ -269,9 +298,11 @@ Taken by the plan, for the owner to overturn:
   does, was reported as stopped while it still ran, children could sign
   in under it, and the next job was refused. No answer now means *ask
   again*: the job ends by its own verdict, or when systemd says its unit
-  is gone. The same holds for Debian's daily upgrade, whose last known
-  state stands while systemd does not answer. No time limit: a child
-  waiting is better than dpkg under a child's session.
+  is gone. While systemd does not answer about Debian's daily upgrade,
+  which the daemon asks about at a child's sign-in and at the last
+  log-out, no child signs in, since it may be running, and nothing is
+  started. No time limit: a child waiting is better than dpkg under a
+  child's session.
 
 ## 5. What can go wrong
 
@@ -279,10 +310,11 @@ Taken by the plan, for the owner to overturn:
 |---|---|
 | The cause is not the one read from the code | W1 confirms it on a machine before anything is changed, and stops if it is another |
 | systemd answers *no such unit* for a running unit while it starts itself again | W1 looks; if so it stops, and the rule becomes: *gone* is believed only when systemd has said it for several polls over a few seconds |
-| The question to systemd waits ten seconds each time and holds the daemon's main loop while systemd is away | W1 measures how the call fails; W2 gives the watch's question a short timeout |
+| The question to systemd waits ten seconds each time and holds the daemon's main loop while systemd is away | W1 measures how the call fails; W2 gives the job's question, asked every half second, a timeout of a second |
+| A systemd busy reloading for more than a second answers nothing about the daily upgrade, and a child is let in under dpkg | The daily upgrade's questions, asked once at a sign-in or a log-out, keep ten seconds; no answer about it keeps the child out, and nothing is remembered |
 | systemd never answers again, and children stay at the waiting screen | Left so, by D124: the status file's verdict ends the job; a restart of the computer ends the rest |
 | `systemctl daemon-reexec` in the tests' package disturbs the session tests' machine: the sign-in screen, a session | W1 tries it on the session machine before W3 writes it into the tests |
-| The tests' update now lasts longer, and a test's wait is too short | The wait in the `postinst` is a few seconds; the tests' own limits are read in W3 |
+| The tests' update now lasts longer, and a test's wait is too short | The `postinst` takes some eight seconds; the tests' own limits are read in W3 |
 | The other development machine has work on `kidux-daemon` | Its changelog on `origin/main` is read before the version is taken; the work starts with `git pull --rebase origin main` |
 | Something is pushed, released or published before the owner's yes | Never: nothing is released as part of this plan |
 

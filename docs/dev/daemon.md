@@ -790,9 +790,10 @@ kidux-base, a drop-in with `ExecCondition=/usr/libexec/kidux-no-child-session`,
 so that systemd skips it while any member of `kidux-children` has a
 session, and its result is then `exec-condition`; the daemon answers
 `updating` to `Access1.CheckAccess` while it runs, as while its own job
-installs; and when the last child's session ends the daemon starts it
-(`StartUnit`) if its last run was skipped, the condition checked again
-by systemd (D115).
+installs, and while systemd does not answer about it, since it may be
+running then (D124); and when the last child's session ends the daemon
+starts it (`StartUnit`) if its last run was skipped, the condition
+checked again by systemd (D115).
 
 The fence has no time limit, by choice. A daily upgrade that hangs keeps
 children at the waiting screen until it ends or the computer restarts,
@@ -865,7 +866,12 @@ The status file is `/run/kidux/update.status`, in the daemon's
 (`RuntimeDirectoryPreserve=yes`). If the daemon is restarted by the update,
 it finds the unit still running and the status file still there when it
 comes back, and carries on watching; a unit that has already ended leaves its verdict in the file,
-which is emitted once and deleted.
+which is emitted once and deleted. The panel listens for the signals on the
+bus name, so it survives the restart too; only its token dies with the
+daemon (section 4), and the next thing the adult does asks for the password
+again. Our own packages never restart greetd (`session.md`), so an update
+never ends anyone's screen. `update check`, `update started` and `update
+finished` are audited, the last with its outcome.
 
 A job has ended when the status file holds its verdict, whatever systemd
 says; or when systemd says the job's unit is gone, no such unit or a
@@ -875,14 +881,13 @@ failed. While systemd does not answer, as when an update re-executes
 systemd itself, which every update of systemd does and which keeps it
 away for some 0.4 seconds, the job is still running and is asked about
 again at the next look, half a second later; the log says so once a
-job (D124). The question waits a second at most, since it is asked from
-the daemon's main loop. The daily upgrade's last known state stands the
-same way, and nothing is started while systemd does not answer. The panel listens for the signals on the
-bus name, so it survives the restart too; only its token dies with the
-daemon (section 4), and the next thing the adult does asks for the password
-again. Our own packages never restart greetd (`session.md`), so an update
-never ends anyone's screen. `update check`, `update started` and `update
-finished` are audited, the last with its outcome.
+job (D124). That question waits a second at most, since it is asked
+from the daemon's main loop every half second. The daily upgrade's
+questions, asked once at a child's sign-in and at the last log-out, wait
+ten seconds, so that a systemd busy reloading, as apt makes it all
+through an upgrade, still gives its true answer; when systemd does not
+answer about the daily upgrade even then, no child signs in, since it
+may be running, and nothing is started.
 
 ## 14. The unit
 

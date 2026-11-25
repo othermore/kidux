@@ -2163,6 +2163,8 @@ Taken while planning `phase-3-plan.md`, which explains each in its section 3.
   systemd does, was reported as stopped while it still ran, children
   could sign in under it, and the next job was refused. No answer now
   means *ask again*: the job ends by its own verdict, or when systemd
-  says its unit is gone. The same holds for Debian's daily upgrade,
-  whose last known state stands while systemd does not answer. No time
-  limit: a child waiting is better than dpkg under a child's session.
+  says its unit is gone. While systemd does not answer about Debian's
+  daily upgrade, which the daemon asks about at a child's sign-in and at
+  the last log-out, no child signs in, since it may be running, and
+  nothing is started. No time limit: a child waiting is better than dpkg
+  under a child's session.
