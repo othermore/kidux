@@ -1,3 +1,11 @@
+kidux-module-expedition-code (0.1.1) trixie; urgency=medium
+
+  * The description in the panel ends with what a family needs; that Kidux
+    is not affiliated with Expedition Code is said on the module's page in
+    the guide.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 25 Nov 2026 02:59:00 +0100
+
 kidux-module-expedition-code (0.1.0) trixie; urgency=medium
 
   * Initial release: a door to the Expedition Code website.

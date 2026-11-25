@@ -1,3 +1,11 @@
+kidux-module-codecombat (0.1.6) trixie; urgency=medium
+
+  * The description in the panel ends with what a family needs; that Kidux
+    is not affiliated with CodeCombat is said on the module's page in the
+    guide.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 25 Nov 2026 02:59:00 +0100
+
 kidux-module-codecombat (0.1.5) trixie; urgency=medium
 
   * The description an adult reads on the Modules page, written at more length.

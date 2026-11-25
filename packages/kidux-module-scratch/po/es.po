@@ -19,5 +19,5 @@ msgstr ""
 msgid "Scratch"
 msgstr "Scratch"
 
-msgid "Create interactive games, animations, and stories with visual coding blocks, as at school. Its characters, backdrops and sounds download from Scratch on demand."
-msgstr "Crea juegos interactivos, animaciones e historias mediante bloques de programación visual, como en el colegio. Sus personajes, fondos y sonidos se descargan de Scratch bajo demanda."
+msgid "Create interactive games, animations, and stories with visual coding blocks, as at school. It needs the internet for its library of characters, backdrops and sounds."
+msgstr "Crea juegos interactivos, animaciones e historias mediante bloques de programación visual, como en el colegio. Necesita internet para la biblioteca de personajes, fondos y sonidos."

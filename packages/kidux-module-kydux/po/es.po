@@ -19,5 +19,5 @@ msgstr ""
 msgid "Kydux"
 msgstr "Kydux"
 
-msgid "A game of the Kidux family for learning real Python: a young wizard arrives at a school of magic, and every step there is taken by writing a program. Free, in English and Spanish, with no account. Requires internet. It is also played in any browser, without Kidux, at kydux.kidux.org."
-msgstr "Un juego de la familia Kidux para aprender Python de verdad: quien juega llega a un colegio de magia, y allí cada paso se da escribiendo un programa. Gratis, en español y en inglés, sin cuenta. Requiere conexión a internet. También se juega en cualquier navegador, sin Kidux, en kydux.kidux.org."
+msgid "A game of the Kidux family for learning to program in Python: a young wizard arrives at a school of magic, and every step there is taken by writing Python code. A fun story, short lessons and levels solved with a small program, with help so as not to get stuck. Free, in English and Spanish, with no account. Requires internet."
+msgstr "Un juego de la familia Kidux para aprender a programar en Python: un mago o maga llega a un colegio de magia, y allí cada paso se da escribiendo código Python. Una historia divertida, lecciones cortas y niveles que se resuelven con un pequeño programa, con ayudas para no atrancarse. Gratis, en español y en inglés, sin cuenta. Requiere conexión a internet."

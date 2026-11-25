@@ -47,12 +47,15 @@ def test_its_hosts_are_the_game_s_and_its_counting_s_and_never_kidux_org(tmp_pat
         assert not any(kidux_s == host or kidux_s.endswith("." + host) for host in hosts), kidux_s
 
 
-def test_its_words_say_it_is_played_without_kidux_too():
+def test_its_words_say_what_a_family_needs():
+    # The price, the account and the internet, in both languages (D125); that
+    # it is played without Kidux too is on its page in the guide (D120,
+    # tests/project/docs.sh).
     manifest = (PACKAGE / "module.toml").read_text()
     spanish = (PACKAGE / "po" / "es.po").read_text().replace('"\n"', "")
 
-    assert "without Kidux, at kydux.kidux.org" in manifest
-    assert "sin Kidux, en kydux.kidux.org" in spanish
+    assert "Free, in English and Spanish, with no account. Requires internet." in manifest
+    assert "Gratis, en español y en inglés, sin cuenta. Requiere conexión a internet." in spanish
 
 
 def test_the_manifests_version_is_the_packages():

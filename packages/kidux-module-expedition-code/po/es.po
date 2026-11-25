@@ -19,5 +19,5 @@ msgstr ""
 msgid "Expedition Code"
 msgstr "Expedition Code"
 
-msgid "A coding game on its own website: children write JavaScript-style code to complete missions, alone or with up to two other players in a room. In English only, and in beta. Requires internet; it asks for no email and no password. Kidux is not connected with Expedition Code."
-msgstr "Un juego de programación en su propia web: los niños escriben código al estilo de JavaScript para completar misiones, solos o con hasta otros dos jugadores en una sala. Solo en inglés, y en fase beta. Requiere conexión a internet; no pide correo ni contraseña. Kidux no tiene ninguna relación con Expedition Code."
+msgid "A coding game on its own website: children write JavaScript-style code to complete missions, alone or with up to two other players in a room. In English only, and in beta. Requires internet; it asks for no email and no password."
+msgstr "Un juego de programación en su propia web: los niños escriben código al estilo de JavaScript para completar misiones, solos o con hasta otros dos jugadores en una sala. Solo en inglés, y en fase beta. Requiere conexión a internet; no pide correo ni contraseña."

@@ -32,12 +32,16 @@ def test_the_manifests_version_is_the_packages():
     assert f'version = "{version}"' in (PACKAGE / "module.toml").read_text()
 
 
-def test_its_words_say_it_is_not_connected_with_codecombat():
+def test_its_description_is_for_a_family_and_leaves_the_affiliation_to_its_page():
+    # A parent weighing the module reads what the child does and needs; that
+    # Kidux is not affiliated with CodeCombat is on the module's page in the
+    # guide (D125, tests/project/docs.sh).
     manifest = (PACKAGE / "module.toml").read_text()
-    spanish = (PACKAGE / "po" / "es.po").read_text()
+    spanish = (PACKAGE / "po" / "es.po").read_text().replace('"\n"', "")
 
-    assert "Kidux is not connected with CodeCombat" in manifest
-    assert "Kidux no tiene ninguna relación con CodeCombat" in spanish.replace('"\n"', "")
+    assert "most of the site is paid for" in manifest and "de pago para casi todo" in spanish
+    assert "not connected" not in manifest
+    assert "relación con CodeCombat" not in spanish
 
 
 def test_the_catalogue_is_complete():

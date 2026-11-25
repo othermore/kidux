@@ -2,9 +2,9 @@
 # Nothing of it is shipped: its missions are its own and live on its site.
 # Its avatars are emoji, which the package's font draws.
 id = "expedition-code"
-version = "0.1.0"
+version = "0.1.1"
 name = "Expedition Code"
-description = "A coding game on its own website: children write JavaScript-style code to complete missions, alone or with up to two other players in a room. In English only, and in beta. Requires internet; it asks for no email and no password. Kidux is not connected with Expedition Code."
+description = "A coding game on its own website: children write JavaScript-style code to complete missions, alone or with up to two other players in a room. In English only, and in beta. Requires internet; it asks for no email and no password."
 min_age = 9
 recommended_before = ["scratch"]
 launch = { web = "https://www.expeditioncode.com/" }

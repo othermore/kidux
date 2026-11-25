@@ -4,9 +4,9 @@
 # saved games are in the browser's storage, in the module's own profile,
 # which stays in the child's home (D89).
 id = "kydux"
-version = "0.1.0"
+version = "0.1.1"
 name = "Kydux"
-description = "A game of the Kidux family for learning real Python: a young wizard arrives at a school of magic, and every step there is taken by writing a program. Free, in English and Spanish, with no account. Requires internet. It is also played in any browser, without Kidux, at kydux.kidux.org."
+description = "A game of the Kidux family for learning to program in Python: a young wizard arrives at a school of magic, and every step there is taken by writing Python code. A fun story, short lessons and levels solved with a small program, with help so as not to get stuck. Free, in English and Spanish, with no account. Requires internet."
 min_age = 8
 # The word after the question mark tells the game it is opened from Kidux.
 launch = { web = "https://kydux.kidux.org/?from=kidux" }

@@ -1,6 +1,7 @@
 #!/bin/sh
-# The user documentation is the same in both languages, and shows only
-# pictures that exist or that the release writes.
+# The user documentation is the same in both languages, shows only
+# pictures that exist or that the release writes, and says on the modules'
+# pages what their descriptions in the panel leave out.
 #
 #   tests/project/docs.sh
 #
@@ -44,6 +45,43 @@ for lang in en es; do
         failed=$((failed + 1))
     else
         echo "PASS  every picture the $lang documents show exists or is written by the release"
+    fi
+done
+
+# A door to someone else's site says on its page in the guide that Kidux is
+# not affiliated with the site's owner, which its description in the panel
+# leaves out (D125). Each page says it in its own words; they share the
+# negation and the word for affiliation, in one sentence with the owner's
+# name.
+for door in codecombat:CodeCombat "expedition-code:Expedition Code" gmail:Google simulations:PhET; do
+    module="${door%%:*}"
+    owner="${door#*:}"
+    for lang in en es; do
+        page="docs/$lang/modules/$module.md"
+        if [ "$lang" = en ]; then
+            said="Kidux (is not|has no) [^.|]*affiliat[^.|]*$owner"
+        else
+            said="Kidux no [^.|]*afilia[^.|]*$owner"
+        fi
+        if grep -Eq "$said" "$page"; then
+            echo "PASS  $page says Kidux is not affiliated with $owner"
+        else
+            echo "FAIL  $page does not say Kidux is not affiliated with $owner" >&2
+            failed=$((failed + 1))
+        fi
+    done
+done
+
+# Kydux's page says the game is played without Kidux too, at its own address
+# (D120), which its description in the panel leaves out.
+for page in "docs/en/modules/kydux.md:Without Kidux" "docs/es/modules/kydux.md:Sin Kidux"; do
+    file="${page%%:*}"
+    row="${page#*:}"
+    if grep -Eq "^\| \*\*$row\*\* \|.*kydux\.kidux\.org" "$file"; then
+        echo "PASS  $file says the game is played without Kidux, at kydux.kidux.org"
+    else
+        echo "FAIL  $file does not say the game is played without Kidux, at kydux.kidux.org" >&2
+        failed=$((failed + 1))
     fi
 done
 

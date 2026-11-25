@@ -19,8 +19,8 @@ msgstr ""
 msgid "CodeCombat"
 msgstr "CodeCombat"
 
-msgid "An adventure role-playing game where children learn real Python and JavaScript syntax. Requires internet and a CodeCombat account, and most of the site is paid for. Kidux is not connected with CodeCombat."
-msgstr "Juego de rol y aventuras donde los niños aprenden a programar en Python y JavaScript. Requiere conexión a internet y una cuenta de CodeCombat, de pago para casi todo. Kidux no tiene ninguna relación con CodeCombat."
+msgid "An adventure role-playing game where children learn real Python and JavaScript syntax. Requires internet and a CodeCombat account, and most of the site is paid for."
+msgstr "Juego de rol y aventuras donde los niños aprenden a programar en Python y JavaScript. Requiere conexión a internet y una cuenta de CodeCombat, de pago para casi todo."
 
 msgid "Email"
 msgstr "Correo"

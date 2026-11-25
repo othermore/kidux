@@ -19,8 +19,8 @@ msgstr ""
 msgid "Simulations"
 msgstr "Simulaciones"
 
-msgid "Interactive maths and science experiments: explore numbers, forces, light, electricity, atoms, planets and life. Simulations by PhET Interactive Simulations, University of Colorado Boulder, under CC BY 4.0; Kidux is not connected with PhET."
-msgstr "Experimentos interactivos de matemáticas y ciencia: explora números, fuerzas, luz, electricidad, átomos, planetas y vida. Simulaciones de PhET Interactive Simulations, Universidad de Colorado Boulder, bajo licencia CC BY 4.0; Kidux no tiene relación con PhET."
+msgid "Interactive maths and science experiments: explore numbers, forces, light, electricity, atoms, planets and life. Simulations by PhET Interactive Simulations, University of Colorado Boulder, under CC BY 4.0."
+msgstr "Experimentos interactivos de matemáticas y ciencia: explora números, fuerzas, luz, electricidad, átomos, planetas y vida. Simulaciones de PhET Interactive Simulations, Universidad de Colorado Boulder, bajo licencia CC BY 4.0."
 
 #, python-brace-format
 msgid "Ages {low} to {high}"

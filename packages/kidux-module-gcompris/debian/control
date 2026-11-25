@@ -18,9 +18,9 @@ Depends: ${misc:Depends},
          gcompris-qt-data,
          qt6-wayland,
 XB-Kidux-Name-en: GCompris
-XB-Kidux-Description-en: Over a hundred fun educational activities covering reading, maths, science, colours, and mouse and keyboard skills. It downloads its voices the first time.
+XB-Kidux-Description-en: Over a hundred fun educational activities covering reading, maths, science, colours, and mouse and keyboard skills. The first time it needs the internet to download its voices.
 XB-Kidux-Name-es: GCompris
-XB-Kidux-Description-es: Más de un centenar de actividades educativas y lúdicas sobre lectura, matemáticas, ciencia, colores y manejo del ratón y el teclado. Descarga sus voces la primera vez.
+XB-Kidux-Description-es: Más de un centenar de actividades educativas y lúdicas sobre lectura, matemáticas, ciencia, colores y manejo del ratón y el teclado. La primera vez necesita internet para descargar las voces.
 XB-Kidux-Ages: 2-10
 Description: Kidux learning module: GCompris, over a hundred activities for ages two to ten
  Kidux is a Debian derivative for a child's first computer. This learning

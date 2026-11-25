@@ -1,3 +1,10 @@
+kidux-module-turbowarp (0+git20260915.5) trixie; urgency=medium
+
+  * The description in the panel says plainly that it is Scratch, only
+    faster, and runs smoothly on a modest computer.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 25 Nov 2026 02:59:00 +0100
+
 kidux-module-turbowarp (0+git20260915.4) trixie; urgency=medium
 
   * The description an adult reads on the Modules page, written at more length.

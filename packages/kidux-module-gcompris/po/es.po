@@ -19,5 +19,5 @@ msgstr ""
 msgid "GCompris"
 msgstr "GCompris"
 
-msgid "Over a hundred fun educational activities covering reading, maths, science, colours, and mouse and keyboard skills. It downloads its voices the first time."
-msgstr "Más de un centenar de actividades educativas y lúdicas sobre lectura, matemáticas, ciencia, colores y manejo del ratón y el teclado. Descarga sus voces la primera vez."
+msgid "Over a hundred fun educational activities covering reading, maths, science, colours, and mouse and keyboard skills. The first time it needs the internet to download its voices."
+msgstr "Más de un centenar de actividades educativas y lúdicas sobre lectura, matemáticas, ciencia, colores y manejo del ratón y el teclado. La primera vez necesita internet para descargar las voces."

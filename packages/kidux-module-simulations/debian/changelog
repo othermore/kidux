@@ -1,3 +1,10 @@
+kidux-module-simulations (0+phet20260328.2) trixie; urgency=medium
+
+  * The description in the panel ends with PhET's attribution; that Kidux
+    is not affiliated with PhET is said on the module's page in the guide.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 25 Nov 2026 02:59:00 +0100
+
 kidux-module-simulations (0+phet20260328.1) trixie; urgency=medium
 
   * The description an adult reads on the Modules page, written at more length.

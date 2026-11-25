@@ -1,3 +1,10 @@
+kidux-module-scratch (15.2.0+build2.5) trixie; urgency=medium
+
+  * The description in the panel says that its library of characters,
+    backdrops and sounds needs the internet.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 25 Nov 2026 02:59:00 +0100
+
 kidux-module-scratch (15.2.0+build2.4) trixie; urgency=medium
 
   * The description an adult reads on the Modules page, written at more length.

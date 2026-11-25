@@ -19,8 +19,8 @@ msgstr ""
 msgid "Gmail"
 msgstr "Gmail"
 
-msgid "The Gmail website for a Google account, including one managed with Family Link. Requires internet; an adult signs in with the child the first time, and the session stays. Kidux is not connected with Google."
-msgstr "La web de Gmail para una cuenta de Google, también una supervisada con Family Link. Requiere internet; un adulto inicia sesión con el niño la primera vez, y la sesión se mantiene. Kidux no tiene ninguna relación con Google."
+msgid "The Gmail website for a Google account, including one managed with Family Link. Requires internet; an adult signs in with the child the first time, and the session stays."
+msgstr "La web de Gmail para una cuenta de Google, también una supervisada con Family Link. Requiere internet; un adulto inicia sesión con el niño la primera vez, y la sesión se mantiene."
 
 msgid "Email address"
 msgstr "Dirección de correo"

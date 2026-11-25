@@ -1,3 +1,11 @@
+kidux-module-kig (0.2.2) trixie; urgency=medium
+
+  * The description in the panel says what the child does: draws points,
+    lines, circles and polygons, and moves them to see what changes and
+    what does not.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 25 Nov 2026 02:59:00 +0100
+
 kidux-module-kig (0.2.1) trixie; urgency=medium
 
   * The description an adult reads on the Modules page, written at more length.

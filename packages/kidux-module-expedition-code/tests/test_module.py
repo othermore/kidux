@@ -48,13 +48,16 @@ def test_its_hosts_are_the_site_s_own_and_never_a_site_to_browse_or_its_counting
     assert "convex.cloud" not in hosts
 
 
-def test_its_words_say_the_language_and_that_kidux_is_not_connected_with_it():
+def test_its_words_say_the_language_and_leave_the_affiliation_to_its_page():
+    # A parent weighing the module reads what the child does and needs; that
+    # Kidux is not affiliated with Expedition Code is on the module's page in
+    # the guide (D125, tests/project/docs.sh).
     manifest = (PACKAGE / "module.toml").read_text()
     spanish = (PACKAGE / "po" / "es.po").read_text().replace('"\n"', "")
 
     assert "In English only" in manifest and "Solo en inglés" in spanish
-    assert "Kidux is not connected with Expedition Code" in manifest
-    assert "Kidux no tiene ninguna relación con Expedition Code" in spanish
+    assert "not connected" not in manifest
+    assert "relación con Expedition Code" not in spanish
 
 
 def test_it_brings_the_font_its_avatars_are_drawn_with():

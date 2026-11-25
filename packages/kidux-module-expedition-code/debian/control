@@ -17,9 +17,9 @@ Depends: ${misc:Depends},
          fonts-noto-color-emoji,
          kidux-webapps (>= 0.1.11~),
 XB-Kidux-Name-en: Expedition Code
-XB-Kidux-Description-en: A coding game on its own website: children write JavaScript-style code to complete missions, alone or with up to two other players in a room. In English only, and in beta. Requires internet; it asks for no email and no password. Kidux is not connected with Expedition Code.
+XB-Kidux-Description-en: A coding game on its own website: children write JavaScript-style code to complete missions, alone or with up to two other players in a room. In English only, and in beta. Requires internet; it asks for no email and no password.
 XB-Kidux-Name-es: Expedition Code
-XB-Kidux-Description-es: Un juego de programación en su propia web: los niños escriben código al estilo de JavaScript para completar misiones, solos o con hasta otros dos jugadores en una sala. Solo en inglés, y en fase beta. Requiere conexión a internet; no pide correo ni contraseña. Kidux no tiene ninguna relación con Expedition Code.
+XB-Kidux-Description-es: Un juego de programación en su propia web: los niños escriben código al estilo de JavaScript para completar misiones, solos o con hasta otros dos jugadores en una sala. Solo en inglés, y en fase beta. Requiere conexión a internet; no pide correo ni contraseña.
 XB-Kidux-Ages: 9-
 XB-Kidux-Before: scratch
 Description: Kidux learning module: Expedition Code, a door to the Expedition Code website

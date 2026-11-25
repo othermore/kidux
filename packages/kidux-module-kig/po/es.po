@@ -19,5 +19,5 @@ msgstr ""
 msgid "Kig"
 msgstr "Kig"
 
-msgid "Interactive dynamic geometry: construct points, lines, circles, and polygons that keep their mathematical properties when dragged."
-msgstr "Geometría interactiva y dinámica: construye puntos, rectas, circunferencias y polígonos que mantienen sus propiedades matemáticas al arrastrarlos."
+msgid "Interactive geometry: draw points, lines, circles and polygons, then move and stretch them to see what changes and what does not."
+msgstr "Geometría interactiva: dibuja puntos, rectas, circunferencias y polígonos, y muévelos y defórmalos para ver qué cambia y qué no."

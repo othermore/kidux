@@ -1,3 +1,10 @@
+kidux-module-gcompris (0.1.11) trixie; urgency=medium
+
+  * The description in the panel says that the first time it needs the
+    internet to download its voices.
+
+ -- Antonio Morales García <info@kidux.org>  Wed, 25 Nov 2026 02:59:00 +0100
+
 kidux-module-gcompris (0.1.10) trixie; urgency=medium
 
   * The description an adult reads on the Modules page, written at more length.
