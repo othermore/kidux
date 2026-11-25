@@ -31,6 +31,9 @@ from sessionlib import (
 
 AUDIT = "/home/.kidux/state/audit.log"
 DAILY = "apt-daily-upgrade.service"
+#: Debian's daily download and upgrade, and the timers that start them.
+SERVICES = f"apt-daily.service {DAILY}"
+TIMERS = "apt-daily.timer apt-daily-upgrade.timer"
 #: The stand-in's drop-in, beside kidux-base's own, and the mark it leaves.
 STAND_IN = "/etc/systemd/system/apt-daily-upgrade.service.d/zz-kidux-test.conf"
 RAN = "/var/tmp/daily-upgrade.ran"
@@ -77,6 +80,16 @@ def log_out(machine: Machine) -> bool:
 
 
 def daily_upgrade(machine: Machine) -> None:
+    # Debian's own timers are held still meanwhile, and a run of theirs is
+    # waited for: a machine started a day after its image was made has a
+    # missed daily upgrade to make up within its first hour, and one that
+    # began here would run the stand-in and keep Leo out when the test does
+    # not expect it. The only runs are then the test's own start and the
+    # daemon's.
+    root(f"systemctl stop {TIMERS}")
+    wait(lambda: not any(state in ("active", "activating", "deactivating")
+                         for state in root(f"systemctl is-active {SERVICES}").stdout.split()),
+         600, 2)
     unit = ("[Service]\nExecStartPre=\nExecStart=\n"
             f"ExecStart=/bin/sh -c 'echo ran >> {RAN}; sleep {STAND_IN_SECONDS}'\n")
     root(f"rm -f {RAN} && mkdir -p {STAND_IN.rsplit('/', 1)[0]} "
@@ -116,7 +129,7 @@ def daily_upgrade(machine: Machine) -> None:
            root(f"cat {RAN}").stdout)
     log_out(machine)
 
-    root(f"rm -f {STAND_IN} {RAN} && systemctl daemon-reload")
+    root(f"rm -f {STAND_IN} {RAN} && systemctl daemon-reload && systemctl start {TIMERS}")
 
 
 def suspending(machine: Machine) -> None:
